@@ -1,0 +1,49 @@
+/*
+* Template
+*/
+* {
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important; }
+
+.ui.menu .divider {
+  margin: 0 !important; }
+
+.ui.breadcrumb {
+  background: #EEE;
+  padding: 4px 7px !important;
+  margin: 0;
+  width: 100%; }
+
+.topbar {
+  background: #1565c0 !important; }
+  .topbar .brand {
+    width: 220px;
+    font-weight: bold; }
+    .topbar .brand .toggle-sidebar {
+      float: right !important;
+      opacity: 0.5 !important; }
+      .topbar .brand .toggle-sidebar:hover,
+      .topbar .brand .toggle-sidebar:focus,
+      .topbar .brand .toggle-sidebar:active {
+        cursor: pointer;
+        opacity: 1 !important; }
+
+.wrapper {
+  padding-top: 35px;
+  height: 100%; }
+  .wrapper .sidebar {
+    width: 220px;
+    float: left;
+    background: #eee;
+    height: 100%; }
+    .wrapper .sidebar .menu .input input {
+      padding: 5px 7px; }
+    .wrapper .sidebar .menu .item .icon {
+      float: left !important;
+      margin: 0; }
+  .wrapper .content {
+    padding: 15px;
+    overflow: hidden; }
+  .wrapper.sidebar-off .sidebar {
+    display: none; }

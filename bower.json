@@ -1,0 +1,22 @@
+{
+  "name": "Templates.Balance",
+  "version": "0.1.0",
+  "authors": [
+    "Christos Georgiou <xris.georgiou@gmail.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "*",
+    "semantic-ui": "*",
+    "jqueryui": "~1.11.4"
+  }
+}
