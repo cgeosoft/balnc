@@ -16,18 +16,23 @@ body {
             margin: 0 !important;
         }
     }
-		&.breadcrumb{
-			background: #EEE;
-			padding:4px 7px !important;
-			margin: 0;
-			width:100%;
-		}
+    &.breadcrumb {
+        background: #eee;
+        padding: 4px 7px !important;
+        margin: 0;
+        width: 100%;
+    }
 }
 .topbar {
     background: $color-main !important;
     .brand {
         width: 220px;
         font-weight: bold;
+        text-transform: uppercase;
+        text-shadow:1px 1px 0 darken($color-main,30);
+        .logo{
+          transform:rotate(45deg);
+        }
         .toggle-sidebar {
             float: right !important;
             opacity: 0.5 !important;
@@ -62,13 +67,16 @@ body {
             }
         }
     }
-    .content {
-        padding: 15px;
-        overflow: hidden;
-    }
-    &.sidebar-off {
-        .sidebar {
-            display: none;
+    .container {
+        height: 100%;
+        .content {
+            padding: 15px;
+            overflow: hidden;
+        }
+        &.sidebar-off {
+            .sidebar {
+                display: none;
+            }
         }
     }
 }

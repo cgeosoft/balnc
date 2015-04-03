@@ -1,2 +1,5 @@
 node_modules/
 app/vendor/
+app/lib/
+app/release/
+app/sample/
