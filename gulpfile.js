@@ -1,20 +1,46 @@
-var gulp = require('gulp'),
-	sass = require('gulp-sass'),
-	browserSync = require('browser-sync'),
-	reload = browserSync.reload;
+var gulp = require('gulp');
+var sass = require('gulp-sass')
+var browserSync = require('browser-sync');
+var reload = browserSync.reload;
+var inject = require('gulp-inject');
+var angularFilesort = require('gulp-angular-filesort');
+var jsoncombine = require("gulp-jsoncombine");
 
-gulp.task('serve', ['sass'], function() {
+gulp.task('inject_scripts', function() {
+	var sources = gulp.src("./app/scripts/**/*.js", {
+			read: true
+		})
+		.pipe(angularFilesort());
 
-	browserSync({
-    server: "./app/"
-	});
-
-	gulp.watch("./scss/*.scss", ['sass']);
-	gulp.watch("./app/*.html").on('change', reload);
+	gulp.src('./app/index.html')
+		.pipe(inject(sources, {
+			relative: true
+		}))
+		.pipe(gulp.dest('./app'));
 
 });
 
-// Compile sass into CSS & auto-inject into browsers
+gulp.task('temp_database', function() {
+	gulp.src("./data/*.json")
+		.pipe(jsoncombine("database.json", function(data) {
+			return new Buffer(JSON.stringify(data));
+		}))
+		.pipe(gulp.dest("./app/data/"));
+});
+
+gulp.task('serve', ['sass','inject_scripts','temp_database'], function() {
+
+	browserSync({
+		server: "./app/"
+	});
+
+	gulp.watch("./data/*.json", ['temp_database']);
+	gulp.watch("./scss/*.scss", ['sass']);
+	gulp.watch("./app/scripts/*.js").on('change', reload);
+	gulp.watch("./app/views/**/*.html").on('change', reload);
+
+});
+
 gulp.task('sass', function() {
 	return gulp.src("./scss/*.scss")
 		.pipe(sass())

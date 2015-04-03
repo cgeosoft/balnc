@@ -1,14 +1,15 @@
 {
-  "name": "GameBox.Top10",
-  "version": "0.1.0",
-  "description": "-",
-  "private": true,
-  "dependencies": {
-    "gulp": "*",
-    "gulp-sass": "*"
-  },
-  "devDependencies": {
-    "browser-sync": "^2.5.2",
-    "gulp": "^3.8.11"
-  }
+	"name": "Balance.WebApplication",
+	"version": "0.1.0",
+	"description": "-",
+	"private": true,
+	"dependencies": {},
+	"devDependencies": {
+		"gulp": "*",
+		"gulp-sass": "*",
+		"browser-sync": "*",
+		"gulp-inject": "*",
+    "gulp-angular-filesort": "*",
+    "gulp-jsoncombine": "*"
+	}
 }
