@@ -105,16 +105,6 @@ angular.module('balance', ['ui.router'])
 })
 
 .controller("AppCtrl", function($scope) {
-    $scope.topmenu = [{
-        "label": "Dashboard",
-        "sref": "app.dashboard",
-    }, {
-        "label": "Contacts",
-        "sref": "app.contacts.search",
-    }, {
-        "label": "Financial",
-        "sref": "app.financial.dashboard",
-    }];
 })
 
 .controller("DashboardCtrl", function($scope) {})
