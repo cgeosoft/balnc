@@ -2,6 +2,9 @@
 * Template
 */
 $color-main: #1565c0;
+
+@import "_datatables.scss";
+
 * {
     margin: 0;
     padding: 0;

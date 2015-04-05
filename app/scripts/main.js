@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('balance', ['ui.router'])
+angular.module('balance', ['ui.router', 'datatables'])
 
 .run(
     function($rootScope, $state, $stateParams, $fakedb) {
@@ -104,8 +104,7 @@ angular.module('balance', ['ui.router'])
         })
 })
 
-.controller("AppCtrl", function($scope) {
-})
+.controller("AppCtrl", function($scope) {})
 
 .controller("DashboardCtrl", function($scope) {})
 
@@ -117,7 +116,39 @@ angular.module('balance', ['ui.router'])
 
 })
 
-.controller("FinancialCtrl", function($scope) {})
+//
+// function AngularWayWithOptionsCtrl($resource, DTOptionsBuilder, DTColumnDefBuilder) {
+//     var vm = this;
+//     vm.persons = [];
+//     vm.dtOptions = DTOptionsBuilder.newOptions().withPaginationType('full_numbers').withDisplayLength(2);
+//     vm.dtColumnDefs = [
+//         DTColumnDefBuilder.newColumnDef(0),
+//         DTColumnDefBuilder.newColumnDef(1).notVisible(),
+//         DTColumnDefBuilder.newColumnDef(2).notSortable()
+//     ];
+//     $resource('data.json').query().$promise.then(function(persons) {
+//         vm.persons = persons;
+//     });
+// }
+
+.controller("FinancialCtrl", function($scope, DTOptionsBuilder, DTColumnDefBuilder) {
+
+    // $scope.dtOptions = DTOptionsBuilder
+    //     .newOptions()
+    //     .withPaginationType('full_numbers')
+    //     .withDisplayLength(2);
+    //
+    // $scope.dtColumnDefs = [
+    //     DTColumnDefBuilder.newColumnDef(0),
+    //     DTColumnDefBuilder.newColumnDef(1).notVisible(),
+    //     DTColumnDefBuilder.newColumnDef(2).notSortable()
+    // ];
+
+    $scope.$fakedb.fetch("transactions").then(function(transactions) {
+        $scope.transactions = transactions;
+    })
+
+})
 
 .controller("LoginCtrl", function($scope, $timeout) {
     // $scope.loading = true;
@@ -131,14 +162,14 @@ angular.module('balance', ['ui.router'])
 
 .factory("$fakedb", function($http) {
     return {
-        companies: function() {
+        fetch: function(mochlist) {
             return $http
                 .get("data/database.json")
                 .then(function(response) {
                     if (response.error) {
                         console.log("Remote Data Error", response.data);
                     }
-                    return response.data.Companies;
+                    return response.data[mochlist];
                 }, function(response) {
                     //console.log("response",response);
                     var errorStatus;

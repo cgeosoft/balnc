@@ -1,0 +1,32 @@
+<div class="content">
+
+    <h1 class="ui header">Transactions</h1>
+
+    <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs"
+    class="ui table celled striped">
+        <thead>
+            <tr>
+                <th>submited</th>
+                <th>completed</th>
+                <th>transactor</th>
+                <th>income</th>
+                <th>expense</th>
+                <th>tags</th>
+                <th>comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="transaction in transactions">
+                <td>{{ transaction.submited }}</td>
+                <td>{{ transaction.completed }}</td>
+                <td>{{ transaction.transactor }}</td>
+                <td>{{ transaction.income }}</td>
+                <td>{{ transaction.expense }}</td>
+                <td>{{ transaction.tags }}</td>
+                <td>{{ transaction.comment }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>
