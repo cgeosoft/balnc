@@ -45,7 +45,7 @@ angular.module('balance', ['ui.router', 'datatables'])
     $stateProvider
 
 
-        .state('login', {
+    .state('login', {
         url: '/login',
         templateUrl: "views/login/login.html",
         controller: "LoginCtrl"
@@ -143,7 +143,7 @@ angular.module('balance', ['ui.router', 'datatables'])
     //     DTColumnDefBuilder.newColumnDef(1).notVisible(),
     //     DTColumnDefBuilder.newColumnDef(2).notSortable()
     // ];
-
+    $scope.now = new Date();
     $scope.$fakedb.fetch("transactions").then(function(transactions) {
         $scope.transactions = transactions;
     })

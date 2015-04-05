@@ -360,6 +360,7 @@ div.FixedHeader_Cloned table {
     color: #111; }
 
 .wrapper {
+  padding-top: 35px;
   height: 100%; }
   .wrapper .sidebar {
     width: 220px;
@@ -393,7 +394,7 @@ div.FixedHeader_Cloned table {
   text-align: center;
   margin: 0 !important;
   font-size: 60px !important;
-  color: #EEE !important;
+  color: #eee !important;
   text-shadow: 2px 2px 0 #1565c0, 5px 5px 0 #222; }
 
 .centerbox {

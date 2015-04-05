@@ -2,28 +2,72 @@
 
     <h1 class="ui header">Transactions</h1>
 
-    <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs"
-    class="ui table celled striped">
+    <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui table celled striped">
         <thead>
             <tr>
-                <th>submited</th>
-                <th>completed</th>
-                <th>transactor</th>
-                <th>income</th>
-                <th>expense</th>
-                <th>tags</th>
-                <th>comment</th>
+                <th style="width:150px;">Status</th>
+                <th>Transactor</th>
+                <th>Income</th>
+                <th>Expense</th>
+                <th>Comments</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="transaction in transactions">
-                <td>{{ transaction.submited }}</td>
-                <td>{{ transaction.completed }}</td>
+                <td style='text-align:center;'>
+                    <div ng-if="transaction.completed">
+                        <div class="ui mini statistic">
+                            <div class="value">
+                                {{ transaction.completed | date }}
+                            </div>
+                            <div class="label">
+                                Completed
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="transaction.planned > now">
+                        <div class="ui mini statistic">
+                            <div class="value">
+                                {{ transaction.planned | date }}
+                            </div>
+                            <div class="label">
+                                Planned
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-if="transaction.planned < now">
+                        <div class="ui mini statistic">
+                            <div class="value">
+                                {{ transaction.planned | date }}
+                            </div>
+                            <div class="label">
+                                Unconfirmed
+                            </div>
+                        </div>
+                    </div>
+                </td>
                 <td>{{ transaction.transactor }}</td>
-                <td>{{ transaction.income }}</td>
-                <td>{{ transaction.expense }}</td>
-                <td>{{ transaction.tags }}</td>
-                <td>{{ transaction.comment }}</td>
+                <td>
+                    <div class="ui tiny statistic">
+                        <div class="value">
+                            {{ transaction.income | currency }}
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="ui tiny statistic">
+                        <div class="value">
+                            {{ transaction.expense | currency }}
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    {{ transaction.comment || "No comments" }}
+                    <div class="ui divider" style="margin:1px;"></div>
+                    <div class="ui horizontal divided link list">
+                        <div class="item" ng-repeat="tag in transaction.tags">{{ tag.label }}</div>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>
