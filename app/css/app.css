@@ -327,14 +327,14 @@ div.FixedHeader_Cloned table {
 
 .ui.menu.topbar {
   background: #1565c0 !important; }
-  .ui.menu.topbar .item {
+  .ui.menu.topbar > .item {
     color: #eee; }
-    .ui.menu.topbar .item.active:after {
+    .ui.menu.topbar > .item.active:after {
       border: solid 1px #f00; }
-    .ui.menu.topbar .item:hover,
-    .ui.menu.topbar .item:focus,
-    .ui.menu.topbar .item:active {
-      color: #FFF; }
+    .ui.menu.topbar > .item:hover,
+    .ui.menu.topbar > .item:focus,
+    .ui.menu.topbar > .item:active {
+      color: #fff; }
 
 .topbar .brand {
   width: 220px;
@@ -360,7 +360,6 @@ div.FixedHeader_Cloned table {
     color: #111; }
 
 .wrapper {
-  padding-top: 35px;
   height: 100%; }
   .wrapper .sidebar {
     width: 220px;
@@ -385,17 +384,23 @@ div.FixedHeader_Cloned table {
     .wrapper .container.sidebar-off .sidebar {
       display: none; }
 
+.fullscreen {
+  height: 100%; }
+  .fullscreen.inverted {
+    background: #1565c0; }
+
+.login-title {
+  text-align: center;
+  margin: 0 !important;
+  font-size: 60px !important;
+  color: #EEE !important;
+  text-shadow: 2px 2px 0 #1565c0, 5px 5px 0 #222; }
+
 .centerbox {
   width: 300px;
   margin: 0 auto;
   padding-top: 100px;
   font-weight: bold; }
-  .centerbox .centerbox-title {
-    text-align: center;
-    margin: 0 !important;
-    font-size: 60px !important;
-    color: #666 !important;
-    text-shadow: 3px 3px 0 #f7f7f7, 6px 6px 0 #c7c7c7; }
   .centerbox .segment {
     margin: 10px !important; }
   .centerbox .footer {

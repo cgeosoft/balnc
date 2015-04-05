@@ -1,38 +1,41 @@
-<div class="centerbox">
-    <div class="centerbox-title">
-      Balance
-    </div>
-    <div class="ui piled form segment" ng-class="{loading: loading}">
-        <form ng-submit="LoginSubmit()" name="myForm">
-            <div class="field" style="padding-top:5px;">
-                <div class="ui big fluid left icon input">
-                    <i class="user icon"></i>
-                    <input type="text" name="_username" placeholder="Username" value="">
+<div class="fullscreen inverted">
+    <div class="centerbox">
+        <div class="login-title">
+            Balance
+        </div>
+        <div class="ui form segment" ng-class="{loading: loading}">
+            <form ng-submit="LoginSubmit()" name="myForm">
+                <div class="field" style="padding-top:5px;">
+                    <div class="ui big fluid left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="_username" placeholder="Username" value="">
+                    </div>
                 </div>
-            </div>
-            <div class="field" style="padding-top:5px;">
-                <div class="ui big fluid left icon input">
-                    <i class="lock icon"></i>
-                    <input type="password" name="_password" placeholder="Password">
+                <div class="field" style="padding-top:5px;">
+                    <div class="ui big fluid left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="_password" placeholder="Password">
+                    </div>
                 </div>
+                <div class="field" style="padding-top:5px;">
+                    <button type="submit" class="ui big fluid button blue">
+                        <i class="sign in icon"></i> Login
+                    </button>
+                </div>
+            </form>
+            <div class="ui horizontal divider">Or</div>
+            <a href="/register" class="ui big fluid button green">
+                <i class="icon edit"></i> Register
+            </a>
+        </div>
+        <div class="footer">
+            <div class="ui divided horizontal list">
+                <div class="item">
+                    <strong>Balance Dev 0.1.0</strong> by <a href="http://christosgeorgiou.gr">CG</a></div>
+                <div class="item"><a href="https://github.com/ChristosGeorgiou/JokerBot">GitHub</a></div>
+                <div class="item"><a href="help" class="amodal">Help</a></div>
+                <div class="item"><a href="tos" class="amodal">Terms</a></div>
             </div>
-            <div class="field" style="padding-top:5px;">
-                <button type="submit" class="ui big fluid button blue">
-                    <i class="sign in icon"></i> Login
-                </button>
-            </div>
-        </form>
-        <div class="ui horizontal divider">Or</div>
-        <a href="/register" class="ui big fluid button green">
-            <i class="icon edit"></i> Register
-        </a>
-    </div>
-    <div class="footer">
-        <div class="ui divided horizontal list">
-          <div class="item"><strong>Balance Dev 0.1.0</strong> by <a href="http://christosgeorgiou.gr">CG</a></div>
-          <div class="item"><a href="https://github.com/ChristosGeorgiou/JokerBot">GitHub</a></div>
-          <div class="item"><a href="help" class="amodal">Help</a></div>
-          <div class="item"><a href="tos" class="amodal">Terms</a></div>
         </div>
     </div>
 </div>

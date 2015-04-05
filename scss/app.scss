@@ -2,9 +2,7 @@
 * Template
 */
 $color-main: #1565c0;
-
 @import "_datatables.scss";
-
 * {
     margin: 0;
     padding: 0;
@@ -28,24 +26,22 @@ body {
     &.menu {
         &.topbar {
             background: $color-main !important;
-            .item {
+            >.item {
                 color: #eee;
-                &.active{
-                  &:after{
-
-                  border:solid 1px #f00
-                  }
+                &.active {
+                    &:after {
+                        border: solid 1px #f00;
+                    }
                 }
                 &:hover,
                 &:focus,
                 &:active {
-                    color: #FFF;
+                    color: #fff;
                 }
             }
         }
     }
 }
-
 .topbar {
     .brand {
         width: 220px;
@@ -70,8 +66,8 @@ body {
 .megamenu {
     +.popup {
         width: 100%;
-        .divider{
-          color:#999;
+        .divider {
+            color: #999;
         }
         .list {
             .item {
@@ -81,7 +77,6 @@ body {
     }
 }
 .wrapper {
-    padding-top: 35px;
     height: 100%;
     .sidebar {
         width: 220px;
@@ -121,18 +116,27 @@ body {
         }
     }
 }
+
+.fullscreen {
+    height: 100%;
+    &.inverted {
+        background: $color-main;
+    }
+}
+
+.login-title {
+    text-align: center;
+    margin: 0 !important;
+    font-size: 60px !important;
+    color: #EEE !important;
+    text-shadow: 2px 2px 0 $color-main,5px 5px 0 #222;
+}
+
 .centerbox {
     width: 300px;
     margin: 0 auto;
     padding-top: 100px;
     font-weight: bold;
-    .centerbox-title {
-        text-align: center;
-        margin: 0 !important;
-        font-size: 60px !important;
-        color: #666 !important;
-        text-shadow: 3px 3px 0 #f7f7f7, 6px 6px 0 #c7c7c7;
-    }
     .segment {
         margin: 10px !important;
     }
