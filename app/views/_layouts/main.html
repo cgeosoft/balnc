@@ -1,14 +1,46 @@
-<div class="ui fixed inverted menu topbar">
+<div class="ui fixed menu topbar">
     <span class="brand item">
         <i class="adjust icon logo"></i> Balance
         <i class="bars icon toggle-sidebar"></i>
     </span>
+
+    <a class="item megamenu">
+        Contacts
+    </a>
+    <div class="ui wide popup">
+        <div class="ui icon fluid input">
+            <input type="text" style="width: 100%;" placeholder="Search for a contact or a company...">
+            <i class="search icon"></i>
+        </div>
+
+        <div class="ui horizontal divider">
+            Search History
+        </div>
+
+        <div class="ui list">
+            <a class="item">
+                <img class="ui avatar image" src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/94/M_box.svg/35px-M_box.svg.png">
+                <div class="content">
+                    <a class="header">Micorosft</a>
+                    <div class="description">21/04/2014 05:44</div>
+                </div>
+            </a>
+            <a class="item">
+                <i class="user icon"></i> Soula Vourdoumpasi
+            </a>
+            <a class="item">
+                <i class="user icon"></i> Soula Vourdoumpasi
+            </a>
+        </div>
+
+    </div>
 
     <a class="item" ui-sref="{{menuitem.sref}}" ui-sref-active="active" ng-repeat="menuitem in topmenu">
         {{menuitem.label}}
     </a>
 
     <div class="right menu">
+
         <div class="ui dropdown item">John
             <i class="dropdown icon"></i>
             <div class="menu">
@@ -19,11 +51,12 @@
                 <a href="/configuration" class="item">
                     <i class="cogs icon"></i> Configuration
                 </a>
-                <a href="/login" class="item">
+                <a href="#" ui-sref="login" class="item">
                     <i class="sign out icon"></i> Sign Out
                 </a>
             </div>
         </div>
+
     </div>
 </div>
 
