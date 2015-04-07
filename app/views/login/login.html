@@ -1,9 +1,10 @@
-<div class="fullscreen inverted">
-    <div class="centerbox">
-        <div class="login-title">
+<div class="login">
+
+    <div class="box">
+        <div class="title">
             Balance
         </div>
-        <div class="ui form segment" ng-class="{loading: loading}">
+        <div class="ui form" ng-class="{loading: loading}">
             <form ng-submit="LoginSubmit()" name="myForm">
                 <div class="field" style="padding-top:5px;">
                     <div class="ui big fluid left icon input">
@@ -24,10 +25,11 @@
                 </div>
             </form>
             <div class="ui horizontal divider">Or</div>
-            <a href="/register" class="ui big fluid button green">
+            <a href="/register" class="ui fluid button green">
                 <i class="icon edit"></i> Register
             </a>
         </div>
+
         <div class="footer">
             <div class="ui divided horizontal list">
                 <div class="item">
@@ -37,5 +39,7 @@
                 <div class="item"><a href="tos" class="amodal">Terms</a></div>
             </div>
         </div>
+
     </div>
+
 </div>
