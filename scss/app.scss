@@ -2,7 +2,6 @@
 * Template
 */
 $color-main: #1565c0;
-@import "_datatables.scss";
 * {
     margin: 0;
     padding: 0;
@@ -84,6 +83,12 @@ body {
         float: left;
         background: #eee;
         height: 100%;
+        width: 220px;
+        background: #eee;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 35px;
         .menu {
             .input {
                 input {
@@ -100,6 +105,9 @@ body {
     }
     .container {
         height: 100%;
+        padding: 15px;
+        overflow: hidden;
+        margin-left: 220px;
         .content {
             padding: 15px;
             overflow: hidden;

@@ -2,7 +2,7 @@
 
     <h1 class="ui header">Transactions</h1>
 
-    <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="ui table celled striped">
+    <table class="ui table celled sortable compact striped">
         <thead>
             <tr>
                 <th style="width:150px;">Status</th>
@@ -62,8 +62,7 @@
                     </div>
                 </td>
                 <td>
-                    {{ transaction.comment || "No comments" }}
-                    <div class="ui divider" style="margin:1px;"></div>
+                    {{ transaction.comment || "No comments" }}<br/>
                     <div class="ui horizontal divided link list">
                         <div class="item" ng-repeat="tag in transaction.tags">{{ tag.label }}</div>
                     </div>
