@@ -2,6 +2,9 @@
 * Template
 */
 $color-main: #1565c0;
+
+@import "_datatables.scss", "_login2.scss";
+
 * {
     margin: 0;
     padding: 0;
@@ -121,38 +124,6 @@ body {
         &.sidebar-off {
             .sidebar {
                 display: none;
-            }
-        }
-    }
-}
-.fullscreen {
-    height: 100%;
-    &.inverted {
-        background: $color-main;
-    }
-}
-.login-title {
-    text-align: center;
-    margin: 0 !important;
-    font-size: 60px !important;
-    color: #eee !important;
-    text-shadow: 2px 2px 0 $color-main,5px 5px 0 #222;
-}
-.centerbox {
-    width: 300px;
-    margin: 0 auto;
-    padding-top: 100px;
-    font-weight: bold;
-    .segment {
-        margin: 10px !important;
-    }
-    .footer {
-        text-align: center;
-        color: #aaa;
-        .item {
-            font-size: xx-small !important;
-            a {
-                color: #aaa !important;
             }
         }
     }
