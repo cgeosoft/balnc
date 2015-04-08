@@ -1,6 +1,65 @@
 /*
 * Template
 */
+.login {
+  height: 100%;
+  position: relative; }
+  .login:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 62%;
+    height: 100%;
+    float: left;
+    text-align: right;
+    padding: 100px 20px;
+    background: url("http://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-36385.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; }
+  .login .box {
+    width: 38%;
+    height: 100%;
+    float: right;
+    padding: 100px 20px;
+    position: relative;
+    background: #fff; }
+    .login .box .title {
+      text-align: left;
+      margin: 0 !important;
+      font-size: 60px !important;
+      color: #666 !important;
+      text-shadow: 2px 2px 0 #FFF, 5px 5px 0 #ccc; }
+    .login .box .form {
+      width: 300px;
+      margin: 5px 0 10px;
+      padding: 5px; }
+      .login .box .form .input input {
+        background: none;
+        color: #333;
+        border-radius: 0;
+        border-width: 0 0 1px 0;
+        border-color: #eee; }
+        .login .box .form .input input:focus {
+          box-shadow: none;
+          border-color: #aaa; }
+      .login .box .form .input .icon {
+        color: #aaa; }
+
+@media (max-width: 900px) {
+  .login:before {
+    width: 0;
+    padding: 0; }
+  .login .box {
+    width: 100%;
+    text-align: center; }
+    .login .box .title {
+      text-align: center; }
+    .login .box .form {
+      margin: 0 auto 10px; } }
+
 * {
   margin: 0;
   padding: 0; }
@@ -66,46 +125,17 @@
       margin: 0; }
   .wrapper .container {
     height: 100%;
-    padding: 15px;
-    overflow: hidden;
     margin-left: 220px; }
-    .wrapper .container .content {
+    .wrapper .container > .content {
       padding: 15px;
       overflow: hidden; }
-      .wrapper .container .content.centered {
+      .wrapper .container > .content.centered {
         padding: 0;
         height: 100%;
         margin-top: -35px;
         text-align: center; }
     .wrapper .container.sidebar-off .sidebar {
       display: none; }
-
-.fullscreen {
-  height: 100%; }
-  .fullscreen.inverted {
-    background: #1565c0; }
-
-.login-title {
-  text-align: center;
-  margin: 0 !important;
-  font-size: 60px !important;
-  color: #eee !important;
-  text-shadow: 2px 2px 0 #1565c0, 5px 5px 0 #222; }
-
-.centerbox {
-  width: 300px;
-  margin: 0 auto;
-  padding-top: 100px;
-  font-weight: bold; }
-  .centerbox .segment {
-    margin: 10px !important; }
-  .centerbox .footer {
-    text-align: center;
-    color: #aaa; }
-    .centerbox .footer .item {
-      font-size: xx-small !important; }
-      .centerbox .footer .item a {
-        color: #aaa !important; }
 
 .centered {
   display: -webkit-box;

@@ -14,22 +14,31 @@ angular.module('balance', ['ui.router', 'datatables'])
 // Sexy directive for semantic-ui-dropdown
 
 .directive('dropdown', function() {
-    return {
-        restrict: 'C',
-        link: function(scope, element, attrs) {
-            $(element).dropdown();
-        }
-    };
-})
-// 
-// .directive('sortable', function() {
-//     return {
-//         restrict: 'C',
-//         link: function(scope, element, attrs) {
-//             $(element).sortable();
-//         }
-//     };
-// })
+        return {
+            restrict: 'C',
+            link: function(scope, element, attrs) {
+                $(element).dropdown();
+            }
+        };
+    })
+
+.directive('checkbox', function() {
+        return {
+            restrict: 'C',
+            link: function(scope, element, attrs) {
+                $(element).checkbox();
+            }
+        };
+    })
+    //
+    // .directive('sortable', function() {
+    //     return {
+    //         restrict: 'C',
+    //         link: function(scope, element, attrs) {
+    //             $(element).sortable();
+    //         }
+    //     };
+    // })
 
 .directive('megamenu', function() {
     return {
@@ -48,6 +57,32 @@ angular.module('balance', ['ui.router', 'datatables'])
     };
 })
 
+.directive('accordion', function() {
+    return {
+        restrict: 'C',
+        link: function(scope, element, attrs) {
+            $(element).accordion();
+        }
+    };
+})
+
+.directive('filter', function() {
+    return {
+        restrict: 'C',
+        link: function(scope, element, attrs) {
+            $(element).popup({
+                inline: true,
+                exclusive: true,
+                movePopup: false,
+                preserve: true,
+                on: "click",
+                position:'right center',
+                duration: 750,
+            });
+        }
+    };
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise("/login");
@@ -55,7 +90,7 @@ angular.module('balance', ['ui.router', 'datatables'])
     $stateProvider
 
 
-    .state('login', {
+        .state('login', {
         url: '/login',
         templateUrl: "views/login/login.html",
         controller: "LoginCtrl"
@@ -204,6 +239,32 @@ angular.module('balance', ['ui.router', 'datatables'])
     }
 })
 
+
+.filter('transtype', function() {
+
+    var types = {
+        1: {
+            label: "Credit",
+            color: "orange",
+        },
+        2: {
+            label: "Debit",
+            color: "green",
+        },
+        3: {
+            label: "Buy",
+            color: "purple",
+        },
+        4: {
+            label: "Sell",
+            color: "blue",
+        },
+    };
+
+    return function(type,req) {
+        return types[type][req];
+    };
+})
 
 // $(function(){
 // 	$(".dropdown").dropdown();

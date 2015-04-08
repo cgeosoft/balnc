@@ -1,75 +1,28 @@
-<div class="content">
-
-    <h1 class="ui header">Transactions</h1>
-
-    <table class="ui table celled sortable compact striped">
-        <thead>
-            <tr>
-                <th style="width:150px;">Status</th>
-                <th>Transactor</th>
-                <th>Income</th>
-                <th>Expense</th>
-                <th>Comments</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="transaction in transactions">
-                <td style='text-align:center;'>
-                    <div ng-if="transaction.completed">
-                        <div class="ui mini statistic">
-                            <div class="value">
-                                {{ transaction.completed | date }}
-                            </div>
-                            <div class="label">
-                                Completed
-                            </div>
-                        </div>
-                    </div>
-                    <div ng-if="transaction.planned > now">
-                        <div class="ui mini statistic">
-                            <div class="value">
-                                {{ transaction.planned | date }}
-                            </div>
-                            <div class="label">
-                                Planned
-                            </div>
-                        </div>
-                    </div>
-                    <div ng-if="transaction.planned < now">
-                        <div class="ui mini statistic">
-                            <div class="value">
-                                {{ transaction.planned | date }}
-                            </div>
-                            <div class="label">
-                                Unconfirmed
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td>{{ transaction.transactor }}</td>
-                <td>
-                    <div class="ui tiny statistic">
-                        <div class="value">
-                            {{ transaction.income | currency }}
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="ui tiny statistic">
-                        <div class="value">
-                            {{ transaction.expense | currency }}
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    {{ transaction.comment || "No comments" }}<br/>
-                    <div class="ui horizontal divided link list">
-                        <div class="item" ng-repeat="tag in transaction.tags">{{ tag.label }}</div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-
-</div>
+<table class="ui table small celled sortable compact striped">
+    <thead>
+        <tr>
+            <th style="width:120px;">Issued</th>
+            <th style="width:100px;">Type</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="transaction in transactions">
+            <td class="center aligned">
+                {{ transaction.issued | date:'dd/MM/yyyy' }}
+            </td>
+            <td class="center aligned">
+                <div class="ui {{ transaction.type | transtype:'color' }} fluid label">
+                    {{ transaction.type | transtype:'label' }}
+                    <br> {{ transaction.amount | currency }}
+                </div>
+            </td>
+            <td>
+                {{ transaction.comment || "No comments" }}
+                <br/>
+                <div class="ui mini label">{{ transaction.transactor }}</div>
+                <div class="ui mini label" ng-repeat="tag in transaction.tags">{{ tag.label }}</div>
+            </td>
+        </tr>
+    </tbody>
+</table>

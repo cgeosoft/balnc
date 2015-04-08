@@ -3,7 +3,7 @@
 */
 $color-main: #1565c0;
 
-@import "_datatables.scss", "_login2.scss";
+@import "_login2.scss";
 
 * {
     margin: 0;
@@ -108,10 +108,8 @@ body {
     }
     .container {
         height: 100%;
-        padding: 15px;
-        overflow: hidden;
         margin-left: 220px;
-        .content {
+        >.content {
             padding: 15px;
             overflow: hidden;
             &.centered {

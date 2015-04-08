@@ -1,34 +1,116 @@
-<div class="sidebar">
-    <div class="ui fluid secondary vertical menu">
-        <div class="item">
-            <div class="ui input">
-                <input type="text" placeholder="Search Transactions...">
-            </div>
-        </div>
+<div class="sidebar" style="padding:10px;">
 
-        <a class="item"
-          ui-sref="app.contacts.details({alias: company.alias})"
-          ui-sref-active="active">
-          General View
-          </a>
-
-        <a class="item"
-          ui-sref="app.contacts.details({alias: company.alias})"
-          ui-sref-active="active">
-          lorem
-          </a>
-
-        <a class="item"
-          ui-sref="app.contacts.details({alias: company.alias})"
-          ui-sref-active="active">
-        ispum
-          </a>
-
+    <div class="ui vertical small buttons" style="width:100%">
+        <button class="ui green button">
+            <i class="plus icon"></i> Import
+        </button>
+        <button class="ui purple button">
+            <i class="plus icon"></i> Export
+        </button>
     </div>
 
 
+    <div class="ui divider"></div>
+    <div class="ui styled fluid accordion">
+        <div class="active title">
+            <i class="dropdown icon"></i> Filters
+        </div>
+        <div class="active content">
+            <form class="ui form">
+                <div class="field">
+                    <label>Issued Date</label>
+                    <button class="ui tiny fluid basic button filter" style="padding:15px 0">
+                        01/04/2015 - 01/05/2015
+                    </button>
+                    <div class="ui wide popup" style="width:500px;max-width:500px">
+
+                        <div class="two fields">
+                            <div class="field">
+                                <label>From</label>
+                                <div class="ui large input">
+                                    <input type="text" style="text-align:center;" value="01/04/2015">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>To</label>
+                                <div class="ui large input">
+                                    <input type="text" style="text-align:center;" value="01/05/2015">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui horizontal divider">
+                            Or preset
+                        </div>
+                        <div class="4 fluid ui small buttons">
+                            <button class="ui button"><i class="fast backward icon"></i>
+                                <br/>Last Month</button>
+                            <button class="ui button"><i class="backward icon"></i>
+                                <br/>Last Week</button>
+                            <button class="ui button"><i class="forward icon"></i>
+                                <br/>Next Week </button>
+                            <button class="ui button"><i class="fast forward icon"></i>
+                                <br/>Next Month</button>
+                        </div>
+                        <div class="ui divider"></div>
+
+                        <button class="ui basic green fluid button">Set Dates</button>
+
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Type</label>
+                    <button class="ui tiny fluid basic button filter" style="padding:15px 0">
+                        All Transactions
+                    </button>
+                    <div class="ui wide popup" style="width:200px;">
+                        <div class="ui divided massive list">
+                            <div class="item">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox" name="public">
+                                    <label>All Types</label>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox" name="public">
+                                    <label><span class="ui orange empty circular label"></span> Credits</label>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox" name="public">
+                                    <label><span class="ui green empty circular label"></span> Debits</label>
+                                </div>
+                            </div><div class="item">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox" name="public">
+                                    <label><span class="ui blue empty circular label"></span> Sells</label>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="ui toggle checkbox">
+                                    <input type="checkbox" name="public">
+                                    <label><span class="ui purple empty circular label"></span> Buys</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ui divider"></div>
+
+                        <button class="ui basic green fluid button">Set Types</button>
+
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Amount</label>
+                    <button class="ui tiny fluid basic button" style="padding:15px 0">
+                        50&euro; - 100&euro;
+                    </button>
+                </div>
+                <div class="ui submit blue inverted fluid button">Refresh</div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div class="content" ui-view></div>
-
-transactions
