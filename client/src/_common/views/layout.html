@@ -1,0 +1,53 @@
+<header class="container">
+
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a ui-sref="app.home" class="navbar-brand">
+        <i class="fa fa-wrench fa-fw"></i> Christos' Tools
+        <small>{{tool.title || title ||'Home'}}</small>
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+
+      <ul class="nav navbar-nav">
+        <li uib-dropdown>
+          <a href uib-dropdown-toggle>
+              Tools
+              <span class="caret"></span>
+            </a>
+          <ul class="uib-dropdown-menu">
+            <li ng-repeat="tool in vm.tools">
+              <a ui-sref="{{tool.state}}">
+                {{tool.title}}
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li ui-sref-active="active">
+          <a ui-sref="app.about">About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+</header>
+
+<section ui-view class="container"></section>
+
+<footer class="container text-center">
+  <ul class="list-inline">
+    <li>2016 Christos' Tools v{{APP.version}}</li>
+    <li>By <a href="{{APP.author.url}}">{{APP.author.name}}</a></li>
+    <li><a ui-sref="app.tos">TOS</a></li>
+    <li><a href="{{APP.repository}}">GitHub</a></li>
+  </ul>
+</footer>

@@ -1,0 +1,26 @@
+.panel-primary {
+  .panel-heading {
+    background: $color-primary;
+    border-color: darken($color-primary, 10%);
+  }
+}
+.panel-lg {
+  .panel-heading {
+    color: #EEE !important;
+    min-width: 180px;
+    line-height: 0.9em;
+    padding:15px 15px 10px;
+    border-right: solid 1px darken($color-primary,5%);
+    small {
+      display: block;
+      font-size: 10px;
+      color: lighten($color-primary,35%);
+    }
+    i {
+      float: left;
+      margin: -2px 2px 0 0;
+      font-size: 1.8em;
+      color: #FAFAFA;
+    }
+  }
+}

@@ -1,0 +1,66 @@
+<ol class="breadcrumb">
+  <li><a ui-sref="app.lotteries.overview">Lotteries</a></li>
+  <li class="active">{{vm.Lottery.Name}}</li>
+</ol>
+
+<div class="row" ng-class="{loading:vm.loading}">
+  <div class="col-sm-4">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          Details
+        </h3>
+      </div>
+      <div class="panel-body">
+        <dl>
+          <dt>Name</dt>
+          <dd>{{::vm.Lottery.Name}}</dd>
+          <dt>Drew At</dt>
+          <dd>{{::vm.Lottery.DrewAt|date:'medium'}}</dd>
+        </dl>
+      </div>
+      <div class="panel-footer">
+        <button class="btn btn-sm btn-primary btn-block" ng-print print-element-id="printableResults">
+          Print Draw
+        </button>
+        <hr/>
+        <button class="btn btn-sm btn-danger btn-outline btn-block" ng-click="vm.DeleteLottery()">
+          Delete Lottery
+        </button>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-sm-8" style="padding-left:0">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          Results
+        </h3>
+      </div>
+      <div class="list-group" style="overflow: auto;height:400px;" ng-if="vm.Lottery">
+        <div class="list-group-item" ng-repeat="Participant in vm.Lottery.Participants track by $index">
+          {{$index+1}}. {{::Participant}}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="printableResults" class="visible-print-block">
+  <h4>
+    {{::vm.Lottery.Name}}
+    <small>{{::vm.Lottery.DrewAt|date:'medium'}}</small>
+  </h4>
+  <table class="table table-condensed">
+    <tbody>
+      <tr ng-repeat="Participant in vm.Lottery.Participants track by $index">
+        <td>{{$index+1}}. {{::Participant}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

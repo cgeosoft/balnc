@@ -1,0 +1,29 @@
+{
+  "name": "Plist",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "Participants": {
+      "type": "array",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {},
+  "mixins": {
+    "TimeStamp": {
+      "createdAt": "CreatedAt",
+      "updatedAt": "UpdatedAt",
+      "required": false
+    }
+  }
+}

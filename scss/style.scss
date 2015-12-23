@@ -1,0 +1,92 @@
+$color-primary: #333;
+@import "components/navbar";
+@import "components/buttons";
+@import "components/panel";
+@import "components/loading";
+@import "components/print";
+@import "components/empty";
+body {
+  padding-bottom: 20px;
+  background: #FAFAFA;
+  @media (min-width: 768px) {
+    padding-top: 15px;
+  }
+}
+footer {
+  margin-top: 15px;
+  p {
+    display: block;
+    text-align: center;
+    font-size: 0.7em;
+    border-top: solid 1px #EEE;
+    color: #666;
+    margin: 0;
+    padding-top: 7px;
+  }
+}
+section {
+  min-height: 400px;
+}
+a {
+
+  // color: $color-primary;
+}
+textarea:focus,
+input:focus,
+.form-control:focus {
+  border-color: opacify(lighten($color-primary,20%), 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px opacify(lighten($color-primary,20%), 0.6);
+  outline: 0 none;
+}
+.container {
+  min-width: 320px;
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 750px;
+  }
+}
+.btn {
+
+  // border-radius: 0;
+}
+.btn-toolbar,
+.breadcrumb {
+  margin: 0 0 7px;
+  background: #F3F3F3;
+  border: solid 1px #EEE;
+  padding: 5px;
+  border-radius: 5px;
+  .btn-group:first-child {
+    margin-left: 0;
+  }
+}
+.input-xs {
+  padding: 0 5px;
+  height: 22px;
+}
+.modal-footer {
+  padding: 7px 15px;
+}
+.control-label {
+  font-size: 1.2em;
+  font-weight: 400;
+}
+.container-login {
+  width: 100%;
+  padding: 5px;
+  @media (min-width: 300px) {
+    padding-top: 25px;
+    width: 300px;
+  }
+  .panel {
+    border: solid 1px #FFF;
+    box-shadow: 0 0 15px #CCC;
+  }
+}
+.modal-md {
+  @media (min-width: 500px) {
+    margin: 30px auto;
+    width: 450px;
+  }
+}
