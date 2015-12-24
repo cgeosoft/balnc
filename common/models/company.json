@@ -1,0 +1,44 @@
+{
+  "name": "company",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "logo": {
+      "type": "string"
+    },
+    "phones": {
+      "type": [
+        "string"
+      ]
+    },
+    "emails": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "position": {
+      "type": "object"
+    },
+    "tax_number": {
+      "type": "string"
+    },
+    "tax_name": {
+      "type": "string"
+    },
+    "tax_office": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
