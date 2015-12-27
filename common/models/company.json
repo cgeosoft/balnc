@@ -35,6 +35,16 @@
       "type": "hasMany",
       "model": "Person",
       "foreignKey": ""
+    },
+    "events": {
+      "type": "hasMany",
+      "model": "Event",
+      "foreignKey": ""
+    },
+    "transactions": {
+      "type": "hasMany",
+      "model": "Transaction",
+      "foreignKey": ""
     }
   },
   "acls": [],

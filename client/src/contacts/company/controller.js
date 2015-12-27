@@ -16,12 +16,38 @@
     }
 
     function _loadCompany() {
-      vm.Company = Company.findById({
-        id: $stateParams.id,
-        filter: {
-          include: "persons"
-        }
-      });
+      Company.findById({
+          id: $stateParams.id,
+          filter: {
+            include: [{
+              relation: 'persons',
+              scope: {
+                order: "fullname ASC"
+              }
+            }, {
+              relation: 'events',
+              scope: {
+                order: "occuredAt DESC"
+              }
+            }, {
+              relation: 'transactions',
+              scope: {
+                order: "date ASC"
+              }
+            }]
+          }
+        })
+        .$promise
+        .then(function(data) {
+          var _total=0;
+          _.each(data.transactions, function(transaction, index, list) {
+            _total += transaction.amount;
+            console.log(_total);
+            transaction.total = _total;
+          });
+          // console.log(data.transactions);
+          vm.Company = data;
+        });
     }
 
   }

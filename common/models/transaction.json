@@ -1,22 +1,24 @@
 {
-  "name": "Event",
+  "name": "Transaction",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
+    "date": {
+      "type": "string",
+      "required": true
+    },
     "description": {
-      "type": "string",
+      "type": "string"
+    },
+    "amount": {
+      "type": "number",
       "required": true
     },
-    "occuredAt": {
-      "type": "date",
-      "required": true
-    },
-    "type": {
-      "type": "string",
-      "required": true
+    "file": {
+      "type": "string"
     }
   },
   "validations": [],
