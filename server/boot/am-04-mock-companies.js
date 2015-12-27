@@ -10,6 +10,8 @@ module.exports = function(app) {
 
     process.stdout.write("Inserting "+ _company.name+"\r");
 
+    _company.lastAccess = new Date();
+    
     app.models.Company.create(_company, function(err, company) {
       if (err) throw err;
 

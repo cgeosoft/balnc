@@ -10,14 +10,16 @@
     </div>
     <div class="panel panel-default">
       <div class="panel-body">
+        <h3>{{vm.Company.name}}</h3>
         <dl>
           <dt>Phones</dt>
           <dd>{{vm.Company.phones|join}}</dd>
           <dt>Emails</dt>
           <dd>{{vm.Company.emails|join}}</dd>
           <dt>Address</dt>
-          <dd>{{vm.Company.location.street}}</dd>
+          <dd>{{vm.Company.location.street}}, {{vm.Company.location.city}} {{vm.Company.location.state}}</dd>
         </dl>
+        <img class="thumbnail" src="//staticmap.openstreetmap.de/staticmap.php?center={{vm.Company.location.coordinates.lon}},{{vm.Company.location.coordinates.lat}}&zoom=14&size=320x250&maptype=mapnik&markers={{vm.Company.location.coordinates.lon}},{{vm.Company.location.coordinates.lat}},lightblue1" />
       </div>
     </div>
   </div>
@@ -69,11 +71,12 @@
         <div class="media" ng-repeat="Person in vm.Company.persons">
           <div class="media-left">
             <a href ng-click="vm.EditPerson(Person)">
-              <img class="media-object img-circle" ng-src="{{Person.avatar}}" style="max-height:40px" />
+              <img ng-if="Person.avatar" class="media-object img-circle img-thumbnail" ng-src="{{Person.avatar}}" style="height:40px;width:40px" />
             </a>
           </div>
           <div class="media-body">
-            <h4 class="media-heading">{{Person.fullname}}
+            <h4 class="media-heading">
+              <a href ng-click="vm.EditPerson(Person)">{{Person.fullname}}</a>
               <small>{{Person.job}}</small>
             </h4>
             <ul class="list-inline">
@@ -106,8 +109,8 @@
               <th>Date</th>
               <th>Description</th>
               <th>Document</th>
-              <th class="text-right">Amount</th>
-              <th class="text-right">Total</th>
+              <th class="text-right" style="width:100px;">Amount</th>
+              <th class="text-right" style="width:100px;">Total</th>
             </tr>
           </thead>
           <tbody>

@@ -12,23 +12,23 @@
     activate();
 
     function activate() {
-      getCompanies();
+      _getAccessed();
     }
 
-    function getCompanies() {
-      vm.loading = true;
+    function _getAccessed() {
+      vm.loading_accessed = true;
       Company.find({
           filter: {
             limit: 10,
-            include: 'persons',
+            order: "lastAccess DESC",
           }
         })
         .$promise
         .then(function(_companies) {
-          vm.companies = _companies;
+          vm.accessed = _companies;
         })
         .finally(function() {
-          vm.loading = false;
+          vm.loading_accessed = false;
         });
     }
 

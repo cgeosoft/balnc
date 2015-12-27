@@ -48,7 +48,7 @@ input:focus,
 }
 .btn-toolbar,
 .breadcrumb {
-  margin: 0 0 7px;
+  margin: 0 0 15px;
   background: #F3F3F3;
   border: solid 1px #EEE;
   padding: 5px;
@@ -92,6 +92,15 @@ input:focus,
     height: 50px;
   }
 }
+.media {
+  .media-body {
+    .list-inline {
+      margin: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+}
 .media-company {
   margin: -10px 15px -10px -15px !important;
   .media-object {
@@ -124,7 +133,7 @@ input:focus,
     height: 30px;
   }
 }
-.tab-content{
+.tab-content {
   background: #FFF;
   padding: 10px;
   border: 1px solid #ddd;

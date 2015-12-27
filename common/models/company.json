@@ -2,6 +2,7 @@
   "name": "Company",
   "base": "PersistedModel",
   "idInjection": true,
+  "updateOnLoad": true,
   "options": {
     "validateUpsert": true
   },
@@ -27,6 +28,9 @@
     },
     "tax": {
       "type": "object"
+    },
+    "lastAccess": {
+      "type": "date"
     }
   },
   "validations": [],

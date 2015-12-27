@@ -4,14 +4,15 @@
   "website": "http://reverbnation.com",
   "emails": ["award0@huffingtonpost.com", "dbrooks0@guardian.co.uk", "truiz0@g.co"],
   "phones": ["1-(402)114-8134", "1-(570)389-3129"],
+  "lastAccess":"2015-01-01",
   "location": {
     "street": "48153 Colorado Center",
     "city": "Fort Wayne",
     "state": "Indiana",
     "country": "United States",
     "coordinates": {
-      "lon": "-85.0707",
-      "lat": "41.0938"
+      "lon": "40.714728",
+      "lat": "-73.998672"
     }
   },
   "persons": [{
