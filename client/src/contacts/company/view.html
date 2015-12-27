@@ -22,14 +22,16 @@
     </div>
   </div>
   <div class="col-sm-8">
+
     <uib-tabset>
+
       <uib-tab heading="Actions & Events">
         <div class="btn-toolbar">
           <button class="btn btn-primary btn-xs" ng-click="vm.AddCall()">
-            <span class="fa fa-phone fa-fw"></span> New Call
+            <span class="fa fa-phone fa-fw"></span> Call
           </button>
           <button class="btn btn-primary btn-xs" ng-click="vm.AddMeeting()">
-            <span class="fa fa-calendar fa-fw"></span> New Meeting
+            <span class="fa fa-calendar fa-fw"></span> Meeting
           </button>
         </div>
 
@@ -135,13 +137,13 @@
             </div>
           </li>
         </ul>
-
       </uib-tab>
+
       <uib-tab heading="Persons">
 
         <div class="btn-toolbar">
           <button class="btn btn-primary btn-xs" ng-click="vm.AddPerson()">
-            <span class="fa fa-user-plus fa-fw"></span> New Person
+            <span class="fa fa-user-plus fa-fw"></span> Person
           </button>
         </div>
 
@@ -161,13 +163,90 @@
             </ul>
           </div>
         </div>
+
       </uib-tab>
+
       <uib-tab heading="Debits & Credits">
-        Debits & Credits
+
+        <div class="btn-toolbar">
+          <button class="btn btn-primary btn-xs" ng-click="vm.AddCredit()">
+            <span class="fa fa-plus-square fa-fw"></span> Credit
+          </button>
+          <button class="btn btn-primary btn-xs" ng-click="vm.AddDebit()">
+            <span class="fa fa-minus-square fa-fw"></span> Debit
+          </button>
+          <button class="btn btn-default btn-xs" ng-click="vm.Print()">
+            <span class="fa fa-print fa-fw"></span> Print
+          </button>
+        </div>
+
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th style="width:25px;"></th>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Document</th>
+              <th class="text-right">Ammount</th>
+              <th class="text-right">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <button class="btn btn-link btn-xs">
+                  <span class="fa fa-pencil"></span>
+                </button>
+              </td>
+              <td>2015-01-01</td>
+              <td>Lorem ispum</td>
+              <td><a href>Offer</a></td>
+              <td class="text-right">-500.00&euro;</td>
+              <td class="text-right">-500.00&euro;</td>
+            </tr>
+            <tr>
+              <td>
+                <button class="btn btn-link btn-xs">
+                  <span class="fa fa-pencil"></span>
+                </button>
+              </td>
+              <td>2015-02-01</td>
+              <td>Dolor Sit</td>
+              <td><a href>Offer</a></td>
+              <td class="text-right">-500.00&euro;</td>
+              <td class="text-right">-1000.00&euro;</td>
+            </tr>
+            <tr>
+              <td>
+                <button class="btn btn-link btn-xs">
+                  <span class="fa fa-pencil"></span>
+                </button>
+              </td>
+              <td>2015-01-01</td>
+              <td>amet</td>
+              <td><a href>Invoice</a></td>
+              <td class="text-right">+1000.00&euro;</td>
+              <td class="text-right">0.00&euro;</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th class="text-right" colspan="5">Total Credit</th>
+              <th class="text-right">1000.00&euro;</th>
+            </tr>
+            <tr>
+              <th class="text-right" colspan="5">Total Debit</th>
+              <th class="text-right">1000.00&euro;</th>
+            </tr>
+          </tfoot>
+        </table>
+
       </uib-tab>
-      <uib-tab heading="Invoices">
-        Invoices
+
+      <uib-tab heading="Files">
+        Files
       </uib-tab>
+
       <uib-tab heading="Manage">
         <div class="list-group">
           <a href ng-click="vm.EditCompany()" class="list-group-item">
@@ -178,6 +257,7 @@
           </a>
         </div>
       </uib-tab>
+
     </uib-tabset>
   </div>
 </div>
