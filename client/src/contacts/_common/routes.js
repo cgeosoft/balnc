@@ -27,12 +27,20 @@
         controller: 'ContactsOverviewController',
       }
     }, {
-      state: 'app.contacts.contact',
+      state: 'app.contacts.person',
       config: {
-        title: 'Contact',
-        url: "/:ID",
-        templateUrl: 'src/contacts/contact/view.html',
-        controller: 'ContactsContactController',
+        title: 'Person',
+        url: "/person/:id",
+        templateUrl: 'src/contacts/person/view.html',
+        controller: 'ContactsPersonController',
+      }
+    }, {
+      state: 'app.contacts.company',
+      config: {
+        title: 'Company',
+        url: "/company/:id",
+        templateUrl: 'src/contacts/company/view.html',
+        controller: 'ContactsCompanyController',
       }
     }];
   }

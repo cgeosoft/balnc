@@ -6,8 +6,7 @@
     .module('app._common')
     .filter('fileicon', fileicon)
 
-  fileicon.$inject = []
-
+  /* @ngInject */
   function fileicon() {
     var _icons = {
       "application/pdf": "fa-file-pdf-o",

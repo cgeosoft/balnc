@@ -6,8 +6,7 @@
     .module('app._common')
     .filter('bytes', bytes)
 
-  bytes.$inject = []
-
+  /* @ngInject */
   function bytes() {
     return function(bytes, precision) {
       if (isNaN(parseFloat(bytes)) || !isFinite(bytes)) return '-';

@@ -1,0 +1,183 @@
+<ol class="breadcrumb">
+  <li><a ui-sref="app.dashboard">Home</a></li>
+  <li><a ui-sref="app.contacts.overview">Contacts</a></li>
+  <li class="active">{{vm.Company.name}}</li>
+</ol>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="thumbnail">
+      <img ng-src="{{vm.Company.logo}}" />
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <dl>
+          <dt>Phones</dt>
+          <dd>{{vm.Company.phones|join}}</dd>
+          <dt>Emails</dt>
+          <dd>{{vm.Company.emails|join}}</dd>
+          <dt>Address</dt>
+          <dd>{{vm.Company.location.street}}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <uib-tabset>
+      <uib-tab heading="Actions & Events">
+        <div class="btn-toolbar">
+          <button class="btn btn-primary btn-xs" ng-click="vm.AddCall()">
+            <span class="fa fa-phone fa-fw"></span> New Call
+          </button>
+          <button class="btn btn-primary btn-xs" ng-click="vm.AddMeeting()">
+            <span class="fa fa-calendar fa-fw"></span> New Meeting
+          </button>
+        </div>
+
+        <ul class="timeline">
+          <li>
+            <div class="timeline-badge">
+              <i class="fa fa-check"></i>
+            </div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds
+                  <small class="text-muted"><i class="fa fa-time"></i> 11 hours ago via Twitter</small>
+                </h4>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima voluptatum perferendis iusto quidem tempora maiores quod dolorem, aut iure consequatur praesentium architecto illo, sapiente corporis, ipsam enim nulla voluptatibus reiciendis!
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge warning"><i class="fa fa-credit-card"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis
+                  leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                <p>Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Interagi no mé, cursus quis, vehicula ac nisi. Aenean vel dui dui. Nullam leo erat, aliquet quis tempus a, posuere ut mi. Ut scelerisque neque et turpis posuere
+                  pulvinar pellentesque nibh ullamcorper. Pharetra in mattis molestie, volutpat elementum justo. Aenean ut ante turpis. Pellentesque laoreet mé vel lectus scelerisque interdum cursus velit auctor. Lorem ipsum dolor sit amet, consectetur
+                  adipiscing elit. Etiam ac mauris lectus, non scelerisque augue. Aenean justo massa.</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge danger"><i class="fa fa-credit-card"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis
+                  leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis
+                  leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge info"><i class="fa fa-floppy-disk"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis
+                  leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                <hr>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-cog"></i>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis
+                  leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-badge success"><i class="fa fa-thumbs-up"></i></div>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+              </div>
+              <div class="timeline-body">
+                <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis
+                  leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+      </uib-tab>
+      <uib-tab heading="Persons">
+
+        <div class="btn-toolbar">
+          <button class="btn btn-primary btn-xs" ng-click="vm.AddPerson()">
+            <span class="fa fa-user-plus fa-fw"></span> New Person
+          </button>
+        </div>
+
+        <div class="media" ng-repeat="Person in vm.Company.persons">
+          <div class="media-left">
+            <a href ng-click="vm.EditPerson(Person)">
+              <img class="media-object img-circle" ng-src="{{Person.avatar}}" style="max-height:40px" />
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">{{Person.fullname}}
+              <small>{{Person.job}}</small>
+            </h4>
+            <ul class="list-inline">
+              <li><a href="tel:{{Person.phones[0]}}">{{Person.phones[0]}}</a></li>
+              <li><a href="mailto:{{Person.emails[0]}}">{{Person.emails[0]}}</a></li>
+            </ul>
+          </div>
+        </div>
+      </uib-tab>
+      <uib-tab heading="Debits & Credits">
+        Debits & Credits
+      </uib-tab>
+      <uib-tab heading="Invoices">
+        Invoices
+      </uib-tab>
+      <uib-tab heading="Manage">
+        <div class="list-group">
+          <a href ng-click="vm.EditCompany()" class="list-group-item">
+            <span class="fa fa-pencil"></span> Edit company details
+          </a>
+          <a href ng-click="vm.EditLogo()" class="list-group-item">
+            <span class="fa fa-picture"></span> Add or change logo
+          </a>
+        </div>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+</div>

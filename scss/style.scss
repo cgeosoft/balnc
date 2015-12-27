@@ -6,6 +6,7 @@ $color-primary: #333;
 @import "components/loading";
 @import "components/print";
 @import "components/empty";
+@import "components/_timeline";
 body {
   padding-bottom: 20px;
   background: #FAFAFA;
@@ -122,4 +123,12 @@ input:focus,
   .form-control {
     height: 30px;
   }
+}
+.tab-content{
+  background: #FFF;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-width: 0 1px 1px;
+  min-height: 250px;
+  border-radius: 0 0 5px 5px;
 }

@@ -1,21 +1,8 @@
-<div class="btn-toolbar">
-  <button class="btn btn-primary btn-sm" ng-click="vm.AddContact()">
-    <span class="fa fa-plus fa-fw"></span> Contact
-  </button>
-
-  <button class="btn btn-primary btn-sm" ng-click="vm.AddEvent()">
-    <span class="fa fa-plus fa-fw"></span> Event
-  </button>
-
-  <button class="btn btn-default btn-sm" ng-click="vm.ExportContacts()">
-    <span class="fa fa-download fa-fw"></span> Export
-  </button>
-
-  <div class="form-group form-group-search pull-right">
-    <input class="form-control" placeholder="Search">
-  </div>
-
-</div>
+<ol class="breadcrumb">
+  <li><a ui-sref="app.dashboard">Home</a></li>
+  <li><a ui-sref="app.contacts.overview">Contacts</a></li>
+  <li class="active">Overview</li>
+</ol>
 
 <div class="row">
   <div class="col-sm-7" ng-class="{loading:vm.loading}">

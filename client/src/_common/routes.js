@@ -16,29 +16,39 @@
       state: 'app',
       config: {
         abstract: true,
-        templateUrl: 'src/_common/views/layout.html',
         resolve: {
           isAuthenticated: function($state, User, $timeout) {
-            $timeout(
-              function() {
-                if (!User.isAuthenticated()) {
-                  $state.go("auth.login");
-                  return false;
-                }
-              });
-
+            $timeout(function() {
+              if (!User.isAuthenticated()) {
+                $state.go("auth.login");
+                return false;
+              }
+            });
           }
         },
-        controller: function(User) {
-          var vm = this;
+        views: {
+          "": {
+            templateUrl: 'src/_common/views/layout.html',
+            controller: function(User) {
+              var vm = this;
 
-          User
-            .getCurrent()
-            .$promise
-            .then(function(_user) {
-              vm.username = _user.username;
-            });
+              User
+                .getCurrent()
+                .$promise
+                .then(function(_user) {
+                  vm.username = _user.username;
+                });
 
+            },
+          },
+          "menu-contacts@app": {
+            templateUrl: 'src/contacts/topmenu/view.html',
+            controller: "ContactsTopMenuController",
+          },
+          // "menu-contacts@app": {
+          //   templateUrl: 'src/contacts/topmenu/view.html',
+          //   controller: "ContactsTopMenuController",
+          // },
         }
       }
     }];
