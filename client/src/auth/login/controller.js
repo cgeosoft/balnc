@@ -30,7 +30,7 @@
         .login(angular.copy(vm.credentials))
         .$promise
         .then(function(response) {
-          $state.go("app.lotteries.overview");
+          $state.go("app.dashboard");
         }, function(rejection) {
           SignMessage(rejection.data.error.code.toUpperCase());
         })

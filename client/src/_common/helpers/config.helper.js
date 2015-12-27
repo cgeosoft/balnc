@@ -6,8 +6,7 @@
     .module('app._common')
     .provider('configHelper', configHelperProvider);
 
-  configHelperProvider.$inject = [];
-
+  /* @ngInject */
   function configHelperProvider() {
     /* jshint validthis:true */
     this.$get = ConfigHelper;

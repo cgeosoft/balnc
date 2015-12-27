@@ -1,10 +1,10 @@
 {
   "name": "balance",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "Christos' CRM tool that you need too",
   "main": "server/server.js",
   "license": "MIT",
-  "repository": "https://github.com/ChristosGeorgiou/tools.git",
+  "repository": "https://github.com/ChristosGeorgiou/balance.git",
   "author": {
     "name": "Christos Georgiou",
     "email": "xris.georgiou@gmail.com",
@@ -13,20 +13,20 @@
   "scripts": {
     "start": "npm-run-all -p serve gulp",
     "serve": "nodemon --watch public --watch server",
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "lb-ng": "lb-ng ./server/server.js ./client/assets/scripts/lb-services.js"
   },
   "dependencies": {
     "compression": "^1.6.0",
     "connect-modrewrite": "^0.8.2",
     "cors": "^2.7.1",
     "helmet": "^1.0.1",
-    "loopback": "^3.0.0-alpha.1",
+    "loopback": "^2.26.2",
     "loopback-boot": "^2.16.0",
     "loopback-connector-mysql": "^2.2.0",
-    "loopback-connector-sqlite": "^1.1.0",
-    "loopback-datasource-juggler": "^2.44.0",
-    "loopback-ds-timestamp-mixin": "^3.2.2",
-    "serve-favicon": "^2.3.0"
+    "loopback-datasource-juggler": "^2.26.2",
+    "serve-favicon": "^2.3.0",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "loopback-component-explorer": "^2.1.1",
@@ -41,7 +41,7 @@
     "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.7",
     "minimatch": "^3.0.0",
-    "ng-annotate": "^1.1.1",
+    "ng-annotate": "^1.2.0",
     "node-sass": "^3.4.2",
     "uglify-js": "^2.6.1"
   }

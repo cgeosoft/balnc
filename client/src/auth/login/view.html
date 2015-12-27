@@ -2,8 +2,8 @@
   <div class="panel panel-primary panel-lg">
     <div class="panel-heading">
       <h3 class="panel-title">
-        <i class="fa fa-tags fa-fw"></i> {{APP.name}}
-        <small>v{{APP.version}}</small>
+        {{APP.config.client.name}}
+        <small>{{APP.name}} v{{APP.version}}</small>
       </h3>
     </div>
     <form class="panel-body" ng-class="{loading: vm.loading}" ng-submit="vm.SignIn()" role="form">
@@ -19,15 +19,14 @@
         <label class="control-label">Password</label>
         <input class="form-control input-lg" ng-model="vm.credentials.password" required type="password" />
       </div>
-      <button class="btn btn-primary btn-lg btn-outline btn-block" type="submit">
+      <button class="btn btn-primary btn-outline btn-block" type="submit">
         Sign In</button>
     </form>
   </div>
   <div class="text-center text-muted">
     <ul class="list-inline">
-      <li>{{2016}} {{APP.name}} v{{APP.version}}</li>
+      <li>2016 {{APP.name}} v{{APP.version}}</li>
       <li>By <a href="{{APP.author.url}}">{{APP.author.name}}</a></li>
-      <li>Repo: <a href="{{APP.repository}}">GitHub</a></li>
     </ul>
   </div>
 

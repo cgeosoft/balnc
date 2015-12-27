@@ -1,6 +1,7 @@
 $color-primary: #333;
 @import "components/navbar";
-@import "components/buttons";
+
+// @import "components/buttons";
 @import "components/panel";
 @import "components/loading";
 @import "components/print";
@@ -41,14 +42,8 @@ input:focus,
 .container {
   min-width: 320px;
 }
-@media (min-width: 768px) {
-  .container {
-    max-width: 750px;
-  }
-}
 .btn {
 
-  // border-radius: 0;
 }
 .btn-toolbar,
 .breadcrumb {
@@ -88,5 +83,43 @@ input:focus,
   @media (min-width: 500px) {
     margin: 30px auto;
     width: 450px;
+  }
+}
+.img-logo {
+  &.img-logo-sm {
+    width: 50px;
+    height: 50px;
+  }
+}
+.media-company {
+  margin: -10px 15px -10px -15px !important;
+  .media-object {
+    width: 64px;
+    box-shadow: 0 0 15px #999;
+  }
+  .media-body {
+    padding: 10px 0;
+  }
+  .list-inline {
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+.media-person {
+  .media-object {
+    width: 45px;
+  }
+  .list-inline {
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+.form-group-search {
+  max-width: 150px;
+  margin: 0;
+  .form-control {
+    height: 30px;
   }
 }

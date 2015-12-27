@@ -1,0 +1,60 @@
+<div class="list-group" ng-if="vm.companies.length">
+  <div class="list-group-item" ng-repeat="item in vm.last_accessed">
+    <div class="media media-company" ng-click="show[company.id] = !show[company.id]">
+      <div class="media-left">
+        <img class="media-object" ng-src="{{::company.logo}}">
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{::company.name}}</h4>
+        <ul class="list-inline">
+          <li><a href="tel:{{::company.phones[0]}}">{{::company.phones[0]}}</a></li>
+          <li><a href="mailto:{{::company.emails[0]}}">{{::company.emails[0]}}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row" ng-if="show[company.id]">
+      <hr/>
+      <div class="col-sm-4">
+        <dl class="well">
+          <dt>Phones</dt>
+          <dd ng-repeat="phone in company.phones">{{::phone}}</dd>
+          <dt>Emails</dt>
+          <dd ng-repeat="email in company.emails">{{::email}}</dd>
+          <dt>Address</dt>
+          <dd>{{::company.location.street}}</dd>
+          <dt>Tax Name</dt>
+          <dd>{{::company.tax.name}}</dd>
+          <dt>Tax Number</dt>
+          <dd class="mono">{{::company.tax.number}}</dd>
+          <dt>Tax Office</dt>
+          <dd class="mono">{{::company.tax.office}}</dd>
+        </dl>
+      </div>
+      <div class="col-sm-8">
+        <div class="panel panel-default">
+          <div class="panel-heading">Persons</div>
+          <div class="list-group">
+            <div class="list-group-item" ng-repeat="person in company.persons">
+              <div class="media media-person">
+                <div class="media-left">
+                  <img class="media-object img-circle" ng-src="{{::person.avatar}}">
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">{{::person.fullname}}
+                    <small>{{::person.job}}</small>
+                  </h4>
+                  <ul class="list-inline">
+                    <li><a href="tel:{{::person.phones[0]}}">{{::person.phones[0]}}</a></li>
+                    <li><a href="mailto:{{::person.emails[0]}}">{{::person.emails[0]}}</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

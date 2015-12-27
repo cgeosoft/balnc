@@ -3,18 +3,19 @@ $bg-highlight: darken($color-primary,5%);
 $col-default: #eee;
 $col-highlight: #fff;
 .navbar {
-  background-color: $bg-default;
-  border-color: $bg-highlight;
-  margin: 0 -15px 15px;
+
+  // background-color: $bg-default;
+  // border-color: $bg-highlight;
+  margin: 0 -16px 16px;
+  border-radius: 0;
   @media (min-width: 768px) {
     margin: 0 0 15px;
+    border-radius: 5px;
   }
   .navbar-brand {
     border-right: solid 1px darken($color-primary,5%);
     color: $col-default;
-    line-height: 0.9em;
-    min-width: 180px;
-    padding-bottom: 5px;
+    line-height: 16px;
     padding-top: 12px;
     &:hover,
     &:focus {
@@ -23,13 +24,7 @@ $col-highlight: #fff;
     small {
       display: block;
       font-size: 10px;
-      color: lighten($color-primary,35%);
-    }
-    i {
-      float: left;
-      margin: -4px 2px 0 -8px;
-      font-size: 1.8em;
-      color: #FAFAFA;
+      color: #AAA;
     }
   }
   .navbar-text {

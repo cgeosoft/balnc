@@ -2,5 +2,5 @@
   'use strict';
 
   angular
-    .module('app._common', []);
+    .module('app.dashboard', []);
 })();

@@ -1,0 +1,31 @@
+{
+  "name": "balance",
+  "description": "Christos' CRM tool that you need too",
+  "main": "server/server.js",
+  "authors": "Christos Georgiou <xris.georgiou@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/ChristosGeorgiou/balance",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "font-awesome": "~4.5.0",
+    "underscore": "~1.8.3",
+    "moment": "~2.10.6",
+    "angular": "~1.4.8",
+    "angular-ui": "~0.4.0",
+    "angular-ui-router": "~0.2.15",
+    "angular-sanitize": "~1.4.8",
+    "angular-resource": "~1.4.8",
+    "angular-bootstrap": "~0.14.3",
+    "angular-cookies": "~1.4.8",
+    "ui-navbar": "~0.4.2"
+  }
+}

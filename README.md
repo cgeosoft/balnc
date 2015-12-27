@@ -1,9 +1,30 @@
 # Balance
+Christos' CRM tool that you need too!
 
-Christos' CRM tool that you need too
+# What is it?
+Balance is an online business suite for managing simple operations of small companies. It includes sales,
+marketing and accounting tools and it is both open source and free under the MIT license.
+
+It is build with cutting edge technologies and with KISS principle in mind.
+
+# Features (or all-the-things-I-want)
+- Contact Management
+  - Persons & Companies
+  - Actions & Events Management
+  - Information Vault
+- Project Management
+  - Tasks / Milestones Management
+  - Ticketing Support
+- Lead Management
+  - Sales Pipeline
+  - Proposal Generator
+  - Scoring
+- Accounting
+  - Invoicing
+  - Expenses / Income Tracking
+  - Payroll
 
 # License
-
 The MIT License (MIT)
 
 Copyright (c) 2015 Christos Georgiou

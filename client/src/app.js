@@ -3,12 +3,21 @@
 
   angular.module('app', [
 
-    'app.auth',
-    'app.lotteries',
-    'app.plists',
-    'app.settings',
-    'app._common',
+    'ngResource',
+    'ngSanitize',
+    'ngCookies',
+    'ui.bootstrap',
+    'ui.router',
+    'ui.navbar',
 
+    'lbServices',
+
+    'app.auth',
+    'app.dashboard',
+    'app.contacts',
+    // 'app.plists',
+    // 'app.settings',
+    'app._common',
   ]);
 
 }());

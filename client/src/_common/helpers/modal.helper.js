@@ -6,7 +6,6 @@
     .module('app._common')
     .provider('modalHelper', modalHelperProvider);
 
-  modalHelperProvider.$inject = [];
   /* @ngInject */
   function modalHelperProvider() {
     /* jshint validthis:true */

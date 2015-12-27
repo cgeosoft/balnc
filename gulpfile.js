@@ -1,4 +1,5 @@
 var fs = require('fs');
+var config = require('./config.json');
 var pkg = require('./package.json');
 var angularFilesort = require('gulp-angular-filesort');
 var concat = require('gulp-concat');
@@ -66,6 +67,7 @@ gulp.task('config', function() {
       version: pkg.version,
       repository: pkg.repository,
       author: pkg.author,
+      config: config
     }) + "; })()"
   );
 

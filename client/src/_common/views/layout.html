@@ -1,6 +1,6 @@
 <header class="container">
 
-  <nav class="navbar navbar-default" role="navigation">
+  <nav class="navbar navbar-inverse" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
         <span class="sr-only">Toggle navigation</span>
@@ -10,32 +10,46 @@
       </button>
 
       <a ui-sref="app.home" class="navbar-brand">
-        <i class="fa fa-wrench fa-fw"></i> Christos' Tools
-        <small>{{tool.title || title ||'Home'}}</small>
+        {{APP.config.client.name}}
+        <small>{{APP.name}} v{{APP.version}}</small>
       </a>
     </div>
 
     <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
 
       <ul class="nav navbar-nav">
-        <li uib-dropdown>
-          <a href uib-dropdown-toggle>
-              Tools
-              <span class="caret"></span>
-            </a>
-          <ul class="uib-dropdown-menu">
-            <li ng-repeat="tool in vm.tools">
-              <a ui-sref="{{tool.state}}">
-                {{tool.title}}
-              </a>
-            </li>
-          </ul>
-        </li>
 
         <li ui-sref-active="active">
-          <a ui-sref="app.about">About</a>
+          <a ui-sref="app.dashboard">Dashboard</a>
         </li>
+        <li ui-sref-active="active">
+          <a ui-sref="app.contacts.overview">Contacts</a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="app.projects.overview">Projects</a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="app.leads.overview">Leads</a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="app.accounting.overview">Accounting</a>
+        </li>
+
       </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li uib-dropdown>
+          <a href uib-dropdown-toggle>
+              {{vm.username}}
+              <span class='caret'></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Settings</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a ui-sref="auth.logout">Sign Out</a></li>
+          </ul>
+        </li>
     </div>
   </nav>
 
@@ -45,9 +59,8 @@
 
 <footer class="container text-center">
   <ul class="list-inline">
-    <li>2016 Christos' Tools v{{APP.version}}</li>
+    <li>2016 Balance v{{APP.version}}</li>
     <li>By <a href="{{APP.author.url}}">{{APP.author.name}}</a></li>
-    <li><a ui-sref="app.tos">TOS</a></li>
     <li><a href="{{APP.repository}}">GitHub</a></li>
   </ul>
 </footer>

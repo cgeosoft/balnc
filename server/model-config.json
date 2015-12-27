@@ -33,7 +33,35 @@
     "dataSource": "db",
     "public": false
   },
-  "company": {
+  "Company": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Event": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Person": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Project": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Task": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Ticket": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Lead": {
+    "dataSource": "db",
+    "public": true
+  },
+  "LeadState": {
     "dataSource": "db",
     "public": true
   }

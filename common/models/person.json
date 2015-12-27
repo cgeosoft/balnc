@@ -1,19 +1,19 @@
 {
-  "name": "Company",
+  "name": "Person",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "name": {
+    "fullname": {
       "type": "string",
       "required": true
     },
-    "logo": {
+    "job": {
       "type": "string"
     },
-    "website": {
+    "avatar": {
       "type": "string"
     },
     "emails": {
@@ -21,19 +21,13 @@
     },
     "phones": {
       "type": "array"
-    },
-    "location": {
-      "type": "object"
-    },
-    "tax": {
-      "type": "object"
     }
   },
   "validations": [],
   "relations": {
-    "persons": {
-      "type": "hasMany",
-      "model": "Person",
+    "company": {
+      "type": "belongsTo",
+      "model": "Company",
       "foreignKey": ""
     }
   },
