@@ -1,5 +1,6 @@
 {
   "client": {
     "name": "Demo Company"
-  }
+  },
+  "database":"balance"
 }
