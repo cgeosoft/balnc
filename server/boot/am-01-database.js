@@ -8,7 +8,7 @@ module.exports = function(app, next) {
   var _models = [];
 
   Object.keys(models).forEach(function(key) {
-    if (typeof models[key].dataSource != 'undefined') {
+    if (typeof models[key].dataSource != 'undefined' && models[key].dataSource == "db") {
       if (typeof datasources[models[key].dataSource] != 'undefined') {
         _models.push(key);
       }
@@ -22,5 +22,5 @@ module.exports = function(app, next) {
       next();
     });
   })
-  
+
 };

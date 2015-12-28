@@ -2,10 +2,10 @@
   "name": "Company",
   "base": "PersistedModel",
   "idInjection": true,
-  "updateOnLoad": true,
   "options": {
     "validateUpsert": true
   },
+  "updateOnLoad": true,
   "properties": {
     "name": {
       "type": "string",
