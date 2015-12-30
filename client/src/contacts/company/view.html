@@ -58,6 +58,7 @@
 
     <uib-tabset>
 
+      <!-- Events -->
       <uib-tab>
         <uib-tab-heading>
           <span class="fa fa-bell-o"></span>
@@ -95,6 +96,7 @@
 
       </uib-tab>
 
+      <!-- Persons -->
       <uib-tab>
 
         <uib-tab-heading>
@@ -136,6 +138,7 @@
 
       </uib-tab>
 
+      <!-- Credits -->
       <uib-tab>
 
         <uib-tab-heading>
@@ -153,7 +156,22 @@
           <button class="btn btn-default" ng-click="vm.Print()">
             <span class="fa fa-print fa-fw"></span> Print
           </button>
+          <div class="pull-right" uib-dropdown>
+            <button class="btn btn-default" uib-dropdown-toggle>
+              Parameters
+              <span class="caret"></span>
+            </button>
+            <ul class="uib-dropdown-menu" aria-labelledby="simple-dropdown">
+              <li><a href ng-click="vm.ReloadChart('DD/MM/YYYY')">Daily</a></li>
+              <li><a href ng-click="vm.ReloadChart('[W]ww MM/YYYY')">Weekly</a></li>
+              <li><a href ng-click="vm.ReloadChart('MM/YYYY')">Monthly</a></li>
+            </ul>
+          </div>
         </div>
+
+        <canvas class="chart chart-line" chart-labels="vm.transactions_chart.labels" chart-data="vm.transactions_chart.data"></canvas>
+
+        <hr/>
 
         <table class="table table-condensed">
           <thead>
@@ -169,11 +187,11 @@
           <tbody>
             <tr ng-repeat="Transaction in vm.Company.transactions">
               <td>
-                <button class="btn btn-link">
+                <button class="btn btn-link btn-xs">
                   <span class="fa fa-pencil"></span>
                 </button>
               </td>
-              <td>{{Transaction.date | date:"longDate"}}</td>
+              <td>{{Transaction.date | date:"dd-MM-yyyy"}}</td>
               <td>{{Transaction.description}}</td>
               <td>
                 <a ng-if="Transaction.file" href="{{Transaction.file}}">
@@ -199,6 +217,7 @@
 
       </uib-tab>
 
+      <!-- Files -->
       <uib-tab>
 
         <uib-tab-heading>
@@ -206,8 +225,10 @@
           <span class="hidden-sm hidden-xs hidden-md">Files</span>
         </uib-tab-heading>
         Files
+
       </uib-tab>
 
+      <!-- Map -->
       <uib-tab>
 
         <uib-tab-heading>

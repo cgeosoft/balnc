@@ -9,11 +9,15 @@
   function ContactsCompanyController($stateParams, Company) {
     var vm = this;
 
+    vm.ReloadChart = ReloadChart;
+
     activate();
 
     function activate() {
       _loadCompany();
     }
+
+    function ReloadChart(format) {}
 
     function _loadCompany() {
       Company.findById({
@@ -39,15 +43,38 @@
         })
         .$promise
         .then(function(data) {
-          var _total=0;
-          _.each(data.transactions, function(transaction, index, list) {
+          var _total = 0;
+          _.each(data.transactions, function(transaction) {
             _total += transaction.amount;
-            console.log(_total);
             transaction.total = _total;
           });
-          // console.log(data.transactions);
           vm.Company = data;
+          vm.ReloadChart();
         });
+    }
+
+    function ReloadChart(groupby) {
+
+      vm.transactions_chart = {
+        labels: [],
+        data: [
+          []
+        ],
+      };
+
+      var grouped_transactions = _.groupBy(vm.Company.transactions, function(transaction) {
+        return moment(transaction.date).format(groupby || '[W]ww MM/YYYY');
+      });
+
+      _.each(grouped_transactions, function(transactions, keydate) {
+
+        var _date_total = _.reduce(transactions, function(total, transaction) {
+          return Math.round(transaction.amount + total);
+        }, 0);
+        vm.transactions_chart.labels.push(keydate);
+        vm.transactions_chart.data[0].push(_date_total);
+      });
+
     }
 
   }

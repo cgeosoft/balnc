@@ -9,6 +9,7 @@
     'ui.bootstrap',
     'ui.router',
     'ui.navbar',
+    'chart.js',
 
     'lbServices',
 

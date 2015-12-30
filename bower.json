@@ -26,6 +26,7 @@
     "angular-resource": "~1.4.8",
     "angular-bootstrap": "~0.14.3",
     "angular-cookies": "~1.4.8",
-    "ui-navbar": "~0.4.2"
+    "ui-navbar": "~0.4.2",
+    "angular-chart.js": "~0.8.8"
   }
 }

@@ -182,6 +182,7 @@ gulp.task('db:mock', function(cb) {
             if (err) throw (err);
             if (i == _models.length - 1) {
               cb();
+              process.exit(0);
             }
           });
         });
