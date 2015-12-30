@@ -1,4 +1,5 @@
-$color-primary: #333;
+$color-primary: #337ab7;
+$color-navbar: #263238;
 @import "components/navbar";
 
 // @import "components/buttons";
@@ -6,7 +7,8 @@ $color-primary: #333;
 @import "components/loading";
 @import "components/print";
 @import "components/empty";
-@import "components/_timeline";
+@import "components/timeline";
+@import "components/login";
 body {
   padding-bottom: 20px;
   background: #FAFAFA;
@@ -33,18 +35,15 @@ a {
 
   // color: $color-primary;
 }
-textarea:focus,
-input:focus,
-.form-control:focus {
-  border-color: opacify(lighten($color-primary,20%), 0.8);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px opacify(lighten($color-primary,20%), 0.6);
-  outline: 0 none;
-}
+// textarea:focus,
+// input:focus,
+// .form-control:focus {
+//   border-color: opacify(lighten($color-primary,20%), 0.8);
+//   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px opacify(lighten($color-primary,20%), 0.6);
+//   outline: 0 none;
+// }
 .container {
   min-width: 320px;
-}
-.btn {
-
 }
 .btn-toolbar,
 .breadcrumb {
@@ -64,22 +63,10 @@ input:focus,
 .modal-footer {
   padding: 7px 15px;
 }
-.control-label {
-  font-size: 1.2em;
-  font-weight: 400;
-}
-.container-login {
-  width: 100%;
-  padding: 5px;
-  @media (min-width: 300px) {
-    padding-top: 25px;
-    width: 300px;
-  }
-  .panel {
-    border: solid 1px #FFF;
-    box-shadow: 0 0 15px #CCC;
-  }
-}
+// .control-label {
+//   font-size: 1.2em;
+//   font-weight: 400;
+// }
 .modal-md {
   @media (min-width: 500px) {
     margin: 30px auto;

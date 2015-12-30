@@ -4,10 +4,10 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var path = require('path');
 var pkg = require('./package.json');
+var config = require('./config.json');
 
 var angularFilesort = require('gulp-angular-filesort');
 var concat = require('gulp-concat');
-var config = require('./config.json');
 var connectModrewrite = require('connect-modrewrite');
 var minify = require('gulp-clean-css');
 var minimatch = require('minimatch');
@@ -16,6 +16,12 @@ var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
+
+// gulp.on('stop', function() {
+//   process.nextTick(function() {
+//     process.exit(0);
+//   });
+// });
 
 gulp.task('default', ['watch']);
 
@@ -76,9 +82,50 @@ gulp.task('config', function() {
 
 });
 
-gulp.task('db:migrate', function() {
+gulp.task('db:migrate', ['db:migrate-schema'], function(cb) {
 
-  var deferred = require('q').defer();
+  var app = require('./server/server.js');
+  var _roles = _.map(config.roles, function(item) {
+    return {
+      name: item
+    };
+  });
+
+  var _users = _.map(config.users, function(item) {
+    var _u = _.clone(item);
+    _u.created = new Date();
+    delete _u.role;
+    return _u;
+  });
+
+  app.models.Role.create(_roles, function(err, roles) {
+    if (err) throw err;
+    gutil.log('Default roles created', gutil.colors.magenta(config.roles.join(", ")));
+
+    config.users.forEach(function(_user, i) {
+      app.models.User.create(_user, function(err, user) {
+        if (err) throw err;
+        app.models.Role.findOne({
+          where: {
+            name: user.role,
+          }
+        }, function(err, role) {
+          if (err) throw err;
+          gutil.log('Created user', gutil.colors.magenta(user.username), "and assigned to", gutil.colors.magenta(role.name), "role");
+
+          if (i == config.users.length - 1) {
+            cb();
+          }
+        });
+      });
+    });
+
+  });
+
+});
+
+gulp.task('db:migrate-schema', function(cb) {
+
   var app = require('./server/server.js');
 
   var models = require(path.resolve(__dirname, './server/model-config.json'));
@@ -99,74 +146,49 @@ gulp.task('db:migrate', function() {
     gutil.log("Connected:", gutil.colors.magenta(ds.name), ds.settings.host, ":", ds.settings.port, "/", ds.settings.database);
     ds.automigrate(_models, function(err) {
       if (err) throw err;
-      ds.disconnect(function() {
-        gutil.log('Migrated', gutil.colors.magenta(_models.join(", ")));
-        deferred.resolve();
-      });
+      cb();
     });
   });
 
-  return deferred.promise;
-
 });
 
-gulp.task('db:mock', ['db:migrate'], function() {
+gulp.task('db:mock', function(cb) {
 
-  var q = require('q');
-  var deferred = q.defer();
   var glob = require('glob');
   var app = require('./server/server.js');
   var ds = app.dataSources.db;
 
-  function insert(model, next) {
-    gutil.log("Processing:", gutil.colors.magenta(model.name));
-    app.models[model.name].create(model.data, function(err, data) {
-      if (err) throw (err);
-      gutil.log("Inserted ", gutil.colors.magenta(data.length), "of", model.name);
-      next();
-    });
-  }
+  ds.once('connected', function() {
+    gutil.log("Connected:", gutil.colors.magenta(ds.name), ds.settings.host, ":", ds.settings.port, "/", ds.settings.database);
 
-  ds.connect();
+    glob("./mock/*.json", {}, function(err, files) {
+      if (err) _reject(err);
 
-  q.Promise(function(_resolve, _reject, notify) {
-      var _models = [];
-      glob("./mock/*.json", {}, function(err, files) {
-        if (err) _reject(err);
-        files.forEach(function(file) {
-          var name = path.basename(file, '.json');
-          _models.push({
-            name: name.charAt(0).toUpperCase() + name.slice(1),
-            data: require(file),
+      var _models = []
+      files.forEach(function(file) {
+        var name = path.basename(file, '.json');
+        _models.push({
+          name: name.charAt(0).toUpperCase() + name.slice(1),
+          data: require(file),
+        });
+      });
+
+      gutil.log("Found", gutil.colors.magenta(_models.length), "models");
+
+      _models.forEach(function(_model, i) {
+        gutil.log("Inserting", gutil.colors.magenta(_model.data.length), "items of", gutil.colors.magenta(_model.name));
+        _model.data.forEach(function(_data, j) {
+          app.models[_model.name].upsert(_data, function(err, data) {
+            if (err) throw (err);
+            if (i == _models.length - 1) {
+              cb();
+            }
           });
         });
-        gutil.log("Found", _models.length, "models");
-        return _resolve(_models);
       });
-    })
-    .then(function(models) {
-      var deferred2 = q.defer();
-      ds.once('connected', function() {
-        gutil.log("Connected:", gutil.colors.magenta(ds.name), ds.settings.host, ":", ds.settings.port, "/", ds.settings.database);
 
-        gutil.log("models", models.length);
-        // var index = _models.length;
-        // do {
-        //
-        //   var i = _models.length - index;
-        //   gutil.log("prog", index, _models);
-        //   insert(_models[i]);
-        //
-        // } while (index-- > 0);
-        return deferred2.resolve();
-      });
-      return deferred.promise;
-    }, function(reject) {
-      throw reject;
-      deferred.resolve();
     });
 
-  return deferred.promise;
-  // return deferred.promise;
+  });
 
 });

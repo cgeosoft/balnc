@@ -1,0 +1,31 @@
+.container-login {
+  width: 100%;
+  padding: 5px;
+  @media (min-width: 300px) {
+    padding-top: 25px;
+    width: 300px;
+  }
+  .panel {
+    border: solid 1px #FFF;
+    box-shadow: 0 0 15px #CCC;
+    .panel-heading {
+      font-size: 1.5em;
+      color: #EEE !important;
+      min-width: 180px;
+      line-height: 0.9em;
+      padding: 15px 15px 10px;
+      background: $color-navbar;
+      border-right: solid 1px darken($color-navbar,5%);
+      small {
+        display: block;
+        font-size: 10px;
+        color: darken(#EEE,15%);
+      }
+      i {
+        float: left;
+        margin: -2px 2px 0 0;
+        font-size: 1.8em;
+      }
+    }
+  }
+}

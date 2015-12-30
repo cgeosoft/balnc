@@ -7,9 +7,7 @@
   <div class="col-sm-4">
     <div class="thumbnail">
       <img ng-src="{{vm.Company.logo}}" />
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-body">
+      <div class="caption">
         <h3>{{vm.Company.name}}</h3>
         <dl>
           <dt>Phones</dt>
@@ -19,7 +17,8 @@
           <dt>Address</dt>
           <dd>{{vm.Company.location.street}}, {{vm.Company.location.city}} {{vm.Company.location.state}}</dd>
         </dl>
-        <img class="thumbnail" src="//staticmap.openstreetmap.de/staticmap.php?center={{vm.Company.location.coordinates.lon}},{{vm.Company.location.coordinates.lat}}&zoom=14&size=320x250&maptype=mapnik&markers={{vm.Company.location.coordinates.lon}},{{vm.Company.location.coordinates.lat}},lightblue1" />
+        <img class="thumbnail" src="//staticmap.openstreetmap.de/staticmap.php?center={{vm.Company.location.coordinates.lon}},{{vm.Company.location.coordinates.lat}}&zoom=14&size=320x250&maptype=mapnik&markers={{vm.Company.location.coordinates.lon}},{{vm.Company.location.coordinates.lat}},lightblue1"
+        />
       </div>
     </div>
   </div>

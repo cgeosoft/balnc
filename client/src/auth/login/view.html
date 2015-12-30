@@ -11,23 +11,23 @@
         <strong>{{vm.Alert.Message}}</strong>
         <p ng-if="vm.Alert.Details">{{vm.Alert.Details}}</p>
       </div>
-      <div class="form-group">
-        <label class="control-label">Username</label>
-        <input autofocus class="form-control input-lg" ng-model="vm.credentials.username" required/>
+      <div class="form-group has-feedback">
+        <label class="control-label sr-only">Username</label>
+        <input autofocus class="form-control input-lg" ng-model="vm.credentials.username" required placeholder="Username" />
+        <span class="fa fa-fw fa-user form-control-feedback"></span>
       </div>
-      <div class="form-group">
-        <label class="control-label">Password</label>
-        <input class="form-control input-lg" ng-model="vm.credentials.password" required type="password" />
+      <div class="form-group has-feedback">
+        <label class="control-label sr-only">Password</label>
+        <input class="form-control input-lg" ng-model="vm.credentials.password" required type="password" placeholder="Password" />
+        <span class="fa fa-fw fa-lock form-control-feedback"></span>
       </div>
-      <button class="btn btn-primary btn-outline btn-block" type="submit">
+      <button class="btn btn-primary btn-lg btn-block" type="submit">
         Sign In</button>
     </form>
   </div>
   <div class="text-center text-muted">
-    <ul class="list-inline">
-      <li>2016 {{APP.name}} v{{APP.version}}</li>
-      <li>By <a href="{{APP.author.url}}">{{APP.author.name}}</a></li>
-    </ul>
+    2016 {{APP.name}} v{{APP.version}}
+    <br/> By <a href="{{APP.author.url}}">{{APP.author.name}}</a>
   </div>
 
 </section>

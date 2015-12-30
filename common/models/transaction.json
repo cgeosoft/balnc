@@ -15,7 +15,10 @@
     },
     "amount": {
       "type": "number",
-      "required": true
+      "required": true,
+      "dataType": "decimal",
+      "precision": 10,
+      "scale": 2
     },
     "file": {
       "type": "string"
