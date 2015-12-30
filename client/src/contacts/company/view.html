@@ -2,6 +2,40 @@
   <li><a ui-sref="app.dashboard">Home</a></li>
   <li><a ui-sref="app.contacts.overview">Contacts</a></li>
   <li class="active">{{vm.Company.name}}</li>
+  <li class="pull-right" uib-dropdown>
+    <a href uib-dropdown-toggle>
+        Options <span class="caret"></span>
+      </a>
+    <ul class="uib-dropdown-menu" aria-labelledby="simple-dropdown">
+      <li>
+        <a href="#">
+          <span class="fa fa-star"></span> Bookmarked</a>
+      </li>
+      <li class="divider"></li>
+      <li>
+        <a href ng-click="vm.EditCompany()">
+          Edit company details
+        </a>
+      </li>
+      <li>
+        <a href ng-click="vm.EditLogo()">
+          Add or change logo
+        </a>
+      </li>
+      <li>
+        <a href>
+          Merge with other company
+        </a>
+      </li>
+      <li class="divider"></li>
+      <li>
+        <a href>
+          <span class="text-danger">
+            Delete Company</span>
+        </a>
+      </li>
+    </ul>
+  </li>
 </ol>
 <div class="row">
   <div class="col-sm-4">
@@ -17,8 +51,6 @@
           <dt>Address</dt>
           <dd>{{vm.Company.location.street}}, {{vm.Company.location.city}} {{vm.Company.location.state}}</dd>
         </dl>
-        <img class="thumbnail" src="//staticmap.openstreetmap.de/staticmap.php?center={{vm.Company.location.coordinates.lon}},{{vm.Company.location.coordinates.lat}}&zoom=14&size=320x250&maptype=mapnik&markers={{vm.Company.location.coordinates.lon}},{{vm.Company.location.coordinates.lat}},lightblue1"
-        />
       </div>
     </div>
   </div>
@@ -26,12 +58,16 @@
 
     <uib-tabset>
 
-      <uib-tab heading="Actions & Events">
+      <uib-tab>
+        <uib-tab-heading>
+          <span class="fa fa-bell-o"></span>
+          <span class="hidden-sm hidden-xs hidden-md">Actions & Events</span>
+        </uib-tab-heading>
         <div class="btn-toolbar">
-          <button class="btn btn-primary btn-xs" ng-click="vm.AddCall()">
+          <button class="btn btn-primary" ng-click="vm.AddCall()">
             <span class="fa fa-phone fa-fw"></span> Call
           </button>
-          <button class="btn btn-primary btn-xs" ng-click="vm.AddMeeting()">
+          <button class="btn btn-primary" ng-click="vm.AddMeeting()">
             <span class="fa fa-calendar fa-fw"></span> Meeting
           </button>
         </div>
@@ -39,8 +75,8 @@
         <ul class="timeline">
           <li ng-repeat="Event in vm.Company.events">
             <div class="timeline-badge">
-              <i ng-if="Event.type=='PHONE'" class="fa fa-phone"></i>
-              <i ng-if="Event.type=='MEETING'" class="fa fa-calendar"></i>
+              <span ng-if="Event.type=='PHONE'" class="fa fa-phone"></span>
+              <span ng-if="Event.type=='MEETING'" class="fa fa-calendar"></span>
             </div>
             <div class="timeline-panel">
               <div class="timeline-heading">
@@ -59,44 +95,62 @@
 
       </uib-tab>
 
-      <uib-tab heading="Persons">
+      <uib-tab>
+
+        <uib-tab-heading>
+          <span class="fa fa-users"></span>
+          <span class="hidden-sm hidden-xs hidden-md">Persons</span>
+        </uib-tab-heading>
 
         <div class="btn-toolbar">
-          <button class="btn btn-primary btn-xs" ng-click="vm.AddPerson()">
+          <button class="btn btn-primary" ng-click="vm.AddPerson()">
             <span class="fa fa-user-plus fa-fw"></span> Person
           </button>
         </div>
 
-        <div class="media" ng-repeat="Person in vm.Company.persons">
-          <div class="media-left">
-            <a href ng-click="vm.EditPerson(Person)">
-              <img ng-if="Person.avatar" class="media-object img-circle img-thumbnail" ng-src="{{Person.avatar}}" style="height:40px;width:40px" />
-            </a>
-          </div>
-          <div class="media-body">
-            <h4 class="media-heading">
-              <a href ng-click="vm.EditPerson(Person)">{{Person.fullname}}</a>
-              <small>{{Person.job}}</small>
-            </h4>
-            <ul class="list-inline">
-              <li><a href="tel:{{Person.phones[0]}}">{{Person.phones[0]}}</a></li>
-              <li><a href="mailto:{{Person.emails[0]}}">{{Person.emails[0]}}</a></li>
-            </ul>
+        <div class="panel-empty" ng-if="!vm.Company.persons.length">
+          No persons were found
+        </div>
+
+        <div class="list-group list-group-open" ng-if="vm.Company.persons.length">
+          <div class="list-group-item" ng-repeat="Person in vm.Company.persons">
+            <div class="media">
+              <div class="media-left">
+                <a href ng-click="vm.EditPerson(Person)">
+                  <img ng-if="Person.avatar" class="media-object img-circle img-thumbnail" ng-src="{{Person.avatar}}" style="height:40px;width:40px" />
+                </a>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">
+                  <a href ng-click="vm.EditPerson(Person)">{{Person.fullname}}</a>
+                  <small>{{Person.job}}</small>
+                </h4>
+                <ul class="list-inline">
+                  <li ng-if="Person.phones.length"><a href="tel:{{Person.phones[0]}}">{{Person.phones[0]}}</a></li>
+                  <li ng-if="Person.emails.length"><a href="mailto:{{Person.emails[0]}}">{{Person.emails[0]}}</a></li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
       </uib-tab>
 
-      <uib-tab heading="Debits & Credits">
+      <uib-tab>
+
+        <uib-tab-heading>
+          <span class="fa fa-money"></span>
+          <span class="hidden-sm hidden-xs hidden-md">Debits & Credits</span>
+        </uib-tab-heading>
 
         <div class="btn-toolbar">
-          <button class="btn btn-primary btn-xs" ng-click="vm.AddCredit()">
+          <button class="btn btn-primary" ng-click="vm.AddCredit()">
             <span class="fa fa-plus-square fa-fw"></span> Credit
           </button>
-          <button class="btn btn-primary btn-xs" ng-click="vm.AddDebit()">
+          <button class="btn btn-primary" ng-click="vm.AddDebit()">
             <span class="fa fa-minus-square fa-fw"></span> Debit
           </button>
-          <button class="btn btn-default btn-xs" ng-click="vm.Print()">
+          <button class="btn btn-default" ng-click="vm.Print()">
             <span class="fa fa-print fa-fw"></span> Print
           </button>
         </div>
@@ -115,7 +169,7 @@
           <tbody>
             <tr ng-repeat="Transaction in vm.Company.transactions">
               <td>
-                <button class="btn btn-link btn-xs">
+                <button class="btn btn-link">
                   <span class="fa fa-pencil"></span>
                 </button>
               </td>
@@ -145,21 +199,27 @@
 
       </uib-tab>
 
-      <uib-tab heading="Files">
+      <uib-tab>
+
+        <uib-tab-heading>
+          <span class="fa fa-files-o"></span>
+          <span class="hidden-sm hidden-xs hidden-md">Files</span>
+        </uib-tab-heading>
         Files
       </uib-tab>
 
-      <uib-tab heading="Manage">
-        <div class="list-group">
-          <a href ng-click="vm.EditCompany()" class="list-group-item">
-            <span class="fa fa-pencil"></span> Edit company details
-          </a>
-          <a href ng-click="vm.EditLogo()" class="list-group-item">
-            <span class="fa fa-picture"></span> Add or change logo
-          </a>
-        </div>
+      <uib-tab>
+
+        <uib-tab-heading>
+          <span class="fa fa-map-o"></span>
+          <span class="hidden-sm hidden-xs hidden-md">Map</span>
+        </uib-tab-heading>
+
+        <img style="width:100%" src="//staticmap.openstreetmap.de/staticmap.php?center={{vm.Company.location.lon}},{{vm.Company.location.lat}}&zoom=14&size=500x500&maptype=mapnik&markers={{vm.Company.location.lon}},{{vm.Company.location.lat}},lightblue1" />
+
       </uib-tab>
 
     </uib-tabset>
+
   </div>
 </div>

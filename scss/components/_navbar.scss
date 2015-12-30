@@ -10,6 +10,20 @@ $col-highlight: #fff;
     margin: 0 0 15px;
     border-radius: 5px;
   }
+  @media (max-width: 767px) {
+    .navbar-nav {
+      .dropdown-header {
+        color: darken($col-default,20%);
+      }
+      a {
+        color: darken($col-default,10%);
+        border-top: solid 1px lighten($color-navbar,3%);
+      }
+      .divider {
+        display: none;
+      }
+    }
+  }
   .navbar-brand {
     border-right: solid 1px $bg-highlight;
     color: $col-default;

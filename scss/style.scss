@@ -18,14 +18,32 @@ body {
 }
 footer {
   margin-top: 15px;
-  p {
-    display: block;
-    text-align: center;
-    font-size: 0.7em;
-    border-top: solid 1px #EEE;
-    color: #666;
-    margin: 0;
-    padding-top: 7px;
+  border-top: solid 1px #EEE;
+  padding: 5px 0 0;
+  color: #999;
+  a {
+    color: #888;
+  }
+  .list-inline {
+    li {
+      padding: 0;
+      font-size: 0.9em;
+      color: #999;
+      font-style: italic;
+      &:after {
+        content: "";
+        display: inline-block;
+        border-right: solid 1px #DDD;
+        height: 10px;
+        margin: 0 10px;
+      }
+      &:last-child:after {
+        border: none;
+      }
+      a {
+        color: #999;
+      }
+    }
   }
 }
 section {
@@ -35,6 +53,7 @@ a {
 
   // color: $color-primary;
 }
+
 // textarea:focus,
 // input:focus,
 // .form-control:focus {
@@ -45,15 +64,30 @@ a {
 .container {
   min-width: 320px;
 }
-.btn-toolbar,
 .breadcrumb {
   margin: 0 0 15px;
   background: #F3F3F3;
   border: solid 1px #EEE;
   padding: 5px;
   border-radius: 5px;
-  .btn-group:first-child {
-    margin-left: 0;
+  .pull-right {
+    margin: 0 5px 0 0;
+    &:before {
+      display: none;
+    }
+  }
+}
+.btn-toolbar {
+  margin: 0 0 15px;
+  background: #F3F3F3;
+  border: solid 1px #EEE;
+  padding: 5px;
+  border-radius: 5px;
+  .btn {
+    padding: 2px 5px;
+    &:first-child {
+      margin: 0;
+    }
   }
 }
 .input-xs {
@@ -63,6 +97,7 @@ a {
 .modal-footer {
   padding: 7px 15px;
 }
+
 // .control-label {
 //   font-size: 1.2em;
 //   font-weight: 400;
@@ -85,6 +120,25 @@ a {
       margin: 0;
       overflow: hidden;
       white-space: nowrap;
+      li {
+        padding: 0;
+        font-size: 0.9em;
+        color: #999;
+        font-style: italic;
+        &:after {
+          content: "";
+          display: inline-block;
+          border-right: solid 1px #DDD;
+          height: 10px;
+          margin: 0 10px;
+        }
+        &:last-child:after {
+          border: none;
+        }
+        a {
+          color: #999;
+        }
+      }
     }
   }
 }
@@ -127,4 +181,12 @@ a {
   border-width: 0 1px 1px;
   min-height: 250px;
   border-radius: 0 0 5px 5px;
+}
+.list-group-open {
+  .list-group-item {
+    border-width: 1px 0 0;
+    &:first-child {
+      border-width: 0;
+    }
+  }
 }

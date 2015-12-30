@@ -16,23 +16,23 @@
       </div>
 
       <div class="list-group" ng-if="vm.accessed.length">
-        <a ui-sref="app.contacts.company({id:Company.id})" class="list-group-item" ng-repeat="Company in vm.accessed">
+        <div class="list-group-item" ng-repeat="Company in vm.accessed">
           <div class="media">
             <div class="media-left">
-              <img class="media-object" ng-src="{{::Company.logo}}" style="max-height:40px"/>
+              <a ui-sref="app.contacts.company({id:Company.id})"><img class="media-object" ng-src="{{::Company.logo}}" style="max-height:40px" /></a>
             </div>
             <div class="media-body">
               <h4 class="media-heading">
-                {{::Company.name}}
+                <a ui-sref="app.contacts.company({id:Company.id})">{{::Company.name}}</a>
                 <small>{{::Company.lastAccess | fromNow}}</small>
               </h4>
               <ul class="list-inline">
-                <li>{{::Company.phones[0]}}</li>
-                <li>{{::Company.emails[0]}}</li>
+                <li ng-if="Company.phones.length"><a href="tel:{{Company.phones[0]}}">{{Company.phones[0]}}</a></li>
+                <li ng-if="Company.emails.length"><a href="mailto:{{Company.emails[0]}}">{{Company.emails[0]}}</a></li>
               </ul>
             </div>
           </div>
-        </a>
+        </div>
 
       </div>
 
