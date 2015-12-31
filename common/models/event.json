@@ -10,7 +10,7 @@
       "type": "string",
       "required": true
     },
-    "occuredAt": {
+    "date": {
       "type": "date",
       "required": true
     },

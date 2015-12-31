@@ -1,9 +1,10 @@
-!.gitkeep
 node_modules
 npm-debug.log*
-db/*.sqlite3
+
 storage
 client/libs
 client/assets/css/style.min.css
 client/assets/scripts/app.*
 client/assets/scripts/lb-services.js
+
+!.gitkeep
