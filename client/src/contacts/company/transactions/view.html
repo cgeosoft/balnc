@@ -44,6 +44,7 @@
   <div ng-if="vm.Transactions.length && !vm.loading">
 
     <canvas class="chart chart-line" chart-labels="vm.Chart.labels" chart-data="vm.Chart.data"></canvas>
+    <canvas class="chart chart-line" chart-labels="vm.Chart2.labels" chart-data="vm.Chart2.data"></canvas>
 
     <div class="table-responsive">
       <table class="table table-condensed">
@@ -76,18 +77,8 @@
             <td class="text-right">{{Transaction.total|currency}}</td>
           </tr>
         </tbody>
-        <tfoot>
-          <tr>
-            <th class="text-right" colspan="5">Total Credit</th>
-            <th class="text-right">1000.00&euro;</th>
-          </tr>
-          <tr>
-            <th class="text-right" colspan="5">Total Debit</th>
-            <th class="text-right">1000.00&euro;</th>
-          </tr>
-        </tfoot>
       </table>
     </div>
   </div>
-  
+
 </div>
