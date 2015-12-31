@@ -6,7 +6,7 @@
     <a href uib-dropdown-toggle>
         Options <span class="caret"></span>
       </a>
-    <ul class="uib-dropdown-menu" aria-labelledby="simple-dropdown">
+    <ul class="uib-dropdown-menu">
       <li>
         <a href="#">
           <span class="fa fa-star"></span> Bookmarked</a>
@@ -38,7 +38,7 @@
   </li>
 </ol>
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-lg-3 col-md-4 hidden-sm hidden-xs">
     <div class="thumbnail">
       <img ng-src="{{vm.Company.logo}}" />
       <div class="caption">
@@ -54,193 +54,9 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-8">
+  <div class="col-lg-9 col-md-8">
 
-    <uib-tabset>
-
-      <!-- Events -->
-      <uib-tab>
-        <uib-tab-heading>
-          <span class="fa fa-bell-o"></span>
-          <span class="hidden-sm hidden-xs hidden-md">Actions & Events</span>
-        </uib-tab-heading>
-        <div class="btn-toolbar">
-          <button class="btn btn-primary" ng-click="vm.AddCall()">
-            <span class="fa fa-phone fa-fw"></span> Call
-          </button>
-          <button class="btn btn-primary" ng-click="vm.AddMeeting()">
-            <span class="fa fa-calendar fa-fw"></span> Meeting
-          </button>
-        </div>
-
-        <ul class="timeline">
-          <li ng-repeat="Event in vm.Company.events">
-            <div class="timeline-badge">
-              <span ng-if="Event.type=='PHONE'" class="fa fa-phone"></span>
-              <span ng-if="Event.type=='MEETING'" class="fa fa-calendar"></span>
-            </div>
-            <div class="timeline-panel">
-              <div class="timeline-heading">
-                <h4 class="timeline-title">
-                  <span ng-if="Event.type=='PHONE'">Phone Call</span>
-                  <span ng-if="Event.type=='MEETING'">Meeting</span>
-                  <small class="text-muted">
-                    {{Event.occuredAt|fromNow}} - {{Event.occuredAt|date:"medium"}}
-                  </small>
-                </h4>
-                {{Event.description}}
-              </div>
-            </div>
-          </li>
-        </ul>
-
-      </uib-tab>
-
-      <!-- Persons -->
-      <uib-tab>
-
-        <uib-tab-heading>
-          <span class="fa fa-users"></span>
-          <span class="hidden-sm hidden-xs hidden-md">Persons</span>
-        </uib-tab-heading>
-
-        <div class="btn-toolbar">
-          <button class="btn btn-primary" ng-click="vm.AddPerson()">
-            <span class="fa fa-user-plus fa-fw"></span> Person
-          </button>
-        </div>
-
-        <div class="panel-empty" ng-if="!vm.Company.persons.length">
-          No persons were found
-        </div>
-
-        <div class="list-group list-group-open" ng-if="vm.Company.persons.length">
-          <div class="list-group-item" ng-repeat="Person in vm.Company.persons">
-            <div class="media">
-              <div class="media-left">
-                <a href ng-click="vm.EditPerson(Person)">
-                  <img ng-if="Person.avatar" class="media-object img-circle img-thumbnail" ng-src="{{Person.avatar}}" style="height:40px;width:40px" />
-                </a>
-              </div>
-              <div class="media-body">
-                <h4 class="media-heading">
-                  <a href ng-click="vm.EditPerson(Person)">{{Person.fullname}}</a>
-                  <small>{{Person.job}}</small>
-                </h4>
-                <ul class="list-inline">
-                  <li ng-if="Person.phones.length"><a href="tel:{{Person.phones[0]}}">{{Person.phones[0]}}</a></li>
-                  <li ng-if="Person.emails.length"><a href="mailto:{{Person.emails[0]}}">{{Person.emails[0]}}</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </uib-tab>
-
-      <!-- Credits -->
-      <uib-tab>
-
-        <uib-tab-heading>
-          <span class="fa fa-money"></span>
-          <span class="hidden-sm hidden-xs hidden-md">Debits & Credits</span>
-        </uib-tab-heading>
-
-        <div class="btn-toolbar">
-          <button class="btn btn-primary" ng-click="vm.AddCredit()">
-            <span class="fa fa-plus-square fa-fw"></span> Credit
-          </button>
-          <button class="btn btn-primary" ng-click="vm.AddDebit()">
-            <span class="fa fa-minus-square fa-fw"></span> Debit
-          </button>
-          <button class="btn btn-default" ng-click="vm.Print()">
-            <span class="fa fa-print fa-fw"></span> Print
-          </button>
-          <div class="pull-right" uib-dropdown>
-            <button class="btn btn-default" uib-dropdown-toggle>
-              Parameters
-              <span class="caret"></span>
-            </button>
-            <ul class="uib-dropdown-menu" aria-labelledby="simple-dropdown">
-              <li><a href ng-click="vm.ReloadChart('DD/MM/YYYY')">Daily</a></li>
-              <li><a href ng-click="vm.ReloadChart('[W]ww MM/YYYY')">Weekly</a></li>
-              <li><a href ng-click="vm.ReloadChart('MM/YYYY')">Monthly</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <canvas class="chart chart-line" chart-labels="vm.transactions_chart.labels" chart-data="vm.transactions_chart.data"></canvas>
-
-        <hr/>
-
-        <table class="table table-condensed">
-          <thead>
-            <tr>
-              <th style="width:25px;"></th>
-              <th>Date</th>
-              <th>Description</th>
-              <th>Document</th>
-              <th class="text-right" style="width:100px;">Amount</th>
-              <th class="text-right" style="width:100px;">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="Transaction in vm.Company.transactions">
-              <td>
-                <button class="btn btn-link btn-xs">
-                  <span class="fa fa-pencil"></span>
-                </button>
-              </td>
-              <td>{{Transaction.date | date:"dd-MM-yyyy"}}</td>
-              <td>{{Transaction.description}}</td>
-              <td>
-                <a ng-if="Transaction.file" href="{{Transaction.file}}">
-                  <span ng-if="Transaction.amount<=0">Offer</span>
-                  <span ng-if="Transaction.amount>0">Invoice</span>
-                </a>
-              </td>
-              <td class="text-right">{{Transaction.amount|currency}}</td>
-              <td class="text-right">{{Transaction.total|currency}}</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <th class="text-right" colspan="5">Total Credit</th>
-              <th class="text-right">1000.00&euro;</th>
-            </tr>
-            <tr>
-              <th class="text-right" colspan="5">Total Debit</th>
-              <th class="text-right">1000.00&euro;</th>
-            </tr>
-          </tfoot>
-        </table>
-
-      </uib-tab>
-
-      <!-- Files -->
-      <uib-tab>
-
-        <uib-tab-heading>
-          <span class="fa fa-files-o"></span>
-          <span class="hidden-sm hidden-xs hidden-md">Files</span>
-        </uib-tab-heading>
-        Files
-
-      </uib-tab>
-
-      <!-- Map -->
-      <uib-tab>
-
-        <uib-tab-heading>
-          <span class="fa fa-map-o"></span>
-          <span class="hidden-sm hidden-xs hidden-md">Map</span>
-        </uib-tab-heading>
-
-        <img style="width:100%" src="//staticmap.openstreetmap.de/staticmap.php?center={{vm.Company.location.lon}},{{vm.Company.location.lat}}&zoom=14&size=500x500&maptype=mapnik&markers={{vm.Company.location.lon}},{{vm.Company.location.lat}},lightblue1" />
-
-      </uib-tab>
-
-    </uib-tabset>
+    <tabs data="vm.Tabs" type="tabs" template-url="/src/contacts/company/_tabs.html" />
 
   </div>
 </div>

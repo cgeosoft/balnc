@@ -9,73 +9,53 @@
   function ContactsCompanyController($stateParams, Company) {
     var vm = this;
 
-    vm.ReloadChart = ReloadChart;
+    vm.Tabs = [{
+      heading: {
+        icon: "bars",
+        title: 'Info'
+      },
+      route: 'app.contacts.company.info',
+      params: {
+        class: "visible-xs visible-sm",
+      }
+    }, {
+      heading: {
+        icon: "bell-o",
+        class: "hidden-xs",
+        title: 'Overview'
+      },
+      route: 'app.contacts.company.overview',
+    }, {
+      heading: {
+        icon: "users",
+        class: "hidden-xs",
+        title: 'Persons'
+      },
+      route: 'app.contacts.company.persons',
+    }, {
+      heading: {
+        icon: "money",
+        class: "hidden-xs",
+        title: 'Transactions'
+      },
+      route: 'app.contacts.company.transactions',
+    }, {
+      heading: {
+        icon: "files-o",
+        class: "hidden-xs",
+        title: 'Files'
+      },
+      route: 'app.contacts.company.files',
+    }];
 
     activate();
 
     function activate() {
-      _loadCompany();
-    }
-
-    function ReloadChart(format) {}
-
-    function _loadCompany() {
-      Company.findById({
-          id: $stateParams.id,
-          filter: {
-            include: [{
-              relation: 'persons',
-              scope: {
-                order: "fullname ASC"
-              }
-            }, {
-              relation: 'events',
-              scope: {
-                order: "occuredAt DESC"
-              }
-            }, {
-              relation: 'transactions',
-              scope: {
-                order: "date ASC"
-              }
-            }]
-          }
-        })
-        .$promise
-        .then(function(data) {
-          var _total = 0;
-          _.each(data.transactions, function(transaction) {
-            _total += transaction.amount;
-            transaction.total = _total;
-          });
-          vm.Company = data;
-          vm.ReloadChart();
-        });
-    }
-
-    function ReloadChart(groupby) {
-
-      vm.transactions_chart = {
-        labels: [],
-        data: [
-          []
-        ],
-      };
-
-      var grouped_transactions = _.groupBy(vm.Company.transactions, function(transaction) {
-        return moment(transaction.date).format(groupby || '[W]ww MM/YYYY');
+      vm.Company = Company.findById({
+        id: $stateParams.id,
       });
-
-      _.each(grouped_transactions, function(transactions, keydate) {
-
-        var _date_total = _.reduce(transactions, function(total, transaction) {
-          return Math.round(transaction.amount + total);
-        }, 0);
-        vm.transactions_chart.labels.push(keydate);
-        vm.transactions_chart.data[0].push(_date_total);
-      });
-
     }
+
 
   }
 

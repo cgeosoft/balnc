@@ -19,11 +19,11 @@
         <div class="list-group-item" ng-repeat="Company in vm.accessed">
           <div class="media">
             <div class="media-left">
-              <a ui-sref="app.contacts.company({id:Company.id})"><img class="media-object" ng-src="{{::Company.logo}}" style="max-height:40px" /></a>
+              <a ui-sref="app.contacts.company.overview({id:Company.id})"><img class="media-object" ng-src="{{::Company.logo}}" style="max-height:40px" /></a>
             </div>
             <div class="media-body">
               <h4 class="media-heading">
-                <a ui-sref="app.contacts.company({id:Company.id})">{{::Company.name}}</a>
+                <a ui-sref="app.contacts.company.overview({id:Company.id})">{{::Company.name}}</a>
                 <small>{{::Company.lastAccess | fromNow}}</small>
               </h4>
               <ul class="list-inline">

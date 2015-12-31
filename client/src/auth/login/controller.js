@@ -17,7 +17,7 @@
     function activate() {
 
       if ($stateParams.ref) {
-        SignMessage($stateParams.ref.toUpperCase());
+        _signMessage($stateParams.ref.toUpperCase());
       }
     }
 
@@ -32,15 +32,13 @@
         .then(function(response) {
           $state.go("app.dashboard");
         }, function(rejection) {
-          SignMessage(rejection.data.error.code.toUpperCase());
-        })
-        .finally(function() {
           vm.credentials.password = null;
           vm.loading = false;
+          _signMessage(rejection.data.error.code.toUpperCase());
         });
     }
 
-    function SignMessage(code) {
+    function _signMessage(code) {
       vm.Alert = LoginMessages[code];
     }
 

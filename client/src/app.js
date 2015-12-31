@@ -8,6 +8,7 @@
     'ngCookies',
     'ui.bootstrap',
     'ui.router',
+    'ui.router.tabs',
     'ui.navbar',
     'chart.js',
 
