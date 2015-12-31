@@ -68,14 +68,6 @@
         controller: 'ContactsCompanyPersonsController',
       },
     }, {
-      state: "app.contacts.company.events",
-      config: {
-        title: "events",
-        url: "/events",
-        templateUrl: 'src/contacts/company/events/view.html',
-        controller: 'ContactsCompanyEventsController',
-      },
-    }, {
       state: "app.contacts.company.transactions",
       config: {
         title: "transactions",
