@@ -1,7 +1,7 @@
 {
   "name": "balance",
   "version": "0.1.0",
-  "description": "Christos' CRM tool that you need too",
+  "description": "An online business suite for managing simple operations of small companies.",
   "main": "server/server.js",
   "license": "MIT",
   "repository": "https://github.com/ChristosGeorgiou/balance.git",

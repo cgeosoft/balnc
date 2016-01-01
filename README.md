@@ -1,8 +1,5 @@
 # Balance
-Christos' CRM tool that you need too!
-
-# What is it?
-Balance is an online business suite for managing simple operations of small companies. It includes sales,
+Balance is a web based business suite for managing simple operations of small companies. It includes sales,
 marketing and accounting tools and it is both open source and free under the MIT license.
 
 It is build with cutting edge technologies and with KISS principle in mind.
