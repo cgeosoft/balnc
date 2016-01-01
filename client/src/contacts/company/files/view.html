@@ -1,1 +1,42 @@
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam vel nihil sit veniam provident dolor atque inventore exercitationem autem, perspiciatis consectetur dicta nulla numquam praesentium aut aliquam sequi suscipit officiis?
+<div class="btn-toolbar">
+  <button class="btn btn-primary" ng-click="vm.UploadFiles()">
+    <span class="fa fa-upload fa-fw"></span> Upload Files
+  </button>
+</div>
+
+<div class="panel-empty" ng-if="!vm.Files.length">
+  No files were found
+</div>
+
+<div class="table-responsive" ng-if="vm.Files.length">
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Created</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="File in vm.Files">
+        <td>{{File.name}}</td>
+        <td>{{File.size | bytes}}</td>
+        <td>{{File.ctime | date:"medium"}}</td>
+        <td>
+          <div class="pull-right">
+            <a target="_blank" href="/api/Containers/{{vm.container}}/download/{{File.name}}" class="btn btn-default btn-xs">
+              <span class="fa fa-download"></span> Download
+            </a>
+            <!-- <button ng-click="vm.Download(File.name)" class="btn btn-default btn-xs">
+              <span class="fa fa-download"></span> Download
+            </button> -->
+            <button class="btn btn-danger btn-xs">
+              <span class="fa fa-trash-o"></span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

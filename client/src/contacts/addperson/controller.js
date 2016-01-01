@@ -6,7 +6,7 @@
     .controller("ContactsAddPersonController", ContactsAddPersonController);
 
   /* @ngInject */
-  function ContactsAddPersonController($modalInstance, ModalParams, Company) {
+  function ContactsAddPersonController($uibModalInstance, ModalParams, Company) {
     var vm = this;
 
     vm.Save = Save;

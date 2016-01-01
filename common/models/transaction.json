@@ -1,13 +1,19 @@
 {
   "name": "Transaction",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
   "properties": {
-    "date": {
+    "id": {
       "type": "string",
+      "id": true,
+      "required": true,
+      "defaultFn": "guid"
+    },
+    "date": {
+      "type": "date",
       "required": true
     },
     "description": {

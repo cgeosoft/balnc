@@ -1,12 +1,18 @@
 {
   "name": "Company",
   "base": "PersistedModel",
-  "idInjection": true,
+  "idInjection": false,
   "options": {
     "validateUpsert": true
   },
   "updateOnLoad": true,
   "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "defaultFn": "guid"
+    },
     "name": {
       "type": "string",
       "required": true

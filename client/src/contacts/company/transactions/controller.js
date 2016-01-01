@@ -51,6 +51,10 @@
         data: [
           []
         ],
+        options:{
+          bezierCurve : false,
+          datasetFill : false,
+        }
       };
 
       var grouped_transactions = _.groupBy(vm.Transactions, function(transaction) {
@@ -65,7 +69,7 @@
         vm.Chart.labels.push(keydate);
         vm.Chart.data[0].push(_date_total);
       });
-      
+
     }
 
   }

@@ -6,7 +6,7 @@
     .controller("ChangePasswordController", ChangePasswordController);
 
   /* @ngInject */
-  function ChangePasswordController($modalInstance, ModalParams, User, toaster) {
+  function ChangePasswordController($uibModalInstance, ModalParams, User, toaster) {
     var vm = this;
 
     vm.Save = Save;
@@ -25,7 +25,7 @@
         .then(function(user) {
           toaster.pop('success', "Password Changed");
           vm.loading = false;
-          $modalInstance.close();
+          $uibModalInstance.close();
         });
     }
 

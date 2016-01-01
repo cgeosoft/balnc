@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('app.lotteries')
+    .module('app.settings')
     .factory('SettingsModals', SettingsModals);
 
   SettingsModals.$inject = ['modalHelper'];

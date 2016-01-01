@@ -10,15 +10,14 @@
     'ui.router',
     'ui.router.tabs',
     'ui.navbar',
-    'chart.js',
+    'angularFileUpload',
 
     'lbServices',
 
     'app.auth',
     'app.dashboard',
     'app.contacts',
-    // 'app.plists',
-    // 'app.settings',
+    'app.files',
     'app._common',
   ]);
 

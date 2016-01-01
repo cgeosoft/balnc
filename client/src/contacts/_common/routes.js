@@ -89,7 +89,7 @@
         title: "files",
         url: "/files",
         templateUrl: 'src/contacts/company/files/view.html',
-        // controller: 'ContactsCompanyFilesController',
+        controller: 'ContactsCompanyFilesController',
       },
     }];
   }

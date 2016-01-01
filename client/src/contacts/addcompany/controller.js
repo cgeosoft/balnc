@@ -6,7 +6,7 @@
     .controller("ContactsAddCompanyController", ContactsAddCompanyController);
 
   /* @ngInject */
-  function ContactsAddCompanyController($modalInstance, Company) {
+  function ContactsAddCompanyController($uibModalInstance, Company) {
     var vm = this;
 
     vm.Save = Save;
@@ -30,7 +30,7 @@
         .create(vm.Company)
         .$promise
         .then(function(_company) {
-          $modalInstance.close(_company);
+          $uibModalInstance.close(_company);
         });
     }
 

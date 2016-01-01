@@ -17,12 +17,6 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 
-// gulp.on('stop', function() {
-//   process.nextTick(function() {
-//     process.exit(0);
-//   });
-// });
-
 gulp.task('default', ['watch']);
 
 gulp.task('watch', ['sass', 'build'], function() {
@@ -152,43 +146,79 @@ gulp.task('db:migrate-schema', function(cb) {
 
 });
 
-gulp.task('db:mock', function(cb) {
+
+function _getMockModels(files) {
+
+  return _.map(files, function(file) {
+    var name = path.basename(file, '.json');
+    return {
+      name: name.charAt(0).toUpperCase() + name.slice(1),
+      data: require(file),
+    };
+  });
+
+}
+
+gulp.task('db:clean', function(cb) {
 
   var glob = require('glob');
   var app = require('./server/server.js');
   var ds = app.dataSources.db;
 
-  ds.once('connected', function() {
-    gutil.log("Connected:", gutil.colors.magenta(ds.name), ds.settings.host, ":", ds.settings.port, "/", ds.settings.database);
+  return glob("./mock/*.json", {}, function(err, files) {
+    if (err) cb(err);
 
-    glob("./mock/*.json", {}, function(err, files) {
-      if (err) _reject(err);
+    var _models = _getMockModels(files);
 
-      var _models = []
-      files.forEach(function(file) {
-        var name = path.basename(file, '.json');
-        _models.push({
-          name: name.charAt(0).toUpperCase() + name.slice(1),
-          data: require(file),
-        });
+    gutil.log("Found", gutil.colors.magenta(_models.length), "models");
+
+    _.each(_models, function(_model, i) {
+      gutil.log("Delete all", gutil.colors.magenta(_model.name));
+      app.models[_model.name].deleteAll(function(err) {
+        if (err) cb(err);
+        if (i == _models.length - 1) {
+          cb();
+        }
       });
-
-      gutil.log("Found", gutil.colors.magenta(_models.length), "models");
-
-      _models.forEach(function(_model, i) {
-        gutil.log("Inserting", gutil.colors.magenta(_model.data.length), "items of", gutil.colors.magenta(_model.name));
-        _model.data.forEach(function(_data, j) {
-          app.models[_model.name].upsert(_data, function(err, data) {
-            if (err) throw (err);
-            if (i == _models.length - 1) {
-              cb();
-              process.exit(0);
-            }
-          });
-        });
-      });
-
     });
+  });
+
+});
+
+gulp.task('db:mock', ['db:clean'], function(cb) {
+
+  var glob = require('glob');
+  var app = require('./server/server.js');
+  var ds = app.dataSources.db;
+
+  glob("./mock/*.json", {}, function(err, files) {
+    if (err) cb(err);
+
+    var _models = _getMockModels(files);
+
+    gutil.log("Found", gutil.colors.magenta(_models.length), "models");
+
+    _.each(_models, function(_model, i) {
+      gutil.log("Inserting", gutil.colors.magenta(_model.data.length), "items of", gutil.colors.magenta(_model.name));
+      app.models[_model.name].create(_model.data, function(err) {
+        if (err) cb(err);
+        if (i == _models.length - 1) {
+          cb();
+        }
+      });
+    });
+
+    // _models.forEach(function(_model, i) {
+    //   _model.data.forEach(function(_data, j) {
+    //     app.models[_model.name].upsert(_data, function(err, data) {
+    //       if (err) throw (err);
+    //       if (i == _models.length - 1) {
+    //         cb();
+    //         process.exit(0);
+    //       }
+    //     });
+    //   });
+    // });
 
   });
 
