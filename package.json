@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "npm-run-all -p serve gulp",
-    "serve": "nodemon --watch public --watch server",
+    "serve": "nodemon --watch public --watch server --watch common",
     "gulp": "gulp",
     "lb-ng": "lb-ng ./server/server.js ./client/assets/scripts/lb-services.js"
   },
@@ -26,6 +26,8 @@
     "loopback-component-storage": "^1.6.1",
     "loopback-connector-mysql": "^2.2.0",
     "loopback-datasource-juggler": "^2.26.2",
+    "open-sans-fontface": "^1.4.0",
+    "pdfmake": "^0.1.18",
     "serve-favicon": "^2.3.0",
     "underscore": "^1.8.3"
   },

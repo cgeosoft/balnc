@@ -55,6 +55,11 @@
       "type": "hasMany",
       "model": "Transaction",
       "foreignKey": ""
+    },
+    "invoices": {
+      "type": "hasMany",
+      "model": "Invoice",
+      "foreignKey": ""
     }
   },
   "acls": [],

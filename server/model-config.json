@@ -72,5 +72,9 @@
   "Container": {
     "dataSource": "storage",
     "public": true
+  },
+  "Invoice": {
+    "dataSource": "db",
+    "public": true
   }
 }

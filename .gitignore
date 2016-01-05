@@ -3,8 +3,7 @@ npm-debug.log*
 
 storage
 client/libs
-client/assets/css/style.min.css
-client/assets/scripts/app.*
-client/assets/scripts/lb-services.js
+client/assets/css/*
+client/assets/scripts/*
 
 !.gitkeep

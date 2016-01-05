@@ -1,0 +1,38 @@
+{
+  "name": "Invoice",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "defaultFn": "guid"
+    },
+    "date": {
+      "type": "string",
+      "required": true
+    },
+    "file": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "transactions": {
+      "type": "hasMany",
+      "model": "Transaction",
+      "foreignKey": ""
+    },
+    "company": {
+      "type": "belongsTo",
+      "model": "Company",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

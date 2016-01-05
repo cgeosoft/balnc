@@ -3,16 +3,22 @@
     "name": "Demo Company"
   },
   "database": "balance",
-  "roles": ["ADMIN", "MEMBER"],
-  "users": [{
-    "username": "admin",
-    "email": "admin@admin.com",
-    "password": "admin",
-    "role":"ADMIN"
-  }, {
-    "username": "member",
-    "email": "member@member.com",
-    "password": "member",
-    "role":"MEMBER"
-  }]
+  "roles": [
+    "ADMIN",
+    "MEMBER"
+  ],
+  "users": [
+    {
+      "username": "admin",
+      "email": "admin@admin.com",
+      "password": "admin",
+      "role": "ADMIN"
+    },
+    {
+      "username": "member",
+      "email": "member@member.com",
+      "password": "member",
+      "role": "MEMBER"
+    }
+  ]
 }
