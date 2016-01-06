@@ -79,40 +79,50 @@ gulp.task('config', function() {
 gulp.task('db:migrate', ['db:migrate-schema'], function(cb) {
 
   var app = require('./server/server.js');
-  var _roles = _.map(config.roles, function(item) {
+
+  var _roles = _.map(config.auth, function(auth) {
     return {
-      name: item
+      name: auth.role
     };
   });
 
-  var _users = _.map(config.users, function(item) {
-    var _u = _.clone(item);
-    _u.created = new Date();
-    delete _u.role;
-    return _u;
-  });
-
   app.models.Role.create(_roles, function(err, roles) {
-    if (err) throw err;
-    gutil.log('Default roles created', gutil.colors.magenta(config.roles.join(", ")));
+    if (err) cb(err);
 
-    config.users.forEach(function(_user, i) {
-      app.models.User.create(_user, function(err, user) {
-        if (err) throw err;
-        app.models.Role.findOne({
-          where: {
-            name: user.role,
-          }
-        }, function(err, role) {
-          if (err) throw err;
-          gutil.log('Created user', gutil.colors.magenta(user.username), "and assigned to", gutil.colors.magenta(role.name), "role");
+    roles.forEach(function(role, i) {
 
-          if (i == config.users.length - 1) {
-            cb();
-          }
+      var _auth = _.findWhere(config.auth, {
+        role: role.name
+      });
+
+      if (_auth.users.length === 0) {
+        // No users where found. Just a role was created
+        gutil.log('Empty role created', gutil.colors.magenta(role.name));
+        return;
+      }
+
+      var _users = _.map(_auth.users, function(item) {
+        item.created = new Date();
+        return item;
+      });
+
+      app.models.User.create(_users, function(err, users) {
+        if (err) cb(err);
+
+        users.forEach(function(user, j) {
+
+          role.principals.create({
+            principalType: app.models.RoleMapping.USER,
+            principalId: user.id
+          }, function(err, principal) {
+            if (err) cb(err);
+            gutil.log('Created user', gutil.colors.magenta(user.username), "[", gutil.colors.magenta(role.name), "]");
+          });
         });
       });
     });
+
+    cb();
 
   });
 
@@ -136,12 +146,10 @@ gulp.task('db:migrate-schema', function(cb) {
     }
   });
 
-  ds.once('connected', function() {
-    gutil.log("Connected:", gutil.colors.magenta(ds.name), ds.settings.host, ":", ds.settings.port, "/", ds.settings.database);
-    ds.automigrate(_models, function(err) {
-      if (err) throw err;
-      cb();
-    });
+  ds.automigrate(_models, function(err) {
+    if (err) cb(err);
+    gutil.log('Migrated', gutil.colors.magenta(_models));
+    cb();
   });
 
 });
@@ -207,18 +215,6 @@ gulp.task('db:mock', ['db:clean'], function(cb) {
         }
       });
     });
-
-    // _models.forEach(function(_model, i) {
-    //   _model.data.forEach(function(_data, j) {
-    //     app.models[_model.name].upsert(_data, function(err, data) {
-    //       if (err) throw (err);
-    //       if (i == _models.length - 1) {
-    //         cb();
-    //         process.exit(0);
-    //       }
-    //     });
-    //   });
-    // });
 
   });
 
