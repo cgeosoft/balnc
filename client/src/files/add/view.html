@@ -10,7 +10,6 @@
 <div class="modal-body">
 
   <div class="form-group">
-    <label class="control-label">Select Multiple Files</label>
     <input class="form-control" nv-file-select uploader="vm.uploader" type="file" multiple/>
   </div>
 
@@ -18,36 +17,49 @@
     No files were selected
   </div>
 
-  <div class="list-group" ng-if="vm.uploader.queue.length">
+  <div class="list-group list-group-open" g-if="vm.uploader.queue.length">
 
-    <div class="list-group-item" ng-class="{
-        'list-group-item-success':item.isSuccess,
-        'list-group-item-warning':item.isCancel,
-        'list-group-item-danger':item.isError,
-      }" ng-repeat="item in vm.uploader.queue">
-      <!-- {{ item.file.name | limitTo: 20 }}{{item.file.name.length > 20 ? '...' : ''}} -->
+    <div class="list-group-item" ng-repeat="item in vm.uploader.queue">
 
-      <div class="list-group-item-heading">
-        <span ng-show="item.isSuccess" class="fa fa-check-circle fa-fw"></span>
-        <span ng-show="item.isCancel" class="fa fa-times-circle fa-fw"></span>
-        <span ng-show="item.isError" class="fa fa-times-circle fa-fw"></span>
+      <span class="label label-default pull-right" ng-show="item.isUploading">
+        {{ item.progress + '%' }}
+      </span>
+
+      <span class="label label-success pull-right" ng-show="item.isSuccess">
+        <span class="fa fa-check-circle fa-fw"></span> Completed
+      </span>
+
+      <span class="label label-warning pull-right" ng-show="item.isCancel">
+        <span class="fa fa-times-circle fa-fw"></span> Canceled!
+      </span>
+
+      <span class="label label-danger pull-right" ng-show="item.isError">
+        <span class="fa fa-times-circle fa-fw"></span> Error!
+      </span>
+
+      <div class="ellipsis-70">
         {{item.file.name}}
-        <small class="text-muted" ng-if="vm.uploader.isHTML5">[{{ item.file.size|bytes }}]</small>
       </div>
-      <div class="list-group-item-text" ng-show="item.isError">
-        {{item|json}}
+
+      <ul class="list-inline list-group-details">
+        <li>{{ item.file.lastModifiedDate|date }}</li>
+        <li ng-if="vm.uploader.isHTML5">{{ item.file.size|bytes }}</li>
+        <li>{{ item.file.type }}</li>
+      </ul>
+
+      <div class="alert alert-danger" ng-show="item.isError">
+        {{item.error.message}}
       </div>
-      <div class="progress" style="margin-bottom: 0;height:1px;" ng-show="vm.uploader.isUploading">
-        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
-      </div>
+
     </div>
+
   </div>
 
 </div>
 
 
 <div class="modal-footer">
-  <button class="btn btn-default btn-sm" ng-click="vm.uploader.clearQueue()" ng-disabled="!vm.uploader.queue.length">Remove</button>
-  <button class="btn btn-default btn-sm" ng-click="vm.uploader.cancelAll()" ng-disabled="!vm.uploader.isUploading">Cancel</button>
-  <button class="btn btn-success btn-sm" ng-click="vm.uploader.uploadAll()" ng-disabled="!vm.uploader.getNotUploadedItems().length">Upload</button>
+  <button class="btn btn-default btn-sm" ng-click="vm.uploader.clearQueue()" ng-disabled="!vm.uploader.queue.length">Clear All</button>
+  <button class="btn btn-default btn-sm" ng-click="vm.uploader.cancelAll()" ng-disabled="!vm.uploader.isUploading">Cancel All</button>
+  <button class="btn btn-success btn-sm" ng-click="vm.uploader.uploadAll()" ng-disabled="!vm.uploader.getNotUploadedItems().length">Upload All</button>
 </div>

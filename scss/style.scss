@@ -191,3 +191,30 @@ a {
     }
   }
 }
+.ellipsis-70 {
+  max-width: 70%;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.list-group-details {
+  color: #999;
+  font-size: 0.8em;
+  margin: 0;
+  &.list-inline {
+    li:first-child {
+      padding-left: 0;
+    }
+  }
+}
+.list-group {
+  hr {
+    margin: 2px 0;
+  }
+  .alert{
+    padding: 10px;
+    margin: 5px 0 0;
+    font-size: 0.9em;
+  }
+}
