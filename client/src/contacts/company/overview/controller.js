@@ -6,32 +6,32 @@
     .controller("ContactsCompanyOverviewController", ContactsCompanyOverviewController);
 
   /* @ngInject */
-  function ContactsCompanyOverviewController() {
+  function ContactsCompanyOverviewController($stateParams,Company) {
     var vm = this;
 
     activate();
 
     function activate() {
+      _loadCompany();
     }
-        function _loadPersons() {
-          vm.loading = true;
-          return Person
-            .find({
-              filter: {
-                where: {
-                  companyId: $stateParams.id,
-                },
-                order: "fullname ASC",
-              }
-            })
-            .$promise
-            .then(function(data) {
-              vm.Persons = data;
-            })
-            .finally(function() {
-              vm.loading = false;
-            });
-        }
+
+    function _loadCompany() {
+      vm.loading = true;
+      return Company
+        .findById({
+          id: $stateParams.id,
+          filter: {
+            include: ["persons"],
+          }
+        })
+        .$promise
+        .then(function(data) {
+          vm.Company = data;
+        })
+        .finally(function() {
+          vm.loading = false;
+        });
+    }
 
   }
 

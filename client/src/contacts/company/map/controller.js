@@ -13,21 +13,8 @@
 
     function activate() {
 
-
       vm.loading = true;
 
-      // vm.= {
-      //   center: {},
-      //   markers: {
-      //       osloMarker: {
-      //           lat: 59.91,
-      //           lng: 10.75,
-      //           message: "I want to travel here!",
-      //           focus: true,
-      //           draggable: false
-      //       }
-      //   },
-      // };
       vm.center = {};
       vm.markers = {};
 

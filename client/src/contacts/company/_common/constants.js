@@ -6,16 +6,6 @@
     .constant("CompanyTabs", [{
       heading: {
         icon: "bars",
-        title: 'Info'
-      },
-      route: 'app.contacts.company.profile.info',
-      params: {
-        class: "visible-xs visible-sm",
-      }
-    }, {
-      heading: {
-        icon: "bell-o",
-        class: "hidden-xs",
         title: 'Overview'
       },
       route: 'app.contacts.company.profile.overview',
@@ -26,13 +16,6 @@
         title: 'Events'
       },
       route: 'app.contacts.company.profile.events',
-    }, {
-      heading: {
-        icon: "users",
-        class: "hidden-xs",
-        title: 'Persons'
-      },
-      route: 'app.contacts.company.profile.persons',
     }, {
       heading: {
         icon: "money",

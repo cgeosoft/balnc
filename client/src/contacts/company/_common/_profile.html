@@ -15,7 +15,7 @@
           <dd>{{vm.Company.phones|join}}</dd>
           <dt>Emails</dt>
           <dd>{{vm.Company.emails|join}}</dd>
-          <dt>Address <a ui-sref="app.contacts.company.map({id:vm.Company.id})">Map</a></dt>
+          <dt>Address <small>[<a ui-sref="app.contacts.company.map({id:vm.Company.id})">Map</a>]</small></dt>
           <dd>{{vm.Company.location.street}}, {{vm.Company.location.city}} {{vm.Company.location.state}}</dd>
         </dl>
       </div>
