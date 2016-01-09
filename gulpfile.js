@@ -69,7 +69,7 @@ gulp.task('config', function() {
       version: pkg.version,
       repository: pkg.repository,
       author: pkg.author,
-      client: require('./common/config/system/client.json'),
+      client: require('./common/config/client/default.json'),
     }) + "; })()"
   );
 
