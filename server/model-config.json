@@ -76,5 +76,9 @@
   "Invoice": {
     "dataSource": "db",
     "public": true
+  },
+  "Configuration": {
+    "dataSource": "configuration",
+    "public": true
   }
 }

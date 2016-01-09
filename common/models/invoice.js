@@ -69,7 +69,7 @@ module.exports = function(Invoice) {
         type: 'boolean'
       }],
       returns: {
-        arg: 'file',
+        root: true,
         type: 'string'
       }
     }

@@ -4,7 +4,6 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var path = require('path');
 var pkg = require('./package.json');
-var config = require('./config.json');
 
 var angularFilesort = require('gulp-angular-filesort');
 var concat = require('gulp-concat');
@@ -70,7 +69,7 @@ gulp.task('config', function() {
       version: pkg.version,
       repository: pkg.repository,
       author: pkg.author,
-      config: config
+      client: require('./common/config/system/client.json'),
     }) + "; })()"
   );
 
@@ -79,8 +78,9 @@ gulp.task('config', function() {
 gulp.task('db:migrate', ['db:migrate-schema'], function(cb) {
 
   var app = require('./server/server.js');
+  var defaults =  require('./common/config/system/defaults.json');
 
-  var _roles = _.map(config.auth, function(auth) {
+  var _roles = _.map(defaults.auth, function(auth) {
     return {
       name: auth.role
     };
@@ -91,7 +91,7 @@ gulp.task('db:migrate', ['db:migrate-schema'], function(cb) {
 
     roles.forEach(function(role, i) {
 
-      var _auth = _.findWhere(config.auth, {
+      var _auth = _.findWhere(defaults.auth, {
         role: role.name
       });
 
@@ -214,6 +214,26 @@ gulp.task('db:mock', ['db:clean'], function(cb) {
           cb();
         }
       });
+    });
+
+  });
+
+});
+
+
+gulp.task('test:invoice', function(cb) {
+
+  var glob = require('glob');
+  var app = require('./server/server.js');
+
+  app.models.Invoice.find({}, function(err, invoices) {
+    if (err) cb(err);
+
+    app.models.Invoice.generate(invoices[0].id, false, function(err, results) {
+      if (err) cb(err);
+
+      gutil.log("Generated", gutil.colors.magenta(JSON.stringify(results)));
+      cb();
     });
 
   });

@@ -1,8 +1,4 @@
 {
-  "client": {
-    "name": "Demo Company"
-  },
-  "database": "balance",
   "auth": [{
     "role": "ADMIN",
     "users": [{
