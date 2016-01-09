@@ -16,10 +16,20 @@
 
       vm.loading = true;
 
-      vm.leaflet = {
-        center: {},
-        markers: []
-      };
+      // vm.= {
+      //   center: {},
+      //   markers: {
+      //       osloMarker: {
+      //           lat: 59.91,
+      //           lng: 10.75,
+      //           message: "I want to travel here!",
+      //           focus: true,
+      //           draggable: false
+      //       }
+      //   },
+      // };
+      vm.center = {};
+      vm.markers = {};
 
       Company.findById({
           id: $stateParams.id,
@@ -30,16 +40,20 @@
 
           $timeout(function() {
 
-            vm.leaflet.center.lat = parseFloat(company.location.lat);
-            vm.leaflet.center.lng = parseFloat(company.location.lon);
-            vm.leaflet.center.zoom = 14;
-            
-            vm.leaflet.markers.push({
-              message: company.name,
+            vm.center = {
               lat: parseFloat(company.location.lat),
               lng: parseFloat(company.location.lon),
-              opacity: 0.8
-            });
+              zoom: 14,
+            };
+            vm.markers = {
+              company: {
+                message: company.name + "<br/><small>" + vm.Company.location.street + "</small>",
+                lat: parseFloat(company.location.lat),
+                lng: parseFloat(company.location.lon),
+                opacity: 0.8,
+                focus: true,
+              }
+            };
 
             vm.loading = false;
 
