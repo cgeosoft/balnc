@@ -1,0 +1,10 @@
+<ol class="breadcrumb">
+  <li><a ui-sref="app.dashboard">Home</a></li>
+  <li><a ui-sref="app.contacts.overview">Contacts</a></li>
+  <li><a ui-sref="app.contacts.company.profile.overview({id:vm.Company.id})">{{vm.Company.name}}</a></li>
+  <li class="active">Map</li>
+  <li class="pull-right" uib-dropdown ng-include="'src/contacts/company/_common/_menu.html'"></li>
+</ol>
+<div class="panel panel-default" ng-class="{loading:vm.loading}">
+  <leaflet lf-center="vm.leaflet.center" height="450px" width="100%"></leaflet>
+</div>

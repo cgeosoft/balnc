@@ -30,6 +30,7 @@
     "angular-chart.js": "~0.8.8",
     "angular-ui-router-tabs": "~1.7.0",
     "angular-file-upload": "~2.2.0",
-    "pdfmake": "~0.1.20"
+    "pdfmake": "~0.1.20",
+    "angular-leaflet-directive": "~0.10.0"
   }
 }

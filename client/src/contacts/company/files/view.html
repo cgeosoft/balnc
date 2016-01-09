@@ -8,13 +8,13 @@
   No files were found
 </div>
 
-<div class="table-responsive" ng-if="vm.Files.length">
+<div class="table-responsive" ng-if="vm.Files.length" ng-class="{loading:vm.loading}">
   <table class="table table-condensed">
     <thead>
       <tr>
         <th>Name</th>
         <th>Size</th>
-        <th>Created</th>
+        <th>Uploaded</th>
         <th></th>
       </tr>
     </thead>
