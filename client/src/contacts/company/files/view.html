@@ -8,35 +8,22 @@
   No files were found
 </div>
 
-<div class="table-responsive" ng-if="vm.Files.length" ng-class="{loading:vm.loading}">
-  <table class="table table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Size</th>
-        <th>Uploaded</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="File in vm.Files">
-        <td>{{File.name}}</td>
-        <td>{{File.size | bytes}}</td>
-        <td>{{File.ctime | date:"medium"}}</td>
-        <td>
-          <div class="pull-right">
-            <a target="_blank" href="/api/Containers/{{vm.container}}/download/{{File.name}}" class="btn btn-default btn-xs">
-              <span class="fa fa-download"></span> Download
-            </a>
-            <!-- <button ng-click="vm.Download(File.name)" class="btn btn-default btn-xs">
-              <span class="fa fa-download"></span> Download
-            </button> -->
-            <button class="btn btn-danger btn-xs">
-              <span class="fa fa-trash-o"></span>
-            </button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="list-group list-group-open" ng-if="vm.Files.length" ng-class="{loading:vm.loading}">
+
+  <div class="list-group-item" ng-repeat="File in vm.Files">
+    <!-- <div class="checkbox pull-left">
+      <label>
+        <input type="checkbox">
+      </label>
+    </div> -->
+
+    <a target="_blank" href="/api/Containers/{{vm.container}}/download/{{File.name}}" class="btn btn-default pull-right">
+      <span class="fa fa-download"></span> Download
+    </a>
+
+    <div>{{File.name}}</div>
+    <small class="text-muted">{{File.size | bytes}} - {{File.ctime | date:"medium"}}</small>
+
+  </div>
+
 </div>
