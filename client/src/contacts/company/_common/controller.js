@@ -6,10 +6,13 @@
     .controller("ContactsCompanyController", ContactsCompanyController);
 
   /* @ngInject */
-  function ContactsCompanyController($stateParams, Company, CompanyTabs) {
+  function ContactsCompanyController($stateParams, Company, CompanyTabs, CompanyModals) {
     var vm = this;
 
-    vm.Tabs = CompanyTabs
+    vm.Tabs = CompanyTabs;
+
+    vm.EditLogo = EditLogo;
+
     vm.Print = function() {
       var docDefinition = {
         content: 'ελλάδα Ά an sample PDF printed with pdfMakeThis is an sample PDF printed with pdfMakeThis is an sample PDF printed with pdfMake'
@@ -34,6 +37,14 @@
       vm.Company = Company.findById({
         id: $stateParams.id,
       });
+    }
+
+    function EditLogo() {
+      
+      CompanyModals
+        .EditLogo({
+          Company: vm.Company
+        });
     }
 
 
