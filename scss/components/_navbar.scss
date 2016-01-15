@@ -1,6 +1,8 @@
 $bg-highlight: darken($color-navbar,5%);
 $col-default: #eee;
 $col-highlight: #fff;
+.navbar-nav {
+}
 .navbar-top {
   background-color: $color-navbar;
   border-color: $bg-highlight;
@@ -12,6 +14,7 @@ $col-highlight: #fff;
   }
   @media (max-width: 767px) {
     .navbar-nav {
+      margin: 0px -15px;
       .dropdown-header {
         color: darken($col-default,20%);
       }
@@ -45,6 +48,7 @@ $col-highlight: #fff;
   .nav {
     >li {
       >a {
+        // text-al ign: center;
         &:hover {
           background-color: $bg-highlight;
         }
