@@ -1,9 +1,30 @@
-.container-login {
+.login-background {
+  position: absolute;
+  // background-image: url(https://www.bing.com/az/hprichbg/rb/PlitviceSnow_ROW9935382295_1366x768.jpg);
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 5px;
-  @media (min-width: 300px) {
-    padding-top: 25px;
-    width: 300px;
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-repeat: none;
+  background-attachment: scroll;
+  background-position: center center;
+}
+.login-wrapper {
+  width: 300px;
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  margin-left: -150px;
+  @media (max-width: 400px) {
+    left: 0;
+    top: 0;
+    margin-left: 0;
+    padding: 15px;
+    width: 100%;
   }
   .panel {
     border: solid 1px #FFF;
@@ -20,6 +41,7 @@
         display: block;
         font-size: 10px;
         color: darken(#EEE,15%);
+        padding-top: 3px;
       }
       i {
         float: left;
@@ -27,8 +49,13 @@
         font-size: 1.8em;
       }
     }
-    .form-control-feedback{
-      color:#AAA;
+    .form-control-feedback {
+      color: #AAA;
+    }
+    .form-control {
+      box-shadow: none;
+      border-radius: 0;
+      border-width: 0 0 1px 0;
     }
   }
 }

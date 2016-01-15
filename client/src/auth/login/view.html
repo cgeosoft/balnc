@@ -1,33 +1,35 @@
-<section class="container container-login">
-  <div class="panel panel-primary panel-lg">
-    <div class="panel-heading">
-      <h3 class="panel-title">
+<!-- <img class="login-background" style="background-image:url(https://www.bing.com/az/hprichbg/rb/PlitviceSnow_ROW9935382295_1366x768.jpg)"/> -->
+<section class="container">
+  <div class="login-wrapper">
+    <div class="panel panel-primary panel-lg">
+      <div class="panel-heading">
+        <h3 class="panel-title">
         {{APP.client.name}}
-        <small>{{APP.name}} v{{APP.version}}</small>
+        <small>{{APP.name}} v{{APP.version}} by <a href="{{APP.author.url}}">{{APP.author.name}}</a></small>
       </h3>
+      </div>
+      <form class="panel-body" ng-class="{loading: vm.loading}" ng-submit="vm.SignIn()" role="form">
+        <div class="alert alert-{{vm.Alert.Type}} text-center" style="margin:10px 0" ng-show="vm.Alert">
+          <strong>{{vm.Alert.Message}}</strong>
+          <p ng-if="vm.Alert.Details">{{vm.Alert.Details}}</p>
+        </div>
+        <div class="form-group has-feedback">
+          <label class="control-label sr-only">Username</label>
+          <input autofocus class="form-control input-lg" ng-model="vm.credentials.username" required placeholder="Username" />
+          <span class="fa fa-fw fa-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <label class="control-label sr-only">Password</label>
+          <input class="form-control input-lg" ng-model="vm.credentials.password" required type="password" placeholder="Password" />
+          <span class="fa fa-fw fa-lock form-control-feedback"></span>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">
+          Sign In</button>
+      </form>
     </div>
-    <form class="panel-body" ng-class="{loading: vm.loading}" ng-submit="vm.SignIn()" role="form">
-      <div class="alert alert-{{vm.Alert.Type}} text-center" style="margin:10px 0" ng-show="vm.Alert">
-        <strong>{{vm.Alert.Message}}</strong>
-        <p ng-if="vm.Alert.Details">{{vm.Alert.Details}}</p>
-      </div>
-      <div class="form-group has-feedback">
-        <label class="control-label sr-only">Username</label>
-        <input autofocus class="form-control input-lg" ng-model="vm.credentials.username" required placeholder="Username" />
-        <span class="fa fa-fw fa-user form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <label class="control-label sr-only">Password</label>
-        <input class="form-control input-lg" ng-model="vm.credentials.password" required type="password" placeholder="Password" />
-        <span class="fa fa-fw fa-lock form-control-feedback"></span>
-      </div>
-      <button class="btn btn-primary btn-lg btn-block" type="submit">
-        Sign In</button>
-    </form>
+    <!-- <div class="text-center text-muted">
+      2016 {{APP.name}} v{{APP.version}}
+      <br/> By <a href="{{APP.author.url}}">{{APP.author.name}}</a>
+    </div> -->
   </div>
-  <div class="text-center text-muted">
-    2016 {{APP.name}} v{{APP.version}}
-    <br/> By <a href="{{APP.author.url}}">{{APP.author.name}}</a>
-  </div>
-
 </section>
