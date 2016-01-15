@@ -4,5 +4,6 @@
   angular
     .module('app.contacts', [
       'leaflet-directive',
+      'chart.js',
     ]);
 })();

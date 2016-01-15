@@ -1,9 +1,6 @@
 <div class="btn-toolbar">
   <button class="btn btn-primary" ng-click="vm.AddCredit()">
-    <span class="fa fa-plus-square fa-fw"></span> Credit
-  </button>
-  <button class="btn btn-primary" ng-click="vm.AddDebit()">
-    <span class="fa fa-minus-square fa-fw"></span> Debit
+    <span class="fa fa-plus-square fa-fw"></span> Transaction
   </button>
   <button class="btn btn-default" ng-click="vm.Print()">
     <span class="fa fa-print fa-fw"></span> Print
@@ -11,25 +8,25 @@
   <div class="btn-group pull-right">
     <div class="btn-group" uib-dropdown>
       <button class="btn btn-default" uib-dropdown-toggle>
-        Filter
+        {{vm.DataFilters[vm.params.filter].label}}
         <span class="caret"></span>
       </button>
       <ul class="uib-dropdown-menu pull-right">
-        <li><a href ng-click="vm.ReloadChart('DD/MM/YYYY')">+-1 Month</a></li>
-        <li><a href ng-click="vm.ReloadChart('[W]ww MM/YYYY')">+-3 Months</a></li>
-        <li><a href ng-click="vm.ReloadChart('MM/YYYY')">All Transactions</a></li>
+        <li ng-repeat="fi in vm.DataFilters">
+          <a href ng-click="vm.params.filter = fi.alias; vm.LoadTransactions()">{{fi.label}}</a>
+        </li>
       </ul>
     </div>
     <div class="btn-group" uib-dropdown>
       <button class="btn btn-default" uib-dropdown-toggle>
-        Chart
+        {{vm.ChartGroups[vm.chart.params.group].label}}
         <span class="caret"></span>
       </button>
       <ul class="uib-dropdown-menu pull-right">
         <li class="dropdown-header">Group By</li>
-        <li><a href ng-click="vm.ReloadChart('DD/MM/YYYY')">Daily</a></li>
-        <li><a href ng-click="vm.ReloadChart('[W]ww MM/YYYY')">Weekly</a></li>
-        <li><a href ng-click="vm.ReloadChart('MM/YYYY')">Monthly</a></li>
+        <li ng-repeat="gr in vm.ChartGroups">
+          <a href ng-click="vm.chart.params.group = gr.alias; vm.ReloadChart()">{{gr.label}}</a>
+        </li>
       </ul>
     </div>
   </div>
@@ -43,7 +40,7 @@
 
   <div ng-if="vm.Transactions.length && !vm.loading">
 
-    <canvas class="chart chart-line" chart-labels="vm.Chart.labels" chart-data="vm.Chart.data" chart-options="vm.Chart.options"></canvas>
+    <canvas class="chart chart-line" chart-labels="vm.chart.labels" chart-data="vm.chart.data" chart-options="vm.chart.options"></canvas>
 
     <div class="table-responsive">
       <table class="table table-condensed">
@@ -65,8 +62,8 @@
             </td>
             <td>{{Transaction.date | date:"dd-MM-yyyy"}}</td>
             <td>{{Transaction.description}}</td>
-            <td class="text-right">{{Transaction.amount|currency}}</td>
-            <td class="text-right">{{Transaction.total|currency}}</td>
+            <td class="currency text-right">{{Transaction.amount|currency}}</td>
+            <td class="currency text-right">{{Transaction.total|currency}}</td>
           </tr>
         </tbody>
       </table>

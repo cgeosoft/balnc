@@ -6,29 +6,56 @@
     .controller("ContactsCompanyTransactionsController", ContactsCompanyTransactionsController);
 
   /* @ngInject */
-  function ContactsCompanyTransactionsController($stateParams, Transaction) {
+  function ContactsCompanyTransactionsController(
+    $stateParams,
+    Transaction,
+    DataFilters,
+    ChartGroups) {
 
     var vm = this;
 
+    vm.filter = {
+      where: {
+        companyId: $stateParams.id,
+      },
+      order: "date ASC",
+    }
+
+    vm.chart = {
+      labels: [],
+      data: [
+        []
+      ],
+      params: {
+        group: "weekly",
+      },
+      options: {
+        bezierCurve: false,
+        datasetFill: false,
+      }
+    };
+
+    vm.params = {
+      filter: "one_month",
+    }
+
+    vm.DataFilters = DataFilters;
+    vm.ChartGroups = ChartGroups;
+
+    vm.LoadTransactions = LoadTransactions;
+    vm.ReloadChart = ReloadChart;
     activate();
 
     function activate() {
-      _loadTransactions()
-        .then(function() {
-          _reloadChart();
-        });
+      vm.LoadTransactions();
     }
 
-    function _loadTransactions() {
+    function LoadTransactions() {
       vm.loading = true;
+
       return Transaction
         .find({
-          filter: {
-            where: {
-              companyId: $stateParams.id,
-            },
-            order: "date ASC",
-          }
+          filter: vm.filter
         })
         .$promise
         .then(function(data) {
@@ -38,36 +65,27 @@
             transaction.total = _total;
           });
           vm.Transactions = data;
+          vm.ReloadChart();
         })
         .finally(function() {
           vm.loading = false;
         });
     }
 
-    function _reloadChart(groupby) {
-
-      vm.Chart = {
-        labels: [],
-        data: [
-          []
-        ],
-        options:{
-          bezierCurve : false,
-          datasetFill : false,
-        }
-      };
-
+    function ReloadChart() {
+      console.log(vm.chart.params.group);
+      vm.chart.labels = [];
+      vm.chart.data[0] = [];
       var grouped_transactions = _.groupBy(vm.Transactions, function(transaction) {
-        return moment(transaction.date).format(groupby || '[W]ww MM/YYYY');
+        return moment(transaction.date).format(ChartGroups[vm.chart.params.group].value);
       });
 
       _.each(grouped_transactions, function(transactions, keydate) {
-
         var _date_total = _.reduce(transactions, function(total, transaction) {
           return Math.round(transaction.amount + total);
         }, 0);
-        vm.Chart.labels.push(keydate);
-        vm.Chart.data[0].push(_date_total);
+        vm.chart.labels.push(keydate);
+        vm.chart.data[0].push(_date_total);
       });
 
     }
