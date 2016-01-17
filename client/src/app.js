@@ -19,6 +19,7 @@
     'app.contacts',
     'app.files',
     'app.settings',
+    'app.static',
     'app._common',
   ]);
 

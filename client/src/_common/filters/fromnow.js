@@ -12,5 +12,5 @@
       return moment(date).fromNow();
     }
   }
-  
+
 }());
