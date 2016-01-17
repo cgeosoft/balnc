@@ -1,24 +1,25 @@
 <div class="panel panel-default">
 
   <div class="panel-heading">
-    AppUsers List
-    <button class="btn btn-primary btn-xs pull-right" ng-click="vm.FormAppUser()">
-      <span class="fa fa-user-plus fa-fw"></span> AppUser
+    Users List
+    <button class="btn btn-primary btn-xs pull-right" ng-click="vm.UserForm()">
+      <span class="fa fa-user-plus fa-fw"></span> User
     </button>
   </div>
-  <div class="panel-body" ng-class="{loading:vm.loading}">
+
+  <div ng-class="{loading:vm.loading}">
 
     <div class="panel-empty" ng-if="!vm.AppUsers.length">
       No users were found
     </div>
 
     <div class="list-group list-group-open" ng-if="vm.AppUsers.length">
-      <a ng-click="vm.FormAppUser(AppUser.id)" class="list-group-item" ng-repeat="AppUser in vm.AppUsers">
-        <h4 class="list-group-item-heading">{{AppUser.username}}</h4>
+      <a href ng-click="vm.UserForm(AppUser.id)" class="list-group-item" ng-repeat="AppUser in vm.AppUsers">
+        <h4 class="list-group-item-heading">{{AppUser.fullname}}</h4>
         <p class="list-group-item-text">{{AppUser.email}}</p>
+      </a>
     </div>
 
   </div>
-</div>
 
-{{vm.AppUsers}}
+</div>

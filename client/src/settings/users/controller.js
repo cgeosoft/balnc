@@ -6,22 +6,19 @@
     .controller('SettingsAppUsersController', SettingsAppUsersController);
 
   /* @ngInject */
-  function SettingsAppUsersController(AppUser) {
+  function SettingsAppUsersController(AppUser, SettingsModals) {
     var vm = this;
 
-    vm.FormAppUser = FormAppUser;
+    vm.UserForm = UserForm;
 
     activate();
 
-    console.log("zzz");
     function activate() {
-    console.log("aszxc");
       _loadAppUsers();
     }
 
     function _loadAppUsers() {
       vm.loading = true;
-      console.log("Asd");
       return AppUser
         .find()
         .$promise
@@ -33,8 +30,14 @@
         });
     }
 
-    function FormAppUser(AppUserID) {
-
+    function UserForm(AppUserID) {
+      SettingsModals
+        .UserForm({
+          AppUserID: AppUserID
+        })
+        .then(function() {
+          _loadAppUsers();
+        });
     }
 
   }

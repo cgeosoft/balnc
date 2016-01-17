@@ -1,15 +1,14 @@
 {
   "name": "AppUser",
   "base": "User",
-  "options": {
-    "mysql": {
-      "table": "user"
+  "properties": {
+    "fullname": {
+      "type": "string"
     }
   },
   "acls": [{
     "principalType": "ROLE",
     "principalId": "ADMIN",
-    "permission": "ALLOW",
-    "property": "find"
+    "permission": "ALLOW"
   }]
 }

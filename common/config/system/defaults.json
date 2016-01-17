@@ -2,6 +2,7 @@
   "auth": [{
     "role": "ADMIN",
     "users": [{
+      "fullname": "Douglas Henderson",
       "username": "admin",
       "email": "admin@admin.com",
       "password": "admin"
@@ -9,6 +10,7 @@
   }, {
     "role": "MEMBER",
     "users": [{
+      "fullname": "Lillie Chapman",
       "username": "member",
       "email": "member@member.com",
       "password": "member"
