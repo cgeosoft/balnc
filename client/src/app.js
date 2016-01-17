@@ -18,6 +18,7 @@
     'app.dashboard',
     'app.contacts',
     'app.files',
+    'app.settings',
     'app._common',
   ]);
 

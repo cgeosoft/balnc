@@ -20,6 +20,8 @@ It is build with cutting edge technologies and with KISS principle in mind.
   - Invoicing
   - Expenses / Income Tracking
   - Payroll
+- Marketing Tools
+  - Presenter
 
 # License
 The MIT License (MIT)
