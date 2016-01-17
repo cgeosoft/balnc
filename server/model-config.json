@@ -14,7 +14,7 @@
       "./mixins"
     ]
   },
-  "User": {
+  "AppUser": {
     "dataSource": "db"
   },
   "AccessToken": {

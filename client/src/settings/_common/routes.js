@@ -30,7 +30,7 @@
       state: 'app.settings.users',
       config: {
         url: '/users',
-        controller: "SettingsUsersController",
+        controller: "SettingsAppUsersController",
         templateUrl: 'src/settings/users/view.html',
       }
     }, {

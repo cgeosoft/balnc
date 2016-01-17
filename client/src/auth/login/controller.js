@@ -6,7 +6,7 @@
     .controller('AuthLoginController', AuthLoginController);
 
   /* @ngInject */
-  function AuthLoginController($stateParams, $state, LoginMessages, User) {
+  function AuthLoginController($stateParams, $state, LoginMessages, AppUser) {
     var vm = this;
 
     vm.loading = false;
@@ -26,7 +26,7 @@
       vm.loading = true;
       vm.Alert = false;
 
-      User
+      AppUser
         .login(angular.copy(vm.credentials))
         .$promise
         .then(function(response) {

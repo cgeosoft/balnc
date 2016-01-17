@@ -1,0 +1,15 @@
+{
+  "name": "AppUser",
+  "base": "User",
+  "options": {
+    "mysql": {
+      "table": "user"
+    }
+  },
+  "acls": [{
+    "principalType": "ROLE",
+    "principalId": "ADMIN",
+    "permission": "ALLOW",
+    "property": "find"
+  }]
+}
