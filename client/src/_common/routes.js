@@ -36,7 +36,7 @@
                 .getCurrent()
                 .$promise
                 .then(function(_user) {
-                  vm.username = _user.username;
+                  vm.name = _user.fullname.split(" ")[1];
                 });
 
             },
@@ -45,10 +45,6 @@
             templateUrl: 'src/contacts/topmenu/view.html',
             controller: "ContactsTopMenuController",
           },
-          // "menu-contacts@app": {
-          //   templateUrl: 'src/contacts/topmenu/view.html',
-          //   controller: "ContactsTopMenuController",
-          // },
         }
       }
     }];

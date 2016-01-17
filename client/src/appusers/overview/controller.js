@@ -2,11 +2,11 @@
   'use strict';
 
   angular
-    .module('app.settings')
-    .controller('SettingsAppUsersController', SettingsAppUsersController);
+    .module('app.appusers')
+    .controller('AppUsersOverviewController', AppUsersOverviewController);
 
   /* @ngInject */
-  function SettingsAppUsersController(AppUser, SettingsModals) {
+  function AppUsersOverviewController(AppUser, SettingsModals) {
     var vm = this;
 
     vm.UserForm = UserForm;

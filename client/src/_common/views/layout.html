@@ -106,12 +106,12 @@
         </li>
         <li uib-dropdown>
           <a href uib-dropdown-toggle>
-              {{vm.username}}
+              {{vm.name}}
               <span class='caret'></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a ui-sref="app.settings.profile">Profile</a></li>
-            <li><a ui-sref="app.settings.general">Settings</a></li>
+            <li><a ui-sref="app.settings">Settings</a></li>
+            <li><a ui-sref="app.appusers">Users</a></li>
             <li role="separator" class="divider"></li>
             <li><a ui-sref="auth.logout">Sign Out</a></li>
           </ul>
