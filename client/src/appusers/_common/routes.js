@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.settings')
+    .module('app.appusers')
     .run(appRun);
 
   /* @ngInject */
@@ -12,11 +12,11 @@
 
   function getStates() {
     return [{
-      state: 'app.settings',
+      state: 'app.appusers',
       config: {
-        url: '/settings',
-        controller: "SettingsController",
-        templateUrl: 'src/settings/overview/view.html',
+        url: '/users',
+        controller: "AppUsersOverviewController",
+        templateUrl: 'src/appusers/overview/view.html',
       }
     }];
   }

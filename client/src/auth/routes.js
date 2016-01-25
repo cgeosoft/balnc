@@ -34,8 +34,8 @@
       config: {
         url: '/logout',
         template: "<ui-view/>",
-        controller: function(User, $state) {
-          User
+        controller: function(AppUser, $state) {
+          AppUser
             .logout()
             .$promise
             .then(function() {})

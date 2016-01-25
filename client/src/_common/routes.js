@@ -17,9 +17,9 @@
       config: {
         abstract: true,
         resolve: {
-          isAuthenticated: function($state, User, $timeout) {
+          isAuthenticated: function($state, AppUser, $timeout) {
             $timeout(function() {
-              if (!User.isAuthenticated()) {
+              if (!AppUser.isAuthenticated()) {
                 $state.go("auth.login");
                 return false;
               }
@@ -29,14 +29,14 @@
         views: {
           "": {
             templateUrl: 'src/_common/views/layout.html',
-            controller: function(User) {
+            controller: function(AppUser) {
               var vm = this;
 
-              User
+              AppUser
                 .getCurrent()
                 .$promise
                 .then(function(_user) {
-                  vm.username = _user.username;
+                  vm.name = _user.fullname.split(" ")[1];
                 });
 
             },
@@ -45,10 +45,6 @@
             templateUrl: 'src/contacts/topmenu/view.html',
             controller: "ContactsTopMenuController",
           },
-          // "menu-contacts@app": {
-          //   templateUrl: 'src/contacts/topmenu/view.html',
-          //   controller: "ContactsTopMenuController",
-          // },
         }
       }
     }];

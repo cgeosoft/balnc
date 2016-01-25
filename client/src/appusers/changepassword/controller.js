@@ -6,7 +6,7 @@
     .controller("ChangePasswordController", ChangePasswordController);
 
   /* @ngInject */
-  function ChangePasswordController($uibModalInstance, ModalParams, User, toaster) {
+  function ChangePasswordController($uibModalInstance, ModalParams, AppUser, toaster) {
     var vm = this;
 
     vm.Save = Save;
@@ -17,8 +17,8 @@
 
     function Save() {
       vm.loading = true;
-      User.prototype$updateAttributes({
-          id: User.getCurrentId(),
+      AppUser.prototype$updateAttributes({
+          id: AppUser.getCurrentId(),
           password: vm.Password
         })
         .$promise

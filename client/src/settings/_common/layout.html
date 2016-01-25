@@ -1,0 +1,20 @@
+<ol class="breadcrumb">
+  <li><a ui-sref="app.dashboard">Home</a></li>
+  <li class="active">Settings</li>
+</ol>
+<div class="row">
+  <div class="col-lg-3 col-md-4">
+    <div class="panel panel-default">
+      <div class="list-group">
+        <a ui-sref-active="active" ui-sref="app.settings.general" class="list-group-item">General</a>
+        <a ui-sref-active="active" ui-sref="app.settings.users" class="list-group-item">Users & Roles</a>
+        <a ui-sref-active="active" ui-sref="app.settings.profile" class="list-group-item">My Profile</a>
+        <a ui-sref-active="active" ui-sref="app.settings.help" class="list-group-item">Help & Support</a>
+        <a ui-sref-active="active" ui-sref="app.settings.terms" class="list-group-item">Terms of Use</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9 col-md-8">
+    <ui-view/>
+  </div>
+</div>

@@ -21,12 +21,16 @@
 
         <li ui-sref-active="active">
           <a ui-sref="app.dashboard">
-            <span class="fa fa-dashboard fa-fw"></span> <span class="hidden-sm">Dashboard</span></a>
+            <span class="fa fa-dashboard fa-fw"></span>
+            <span class="hidden-sm">Dashboard</span>
+          </a>
         </li>
         <li class="dropdown-large" uib-dropdown ui-sref-active="active" ui-view="menu-contacts"></li>
         <li uib-dropdown ui-sref-active="active">
           <a href uib-dropdown-toggle>
-            <span class="fa fa-cubes fa-fw"></span> <span class="hidden-sm">Projects</span></a>
+            <span class="fa fa-cubes fa-fw"></span>
+            <span class="hidden-sm">Projects</span>
+          </a>
           <ul class="dropdown-menu" style="min-width:200px;">
             <li class="dropdown-header">Quick Actions</li>
             <li>
@@ -47,7 +51,9 @@
         </li>
         <li uib-dropdown ui-sref-active="active">
           <a href uib-dropdown-toggle>
-            <span class="fa fa-bookmark fa-fw"></span> <span class="hidden-sm">Leads</span></a>
+            <span class="fa fa-bookmark fa-fw"></span>
+            <span class="hidden-sm">Sales</span>
+          </a>
           <ul class="dropdown-menu" style="min-width:200px;">
             <li class="dropdown-header">Quick Actions</li>
             <li>
@@ -67,7 +73,9 @@
         </li>
         <li uib-dropdown ui-sref-active="active">
           <a href uib-dropdown-toggle>
-            <span class="fa fa-book fa-fw"></span> <span class="hidden-sm">Accounting</span></a>
+            <span class="fa fa-book fa-fw"></span>
+            <span class="hidden-sm">Accounting</span>
+          </a>
           <ul class="dropdown-menu" style="min-width:200px;">
             <li class="dropdown-header">Quick Actions</li>
             <li>
@@ -98,12 +106,12 @@
         </li>
         <li uib-dropdown>
           <a href uib-dropdown-toggle>
-              {{vm.username}}
+              {{vm.name}}
               <span class='caret'></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><a ui-sref="app.settings">Settings</a></li>
+            <li><a ui-sref="app.appusers">Users</a></li>
             <li role="separator" class="divider"></li>
             <li><a ui-sref="auth.logout">Sign Out</a></li>
           </ul>
@@ -120,5 +128,7 @@
     <li>2016 Balance v{{APP.version}}</li>
     <li>By <a href="{{APP.author.url}}">{{APP.author.name}}</a></li>
     <li><a href="{{APP.repository}}">GitHub</a></li>
+    <li><a href ui-sref="app.static.terms">Terms</a></li>
+    <li><a href ui-sref="app.static.help">Help</a></li>
   </ul>
 </footer>

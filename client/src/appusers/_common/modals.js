@@ -19,6 +19,13 @@
           controller: "ChangePasswordController",
           size: "sm"
         }
+      }, {
+        modal: "UserForm",
+        config: {
+          templateUrl: 'src/settings/user.form/view.html',
+          controller: "UserFormController",
+          size: "sm"
+        }
       }];
     }
   }

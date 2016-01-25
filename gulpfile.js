@@ -106,7 +106,7 @@ gulp.task('db:migrate', ['db:migrate-schema'], function(cb) {
         return item;
       });
 
-      app.models.User.create(_users, function(err, users) {
+      app.models.AppUser.create(_users, function(err, users) {
         if (err) cb(err);
 
         users.forEach(function(user, j) {

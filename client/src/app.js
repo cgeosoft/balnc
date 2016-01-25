@@ -14,10 +14,13 @@
 
     'lbServices',
 
+    'app.appusers',
     'app.auth',
-    'app.dashboard',
     'app.contacts',
+    'app.dashboard',
     'app.files',
+    'app.settings',
+    'app.static',
     'app._common',
   ]);
 

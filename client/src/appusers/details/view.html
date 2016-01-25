@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <button class=close n type="button" class="close" ng-click="$close()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title">
+    User
+  </h4>
+</div>
+
+<form ng-submit="vm.Save()" ng-class="{loading:vm.loading}">
+
+  <div class="modal-body">
+
+    <div class="form-group">
+      <label class="control-label">name</label>
+      <input class="form-control" ng-model="vm.AppUser.fullname" />
+    </div>
+
+    <div class="form-group">
+      <label class="control-label">email</label>
+      <input class="form-control" ng-model="vm.AppUser.email" />
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-sm btn-success" type="submit">Save</button>
+  </div>
+
+</form>
