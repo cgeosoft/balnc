@@ -27,7 +27,7 @@
     width: 100%;
   }
   .panel {
-    border: solid 1px #FFF;
+    border-color: $color-navbar;
     box-shadow: 0 0 15px #CCC;
     .panel-heading {
       font-size: 1.5em;
@@ -56,6 +56,19 @@
       box-shadow: none;
       border-radius: 0;
       border-width: 0 0 1px 0;
+      &:active,
+      &:focus {
+        border-color: $color-navbar;
+      }
+    }
+    .btn {
+      color: #FFF;
+      background: $color-navbar;
+      &:hover,
+      &:active,
+      &:focus {
+        background: lighten($color-navbar,5%);
+      }
     }
   }
 }
