@@ -17,14 +17,14 @@
     "lb-ng": "lb-ng ./server/server.js ./client/assets/scripts/lb-services.js"
   },
   "dependencies": {
-    "compression": "^1.6.0",
+    "compression": "^1.6.1",
     "connect-modrewrite": "^0.8.3",
     "cors": "^2.7.1",
     "helmet": "^1.1.0",
     "loopback": "^3.0.0-alpha.1",
-    "loopback-boot": "^2.16.0",
-    "loopback-component-storage": "^1.6.1",
-    "loopback-connector-mysql": "^2.2.0",
+    "loopback-boot": "^2.17.0",
+    "loopback-component-storage": "^1.7.0",
+    "loopback-connector-mysql": "^2.2.1",
     "loopback-datasource-juggler": "^3.0.0-alpha.1",
     "open-sans-fontface": "^1.4.0",
     "pdfmake": "^0.1.18",
@@ -32,22 +32,22 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "glob": "^6.0.4",
-    "gulp": "^3.9.0",
+    "glob": "^7.0.0",
+    "gulp": "^3.9.1",
     "gulp-angular-filesort": "^1.1.1",
-    "gulp-clean-css": "^1.0.2",
+    "gulp-clean-css": "^2.0.2",
     "gulp-concat": "^2.6.0",
-    "gulp-ng-annotate": "^1.1.0",
+    "gulp-ng-annotate": "^2.0.0",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.1.1",
+    "gulp-sass": "^2.2.0",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.1",
+    "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
     "loopback-component-explorer": "^2.2.0",
     "minimatch": "^3.0.0",
     "ng-annotate": "^1.2.1",
     "node-sass": "^3.4.2",
     "q": "^1.4.1",
-    "uglify-js": "^2.6.1"
+    "uglify-js": "^2.6.2"
   }
 }

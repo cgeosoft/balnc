@@ -28,7 +28,6 @@ $col-highlight: #fff;
     }
   }
   .navbar-brand {
-    border-right: solid 1px $bg-highlight;
     color: $col-default;
     line-height: 16px;
     padding-top: 12px;
@@ -40,6 +39,10 @@ $col-highlight: #fff;
       display: block;
       font-size: 10px;
       color: darken($col-default,15%);
+    }
+
+    @media (min-width: 767px) {
+      border-right: solid 1px $bg-highlight;
     }
   }
   .navbar-text {

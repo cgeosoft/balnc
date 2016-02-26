@@ -31,6 +31,7 @@
     "angular-ui-router-tabs": "~1.7.0",
     "angular-file-upload": "~2.2.0",
     "pdfmake": "~0.1.20",
-    "angular-leaflet-directive": "~0.10.0"
+    "angular-leaflet-directive": "~0.10.0",
+    "AdminLTE": "adminlte#^2.3.2"
   }
 }
