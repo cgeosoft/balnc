@@ -1,11 +1,6 @@
 {
   "db": {
     "name": "db",
-    "host": "127.0.0.1",
-    "port": 3306,
-    "database": "",
-    "username": "",
-    "password": "",
     "connector": "mysql",
     "debug": false
   },
@@ -14,11 +9,5 @@
     "connector": "loopback-component-storage",
     "provider": "filesystem",
     "root": "storage"
-  },
-  "configuration": {
-    "name": "configuration",
-    "connector": "loopback-component-storage",
-    "provider": "filesystem",
-    "root": "common/config/client"
   }
 }

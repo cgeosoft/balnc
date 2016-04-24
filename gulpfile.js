@@ -69,7 +69,7 @@ gulp.task('config', function() {
       version: pkg.version,
       repository: pkg.repository,
       author: pkg.author,
-      client: require('./common/config/client/default.json'),
+      client: require('./common/config/client.json'),
     }) + "; })()"
   );
 
@@ -78,7 +78,7 @@ gulp.task('config', function() {
 gulp.task('db:migrate', ['db:migrate-schema'], function(cb) {
 
   var app = require('./server/server.js');
-  var defaults =  require('./common/config/system/defaults.json');
+  var defaults =  require('./common/config/defaults.json');
 
   var _roles = _.map(defaults.auth, function(auth) {
     return {
