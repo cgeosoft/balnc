@@ -21,6 +21,7 @@
     'app.files',
     'app.settings',
     'app.static',
+    'app.invoices',
     'app._common',
   ]);
 

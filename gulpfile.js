@@ -3,6 +3,7 @@ var fs = require('fs');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var path = require('path');
+var shell = require('gulp-shell');
 var pkg = require('./package.json');
 
 var angularFilesort = require('gulp-angular-filesort');
@@ -18,12 +19,17 @@ var uglify = require('gulp-uglify');
 
 gulp.task('default', ['watch']);
 
-gulp.task('watch', ['sass', 'build'], function() {
+gulp.task('watch', ['sass', 'build', 'nglb'], function() {
 
     gulp.watch("./scss/**/**.*", ['sass']);
     gulp.watch("./client/src/**/*.js", ['build']);
+    gulp.watch("./common/models/**/*.*", ['nglb']);
 
 });
+
+gulp.task('nglb', shell.task([
+    'lb-ng ./server/server.js ./client/assets/scripts/lb-services.js'
+]));
 
 gulp.task('sass', function() {
 
