@@ -11,13 +11,6 @@
             route: 'app.contacts.company.overview',
         }, {
             heading: {
-                icon: "calendar",
-                class: "hidden-xs",
-                title: 'Events'
-            },
-            route: 'app.contacts.company.events',
-        }, {
-            heading: {
                 icon: "money",
                 class: "hidden-xs",
                 title: 'Transactions'
