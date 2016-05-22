@@ -6,6 +6,9 @@ var path = require('path');
 var shell = require('gulp-shell');
 var pkg = require('./package.json');
 
+var through = require('through2');
+
+
 var angularFilesort = require('gulp-angular-filesort');
 var concat = require('gulp-concat');
 var connectModrewrite = require('connect-modrewrite');
@@ -175,57 +178,72 @@ function _getMockModels(files) {
 
 gulp.task('db:clean', function(cb) {
 
-    var glob = require('glob');
     var app = require('./server/server.js');
     var ds = app.dataSources.db;
 
-    return glob("./mock/*.json", {}, function(err, files) {
-        if (err) cb(err);
+    var models_count = fs.readdirSync("./mock").length;
 
-        var _models = _getMockModels(files);
+    gulp.src("./mock/*.json")
+        .pipe(through.obj(function(file, enc, next) {
 
-        gutil.log("Found", gutil.colors.magenta(_models.length), "models");
+            var name = path.basename(file.path, '.json');
+            var _model = {
+                name: name.charAt(0).toUpperCase() + name.slice(1),
+            };
 
-        _.each(_models, function(_model, i) {
-            gutil.log("Delete all", gutil.colors.magenta(_model.name));
+            gutil.log("Cleaning", gutil.colors.magenta(_model.name));
+
             app.models[_model.name].deleteAll(function(err) {
                 if (err) cb(err);
-                if (i == _models.length - 1) {
-                    cb();
-                }
+                next();
             });
+
+        }))
+        .on('finish', function() {
+            // ds.disconnect(function() {
+                cb();
+            // });
+        })
+        .on('error', function(error) {
+            gutil.log(error);
+            cb(error);
         });
-    });
 
 });
 
 gulp.task('db:mock', ['db:clean'], function(cb) {
 
-    var glob = require('glob');
+
     var app = require('./server/server.js');
     var ds = app.dataSources.db;
 
-    glob("./mock/*.json", {}, function(err, files) {
-        if (err) cb(err);
+    var models_count = fs.readdirSync("./mock").length;
 
-        var _models = _getMockModels(files);
+    gulp.src("./mock/*.json")
+        .pipe(through.obj(function(file, enc, next) {
 
-        gutil.log("Found", gutil.colors.magenta(_models.length), "models");
+            var name = path.basename(file.path, '.json');
+            var _model = {
+                name: name.charAt(0).toUpperCase() + name.slice(1),
+                data: JSON.parse(file.contents.toString("utf-8")),
+            };
 
-        _.each(_models, function(_model, i) {
-            gutil.log("Inserting", gutil.colors.magenta(_model.data.length), "items of", gutil.colors.magenta(_model.name));
-            app.models[_model.name].create(_model.data, function(err) {
+            gutil.log("Creating", gutil.colors.magenta(_model.data.length), "items of", gutil.colors.magenta(_model.name), "in database");
+
+            app.models[_model.name].create(_model.data, function(err, obj) {
                 if (err) cb(err);
-                if (i == _models.length - 1) {
-                    cb();
-                }
+                next();
             });
+
+        }))
+        .on('end', function() {
+            // ds.disconnect(function() {
+                cb();
+            // });
         });
 
-    });
 
 });
-
 
 gulp.task('test:invoice', function(cb) {
 
