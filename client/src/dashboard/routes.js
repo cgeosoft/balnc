@@ -1,26 +1,25 @@
-
 (function() {
-  'use strict';
+    'use strict';
 
-  angular
-    .module('app.dashboard')
-    .run(RoutesConfig);
+    angular
+        .module('app.dashboard')
+        .run(RoutesConfig);
 
-  /* @ngInject */
-  function RoutesConfig(configHelper, routerHelper) {
-    routerHelper.configureStates(getStates());
-  }
+    /* @ngInject */
+    function RoutesConfig(configHelper, routerHelper) {
+        routerHelper.configureStates(getStates());
+    }
 
-  function getStates() {
-    return [{
-      state: 'app.dashboard',
-      config: {
-        title: 'Dashboard',
-        url: "/",
-        templateUrl: 'src/dashboard/view.html',
-        controller: 'DashboardController',
-      }
-    }];
-  }
+    function getStates() {
+        return [{
+            state: 'app.dashboard',
+            config: {
+                title: 'Dashboard',
+                url: "/",
+                templateUrl: 'src/dashboard/view.html',
+                controller: 'DashboardController',
+            }
+        }];
+    }
 
 }());

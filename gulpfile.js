@@ -5,10 +5,7 @@ var gutil = require('gulp-util');
 var path = require('path');
 var shell = require('gulp-shell');
 var pkg = require('./package.json');
-
 var through = require('through2');
-
-
 var angularFilesort = require('gulp-angular-filesort');
 var concat = require('gulp-concat');
 var connectModrewrite = require('connect-modrewrite');
@@ -201,7 +198,7 @@ gulp.task('db:clean', function(cb) {
         }))
         .on('finish', function() {
             // ds.disconnect(function() {
-                cb();
+            cb();
             // });
         })
         .on('error', function(error) {
@@ -238,7 +235,7 @@ gulp.task('db:mock', ['db:clean'], function(cb) {
         }))
         .on('end', function() {
             // ds.disconnect(function() {
-                cb();
+            cb();
             // });
         });
 

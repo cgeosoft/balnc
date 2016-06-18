@@ -1,35 +1,55 @@
-<!-- <img class="login-background" style="background-image:url(https://www.bing.com/az/hprichbg/rb/PlitviceSnow_ROW9935382295_1366x768.jpg)"/> -->
-<section class="container">
-  <div class="login-wrapper">
-    <div class="panel panel-primary panel-lg">
-      <div class="panel-heading">
-        <h3 class="panel-title">
-        {{APP.client.name}}
-        <small>{{APP.name}} v{{APP.version}} by <a href="{{APP.author.url}}">{{APP.author.name}}</a></small>
-      </h3>
-      </div>
-      <form class="panel-body" ng-class="{loading: vm.loading}" ng-submit="vm.SignIn()" role="form">
-        <div class="alert alert-{{vm.Alert.Type}} text-center" style="margin:10px 0" ng-show="vm.Alert">
-          <strong>{{vm.Alert.Message}}</strong>
-          <p ng-if="vm.Alert.Details">{{vm.Alert.Details}}</p>
+<div class="login-wrapper">
+    <div class="login-box">
+        <div class="login-logo">
+            BALANCE
+            <br><small>{{APP.client.name}}</small>
         </div>
-        <div class="form-group has-feedback">
-          <label class="control-label sr-only">Username</label>
-          <input autofocus class="form-control input-lg" ng-model="vm.credentials.username" required placeholder="Username" />
-          <span class="fa fa-fw fa-user form-control-feedback"></span>
+        <div class="box">
+            <div class="box-body">
+
+                <div class="alert alert-{{vm.Alert.Type}} text-center" style="margin:10px 0" ng-show="vm.Alert">
+                    <strong>{{vm.Alert.Message}}</strong>
+                    <p ng-if="vm.Alert.Details">{{vm.Alert.Details}}</p>
+                </div>
+
+                <form class="panel-body" ng-class="{loading: vm.loading}" ng-submit="vm.SignIn()" role="form">
+                    <div class="form-group">
+                        <label class="control-label">Username</label>
+                        <input autofocus class="form-control input-lg" ng-model="vm.credentials.username" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Password</label>
+                        <input class="form-control input-lg" ng-model="vm.credentials.password" type="password" required/>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg btn-flat">Sign In</button>
+                </form>
+
+            </div>
         </div>
-        <div class="form-group has-feedback">
-          <label class="control-label sr-only">Password</label>
-          <input class="form-control input-lg" ng-model="vm.credentials.password" required type="password" placeholder="Password" />
-          <span class="fa fa-fw fa-lock form-control-feedback"></span>
-        </div>
-        <button class="btn btn-block" type="submit">
-          Sign In</button>
-      </form>
+        <footer class="login-footer">
+            2016 Balance v{{APP.version}} by <a href="{{APP.author.url}}">{{APP.author.name}}</a>
+            <br>
+            <a href="{{APP.repository}}">GitHub</a> -
+            <a href ui-sref="app.static.terms">Terms</a> -
+            <a href ui-sref="app.static.help">Help</a>
+        </footer>
     </div>
-    <!-- <div class="text-center text-muted">
-      2016 {{APP.name}} v{{APP.version}}
-      <br/> By <a href="{{APP.author.url}}">{{APP.author.name}}</a>
-    </div> -->
-  </div>
-</section>
+</div>
+<style>
+    html,
+    body,
+    .wrapper {
+        background-color: #f1f1f1 !important;
+    }
+
+    .login-logo {
+        font-weight: 600;
+    }
+
+    .login-footer {
+        text-align: center;
+        font-size: 0.7em;
+        color: #666;
+    }
+</style>

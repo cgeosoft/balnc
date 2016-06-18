@@ -1,4 +1,3 @@
-
 (function() {
     'use strict';
 
@@ -26,26 +25,19 @@
                         });
                     }
                 },
-                views: {
-                    "": {
-                        templateUrl: 'src/_common/views/layout.html',
-                        controller: function(AppUser) {
-                            var vm = this;
+                templateUrl: 'src/_common/views/layout.html',
+                controller: function(AppUser) {
+                    var vm = this;
 
-                            AppUser
-                                .getCurrent()
-                                .$promise
-                                .then(function(_user) {
-                                    vm.name = _user.fullname.split(" ")[1];
-                                });
+                    AppUser
+                        .getCurrent()
+                        .$promise
+                        .then(function(_user) {
+                            vm.name = _user.fullname.split(" ")[1];
+                        });
 
-                        },
-                    },
-                    "menu-contacts@app": {
-                        templateUrl: 'src/contacts/_topmenu/view.html',
-                        controller: "ContactsTopMenuController",
-                    },
-                }
+                },
+
             }
         }];
     }

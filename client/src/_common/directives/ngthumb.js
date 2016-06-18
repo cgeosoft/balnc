@@ -4,7 +4,7 @@
 
   angular
     .module('app._common')
-    .directive('ngThumb', ngThumb)
+    .directive('ngThumb', ngThumb);
 
   /* @ngInject */
   function ngThumb($window) {

@@ -16,7 +16,7 @@
             config: {
                 abstract: true,
                 url: "/invoices",
-                templateUrl: '<ui-view/>',
+                template: '<ui-view/>',
             }
         }, {
             state: 'app.invoices.overview',
