@@ -2,8 +2,7 @@ node_modules
 npm-debug.log*
 
 storage
+
 client/libs
-client/assets/css
-client/assets/scripts
 
 !.gitkeep
