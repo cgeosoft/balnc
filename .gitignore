@@ -7,3 +7,5 @@ client/assets/css
 client/assets/scripts
 
 !.gitkeep
+
+client/src/config.js

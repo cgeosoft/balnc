@@ -16,16 +16,15 @@ var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
+var bump = require('gulp-bump');
 
-gulp.task('default', ['watch']);
-
-gulp.task('watch', ['sass', 'build', 'nglb'], function() {
-
+gulp.task('default', ['build'], function() {
     gulp.watch("./scss/**/**.*", ['sass']);
-    gulp.watch("./client/src/**/*.js", ['build']);
+    gulp.watch("./client/src/**/*.js", ['scripts']);
     gulp.watch("./common/models/**/*.*", ['nglb']);
-
 });
+
+gulp.task('build', ['sass', 'scripts', 'nglb'], function() {});
 
 gulp.task('nglb', shell.task([
     'lb-ng ./server/server.js ./client/assets/scripts/lb-services.js'
@@ -46,7 +45,7 @@ gulp.task('sass', function() {
 
 });
 
-gulp.task('build', ['config'], function() {
+gulp.task('scripts', ['config'], function() {
 
     return gulp.src("./client/src/**/*.js")
         .pipe(angularFilesort())
@@ -65,7 +64,7 @@ gulp.task('build', ['config'], function() {
 
 });
 
-gulp.task('config', function() {
+gulp.task('config', ['bump'], function() {
     var _client = require('./server/config.json').client;
     return fs.writeFile(
         "./client/src/config.js",
@@ -79,6 +78,14 @@ gulp.task('config', function() {
         }) + "; })()"
     );
 
+});
+
+gulp.task('bump', function() {
+    return gulp.src('./package.json')
+        .pipe(bump({
+            type: "prerelease"
+        }))
+        .pipe(gulp.dest('./'));
 });
 
 gulp.task('db:migrate', ['db:migrate-schema'], function(cb) {
