@@ -1,6 +1,6 @@
 {
   "name": "balance",
-  "version": "0.2.0",
+  "version": "0.2.5-5",
   "description": "Manage simple day-to-day jobs for small companies and freelancers",
   "main": "server/server.js",
   "license": "MIT",
@@ -32,6 +32,7 @@
     "glob": "^7.0.4",
     "gulp": "^3.9.1",
     "gulp-angular-filesort": "^1.1.1",
+    "gulp-bump": "^2.1.0",
     "gulp-clean-css": "^2.0.10",
     "gulp-concat": "^2.6.0",
     "gulp-ng-annotate": "^2.0.0",

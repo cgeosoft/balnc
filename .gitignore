@@ -6,3 +6,5 @@ storage
 client/libs
 
 !.gitkeep
+
+client/src/config.js
