@@ -14,6 +14,7 @@
 
     'lbServices',
 
+    'app.register',
     'app.appusers',
     'app.auth',
     'app.contacts',

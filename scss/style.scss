@@ -5,10 +5,43 @@ $color-navbar: #263238;
 @import "components/loading";
 @import "components/print";
 @import "components/empty";
-@import "components/timeline";
-// @import "components/login";
+@import "components/timeline"; // @import "components/login";
 @import "components/dmlarge";
 
+
+.box-header-inner {
+    margin: 0 10px;
+    border-bottom: solid 1px #EEE;
+    padding: 10px 0;
+    h1 {
+        font-size: 2em;
+        font-weight: 300;
+        margin: 0;
+    }
+    h2 {
+        font-size: 1.5em;
+        font-weight: 300;
+        margin: 0;
+    }
+}
+.control-label {
+    font-weight: 400;
+}
+.box-wrapper {
+    width: 500px;
+    margin: 100px auto;
+    &.box-wrapper-sm {
+        width: 300px;
+    }
+    .box{
+
+        padding: 15px;
+    }
+    .box-wrapper-footer {
+        text-align: center;
+        font-size: 0.8em;
+    }
+}
 body {
     font-family: "Open Sans";
 }
