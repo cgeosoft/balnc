@@ -45,14 +45,7 @@ $color-navbar: #263238;
 body {
     font-family: "Open Sans";
 }
-.sidebar-menu > li {
-    &.header {
-        padding: 3px 7px;
-    }
-    > a {
-        padding: 7px;
-    }
-}
+
 .toolbox {
     margin: 0 -15px 12.5px;
     padding: 7.5px 15px;

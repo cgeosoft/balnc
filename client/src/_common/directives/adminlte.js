@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -20,7 +20,7 @@
             fix(wrapper);
 
             angular.element($window)
-                .bind('resize', function() {
+                .bind('resize', function () {
                     fix(wrapper);
                 });
 
@@ -28,14 +28,14 @@
 
         function fix(element) {
             var window_height = window.innerHeight;
-            var footer_height = 77;
+            var header_height = 35;
 
             element.css({
-                height: window_height - footer_height + "px"
+                height: window_height - header_height + "px"
             });
 
         }
 
     }
 
-}());
+} ());
