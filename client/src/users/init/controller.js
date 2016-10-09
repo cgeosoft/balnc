@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.settings')
+    .module('app.users')
     .controller("UserFormController", UserFormController);
 
   /* @ngInject */

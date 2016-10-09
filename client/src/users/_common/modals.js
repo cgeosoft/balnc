@@ -3,12 +3,12 @@
   'use strict';
 
   angular
-    .module('app.settings')
-    .factory('SettingsModals', SettingsModals);
+    .module('app.users')
+    .factory('UsersModals', UsersModals);
 
-  SettingsModals.$inject = ['modalHelper'];
+  UsersModals.$inject = ['modalHelper'];
 
-  function SettingsModals(modalHelper) {
+  function UsersModals(modalHelper) {
     return modalHelper.configureModals(getModals());
 
     function getModals() {

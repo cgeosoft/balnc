@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.appusers')
+    .module('app.users')
     .controller('AppUsersOverviewController', AppUsersOverviewController);
 
   /* @ngInject */
