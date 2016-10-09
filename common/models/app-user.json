@@ -1,0 +1,33 @@
+{
+  "name": "AppUser",
+  "base": "User",
+  "idInjection": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "required": true,
+      "defaultFn": "uuidv4"
+    },
+    "fullname": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "accounts": {
+      "type": "hasMany",
+      "model": "Account",
+      "foreignKey": "userId",
+      "through": "AccountUser"
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "ADMIN",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

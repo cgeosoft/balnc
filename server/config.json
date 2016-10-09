@@ -1,53 +1,27 @@
 {
-    "restApiRoot": "/api",
-    "host": "0.0.0.0",
-    "port": 3000,
-    "remoting": {
-        "context": {
-            "enableHttpContext": false
-        },
-        "rest": {
-            "normalizeHttpPath": false,
-            "xml": false
-        },
-        "json": {
-            "strict": false,
-            "limit": "100kb"
-        },
-        "urlencoded": {
-            "extended": true,
-            "limit": "100kb"
-        },
-        "cors": false,
-        "errorHandler": {
-            "disableStackTrace": false
-        }
+  "restApiRoot": "/api",
+  "host": "0.0.0.0",
+  "port": 3000,
+  "remoting": {
+    "context": {
+      "enableHttpContext": false
     },
-    "legacyExplorer": false,
-    "client": {
-        "name": "Demo Company"
+    "rest": {
+      "normalizeHttpPath": false,
+      "xml": false
     },
-    "defaults": {
-        "auth": [{
-            "role": "ADMIN",
-            "users": [{
-                "fullname": "Douglas Henderson",
-                "username": "admin",
-                "email": "admin@admin.com",
-                "password": "admin"
-            }]
-        }, {
-            "role": "MEMBER",
-            "users": [{
-                "fullname": "Lillie Chapman",
-                "username": "member",
-                "email": "member@member.com",
-                "password": "member"
-            }]
-        }, {
-            "role": "EMPTY",
-            "users": []
-        }]
+    "json": {
+      "strict": false,
+      "limit": "100kb"
+    },
+    "urlencoded": {
+      "extended": true,
+      "limit": "100kb"
+    },
+    "cors": false,
+    "errorHandler": {
+      "disableStackTrace": false
     }
-
+  },
+  "legacyExplorer": false
 }

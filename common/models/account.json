@@ -1,5 +1,5 @@
 {
-  "name": "Person",
+  "name": "Account",
   "base": "PersistedModel",
   "idInjection": false,
   "options": {
@@ -12,29 +12,26 @@
       "required": true,
       "defaultFn": "uuidv4"
     },
-    "fullname": {
+    "alias": {
       "type": "string",
       "required": true
     },
-    "job": {
-      "type": "string"
+    "name": {
+      "type": "string",
+      "required": true
     },
-    "avatar": {
-      "type": "string"
-    },
-    "emails": {
-      "type": "array"
-    },
-    "phones": {
-      "type": "array"
+    "config": {
+      "type": "object",
+      "required": true
     }
   },
   "validations": [],
   "relations": {
-    "company": {
-      "type": "belongsTo",
-      "model": "Company",
-      "foreignKey": ""
+    "appUsers": {
+      "type": "hasMany",
+      "model": "AppUser",
+      "foreignKey": "accountId",
+      "through": "AccountUser"
     }
   },
   "acls": [],

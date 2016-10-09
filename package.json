@@ -1,6 +1,6 @@
 {
   "name": "balance",
-  "version": "0.2.5-22",
+  "version": "0.2.5-24",
   "description": "Manage simple day-to-day jobs for small companies and freelancers",
   "main": "server/server.js",
   "license": "MIT",

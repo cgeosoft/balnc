@@ -1,5 +1,5 @@
 
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -9,8 +9,9 @@
   /* @ngInject */
   function appRun($rootScope, $state, $stateParams) {
 
-    $rootScope.APP = APP;
-    $rootScope.$on('$stateChangeStart', function(evt, to, params) {
+    $rootScope.$on('$stateChangeStart', function (evt, to, params) {
+
+      $rootScope.title = toState.title;
 
       if (to.redirectTo) {
         evt.preventDefault();
@@ -21,4 +22,4 @@
 
   }
 
-}());
+} ());

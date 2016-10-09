@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular.module('app', [
@@ -15,7 +15,7 @@
     'lbServices',
 
     'app.register',
-    'app.appusers',
+    'app.users',
     'app.auth',
     'app.contacts',
     'app.dashboard',
@@ -23,7 +23,8 @@
     'app.settings',
     'app.static',
     'app.invoices',
+    'app.config',
     'app._common',
   ]);
 
-}());
+} ());

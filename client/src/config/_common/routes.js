@@ -1,8 +1,8 @@
-(function() {
+(function () {
   'use strict';
 
   angular
-    .module('app.appusers')
+    .module('app.config')
     .run(appRun);
 
   /* @ngInject */
@@ -12,13 +12,13 @@
 
   function getStates() {
     return [{
-      state: 'app.appusers',
+      state: 'app.config',
       config: {
-        url: '/users',
-        controller: "AppUsersOverviewController",
-        templateUrl: 'src/appusers/overview/view.html',
+        url: '/config',
+        controller: "ConfigController",
+        templateUrl: 'src/config/_common/layout.html',
       }
     }];
   }
 
-}());
+} ());

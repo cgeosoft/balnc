@@ -18,23 +18,23 @@ var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var bump = require('gulp-bump');
 
-gulp.task('default', ['build'], function() {
+gulp.task('default', ['build'], function () {
     gulp.watch("./scss/**/**.*", ['sass']);
     gulp.watch("./client/src/**/*.js", ['scripts']);
-    gulp.watch("./common/models/**/*.*", ['nglb']);
+    //gulp.watch("./common/models/**/*.*", ['nglb']);
 });
 
-gulp.task('build', ['sass', 'scripts', 'nglb'], function() {});
+gulp.task('build', ['sass', 'scripts'], function () { });
 
 gulp.task('nglb', shell.task([
     'lb-ng ./server/server.js ./client/assets/scripts/lb-services.js'
 ]));
 
-gulp.task('sass', function() {
+gulp.task('sass', function () {
 
     return gulp.src("./scss/**/**.scss", {
-            read: true,
-        })
+        read: true,
+    })
         .pipe(sass().on('error', sass.logError))
         .pipe(minify())
         .pipe(rename({
@@ -45,7 +45,7 @@ gulp.task('sass', function() {
 
 });
 
-gulp.task('scripts', ['config'], function() {
+gulp.task('scripts', [], function () {
 
     return gulp.src("./client/src/**/*.js")
         .pipe(angularFilesort())
@@ -64,84 +64,87 @@ gulp.task('scripts', ['config'], function() {
 
 });
 
-gulp.task('config', ['bump'], function() {
-    var _client = require('./server/config.json').client;
-    return fs.writeFile(
-        "./client/src/config.js",
-        "(function() { window.APP=" + JSON.stringify({
-            name: pkg.name.charAt(0).toUpperCase() + pkg.name.slice(1),
-            description: pkg.description,
-            version: pkg.version,
-            repository: pkg.repository,
-            author: pkg.author,
-            client: _client,
-        }) + "; })()"
-    );
-
-});
-
-gulp.task('bump', function() {
-    return gulp.src('./package.json')
-        .pipe(bump({
-            type: "prerelease"
-        }))
-        .pipe(gulp.dest('./'));
-});
-
-gulp.task('db:migrate', ['db:migrate-schema'], function(cb) {
+gulp.task('db:migrate', function (cb) {
 
     var app = require('./server/server.js');
-    var defaults = require('./server/config.json').defaults;
+    var _defaults = require('./server/install/default-data.json');
 
-    var _roles = _.map(defaults.auth, function(auth) {
-        return {
-            name: auth.role
-        };
-    });
+    // console.log(_defaults.length)
 
-    app.models.Role.create(_roles, function(err, roles) {
-        if (err) cb(err);
+    var _c = 0;
 
-        roles.forEach(function(role, i) {
+    _defaults.forEach(function (_default) {
 
-            var _auth = _.findWhere(defaults.auth, {
-                role: role.name
-            });
+        gutil.log('Generating... ', gutil.colors.magenta(_default.type));
+        app.models[_default.type].upsert(_default.data, function (err, dat) {
 
-            if (_auth.users.length === 0) {
-                // No users where found. Just a role was created
-                gutil.log('Empty role created', gutil.colors.magenta(role.name));
+            _c++;
+
+            if (err) {
+                gutil.log('Error', gutil.colors.magenta(_default.type), gutil.colors.red(err));
                 return;
             }
 
-            var _users = _.map(_auth.users, function(item) {
-                item.created = new Date();
-                return item;
-            });
+            gutil.log('Complete', gutil.colors.magenta(_default.type));
 
-            app.models.AppUser.create(_users, function(err, users) {
-                if (err) cb(err);
+            if (_c == _defaults.lengt) {
+                gutil.log(gutil.colors.green("Finished"));
 
-                users.forEach(function(user, j) {
-
-                    role.principals.create({
-                        principalType: app.models.RoleMapping.USER,
-                        principalId: user.id
-                    }, function(err, principal) {
-                        if (err) cb(err);
-                        gutil.log('Created user', gutil.colors.magenta(user.username), "[", gutil.colors.magenta(role.name), "]");
-                    });
-                });
-            });
+                cb();
+            }
         });
 
-        cb();
+    }, this);
 
-    });
+    // var _roles = _.map(_defaults.auth, function (auth) {
+    //     return {
+    //         name: auth.role
+    //     };
+    // });
+
+    // app.models.Role.create(_roles, function (err, roles) {
+    //     if (err) cb(err);
+
+    //     roles.forEach(function (role, i) {
+
+    //         var _auth = _.findWhere(defaults.auth, {
+    //             role: role.name
+    //         });
+
+    //         if (_auth.users.length === 0) {
+    //             // No users where found. Just a role was created
+    //             gutil.log('Empty role created', gutil.colors.magenta(role.name));
+    //             return;
+    //         }
+
+    //         var _users = _.map(_auth.users, function (item) {
+    //             item.created = new Date();
+    //             return item;
+    //         });
+
+    //         app.models.AppUser.create(_users, function (err, users) {
+    //             if (err) cb(err);
+
+    //             users.forEach(function (user, j) {
+
+    //                 role.principals.create({
+    //                     principalType: app.models.RoleMapping.USER,
+    //                     principalId: user.id
+    //                 }, function (err, principal) {
+    //                     if (err) cb(err);
+    //                     gutil.log('Created user', gutil.colors.magenta(user.username), "[", gutil.colors.magenta(role.name), "]");
+    //                 });
+    //             });
+    //         });
+    //     });
+
+    //     cb();
+
+    // });
 
 });
 
-gulp.task('db:migrate-schema', function(cb) {
+gulp.task('db:schema', function (cb) {
 
     var app = require('./server/server.js');
 
@@ -151,7 +154,7 @@ gulp.task('db:migrate-schema', function(cb) {
 
     var _models = [];
 
-    Object.keys(models).forEach(function(key) {
+    Object.keys(models).forEach(function (key) {
         if (typeof models[key].dataSource != 'undefined' && models[key].dataSource == "db") {
             if (typeof datasources[models[key].dataSource] != 'undefined') {
                 _models.push(key);
@@ -159,7 +162,7 @@ gulp.task('db:migrate-schema', function(cb) {
         }
     });
 
-    ds.automigrate(_models, function(err) {
+    ds.automigrate(_models, function (err) {
         if (err) cb(err);
         gutil.log('Migrated', gutil.colors.magenta(_models));
         cb();
@@ -167,20 +170,7 @@ gulp.task('db:migrate-schema', function(cb) {
 
 });
 
-
-function _getMockModels(files) {
-
-    return _.map(files, function(file) {
-        var name = path.basename(file, '.json');
-        return {
-            name: name.charAt(0).toUpperCase() + name.slice(1),
-            data: require(file),
-        };
-    });
-
-}
-
-gulp.task('db:clean', function(cb) {
+gulp.task('db:clean', function (cb) {
 
     var app = require('./server/server.js');
     var ds = app.dataSources.db;
@@ -188,7 +178,7 @@ gulp.task('db:clean', function(cb) {
     var models_count = fs.readdirSync("./mock").length;
 
     gulp.src("./mock/*.json")
-        .pipe(through.obj(function(file, enc, next) {
+        .pipe(through.obj(function (file, enc, next) {
 
             var name = path.basename(file.path, '.json');
             var _model = {
@@ -197,25 +187,25 @@ gulp.task('db:clean', function(cb) {
 
             gutil.log("Cleaning", gutil.colors.magenta(_model.name));
 
-            app.models[_model.name].deleteAll(function(err) {
+            app.models[_model.name].deleteAll(function (err) {
                 if (err) cb(err);
                 next();
             });
 
         }))
-        .on('finish', function() {
+        .on('finish', function () {
             // ds.disconnect(function() {
             cb();
             // });
         })
-        .on('error', function(error) {
+        .on('error', function (error) {
             gutil.log(error);
             cb(error);
         });
 
 });
 
-gulp.task('db:mock', ['db:clean'], function(cb) {
+gulp.task('db:mock', ['db:clean'], function (cb) {
 
 
     var app = require('./server/server.js');
@@ -224,7 +214,7 @@ gulp.task('db:mock', ['db:clean'], function(cb) {
     var models_count = fs.readdirSync("./mock").length;
 
     gulp.src("./mock/*.json")
-        .pipe(through.obj(function(file, enc, next) {
+        .pipe(through.obj(function (file, enc, next) {
 
             var name = path.basename(file.path, '.json');
             var _model = {
@@ -234,13 +224,13 @@ gulp.task('db:mock', ['db:clean'], function(cb) {
 
             gutil.log("Creating", gutil.colors.magenta(_model.data.length), "items of", gutil.colors.magenta(_model.name), "in database");
 
-            app.models[_model.name].create(_model.data, function(err, obj) {
+            app.models[_model.name].create(_model.data, function (err, obj) {
                 if (err) cb(err);
                 next();
             });
 
         }))
-        .on('end', function() {
+        .on('end', function () {
             // ds.disconnect(function() {
             cb();
             // });
@@ -249,15 +239,15 @@ gulp.task('db:mock', ['db:clean'], function(cb) {
 
 });
 
-gulp.task('test:invoice', function(cb) {
+gulp.task('test:invoice', function (cb) {
 
     var glob = require('glob');
     var app = require('./server/server.js');
 
-    app.models.Invoice.find({}, function(err, invoices) {
+    app.models.Invoice.find({}, function (err, invoices) {
         if (err) cb(err);
 
-        app.models.Invoice.generate(invoices[0].id, false, function(err, results) {
+        app.models.Invoice.generate(invoices[0].id, false, function (err, results) {
             if (err) cb(err);
 
             gutil.log("Generated", gutil.colors.magenta(JSON.stringify(results)));
