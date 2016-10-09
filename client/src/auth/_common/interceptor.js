@@ -1,5 +1,5 @@
 
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -11,7 +11,7 @@
   function AuthInterceptor($q, $injector, $cookies) {
 
     return {
-      responseError: function(rejection) {
+      responseError: function (rejection) {
         console.log("rejection", rejection);
         if (rejection.status === 401 && rejection.config.url != "/api/AppUsers/login") {
           localStorage.clear();
@@ -31,4 +31,4 @@
     $httpProvider.interceptors.push("AuthInterceptor");
   }
 
-}());
+} ());

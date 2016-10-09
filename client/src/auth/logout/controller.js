@@ -3,17 +3,17 @@
 
   angular
     .module('app.auth')
-    .controller('LogoutController', LogoutController);
+    .controller('AuthLogoutController', AuthLogoutController);
 
   /* @ngInject */
-  function LogoutController(AppUser) {
+  function AuthLogoutController($state, AppUser) {
     var vm = this;
 
     AppUser
-      .getCurrent()
+      .logout()
       .$promise
       .then(function (_user) {
-        vm.name = _user.fullname.split(" ")[1];
+        $state.go("auth.login");
       });
 
   }

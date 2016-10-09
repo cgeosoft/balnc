@@ -16,17 +16,23 @@
             config: {
                 abstract: true,
                 resolve: {
-                    isAuthenticated: function ($state, AppUser) {
-                        if (!AppUser.isAuthenticated()) {
-                            $state.go("auth.login");
-                            return false;
-                        }
-                    }
+                    user: userResolver,
+                    account: accountsResolver,
                 },
                 templateUrl: 'src/_common/views/layout.html',
                 controller: 'AppController'
             }
         }];
     }
-    
+
+    /* @ngInject */
+    function userResolver(AppUser) {
+        return AppUser.getCurrent();
+    }
+
+    /* @ngInject */
+    function accountsResolver(user, AccountService) {
+        return AccountService.loadAccounts();
+    }
+
 } ());

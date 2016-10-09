@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -6,11 +6,16 @@
     .controller('AuthLoginController', AuthLoginController);
 
   /* @ngInject */
-  function AuthLoginController($stateParams, $state, LoginMessages, AppUser) {
+  function AuthLoginController($stateParams, $state, LoginMessages, AppUser, AccountService) {
     var vm = this;
 
     vm.loading = false;
     vm.SignIn = SignIn;
+
+    vm.credentials = {
+      username: "admin",
+      password: "admin",
+    };
 
     activate();
 
@@ -29,9 +34,15 @@
       AppUser
         .login(angular.copy(vm.credentials))
         .$promise
-        .then(function(response) {
-          $state.go("app.dashboard");
-        }, function(rejection) {
+        .then(function (response) {
+
+          AccountService
+            .loadAccounts()
+            .then(function () {
+              $state.go("app.dashboard");
+            });
+
+        }, function (rejection) {
           vm.credentials.password = null;
           vm.loading = false;
           _signMessage(rejection.data.error.code.toUpperCase());
@@ -44,4 +55,4 @@
 
   }
 
-}());
+} ());

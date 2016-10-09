@@ -6,14 +6,19 @@
     .controller('AppController', AppController);
 
   /* @ngInject */
-  function AppController(AppUser) {
+  function AppController($rootScope, $state, AppUser) {
     var vm = this;
+
+    if (!AppUser.isAuthenticated()) {
+      $state.go("auth.login");
+      return false;
+    }
 
     AppUser
       .getCurrent()
       .$promise
       .then(function (_user) {
-        vm.name = _user.fullname.split(" ")[1];
+        $rootScope._user = _user;
       });
 
   }
