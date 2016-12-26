@@ -3,8 +3,6 @@ var fs = require('fs');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var path = require('path');
-var shell = require('gulp-shell');
-var pkg = require('./package.json');
 var through = require('through2');
 var angularFilesort = require('gulp-angular-filesort');
 var concat = require('gulp-concat');
@@ -17,18 +15,26 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var bump = require('gulp-bump');
+var loopbackAngular = require('gulp-loopback-sdk-angular');
+var templateCache = require('gulp-angular-templatecache');
+
+var pkg = require('./package.json');
 
 gulp.task('default', ['build'], function () {
     gulp.watch("./scss/**/**.*", ['sass']);
-    gulp.watch("./client/src/**/*.js", ['scripts']);
+    gulp.watch("./client-src/components/**/*.js", ['angular']);
+    gulp.watch("./client-src/components/**/*.html", ['scripts']);
     //gulp.watch("./common/models/**/*.*", ['nglb']);
 });
 
-gulp.task('build', ['sass', 'scripts'], function () { });
+gulp.task('build', ['sass', 'angular', 'modules', 'loopback'], function () { });
 
-gulp.task('nglb', shell.task([
-    'lb-ng ./server/server.js ./client/assets/scripts/lb-services.js'
-]));
+gulp.task('loopback', ['statics'], function () {
+    return gulp.src('./server/server.js')
+        .pipe(loopbackAngular())
+        .pipe(rename('lb-services.js'))
+        .pipe(gulp.dest('./client/js'));
+});
 
 gulp.task('sass', function () {
 
@@ -39,29 +45,41 @@ gulp.task('sass', function () {
         .pipe(minify())
         .pipe(rename({
             suffix: ".min",
-            extname: ".css"
         }))
-        .pipe(gulp.dest("./client/assets/css"));
+        .pipe(gulp.dest("./client/css"));
 
 });
 
-gulp.task('scripts', [], function () {
+gulp.task('angular', ['angular-templates'], function () {
 
-    return gulp.src("./client/src/**/*.js")
+    return gulp.src("./client-src/components/**/*.js")
         .pipe(angularFilesort())
         .pipe(sourcemaps.init())
-        .pipe(concat("app.min.js", {
+        .pipe(concat("app.js", {
             newLine: ';'
         }))
         .pipe(ngAnnotate({
             add: true
         }))
+        .pipe(gulp.dest("./client/js"))
         .pipe(uglify({
-            mangle: false
+            mangle: true,
+        }))
+        .pipe(rename({
+            suffix: ".min",
         }))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest("./client/assets/scripts"));
+        .pipe(gulp.dest("./client/js"));
 
+});
+
+gulp.task('angular-templates', function () {
+    return gulp.src('client-src/components/**/*.html')
+        .pipe(templateCache({
+            module: "app.templates",
+            standalone: true,
+        }))
+        .pipe(gulp.dest('./client/js'));
 });
 
 gulp.task('db:migrate', function (cb) {
@@ -256,4 +274,71 @@ gulp.task('test:invoice', function (cb) {
 
     });
 
+});
+
+gulp.task('statics', function () {
+    return gulp.src([
+        "./client-src/*.*",
+        "./client-src/static/**/*.*",
+    ])
+        .pipe(gulp.dest('./client'));
+})
+
+gulp.task('modules', function (cb) {
+
+    gulp.src([
+        "./node_modules/open-sans-fontface/open-sans.css",
+        "./node_modules/font-awesome/css/font-awesome.min.css",
+        "./node_modules/font-awesome/css/font-awesome.css.map",
+        "./node_modules/cg-admin/dist/cg-admin.min.css",
+        "./node_modules/leaflet/dist/leaflet.css",
+    ])
+        .pipe(gulp.dest('./client/css'));
+
+    gulp.src([
+        "./node_modules/open-sans-fontface/fonts/**/*.*",
+    ])
+        .pipe(gulp.dest('./client/css/fonts'));
+
+    gulp.src([
+        "./node_modules/font-awesome/fonts/**/*.*",
+    ])
+        .pipe(gulp.dest('./client/fonts'));
+
+    gulp.src([
+        "./node_modules/leaflet/dist/images/**/*.*",
+    ])
+        .pipe(gulp.dest('./client/images'));
+
+    gulp.src([
+        "./node_modules/cg-admin/dist/cg-admin.min.js",
+        "./node_modules/cg-admin/dist/cg-admin.min.js.map",
+        "./node_modules/underscore/underscore-min.js",
+        "./node_modules/underscore/underscore-min.map",
+        "./node_modules/moment/min/moment.min.js",
+        "./node_modules/chart.js/dist/Chart.min.js",
+        "./node_modules/pdfmake/build/pdfmake.min.js",
+        "./node_modules/pdfmake/build/pdfmake.min.js.map",
+        "./node_modules/pdfmake/build/vfs_fonts.js",
+        "./node_modules/leaflet/dist/leaflet.js",
+        "./node_modules/angular/angular.min.js",
+        "./node_modules/angular/angular.min.js.map",
+        "./node_modules/angular-resource/angular-resource.min.js",
+        "./node_modules/angular-resource/angular-resource.min.js.map",
+        "./node_modules/angular-sanitize/angular-sanitize.min.js",
+        "./node_modules/angular-sanitize/angular-sanitize.min.js.map",
+        "./node_modules/angular-cookies/angular-cookies.min.js",
+        "./node_modules/angular-cookies/angular-cookies.min.js.map",
+        "./node_modules/angular-file-upload/dist/angular-file-upload.min.js",
+        "./node_modules/angular-file-upload/dist/angular-file-upload.min.js.map",
+        "./node_modules/angular-leaflet-directive/dist/angular-leaflet-directive.min.js",
+        "./node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js",
+        "./node_modules/angular-ui-router/release/angular-ui-router.min.js",
+        "./node_modules/angular-ui-router-tabs/src/ui-router-tabs.js",
+        "./node_modules/angular-chart.js/dist/angular-chart.min.js",
+        "./node_modules/angular-chart.js/dist/angular-chart.min.js.map",
+    ])
+        .pipe(gulp.dest('./client/js'));
+
+    cb();
 });

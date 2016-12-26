@@ -1,0 +1,40 @@
+<section class="content-header">
+    <h1>{{vm.Company.name}}</h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="app.contacts.overview">Contacts Management</a></li>
+        <li class="active">{{vm.Company.name}}</li>
+    </ol>
+
+</section>
+
+<section class="content">
+
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-4 hidden-sm hidden-xs">
+
+            <div class="thumbnail">
+                <img ng-src="{{vm.Company.logo}}" />
+                <div class="caption">
+                    <h3>{{vm.Company.name}}</h3>
+                    <dl>
+                        <dt>Phones</dt>
+                        <dd>{{vm.Company.phones|join}}</dd>
+                        <dt>Emails</dt>
+                        <dd>{{vm.Company.emails|join}}</dd>
+                        <dt>Address</dt>
+                        <dd>{{vm.Company.location.street}}, {{vm.Company.location.city}} {{vm.Company.location.state}}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-8">
+
+            <tabs data="vm.Tabs" type="tabs" template-url="/src/contacts/company.view/_common/_tabs.html" />
+
+        </div>
+
+    </div>
+
+</section>
