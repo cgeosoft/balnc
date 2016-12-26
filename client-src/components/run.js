@@ -9,7 +9,7 @@
   /* @ngInject */
   function appRun ($rootScope, $state, $stateParams) {
     $rootScope.APP = {
-      version: '0.2',
+      version: '0.3.0',
       repository: 'https://github.com/ChristosGeorgiou/balance.git'
     }
 

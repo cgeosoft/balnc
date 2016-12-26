@@ -23,7 +23,7 @@ var pkg = require('./package.json');
 gulp.task('default', ['build'], function () {
     gulp.watch("./scss/**/**.*", ['sass']);
     gulp.watch("./client-src/components/**/*.js", ['angular']);
-    gulp.watch("./client-src/components/**/*.html", ['scripts']);
+    gulp.watch("./client-src/components/**/*.html", ['angular-templates']);
     //gulp.watch("./common/models/**/*.*", ['nglb']);
 });
 

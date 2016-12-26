@@ -10,6 +10,7 @@
     'ui.router',
     'ui.router.tabs',
     'angularFileUpload',
+    'cg.admin',
 
     'lbServices',
 
