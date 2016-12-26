@@ -27,13 +27,22 @@ gulp.task('default', ['build'], function () {
     //gulp.watch("./common/models/**/*.*", ['nglb']);
 });
 
-gulp.task('build', ['sass', 'angular', 'modules', 'loopback'], function () { });
+gulp.task('build', ['sass', 'angular', 'modules', 'loopback'], function () {
 
-gulp.task('loopback', ['statics'], function () {
+});
+
+gulp.task('loopback', ['statics', 'loopback-storage'], function () {
     return gulp.src('./server/server.js')
         .pipe(loopbackAngular())
         .pipe(rename('lb-services.js'))
         .pipe(gulp.dest('./client/js'));
+});
+
+gulp.task('loopback-storage', function (cb) {
+    if (!fs.existsSync("./storage")) {
+        fs.mkdirSync("./storage");
+    }
+    cb();
 });
 
 gulp.task('sass', function () {
