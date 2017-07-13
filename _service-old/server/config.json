@@ -1,0 +1,51 @@
+{
+    "restApiRoot": "/api",
+    "host": "0.0.0.0",
+    "port": 3000,
+    "remoting": {
+        "context": false,
+        "rest": {
+            "normalizeHttpPath": false,
+            "xml": false
+        },
+        "json": {
+            "strict": false,
+            "limit": "100kb"
+        },
+        "urlencoded": {
+            "extended": true,
+            "limit": "100kb"
+        },
+        "cors": false,
+        "errorHandler": {
+            "debug": false
+        }
+    },
+    "legacyExplorer": false,
+    "client": {
+        "name": "Demo Company"
+    },
+    "defaults": {
+        "auth": [{
+            "role": "ADMIN",
+            "users": [{
+                "fullname": "Douglas Henderson",
+                "username": "admin",
+                "email": "admin@admin.com",
+                "password": "admin"
+            }]
+        }, {
+            "role": "MEMBER",
+            "users": [{
+                "fullname": "Lillie Chapman",
+                "username": "member",
+                "email": "member@member.com",
+                "password": "member"
+            }]
+        }, {
+            "role": "EMPTY",
+            "users": []
+        }]
+    }
+
+}

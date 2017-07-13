@@ -1,55 +1,31 @@
 {
   "name": "balance",
-  "version": "0.2.5-6",
-  "description": "Manage simple day-to-day jobs for small companies and freelancers",
-  "main": "server/server.js",
-  "license": "MIT",
-  "repository": "https://github.com/ChristosGeorgiou/balance.git",
-  "engines": {
-    "node": ">=7.0.0"
-  },
-  "author": {
-    "name": "Christos Georgiou",
-    "email": "xris.georgiou@gmail.com",
-    "url": "http://christosgeorgiou.gr"
-  },
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "serve": "nodemon --watch public --watch server --watch common"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "rm-local-modules"
   },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
   "dependencies": {
-    "compression": "^1.6.2",
-    "connect-modrewrite": "^0.9.0",
-    "cors": "^2.7.1",
-    "helmet": "^2.1.1",
-    "loopback": "^2.29.0",
-    "loopback-boot": "^2.18.1",
-    "loopback-component-storage": "^1.8.1",
-    "loopback-connector-mysql": "^2.2.1",
-    "loopback-datasource-juggler": "^3.0.0-alpha.1",
-    "open-sans-fontface": "^1.4.0",
-    "pdfmake": "^0.1.18",
-    "serve-favicon": "^2.3.0",
-    "underscore": "^1.8.3"
+    "blnc-business-companies": "file:local_modules\\blnc-business-companies",
+    "blnc-business-core": "file:local_modules\\blnc-business-core",
+    "blnc-main-accounts": "file:local_modules\\blnc-main-accounts",
+    "blnc-main-backup": "file:local_modules\\blnc-main-backup",
+    "blnc-main-config": "file:local_modules\\blnc-main-config",
+    "blnc-main-connector": "file:local_modules\\blnc-main-connector",
+    "blnc-main-core": "file:local_modules\\blnc-main-core",
+    "blnc-main-crons": "file:local_modules\\blnc-main-crons",
+    "blnc-main-storage": "file:local_modules\\blnc-main-storage",
+    "blnc-main-telemetry": "file:local_modules\\blnc-main-telemetry",
+    "express": "^4.15.3",
+    "systemjs": "^0.20.13"
   },
   "devDependencies": {
-    "glob": "^7.0.4",
-    "gulp": "^3.9.1",
-    "gulp-angular-filesort": "^1.1.1",
-    "gulp-bump": "^2.1.0",
-    "gulp-clean-css": "^2.0.10",
-    "gulp-concat": "^2.6.0",
-    "gulp-ng-annotate": "^2.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.3.2",
-    "gulp-shell": "^0.5.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.3",
-    "gulp-util": "^3.0.7",
-    "loopback-component-explorer": "^2.5.0",
-    "minimatch": "^3.0.2",
-    "ng-annotate": "^1.2.1",
-    "q": "^1.4.1",
-    "through2": "^2.0.1",
-    "uglify-js": "^2.6.2"
-  }
+    "rm-local-modules": "0.0.2"
+  },
+  "false": {}
 }

@@ -1,0 +1,45 @@
+<section class="content-header">
+    <h1>Companies</h1>
+</section>
+
+<section class="content">
+
+    <div class="toolbox">
+        <button ng-click="vm.AddCompany()" type="button" class="btn btn-success">
+            New Company
+        </button>
+    </div>
+
+    <div class="box">
+
+        <div class="box-body box-body-empty" ng-if="!vm.Companies.length && !vm.loading">
+            No companies were found!
+        </div>
+
+        <div class="box-body table-responsive no-padding" ng-if="vm.Companies.length">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Company in vm.Companies">
+                        <td class="text-center">{{::$index+1}}</td>
+                        <td><a ui-sref="app.contacts.company.overview({id:Company.id})">{{::Company.name}}</a></td>
+                        <td>{{::Company.phones[0] || '-'}}</td>
+                        <td>{{::Company.emails[0] || '-'}}</td>
+                        <td>{{::Company.location.street || '-'}}, {{::Company.location.city || '-'}} {{::Company.location.state || '-'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</section>

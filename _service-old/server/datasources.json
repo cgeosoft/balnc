@@ -1,0 +1,13 @@
+{
+  "db": {
+    "connector": "sqlite3",
+    "file": ":memory:",
+    "debug": true
+  },
+  "storage": {
+    "name": "storage",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "storage"
+  }
+}
