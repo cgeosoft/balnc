@@ -22,7 +22,7 @@ It is build with web technologies and delivered with electron container. Moreove
 
 ## Main Features
 
-- Offline first using local no-sql (pouchdb)
+- Offline first using local no-sql ([pouchdb](https://pouchdb.com/))
 - Cross platform clients (based in electron for desktop and ionic for mobile)
 - Do not require server as "server" can also be a client
 - Low cost and scalable servers (pouchdb-server, couchdb, etc)
@@ -32,7 +32,7 @@ It is build with web technologies and delivered with electron container. Moreove
 ## Pricing
 
 - Free download (self hosting if needed)
-- Monthly subscription for support tickets
+- (?)Monthly subscription for support tickets
 - Chargeable implementation of private custom modules and extensions
 
 ## Install Guide
