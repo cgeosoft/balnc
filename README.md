@@ -47,13 +47,13 @@ It is build with web technologies and delivered with electron container. Moreove
 
 ## Namespaces
 
-- [main](docs/main/README.md)
-- [business](docs/business/README.md)
-- [payments](docs/payments/README.md)
-- [teams](docs/teams/README.md)
-- [bookings](docs/bookings/README.md)
-- [doctors](docs/doctors/README.md)
-- [sports](docs/sports/README.md)
+- [Main](docs/modules/_main/README.md)
+- [Business](docs/modules/business/README.md)
+- [Payments](docs/modules/payments/README.md)
+- [Teams](docs/modules/teams/README.md)
+- [Bookings](docs/modules/bookings/README.md)
+- [Doctors](docs/modules/doctors/README.md)
+- [Sports](docs/modules/sports/README.md)
 
 ## License
 
