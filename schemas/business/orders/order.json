@@ -47,6 +47,18 @@
                 }
             },
             "required": ["description", "price", "amount"]
+        },
+        "orderActivity": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "required": ["date"]
         }
     },
     "properties": {
@@ -56,9 +68,13 @@
                 "$ref": "#/definitions/transformation"
             }
         },
-        "date": {
+        "dateExecute": {
             "type": "string",
             "faker": "date.past"
+        },
+        "crontab": {
+            "type": "string",
+            "description": "used for recurring order"
         },
         "status": {
             "enum": ["started", "processing", "processed"]
@@ -78,6 +94,12 @@
             "type": "array",
             "items": {
                 "$ref": "#/definitions/orderItem"
+            }
+        },
+        "activity": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/orderActivity"
             }
         }
     },
