@@ -4,13 +4,10 @@
     "type": "object",
     "properties": {
         "person": {
-            "$ref": "file:./business/person"
+            "$ref": "http://localhost:8080/schemas/business/contacts/person.json"
         },
         "company": {
-            "$ref": "file:./business/company"
-        },
-        "currency": {
-            "type": "string"
+            "$ref": "http://localhost:8080/schemas/business/contacts/company.json"
         }
     },
     "required": ["name", "vatNumber"]

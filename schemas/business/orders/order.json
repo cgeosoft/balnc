@@ -62,6 +62,9 @@
         }
     },
     "properties": {
+        "customer": {
+            "$ref": "http://localhost:8080/schemas/business/orders/customer.json"
+        },
         "transformations": {
             "type": "array",
             "items": {
