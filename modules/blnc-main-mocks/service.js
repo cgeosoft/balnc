@@ -9,9 +9,20 @@ let set = "business/orders/" + f
 let counter = 10
 
 let mockPath = path.join(__dirname, "../../schemas/" + set + ".json")
-console.log("Path:", mockPath)
 var schema = JSON.parse(fs.readFileSync(mockPath, "utf8"))
-console.log("File Data:", schema)
+
+jsf.extend('faker', function () {
+  faker.locale = "en"; // or any other language
+  faker.custom = {
+    statement: function (length) {
+      return faker.name.firstName() + " has " + faker.finance.amount() + " on " + faker.finance.account(length) + ".";
+    },
+    pastDateISO: function () {
+      return faker.date.past().toISOString()
+    }
+  };
+  return faker;
+});
 
 jsf
   .resolve({

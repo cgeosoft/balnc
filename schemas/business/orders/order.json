@@ -8,13 +8,11 @@
             "faker": "random.uuid"
         },
         "customer": {
-            "$ref": "http://localhost:8080/business/orders/customer.json"
+            "$ref": "http://localhost:8080/business/orders/customer.json#"
         },
         "dateExecute": {
             "type": "string",
-            "faker": {
-                "finance.amount": [100, 10000, 2, "$"]
-            }
+            "faker": "date.past"
         },
         "crontab": {
             "type": "string",
@@ -63,7 +61,9 @@
                 },
                 "amount": {
                     "type": "number",
-                    "faker": "finance.amount"
+                    "faker": {
+                        "finance.amount": [10, 50, 0]
+                    }
                 }
             },
             "required": ["description", "method", "amount"]
@@ -79,18 +79,23 @@
                 },
                 "count": {
                     "type": "number",
-                    "faker": "random.number"
+                    "faker": {
+                        "finance.amount": [1, 10, 0]
+                    }
                 },
                 "amount": {
                     "type": "number",
-                    "faker": "finance.amount"
+                    "faker": {
+                        "finance.amount": [100, 10000, 2]
+                    }
                 },
                 "description": {
                     "type": "string",
                     "faker": "lorem.sentence"
                 },
                 "comment": {
-                    "type": "string"
+                    "type": "string",
+                    "faker": "lorem.sentence"
                 }
             },
             "required": ["description", "price", "amount"]

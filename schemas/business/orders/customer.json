@@ -10,5 +10,5 @@
             "$ref": "http://localhost:8080/business/contacts/company.json"
         }
     },
-    "required": ["name", "vatNumber"]
+    "required": ["person"]
 }

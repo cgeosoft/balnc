@@ -1,15 +1,14 @@
 {
     "restartable": "rs",
     "ignore": [
-        "./mocks/"
+        "mocks"
     ],
     "verbose": true,
     "watch": [
-        "./index.js",
+        "service.js",
         "../../schemas"
     ],
     "env": {
         "NODE_ENV": "development"
-    },
-    "ext": "js json"
+    }
 }

@@ -4,16 +4,24 @@
     "type": "object",
     "properties": {
         "name": {
-            "type": "string"
+            "type": "string",
+            "faker": "name.firstName"
         },
         "address": {
-            "type": "string"
+            "type": "string",
+            "faker": "address.streetAddress"
+        },
+        "email": {
+            "type": "string",
+            "faker": "internet.email"
         },
         "phone": {
-            "type": "string"
+            "type": "string",
+            "faker": "phone.phoneNumberFormat"
         },
         "taxDetails": {
             "$ref": "http://localhost:8080/business/contacts/tax-details.json"
         }
-    }
+    },
+    "required": ["name", "address", "email", "phone", "taxDetails"]
 }
