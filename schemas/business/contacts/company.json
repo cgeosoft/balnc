@@ -13,12 +13,12 @@
             "type": "string"
         },
         "taxDetails": {
-            "$ref": "tax-details.json"
+            "$ref": "http://localhost:8080/business/contacts/tax-details.json"
         },
         "persons": {
             "type": "array",
             "items": {
-                "$ref": "person.json"
+                "$ref": "http://localhost:8080/business/contacts/person.json"
             }
         }
     }

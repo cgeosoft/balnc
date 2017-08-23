@@ -2,6 +2,53 @@
     "id": "order",
     "title": "Order",
     "type": "object",
+    "properties": {
+        "serial": {
+            "type": "string",
+            "faker": "random.uuid"
+        },
+        "customer": {
+            "$ref": "http://localhost:8080/business/orders/customer.json"
+        },
+        "dateExecute": {
+            "type": "string",
+            "faker": {
+                "finance.amount": [100, 10000, 2, "$"]
+            }
+        },
+        "crontab": {
+            "type": "string",
+            "description": "used for recurring order"
+        },
+        "status": {
+            "enum": ["started", "processing", "processed"]
+        },
+        "currency": {
+            "type": "string",
+            "faker": "finance.currencyCode"
+        },
+        "comment": {
+            "type": "string"
+        },
+        "transformations": {
+            "type": "array",
+            "items": {
+                "$ref": "http://localhost:8080/business/orders/order.json#/definitions/transformation"
+            }
+        },
+        "items": {
+            "type": "array",
+            "items": {
+                "$ref": "http://localhost:8080/business/orders/order.json#/definitions/orderItem"
+            }
+        },
+        "activity": {
+            "type": "array",
+            "items": {
+                "$ref": "http://localhost:8080/business/orders/order.json#/definitions/orderActivity"
+            }
+        }
+    },
     "definitions": {
         "transformation": {
             "type": "object",
@@ -27,7 +74,7 @@
                 "transformations": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/transformation"
+                        "$ref": "http://localhost:8080/business/orders/order.json#/definitions/transformation"
                     }
                 },
                 "count": {
@@ -61,50 +108,5 @@
             "required": ["date"]
         }
     },
-    "properties": {
-        "customer": {
-            "$ref": "http://localhost:8080/schemas/business/orders/customer.json"
-        },
-        "transformations": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/transformation"
-            }
-        },
-        "dateExecute": {
-            "type": "string",
-            "faker": "date.past"
-        },
-        "crontab": {
-            "type": "string",
-            "description": "used for recurring order"
-        },
-        "status": {
-            "enum": ["started", "processing", "processed"]
-        },
-        "serial": {
-            "type": "string",
-            "faker": "random.uuid"
-        },
-        "currency": {
-            "type": "string",
-            "faker": "finance.currencyCode"
-        },
-        "comment": {
-            "type": "string"
-        },
-        "items": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/orderItem"
-            }
-        },
-        "activity": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/orderActivity"
-            }
-        }
-    },
-    "required": ["serial", "status", "date", "currency", "items"]
+    "required": ["serial", "customer", "dateExecute", "status", "date", "currency", "items"]
 }

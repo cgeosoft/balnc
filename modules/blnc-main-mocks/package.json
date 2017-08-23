@@ -1,0 +1,24 @@
+{
+  "name": "blnc-main-mocks",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": {
+    "name": "Christos Georgiou",
+    "email": "georgiou.christos@outlook.com",
+    "url": "http://christosgeorgiou.gr"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChristosGeorgiou/balance"
+  },
+  "dependencies": {
+    "faker": "^4.1.0",
+    "json-schema-faker": "^0.5.0-rc10"
+  }
+}

@@ -13,13 +13,7 @@
             "type": "string"
         },
         "taxDetails": {
-            "$ref": "tax-details.json"
-        },
-        "companies": {
-            "type": "array",
-            "items": {
-                "$ref": "company.json"
-            }
+            "$ref": "http://localhost:8080/business/contacts/tax-details.json"
         }
     }
 }
