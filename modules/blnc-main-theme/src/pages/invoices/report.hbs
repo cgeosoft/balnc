@@ -48,8 +48,7 @@
                             </div>
                             <div class="d-flex">
                                 <div class="dropdown mr-3">
-                                    <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
+                                    <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         10 per page
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -92,7 +91,7 @@
                                 {{#each invoices}}
                                 <tr>
                                     <td>
-                                        <a href="/invoices/preview.html" class="text-mono text-xl">#{{id}}</a>
+                                        <a href="{{_base.root}}/invoices/preview.html" class="text-mono text-xl">#{{id}}</a>
                                     </td>
                                     <td>
                                         <div class="badge badge-pill badge-{{status.style}}" data-toggle="tooltip" data-placement="top" title="{{date_issued}}">
@@ -103,13 +102,12 @@
                                         <span class="info">{{date_updated}}</span>
                                     </td>
                                     <td>
-                                        <a href="/customer.html">{{customer.label}}</a>
+                                        <a href="{{_base.root}}/customer.html">{{customer.label}}</a>
                                         <span class="info">{{customer.sublabel}}</span>
                                     </td>
                                     <td class="text-right text-mono">
                                         <span class="text-lg">{{amount.currency}} {{amount.amount}}</span>
-                                        <span class="info">Taxes: {{amount.currency}} {{amount.taxes}} {{#if amount.has_discount}} Disc.: {{amount.currency}}
-                                            {{amount.discount}}{{/if}}
+                                        <span class="info">Taxes: {{amount.currency}} {{amount.taxes}} {{#if amount.has_discount}} Disc.: {{amount.currency}} {{amount.discount}}{{/if}}
                                         </span>
                                     </td>
                                 </tr>
