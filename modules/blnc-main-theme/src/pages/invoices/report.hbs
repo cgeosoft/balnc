@@ -1,0 +1,150 @@
+{{>_header title="Invoices - Report"}}
+<div class="wrapper d-flex">
+    {{>_sidebar_core sel_invoices=true}} {{>_invoices_sidebar}}
+    <div class="content d-flex flex-column justify-content-start">
+        <div class="content-header">
+            <div class="container">
+                <div class="content-header-body">
+                    <h1>Invoices Report</h1>
+                    <ul class="list-inline">
+                        <li class="list-inline-item">Report:
+                            <strong>Last 7 days pending</strong>
+                        </li>
+                        <li class="list-inline-item">Created:
+                            <strong>2015-05-05</strong>
+                        </li>
+                        <li class="list-inline-item">Last Export:
+                            <strong>2015-05-05</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content-body">
+            <div class="container">
+                <div class="btn-toolbar justify-content-between mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group" role="group" aria-label="First group">
+                        <button type="button" class="btn btn-outline-dark">
+                            <span class="fa fa-file-excel-o"></span> Export EXCEL</button>
+                        <button type="button" class="btn btn-outline-dark">
+                            <span class="fa fa-file-pdf-o"></span> Export PDF</button>
+                    </div>
+                    <button type="button" class="btn btn-outline-dark" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <span class="fa fa-filter"></span> filters</button>
+                </div>
+                <div id="collapseOne" class="collapse mb-3" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card border-secondary">
+                        <div class="card-body">
+                            {{>_filters}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="btn-toolbar justify-content-between mb-3" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="lead">
+                                Showing
+                                <strong>10 / 54</strong> invoices
+                            </div>
+                            <div class="d-flex">
+                                <div class="dropdown mr-3">
+                                    <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        10 per page
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">50 per page</a>
+                                        <a class="dropdown-item" href="#">100 per page</a>
+                                        <a class="dropdown-item" href="#">Show All</a>
+                                    </div>
+                                </div>
+                                <div class="btn-group btn-group-sm">
+                                    <button type="button" class="btn btn-outline-dark">
+                                        <span class="fa fa-angle-double-left fa-fw"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-dark">
+                                        <span class="fa fa-angle-left fa-fw"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-dark">1</button>
+                                    <button type="button" class="btn btn-outline-dark active">2</button>
+                                    <button type="button" class="btn btn-outline-dark">3</button>
+                                    <button type="button" class="btn btn-outline-dark">4</button>
+                                    <button type="button" class="btn btn-outline-dark">
+                                        <span class="fa fa-angle-right fa-fw"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-dark">
+                                        <span class="fa fa-angle-double-right fa-fw"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-double">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th class="col-fx-90">Status</th>
+                                    <th class="col-fx-120">Date</th>
+                                    <th>Customer</th>
+                                    <th class="text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each invoices}}
+                                <tr>
+                                    <td>
+                                        <a href="/invoices/preview.html" class="text-mono text-xl">#{{id}}</a>
+                                    </td>
+                                    <td>
+                                        <div class="badge badge-pill badge-{{status.style}}" data-toggle="tooltip" data-placement="top" title="{{date_issued}}">
+                                            {{status.label}}</div>
+                                    </td>
+                                    <td>
+                                        {{date_created}}
+                                        <span class="info">{{date_updated}}</span>
+                                    </td>
+                                    <td>
+                                        <a href="/customer.html">{{customer.label}}</a>
+                                        <span class="info">{{customer.sublabel}}</span>
+                                    </td>
+                                    <td class="text-right text-mono">
+                                        <span class="text-lg">{{amount.currency}} {{amount.amount}}</span>
+                                        <span class="info">Taxes: {{amount.currency}} {{amount.taxes}} {{#if amount.has_discount}} Disc.: {{amount.currency}}
+                                            {{amount.discount}}{{/if}}
+                                        </span>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                        <div class="btn-toolbar justify-content-between mt-3" role="toolbar" aria-label="Toolbar with button groups">
+                            <div>
+                                <button type="button" class="btn btn-sm btn-outline-dark">
+                                    <span class="fa fa-angle-double-up fa-fw"></span> Top
+                                </button>
+                            </div>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-outline-dark">
+                                    <span class="fa fa-angle-double-left fa-fw"></span>
+                                </button>
+                                <button type="button" class="btn btn-outline-dark">
+                                    <span class="fa fa-angle-left fa-fw"></span>
+                                </button>
+                                <button type="button" class="btn btn-outline-dark">1</button>
+                                <button type="button" class="btn btn-outline-dark active">2</button>
+                                <button type="button" class="btn btn-outline-dark">3</button>
+                                <button type="button" class="btn btn-outline-dark">4</button>
+                                <button type="button" class="btn btn-outline-dark">
+                                    <span class="fa fa-angle-right fa-fw"></span>
+                                </button>
+                                <button type="button" class="btn btn-outline-dark">
+                                    <span class="fa fa-angle-double-right fa-fw"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{>_footer}}

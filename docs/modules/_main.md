@@ -32,6 +32,8 @@ With this module organization entities are provided with setting and information
 
 ## Crons | `@balance/crons`
 
+## Crons | `@balance/dashboards`
+
 ## Backup | `@balance/backup`
 
 This is a simple module that offers a simple automated backup of data as also and export mechanism. Data can be dumped to local folder, to network folder or synced third party cloud services like aws:s3. Data may be dumped as json, csv, xml and be available as raw or zipped files. Restoring data is as easy as backup it. Restored data overwrite...
