@@ -1,10 +1,12 @@
 # Balance Theme
 
-![screenshot](/docs/assets/screenshot.png)
+![screenshot](docs/assets/screenshot.png)
 
 This theme is based on Bootstrap v4-beta and it will be used for the upcoming Balance application.
 
 The main goal is to write as little as possible custom sass and use the build in classes of the bs framework.
+
+You may check a draft preview at http://balance.cgeosoft.com/theme
 
 # License
 The MIT License (MIT)
