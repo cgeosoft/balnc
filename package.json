@@ -1,5 +1,9 @@
 {
+	"name": "@balance/sources",
+	"version": "0.0.0",
+	"private": true,
 	"devDependencies": {
 		"lerna": "^2.0.0"
-	}
+	},
+	"scripts": {}
 }

@@ -32,7 +32,11 @@ With this module organization entities are provided with setting and information
 
 ## Crons | `@balance/crons`
 
-## Crons | `@balance/dashboards`
+//
+
+## Dashboards | `@balance/dashboards`
+
+//
 
 ## Backup | `@balance/backup`
 

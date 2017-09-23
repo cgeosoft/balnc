@@ -1,15 +1,12 @@
-import {
-    Component, OnInit, NgZone, ViewChild, ElementRef
-} from '@angular/core'
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, Subscriber } from 'rxjs/RX';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import PouchDB from 'pouchdb';
-import * as loremIpsum from 'lorem-ipsum';
+import { Observable, Subscriber } from 'rxjs/RX';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
     title = 'app';
