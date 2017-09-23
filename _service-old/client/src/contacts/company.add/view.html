@@ -1,0 +1,36 @@
+<div class="modal-header">
+  <button class=close n type="button" class="close" ng-click="$close()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title">
+    New Company
+  </h4>
+</div>
+
+<form ng-submit="vm.Save()" ng-class="{loading:vm.loading}">
+
+  <div class="modal-body">
+
+    <div class="form-group">
+      <label class="control-label">Name</label>
+      <input class="form-control" required ng-model="vm.Company.name" />
+    </div>
+
+    <div class="form-group">
+      <label class="control-label">Phones</label>
+      <textarea class="form-control" ng-model="vm.Company.phones" ng-list></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label">Emails</label>
+      <textarea class="form-control" ng-model="vm.Company.emails" ng-list></textarea>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-default btn-sm" ng-click="$close()" type="button">Cancel</button>
+    <button class="btn btn-success btn-sm" type="submit">Save Company</button>
+  </div>
+
+</form>

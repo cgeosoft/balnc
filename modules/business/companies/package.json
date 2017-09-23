@@ -1,0 +1,14 @@
+{
+  "name": "@balance/business-companies",
+  "version": "0.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "Christos Georgiou",
+    "email": "georgiou.christos@outlook.com",
+    "url": "http://cgeosoft.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChristosGeorgiou/balance"
+  }
+}

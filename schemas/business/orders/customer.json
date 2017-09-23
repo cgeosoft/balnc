@@ -1,0 +1,14 @@
+{
+    "id": "customer",
+    "title": "Customer",
+    "type": "object",
+    "properties": {
+        "person": {
+            "$ref": "http://localhost:8080/business/contacts/person.json"
+        },
+        "company": {
+            "$ref": "http://localhost:8080/business/contacts/company.json"
+        }
+    },
+    "required": ["person"]
+}

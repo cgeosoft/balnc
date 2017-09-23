@@ -1,0 +1,29 @@
+<div class="btn-toolbar">
+  <button class="btn btn-primary" ng-click="vm.UploadFiles()">
+    <span class="fa fa-upload fa-fw"></span> Upload Files
+  </button>
+</div>
+
+<div class="panel-empty" ng-if="!vm.Files.length">
+  No files were found
+</div>
+
+<div class="list-group list-group-open" ng-if="vm.Files.length" ng-class="{loading:vm.loading}">
+
+  <div class="list-group-item" ng-repeat="File in vm.Files">
+    <!-- <div class="checkbox pull-left">
+      <label>
+        <input type="checkbox">
+      </label>
+    </div> -->
+
+    <a target="_blank" href="/api/Containers/{{vm.container}}/download/{{File.name}}" class="btn btn-default pull-right">
+      <span class="fa fa-download"></span> Download
+    </a>
+
+    <div>{{File.name}}</div>
+    <small class="text-muted">{{File.size | bytes}} - {{File.ctime | date:"medium"}}</small>
+
+  </div>
+
+</div>

@@ -1,0 +1,42 @@
+<section class="content-header">
+    <h1>Invoices</h1>
+</section>
+
+<section class="content">
+    <div class="box">
+
+        <div class="box-body box-body-empty" ng-if="!vm.invoices.length && !vm.loading">
+            No invoices were found!
+        </div>
+
+        <div class="box-body table-responsive no-padding" ng-if="vm.invoices.length">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Company or Person</th>
+                        <th>Date Issued</th>
+                        <th>Status</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="invoice in vm.invoices">
+                        <td>{{::$index+1}}</td>
+                        <td>{{::invoice.id}}</td>
+                        <td>{{::invoice.description}}</td>
+                        <td>{{::invoice.companyId}}</td>
+                        <td>{{::invoice.date | date}}</td>
+                        <td>{{::invoice.status}}</td>
+                        <td class="text-right">{{::invoice.amount | currency}}</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</section>

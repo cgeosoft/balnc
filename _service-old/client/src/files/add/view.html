@@ -1,0 +1,65 @@
+<div class="modal-header">
+  <button class=close n type="button" class="close" ng-click="$close()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title">
+    Add Files to {{vm.Label}}
+  </h4>
+</div>
+
+<div class="modal-body">
+
+  <div class="form-group">
+    <input class="form-control" nv-file-select uploader="vm.uploader" type="file" multiple/>
+  </div>
+
+  <div class="panel-empty" ng-if="!vm.uploader.queue.length">
+    No files were selected
+  </div>
+
+  <div class="list-group list-group-open" ng-if="vm.uploader.queue.length">
+
+    <div class="list-group-item" ng-repeat="item in vm.uploader.queue">
+
+      <span class="label label-default pull-right" ng-show="item.isUploading">
+        {{ item.progress + '%' }}
+      </span>
+
+      <span class="label label-success pull-right" ng-show="item.isSuccess">
+        <span class="fa fa-check-circle fa-fw"></span> Completed
+      </span>
+
+      <span class="label label-warning pull-right" ng-show="item.isCancel">
+        <span class="fa fa-times-circle fa-fw"></span> Canceled!
+      </span>
+
+      <span class="label label-danger pull-right" ng-show="item.isError">
+        <span class="fa fa-times-circle fa-fw"></span> Error!
+      </span>
+
+      <div class="ellipsis-70">
+        {{item.file.name}}
+      </div>
+
+      <ul class="list-inline list-group-details">
+        <li>{{ item.file.lastModifiedDate|date }}</li>
+        <li ng-if="vm.uploader.isHTML5">{{ item.file.size|bytes }}</li>
+        <li>{{ item.file.type }}</li>
+      </ul>
+
+      <div class="alert alert-danger" ng-show="item.isError">
+        {{item.error.message}}
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="modal-footer">
+  <button class="btn btn-default btn-sm" ng-click="vm.uploader.clearQueue()" ng-disabled="!vm.uploader.queue.length">Clear All</button>
+  <button class="btn btn-default btn-sm" ng-click="vm.uploader.cancelAll()" ng-disabled="!vm.uploader.isUploading">Cancel All</button>
+  <button class="btn btn-success btn-sm" ng-click="vm.uploader.uploadAll()" ng-disabled="!vm.uploader.getNotUploadedItems().length">Upload All</button>
+</div>

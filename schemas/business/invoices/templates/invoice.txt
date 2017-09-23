@@ -1,0 +1,22 @@
+  George Carlin                                            INVOICE
+  carlin@example.org
+
+  To:                                                   Invoice #6
+      Stephen Hawking                         Date:   May 13, 2014
+      hawking@example.org
+
+  +-----------------------------------------------------------------+
+  | Quantity |         Description         | Unit Price |   Total   |
+  +-----------------------------------------------------------------+
+  | 8        | Awesome Comedy Hour         | $99 CAD    | $792 CAD  |
+  | 5        | Encore                      | $200 CAD   | $1000 CAD |
+  +-----------------------------------------------------------------+
+
+                                                    TOTAL: $1792 CAD
+
+  Payment Instructions:
+
+    Send to PayPal address carlin@example.org.
+    Payment is due within 30 days.
+
+  Thank you for your business!

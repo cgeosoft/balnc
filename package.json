@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "balance",
   "version": "0.3.0",
   "description": "Manage simple day-to-day jobs for small companies and freelancers",
@@ -81,4 +82,13 @@
       "Upload"
     ]
   }
+=======
+	"name": "@balance/sources",
+	"version": "0.0.0",
+	"private": true,
+	"devDependencies": {
+		"lerna": "^2.0.0"
+	},
+	"scripts": {}
+>>>>>>> develop
 }

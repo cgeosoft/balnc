@@ -1,0 +1,31 @@
+{
+  "name": "blnc-test-client",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "rm-local-modules"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "blnc-business-companies": "file:..\\_modules\\blnc-business-companies",
+    "blnc-business-core": "file:..\\_modules\\blnc-business-core",
+    "blnc-main-accounts": "file:..\\_modules\\blnc-main-accounts",
+    "blnc-main-backup": "file:..\\_modules\\blnc-main-backup",
+    "blnc-main-config": "file:..\\_modules\\blnc-main-config",
+    "blnc-main-connector": "file:..\\_modules\\blnc-main-connector",
+    "blnc-main-core": "file:..\\_modules\\blnc-main-core",
+    "blnc-main-crons": "file:..\\_modules\\blnc-main-crons",
+    "blnc-main-storage": "file:..\\_modules\\blnc-main-storage",
+    "blnc-main-telemetry": "file:..\\_modules\\blnc-main-telemetry",
+    "express": "^4.15.3",
+    "systemjs": "^0.20.13"
+  },
+  "devDependencies": {
+    "rm-local-modules": "0.0.2"
+  },
+  "false": {}
+}

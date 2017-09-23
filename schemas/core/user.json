@@ -1,0 +1,22 @@
+{
+    "id": "user",
+    "title": "User",
+    "type": "object",
+    "properties": {
+        "username": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        },
+        "password": {
+            "type": "string"
+        },
+        "roles": {
+            "type": "array",
+            "items": {
+                "$ref": "role.json"
+            }
+        }
+    }
+}

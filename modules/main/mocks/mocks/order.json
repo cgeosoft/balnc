@@ -1,0 +1,33 @@
+[
+    {
+        "serial": "17eebc56-8587-4b4d-8d3e-ba7ea77196e4",
+        "customer": {
+            "person": {
+                "name": "Arvid",
+                "address": "101 Katherine Throughway",
+                "email": "Myron.Zulauf2@gmail.com",
+                "phone": "946-498-6057",
+                "taxDetails": {
+                    "taxOffice": "Ut et labore",
+                    "vatNumber": "exercitation labore tempor"
+                }
+            }
+        },
+        "dateExecute": "Sun Apr 16 2017 19:15:39 GMT+0300 (GTB Summer Time)",
+        "status": "started",
+        "currency": "FJD",
+        "items": [
+            {
+                "description": "Voluptatem odio perferendis eum voluptatem dolorum aliquid animi.",
+                "amount": 6525.42,
+                "fugiat43": 15289731.263606623
+            },
+            {
+                "description": "Aut sapiente expedita quia nihil aliquam occaecati tempora illum.",
+                "amount": 3728.65,
+                "eiusmod1": true
+            }
+        ],
+        "tempor6": "et consectetur laboris minim"
+    }
+]

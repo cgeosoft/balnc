@@ -1,8 +1,12 @@
-node_modules
+node_modules/
 npm-debug.log*
+<<<<<<< HEAD
 
 storage
 
 !.gitkeep
 
 client
+=======
+!.gitkeep
+>>>>>>> develop

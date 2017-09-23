@@ -1,0 +1,23 @@
+{
+  "db": {
+<<<<<<< HEAD:server/datasources.json
+    "name": "db",
+    "connector": "mysql",
+    "debug": false
+=======
+    "connector": "sqlite3",
+    "file": ":memory:",
+    "debug": true
+>>>>>>> develop:_service-old/server/datasources.json
+  },
+  "storage": {
+    "name": "storage",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "storage"
+  }
+<<<<<<< HEAD:server/datasources.json
+}
+=======
+}
+>>>>>>> develop:_service-old/server/datasources.json

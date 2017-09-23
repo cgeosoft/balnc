@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log*
+
+storage
+
+client/libs
+
+!.gitkeep
+
+client/src/config.js

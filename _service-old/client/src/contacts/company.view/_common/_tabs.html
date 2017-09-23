@@ -1,0 +1,9 @@
+<uib-tabset class="tab-container" type="{{type}}" vertical="{{vertical}}" justified="{{justified}}">
+  <uib-tab class="tab {{tab.params.class}}" ng-repeat="tab in tabs" active="tab.active" disable="tab.disable" ng-click="go(tab)">
+    <uib-tab-heading>
+      <span class="fa fa-{{tab.heading.icon}}"></span>
+      <span class="{{tab.heading.class}}">{{tab.heading.title}}</span>
+    </uib-tab-heading>
+  </uib-tab>
+</uib-tabset>
+<div class="tab-content-view" ui-view></div>

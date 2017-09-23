@@ -1,0 +1,609 @@
+0 silly input []
+1 silly flags { _: [ 'bootstrap' ], args: [] }
+2 verbose rootPath C:\develop\cgeosoft\balance
+3 info version 2.2.0
+4 silly existsSync C:\develop\cgeosoft\balance\VERSION
+5 silly initialize attempt
+6 silly initialize success
+7 silly execute attempt
+8 info Bootstrapping 1 packages
+9 info lifecycle preinstall
+10 silly runScript preinstall @balance/app
+11 silly @balance/app
+12 silly hasDependencyInstalled @balance/app @angular/cli
+13 silly dependencyIsSatisfied [ '@angular/cli',
+13 silly dependencyIsSatisfied   '1.4.1',
+13 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+14 verbose dependencyIsSatisfied @angular/cli true
+15 silly hasDependencyInstalled @balance/app @angular/compiler-cli
+16 silly dependencyIsSatisfied [ '@angular/compiler-cli',
+16 silly dependencyIsSatisfied   '4.4.0-RC.0',
+16 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+17 verbose dependencyIsSatisfied @angular/compiler-cli true
+18 silly hasDependencyInstalled @balance/app @angular/language-service
+19 silly dependencyIsSatisfied [ '@angular/language-service',
+19 silly dependencyIsSatisfied   '4.4.0-RC.0',
+19 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+20 verbose dependencyIsSatisfied @angular/language-service true
+21 silly hasDependencyInstalled @balance/app @types/jasmine
+22 silly dependencyIsSatisfied [ '@types/jasmine',
+22 silly dependencyIsSatisfied   '2.5.54',
+22 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+23 verbose dependencyIsSatisfied @types/jasmine true
+24 silly hasDependencyInstalled @balance/app @types/jasminewd2
+25 silly dependencyIsSatisfied [ '@types/jasminewd2',
+25 silly dependencyIsSatisfied   '2.0.3',
+25 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+26 verbose dependencyIsSatisfied @types/jasminewd2 true
+27 silly hasDependencyInstalled @balance/app @types/node
+28 silly dependencyIsSatisfied [ '@types/node',
+28 silly dependencyIsSatisfied   '8.0.28',
+28 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+29 verbose dependencyIsSatisfied @types/node true
+30 silly hasDependencyInstalled @balance/app codelyzer
+31 silly dependencyIsSatisfied [ 'codelyzer',
+31 silly dependencyIsSatisfied   '3.1.2',
+31 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+32 verbose dependencyIsSatisfied codelyzer true
+33 silly hasDependencyInstalled @balance/app gulp-debug
+34 silly dependencyIsSatisfied [ 'gulp-debug',
+34 silly dependencyIsSatisfied   '3.1.0',
+34 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+35 verbose dependencyIsSatisfied gulp-debug true
+36 silly hasDependencyInstalled @balance/app gulp-rename
+37 silly dependencyIsSatisfied [ 'gulp-rename',
+37 silly dependencyIsSatisfied   '1.2.2',
+37 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+38 verbose dependencyIsSatisfied gulp-rename true
+39 silly hasDependencyInstalled @balance/app gulp-replace
+40 silly dependencyIsSatisfied [ 'gulp-replace',
+40 silly dependencyIsSatisfied   '0.6.1',
+40 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+41 verbose dependencyIsSatisfied gulp-replace true
+42 silly hasDependencyInstalled @balance/app gulp-run
+43 silly dependencyIsSatisfied [ 'gulp-run',
+43 silly dependencyIsSatisfied   '1.7.1',
+43 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+44 verbose dependencyIsSatisfied gulp-run true
+45 silly hasDependencyInstalled @balance/app gulp-shell
+46 silly dependencyIsSatisfied [ 'gulp-shell',
+46 silly dependencyIsSatisfied   '0.6.3',
+46 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+47 verbose dependencyIsSatisfied gulp-shell true
+48 silly hasDependencyInstalled @balance/app gulp-tsc
+49 silly dependencyIsSatisfied [ 'gulp-tsc',
+49 silly dependencyIsSatisfied   '1.3.2',
+49 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+50 verbose dependencyIsSatisfied gulp-tsc true
+51 silly hasDependencyInstalled @balance/app gulp
+52 silly dependencyIsSatisfied [ 'gulp',
+52 silly dependencyIsSatisfied   '3.9.1',
+52 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+53 verbose dependencyIsSatisfied gulp true
+54 silly hasDependencyInstalled @balance/app jasmine-core
+55 silly dependencyIsSatisfied [ 'jasmine-core',
+55 silly dependencyIsSatisfied   '2.8.0',
+55 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+56 verbose dependencyIsSatisfied jasmine-core true
+57 silly hasDependencyInstalled @balance/app jasmine-spec-reporter
+58 silly dependencyIsSatisfied [ 'jasmine-spec-reporter',
+58 silly dependencyIsSatisfied   '4.2.1',
+58 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+59 verbose dependencyIsSatisfied jasmine-spec-reporter true
+60 silly hasDependencyInstalled @balance/app karma-chrome-launcher
+61 silly dependencyIsSatisfied [ 'karma-chrome-launcher',
+61 silly dependencyIsSatisfied   '2.2.0',
+61 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+62 verbose dependencyIsSatisfied karma-chrome-launcher true
+63 silly hasDependencyInstalled @balance/app karma-cli
+64 silly dependencyIsSatisfied [ 'karma-cli',
+64 silly dependencyIsSatisfied   '1.0.1',
+64 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+65 verbose dependencyIsSatisfied karma-cli true
+66 silly hasDependencyInstalled @balance/app karma-coverage-istanbul-reporter
+67 silly dependencyIsSatisfied [ 'karma-coverage-istanbul-reporter',
+67 silly dependencyIsSatisfied   '1.3.0',
+67 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+68 verbose dependencyIsSatisfied karma-coverage-istanbul-reporter true
+69 silly hasDependencyInstalled @balance/app karma-jasmine-html-reporter
+70 silly dependencyIsSatisfied [ 'karma-jasmine-html-reporter',
+70 silly dependencyIsSatisfied   '0.2.2',
+70 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+71 verbose dependencyIsSatisfied karma-jasmine-html-reporter true
+72 silly hasDependencyInstalled @balance/app karma-jasmine
+73 silly dependencyIsSatisfied [ 'karma-jasmine',
+73 silly dependencyIsSatisfied   '1.1.0',
+73 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+74 verbose dependencyIsSatisfied karma-jasmine true
+75 silly hasDependencyInstalled @balance/app karma
+76 silly dependencyIsSatisfied [ 'karma',
+76 silly dependencyIsSatisfied   '1.7.1',
+76 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+77 verbose dependencyIsSatisfied karma true
+78 silly hasDependencyInstalled @balance/app load-gulp-tasks
+79 silly dependencyIsSatisfied [ 'load-gulp-tasks',
+79 silly dependencyIsSatisfied   '0.1.0',
+79 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+80 verbose dependencyIsSatisfied load-gulp-tasks true
+81 silly hasDependencyInstalled @balance/app node-sass
+82 silly dependencyIsSatisfied [ 'node-sass',
+82 silly dependencyIsSatisfied   '4.5.3',
+82 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+83 verbose dependencyIsSatisfied node-sass true
+84 silly hasDependencyInstalled @balance/app protractor
+85 silly dependencyIsSatisfied [ 'protractor',
+85 silly dependencyIsSatisfied   '5.1.2',
+85 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+86 verbose dependencyIsSatisfied protractor true
+87 silly hasDependencyInstalled @balance/app ts-node
+88 silly dependencyIsSatisfied [ 'ts-node',
+88 silly dependencyIsSatisfied   '3.3.0',
+88 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+89 verbose dependencyIsSatisfied ts-node true
+90 silly hasDependencyInstalled @balance/app tslint
+91 silly dependencyIsSatisfied [ 'tslint',
+91 silly dependencyIsSatisfied   '5.7.0',
+91 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+92 verbose dependencyIsSatisfied tslint true
+93 silly hasDependencyInstalled @balance/app typescript
+94 silly dependencyIsSatisfied [ 'typescript',
+94 silly dependencyIsSatisfied   '2.5.2',
+94 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+95 verbose dependencyIsSatisfied typescript true
+96 silly hasDependencyInstalled @balance/app @angular/animations
+97 silly dependencyIsSatisfied [ '@angular/animations',
+97 silly dependencyIsSatisfied   '4.4.0-RC.0',
+97 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+98 verbose dependencyIsSatisfied @angular/animations true
+99 silly hasDependencyInstalled @balance/app @angular/common
+100 silly dependencyIsSatisfied [ '@angular/common',
+100 silly dependencyIsSatisfied   '4.4.0-RC.0',
+100 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+101 verbose dependencyIsSatisfied @angular/common true
+102 silly hasDependencyInstalled @balance/app @angular/compiler
+103 silly dependencyIsSatisfied [ '@angular/compiler',
+103 silly dependencyIsSatisfied   '4.4.0-RC.0',
+103 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+104 verbose dependencyIsSatisfied @angular/compiler true
+105 silly hasDependencyInstalled @balance/app @angular/core
+106 silly dependencyIsSatisfied [ '@angular/core',
+106 silly dependencyIsSatisfied   '4.4.0-RC.0',
+106 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+107 verbose dependencyIsSatisfied @angular/core true
+108 silly hasDependencyInstalled @balance/app @angular/forms
+109 silly dependencyIsSatisfied [ '@angular/forms',
+109 silly dependencyIsSatisfied   '4.4.0-RC.0',
+109 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+110 verbose dependencyIsSatisfied @angular/forms true
+111 silly hasDependencyInstalled @balance/app @angular/http
+112 silly dependencyIsSatisfied [ '@angular/http',
+112 silly dependencyIsSatisfied   '4.4.0-RC.0',
+112 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+113 verbose dependencyIsSatisfied @angular/http true
+114 silly hasDependencyInstalled @balance/app @angular/platform-browser-dynamic
+115 silly dependencyIsSatisfied [ '@angular/platform-browser-dynamic',
+115 silly dependencyIsSatisfied   '4.4.0-RC.0',
+115 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+116 verbose dependencyIsSatisfied @angular/platform-browser-dynamic true
+117 silly hasDependencyInstalled @balance/app @angular/platform-browser
+118 silly dependencyIsSatisfied [ '@angular/platform-browser',
+118 silly dependencyIsSatisfied   '4.4.0-RC.0',
+118 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+119 verbose dependencyIsSatisfied @angular/platform-browser true
+120 silly hasDependencyInstalled @balance/app @angular/router
+121 silly dependencyIsSatisfied [ '@angular/router',
+121 silly dependencyIsSatisfied   '4.4.0-RC.0',
+121 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+122 verbose dependencyIsSatisfied @angular/router true
+123 silly hasDependencyInstalled @balance/app @balance/core
+124 silly dependencyIsSatisfied [ '@balance/core',
+124 silly dependencyIsSatisfied   '0.0.0',
+124 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+125 verbose dependencyIsSatisfied @balance/core false
+126 silly hasDependencyInstalled @balance/app @balance/theme
+127 silly dependencyIsSatisfied [ '@balance/theme',
+127 silly dependencyIsSatisfied   '0.0.0',
+127 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+128 verbose dependencyIsSatisfied @balance/theme false
+129 silly hasDependencyInstalled @balance/app @types/lorem-ipsum
+130 silly dependencyIsSatisfied [ '@types/lorem-ipsum',
+130 silly dependencyIsSatisfied   '^1.0.2',
+130 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+131 verbose dependencyIsSatisfied @types/lorem-ipsum true
+132 silly hasDependencyInstalled @balance/app @types/pouchdb
+133 silly dependencyIsSatisfied [ '@types/pouchdb',
+133 silly dependencyIsSatisfied   '6.3.0',
+133 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+134 verbose dependencyIsSatisfied @types/pouchdb true
+135 silly hasDependencyInstalled @balance/app core-js
+136 silly dependencyIsSatisfied [ 'core-js',
+136 silly dependencyIsSatisfied   '2.5.1',
+136 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+137 verbose dependencyIsSatisfied core-js true
+138 silly hasDependencyInstalled @balance/app electron-connect
+139 silly dependencyIsSatisfied [ 'electron-connect',
+139 silly dependencyIsSatisfied   '^0.6.2',
+139 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+140 verbose dependencyIsSatisfied electron-connect true
+141 silly hasDependencyInstalled @balance/app electron-packager
+142 silly dependencyIsSatisfied [ 'electron-packager',
+142 silly dependencyIsSatisfied   '^9.0.1',
+142 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+143 verbose dependencyIsSatisfied electron-packager true
+144 silly hasDependencyInstalled @balance/app electron
+145 silly dependencyIsSatisfied [ 'electron',
+145 silly dependencyIsSatisfied   '^1.7.6',
+145 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+146 verbose dependencyIsSatisfied electron true
+147 silly hasDependencyInstalled @balance/app lorem-ipsum
+148 silly dependencyIsSatisfied [ 'lorem-ipsum',
+148 silly dependencyIsSatisfied   '^1.0.4',
+148 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+149 verbose dependencyIsSatisfied lorem-ipsum true
+150 silly hasDependencyInstalled @balance/app pouchdb
+151 silly dependencyIsSatisfied [ 'pouchdb',
+151 silly dependencyIsSatisfied   '6.3.4',
+151 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+152 verbose dependencyIsSatisfied pouchdb true
+153 silly hasDependencyInstalled @balance/app rxjs
+154 silly dependencyIsSatisfied [ 'rxjs',
+154 silly dependencyIsSatisfied   '5.4.3',
+154 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+155 verbose dependencyIsSatisfied rxjs true
+156 silly hasDependencyInstalled @balance/app socket-pouch
+157 silly dependencyIsSatisfied [ 'socket-pouch',
+157 silly dependencyIsSatisfied   '2.0.0',
+157 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+158 verbose dependencyIsSatisfied socket-pouch true
+159 silly hasDependencyInstalled @balance/app zone.js
+160 silly dependencyIsSatisfied [ 'zone.js',
+160 silly dependencyIsSatisfied   '0.8.17',
+160 silly dependencyIsSatisfied   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\node_modules' ]
+161 verbose dependencyIsSatisfied zone.js true
+162 silly root dependencies []
+163 silly leaf dependencies {
+163 silly leaf dependencies   "@balance/app": [
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@angular/cli@1.4.1",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@angular/compiler-cli@4.4.0-RC.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@angular/language-service@4.4.0-RC.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@types/jasmine@2.5.54",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@types/jasminewd2@2.0.3",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@types/node@8.0.28",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "codelyzer@3.1.2",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "gulp-debug@3.1.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "gulp-rename@1.2.2",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "gulp-replace@0.6.1",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "gulp-run@1.7.1",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "gulp-shell@0.6.3",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "gulp-tsc@1.3.2",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "gulp@3.9.1",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "jasmine-core@2.8.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "jasmine-spec-reporter@4.2.1",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "karma-chrome-launcher@2.2.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "karma-cli@1.0.1",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "karma-coverage-istanbul-reporter@1.3.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "karma-jasmine-html-reporter@0.2.2",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "karma-jasmine@1.1.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "karma@1.7.1",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "load-gulp-tasks@0.1.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "node-sass@4.5.3",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "protractor@5.1.2",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "ts-node@3.3.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "tslint@5.7.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "typescript@2.5.2",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@angular/animations@4.4.0-RC.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@angular/common@4.4.0-RC.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@angular/compiler@4.4.0-RC.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@angular/core@4.4.0-RC.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@angular/forms@4.4.0-RC.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@angular/http@4.4.0-RC.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@angular/platform-browser-dynamic@4.4.0-RC.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@angular/platform-browser@4.4.0-RC.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@angular/router@4.4.0-RC.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@balance/core@0.0.0",
+163 silly leaf dependencies       "isSatisfied": false
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@balance/theme@0.0.0",
+163 silly leaf dependencies       "isSatisfied": false
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@types/lorem-ipsum@^1.0.2",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "@types/pouchdb@6.3.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "core-js@2.5.1",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "electron-connect@^0.6.2",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "electron-packager@^9.0.1",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "electron@^1.7.6",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "lorem-ipsum@^1.0.4",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "pouchdb@6.3.4",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "rxjs@5.4.3",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "socket-pouch@2.0.0",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     },
+163 silly leaf dependencies     {
+163 silly leaf dependencies       "dependency": "zone.js@0.8.17",
+163 silly leaf dependencies       "isSatisfied": true
+163 silly leaf dependencies     }
+163 silly leaf dependencies   ]
+163 silly leaf dependencies }
+164 info Installing external dependencies
+165 verbose actions 1 actions, concurrency 4
+166 silly installInDir _app [ '@angular/cli@1.4.1',
+166 silly installInDir   '@angular/compiler-cli@4.4.0-RC.0',
+166 silly installInDir   '@angular/language-service@4.4.0-RC.0',
+166 silly installInDir   '@types/jasmine@2.5.54',
+166 silly installInDir   '@types/jasminewd2@2.0.3',
+166 silly installInDir   '@types/node@8.0.28',
+166 silly installInDir   'codelyzer@3.1.2',
+166 silly installInDir   'gulp-debug@3.1.0',
+166 silly installInDir   'gulp-rename@1.2.2',
+166 silly installInDir   'gulp-replace@0.6.1',
+166 silly installInDir   'gulp-run@1.7.1',
+166 silly installInDir   'gulp-shell@0.6.3',
+166 silly installInDir   'gulp-tsc@1.3.2',
+166 silly installInDir   'gulp@3.9.1',
+166 silly installInDir   'jasmine-core@2.8.0',
+166 silly installInDir   'jasmine-spec-reporter@4.2.1',
+166 silly installInDir   'karma-chrome-launcher@2.2.0',
+166 silly installInDir   'karma-cli@1.0.1',
+166 silly installInDir   'karma-coverage-istanbul-reporter@1.3.0',
+166 silly installInDir   'karma-jasmine-html-reporter@0.2.2',
+166 silly installInDir   'karma-jasmine@1.1.0',
+166 silly installInDir   'karma@1.7.1',
+166 silly installInDir   'load-gulp-tasks@0.1.0',
+166 silly installInDir   'node-sass@4.5.3',
+166 silly installInDir   'protractor@5.1.2',
+166 silly installInDir   'ts-node@3.3.0',
+166 silly installInDir   'tslint@5.7.0',
+166 silly installInDir   'typescript@2.5.2',
+166 silly installInDir   '@angular/animations@4.4.0-RC.0',
+166 silly installInDir   '@angular/common@4.4.0-RC.0',
+166 silly installInDir   '@angular/compiler@4.4.0-RC.0',
+166 silly installInDir   '@angular/core@4.4.0-RC.0',
+166 silly installInDir   '@angular/forms@4.4.0-RC.0',
+166 silly installInDir   '@angular/http@4.4.0-RC.0',
+166 silly installInDir   '@angular/platform-browser-dynamic@4.4.0-RC.0',
+166 silly installInDir   '@angular/platform-browser@4.4.0-RC.0',
+166 silly installInDir   '@angular/router@4.4.0-RC.0',
+166 silly installInDir   '@balance/core@0.0.0',
+166 silly installInDir   '@balance/theme@0.0.0',
+166 silly installInDir   '@types/lorem-ipsum@^1.0.2',
+166 silly installInDir   '@types/pouchdb@6.3.0',
+166 silly installInDir   'core-js@2.5.1',
+166 silly installInDir   'electron-connect@^0.6.2',
+166 silly installInDir   'electron-packager@^9.0.1',
+166 silly installInDir   'electron@^1.7.6',
+166 silly installInDir   'lorem-ipsum@^1.0.4',
+166 silly installInDir   'pouchdb@6.3.4',
+166 silly installInDir   'rxjs@5.4.3',
+166 silly installInDir   'socket-pouch@2.0.0',
+166 silly installInDir   'zone.js@0.8.17' ]
+167 silly installInDir backup C:\develop\cgeosoft\balance\modules\_app\package.json
+168 silly rename [ 'C:\\develop\\cgeosoft\\balance\\modules\\_app\\package.json',
+168 silly rename   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\package.json.lerna_backup' ]
+169 silly installInDir writing tempJson { dependencies:
+169 silly installInDir    { '@angular/cli': '1.4.1',
+169 silly installInDir      '@angular/compiler-cli': '4.4.0-RC.0',
+169 silly installInDir      '@angular/language-service': '4.4.0-RC.0',
+169 silly installInDir      '@types/jasmine': '2.5.54',
+169 silly installInDir      '@types/jasminewd2': '2.0.3',
+169 silly installInDir      '@types/node': '8.0.28',
+169 silly installInDir      codelyzer: '3.1.2',
+169 silly installInDir      'gulp-debug': '3.1.0',
+169 silly installInDir      'gulp-rename': '1.2.2',
+169 silly installInDir      'gulp-replace': '0.6.1',
+169 silly installInDir      'gulp-run': '1.7.1',
+169 silly installInDir      'gulp-shell': '0.6.3',
+169 silly installInDir      'gulp-tsc': '1.3.2',
+169 silly installInDir      gulp: '3.9.1',
+169 silly installInDir      'jasmine-core': '2.8.0',
+169 silly installInDir      'jasmine-spec-reporter': '4.2.1',
+169 silly installInDir      'karma-chrome-launcher': '2.2.0',
+169 silly installInDir      'karma-cli': '1.0.1',
+169 silly installInDir      'karma-coverage-istanbul-reporter': '1.3.0',
+169 silly installInDir      'karma-jasmine-html-reporter': '0.2.2',
+169 silly installInDir      'karma-jasmine': '1.1.0',
+169 silly installInDir      karma: '1.7.1',
+169 silly installInDir      'load-gulp-tasks': '0.1.0',
+169 silly installInDir      'node-sass': '4.5.3',
+169 silly installInDir      protractor: '5.1.2',
+169 silly installInDir      'ts-node': '3.3.0',
+169 silly installInDir      tslint: '5.7.0',
+169 silly installInDir      typescript: '2.5.2',
+169 silly installInDir      '@angular/animations': '4.4.0-RC.0',
+169 silly installInDir      '@angular/common': '4.4.0-RC.0',
+169 silly installInDir      '@angular/compiler': '4.4.0-RC.0',
+169 silly installInDir      '@angular/core': '4.4.0-RC.0',
+169 silly installInDir      '@angular/forms': '4.4.0-RC.0',
+169 silly installInDir      '@angular/http': '4.4.0-RC.0',
+169 silly installInDir      '@angular/platform-browser-dynamic': '4.4.0-RC.0',
+169 silly installInDir      '@angular/platform-browser': '4.4.0-RC.0',
+169 silly installInDir      '@angular/router': '4.4.0-RC.0',
+169 silly installInDir      '@balance/core': '0.0.0',
+169 silly installInDir      '@balance/theme': '0.0.0',
+169 silly installInDir      '@types/lorem-ipsum': '^1.0.2',
+169 silly installInDir      '@types/pouchdb': '6.3.0',
+169 silly installInDir      'core-js': '2.5.1',
+169 silly installInDir      'electron-connect': '^0.6.2',
+169 silly installInDir      'electron-packager': '^9.0.1',
+169 silly installInDir      electron: '^1.7.6',
+169 silly installInDir      'lorem-ipsum': '^1.0.4',
+169 silly installInDir      pouchdb: '6.3.4',
+169 silly installInDir      rxjs: '5.4.3',
+169 silly installInDir      'socket-pouch': '2.0.0',
+169 silly installInDir      'zone.js': '0.8.17' } }
+170 silly getExecOpts { cwd: 'C:\\develop\\cgeosoft\\balance\\modules\\_app' }
+171 silly installInDir [ 'npm', [ 'install' ] ]
+172 silly installInDir cleanup C:\develop\cgeosoft\balance\modules\_app\package.json
+173 silly renameSync [ 'C:\\develop\\cgeosoft\\balance\\modules\\_app\\package.json.lerna_backup',
+173 silly renameSync   'C:\\develop\\cgeosoft\\balance\\modules\\_app\\package.json' ]
+174 verbose installed leaf @balance/app
+175 error execute Error: Command failed: npm install
+175 error execute npm ERR! code E404
+175 error execute npm ERR! 404 Not Found: @balance/core@0.0.0
+175 error execute
+175 error execute npm ERR! A complete log of this run can be found in:
+175 error execute npm ERR!     C:\Users\georgiou\AppData\Roaming\npm-cache\_logs\2017-09-23T09_12_14_258Z-debug.log
+175 error execute
+175 error execute     at Promise.all.then.arr (C:\Users\georgiou\AppData\Roaming\npm\node_modules\lerna\node_modules\execa\index.js:236:11)
+175 error execute     at <anonymous>
+175 error execute     at process._tickCallback (internal/process/next_tick.js:188:7)
+175 error execute  callback with error
+175 error execute  { Error: Command failed: npm install
+175 error execute npm ERR! code E404
+175 error execute npm ERR! 404 Not Found: @balance/core@0.0.0
+175 error execute
+175 error execute npm ERR! A complete log of this run can be found in:
+175 error execute npm ERR!     C:\Users\georgiou\AppData\Roaming\npm-cache\_logs\2017-09-23T09_12_14_258Z-debug.log
+175 error execute
+175 error execute     at Promise.all.then.arr (C:\Users\georgiou\AppData\Roaming\npm\node_modules\lerna\node_modules\execa\index.js:236:11)
+175 error execute     at <anonymous>
+175 error execute     at process._tickCallback (internal/process/next_tick.js:188:7)
+175 error execute   stack: 'Error: Command failed: npm install\nnpm ERR! code E404\nnpm ERR! 404 Not Found: @balance/core@0.0.0\n\nnpm ERR! A complete log of this run can be found in:\nnpm ERR!     C:\\Users\\georgiou\\AppData\\Roaming\\npm-cache\\_logs\\2017-09-23T09_12_14_258Z-debug.log\n\n    at Promise.all.then.arr (C:\\Users\\georgiou\\AppData\\Roaming\\npm\\node_modules\\lerna\\node_modules\\execa\\index.js:236:11)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)',
+175 error execute   code: 1,
+175 error execute   killed: false,
+175 error execute   stdout: '',
+175 error execute   stderr: 'npm ERR! code E404\nnpm ERR! 404 Not Found: @balance/core@0.0.0\n\nnpm ERR! A complete log of this run can be found in:\nnpm ERR!     C:\\Users\\georgiou\\AppData\\Roaming\\npm-cache\\_logs\\2017-09-23T09_12_14_258Z-debug.log\n',
+175 error execute   failed: true,
+175 error execute   signal: null,
+175 error execute   cmd: 'npm install',
+175 error execute   timedOut: false }

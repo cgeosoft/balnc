@@ -1,0 +1,21 @@
+<<<<<<< HEAD:server/middleware.production.json
+{
+  "final:after": {
+    "strong-error-handler": {
+      "params": {
+        "includeStack": false
+      }
+    }
+  }
+=======
+{
+  "final:after": {
+    "strong-error-handler": {
+      "params": {
+        "debug": false,
+        "log": false
+      }
+    }
+  }
+>>>>>>> develop:_service-old/server/middleware.production.json
+}
