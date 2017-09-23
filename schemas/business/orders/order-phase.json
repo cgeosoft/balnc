@@ -1,0 +1,17 @@
+{
+    "id": "order-phase",
+    "title": "Order Phase",
+    "type": "object",
+    "properties": {
+        "label": {
+            "type": "string"
+        },
+        "color": {
+            "type": "string"
+        },
+        "sort": {
+            "type": "number"
+        }
+    },
+    "required": ["label"]
+}
