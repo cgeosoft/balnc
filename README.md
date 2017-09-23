@@ -18,7 +18,7 @@ It is builded using web technologies and planned to be delivered within an elect
   - [Swagger](https://swagger.io) is used for api design
   - [Faker.js](https://github.com/marak/faker.js) is used for the demo data
 - Builded with [Angular](https://angular.io/) and use [Electron](https://electron.atom.io) container for deliver
-- For the base theme latest [Bootstrap](http://getbootstrap.com/) framework is used
+- For the base theme latest [Bootstrap 4](http://getbootstrap.com/) framework is used
 
 ## Main Features
 
@@ -47,13 +47,13 @@ It is builded using web technologies and planned to be delivered within an elect
 
 ## Namespaces & Modules
 
-- [Main (2%)](docs/modules/_main/README.md)
-- [Business (0%)](docs/modules/business/README.md)
-- [Payments (0%)](docs/modules/payments/README.md)
-- [Teams (0%)](docs/modules/teams/README.md)
-- [Bookings (0%)](docs/modules/bookings/README.md)
-- [Doctors (0%)](docs/modules/doctors/README.md)
-- [Sports (0%)](docs/modules/sports/README.md)
+- [Main (2%)](docs/modules/_main.md)
+- [Business (0%)](docs/modules/business.md)
+- [Payments (0%)](docs/modules/payments.md)
+- [Teams (0%)](docs/modules/teams.md)
+- [Bookings (0%)](docs/modules/bookings.md)
+- [Doctors (0%)](docs/modules/doctors.md)
+- [Sports (0%)](docs/modules/sports.md)
 
 ## License
 The MIT License (MIT)
