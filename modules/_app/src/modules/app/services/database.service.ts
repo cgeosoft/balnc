@@ -7,6 +7,7 @@ import RxDBValidateModule from 'rxdb/plugins/validate';
 
 import * as RxDBTypes from '../typings/rxdb.d';
 
+declare const ENV
 if (ENV === 'development') {
     // schema-checks should be used in dev-mode only
     RxDB.plugin(RxDBSchemaCheckModule)
