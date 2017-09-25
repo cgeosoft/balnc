@@ -6,7 +6,9 @@ import { InvoicesItemComponent, InvoicesOverviewComponent, InvoicesReportCompone
 
 const appRoutes: Routes = [
   { path: 'overview', component: InvoicesOverviewComponent },
-  { path: ':id', component: InvoicesItemComponent },
+  { path: 'report/:id', component: InvoicesReportComponent },
+  { path: 'item/:id', component: InvoicesItemComponent },
+  { path: '', redirectTo: "/invoices/overview", pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -14,7 +14,7 @@ const appRoutes: Routes = [
                 path: 'invoices',
                 loadChildren: '../invoices/invoices.module#InvoicesModule',
             },
-            { path: '', redirectTo: '/invoices/overview', pathMatch: 'full' },
+            { path: '**', redirectTo: '/invoices/overview', pathMatch: 'full' },
         ],
     },
 ];
