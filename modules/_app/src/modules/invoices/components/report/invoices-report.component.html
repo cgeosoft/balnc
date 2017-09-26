@@ -76,6 +76,15 @@
     </div>
     <div class="content-body">
       <div class="container">
+
+
+        <div *ngIf="invoices" class="hero-list-component">
+          <div *ngFor="let invoice of invoices" class="listHero">
+            {{invoice.dateCreated}}
+          </div>
+        </div>
+
+
         <div class="btn-toolbar justify-content-between mb-3" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group" role="group" aria-label="First group">
             <button type="button" class="btn btn-outline-dark">
