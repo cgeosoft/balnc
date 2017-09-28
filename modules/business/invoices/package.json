@@ -1,5 +1,5 @@
 {
-	"name": "@balance/core",
+	"name": "@balance/business-invoices",
 	"version": "0.0.0",
 	"license": "MIT",
 	"author": {
@@ -7,6 +7,7 @@
 		"email": "georgiou.christos@outlook.com",
 		"url": "http://cgeosoft.com"
 	},
+	"types": "src/invoices.module.ts",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ChristosGeorgiou/balance"
@@ -14,17 +15,6 @@
 	"dependencies": {
 		"@angular/common": "4.4.3",
 		"@angular/core": "4.4.3",
-		"@angular/compiler": "4.4.3",
-		"@angular/router": "4.4.3",
-		"core-js": "2.5.1"
-	},
-	"devDependencies": {
-		"@angular/cli": "1.4.3",
-		"@angular/compiler-cli": "4.4.3",
-		"@angular/language-service": "4.4.3",
-		"@types/node": "8.0.31",
-		"node-sass": "^4.5.3",
-		"ts-node": "3.3.0",
-		"typescript": "2.5.3"
+		"@angular/router": "4.4.3"
 	}
 }

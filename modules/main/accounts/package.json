@@ -10,5 +10,10 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/ChristosGeorgiou/balance"
+    },
+    "dependencies": {
+        "@angular/common": "4.4.3",
+        "@angular/core": "4.4.3",
+        "@angular/router": "4.4.3"
     }
 }
