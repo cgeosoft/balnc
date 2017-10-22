@@ -1,0 +1,14 @@
+{
+  "id": "message",
+  "title": "message",
+  "type": "object",
+  "version": 1,
+  "properties": {
+    "name": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "text"
+  ]
+}

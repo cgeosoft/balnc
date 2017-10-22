@@ -52,7 +52,14 @@ export class InvoicesDBService {
                 //     return this.hp / this.maxHP * 100
                 // }
             },
-            sync: true
+            sync: true,
+            migrationStrategies: {
+                // 1 means, this transforms data from version 0 to version 1
+                1: function (oldDoc) {
+                    // oldDoc.time = new Date(oldDoc.time).getTime(); // string to unix
+                    return oldDoc;
+                }
+            }
         }
     ]
 
@@ -97,7 +104,6 @@ export class InvoicesDBService {
             .filter(col => col.sync)
             .map(col => col.name)
             .forEach(colName => db[colName].sync({ remote: syncURL + colName + '/' }))
-
         return db
     }
 

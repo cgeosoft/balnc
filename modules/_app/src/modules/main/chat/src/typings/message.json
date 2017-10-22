@@ -1,0 +1,23 @@
+{
+  "id": "message",
+  "title": "message",
+  "type": "object",
+  "version": 1,
+  "properties": {
+    "date": {
+      "type": "string"
+    },
+    "room": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "sender": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "text"
+  ]
+}

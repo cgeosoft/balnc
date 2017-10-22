@@ -1,43 +1,44 @@
 {
-    "id": "invoice",
-    "title": "Invoice",
-    "type": "object",
-    "properties": {
-        "orders": {
-            "type": "array",
-            "items": {
-                "$ref": "http://localhost:8080/business/orders/order.json"
-            }
-        },
-        "dateCreated": {
-            "type": "string",
-            "faker": "date.past"
-        },
-        "dateUpdated": {
-            "type": "string",
-            "faker": "date.past"
-        },
-        "dateIssued": {
-            "type": "string",
-            "faker": "date.past"
-        },
-        "status": {
-            "type": "string",
-            "enum": ["pending", "issued"]
-        },
-        "file": {
-            "type": "string",
-            "faker": "system.fileName"
-        },
-        "comment": {
-            "type": "string",
-            "faker": "lorem.sentence"
-        }
+  "id": "invoice",
+  "title": "Invoice",
+  "type": "object",
+  "version": 1,
+  "properties": {
+    "orders": {
+      "type": "array",
+      "items": {
+        "$ref": "http://localhost:8080/business/orders/order.json"
+      }
     },
-    "required": [
-        "orders",
-        "dateCreated",
-        "dateUpdated",
-        "status"
-    ]
+    "dateCreated": {
+      "type": "string",
+      "faker": "date.past"
+    },
+    "dateUpdated": {
+      "type": "string",
+      "faker": "date.past"
+    },
+    "dateIssued": {
+      "type": "string",
+      "faker": "date.past"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "issued"]
+    },
+    "file": {
+      "type": "string",
+      "faker": "system.fileName"
+    },
+    "comment": {
+      "type": "string",
+      "faker": "lorem.sentence"
+    }
+  },
+  "required": [
+    "orders",
+    "dateCreated",
+    "dateUpdated",
+    "status"
+  ]
 }
