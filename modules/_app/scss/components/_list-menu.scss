@@ -1,0 +1,100 @@
+.list-menu {
+    overflow-y: auto;
+    margin: 0 0 .5rem;
+    padding: 0;
+    list-style: none;
+    li {
+        &.header {
+            padding: .3rem .3rem .2rem;
+            font-size: 1.2rem;
+            font-weight: 300;
+            .btn-tool {
+                float: right;
+                padding: .2rem;
+                font-size: .8rem;
+            }
+            .fa {
+                font-size: .8rem;
+            }
+        }
+        >a {
+            border-radius: 5px;
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            text-decoration: none;
+            padding: .1rem .3rem;
+            border: solid 1px transparent;
+            color: #333;
+            .fa {
+                font-size: .8rem;
+                color: #999;
+            }
+            .badge {
+                margin: .2rem 0;
+            }
+            &:hover {
+                color: #111;
+                .fa {
+                    color: #AAA;
+                }
+            }
+            &.media {
+                .img-thumbnail {
+                    float: left;
+                    margin: .3rem .3rem .3rem 0;
+                    background: none;
+                    width: 2rem;
+                    text-align: center;
+                    padding: 0;
+                    border-radius: 2rem;
+                    line-height: 2rem;
+                    .fa {
+                        font-size: 1rem;
+                    }
+                }
+                small {
+                    display: block;
+                    font-size: .7rem;
+                    color: rgba(255, 255, 225, 0.33);
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+        &.active {
+            a {
+                color: #FFF;
+            }
+        }
+    }
+    &.dark {
+        li {
+            &.header {
+                color: #AAA;
+                .fa {
+                    color: #999;
+                }
+            }
+            >a {
+                color: #CCC;
+                .fa {
+                    color: #999;
+                }
+                &:hover {
+                    color: #FFF;
+                    .fa {
+                        color: #FFF;
+                    }
+                }
+            }
+            &.active {
+                a {
+                    color: #FFF;
+                }
+            }
+        }
+    }
+}
