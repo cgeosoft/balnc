@@ -6,12 +6,13 @@
 
 **Balance** is a collection of business modules for managing simple operations of small companies and freelancers.
 It includes sales, marketing and accounting tools and it is both open source and free under the MIT license.
+In addition it is highly extendable, allowing developers to add new custom modules or upgrade existing ones.
 
 It is builded using web technologies and planned to be delivered within an electron container to supoprt total local offline functionality. However a hosted solution is possible, as it is based in angular and in rxdb.
 
-## Techonogies & libraries used
+## Techonogies & libraries
 
-- [Monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) pattern will be used with [lerna](https://github.com/lerna/lerna)
+- [Monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md) pattern with [lerna](https://github.com/lerna/lerna)
 - Modules are distributed through npm
   - Future custom private modules can be delivered with tools like [sinopia](https://www.npmjs.com/package/sinopia)
 - All objects are described with [json-schema](http://json-schema.org)
