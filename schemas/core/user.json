@@ -15,7 +15,7 @@
         "roles": {
             "type": "array",
             "items": {
-                "$ref": "role.json"
+                "$ref": "http://127.0.0.1:8080/role.json"
             }
         }
     }
