@@ -1,4 +1,4 @@
-export const MODS: any = [
+export const MENU: any = [
   {
     icon: "fa fa-dashboard",
     label: "Index",

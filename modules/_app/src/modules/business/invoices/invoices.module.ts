@@ -10,7 +10,7 @@ const appRoutes: Routes = [
   { path: 'report/:id', component: InvoicesReportComponent },
   { path: 'report', component: InvoicesReportComponent },
   { path: 'item/:id', component: InvoicesItemComponent },
-  { path: '', redirectTo: "/invoices/report", pathMatch: 'full' },
+  { path: '', redirectTo: "report" },
 ];
 
 @NgModule({
