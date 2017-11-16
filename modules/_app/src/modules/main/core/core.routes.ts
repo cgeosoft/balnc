@@ -1,6 +1,6 @@
-import { Routes } from '@angular/router';
+import { Routes } from '@angular/router'
 
-import { MainComponent } from './components/main/main.component';
+import { MainComponent } from './components/main/main.component'
 
 export const CORE_ROUTES: Routes = [
     {
@@ -24,4 +24,4 @@ export const CORE_ROUTES: Routes = [
             pathMatch: 'full',
         }]
     },
-];
+]

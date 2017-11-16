@@ -1,13 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
 
-import { ChatComponent } from './components';
-import { ChatDB } from './services/chat-db.service';
+import { ChatComponent } from './components'
+import { ChatDB } from './services/chat-db.service'
 
 const appRoutes: Routes = [
   { path: '', component: ChatComponent },
-];
+]
 
 @NgModule({
   imports: [

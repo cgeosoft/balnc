@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
 
-import { CORE_ROUTES } from './core.routes';
-import { MainComponent } from './components/main/main.component';
+import { CORE_ROUTES } from './core.routes'
+import { MainComponent } from './components/main/main.component'
 
 @NgModule({
   imports: [

@@ -1,7 +1,7 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
 
-import { InvoiceDB } from '../../services/invoices-db.service';
-import * as RxDBTypes from '../../typings/typings.d';
+import { InvoiceDB } from '../../services/invoices-db.service'
+import * as RxDBTypes from '../../typings/typings.d'
 
 @Component({
   selector: 'app-invoices-report',
@@ -10,8 +10,8 @@ import * as RxDBTypes from '../../typings/typings.d';
 })
 export class InvoicesReportComponent implements OnInit, OnDestroy {
 
-  invoices: RxDBTypes.RxInvoiceDocument[] | RxDBTypes.RxInvoiceDocument;
-  sub;
+  invoices: RxDBTypes.RxInvoiceDocument[] | RxDBTypes.RxInvoiceDocument
+  sub
 
   constructor(
     private invoiceDB: InvoiceDB,
@@ -23,18 +23,20 @@ export class InvoicesReportComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe()
+    }
   }
 
   private async _show() {
-    const db = await this.invoiceDB.get();
+    const db = await this.invoiceDB.get()
     const invoices$ = db.invoice
       .find()
       // .sort({ dateCreated: 1 })
-      .$;
+      .$
     this.sub = invoices$.subscribe(invoices => {
-      this.invoices = invoices;
-      this.zone.run(() => { });
-    });
+      this.invoices = invoices
+      this.zone.run(() => { })
+    })
   }
 }

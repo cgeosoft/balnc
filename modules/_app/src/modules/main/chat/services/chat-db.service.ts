@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import RxDB from 'rxdb';
-import KeycompressionPlugin from 'rxdb/src/plugins/key-compression';
-import RxDBLeaderElectionModule from 'rxdb/src/plugins/leader-election';
-import RxDBReplicationModule from 'rxdb/src/plugins/replication';
-import RxDBValidateModule from 'rxdb/src/plugins/validate';
+import { Injectable } from '@angular/core'
+import RxDB from 'rxdb'
+import KeycompressionPlugin from 'rxdb/src/plugins/key-compression'
+import RxDBLeaderElectionModule from 'rxdb/src/plugins/leader-election'
+import RxDBReplicationModule from 'rxdb/src/plugins/replication'
+import RxDBValidateModule from 'rxdb/src/plugins/validate'
 
-import * as RxDBTypes from '../typings/typings.d';
+import * as RxDBTypes from '../typings/typings.d'
 
 // declare const ENV = "development"
 // if (ENV === 'development') {
@@ -16,7 +16,7 @@ import * as RxDBTypes from '../typings/typings.d';
 RxDB.plugin(RxDBValidateModule)
 RxDB.plugin(RxDBLeaderElectionModule)
 RxDB.plugin(RxDBReplicationModule)
-RxDB.plugin(KeycompressionPlugin);
+RxDB.plugin(KeycompressionPlugin)
 RxDB.plugin(require('pouchdb-adapter-http'))
 
 // import typings
@@ -53,8 +53,8 @@ export class ChatDB {
         // migrationStrategies: {
         //     // 1 means, this transforms data from version 0 to version 1
         //     1: function (oldDoc) {
-        //         // oldDoc.time = new Date(oldDoc.time).getTime(); // string to unix
-        //         return oldDoc;
+        //         // oldDoc.time = new Date(oldDoc.time).getTime() // string to unix
+        //         return oldDoc
         //     }
         // }
     }, {
@@ -68,8 +68,8 @@ export class ChatDB {
         // migrationStrategies: {
         //     // 1 means, this transforms data from version 0 to version 1
         //     1: function (oldDoc) {
-        //         // oldDoc.time = new Date(oldDoc.time).getTime(); // string to unix
-        //         return oldDoc;
+        //         // oldDoc.time = new Date(oldDoc.time).getTime() // string to unix
+        //         return oldDoc
         //     }
         // }
     }]
