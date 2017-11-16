@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
 import { InvoicesItemComponent, InvoicesOverviewComponent, InvoicesReportComponent } from './components'
-import { db } from './data/db.service'
+import { Database } from './data/db.service'
 
 const appRoutes: Routes = [
   { path: 'overview', component: InvoicesOverviewComponent },
@@ -24,7 +24,7 @@ const appRoutes: Routes = [
     InvoicesReportComponent,
   ],
   providers: [
-    db
+    Database
   ]
 })
 export class InvoicesModule { }

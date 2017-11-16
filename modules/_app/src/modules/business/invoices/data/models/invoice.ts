@@ -15,6 +15,6 @@ export type RxInvoiceDocument = RxInvoiceDocumentType
 declare class RxInvoiceCollection extends RxCollection<RxInvoiceDocumentType> {
 }
 
-export class RxInvoicesDatabase extends RxDatabase {
+export class InvoicesDatabase extends RxDatabase {
     invoice?: RxInvoiceCollection
 }

@@ -7,7 +7,7 @@ import RxDBReplicationModule from 'rxdb/plugins/replication'
 
 import { environment } from '../../../../environments/environment'
 
-import { RxInvoiceDocument, RxInvoicesDatabase } from './models/invoice'
+import { RxInvoiceDocument, InvoicesDatabase } from './models/invoice'
 
 if (environment.production) {
     // schema-checks should be used in dev-mode only
@@ -33,55 +33,53 @@ RxDB.plugin(adapters[useAdapter])
 
 const collections = [
     {
-        name: 'hero',
-        schema: require('models/invoice.json'),
-        sync: true
+        name: 'invoices',
+        schema: require('./models/invoice.json'),
+        sync: true,
+        migrationStrategies: {
+            0: function (oldDoc) {
+                return oldDoc;
+            }
+        }
     }
 ]
 
-console.log('hostname: ' + window.location.hostname)
-const syncURL = 'http://' + window.location.hostname + ':10101/'
+const syncURL = 'http://127.0.0.1:5984/'
 
 @Injectable()
-export class db {
-    static dbPromise: Promise<RxInvoicesDatabase> = null
-    private async _create(): Promise<RxInvoicesDatabase> {
-        console.log('InvoiceDB: creating database..')
-        const db: RxInvoicesDatabase = await RxDB.create({
+export class Database {
+    static dbPromise: Promise<InvoicesDatabase> = null
+    private async _create(): Promise<InvoicesDatabase> {
+        const db: InvoicesDatabase = await RxDB.create({
             name: 'heroes',
             adapter: useAdapter,
             // password: 'myLongAndStupidPassword' // no password needed
         })
-        console.log('InvoiceDB: created database')
         window['db'] = db // write to window for debugging
 
         // show leadership in title
         db.waitForLeadership()
             .then(() => {
-                console.log('isLeader now')
                 document.title = '♛ ' + document.title
             })
 
         // create collections
-        console.log('InvoiceDB: create collections')
         await Promise.all(collections.map(colData => db.collection(colData)))
 
         // hooks
-        console.log('InvoiceDB: add hooks')
-        db.collections.hero.preInsert(function (docObj) {
-            const color = docObj.color
-            return db.collections.hero.findOne({ color }).exec()
-                .then(has => {
-                    if (has != null) {
-                        alert('another hero already has the color ' + color)
-                        throw new Error('color already there')
-                    }
-                    return db
-                })
-        })
+        // db.collections.hero.preInsert(function (docObj) {
+        //     const color = docObj.color
+        //     return db.collections.hero.findOne({ color }).exec()
+        //         .then(has => {
+        //             if (has != null) {
+        //                 alert('another hero already has the color ' + color)
+        //                 throw new Error('color already there')
+        //             }
+        //             return db
+        //         })
+        // })
 
         // sync
-        console.log('InvoiceDB: sync')
         collections
             .filter(col => col.sync)
             .map(col => col.name)
@@ -90,12 +88,12 @@ export class db {
         return db
     }
 
-    get(): Promise<RxInvoicesDatabase> {
-        if (InvoiceDB.dbPromise) {
-            return InvoiceDB.dbPromise
+    get(): Promise<InvoicesDatabase> {
+        if (Database.dbPromise) {
+            return Database.dbPromise
         }
         // create database
-        InvoiceDB.dbPromise = this._create()
-        return InvoiceDB.dbPromise
+        Database.dbPromise = this._create()
+        return Database.dbPromise
     }
 }
