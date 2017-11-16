@@ -1,6 +1,6 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 
-import { InvoicesDBService } from '../../services/invoices-db.service';
+import { InvoiceDB } from '../../services/invoices-db.service';
 import * as RxDBTypes from '../../typings/typings.d';
 
 @Component({
@@ -14,7 +14,7 @@ export class InvoicesReportComponent implements OnInit, OnDestroy {
   sub;
 
   constructor(
-    private invoicesDBService: InvoicesDBService,
+    private invoiceDB: InvoiceDB,
     private zone: NgZone,
   ) { }
 
@@ -27,7 +27,7 @@ export class InvoicesReportComponent implements OnInit, OnDestroy {
   }
 
   private async _show() {
-    const db = await this.invoicesDBService.get();
+    const db = await this.invoiceDB.get();
     const invoices$ = db.invoice
       .find()
       // .sort({ dateCreated: 1 })

@@ -5,20 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { CORE_ROUTES } from './core.routes';
 import { MainComponent } from './components/main/main.component';
 
-// export const CORE_ROUTES: Routes = [
-//   {
-//     path: '',
-//     component: MainComponent,
-//     children: MODS.map((item) => {
-//       return {
-//         path: item.root,
-//         loadChildren: item.mod
-//       }
-//     })
-//   },
-//   { path: '**', redirectTo: '/invoices/report', pathMatch: 'full' },
-// ];
-
 @NgModule({
   imports: [
     CommonModule,

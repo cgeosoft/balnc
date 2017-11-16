@@ -7,13 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoreModule } from '../modules/main/core/core.module';
 import { AppComponent } from './app.component';
 
-const appRoutes: Routes = [
-  {
-    path: '',
-    component: AppComponent,
-  }
-];
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,9 +16,14 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     CoreModule,
-    RouterModule.forRoot(appRoutes, {
-      enableTracing: true
-    })
+    RouterModule.forRoot([
+      {
+        path: '',
+        component: AppComponent,
+      }
+    ], {
+        enableTracing: true
+      })
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -32,4 +32,4 @@ export const MODS: any = [
     root: "settings",
     type: "secondary"
   },
-];
+]

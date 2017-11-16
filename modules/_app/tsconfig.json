@@ -1,19 +1,37 @@
 {
   "compileOnSave": false,
+  "buildOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
+    "noStrictGenericChecks": true,
+    "target": "es5",
+    "module": "commonjs",
     "moduleResolution": "node",
+    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
+    "removeComments": false,
+    "noImplicitAny": false,
+    "types": [
+      "core-js",
+      "requirejs"
     ],
     "lib": [
-      "es2017",
-      "dom"
+      "dom",
+      "es2015",
+      "es5",
+      "es6"
     ]
-  }
+  },
+  "exclude": [
+    "./node_modules",
+    "./log.txt",
+    "./config.json"
+  ],
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "filesGlob": [
+    "**/*.ts",
+    "!node_modules/**"
+  ]
 }

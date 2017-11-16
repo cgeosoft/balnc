@@ -21,8 +21,8 @@ export class RxChatDatabase extends RxDatabase {
     rooms?: RxRoomsCollection
 }
 
-export default {
-    RxMessagesCollection,
-    RxRoomsCollection,
-    RxChatDatabase
-}
+// export default {
+//     RxMessagesCollection,
+//     RxRoomsCollection,
+//     RxChatDatabase
+// }

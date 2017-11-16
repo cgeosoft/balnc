@@ -18,8 +18,3 @@ declare class RxInvoiceCollection extends RxCollection<RxInvoiceDocumentType> {
 export class RxInvoicesDatabase extends RxDatabase {
     invoice?: RxInvoiceCollection
 }
-
-export default {
-    RxInvoiceCollection,
-    RxInvoicesDatabase
-}
