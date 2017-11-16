@@ -8,10 +8,10 @@ export const CORE_ROUTES: Routes = [
         component: MainComponent,
         children: [{
             path: 'invoices',
-            loadChildren: "../../business/invoices/src/invoices.module#InvoicesModule"
+            loadChildren: "../../business/invoices/invoices.module#InvoicesModule"
         }, {
             path: 'chat',
-            loadChildren: "../../main/chat/src/chat.module#ChatModule"
+            loadChildren: "../../main/chat/chat.module#ChatModule"
         }]
     },
     { path: '**', redirectTo: '/invoices/report', pathMatch: 'full' },

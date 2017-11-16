@@ -13,12 +13,13 @@ export const MODS: any = [
     icon: "fa fa-files",
     label: "Invoices",
     root: "invoices",
-    mod: "../../business/invoices/src/invoices.module#InvoicesModule"
+    mod: "../../business/invoices/invoices.module#InvoicesModule"
   },
   {
     icon: "fa fa-comments",
     label: "Chat",
-    root: "chat"
+    root: "chat",
+    mod: "../../main/chat/chat.module#InvoicesModule"
   },
   {
     icon: "fa fa-user",

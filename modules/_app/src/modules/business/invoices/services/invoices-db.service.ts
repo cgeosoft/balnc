@@ -6,7 +6,7 @@ import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election';
 import RxDBReplicationModule from 'rxdb/plugins/replication';
 
 import { RxInvoiceDocument, RxInvoicesDatabase } from '../typings/typings';
-import { environment } from '../../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 if (environment.production) {
     // schema-checks should be used in dev-mode only
