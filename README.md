@@ -2,7 +2,7 @@
 
 **WARNING: This is a non-functional and under development software. If you are interested to be notified of future releases or to help me by any means, please contact me via email.**
 
-![screenshot](modules/main/theme/docs/assets/screenshot.png)
+![screenshot](docs/assets/screenshot.png)
 
 **Balance** is a collection of business modules for managing simple operations of small companies and freelancers.
 It includes sales, marketing and accounting tools and it is both open source and free under the MIT license.
