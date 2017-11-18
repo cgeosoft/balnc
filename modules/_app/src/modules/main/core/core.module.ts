@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router'
 
 import { CORE_ROUTES } from './core.routes'
 import { MainComponent } from './components/main/main.component'
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { MainComponent } from './components/main/main.component'
   ],
   declarations: [
     MainComponent,
+    PageNotFoundComponent,
   ]
 })
 export class CoreModule { }
