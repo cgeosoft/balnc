@@ -1,1 +1,0 @@
-export { AccountsModule } from './src/accounts.module';

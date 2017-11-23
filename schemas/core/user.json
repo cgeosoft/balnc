@@ -1,32 +1,32 @@
 {
-    "id": "http://balance.cgeosoft.com/schemas/core/user.json",
-    "title": "User",
-    "type": "object",
-    "definitions": {
-        "role": {
-            "type": "object",
-            "properties": {
-                "alias": {
-                    "enum": ["admin", "owner", "debug", "demo"]
-                }
-            }
+  "id": "http://balance.cgeosoft.com/schemas/core/user.json",
+  "title": "User",
+  "type": "object",
+  "definitions": {
+    "role": {
+      "type": "object",
+      "properties": {
+        "alias": {
+          "enum": ["admin", "owner", "debug", "demo"]
         }
-    },
-    "properties": {
-        "username": {
-            "type": "string"
-        },
-        "email": {
-            "type": "string"
-        },
-        "password": {
-            "type": "string"
-        },
-        "roles": {
-            "type": "array",
-            "items": {
-                "$ref": "#/definitions/role"
-            }
-        }
+      }
     }
+  },
+  "properties": {
+    "username": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/role"
+      }
+    }
+  }
 }

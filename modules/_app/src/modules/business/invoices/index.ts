@@ -1,1 +1,0 @@
-export { InvoicesModule } from './src/invoices.module';
