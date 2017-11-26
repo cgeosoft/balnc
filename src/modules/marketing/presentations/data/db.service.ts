@@ -4,6 +4,7 @@ import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
 import RxDBValidateModule from 'rxdb/plugins/validate'
 import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
 import RxDBReplicationModule from 'rxdb/plugins/replication'
+import KeycompressionPlugin from 'rxdb/plugins/key-compression'
 
 import { environment } from '../../../../environments/environment'
 
@@ -13,7 +14,7 @@ if (environment.production) {
     // schema-checks should be used in dev-mode only
     RxDB.plugin(RxDBSchemaCheckModule)
 }
-
+RxDB.plugin(KeycompressionPlugin);
 RxDB.plugin(RxDBValidateModule)
 RxDB.plugin(RxDBLeaderElectionModule)
 RxDB.plugin(RxDBReplicationModule)
@@ -33,14 +34,9 @@ RxDB.plugin(adapters[useAdapter])
 
 const collections = [
     {
-        name: 'presentations',
+        name: 'presentation',
         schema: require('./models/presentation.json'),
         sync: true,
-        migrationStrategies: {
-            0: function (oldDoc) {
-                return oldDoc;
-            }
-        }
     }
 ]
 
@@ -51,17 +47,17 @@ export class Database {
     static dbPromise: Promise<PresentationsDatabase> = null
     private async _create(): Promise<PresentationsDatabase> {
         const db: PresentationsDatabase = await RxDB.create({
-            name: 'heroes',
+            name: 'presentation',
             adapter: useAdapter,
             // password: 'myLongAndStupidPassword' // no password needed
         })
         window['db'] = db // write to window for debugging
 
-        // show leadership in title
-        db.waitForLeadership()
-            .then(() => {
-                document.title = '♛ ' + document.title
-            })
+        // // show leadership in title
+        // db.waitForLeadership()
+        //     .then(() => {
+        //         document.title = '♛ ' + document.title
+        //     })
 
         // create collections
         await Promise.all(collections.map(colData => db.collection(colData)))

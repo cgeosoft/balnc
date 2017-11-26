@@ -14,12 +14,14 @@ export const CORE_ROUTES: Routes = [
             path: 'invoices',
             loadChildren: "../../business/invoices/invoices.module#InvoicesModule"
         }, {
+            path: 'presentations',
+            loadChildren: "../../marketing/presentations/presentations.module#PresentationsModule"
+        }, {
             path: 'chat',
             loadChildren: "../../main/chat/chat.module#ChatModule"
         }, {
             path: 'settings',
             loadChildren: "../../main/settings/settings.module#SettingsModule"
-        }, {
         }, {
             path: 'page-not-found',
             component: PageNotFoundComponent,

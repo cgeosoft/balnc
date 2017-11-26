@@ -51,7 +51,7 @@ export class Database {
     static dbPromise: Promise<InvoicesDatabase> = null
     private async _create(): Promise<InvoicesDatabase> {
         const db: InvoicesDatabase = await RxDB.create({
-            name: 'heroes',
+            name: 'invoices',
             adapter: useAdapter,
             // password: 'myLongAndStupidPassword' // no password needed
         })

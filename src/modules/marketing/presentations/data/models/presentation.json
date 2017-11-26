@@ -2,10 +2,27 @@
   "id": "presentation",
   "title": "Presentation",
   "type": "object",
-  "version": 1,
   "properties": {
     "title": {
-      "type": "string",
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "menu": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
     },
     "dateCreated": {
       "type": "string",

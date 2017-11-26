@@ -1,13 +1,16 @@
 import { RxDocument, RxCollection, RxDatabase } from 'rxdb'
 
 declare interface RxPresentationDocumentType {
-    orders: Array<string>
+    title: string
+    description: string
+    image: string
+    pages: any[]
+    menu: any[]
     dateCreated: string
     dateUpdated: string
-    dateIssued?: string
-    status: ("pending" | "issued")
-    file?: string
-    comment?: string
+    dateIssued: any
+    status: any
+    comment: any
 }
 
 export type RxPresentationDocument = RxPresentationDocumentType
