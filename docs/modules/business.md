@@ -24,13 +24,3 @@ This module extends `business-orders` to implement invoices both as data and gen
 - extendable reports with averages, sums and country specific for tax needs
 
 ## Eshop | `@balance/business-eshop`
-
-## Marketing Modules
-
-## Analytics | `@balance/marketing-analytics`
-
-## Polls | `@balance/marketing-polls`
-
-## Presentations | `@balance/marketing-presentations`
-
-## Emails | `@balance/marketing-emails`
