@@ -1,0 +1,32 @@
+{
+  "id": "presentation",
+  "title": "Presentation",
+  "type": "object",
+  "version": 1,
+  "properties": {
+    "title": {
+      "type": "string",
+    },
+    "dateCreated": {
+      "type": "string",
+      "faker": "date.past"
+    },
+    "dateUpdated": {
+      "type": "string",
+      "faker": "date.past"
+    },
+    "dateIssued": {
+      "type": "string",
+      "faker": "date.past"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "issued"]
+    },
+    "comment": {
+      "type": "string",
+      "faker": "lorem.sentence"
+    }
+  },
+  "required": []
+}
