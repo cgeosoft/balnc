@@ -30,6 +30,9 @@
           "teamB": {
             "type": "string"
           },
+          "field": {
+            "type": "string"
+          },
           "results": {
             "type": "object"
           },
