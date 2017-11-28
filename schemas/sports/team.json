@@ -1,0 +1,56 @@
+{
+  "id": "http://balance.cgeosoft.com/schemas/sports/league",
+  "title": "League",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "players": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "person": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          },
+          "log": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "loggedAt": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "comments": {
+      "type": "string"
+    },
+    "log": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "loggedAt": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": []
+}

@@ -1,0 +1,55 @@
+{
+  "id": "http://balance.cgeosoft.com/schemas/sports/league",
+  "title": "League",
+  "type": "object",
+  "properties": {
+    "comments": {
+      "type": "string"
+    },
+    "teams": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "games": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["pending", "planned", "canceled", "finished"]
+          },
+          "plannedAt": {
+            "type": "string"
+          },
+          "teamA": {
+            "type": "string"
+          },
+          "teamB": {
+            "type": "string"
+          },
+          "results": {
+            "type": "object"
+          },
+          "log": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "loggedAt": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": []
+}
