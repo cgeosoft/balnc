@@ -7,6 +7,8 @@ import { RouterModule, Routes } from '@angular/router';
 // import { EllipsisPipe } from '../pipes/ellipsis.pipe';
 
 import { CoreModule } from '../modules/main/core/core.module';
+import { DatabaseModule } from '../modules/main/database/database.module';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -19,6 +21,7 @@ import { AppComponent } from './app.component';
     FormsModule,
     HttpClientModule,
     CoreModule,
+    DatabaseModule.forRoot(),
     RouterModule.forRoot([
       {
         path: '',

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable, Inject } from '@angular/core'
 import RxDB from 'rxdb/plugins/core'
 import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
 import RxDBValidateModule from 'rxdb/plugins/validate'
@@ -9,6 +9,7 @@ import KeycompressionPlugin from 'rxdb/plugins/key-compression'
 import { environment } from '../../../environments/environment'
 
 import { RxPresentationDocument, PresentationsDatabase } from '../../marketing/presentations/data/models/presentation'
+import { RxDatabase, RxCollection } from 'rxdb';
 
 if (environment.production) {
     // schema-checks should be used in dev-mode only
@@ -23,14 +24,7 @@ RxDB.plugin(require('pouchdb-adapter-http'))
 RxDB.QueryChangeDetector.enable()
 RxDB.QueryChangeDetector.enableDebugging()
 
-const adapters = {
-    localstorage: require('pouchdb-adapter-localstorage'),
-    websql: require('pouchdb-adapter-websql'),
-    idb: require('pouchdb-adapter-idb')
-}
-
-const useAdapter = 'localstorage'
-RxDB.plugin(adapters[useAdapter])
+RxDB.plugin(require('pouchdb-adapter-idb'))
 
 const collections = [
     {
@@ -44,53 +38,44 @@ const syncURL = 'http://127.0.0.1:5984/'
 
 @Injectable()
 export class DatabaseService {
-    static dbPromise: Promise<PresentationsDatabase> = null
 
-    private async _create(): Promise<PresentationsDatabase> {
-        const db: PresentationsDatabase = await RxDB.create({
-            name: 'presentation',
-            adapter: useAdapter,
-            // password: 'myLongAndStupidPassword' // no password needed
-        })
-        window['db'] = db // write to window for debugging
+    schemas: any
+    dbs: RxDatabase[]
 
-        // // show leadership in title
-        // db.waitForLeadership()
-        //     .then(() => {
-        //         document.title = '♛ ' + document.title
-        //     })
+    // static dbPromise: Promise<PresentationsDatabase> = null
 
-        // create collections
-        await Promise.all(collections.map(colData => db.collection(colData)))
-
-        // hooks
-        // db.collections.hero.preInsert(function (docObj) {
-        //     const color = docObj.color
-        //     return db.collections.hero.findOne({ color }).exec()
-        //         .then(has => {
-        //             if (has != null) {
-        //                 alert('another hero already has the color ' + color)
-        //                 throw new Error('color already there')
-        //             }
-        //             return db
-        //         })
-        // })
-
-        // sync
-        collections
-            .filter(col => col.sync)
-            .map(col => col.name)
-            .forEach(colName => db[colName].sync({ remote: syncURL + colName + '/' }))
-
-        return db
+    constructor(
+        @Inject("APP_SCHEMAS") schemas: any,
+    ) {
+        this.schemas = schemas
+        this.setup()
     }
 
-    get(): Promise<PresentationsDatabase> {
-        if (DatabaseService.dbPromise) {
-            return DatabaseService.dbPromise
-        }
-        // create databaseServie
-        DatabaseService.dbPromise = this._create()
-        return DatabaseService.dbPromise
+    private async setup() {
+
+        this.schemas.forEach(schema => {
+            this.dbs[schema.name] = RxDB.create({
+                name: schema.name,
+                adapter: "idb",
+                // password: 'myLongAndStupidPassword' // no password needed
+            })
+        });
+        window['dbs'] = this.dbs
+
+        await Promise.all(this.schemas.map(schema => {
+            return this.dbs[schema.name].collection(schema)
+        }))
+
+        // sync
+        // collections
+        //     .filter(col => col.sync)
+        //     .map(col => col.name)
+        //     .forEach(colName => db[colName].sync({ remote: syncURL + colName + '/' }))
+
+        // return db
+    }
+
+    public get<T>(database: string): Promise<RxCollection<T>> {
+        return this.dbs[database].data
     }
 }

@@ -31,14 +31,15 @@ export class ItemComponent implements OnInit, OnDestroy {
   }
 
   private async _show() {
-    const db = await this.db.get()
+    const db = await this.db.get<RxPresentationDocument>("presentation")
 
     this.route
       .params
       .subscribe(params => {
+
         console.log(params['id'])
-        db.presentation
-          .findOne(params['id'])
+
+        db.findOne(params['id'])
           .exec()
           .then(doc => {
             this.presentation = doc

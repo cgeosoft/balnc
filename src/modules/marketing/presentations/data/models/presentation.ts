@@ -19,5 +19,5 @@ declare class RxPresentationCollection extends RxCollection<RxPresentationDocume
 }
 
 export class PresentationsDatabase extends RxDatabase {
-    presentation?: RxPresentationCollection
+    data?: RxPresentationCollection
 }
