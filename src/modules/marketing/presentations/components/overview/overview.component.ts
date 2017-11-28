@@ -1,6 +1,6 @@
 import { Component, NgZone, OnInit, OnDestroy } from '@angular/core'
 
-import { Database } from '../../data/db.service'
+import { DatabaseService } from '../../../../main/database/database.service'
 import { RxPresentationDocument } from '../../data/models/presentation'
 
 
@@ -9,13 +9,13 @@ import { RxPresentationDocument } from '../../data/models/presentation'
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent  implements OnInit, OnDestroy {
+export class OverviewComponent implements OnInit, OnDestroy {
 
   presentations: RxPresentationDocument[] | RxPresentationDocument
   sub
 
   constructor(
-    private db: Database,
+    private db: DatabaseService,
     private zone: NgZone,
   ) { }
 

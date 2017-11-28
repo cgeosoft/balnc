@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit, OnDestroy } from '@angular/core'
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 
-import { Database } from '../../data/db.service'
+import { DatabaseService } from '../../../../main/database/database.service'
 import { RxPresentationDocument } from '../../data/models/presentation'
 
 @Component({
@@ -17,7 +17,7 @@ export class ItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private db: Database,
+    private db: DatabaseService,
     private zone: NgZone,
     private router: Router,
   ) { }
