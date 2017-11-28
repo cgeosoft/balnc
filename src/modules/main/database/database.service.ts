@@ -26,14 +26,6 @@ RxDB.QueryChangeDetector.enableDebugging()
 
 RxDB.plugin(require('pouchdb-adapter-idb'))
 
-const collections = [
-    {
-        name: 'presentation',
-        schema: require('../../marketing/presentations/data/models/presentation.json'),
-        sync: true,
-    }
-]
-
 const syncURL = 'http://127.0.0.1:5984/'
 
 @Injectable()
@@ -67,10 +59,12 @@ export class DatabaseService {
         }))
 
         // sync
-        // collections
-        //     .filter(col => col.sync)
-        //     .map(col => col.name)
-        //     .forEach(colName => db[colName].sync({ remote: syncURL + colName + '/' }))
+        this.schemas
+            .filter(col => col.sync)
+            .map(col => col.name)
+            .forEach(colName => this.dbs[colName]["data"].sync({
+                remote: syncURL + colName + '/'
+            }))
 
         // return db
     }
