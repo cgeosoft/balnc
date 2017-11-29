@@ -31,42 +31,38 @@ const syncURL = 'http://127.0.0.1:5984/'
 @Injectable()
 export class DatabaseService {
 
-    schemas: any
-    dbs: RxDatabase[]
+    entities: any
+    dbs: RxCollection<any>[] = []
 
     // static dbPromise: Promise<PresentationsDatabase> = null
 
     constructor(
-        @Inject("APP_SCHEMAS") schemas: any,
+        @Inject("APP_ENTITIES") entities: any,
     ) {
-        this.schemas = schemas
+        this.entities = entities
         this.setup()
     }
 
     private async setup() {
 
-        this.schemas.forEach(schema => {
-            this.dbs[schema.name] = RxDB.create({
-                name: schema.name,
+        this.entities.forEach(entity => {
+
+            console.log(`setup schema: ${entity}`)
+
+            this.dbs[entity.name] = RxDB.create({
+                name: entity.name,
                 adapter: "idb",
                 // password: 'myLongAndStupidPassword' // no password needed
             })
+
+            // this.dbs[entity.name]<entity.type>.collection(entity.schema)
+            if (entity.sync) {
+                this.dbs[entity.name].sync({
+                    remote: syncURL + entity.name + '/'
+                })
+            }
         });
         window['dbs'] = this.dbs
-
-        await Promise.all(this.schemas.map(schema => {
-            return this.dbs[schema.name].collection(schema)
-        }))
-
-        // sync
-        this.schemas
-            .filter(col => col.sync)
-            .map(col => col.name)
-            .forEach(colName => this.dbs[colName]["data"].sync({
-                remote: syncURL + colName + '/'
-            }))
-
-        // return db
     }
 
     public get<T>(database: string): Promise<RxCollection<T>> {

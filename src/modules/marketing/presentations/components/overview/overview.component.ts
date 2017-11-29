@@ -11,7 +11,7 @@ import { RxPresentationDocument } from '../../data/models/presentation'
 })
 export class OverviewComponent implements OnInit, OnDestroy {
 
-  presentations: RxPresentationDocument[] | RxPresentationDocument
+  presentations: RxPresentationDocument[] = []
   sub
 
   constructor(
@@ -31,8 +31,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   private async _show() {
     const db = await this.db.get<RxPresentationDocument>("presentation")
-
     const presentations$ = db.find().$
+
     this.sub = presentations$.subscribe(presentations => {
       this.presentations = presentations
       this.zone.run(() => { })
