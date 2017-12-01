@@ -31,10 +31,18 @@ const syncURL = 'http://127.0.0.1:5984/'
 @Injectable()
 export class DatabaseService {
 
+    private static instance: DatabaseService = null;
+
     entities: any
     dbs: RxCollection<any>[] = []
 
-    // static dbPromise: Promise<PresentationsDatabase> = null
+    // Return the instance of the service
+    public static getInstance(): DatabaseService {
+        if (DatabaseService.instance === null) {
+            DatabaseService.instance = new DatabaseService([]);
+        }
+        return DatabaseService.instance;
+    }
 
     constructor(
         @Inject("APP_ENTITIES") entities: any,
@@ -68,4 +76,5 @@ export class DatabaseService {
     public get<T>(database: string): Promise<RxCollection<T>> {
         return this.dbs[database].data
     }
+
 }
