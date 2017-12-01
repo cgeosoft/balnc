@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit, OnDestroy } from '@angular/core'
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 
-import { DatabaseService } from './_core/modules/database/database.service'
+import { DatabaseService } from '../../../../_core/modules/database/database.service'
 import { RxPresentationDocument } from '../../data/models/presentation'
 
 @Component({
