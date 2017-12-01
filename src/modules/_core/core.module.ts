@@ -20,7 +20,7 @@ import { CORE_ROUTES } from './core.routes'
     HttpClientModule,
     DatabaseModule.forRoot(),
     RouterModule.forRoot(CORE_ROUTES, {
-      enableTracing: true
+      // enableTracing: true
     })
   ],
   declarations: [

@@ -3,7 +3,6 @@ import { Component, NgZone, OnInit, OnDestroy } from '@angular/core'
 import { DatabaseService } from '../../../../_core/modules/database/database.service'
 import { RxPresentationDocument } from '../../data/models/presentation'
 
-
 @Component({
   selector: 'app-presentations-overview',
   templateUrl: './overview.component.html',
@@ -33,9 +32,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
     const db = await this.db.get<RxPresentationDocument>("presentation")
     const presentations$ = db.find().$
 
-    this.sub = presentations$.subscribe(presentations => {
-      this.presentations = presentations
-      this.zone.run(() => { })
-    })
+    this.sub = presentations$
+      .subscribe(presentations => {
+        this.presentations = presentations
+        this.zone.run(() => { })
+      })
   }
 }

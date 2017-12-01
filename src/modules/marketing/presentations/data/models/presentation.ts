@@ -15,9 +15,9 @@ declare interface RxPresentationDocumentType {
 
 export type RxPresentationDocument = RxPresentationDocumentType
 
-declare class RxPresentationCollection extends RxCollection<RxPresentationDocumentType> {
-}
+// declare class RxPresentationCollection extends RxCollection<RxPresentationDocumentType> {
+// }
 
-export class PresentationsDatabase extends RxDatabase {
-    data?: RxPresentationCollection
-}
+// export class PresentationsDatabase extends RxDatabase {
+//     data?: RxPresentationCollection
+// }
