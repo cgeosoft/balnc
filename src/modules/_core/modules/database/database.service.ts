@@ -10,6 +10,8 @@ import { environment } from '../../../../environments/environment'
 
 // import { RxPresentationDocument, PresentationsDatabase } from '../../../../general/marketing/presentations/data/models/presentation'
 import { RxDatabase, RxCollection } from 'rxdb';
+import { Database } from '../../../business/invoices/data/db.service';
+import { RxChatDatabase } from '../../../general/chat/typings/typings';
 
 if (environment.production) {
     // schema-checks should be used in dev-mode only
@@ -34,6 +36,7 @@ export class DatabaseService {
     private static instance: DatabaseService = null;
 
     entities: any
+    db: RxDatabase
     dbs: RxCollection<any>[] = []
 
     // Return the instance of the service
@@ -48,10 +51,13 @@ export class DatabaseService {
         @Inject("APP_ENTITIES") entities: any,
     ) {
         this.entities = entities
-        this.setup()
+        this.db = RxDB.create({
+            name: "db",
+            adapter: "idb",
+        })
     }
 
-    private async setup() {
+    private async setup(collection: RxCollection<any>) {
 
         this.entities.forEach(entity => {
 
