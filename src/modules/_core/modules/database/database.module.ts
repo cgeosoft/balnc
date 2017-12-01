@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 import { DatabaseService } from './database.service'
@@ -17,7 +17,7 @@ export class DatabaseModule {
         DatabaseService,
         { provide: 'APP_ENTITIES', useValue: entities }
       ]
-    };
+    }
   }
 
   public static forChild(entities: any): ModuleWithProviders {
@@ -27,7 +27,7 @@ export class DatabaseModule {
         DatabaseService,
         { provide: 'APP_ENTITIES', useValue: entities }
       ]
-    };
+    }
   }
 
 }

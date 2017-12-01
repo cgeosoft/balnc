@@ -9,15 +9,15 @@ import KeycompressionPlugin from 'rxdb/plugins/key-compression'
 import { environment } from '../../../../environments/environment'
 
 // import { RxPresentationDocument, PresentationsDatabase } from '../../../../general/marketing/presentations/data/models/presentation'
-import { RxDatabase, RxCollection } from 'rxdb';
-import { Database } from '../../../business/invoices/data/db.service';
-import { RxChatDatabase } from '../../../general/chat/typings/typings';
+import { RxDatabase, RxCollection } from 'rxdb'
+import { Database } from '../../../business/invoices/data/db.service'
+import { RxChatDatabase } from '../../../general/chat/typings/typings'
 
 if (environment.production) {
     // schema-checks should be used in dev-mode only
     RxDB.plugin(RxDBSchemaCheckModule)
 }
-RxDB.plugin(KeycompressionPlugin);
+RxDB.plugin(KeycompressionPlugin)
 RxDB.plugin(RxDBValidateModule)
 RxDB.plugin(RxDBLeaderElectionModule)
 RxDB.plugin(RxDBReplicationModule)
@@ -33,7 +33,7 @@ const syncURL = 'http://127.0.0.1:5984/'
 @Injectable()
 export class DatabaseService {
 
-    private static instance: DatabaseService = null;
+    private static instance: DatabaseService = null
 
     entities: any
     db: RxDatabase
@@ -42,9 +42,9 @@ export class DatabaseService {
     // Return the instance of the service
     public static getInstance(): DatabaseService {
         if (DatabaseService.instance === null) {
-            DatabaseService.instance = new DatabaseService([]);
+            DatabaseService.instance = new DatabaseService([])
         }
-        return DatabaseService.instance;
+        return DatabaseService.instance
     }
 
     constructor(
@@ -75,7 +75,7 @@ export class DatabaseService {
                     remote: syncURL + entity.name + '/'
                 })
             }
-        });
+        })
         window['dbs'] = this.dbs
     }
 

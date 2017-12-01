@@ -43,9 +43,9 @@ export class ItemComponent implements OnInit, OnDestroy {
           .exec()
           .then(doc => {
             this.presentation = doc
-          });
+          })
         // In a real app: dispatch action to load the details here.
-      });
+      })
 
   }
 }
