@@ -6,9 +6,9 @@ import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
 import RxDBReplicationModule from 'rxdb/plugins/replication'
 import KeycompressionPlugin from 'rxdb/plugins/key-compression'
 
-import { environment } from '../../../environments/environment'
+import { environment } from './environments/environment'
 
-import { RxPresentationDocument, PresentationsDatabase } from '../../marketing/presentations/data/models/presentation'
+import { RxPresentationDocument, PresentationsDatabase } from './general/marketing/presentations/data/models/presentation'
 import { RxDatabase, RxCollection } from 'rxdb';
 
 if (environment.production) {
