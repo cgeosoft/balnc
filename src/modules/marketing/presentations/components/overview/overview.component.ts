@@ -34,6 +34,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
     this.sub = presentations$
       .subscribe(presentations => {
+        console.log("presentations", presentations)
         this.presentations = presentations
         this.zone.run(() => { })
       })

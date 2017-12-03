@@ -1,4 +1,8 @@
 import { Injectable, Inject } from '@angular/core'
+import { CanActivate } from '@angular/router';
+
+import { BehaviorSubject } from 'RxJS'
+
 import RxDB from 'rxdb/plugins/core'
 import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
 import RxDBValidateModule from 'rxdb/plugins/validate'
@@ -30,31 +34,32 @@ RxDB.QueryChangeDetector.enableDebugging()
 const syncURL = 'http://127.0.0.1:5984/'
 
 @Injectable()
-export class DatabaseService {
+export class DatabaseService implements CanActivate {
 
     db: RxDatabase = null
+    // collectionStatuses: CollectionStatus[]
 
     constructor(
-        @Inject("APP_ENTITIES") entities: any,
     ) {
         if (!this.db) {
             this.init()
         }
-        
-            if (entities) {
-                this.setup(entities)
-                    }
     }
 
     private async init() {
-        this.db = await  RxDB
+        this.db = await RxDB
             .create({
                 name: "db",
                 adapter: "idb",
             })
     }
 
-    private setup(entities: any[]) {
+    canActivate() {
+        return false;
+    }
+
+    public setup(entities: any[]) {
+        if (!entities) { return }
         entities.forEach(entity => {
             console.log(`setup schema: ${entity.name}`, entity)
             this.db

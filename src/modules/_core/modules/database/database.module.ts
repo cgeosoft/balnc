@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core'
+import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'
 
 import { DatabaseService } from './database.service'
@@ -14,8 +14,7 @@ export class DatabaseModule {
     return {
       ngModule: DatabaseModule,
       providers: [
-        DatabaseService,
-        { provide: 'APP_ENTITIES', useValue: entities }
+        DatabaseService
       ]
     }
   }
@@ -24,8 +23,14 @@ export class DatabaseModule {
     return {
       ngModule: DatabaseModule,
       providers: [
-        DatabaseService,
-        { provide: 'APP_ENTITIES', useValue: entities }
+        {
+          provide: APP_INITIALIZER,
+          useFactory: (databaseService: DatabaseService) => () => {
+            return databaseService.setup(entities)
+          },
+          deps: [DatabaseService],
+          multi: true
+        },
       ]
     }
   }
