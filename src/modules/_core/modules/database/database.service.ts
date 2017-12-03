@@ -11,7 +11,6 @@ import { environment } from '../../../../environments/environment'
 import { RxDatabase, RxCollection } from 'rxdb'
 import { Database } from '../../../business/invoices/data/db.service'
 import { RxChatDatabase } from '../../../general/chat/typings/typings'
-import { Promise } from 'core-js/library/web/timers';
 
 if (environment.production) {
     // schema-checks should be used in dev-mode only
@@ -38,28 +37,24 @@ export class DatabaseService {
     constructor(
         @Inject("APP_ENTITIES") entities: any,
     ) {
-        // if (!this.db) {
-        //     this.init()
-        // }
-        if (entities) {
-            this.setup(entities)
+        if (!this.db) {
+            this.init()
         }
+        
+            if (entities) {
+                this.setup(entities)
+                    }
     }
 
     private async init() {
-        this.db = await RxDB.create({
-            name: "db",
-            adapter: "idb",
-        })
-            .then(() => {
-
+        this.db = await  RxDB
+            .create({
+                name: "db",
+                adapter: "idb",
             })
     }
 
-    private async setup(entities: any[]) {
-        if (!this.db) {
-            await this.init()
-        }
+    private setup(entities: any[]) {
         entities.forEach(entity => {
             console.log(`setup schema: ${entity.name}`, entity)
             this.db
@@ -74,14 +69,8 @@ export class DatabaseService {
         })
     }
 
-    public get<T>(name: string): Promise<RxCollection<T>> {
-        return new Promise<RxCollection<T>>((resolve, reject) => {
-            let db = null
-            while (!RxDB.isRxDatabase(this.db)) {
-                db = this.db
-            }
-            resolve(this.db[name])
-        })
+    public get<T>(name: string): RxCollection<T> {
+        return this.db[name]
     }
 
 }
