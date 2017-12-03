@@ -2,13 +2,12 @@ import { Routes } from '@angular/router'
 
 import { MainComponent } from './components/main/main.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
-// import { DatabaseService } from './modules/database/database.service'
+import { DatabaseService } from './modules/database/database.service'
 
 export const CORE_ROUTES: Routes = [
     {
         path: '',
         component: MainComponent,
-        canActivate: ["systemLoaded"],
         children: [{
             path: 'dashboard',
             loadChildren: "./../general/dashboard/dashboard.module#DashboardModule"

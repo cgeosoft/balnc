@@ -1,5 +1,4 @@
 import { Injectable, Inject } from '@angular/core'
-import { CanActivate } from '@angular/router';
 
 import { BehaviorSubject } from 'RxJS'
 
@@ -9,12 +8,14 @@ import RxDBValidateModule from 'rxdb/plugins/validate'
 import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
 import RxDBReplicationModule from 'rxdb/plugins/replication'
 import KeycompressionPlugin from 'rxdb/plugins/key-compression'
+import { RxDatabase, RxCollection } from 'rxdb'
 
 import { environment } from '../../../../environments/environment'
 
-import { RxDatabase, RxCollection } from 'rxdb'
 import { Database } from '../../../business/invoices/data/db.service'
 import { RxChatDatabase } from '../../../general/chat/typings/typings'
+
+import { Entity } from "./models/entity"
 
 if (environment.production) {
     // schema-checks should be used in dev-mode only
@@ -34,16 +35,22 @@ RxDB.QueryChangeDetector.enableDebugging()
 const syncURL = 'http://127.0.0.1:5984/'
 
 @Injectable()
-export class DatabaseService implements CanActivate {
+export class DatabaseService {
 
+    loadedEntities: string[] = []
+    loadedEntitesSubject: BehaviorSubject<Array<string>> = new BehaviorSubject([])
     db: RxDatabase = null
     // collectionStatuses: CollectionStatus[]
 
     constructor(
+        @Inject("APP_ENTITIES") entities: any,
     ) {
         if (!this.db) {
             this.init()
         }
+
+        console.log(`setup entities:`, entities)
+        this.setup(entities)
     }
 
     private async init() {
@@ -54,11 +61,8 @@ export class DatabaseService implements CanActivate {
             })
     }
 
-    canActivate() {
-        return false;
-    }
-
-    public setup(entities: any[]) {
+    public setup(entities: Entity[]) {
+        console.log(`setup entities:`, entities)
         if (!entities) { return }
         entities.forEach(entity => {
             console.log(`setup schema: ${entity.name}`, entity)
@@ -70,12 +74,25 @@ export class DatabaseService implements CanActivate {
                             remote: syncURL + entity.name + '/'
                         })
                     }
+                    this.loadedEntities.push(entity.name)
+                    this.loadedEntitesSubject.next(this.loadedEntities)
+                    console.log(`tup schem`, this.loadedEntities)
                 })
         })
     }
 
-    public get<T>(name: string): RxCollection<T> {
-        return this.db[name]
+    public get<T>(name: string): Promise<RxCollection<T>> {
+        console.log(`get RxCollection: ${name}`)
+        return new Promise((resolve, reject) => {
+            this.loadedEntitesSubject
+                .subscribe((loadedEntities) => {
+                    const entity = loadedEntities.find(i => {
+                        return i === name
+                    })
+                    console.log(`get RxCollection found: ${entity}`, loadedEntities)
+                    if (entity) { resolve(this.db[name]) }
+                })
+        })
     }
 
 }

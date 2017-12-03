@@ -32,18 +32,6 @@ import { Promise, setTimeout } from 'core-js/library/web/timers';
   bootstrap: [
     CoreComponent
   ],
-  providers: [
-    {
-      provide: 'systemLoaded',
-      useValue: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            resolve(true)
-
-          }, 5000)
-        })
-      }
-    }
-  ]
+  providers: []
 })
 export class CoreModule { }

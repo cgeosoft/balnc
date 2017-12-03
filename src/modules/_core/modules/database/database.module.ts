@@ -1,7 +1,8 @@
-import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'
 
 import { DatabaseService } from './database.service'
+import { Entity } from './models/entity';
 
 @NgModule({
   imports: [],
@@ -11,26 +12,22 @@ import { DatabaseService } from './database.service'
 export class DatabaseModule {
 
   public static forRoot(entities?: any): ModuleWithProviders {
+    console.log("forRoot", entities)
     return {
       ngModule: DatabaseModule,
       providers: [
-        DatabaseService
+        DatabaseService,
+        { provide: 'APP_ENTITIES', useValue: entities }
       ]
     }
   }
 
   public static forChild(entities: any): ModuleWithProviders {
+    console.log("forChild", entities)
     return {
       ngModule: DatabaseModule,
       providers: [
-        {
-          provide: APP_INITIALIZER,
-          useFactory: (databaseService: DatabaseService) => () => {
-            return databaseService.setup(entities)
-          },
-          deps: [DatabaseService],
-          multi: true
-        },
+        { provide: 'APP_ENTITIES', useValue: entities }
       ]
     }
   }

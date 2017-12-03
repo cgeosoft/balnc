@@ -29,6 +29,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
 
   private async _show() {
+
     const db = await this.db.get<RxPresentationDocument>("presentation")
     const presentations$ = db.find().$
 
