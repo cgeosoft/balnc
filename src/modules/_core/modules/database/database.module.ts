@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 import { DatabaseService } from './database.service'
@@ -10,24 +10,24 @@ import { DatabaseService } from './database.service'
 })
 export class DatabaseModule {
 
-  public static forRoot(schemas?: any): ModuleWithProviders {
+  public static forRoot(entities?: any): ModuleWithProviders {
     return {
       ngModule: DatabaseModule,
       providers: [
         DatabaseService,
-        { provide: 'APP_SCHEMAS', useValue: schemas }
+        { provide: 'APP_ENTITIES', useValue: entities }
       ]
-    };
+    }
   }
 
-  public static forChild(schemas: any): ModuleWithProviders {
+  public static forChild(entities: any): ModuleWithProviders {
     return {
       ngModule: DatabaseModule,
       providers: [
         DatabaseService,
-        { provide: 'APP_SCHEMAS', useValue: schemas }
+        { provide: 'APP_ENTITIES', useValue: entities }
       ]
-    };
+    }
   }
 
 }

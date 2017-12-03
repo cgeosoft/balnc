@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit, OnDestroy } from '@angular/core'
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 
-import { DatabaseService } from '../../../../main/database/database.service'
+import { DatabaseService } from '../../../../_core/modules/database/database.service'
 import { RxPresentationDocument } from '../../data/models/presentation'
 
 @Component({
@@ -43,9 +43,9 @@ export class ItemComponent implements OnInit, OnDestroy {
           .exec()
           .then(doc => {
             this.presentation = doc
-          });
+          })
         // In a real app: dispatch action to load the details here.
-      });
+      })
 
   }
 }

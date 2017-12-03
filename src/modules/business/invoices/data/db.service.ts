@@ -38,7 +38,7 @@ const collections = [
         sync: true,
         migrationStrategies: {
             0: function (oldDoc) {
-                return oldDoc;
+                return oldDoc
             }
         }
     }

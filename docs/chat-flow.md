@@ -1,5 +1,14 @@
 #Diagrams
 
+## Code Business
+```mermaid
+graph TD;
+    A-->B
+    A-->C
+    B-->D
+    C-->D
+```
+
 ## Chat messages
 ```mermaid
 sequenceDiagram
@@ -31,3 +40,4 @@ sequenceDiagram
     Bob ->> Socket Server: cmd "show-previous"
     Socket Server ->> Bob: get "Alice: hello"@alice-bob
 ```
+

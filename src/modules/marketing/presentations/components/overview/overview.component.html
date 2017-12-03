@@ -16,7 +16,7 @@
   </div>
   <div class="content-body">
     <div class="container">
-      <div class="list-group">
+      <div *ngIf="presentations.length" class="list-group">
         <div class="list-group-item" *ngFor="let presentation of presentations">
           <td class="media">
             <img class="img-thumbnail mr-3" style="width:100px" [src]="presentation.image">

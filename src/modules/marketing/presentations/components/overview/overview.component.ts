@@ -1,8 +1,7 @@
 import { Component, NgZone, OnInit, OnDestroy } from '@angular/core'
 
-import { DatabaseService } from '../../../../main/database/database.service'
+import { DatabaseService } from '../../../../_core/modules/database/database.service'
 import { RxPresentationDocument } from '../../data/models/presentation'
-
 
 @Component({
   selector: 'app-presentations-overview',
@@ -11,7 +10,7 @@ import { RxPresentationDocument } from '../../data/models/presentation'
 })
 export class OverviewComponent implements OnInit, OnDestroy {
 
-  presentations: RxPresentationDocument[] | RxPresentationDocument
+  presentations: RxPresentationDocument[] = []
   sub
 
   constructor(
@@ -31,11 +30,12 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   private async _show() {
     const db = await this.db.get<RxPresentationDocument>("presentation")
-
     const presentations$ = db.find().$
-    this.sub = presentations$.subscribe(presentations => {
-      this.presentations = presentations
-      this.zone.run(() => { })
-    })
+
+    this.sub = presentations$
+      .subscribe(presentations => {
+        this.presentations = presentations
+        this.zone.run(() => { })
+      })
   }
 }
