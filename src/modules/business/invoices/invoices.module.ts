@@ -2,10 +2,18 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { InvoicesItemComponent, InvoicesOverviewComponent, InvoicesReportComponent } from './components'
-import { Database } from './data/db.service'
+import { DatabaseModule } from '../../_core/modules/database/database.module'
+import { Entity } from '../../_core/modules/database/models/entity';
 
-const appRoutes: Routes = [
+import { InvoicesItemComponent, InvoicesOverviewComponent, InvoicesReportComponent } from './components'
+
+const entities: Entity[] = [{
+  name: 'invoice',
+  schemaPath: 'business/invoices/data/invoice.json',
+  sync: true,
+}]
+
+const routes: Routes = [
   { path: 'overview', component: InvoicesOverviewComponent },
   { path: 'report/:id', component: InvoicesReportComponent },
   { path: 'report', component: InvoicesReportComponent },
@@ -16,15 +24,14 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(appRoutes)
+    DatabaseModule.forChild(entities),
+    RouterModule.forChild(routes),
   ],
   declarations: [
     InvoicesOverviewComponent,
     InvoicesItemComponent,
     InvoicesReportComponent,
   ],
-  providers: [
-    Database
-  ]
+  providers: []
 })
 export class InvoicesModule { }

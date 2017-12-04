@@ -2,7 +2,7 @@
   "id": "invoice",
   "title": "Invoice",
   "type": "object",
-  "version": 1,
+  "version": 0,
   "properties": {
     "orders": {
       "type": "array",

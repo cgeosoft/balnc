@@ -1,7 +1,7 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
 
-import { Database } from '../../data/db.service'
-import { RxInvoiceDocument } from '../../data/models/invoice'
+import { DatabaseService } from '../../../../_core/modules/database/database.service'
+import { RxInvoiceDocument } from '../../data/invoice'
 
 @Component({
   selector: 'app-invoices-report',
@@ -10,11 +10,11 @@ import { RxInvoiceDocument } from '../../data/models/invoice'
 })
 export class InvoicesReportComponent implements OnInit, OnDestroy {
 
-  invoices: RxInvoiceDocument[] | RxInvoiceDocument
+  invoices: RxInvoiceDocument[]
   sub
 
   constructor(
-    private db: Database,
+    private db: DatabaseService,
     private zone: NgZone,
   ) { }
 
@@ -29,14 +29,13 @@ export class InvoicesReportComponent implements OnInit, OnDestroy {
   }
 
   private async _show() {
-    const db = await this.db.get()
-    const invoices$ = db.invoice
-      .find()
-      // .sort({ dateCreated: 1 })
-      .$
-    this.sub = invoices$.subscribe(invoices => {
-      this.invoices = invoices
-      this.zone.run(() => { })
-    })
+    const db = await this.db.get<RxInvoiceDocument>("invoice")
+    const invoices$ = db.find().$
+    this.sub = invoices$
+      .subscribe(invoices => {
+        this.zone.run(() => {
+          this.invoices = invoices
+        })
+      })
   }
 }
