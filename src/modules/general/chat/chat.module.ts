@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router'
 
 import { DatabaseModule } from '../../_core/modules/database/database.module'
@@ -19,6 +20,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     DatabaseModule.forChild(entities),
     RouterModule.forChild(routes)
   ],

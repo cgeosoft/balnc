@@ -143,15 +143,16 @@
             <img class="d-flex align-self-baseline avatar rounded" src="https://pbs.twimg.com/profile_images/418214057/IMG_3899_normal.jpg">
             <div class="media-body">
               <p>{{message.text}}</p>
+              <p>
+                <small class="text-secondary">{{message.sendAt|date:'medium'}}</small>
+              </p>
             </div>
           </div>
         </div>
         <div class="card-footer">
-          <input class="form-control form-control-sm" placeholder="type...">
+          <input class="form-control form-control-sm" placeholder="type..." [(ngModel)]="room.inputMsg.text" [disabled]="room.inputMsg.isDisabled">
           <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-link btn-xs">A</button>
-            <button type="button" class="btn btn-link btn-xs">B</button>
-            <button type="button" class="btn btn-link btn-xs">V</button>
+            <button type="button" class="btn btn-link btn-xs" (click)="send(room)">send</button>
           </div>
         </div>
       </div>

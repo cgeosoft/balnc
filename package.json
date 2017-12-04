@@ -49,6 +49,7 @@
     "bootstrap": "^4.0.0-beta",
     "core-js": "2.5.1",
     "lodash": "^4.17.4",
+    "moment": "^2.19.3",
     "pouchdb-adapter-http": "6.3.4",
     "pouchdb-adapter-idb": "6.3.4",
     "pouchdb-adapter-localstorage": "6.3.4",
