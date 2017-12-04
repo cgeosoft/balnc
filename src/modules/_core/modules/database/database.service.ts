@@ -11,10 +11,7 @@ import KeycompressionPlugin from 'rxdb/plugins/key-compression'
 import { RxDatabase, RxCollection } from 'rxdb'
 
 import { environment } from '../../../../environments/environment'
-
 import { Database } from '../../../business/invoices/data/db.service'
-import { RxChatDatabase } from '../../../general/chat/typings/typings'
-
 import { Entity } from "./models/entity"
 
 if (environment.production) {
@@ -29,7 +26,7 @@ RxDB.plugin(RxDBReplicationModule)
 RxDB.plugin(require('pouchdb-adapter-http'))
 RxDB.plugin(require('pouchdb-adapter-idb'))
 
-const syncURL = 'http://localhost:5984/'
+const syncURL = 'https://couchdb-1c46d8.smileupps.com/'
 
 @Injectable()
 export class DatabaseService {
@@ -37,7 +34,6 @@ export class DatabaseService {
     loadedEntities: string[] = []
     loadedEntitesSubject: BehaviorSubject<Array<string>> = new BehaviorSubject([])
     db: RxDatabase = null
-    // collectionStatuses: CollectionStatus[]
 
     constructor(
         @Inject("APP_ENTITIES") entities: Entity[],
