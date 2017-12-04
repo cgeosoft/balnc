@@ -14,7 +14,7 @@ const entities = [{
   name: 'presentation',
   schema: require('./data/models/presentation.json'),
   sync: true,
-  ready: new BehaviorSubject<boolean>(false),
+  // ready: new BehaviorSubject<boolean>(false),
 }]
 
 const routes: Routes = [{
