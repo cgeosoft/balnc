@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
 import { ChatComponent } from './components'
-import { ChatDB } from './services/chat-db.service'
 
 const appRoutes: Routes = [
   { path: '', component: ChatComponent },
@@ -18,7 +17,7 @@ const appRoutes: Routes = [
     ChatComponent
   ],
   providers: [
-    ChatDB
+    // ChatDB
   ]
 })
 export class ChatModule { }

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router'
 
 import { MainComponent } from './components/main/main.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
+import { DatabaseService } from './modules/database/database.service'
 
 export const CORE_ROUTES: Routes = [
     {
@@ -15,7 +16,7 @@ export const CORE_ROUTES: Routes = [
             loadChildren: "./../business/invoices/invoices.module#InvoicesModule"
         }, {
             path: 'presentations',
-            loadChildren: "./../marketing/presentations/presentations.module#PresentationsModule"
+            loadChildren: "./../marketing/presentations/presentations.module#PresentationsModule",
         }, {
             path: 'chat',
             loadChildren: "./../general/chat/chat.module#ChatModule"

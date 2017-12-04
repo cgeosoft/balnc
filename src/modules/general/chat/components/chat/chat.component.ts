@@ -1,6 +1,5 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
 import { Subscription } from 'rxjs/Subscription'
-import { ChatDB } from '../../services/chat-db.service'
 import * as RxDBTypes from '../../typings/typings.d'
 
 @Component({
@@ -15,7 +14,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[]
 
   constructor(
-    private chatDB: ChatDB,
     private zone: NgZone,
   ) { }
 
@@ -30,20 +28,20 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private async _show() {
-    const db = await this.chatDB.get()
+    // const db = await this.db.get()
 
-    const messageSubscrition = db.messages
-      .find().$
-      .subscribe(messages => {
-        this.messages = messages
-      })
-    this.subscriptions.push(messageSubscrition)
+    // const messageSubscrition = db.messages
+    //   .find().$
+    //   .subscribe(messages => {
+    //     this.messages = messages
+    //   })
+    // this.subscriptions.push(messageSubscrition)
 
-    const rooms$ = db.rooms.find().$
-    const roomSubscrition = rooms$.subscribe(rooms => {
-      console.log("new room", rooms)
-      this.zone.run(() => { this.rooms = rooms })
-    })
-    this.subscriptions.push(roomSubscrition)
+    // const rooms$ = db.rooms.find().$
+    // const roomSubscrition = rooms$.subscribe(rooms => {
+    //   console.log("new room", rooms)
+    //   this.zone.run(() => { this.rooms = rooms })
+    // })
+    // this.subscriptions.push(roomSubscrition)
   }
 }

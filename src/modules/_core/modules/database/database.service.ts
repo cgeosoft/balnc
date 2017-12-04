@@ -1,17 +1,21 @@
 import { Injectable, Inject } from '@angular/core'
+
+import { BehaviorSubject } from 'RxJS'
+
 import RxDB from 'rxdb/plugins/core'
 import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
 import RxDBValidateModule from 'rxdb/plugins/validate'
 import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
 import RxDBReplicationModule from 'rxdb/plugins/replication'
 import KeycompressionPlugin from 'rxdb/plugins/key-compression'
+import { RxDatabase, RxCollection } from 'rxdb'
 
 import { environment } from '../../../../environments/environment'
 
-import { RxDatabase, RxCollection } from 'rxdb'
 import { Database } from '../../../business/invoices/data/db.service'
 import { RxChatDatabase } from '../../../general/chat/typings/typings'
-import { Promise } from 'core-js/library/web/timers';
+
+import { Entity } from "./models/entity"
 
 if (environment.production) {
     // schema-checks should be used in dev-mode only
@@ -33,33 +37,33 @@ const syncURL = 'http://127.0.0.1:5984/'
 @Injectable()
 export class DatabaseService {
 
+    loadedEntities: string[] = []
+    loadedEntitesSubject: BehaviorSubject<Array<string>> = new BehaviorSubject([])
     db: RxDatabase = null
+    // collectionStatuses: CollectionStatus[]
 
     constructor(
         @Inject("APP_ENTITIES") entities: any,
     ) {
-        // if (!this.db) {
-        //     this.init()
-        // }
-        if (entities) {
-            this.setup(entities)
+        if (!this.db) {
+            this.init()
         }
+
+        console.log(`setup entities:`, entities)
+        this.setup(entities)
     }
 
     private async init() {
-        this.db = await RxDB.create({
-            name: "db",
-            adapter: "idb",
-        })
-            .then(() => {
-
+        this.db = await RxDB
+            .create({
+                name: "db",
+                adapter: "idb",
             })
     }
 
-    private async setup(entities: any[]) {
-        if (!this.db) {
-            await this.init()
-        }
+    public setup(entities: Entity[]) {
+        console.log(`setup entities:`, entities)
+        if (!entities) { return }
         entities.forEach(entity => {
             console.log(`setup schema: ${entity.name}`, entity)
             this.db
@@ -70,17 +74,24 @@ export class DatabaseService {
                             remote: syncURL + entity.name + '/'
                         })
                     }
+                    this.loadedEntities.push(entity.name)
+                    this.loadedEntitesSubject.next(this.loadedEntities)
+                    console.log(`tup schem`, this.loadedEntities)
                 })
         })
     }
 
     public get<T>(name: string): Promise<RxCollection<T>> {
-        return new Promise<RxCollection<T>>((resolve, reject) => {
-            let db = null
-            while (!RxDB.isRxDatabase(this.db)) {
-                db = this.db
-            }
-            resolve(this.db[name])
+        console.log(`get RxCollection: ${name}`)
+        return new Promise((resolve, reject) => {
+            this.loadedEntitesSubject
+                .subscribe((loadedEntities) => {
+                    const entity = loadedEntities.find(i => {
+                        return i === name
+                    })
+                    console.log(`get RxCollection found: ${entity}`, loadedEntities)
+                    if (entity) { resolve(this.db[name]) }
+                })
         })
     }
 
