@@ -2,7 +2,7 @@ import { Component, NgZone, OnInit, OnDestroy } from '@angular/core'
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 
 import { DatabaseService } from '../../../../_core/modules/database/database.service'
-import { RxPresentationDocument } from '../../data/models/presentation'
+import { RxPresentationDocument } from '../../data/presentation'
 
 @Component({
   selector: 'app-presentations-item',

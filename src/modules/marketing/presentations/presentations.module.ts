@@ -10,7 +10,7 @@ import { Entity } from '../../_core/modules/database/models/entity';
 
 const entities: Entity[] = [{
   name: 'presentation',
-  schema: require('./data/models/presentation.json'),
+  schema: require('./data/presentation.json'),
   sync: true,
 }]
 
