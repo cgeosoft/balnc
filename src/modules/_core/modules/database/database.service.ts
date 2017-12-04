@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core'
 
-import { BehaviorSubject } from 'RxJS'
+import { BehaviorSubject } from 'rxjs/Rx'
 
 import RxDB from 'rxdb/plugins/core'
 import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
