@@ -29,15 +29,13 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
 
   private async _show() {
-
     const db = await this.db.get<RxPresentationDocument>("presentation")
     const presentations$ = db.find().$
-
     this.sub = presentations$
       .subscribe(presentations => {
-        console.log("presentations", presentations)
-        this.presentations = presentations
-        this.zone.run(() => { })
+        this.zone.run(() => {
+          this.presentations = presentations
+        })
       })
   }
 }

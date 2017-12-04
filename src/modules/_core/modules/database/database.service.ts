@@ -39,7 +39,6 @@ export class DatabaseService {
     constructor(
         @Inject("APP_ENTITIES") entities: Entity[],
     ) {
-        console.log("db", DatabaseService.db)
         if (!DatabaseService.db) {
             this.init()
                 .then(() => {

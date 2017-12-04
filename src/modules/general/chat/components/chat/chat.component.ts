@@ -39,7 +39,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     this.sub = messages$
       .subscribe(messages => {
-
         const rooms = _.chain(messages)
           .groupBy((i) => {
             return i.room
@@ -51,9 +50,9 @@ export class ChatComponent implements OnInit, OnDestroy {
             }
           })
           .value()
-        console.log(rooms)
-        this.rooms = rooms
-        this.zone.run(() => { })
+        this.zone.run(() => {
+          this.rooms = rooms
+        })
       })
   }
 }
