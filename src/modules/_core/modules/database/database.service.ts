@@ -31,14 +31,16 @@ const syncURL = 'https://couchdb-1c46d8.smileupps.com/'
 @Injectable()
 export class DatabaseService {
 
+    static db: RxDatabase = null
+
     loadedEntities: string[] = []
     loadedEntitesSubject: BehaviorSubject<Array<string>> = new BehaviorSubject([])
-    db: RxDatabase = null
 
     constructor(
         @Inject("APP_ENTITIES") entities: Entity[],
     ) {
-        if (!this.db) {
+        console.log("db", DatabaseService.db)
+        if (!DatabaseService.db) {
             this.init()
                 .then(() => {
                     this.setup(entities)
@@ -49,7 +51,7 @@ export class DatabaseService {
     }
 
     private async init() {
-        this.db = await RxDB
+        DatabaseService.db = await RxDB
             .create({
                 name: "db",
                 adapter: "idb",
@@ -59,7 +61,7 @@ export class DatabaseService {
     public setup(entities: Entity[]) {
         if (!entities) { return }
         entities.forEach(entity => {
-            this.db
+            DatabaseService.db
                 .collection(entity)
                 .then(collection => {
                     if (entity.sync) {
@@ -80,7 +82,7 @@ export class DatabaseService {
                     const entity = loadedEntities.find(i => {
                         return i === name
                     })
-                    if (entity) { resolve(this.db[name]) }
+                    if (entity) { resolve(DatabaseService.db[name]) }
                 })
         })
     }
