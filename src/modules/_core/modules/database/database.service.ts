@@ -14,17 +14,19 @@ import { environment } from '../../../../environments/environment'
 import { Database } from '../../../business/invoices/data/db.service'
 import { Entity } from "./models/entity"
 
-if (environment.production) {
+if (!environment.production) {
     RxDB.plugin(RxDBSchemaCheckModule)
-    RxDB.QueryChangeDetector.enable()
-    RxDB.QueryChangeDetector.enableDebugging()
 }
+
 RxDB.plugin(KeycompressionPlugin)
 RxDB.plugin(RxDBValidateModule)
 RxDB.plugin(RxDBLeaderElectionModule)
 RxDB.plugin(RxDBReplicationModule)
 RxDB.plugin(require('pouchdb-adapter-http'))
 RxDB.plugin(require('pouchdb-adapter-idb'))
+
+RxDB.QueryChangeDetector.enable()
+RxDB.QueryChangeDetector.enableDebugging()
 
 const syncURL = 'https://couchdb-1c46d8.smileupps.com/'
 

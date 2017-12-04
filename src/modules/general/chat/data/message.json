@@ -2,6 +2,7 @@
   "id": "message",
   "title": "message",
   "type": "object",
+  "version": 0,
   "properties": {
     "sendAt": {
       "type": "string"

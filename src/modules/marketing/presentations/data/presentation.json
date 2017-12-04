@@ -2,6 +2,7 @@
   "id": "presentation",
   "title": "Presentation",
   "type": "object",
+  "version": 0,
   "properties": {
     "title": {
       "type": "string"
