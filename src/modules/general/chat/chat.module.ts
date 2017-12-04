@@ -8,7 +8,7 @@ import { Entity } from '../../_core/modules/database/models/entity';
 
 const entities: Entity[] = [{
   name: 'message',
-  schema: require('./data/message.json'),
+  schemaPath: 'general/chat/data/message.json',
   sync: true,
 }]
 

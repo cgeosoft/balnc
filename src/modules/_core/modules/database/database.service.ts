@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core'
 
 import { BehaviorSubject } from 'rxjs/Rx'
+import * as _ from 'lodash'
 
 import RxDB from 'rxdb/plugins/core'
 import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
@@ -11,7 +12,6 @@ import KeycompressionPlugin from 'rxdb/plugins/key-compression'
 import { RxDatabase, RxCollection } from 'rxdb'
 
 import { environment } from '../../../../environments/environment'
-import { Database } from '../../../business/invoices/data/db.service'
 import { Entity } from "./models/entity"
 
 if (!environment.production) {
@@ -63,7 +63,10 @@ export class DatabaseService {
         if (!entities) { return }
         entities.forEach(entity => {
             DatabaseService.db
-                .collection(entity)
+                .collection({
+                    name: entity.name,
+                    schema: require(`../../../${entity.schemaPath}`)
+                })
                 .then(collection => {
                     if (entity.sync) {
                         collection.sync({

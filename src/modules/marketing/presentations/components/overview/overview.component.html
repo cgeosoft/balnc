@@ -23,13 +23,9 @@
         </div>
       </div>
 
-      <div *ngIf="!presentations.length" class="jumbotron">
-        <h1 class="display-4">There are no presentations</h1>
-        <p class="lead">Create your first one here</p>
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" href="#" role="button">
-            <span class="fa fa-plus-circle fa-fw"></span> Create</a>
-        </p>
+      <div *ngIf="!presentations.length" class="alert alert-secondary text center">
+        <p class="lead">There are no presentations yet</p>
+        <p>Create your first one here</p>
       </div>
 
       <div *ngIf="presentations.length" class="list-group">

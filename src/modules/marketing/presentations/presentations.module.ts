@@ -10,9 +10,11 @@ import { Entity } from '../../_core/modules/database/models/entity';
 
 const entities: Entity[] = [{
   name: 'presentation',
-  schema: require('./data/presentation.json'),
+  schemaPath: 'marketing/presentations/data/presentation.json',
   sync: true,
 }]
+
+console.log("Sentities", entities)
 
 const routes: Routes = [{
   path: '',
