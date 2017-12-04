@@ -1,4 +1,3 @@
-// import { TaskRunner } from 'protractor/built/taskRunner';
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
@@ -7,14 +6,12 @@ import { DatabaseModule } from '../../_core/modules/database/database.module'
 import { EllipsisPipe } from '../../../pipes/ellipsis.pipe'
 
 import { ItemComponent, OverviewComponent } from './components'
-import { BehaviorSubject } from 'RxJS/BehaviorSubject';
 import { Entity } from '../../_core/modules/database/models/entity';
 
-const entities = [{
+const entities: Entity[] = [{
   name: 'presentation',
   schema: require('./data/models/presentation.json'),
   sync: true,
-  // ready: new BehaviorSubject<boolean>(false),
 }]
 
 const routes: Routes = [{

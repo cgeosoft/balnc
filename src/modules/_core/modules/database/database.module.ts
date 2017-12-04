@@ -11,7 +11,7 @@ import { Entity } from './models/entity';
 })
 export class DatabaseModule {
 
-  public static forRoot(entities?: any): ModuleWithProviders {
+  public static forRoot(entities?: Entity[]): ModuleWithProviders {
     console.log("forRoot", entities)
     return {
       ngModule: DatabaseModule,
@@ -22,7 +22,7 @@ export class DatabaseModule {
     }
   }
 
-  public static forChild(entities: any): ModuleWithProviders {
+  public static forChild(entities: Entity[]): ModuleWithProviders {
     console.log("forChild", entities)
     return {
       ngModule: DatabaseModule,

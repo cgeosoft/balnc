@@ -18,8 +18,9 @@ import { RxChatDatabase } from '../../../general/chat/typings/typings'
 import { Entity } from "./models/entity"
 
 if (environment.production) {
-    // schema-checks should be used in dev-mode only
     RxDB.plugin(RxDBSchemaCheckModule)
+    RxDB.QueryChangeDetector.enable()
+    RxDB.QueryChangeDetector.enableDebugging()
 }
 RxDB.plugin(KeycompressionPlugin)
 RxDB.plugin(RxDBValidateModule)
@@ -27,9 +28,6 @@ RxDB.plugin(RxDBLeaderElectionModule)
 RxDB.plugin(RxDBReplicationModule)
 RxDB.plugin(require('pouchdb-adapter-http'))
 RxDB.plugin(require('pouchdb-adapter-idb'))
-
-RxDB.QueryChangeDetector.enable()
-RxDB.QueryChangeDetector.enableDebugging()
 
 const syncURL = 'http://localhost:5984/'
 
@@ -42,9 +40,8 @@ export class DatabaseService {
     // collectionStatuses: CollectionStatus[]
 
     constructor(
-        @Inject("APP_ENTITIES") entities: any,
+        @Inject("APP_ENTITIES") entities: Entity[],
     ) {
-        console.log(`setup entities:`, entities)
         if (!this.db) {
             this.init()
                 .then(() => {
@@ -64,10 +61,8 @@ export class DatabaseService {
     }
 
     public setup(entities: Entity[]) {
-        console.log(`setup entities:`, entities)
         if (!entities) { return }
         entities.forEach(entity => {
-            console.log(`setup schema: ${entity.name}`, entity)
             this.db
                 .collection(entity)
                 .then(collection => {
@@ -78,20 +73,17 @@ export class DatabaseService {
                     }
                     this.loadedEntities.push(entity.name)
                     this.loadedEntitesSubject.next(this.loadedEntities)
-                    console.log(`tup schem`, this.loadedEntities)
                 })
         })
     }
 
     public get<T>(name: string): Promise<RxCollection<T>> {
-        console.log(`get RxCollection: ${name}`)
         return new Promise((resolve, reject) => {
             this.loadedEntitesSubject
                 .subscribe((loadedEntities) => {
                     const entity = loadedEntities.find(i => {
                         return i === name
                     })
-                    console.log(`get RxCollection found: ${entity}`, loadedEntities)
                     if (entity) { resolve(this.db[name]) }
                 })
         })
