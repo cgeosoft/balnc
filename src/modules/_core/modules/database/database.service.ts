@@ -31,8 +31,7 @@ RxDB.plugin(require('pouchdb-adapter-idb'))
 RxDB.QueryChangeDetector.enable()
 RxDB.QueryChangeDetector.enableDebugging()
 
-
-const syncURL = 'http://127.0.0.1:5984/'
+const syncURL = 'http://localhost:5984/'
 
 @Injectable()
 export class DatabaseService {
@@ -45,12 +44,15 @@ export class DatabaseService {
     constructor(
         @Inject("APP_ENTITIES") entities: any,
     ) {
+        console.log(`setup entities:`, entities)
         if (!this.db) {
             this.init()
+                .then(() => {
+                    this.setup(entities)
+                })
+        } else {
+            this.setup(entities)
         }
-
-        console.log(`setup entities:`, entities)
-        this.setup(entities)
     }
 
     private async init() {

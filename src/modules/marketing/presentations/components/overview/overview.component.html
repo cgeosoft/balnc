@@ -2,7 +2,7 @@
   <div class="content-header">
     <div class="container">
       <div class="content-header-icon">
-        <span class="fa fa-files-o"></span>
+        <span class="fa fa-tv"></span>
       </div>
       <div class="content-header-body">
         <h1>Presentations</h1>
@@ -16,6 +16,22 @@
   </div>
   <div class="content-body">
     <div class="container">
+      <div class="btn-toolbar mb-4">
+        <div class="btn-group mr-2">
+          <button type="button" class="btn btn-primary">
+            <span class="fa fa-plus-circle fa-fw"></span> Create</button>
+        </div>
+      </div>
+
+      <div *ngIf="!presentations.length" class="jumbotron">
+        <h1 class="display-4">There are no presentations</h1>
+        <p class="lead">Create your first one here</p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="#" role="button">
+            <span class="fa fa-plus-circle fa-fw"></span> Create</a>
+        </p>
+      </div>
+
       <div *ngIf="presentations.length" class="list-group">
         <div class="list-group-item" *ngFor="let presentation of presentations">
           <td class="media">

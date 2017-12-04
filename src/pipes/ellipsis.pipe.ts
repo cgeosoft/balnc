@@ -7,6 +7,10 @@ export class EllipsisPipe implements PipeTransform {
       return val
     }
 
+    if (!val) {
+      return val;
+    }
+
     if (val.length > args) {
       return val.substring(0, args) + '...'
     } else {

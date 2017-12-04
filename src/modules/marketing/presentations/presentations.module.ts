@@ -1,6 +1,6 @@
-import { TaskRunner } from 'protractor/built/taskRunner';
-import { CommonModule } from '@angular/common'
+// import { TaskRunner } from 'protractor/built/taskRunner';
 import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
 import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
 
 import { DatabaseModule } from '../../_core/modules/database/database.module'

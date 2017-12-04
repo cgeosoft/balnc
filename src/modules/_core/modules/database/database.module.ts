@@ -27,6 +27,7 @@ export class DatabaseModule {
     return {
       ngModule: DatabaseModule,
       providers: [
+        DatabaseService,
         { provide: 'APP_ENTITIES', useValue: entities }
       ]
     }
