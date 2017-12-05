@@ -17,23 +17,19 @@
       padding: .5rem;
     }
     .card-footer .form-control {
-      border-radius: 1rem;
+      // border-radius: 1rem;
+      padding: .5rem 1rem;
     }
     .avatar {
-      width: 32px;
-      height: 32px;
+      width: 48px;
+      height: 48px;
       margin-right: .5rem;
     }
     .media-body {
-      font-size: .9rem;
-      background: #f0f0f0;
-      padding-top: .3rem;
-      border-radius: .2rem;
-      box-shadow: .1rem .1rem 0 #DDD;
-    }
-    .media-body p {
-      margin: 0;
-      padding: 0 .5rem .3rem;
+      background: #f6f6f6;
+      padding: .75rem;
+      border-radius: 1rem;
+      box-shadow: .1rem .1rem 0 #eee;
     }
     .card-body {
       overflow-y: scroll;

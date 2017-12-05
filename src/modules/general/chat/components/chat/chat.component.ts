@@ -1,4 +1,4 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
+import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { Subscription } from 'rxjs/Subscription'
 
 import * as _ from 'lodash'
@@ -6,19 +6,23 @@ import * as moment from 'moment'
 
 import { DatabaseService } from '../../../../_core/modules/database/database.service'
 import { RxChatMessageDocument } from '../../data/message'
-import { RxCollection } from 'rxdb';
-import { Date } from 'core-js/library/web/timers';
+import { RxCollection } from 'rxdb'
+import { Date, setTimeout } from 'core-js/library/web/timers'
 
 
 @Component({
   selector: 'app-chat',
-  templateUrl: './chat.compoenent.html',
-  styleUrls: ['./chat.compoenent.scss']
+  templateUrl: './chat.component.html',
+  styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit, OnDestroy {
 
+  @ViewChild('chatMessages') private chatMessages: ElementRef
+  @ViewChild('chatInput') private chatInput: ElementRef
+
   // db
   db: RxCollection<RxChatMessageDocument>
+  room: RoomViewModel = new RoomViewModel()
   rooms: RoomViewModel[] = []
   sub: Subscription
   inputs: string[] = []
@@ -42,8 +46,9 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   }
 
-  public async send(room: RoomViewModel) {
-
+  public async send() {
+    const room = this.room
+    if (!room.inputMsg.text) { return }
     room.inputMsg.isDisabled = true
 
     const doc = this.db.newDocument({
@@ -51,12 +56,22 @@ export class ChatComponent implements OnInit, OnDestroy {
       sendAt: moment().toISOString(),
       sender: this.user.name,
       text: room.inputMsg.text
-    });
+    })
 
-    await doc.save().then(() => {
-      room.inputMsg.isDisabled = false
-      room.inputMsg.text = null
-    });
+    await doc.save()
+      .then(() => {
+        room.inputMsg.isDisabled = false
+        room.inputMsg.text = null
+        this.zone.run(() => {
+          this.scrollToBottom()
+          this.chatInput.nativeElement.focus()
+        })
+      })
+  }
+  keyDownFunction(event) {
+    if (event.keyCode === 13) {
+      this.send()
+    }
   }
 
   private async _show() {
@@ -68,7 +83,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       .subscribe(messages => {
         const rooms = _.chain(messages)
           .sortBy("sendAt")
-          .reverse()
+          // .reverse()
           .groupBy(i => {
             return i.room
           })
@@ -86,8 +101,22 @@ export class ChatComponent implements OnInit, OnDestroy {
           .value()
         this.zone.run(() => {
           this.rooms = rooms
+          this.room = rooms[0]
+          this.scrollToBottom()
+          this.chatInput.nativeElement.focus()
         })
       })
+  }
+
+  scrollToBottom(): void {
+    try {
+      setTimeout(() => {
+        this.chatMessages.nativeElement.scrollTop = this.chatMessages.nativeElement.scrollHeight
+        console.log("scrolled")
+      }, 100)
+    } catch (err) {
+      console.error(err)
+    }
   }
 }
 
@@ -96,6 +125,7 @@ class RoomViewModel {
   messages: RxChatMessageDocument[]
   inputMsg: RoomViewInputModel
   constructor(init?: Partial<RoomViewModel>) {
+    this.inputMsg = new RoomViewInputModel()
     Object.assign(this, init)
   }
 }

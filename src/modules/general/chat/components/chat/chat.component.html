@@ -112,22 +112,25 @@
 </div>
 <div class="content d-flex flex-column justify-content-start">
   <div class="content-header">
-    <div class="content-header-icon">
-      <span class="fa fa-users"></span>
-    </div>
-    <div class="content-header-body">
-      <h1>DevTeam
-        <small>
-          <a href>
-            <span class="fa fa-external-link"></span>
-          </a>
-        </small>
-      </h1>
-      <p>online: 15 - register: 44567 - last message: 2017-08-05</p>
+    <div class="container">
+      <div class="content-header-icon">
+        <span class="fa fa-users"></span>
+      </div>
+      <div class="content-header-body">
+        <h1>{{room.name}}
+          <small>
+            <a href>
+              <span class="fa fa-external-link"></span>
+            </a>
+          </small>
+        </h1>
+        <p>online: 15 - register: 44567 - last message: 2017-08-05</p>
+      </div>
     </div>
   </div>
   <div class="content-body" style="height:100%">
-    <div *ngIf="!rooms.length" class="jumbotron">
+    <div class="container" style="height:100%">
+      <!-- <div *ngIf="!rooms.length" class="jumbotron">
       <h1 class="display-4">There are no chartrooms</h1>
       <p class="lead">Create your first one here</p>
       <p class="lead">
@@ -135,27 +138,36 @@
           <span class="fa fa-plus-circle fa-fw"></span> Create</a>
       </p>
     </div>
-    <div *ngIf="rooms.length" class="d-flex align-items-stretch">
-      <div class="card" *ngFor="let room of rooms">
-        <div class="card-header">{{room.name}}</div>
-        <div class="card-body">
+    <div *ngIf="rooms.length" class="d-flex align-items-stretch"> -->
+      <!-- <div class="card" *ngFor="let room of rooms"> -->
+      <div class="card" style="width:100%">
+        <!-- <div class="card-header">{{room.name}}</div> -->
+        <div #chatMessages class="card-body">
           <div class="media" *ngFor="let message of room.messages">
-            <img class="d-flex align-self-baseline avatar rounded" src="https://pbs.twimg.com/profile_images/418214057/IMG_3899_normal.jpg">
-            <div class="media-body">
-              <p>{{message.text}}</p>
-              <p>
-                <small class="text-secondary">{{message.sendAt|date:'medium'}}</small>
-              </p>
+            <img class="d-flex align-self-baseline avatar img-thumbnail rounded-circle" src="https://robohash.org/{{message.sender}}" ngbTooltip="{{message.sender}}">
+            <div class="media-body" ngbTooltip="{{message.sendAt|date:'medium'}}" [ngClass]="{'bg-primary text-white':(message.sender == user.name)}">
+              {{message.text}}
             </div>
           </div>
         </div>
         <div class="card-footer">
-          <input class="form-control form-control-sm" placeholder="type..." [(ngModel)]="room.inputMsg.text" [disabled]="room.inputMsg.isDisabled">
-          <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-link btn-xs" (click)="send(room)">send</button>
+          <input #chatInput class="form-control form-control-sm" placeholder="type message..." [(ngModel)]="room.inputMsg.text" [disabled]="room.inputMsg.isDisabled" (keydown)="keyDownFunction($event)">
+          <div class="d-flex mt-2">
+            <div>
+              <button type="button" class="ml-auto btn btn-link">
+                <span class="fa fa-image "></span>
+              </button>
+              <button type="button" class="ml-auto btn btn-link">
+                <span class="fa fa-paperclip"></span>
+              </button>
+            </div>
+            <button type="button" class="ml-auto btn btn-outline-primary" (click)="send()">
+              <span class="fa fa-send"></span>
+            </button>
           </div>
         </div>
       </div>
     </div>
+    <!-- </div>
+  </div> -->
   </div>
-</div>
