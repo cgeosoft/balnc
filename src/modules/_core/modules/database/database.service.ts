@@ -14,6 +14,7 @@ import { RxDatabase, RxCollection } from 'rxdb'
 import { environment } from '../../../../environments/environment'
 import { ConfigService } from "../config/config.service"
 import { Entity } from "./models/entity"
+import { HttpClient } from '@angular/common/http';
 
 if (!environment.production) {
     RxDB.plugin(RxDBSchemaCheckModule)
@@ -42,11 +43,22 @@ export class DatabaseService {
     constructor(
         @Inject("APP_ENTITIES") entities: Entity[],
         private configSrv: ConfigService,
+        private http: HttpClient,
     ) {
         if (!DatabaseService.db) {
             this.init()
                 .then(() => {
-                    this.setup(entities)
+                    return this.http
+                        .post(`${this.configSrv.get("remoteDB")}/_session`, {
+                            name: "demo",
+                            password: "demo",
+                        }, {
+                            withCredentials: true
+                        })
+                        .toPromise()
+                        .then(() => {
+                            this.setup(entities)
+                        })
                 })
         } else {
             this.setup(entities)
@@ -68,17 +80,11 @@ export class DatabaseService {
                 .collection({
                     name: entity.name,
                     schema: require(`../../../${entity.schemaPath}`),
-                    pouchSettings: {
-                        auth: {
-                            username: "demo",
-                            password: "demo",
-                        }
-                    }
                 })
                 .then(collection => {
                     if (entity.sync) {
                         collection.sync({
-                            remote: this.configSrv.get("remoteDB") + entity.name + '/'
+                            remote: `${this.configSrv.get("remoteDB")}/${entity.name}/`
                         })
                     }
                     this.loadedEntities.push(entity.name)

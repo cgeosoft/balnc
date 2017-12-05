@@ -22,7 +22,7 @@ export const CORE_ROUTES: Routes = [
             loadChildren: "./../general/chat/chat.module#ChatModule"
         }, {
             path: 'settings',
-            loadChildren: "./modules/settings/settings.module#SettingsModule"
+            loadChildren: "./../general/settings/settings.module#SettingsModule"
         }, {
             path: 'page-not-found',
             component: PageNotFoundComponent,
