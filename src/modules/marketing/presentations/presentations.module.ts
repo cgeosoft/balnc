@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms'
+import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 
 import { DatabaseModule } from '../../_core/modules/database/database.module'
 import { EllipsisPipe } from '../../../pipes/ellipsis.pipe'
 
-import { ItemComponent, OverviewComponent } from './components'
-import { Entity } from '../../_core/modules/database/models/entity';
+import { ItemComponent, OverviewComponent, CreateComponent } from './components'
+import { Entity } from '../../_core/modules/database/models/entity'
 
 const entities: Entity[] = [{
   name: 'presentation',
   schemaPath: 'marketing/presentations/data/presentation.json',
   sync: true,
 }]
-
-console.log("Sentities", entities)
 
 const routes: Routes = [{
   path: '',
@@ -29,13 +29,21 @@ const routes: Routes = [{
   declarations: [
     OverviewComponent,
     ItemComponent,
-    EllipsisPipe
+
+    CreateComponent,
+
+    EllipsisPipe,
   ],
   imports: [
     CommonModule,
+    FormsModule,
     DatabaseModule.forChild(entities),
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    NgbModule,
   ],
-  providers: []
+  providers: [],
+  entryComponents: [
+    CreateComponent,
+  ]
 })
 export class PresentationsModule { }

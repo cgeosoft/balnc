@@ -18,7 +18,7 @@
     <div class="container">
       <div class="btn-toolbar mb-4">
         <div class="btn-group mr-2">
-          <button type="button" class="btn btn-primary">
+          <button type="button" class="btn btn-primary" (click)="create()">
             <span class="fa fa-plus-circle fa-fw"></span> Create</button>
         </div>
       </div>
@@ -27,19 +27,28 @@
         <p class="lead">There are no presentations yet</p>
         <p>Create your first one here</p>
       </div>
-
-      <div *ngIf="presentations.length" class="list-group">
-        <div class="list-group-item" *ngFor="let presentation of presentations">
-          <td class="media">
-            <img class="img-thumbnail mr-3" style="width:100px" [src]="presentation.image">
-            <div class="media-body flex-column align-items-start mb-auto">
-              <h5 class="mb-1">{{presentation.title}}</h5>
-              <p class="text-muted">{{presentation.description | ellipsis:250}}</p>
-            </div>
-            <a [routerLink]="['/presentations/item',presentation._id]" class="btn btn-primary">Open</a>
-          </td>
-        </div>
-      </div>
+      <table *ngIf="presentations.length" class="table table-hover">
+        <tbody>
+          <tr *ngFor="let presentation of presentations">
+            <td style="width:150px">
+              <img class="img-thumbnail mr-3" [src]="presentation.image">
+            </td>
+            <td class="flex-column align-items-start mb-auto">
+              <h5 class="mb-0">{{presentation.title}}</h5>
+              <div class="text-secondary">
+                <small>{{presentation.dateCreated | date:'long'}}</small>
+              </div>
+              <div *ngIf="presentation.description">
+                <hr class="mt-1 mb-2">
+                <p class="text-muted">{{presentation.description | ellipsis:250}}</p>
+              </div>
+            </td>
+            <td>
+              <a [routerLink]="['/presentations/item',presentation._id]" class="btn btn-outline-primary">Open</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
