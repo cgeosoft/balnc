@@ -12,6 +12,7 @@ import KeycompressionPlugin from 'rxdb/plugins/key-compression'
 import { RxDatabase, RxCollection } from 'rxdb'
 
 import { environment } from '../../../../environments/environment'
+import { ConfigService } from "../config/config.service"
 import { Entity } from "./models/entity"
 
 if (!environment.production) {
@@ -28,7 +29,7 @@ RxDB.plugin(require('pouchdb-adapter-idb'))
 RxDB.QueryChangeDetector.enable()
 RxDB.QueryChangeDetector.enableDebugging()
 
-const syncURL = 'https://couchdb-1c46d8.smileupps.com/'
+const syncURL = ''
 
 @Injectable()
 export class DatabaseService {
@@ -40,6 +41,7 @@ export class DatabaseService {
 
     constructor(
         @Inject("APP_ENTITIES") entities: Entity[],
+        private configSrv: ConfigService,
     ) {
         if (!DatabaseService.db) {
             this.init()
@@ -65,12 +67,18 @@ export class DatabaseService {
             DatabaseService.db
                 .collection({
                     name: entity.name,
-                    schema: require(`../../../${entity.schemaPath}`)
+                    schema: require(`../../../${entity.schemaPath}`),
+                    pouchSettings: {
+                        auth: {
+                            username: "demo",
+                            password: "demo",
+                        }
+                    }
                 })
                 .then(collection => {
                     if (entity.sync) {
                         collection.sync({
-                            remote: syncURL + entity.name + '/'
+                            remote: this.configSrv.get("remoteDB") + entity.name + '/'
                         })
                     }
                     this.loadedEntities.push(entity.name)
