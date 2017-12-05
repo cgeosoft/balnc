@@ -89,9 +89,6 @@ export class ChatComponent implements OnInit, OnDestroy {
         })
       })
   }
-
-
-
 }
 
 class RoomViewModel {
