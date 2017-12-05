@@ -39,7 +39,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     }
   }
 
-  create(content) {
+  create() {
     const modalRef = this.modal.open(CreateComponent)
     modalRef.result
       .then((result) => {
