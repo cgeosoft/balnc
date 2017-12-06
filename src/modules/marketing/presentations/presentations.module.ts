@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { FileUploadModule } from "ng2-file-upload";
 
 import { DatabaseModule } from '../../_core/modules/database/database.module'
 import { EllipsisPipe } from '../../../pipes/ellipsis.pipe'
 
-import { ItemComponent, OverviewComponent, CreateComponent } from './components'
+import { ItemComponent, OverviewComponent, CreateComponent, UploadComponent } from './components'
 import { Entity } from '../../_core/modules/database/models/entity'
 
 const entities: Entity[] = [{
@@ -31,12 +32,14 @@ const routes: Routes = [{
     ItemComponent,
 
     CreateComponent,
+    UploadComponent,
 
     EllipsisPipe,
   ],
   imports: [
     CommonModule,
     FormsModule,
+    FileUploadModule,
     DatabaseModule.forChild(entities),
     RouterModule.forChild(routes),
     NgbModule,
@@ -44,6 +47,7 @@ const routes: Routes = [{
   providers: [],
   entryComponents: [
     CreateComponent,
+    UploadComponent,
   ]
 })
 export class PresentationsModule { }

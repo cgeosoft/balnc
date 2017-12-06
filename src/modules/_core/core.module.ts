@@ -7,6 +7,7 @@ import { RouterModule, Routes, CanActivate, ActivatedRouteSnapshot, RouterStateS
 
 import { DatabaseModule } from './modules/database/database.module'
 import { ConfigModule } from './modules/config/config.module'
+import { FilesModule } from './modules/files/files.module'
 
 import { CoreComponent, MainComponent, PageNotFoundComponent } from './components'
 
@@ -22,7 +23,8 @@ import { CORE_ROUTES } from './core.routes'
     RouterModule.forRoot(CORE_ROUTES, {
       // enableTracing: true
     }),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    FilesModule,
   ],
   declarations: [
     CoreComponent,

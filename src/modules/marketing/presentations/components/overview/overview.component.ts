@@ -8,6 +8,7 @@ import { DatabaseService } from '../../../../_core/modules/database/database.ser
 import { RxPresentationDocument } from '../../data/presentation'
 
 import { CreateComponent } from "../create/create.component"
+import { UploadComponent } from "../upload/upload.component"
 import { RxCollection } from 'rxdb'
 
 @Component({
@@ -41,6 +42,16 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   create() {
     const modalRef = this.modal.open(CreateComponent)
+    modalRef.result
+      .then((result) => {
+        this._create(result.title)
+      }, (reject) => {
+        console.log("dismissed", reject)
+      })
+  }
+
+  upload() {
+    const modalRef = this.modal.open(UploadComponent)
     modalRef.result
       .then((result) => {
         this._create(result.title)

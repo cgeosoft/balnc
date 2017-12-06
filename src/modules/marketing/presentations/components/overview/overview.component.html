@@ -21,6 +21,10 @@
           <button type="button" class="btn btn-primary" (click)="create()">
             <span class="fa fa-plus-circle fa-fw"></span> Create</button>
         </div>
+        <div class="btn-group mr-2">
+          <button type="button" class="btn btn-primary" (click)="upload()">
+            <span class="fa fa-plus-circle fa-fw"></span> upload</button>
+        </div>
       </div>
 
       <div *ngIf="!presentations.length" class="alert alert-secondary text center">
