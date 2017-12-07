@@ -1,12 +1,10 @@
 {
   "remoteDB": "https://couchdb-1c46d8.smileupps.com",
   "files": {
-    "provider": "cloudary",
-    "config": {
-      "cloudary": {
-        "cloud_name": "cgeosoft",
-        "upload_preset": "balance"
-      }
+    "_provider": "cloudary",
+    "cloudary": {
+      "cloud_name": "cgeosoft",
+      "upload_preset": "balance"
     }
   }
 }

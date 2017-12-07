@@ -1,24 +1,23 @@
-import { Injectable } from '@angular/core'
+import { Injectable, Injector } from '@angular/core'
 
-import { UploadInterface } from "./upload/upload.interface"
-import { CloudaryUploadService } from "./upload/cloudary/cloudary-upload.service"
-import { ConfigService } from '../config/config.service';
+import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload'
+
+import { UploadService } from "./upload/upload.service"
 
 @Injectable()
 export class FilesService {
 
-    static uploadService: UploadInterface
+    static uploadService: UploadService
+
+    uploader: any
 
     constructor(
-        private configService: ConfigService
+        private uploadService: UploadService,
     ) {
-        const config = this.configService.get("files")
-        const providerConfig = config[config.provider]
-        FilesService.uploadService = new window[`${this.titleCase(config.provider)}UploadService`](providerConfig);
     }
 
     add(file: any): Promise<string> {
-        return FilesService.uploadService
+        return this.uploadService
             .upload(file)
             .then((result) => {
                 return result
@@ -26,7 +25,7 @@ export class FilesService {
     }
 
     private titleCase(str) {
-        return str.replace(/\b\S/g, function (t) { return t.toUpperCase() });
+        return str.replace(/\b\S/g, function (t) { return t.toUpperCase() })
     }
 
 }

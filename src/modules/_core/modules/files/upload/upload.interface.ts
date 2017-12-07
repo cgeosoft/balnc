@@ -1,4 +1,7 @@
 export interface UploadInterface {
+
     file: string
-    upload(file: string): Promise<string>;
+
+    config(config: any): void
+    upload(file: string): Promise<string>
 }
