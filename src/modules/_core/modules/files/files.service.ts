@@ -9,7 +9,7 @@ export class FilesService {
 
     static uploadService: UploadService
 
-    uploader: any
+    public uploader: any
 
     constructor(
         private uploadService: UploadService,

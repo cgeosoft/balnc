@@ -91,5 +91,9 @@ export class CloudaryUploadService implements UploadInterface {
         throw new Error("Method not implemented.")
     }
 
+    getUploader() {
+        return this.uploader
+    }
+
 
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { FileUploader } from 'ng2-file-upload'
 
 import { FilesService } from ".././../../../_core/modules/files/files.service"
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-presentation-upload',
@@ -13,14 +14,15 @@ export class UploadComponent implements OnInit {
     @Input()
     responses: Array<any>
 
-    private hasBaseDropZoneOver: Boolean = false
-    private uploader: FileUploader
-    private title: string
+    hasBaseDropZoneOver: Boolean = false
+    uploader: FileUploader
+    title: string
 
     constructor(
         private filesService: FilesService,
         private zone: NgZone,
-        private http: HttpClient
+        private http: HttpClient,
+        public activeModal: NgbActiveModal,
     ) {
     }
 
