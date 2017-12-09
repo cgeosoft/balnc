@@ -30,8 +30,6 @@ RxDB.plugin(require('pouchdb-adapter-idb'))
 RxDB.QueryChangeDetector.enable()
 RxDB.QueryChangeDetector.enableDebugging()
 
-const syncURL = ''
-
 @Injectable()
 export class DatabaseService {
 

@@ -1,17 +1,33 @@
-<div class="content d-flex flex-column justify-content-start">
+<div class="loader" *ngIf="!presentation"></div>
+<div class="content d-flex flex-column justify-content-start" *ngIf="presentation">
   <div class="content-header">
     <div class="container">
       <div class="content-header-icon">
         <span class="fa fa-tv"></span>
       </div>
       <div class="content-header-body">
-        <h1>Presentation: {{presentation.title}}</h1>
+        <h1>{{presentation.title}}</h1>
+        <p>Presentation</p>
       </div>
     </div>
   </div>
   <div class="content-body">
     <div class="container">
-      {{presentation.description}}
+      <div class="alert alert-secondary">
+        {{presentation.description}}
+      </div>
+      <div class="d-flex flex-wrap">
+        <div class="card" style="width: 10rem;margin:.5rem" *ngFor="let page of presentation.pages">
+          <img class="card-img-top" [src]="page.preview">
+          <div class="card-body">
+            <p>
+              <strong>{{page.title}}</strong>
+            </p>
+            <p><code>{{page.type}}</code></p>
+          </div>
+        </div>
+      </div>
+      <pre>{{presentation|json:2}}</pre>
     </div>
   </div>
 </div>

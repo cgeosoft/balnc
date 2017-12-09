@@ -11,9 +11,8 @@ import { RxPresentationDocument } from '../../data/presentation'
 })
 export class ItemComponent implements OnInit, OnDestroy {
 
-  presentations: RxPresentationDocument[] | RxPresentationDocument
   sub
-  presentation
+  presentation: any
 
   constructor(
     private route: ActivatedRoute,
@@ -23,7 +22,6 @@ export class ItemComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-
     this._show()
   }
 
@@ -37,14 +35,13 @@ export class ItemComponent implements OnInit, OnDestroy {
       .params
       .subscribe(params => {
 
-        console.log(params['id'])
-
-        db.findOne(params['id'])
-          .exec()
-          .then(doc => {
-            this.presentation = doc
+        const presentation$ = db.findOne(params['id']).$
+        this.sub = presentation$
+          .subscribe(presentation => {
+            this.zone.run(() => {
+              this.presentation = presentation
+            })
           })
-        // In a real app: dispatch action to load the details here.
       })
 
   }
