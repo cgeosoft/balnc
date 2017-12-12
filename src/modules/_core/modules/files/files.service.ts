@@ -9,11 +9,12 @@ export class FilesService {
 
     static uploadService: UploadService
 
-    uploader: any
+    uploader: FileUploader
 
     constructor(
         private uploadService: UploadService,
     ) {
+        this.uploader = uploadService.uploader
     }
 
     add(file: any): Promise<string> {

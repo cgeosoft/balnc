@@ -8,7 +8,8 @@
   <div class="form-group form-control-lg">
     <label for="fileupload">Upload</label>
     <!-- onChange hanlder resets the input value to get the change event when uploading the same file consecutively -->
-    <input type="file" id="fileupload" #fileInput ng2FileSelect [style.display]="'none'" [uploader]="uploader" (change)="fileInput.value=''" multiple class="form-control" />
+    <input type="file" id="fileupload" #fileInput ng2FileSelect [style.display]="'none'"
+     [uploader]="uploader" (change)="fileInput.value=''" multiple class="form-control" />
   </div>
   <hr>
   <strong>Status</strong>
