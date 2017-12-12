@@ -24,6 +24,7 @@ export class UploadService {
         switch (config._provider) {
             case "cloudary":
                 UploadService.srv = this.injector.get(CloudaryUploadService)
+                this.uploader = UploadService.srv.getUploader()
                 break
         }
 
