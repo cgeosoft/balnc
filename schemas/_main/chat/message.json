@@ -1,0 +1,28 @@
+{
+  "id": "message",
+  "title": "message",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string"
+    },
+    "from": {
+      "type": "string",
+      "description": "User's id is been populated by server moddle based on usr-ctx",
+      "readonly": true
+    },
+    "toRoom": {
+      "type": "string"
+    },
+    "sendAt": {
+      "type": "number",
+      "description": "This timestamp is been populated by server module before save",
+      "readonly": true
+    },
+    "pushHandleAt": {
+      "type": "number",
+      "description": "Server module update this prop when push notifications has been send",
+      "readonly": true
+    }
+  }
+}

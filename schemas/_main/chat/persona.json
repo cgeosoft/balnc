@@ -1,0 +1,16 @@
+{
+  "id": "persona",
+  "title": "persona",
+  "type": "object",
+  "properties": {
+    "userId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "avatar": {
+      "type": "string"
+    }
+  }
+}
