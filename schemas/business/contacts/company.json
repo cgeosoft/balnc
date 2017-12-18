@@ -1,25 +1,26 @@
 {
-    "id": "company",
-    "title": "Company",
-    "type": "object",
-    "properties": {
-        "name": {
-            "type": "string"
-        },
-        "address": {
-            "type": "string"
-        },
-        "phone": {
-            "type": "string"
-        },
-        "taxDetails": {
-            "$ref": "http://localhost:8080/business/contacts/tax-details.json"
-        },
-        "persons": {
-            "type": "array",
-            "items": {
-                "$ref": "http://localhost:8080/business/contacts/person.json"
-            }
-        }
+  "id": "company",
+  "title": "Company",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "taxDetails": {
+      "$ref": "http://localhost:8080/business/contacts/tax-details.json"
+    },
+    "persons": {
+      "type": "array",
+      "items": {
+        "$ref": "http://localhost:8080/business/contacts/person.json"
+      }
     }
+  }
 }

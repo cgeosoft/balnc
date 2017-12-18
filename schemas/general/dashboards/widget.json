@@ -1,0 +1,26 @@
+{
+  "id": "widget",
+  "title": "widget",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "minHeight": {
+      "enum": ["bar", "short", "long"]
+    },
+    "maxHeight": {
+      "enum": ["bar", "short", "long"]
+    },
+    "minWidth": {
+      "enum": ["bar", "short", "long"]
+    },
+    "maxWidth": {
+      "enum": ["bar", "short", "long"]
+    },
+    "config": {
+      "type": "object"
+    }
+  }
+}

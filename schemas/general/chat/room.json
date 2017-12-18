@@ -2,6 +2,7 @@
   "id": "room",
   "title": "room",
   "type": "object",
+  "version": 0,
   "properties": {
     "name": {
       "type": "string"

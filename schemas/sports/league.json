@@ -2,6 +2,7 @@
   "id": "http://balance.cgeosoft.com/schemas/sports/league",
   "title": "League",
   "type": "object",
+  "version": 0,
   "properties": {
     "comments": {
       "type": "string"

@@ -1,117 +1,118 @@
 {
-    "id": "order",
-    "title": "Order",
-    "type": "object",
-    "properties": {
-        "serial": {
-            "type": "string",
-            "faker": "random.uuid"
+  "id": "order",
+  "title": "Order",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "serial": {
+      "type": "string",
+      "faker": "random.uuid"
+    },
+    "customer": {
+      "$ref": "http://localhost:8080/business/orders/customer.json#"
+    },
+    "dateExecute": {
+      "type": "string",
+      "faker": "date.past"
+    },
+    "crontab": {
+      "type": "string",
+      "description": "used for recurring order"
+    },
+    "status": {
+      "enum": ["started", "processing", "processed"]
+    },
+    "currency": {
+      "type": "string",
+      "faker": "finance.currencyCode"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "transformations": {
+      "type": "array",
+      "items": {
+        "$ref": "http://localhost:8080/business/orders/order.json#/definitions/transformation"
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "http://localhost:8080/business/orders/order.json#/definitions/orderItem"
+      }
+    },
+    "activity": {
+      "type": "array",
+      "items": {
+        "$ref": "http://localhost:8080/business/orders/order.json#/definitions/orderActivity"
+      }
+    }
+  },
+  "definitions": {
+    "transformation": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "faker": "lorem.sentence"
         },
-        "customer": {
-            "$ref": "http://localhost:8080/business/orders/customer.json#"
+        "method": {
+          "enum": ["percent", "exact"],
+          "default": "percent"
         },
-        "dateExecute": {
-            "type": "string",
-            "faker": "date.past"
+        "amount": {
+          "type": "number",
+          "faker": {
+            "finance.amount": [10, 50, 0]
+          }
+        }
+      },
+      "required": ["description", "method", "amount"]
+    },
+    "orderItem": {
+      "type": "object",
+      "properties": {
+        "transformations": {
+          "type": "array",
+          "items": {
+            "$ref": "http://localhost:8080/business/orders/order.json#/definitions/transformation"
+          }
         },
-        "crontab": {
-            "type": "string",
-            "description": "used for recurring order"
+        "count": {
+          "type": "number",
+          "faker": {
+            "finance.amount": [1, 10, 0]
+          }
         },
-        "status": {
-            "enum": ["started", "processing", "processed"]
+        "amount": {
+          "type": "number",
+          "faker": {
+            "finance.amount": [100, 10000, 2]
+          }
         },
-        "currency": {
-            "type": "string",
-            "faker": "finance.currencyCode"
+        "description": {
+          "type": "string",
+          "faker": "lorem.sentence"
         },
         "comment": {
-            "type": "string"
-        },
-        "transformations": {
-            "type": "array",
-            "items": {
-                "$ref": "http://localhost:8080/business/orders/order.json#/definitions/transformation"
-            }
-        },
-        "items": {
-            "type": "array",
-            "items": {
-                "$ref": "http://localhost:8080/business/orders/order.json#/definitions/orderItem"
-            }
-        },
-        "activity": {
-            "type": "array",
-            "items": {
-                "$ref": "http://localhost:8080/business/orders/order.json#/definitions/orderActivity"
-            }
+          "type": "string",
+          "faker": "lorem.sentence"
         }
+      },
+      "required": ["description", "price", "amount"]
     },
-    "definitions": {
-        "transformation": {
-            "type": "object",
-            "properties": {
-                "description": {
-                    "type": "string",
-                    "faker": "lorem.sentence"
-                },
-                "method": {
-                    "enum": ["percent", "exact"],
-                    "default": "percent"
-                },
-                "amount": {
-                    "type": "number",
-                    "faker": {
-                        "finance.amount": [10, 50, 0]
-                    }
-                }
-            },
-            "required": ["description", "method", "amount"]
+    "orderActivity": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
         },
-        "orderItem": {
-            "type": "object",
-            "properties": {
-                "transformations": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "http://localhost:8080/business/orders/order.json#/definitions/transformation"
-                    }
-                },
-                "count": {
-                    "type": "number",
-                    "faker": {
-                        "finance.amount": [1, 10, 0]
-                    }
-                },
-                "amount": {
-                    "type": "number",
-                    "faker": {
-                        "finance.amount": [100, 10000, 2]
-                    }
-                },
-                "description": {
-                    "type": "string",
-                    "faker": "lorem.sentence"
-                },
-                "comment": {
-                    "type": "string",
-                    "faker": "lorem.sentence"
-                }
-            },
-            "required": ["description", "price", "amount"]
-        },
-        "orderActivity": {
-            "type": "object",
-            "properties": {
-                "date": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string"
-                }
-            },
-            "required": ["date"]
+        "description": {
+          "type": "string"
         }
-    },
-    "required": ["serial", "customer", "dateExecute", "status", "date", "currency", "items"]
+      },
+      "required": ["date"]
+    }
+  },
+  "required": ["serial", "customer", "dateExecute", "status", "date", "currency", "items"]
 }

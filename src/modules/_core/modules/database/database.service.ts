@@ -77,7 +77,7 @@ export class DatabaseService {
             DatabaseService.db
                 .collection({
                     name: entity.name,
-                    schema: require(`../../../${entity.schemaPath}`),
+                    schema: require(`../../../../${entity.schemaPath}`),
                 })
                 .then(collection => {
                     if (entity.sync) {

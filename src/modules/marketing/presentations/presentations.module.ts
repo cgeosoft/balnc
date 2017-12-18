@@ -13,7 +13,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 
 const entities: Entity[] = [{
   name: 'presentation',
-  schemaPath: 'marketing/presentations/data/presentation.json',
+  schemaPath: '/schemas/marketing/presentation.json',
   sync: true,
 }]
 

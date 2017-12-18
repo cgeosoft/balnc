@@ -2,6 +2,7 @@
   "id": "http://balance.cgeosoft.com/schemas/sports/field",
   "title": "Field",
   "type": "object",
+  "version": 0,
   "properties": {
     "name": {
       "type": "string"

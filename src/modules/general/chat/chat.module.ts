@@ -10,7 +10,7 @@ import { Entity } from '../../_core/modules/database/models/entity';
 
 const entities: Entity[] = [{
   name: 'message',
-  schemaPath: 'general/chat/data/message.json',
+  schemaPath: '/schemas/general/chat/message.json',
   sync: true,
 }]
 

@@ -2,6 +2,7 @@
   "id": "http://balance.cgeosoft.com/schemas/core/user.json",
   "title": "User",
   "type": "object",
+  "version": 0,
   "definitions": {
     "role": {
       "type": "object",

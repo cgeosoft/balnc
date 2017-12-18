@@ -9,7 +9,7 @@ import { InvoicesItemComponent, InvoicesOverviewComponent, InvoicesReportCompone
 
 const entities: Entity[] = [{
   name: 'invoice',
-  schemaPath: 'business/invoices/data/invoice.json',
+  schemaPath: '/schemas/business/invoices/invoice.json',
   sync: true,
 }]
 

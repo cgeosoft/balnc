@@ -1,14 +1,15 @@
 {
-    "id": "tax-details",
-    "title": "Tax Details",
-    "type": "object",
-    "properties": {
-        "vatNumber": {
-            "type": "string"
-        },
-        "taxOffice": {
-            "type": "string"
-        }
+  "id": "tax-details",
+  "title": "Tax Details",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "vatNumber": {
+      "type": "string"
     },
-    "required": ["taxOffice", "vatNumber"]
+    "taxOffice": {
+      "type": "string"
+    }
+  },
+  "required": ["taxOffice", "vatNumber"]
 }
