@@ -10,7 +10,11 @@
       "assets",
       "favicon.ico",
       "_redirects",
-      "balance.config.json"
+      {
+        "glob": "**/*.json",
+        "input": "../schemas",
+        "output": "schemas"
+      }
     ],
     "index": "index.html",
     "main": "main.ts",
