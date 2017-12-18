@@ -11,8 +11,7 @@
       "favicon.ico",
       "_redirects",
       {
-        "glob": "**/*.json",
-        "input": "../schemas",
+        "glob": "../schemas/**/*.json",
         "output": "schemas"
       }
     ],
