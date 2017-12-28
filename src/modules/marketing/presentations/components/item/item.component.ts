@@ -18,6 +18,8 @@ import { RxCollection, RxDocumentBase } from 'rxdb'
 })
 export class ItemComponent implements OnInit, OnDestroy {
 
+  activePageIndex: Number = 0;
+
   db: RxCollection<RxPresentationDocument>
   sub
   presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument
@@ -54,6 +56,10 @@ export class ItemComponent implements OnInit, OnDestroy {
       }, (reject) => {
         console.log("dismissed", reject)
       })
+  }
+
+  setPageIndex(index) {
+    this.activePageIndex = index
   }
 
   private async _show() {
