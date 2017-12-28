@@ -14,6 +14,11 @@
         filter: brightness(0) invert(1);
         opacity: .8;
       }
+      .fa {
+        line-height: 2rem;
+        font-size: 1.5rem;
+        display: block;
+      }
     }
     .items {
       overflow-y: auto;
