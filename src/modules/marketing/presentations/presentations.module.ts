@@ -7,7 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { DatabaseModule } from '../../_core/modules/database/database.module'
 import { EllipsisPipe } from '../../../pipes/ellipsis.pipe'
 
-import { ItemComponent, OverviewComponent, CreateComponent, UploadComponent } from './components'
+import { ItemComponent, OverviewComponent, CreateComponent, UploadComponent, AddPageComponent } from './components'
 import { Entity } from '../../_core/modules/database/models/entity'
 import { FileUploadModule } from 'ng2-file-upload';
 
@@ -33,6 +33,7 @@ const routes: Routes = [{
 
     CreateComponent,
     UploadComponent,
+    AddPageComponent,
 
     EllipsisPipe,
   ],
@@ -48,6 +49,7 @@ const routes: Routes = [{
   entryComponents: [
     CreateComponent,
     UploadComponent,
+    AddPageComponent,
   ]
 })
 export class PresentationsModule { }

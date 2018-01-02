@@ -46,5 +46,8 @@
       "faker": "lorem.sentence"
     }
   },
-  "required": []
+  "required": [],
+  "attachments": {
+    "encrypted": false
+  }
 }

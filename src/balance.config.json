@@ -1,5 +1,5 @@
 {
-  "remoteDB": "https://couchdb-1c46d8.smileupps.com",
+  "remoteDB": "http://127.0.0.1:5984",
   "files": {
     "_provider": "cloudary",
     "cloudary": {

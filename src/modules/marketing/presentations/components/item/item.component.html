@@ -27,8 +27,8 @@
               </div>
             </div>
           </div>
-          <div *ngIf="presentation.pages[activePageIndex].type=='BGIMG'">
-            <img class="img-thumbnail img-fluid" [src]="presentation.pages[activePageIndex].params.image">
+          <div *ngIf="presentation.pages[activePageIndex].type=='BGIMG' && imageData">
+            <img class="img-thumbnail img-fluid" [src]="imageData">
           </div>
         </div>
 
@@ -36,12 +36,15 @@
           <div class="card mb-2">
             <div class="card-header">
               Pages
+              <button class="btn btn-xs btn-outline-primary" (click)="addPage()">
+                <span class="fa fa-plus fa-fw"></span>
+              </button>
             </div>
             <div class="list-group list-group-flush">
               <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item"
                 *ngFor="let page of presentation.pages; let i = index;">
                 <div class="media">
-                  <img style="width:90px;height:90px;" class="rounded mr-3" [src]="page.preview" alt="Generic placeholder image">
+                  <!-- <img style="width:90px;height:90px;" class="rounded mr-3" [src]="page.preview" alt="Generic placeholder image"> -->
                   <div class="media-body">
                     <h5 class="mt-0">{{page.title}}</h5>
                     <span class="badge">page #{{i+1}}</span>

@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add Page</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group form-control-lg">
+    <label>Title</label>
+    <input type="text" class="form-control" [(ngModel)]="page.title">
+  </div>
+  <div class="form-group form-control-lg">
+    <label>Image</label>
+    <input type="file" class="form-control" accept="image/*" (change)="loadFile($event)">
+  </div>
+  <div class="form-group" *ngIf="imagePreview">
+    <img class="img-thumbnail img-fluid mb-3" [src]="imagePreview">
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="activeModal.dismiss()">Close</button>
+  <button type="button" class="btn btn-success" (click)="submit()">Add</button>
+</div>
