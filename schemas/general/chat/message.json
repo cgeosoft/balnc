@@ -12,8 +12,30 @@
       "description": "User's id is been populated by server moddle based on usr-ctx",
       "readonly": true
     },
-    "toRoom": {
-      "type": "string"
+    "room": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "personaId": {
+                "type": "string"
+              },
+              "isAdmin": {
+                "type": "boolean"
+              },
+              "lastAccessAt": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     },
     "sendAt": {
       "type": "number",
