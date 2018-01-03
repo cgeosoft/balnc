@@ -12,26 +12,63 @@
     </div>
   </div>
   <div class="content-body">
+
     <div class="container">
-      <div class="btn-group mr-2">
-        <button type="button" class="btn btn-primary" (click)="upload()">
-          <span class="fa fa-plus-circle fa-fw"></span> add page</button>
-      </div>
-      <div class="alert alert-secondary">
-        {{presentation.description}}
-      </div>
-      <div class="d-flex flex-wrap">
-        <div class="card" style="width: 10rem;margin:.5rem" *ngFor="let page of presentation.pages">
-          <img class="card-img-top" [src]="page.preview">
-          <div class="card-body">
-            <p>
-              <strong>{{page.title}}</strong>
-            </p>
-            <p><code>{{page.type}}</code></p>
+      <div class="row">
+        <div class="col-md-8" *ngIf="presentation.pages[activePageIndex]">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h4 class="card-title">
+                {{presentation.pages[activePageIndex].title}}
+                <small class="text-secondary">page: #{{activePageIndex+1}}</small>
+              </h4>
+              <div *ngIf="presentation.pages[activePageIndex].description">
+                {{presentation.pages[activePageIndex].description}}
+              </div>
+            </div>
+          </div>
+          <div *ngIf="presentation.pages[activePageIndex].type=='BGIMG' && imageData">
+            <img class="img-thumbnail img-fluid" [src]="imageData">
           </div>
         </div>
+
+        <div class="col-md-4">
+          <div class="card mb-2">
+            <div class="card-header">
+              Pages
+              <button class="btn btn-xs btn-outline-primary" (click)="addPage()">
+                <span class="fa fa-plus fa-fw"></span>
+              </button>
+            </div>
+            <div class="list-group list-group-flush">
+              <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item"
+                *ngFor="let page of presentation.pages; let i = index;">
+                <div class="media">
+                  <!-- <img style="width:90px;height:90px;" class="rounded mr-3" [src]="page.preview" alt="Generic placeholder image"> -->
+                  <div class="media-body">
+                    <h5 class="mt-0">{{page.title}}</h5>
+                    <span class="badge">page #{{i+1}}</span>
+                    Cras sit amet nibh libero, in gravida nulla.
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="card mb-2">
+            <div class="card-header">
+              Forms
+              <button class="btn btn-xs btn-outline-primary">
+                <span class="fa fa-plus fa-fw"></span>
+              </button>
+            </div>
+            <div class="card-body text-center">
+              No forms were found
+            </div>
+          </div>
+        </div>
+        <pre>{{activePageIndex|json:2}}</pre>
+        <pre>{{presentation|json:2}}</pre>
       </div>
-      <pre>{{presentation|json:2}}</pre>
     </div>
   </div>
 </div>

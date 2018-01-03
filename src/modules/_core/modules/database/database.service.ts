@@ -9,6 +9,8 @@ import RxDBValidateModule from 'rxdb/plugins/validate'
 import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
 import RxDBReplicationModule from 'rxdb/plugins/replication'
 import KeycompressionPlugin from 'rxdb/plugins/key-compression'
+import AttachmentsPlugin from 'rxdb/plugins/attachments';
+import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages';
 import { RxDatabase, RxCollection } from 'rxdb'
 
 import { environment } from '../../../../environments/environment'
@@ -24,6 +26,8 @@ RxDB.plugin(KeycompressionPlugin)
 RxDB.plugin(RxDBValidateModule)
 RxDB.plugin(RxDBLeaderElectionModule)
 RxDB.plugin(RxDBReplicationModule)
+RxDB.plugin(AttachmentsPlugin);
+RxDB.plugin(RxDBErrorMessagesModule);
 RxDB.plugin(require('pouchdb-adapter-http'))
 RxDB.plugin(require('pouchdb-adapter-idb'))
 
