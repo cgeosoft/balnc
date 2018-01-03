@@ -7,9 +7,11 @@ import { Entity } from '../../_core/modules/database/models/entity';
 
 import { InvoicesItemComponent, InvoicesOverviewComponent, InvoicesReportComponent } from './components'
 
+import { InvoiceSchema } from './data/invoice';
+
 const entities: Entity[] = [{
   name: 'invoice',
-  schemaPath: 'schemas/business/invoices/invoice.json',
+  schema: InvoiceSchema,
   sync: true,
 }]
 

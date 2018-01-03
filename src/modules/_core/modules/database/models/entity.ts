@@ -1,5 +1,6 @@
 export class Entity {
   name: string
-  schemaPath: string
+  schema: any
+  schemaPath?: string
   sync: boolean
 }
