@@ -1,3 +1,4 @@
+import { CommonModule as ngCommonModule } from '@angular/common';
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
@@ -9,7 +10,8 @@ import {
 
 @NgModule({
   imports: [
-    RouterModule
+    ngCommonModule,
+    RouterModule,
   ],
   declarations: [
     MainComponent,
@@ -19,6 +21,7 @@ import {
   providers: [],
   exports: [
     ContentHeaderComponent,
+    ngCommonModule,
   ]
 })
-export class BlcCommonModule { }
+export class CommonModule { }

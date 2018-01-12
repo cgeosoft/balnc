@@ -1,10 +1,20 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-content-header',
-  templateUrl: "content-header.component.html"
+  templateUrl: "./content-header.component.html",
+  styleUrls: ['./content-header.component.scss']
 })
 export class ContentHeaderComponent implements OnInit {
+
+  @Input()
+  icon = "cubes"
+
+  @Input()
+  title = "Page"
+
+  @Input()
+  details: any[] = []
 
   constructor() { }
 

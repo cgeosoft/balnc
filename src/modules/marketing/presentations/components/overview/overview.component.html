@@ -1,19 +1,5 @@
 <div class="content d-flex flex-column justify-content-start">
-  <div class="content-header">
-    <div class="container">
-      <div class="content-header-icon">
-        <span class="fa fa-tv"></span>
-      </div>
-      <div class="content-header-body">
-        <h1>Presentations</h1>
-        <ul class="list-inline">
-          <li class="list-inline-item">Total:
-            <strong>{{presentations.length}}</strong>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <app-content-header [title]="'Presentations'" [icon]="'tv'"></app-content-header>
   <div class="content-body">
     <div class="container">
       <div class="btn-toolbar mb-4">

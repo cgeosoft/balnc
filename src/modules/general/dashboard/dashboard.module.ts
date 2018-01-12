@@ -1,8 +1,7 @@
-import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { BlcCommonModule } from "../../_core/common/common.module"
+import { CommonModule } from "../../_core/common/common.module"
 import { DashboardComponent } from './dashboard.component'
 
 const appRoutes: Routes = [
@@ -13,7 +12,6 @@ const appRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(appRoutes),
-    BlcCommonModule,
   ],
   declarations: [
     DashboardComponent,

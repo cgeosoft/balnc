@@ -1,18 +1,7 @@
 <div class="loader" *ngIf="!presentation"></div>
 <div class="content d-flex flex-column justify-content-start" *ngIf="presentation">
-  <div class="content-header">
-    <div class="container">
-      <div class="content-header-icon">
-        <span class="fa fa-tv"></span>
-      </div>
-      <div class="content-header-body">
-        <h1>{{presentation.title}}</h1>
-        <p>Presentation</p>
-      </div>
-    </div>
-  </div>
+  <app-content-header [title]="presentation.title" [icon]="'tv'"></app-content-header>
   <div class="content-body">
-
     <div class="container">
       <div class="row">
         <div class="col-md-8" *ngIf="presentation.pages[activePageIndex]">

@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router'
 import { CORE_ROUTES } from './app.routes'
 import { AppComponent } from './app.component'
 
-import { BlcCommonModule } from "../_core/common/common.module"
+import { CommonModule } from "../_core/common/common.module"
 import { DatabaseModule } from '../_core/database/database.module'
 import { ConfigModule } from '../_core/config/config.module'
 import { FilesModule } from '../_core/files/files.module'
@@ -27,7 +27,7 @@ import { FilesModule } from '../_core/files/files.module'
     FilesModule,
     ConfigModule,
 
-    BlcCommonModule,
+    CommonModule,
   ],
   declarations: [
     AppComponent

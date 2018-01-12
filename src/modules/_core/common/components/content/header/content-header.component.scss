@@ -1,0 +1,37 @@
+:host {
+  height: 3.5rem;
+  background: #fafafa;
+  display: flex;
+  justify-content: flex-start;
+  .container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .content-header-icon {
+    color: lighten(#333, 10);
+    border-right: solid 1px #CCC;
+    padding: 0 .75rem;
+    margin-right: 1rem;
+    font-size: 1.6rem;
+    text-align: center;
+    align-items: center;
+  }
+  .content-header-body {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    h1 {
+      color: #333;
+      font-size: 1.3rem;
+      margin: 0;
+      font-weight: normal;
+    }
+    p,
+    ul {
+      color: #666;
+      margin: 0;
+      font-size: .6rem;
+    }
+  }
+}

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
@@ -11,6 +10,7 @@ import { ItemComponent, OverviewComponent, CreateComponent, UploadComponent, Add
 import { Entity } from '../../_core/database/models/entity'
 import { FileUploadModule } from 'ng2-file-upload';
 import { PresentationSchema } from './data/presentation';
+import { CommonModule } from '../../_core/common/common.module';
 
 const entities: Entity[] = [{
   name: 'presentation',

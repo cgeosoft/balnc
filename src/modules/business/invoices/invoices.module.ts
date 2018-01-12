@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
@@ -8,6 +7,7 @@ import { Entity } from '../../_core/database/models/entity';
 import { InvoicesItemComponent, InvoicesOverviewComponent, InvoicesReportComponent } from './components'
 
 import { InvoiceSchema } from './data/invoice';
+import { CommonModule } from '../../_core/common/common.module';
 
 const entities: Entity[] = [{
   name: 'invoice',
