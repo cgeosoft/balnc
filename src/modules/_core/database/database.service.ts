@@ -13,7 +13,7 @@ import AttachmentsPlugin from 'rxdb/plugins/attachments';
 import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages';
 import { RxDatabase, RxCollection } from 'rxdb'
 
-import { environment } from '../../../../environments/environment'
+import { environment } from '../../../environments/environment'
 import { ConfigService } from "../config/config.service"
 import { Entity } from "./models/entity"
 import { HttpClient } from '@angular/common/http';

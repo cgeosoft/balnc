@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { RouterModule, Routes } from '@angular/router'
 
-import { DatabaseModule } from '../../_core/modules/database/database.module'
+import { DatabaseModule } from '../../_core/database/database.module'
 import { ChatComponent } from './components'
-import { Entity } from '../../_core/modules/database/models/entity';
+import { Entity } from '../../_core/database/models/entity';
 
 import { ChatMessageSchema } from './data/message';
 

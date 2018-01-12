@@ -1,8 +1,7 @@
 import { Routes } from '@angular/router'
 
-import { MainComponent } from './components/main/main.component'
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
-import { DatabaseService } from './modules/database/database.service'
+import { MainComponent } from '../_core/common/components/main/main.component'
+import { PageNotFoundComponent } from '../_core/common/components/page-not-found/page-not-found.component'
 
 export const CORE_ROUTES: Routes = [
     {

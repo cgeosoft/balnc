@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { DatabaseModule } from '../../_core/modules/database/database.module'
-import { Entity } from '../../_core/modules/database/models/entity';
+import { DatabaseModule } from '../../_core/database/database.module'
+import { Entity } from '../../_core/database/models/entity';
 
 import { InvoicesItemComponent, InvoicesOverviewComponent, InvoicesReportComponent } from './components'
 

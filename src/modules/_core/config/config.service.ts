@@ -7,7 +7,7 @@ export class ConfigService {
 
     constructor() {
         if (ConfigService.config == null) {
-            ConfigService.config = require("../../../../balance.config.json")
+            ConfigService.config = require("../../../balance.config.json")
         }
     }
 
