@@ -12,6 +12,9 @@ export const CORE_ROUTES: Routes = [
             path: 'dashboard',
             loadChildren: "./../general/dashboard/dashboard.module#DashboardModule"
         }, {
+            path: 'contacts',
+            loadChildren: "./../business/contacts/contacts.module#ContactsModule"
+        }, {
             path: 'invoices',
             loadChildren: "./../business/invoices/invoices.module#InvoicesModule"
         }, {
