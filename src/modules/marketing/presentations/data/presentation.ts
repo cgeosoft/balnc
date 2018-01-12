@@ -12,3 +12,5 @@ declare interface RxPresentationDocumentType {
 }
 
 export type RxPresentationDocument = RxPresentationDocumentType
+
+export const PresentationSchema = require('../../../../../schemas/marketing/presentation.json')

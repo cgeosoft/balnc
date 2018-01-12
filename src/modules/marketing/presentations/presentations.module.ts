@@ -10,10 +10,11 @@ import { EllipsisPipe } from '../../../pipes/ellipsis.pipe'
 import { ItemComponent, OverviewComponent, CreateComponent, UploadComponent, AddPageComponent } from './components'
 import { Entity } from '../../_core/modules/database/models/entity'
 import { FileUploadModule } from 'ng2-file-upload';
+import { PresentationSchema } from './data/presentation';
 
 const entities: Entity[] = [{
   name: 'presentation',
-  schemaPath: '/schemas/marketing/presentation.json',
+  schema: PresentationSchema,
   sync: true,
 }]
 

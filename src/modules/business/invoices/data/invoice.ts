@@ -9,3 +9,5 @@ declare interface RxInvoiceDocumentType {
 }
 
 export type RxInvoiceDocument = RxInvoiceDocumentType
+
+export const InvoiceSchema = require('../../../../../schemas/business/invoices/invoice.json')

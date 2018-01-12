@@ -41,7 +41,7 @@ export class DatabaseService {
 
     loadedEntities: string[] = []
     loadedEntitesSubject: BehaviorSubject<Array<string>> = new BehaviorSubject([])
-    hadAuthed: boolean = false
+    hadAuthed = false
 
     constructor(
         @Inject("APP_ENTITIES") entities: Entity[],
@@ -79,7 +79,7 @@ export class DatabaseService {
             DatabaseService.db
                 .collection({
                     name: entity.name,
-                    schema: require(`./${entity.schemaPath}`),
+                    schema: entity.schema,
                 })
                 .then(collection => {
                     if (entity.sync) {

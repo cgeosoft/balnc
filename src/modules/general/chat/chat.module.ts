@@ -8,11 +8,11 @@ import { DatabaseModule } from '../../_core/modules/database/database.module'
 import { ChatComponent } from './components'
 import { Entity } from '../../_core/modules/database/models/entity';
 
-import * as c from './../../../../schemas/_core/org.json'
+import { ChatMessageSchema } from './data/message';
 
 const entities: Entity[] = [{
   name: 'message',
-  schemaPath: 'schemas/general/chat/message.json',
+  schema: ChatMessageSchema,
   sync: true,
 }]
 
