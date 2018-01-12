@@ -41,6 +41,7 @@ export class DatabaseService {
 
     loadedEntities: string[] = []
     loadedEntitesSubject: BehaviorSubject<Array<string>> = new BehaviorSubject([])
+    hadAuthed: boolean = false
 
     constructor(
         @Inject("APP_ENTITIES") entities: Entity[],
@@ -50,17 +51,7 @@ export class DatabaseService {
         if (!DatabaseService.db) {
             this.init()
                 .then(() => {
-                    return this.http
-                        .post(`${this.configSrv.get("remoteDB")}/_session`, {
-                            name: "demo",
-                            password: "demo",
-                        }, {
-                            withCredentials: true
-                        })
-                        .toPromise()
-                        .then(() => {
-                            this.setup(entities)
-                        })
+                    this.setup(entities)
                 })
         } else {
             this.setup(entities)
@@ -72,6 +63,13 @@ export class DatabaseService {
             .create({
                 name: "db",
                 adapter: "idb",
+            })
+        this.http
+            .post(`${this.configSrv.get("remoteDB")}/_session`, {
+                name: "demo",
+                password: "demo",
+            }, {
+                withCredentials: true
             })
     }
 
