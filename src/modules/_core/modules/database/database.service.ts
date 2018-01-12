@@ -51,23 +51,7 @@ export class DatabaseService {
         if (!DatabaseService.db) {
             this.init()
                 .then(() => {
-<<<<<<< HEAD
                     this.setup(entities)
-=======
-                    return this.http
-                        .post(`${this.configSrv.get("remoteDB")}/_session`, {
-                            name: "demo",
-                            password: "demo",
-                        }, {
-                            withCredentials: true
-                        })
-                        .toPromise()
-                        .then(() => {
-                            this.setup(entities)
-                        }, () => {
-                            this.setup(entities)
-                        })
->>>>>>> ec4a44d0c051dacd744a9968842baab5fac4428c
                 })
         } else {
             this.setup(entities)
@@ -100,7 +84,10 @@ export class DatabaseService {
                 .then(collection => {
                     if (entity.sync) {
                         collection.sync({
-                            remote: `${this.configSrv.get("remoteDB")}/${entity.name}/`
+                            remote: `${this.configSrv.get("remoteDB")}/${entity.name}/`,
+                            // options: {
+                            //     retry: true
+                            // },
                         })
                     }
                     this.loadedEntities.push(entity.name)
