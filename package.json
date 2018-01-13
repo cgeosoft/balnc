@@ -25,6 +25,7 @@
     "@cloudinary/angular-5.x": "^1.0.0",
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.8",
     "@types/pouchdb": "6.3.2",
+    "angular-pipes": "^6.5.3",
     "bootstrap": "^4.0.0-beta",
     "cloudinary-core": "^2.4.0",
     "core-js": "2.5.3",

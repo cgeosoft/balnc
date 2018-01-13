@@ -2,6 +2,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule as ngCommonModule } from '@angular/common';
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
+import { NgPipesModule } from 'angular-pipes';
 
 import { MainComponent } from './components/main/main.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
@@ -13,6 +14,7 @@ import { EmptyPanelComponent } from './components/empty-panel/empty-panel.compon
     ngCommonModule,
     RouterModule,
     NgbModule,
+    NgPipesModule,
   ],
   declarations: [
     MainComponent,
@@ -22,9 +24,12 @@ import { EmptyPanelComponent } from './components/empty-panel/empty-panel.compon
   ],
   providers: [],
   exports: [
+    ngCommonModule,
+    NgbModule,
+    NgPipesModule,
+
     ContentHeaderComponent,
     EmptyPanelComponent,
-    ngCommonModule,
   ]
 })
 export class CommonModule { }

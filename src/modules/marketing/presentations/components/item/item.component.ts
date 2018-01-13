@@ -10,6 +10,7 @@ import { RxPresentationDocument } from '../../data/presentation'
 import { UploadComponent } from "../upload/upload.component"
 import { AddPageComponent } from "../add-page/add-page.component"
 import { RxCollection, RxDocumentBase } from 'rxdb'
+import { reduce } from 'rxjs/operators/reduce';
 
 @Component({
   selector: 'app-presentations-item',
@@ -24,6 +25,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   sub
   presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument
   settingsMenu: any[] = []
+  statistics: any
 
   constructor(
     private route: ActivatedRoute,
@@ -135,6 +137,17 @@ export class ItemComponent implements OnInit, OnDestroy {
         const presentation$ = this.db.findOne(params['id']).$
         this.sub = presentation$
           .subscribe(presentation => {
+
+            presentation.allAttachments$
+              .subscribe((attachemnts) => {
+                this.statistics = {
+                  totalFilesCount: attachemnts.length,
+                  totalFilesBytesize: attachemnts.reduce((t, i) => {
+                    return t + i.length
+                  }, 0)
+                }
+              })
+
             this.zone.run(() => {
               this.presentation = presentation
               this.setPageIndex(0)
