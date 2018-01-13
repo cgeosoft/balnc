@@ -11,6 +11,7 @@ import { UploadComponent } from "../upload/upload.component"
 import { AddPageComponent } from "../add-page/add-page.component"
 import { RxCollection, RxDocumentBase } from 'rxdb'
 import { reduce } from 'rxjs/operators/reduce';
+import { Date } from 'core-js/library/web/timers';
 
 @Component({
   selector: 'app-presentations-item',
@@ -25,7 +26,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   sub
   presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument
   settingsMenu: any[] = []
-  statistics: any
+  statistics: any = {}
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +43,12 @@ export class ItemComponent implements OnInit, OnDestroy {
       icon: "edit",
       callback: () => {
         console.log("Configure")
+      }
+    }, {
+      label: "Cleanup Files",
+      icon: "trash-o",
+      callback: () => {
+        this.cleanupFiles()
       }
     }, {
       isDivider: true
@@ -71,7 +78,9 @@ export class ItemComponent implements OnInit, OnDestroy {
 
   addPage() {
 
-    const modalRef = this.modal.open(AddPageComponent)
+    const modalRef = this.modal.open(AddPageComponent, {
+      size: "lg"
+    })
     modalRef.result
       .then((page: any) => {
 
@@ -90,14 +99,15 @@ export class ItemComponent implements OnInit, OnDestroy {
             _pages.unshift({
               key: pageKey,
               title: page.title || `Page ${pageKey}`,
-              preview: "http://lorempixel.com/90/90/cats/1/",
+              description: page.description,
               type: "BGIMG",
               params: {
                 image: `file-${pageKey}`
               }
             })
 
-            this.presentation.set('pages', _pages);
+            this.presentation.pages = _pages
+            this.presentation.dateUpdated = moment().toISOString()
             this.presentation.save()
 
             this.setPageIndex(0)
@@ -108,15 +118,45 @@ export class ItemComponent implements OnInit, OnDestroy {
       })
   }
 
+  async deletePage(index) {
+    const _pages = this.presentation.pages
+    _pages.splice(index, 1)
+    this.presentation.pages = _pages
+    this.presentation.dateUpdated = moment().toISOString()
+    await this.presentation.save()
+    await this.cleanupFiles()
+  }
+
+  async cleanupFiles() {
+    const usedFiles = this.presentation.pages
+      .map(page => {
+        return page.params.image
+      })
+
+    const attachments = await this.presentation.allAttachments()
+
+    for (const attachment of attachments) {
+      if (usedFiles.indexOf(attachment.id) === -1) {
+        console.log("removing", attachment.id)
+        await attachment.remove()
+        console.log("removed", attachment.id)
+      }
+    }
+
+  }
+
   async setPageIndex(index) {
     this.activePageIndex = index
+
+    if (this.presentation.pages.length === 0) {
+      return
+    }
     const contentImage = this.presentation.pages[index].params.image
     const attachment = await this.presentation.getAttachment(contentImage)
 
     if (!attachment) { return }
 
     const blobBuffer = await attachment.getData();
-    console.log(attachment)
 
     const reader = new FileReader();
     reader.onload = () => {
@@ -139,14 +179,15 @@ export class ItemComponent implements OnInit, OnDestroy {
           .subscribe(presentation => {
 
             presentation.allAttachments$
-              .subscribe((attachemnts) => {
-                this.statistics = {
-                  totalFilesCount: attachemnts.length,
-                  totalFilesBytesize: attachemnts.reduce((t, i) => {
-                    return t + i.length
-                  }, 0)
-                }
+              .subscribe((attachments) => {
+                this.statistics.totalFilesCount = attachments.length
+                this.statistics.totalFilesBytesize = attachments.reduce((t, i) => {
+                  return t + i.length
+                }, 0)
               })
+
+            this.statistics.docVersion =
+              `${presentation.get("_rev").split("-")[0]} / ${moment(presentation.dateUpdated).fromNow()}`
 
             this.zone.run(() => {
               this.presentation = presentation

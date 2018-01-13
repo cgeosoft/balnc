@@ -5,19 +5,30 @@
   </button>
 </div>
 <div class="modal-body">
-  <div class="form-group form-control-lg">
-    <label>Title</label>
-    <input type="text" class="form-control" [(ngModel)]="page.title">
-  </div>
-  <div class="form-group form-control-lg">
-    <label>Image</label>
-    <input type="file" class="form-control" accept="image/*" (change)="loadFile($event)">
-  </div>
-  <div class="form-group" *ngIf="imagePreview">
-    <img class="img-thumbnail img-fluid mb-3" [src]="imagePreview">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" [(ngModel)]="page.title">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-control" rows="7" [(ngModel)]="page.description"></textarea>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="form-group">
+        <label>Image</label>
+        <input type="file" class="form-control" accept="image/*" (change)="loadFile($event)">
+      </div>
+      <div class="form-group">
+        <app-empty-panel *ngIf="!imagePreview" message="Select an image"></app-empty-panel>
+        <img *ngIf="imagePreview" class="img-thumbnail img-fluid mb-3" [src]="imagePreview">
+      </div>
+    </div>
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="activeModal.dismiss()">Close</button>
-  <button type="button" class="btn btn-success" (click)="submit()">Add</button>
+  <button type="button" class="btn btn-link" (click)="activeModal.dismiss()">Close</button>
+  <button type="button" class="btn btn-success" (click)="submit()">Add Page</button>
 </div>

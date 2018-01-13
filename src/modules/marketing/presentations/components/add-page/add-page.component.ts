@@ -10,6 +10,7 @@ export class AddPageComponent {
 
     page: any = {
         title: null,
+        description: null,
         file: null,
         blob: null,
         fileType: null,

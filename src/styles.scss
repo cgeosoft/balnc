@@ -10,3 +10,17 @@ $color-second: #00AA72;
 @import "../scss/components/invoice";
 @import "../scss/components/chat";
 @import "../scss/components/list-menu";
+.card-header-buttons {
+  float: right;
+  >button,
+  >.dropdown>button {
+    font-size: .8em;
+    padding: 0rem .5rem;
+  }
+}
+
+.dropdown-toggle-hidden {
+  &::after {
+    display: none
+  }
+}
