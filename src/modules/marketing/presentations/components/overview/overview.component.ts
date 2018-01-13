@@ -78,9 +78,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
     const doc = this.db.newDocument({
       title: title,
-      image: "https://www.oysterdiving.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png",
       description: "No description",
       dateCreated: moment().toISOString(),
+      dateUpdated: moment().toISOString(),
+      pages: []
     })
 
     await doc.save()
