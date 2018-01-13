@@ -2,7 +2,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule as ngCommonModule } from '@angular/common';
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { NgMathPipesModule } from 'angular-pipes';
+// import { NgMathPipesModule } from 'angular-pipes';
 
 import { MainComponent } from './components/main/main.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
@@ -14,7 +14,7 @@ import { EmptyPanelComponent } from './components/empty-panel/empty-panel.compon
     ngCommonModule,
     RouterModule,
     NgbModule,
-    NgMathPipesModule,
+    // NgMathPipesModule,
   ],
   declarations: [
     MainComponent,
@@ -26,7 +26,7 @@ import { EmptyPanelComponent } from './components/empty-panel/empty-panel.compon
   exports: [
     ngCommonModule,
     NgbModule,
-    NgMathPipesModule,
+    // NgMathPipesModule,
 
     ContentHeaderComponent,
     EmptyPanelComponent,
