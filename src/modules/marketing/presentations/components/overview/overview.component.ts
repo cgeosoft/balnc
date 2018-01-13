@@ -87,7 +87,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   async loadPresentationsImage(presentations: any[]) {
     for (const presentation of presentations) {
-      if (presentation.pages) {
+      if (presentation.pages.length) {
         const contentImage = presentation.pages[0].params.image
         const attachment = await presentation.getAttachment(contentImage)
 
