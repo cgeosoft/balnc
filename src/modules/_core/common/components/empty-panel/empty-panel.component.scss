@@ -1,0 +1,16 @@
+@import "../../../../../../scss/components/bootstrap";
+:host {
+  display: block;
+  @extend .alert;
+  @extend .alert-secondary;
+  @extend .text-center;
+  @extend .text-secondary; // @extend .display-4;
+  @extend .p-4;
+  .fa {
+    font-size: 5rem;
+  }
+  p {
+    font-size: 2.5rem;
+    @extend .p-0;
+  }
+}
