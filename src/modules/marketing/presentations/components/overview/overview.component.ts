@@ -9,7 +9,7 @@ import { RxPresentationDocument } from '../../data/presentation'
 
 import { CreateComponent } from "../create/create.component"
 import { UploadComponent } from "../upload/upload.component"
-import { RxCollection } from 'rxdb'
+import { RxCollection, RxDocumentBase } from 'rxdb'
 
 @Component({
   selector: 'app-presentations-overview',
@@ -64,29 +64,56 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.db = await this.dbService.get<RxPresentationDocument>("presentation")
     const presentations$ = this.db.find().$
     this.sub = presentations$
-      .subscribe(presentations => {
+      .subscribe(async presentations => {
+
+        await this.loadPresentationsImage(presentations)
+
+        const _presentations = _.chain(presentations)
+          .map((presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument & any) => {
+            presentation._docVersion =
+              `${presentation.get("_rev").split("-")[0]} / ${moment(presentation.dateUpdated).fromNow()}`
+            return presentation
+          })
+          .sortBy("dateCreated")
+          .reverse()
+          .value()
         this.zone.run(() => {
-          this.presentations = _.chain(presentations)
-            .sortBy("dateCreated")
-            .reverse()
-            .value()
+          this.presentations = _presentations
         })
       })
   }
 
+  async loadPresentationsImage(presentations: any[]) {
+    for (const presentation of presentations) {
+      if (presentation.pages) {
+        const contentImage = presentation.pages[0].params.image
+        const attachment = await presentation.getAttachment(contentImage)
+
+        const blobBuffer = await attachment.getData();
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64 = reader.result.split(',')[1];
+          presentation._image = 'data:' + attachment.type + ';base64,' + base64
+        };
+        reader.readAsDataURL(blobBuffer);
+      } else {
+        presentation._image = "assets/img/placeholder-image.png"
+      }
+    }
+  }
+
   public async _create(title: string) {
 
-    const doc = this.db.newDocument({
+    const now = moment().toISOString()
+    const presentation = this.db.newDocument({
       title: title,
       description: "No description",
-      dateCreated: moment().toISOString(),
-      dateUpdated: moment().toISOString(),
+      dateCreated: now,
+      dateUpdated: now,
       pages: []
     })
 
-    await doc.save()
-      .then(() => {
-
-      })
+    await presentation.save();
   }
 }

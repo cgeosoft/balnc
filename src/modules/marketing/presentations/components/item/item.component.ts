@@ -178,6 +178,8 @@ export class ItemComponent implements OnInit, OnDestroy {
         this.sub = presentation$
           .subscribe(presentation => {
 
+            presentation.pages = presentation.pages || []
+
             presentation.allAttachments$
               .subscribe((attachments) => {
                 this.statistics.totalFilesCount = attachments.length
