@@ -21,6 +21,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   db: RxCollection<RxPresentationDocument>
   presentations: RxPresentationDocument[] = []
   sub
+  loading = true
 
   constructor(
     private dbService: DatabaseService,
@@ -79,6 +80,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
           .value()
         this.zone.run(() => {
           this.presentations = _presentations
+          this.loading = false
         })
       })
   }
