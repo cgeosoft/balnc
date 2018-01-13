@@ -5,6 +5,49 @@
     <div class="container">
       <div class="row">
 
+        <div class="col-md-4">
+          <div class="card mb-2">
+            <div class="card-body">
+              <dl>
+                <dt>Description
+                  <a href="javascript:void(0)" class="descCollToggle" (click)="descOpen = !descOpen">
+                    <span *ngIf="descOpen">
+                      <span class="fa fa-angle-double-up"></span> LESS
+                    </span>
+                    <span *ngIf="!descOpen">
+                      <span class="fa fa-angle-double-down"></span> MORE
+                    </span>
+                  </a>
+                </dt>
+                <dd class="descColl" [ngClass]="{'open':descOpen}">
+                  {{presentation.description}}
+                </dd>
+                <dt>Statistics</dt>
+                <dd>
+                  <ul>
+                    <li>Pages:
+                      <strong>{{presentation.pages.length}}</strong>
+                    </li>
+                    <li>DB Size:
+                      <strong>{{presentation.pages.length}}</strong>
+                    </li>
+                  </ul>
+                </dd>
+              </dl>
+            </div>
+            <div class="list-group list-group-flush">
+              <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item"
+                *ngFor="let page of presentation.pages; let i = index;">
+                {{page.title}}
+                <small class="pull-right text-muted">#{{i+1}}</small>
+              </a>
+              <button class="btn btn-xs btn-outline-primary" (click)="addPage()">
+                <span class="fa fa-plus fa-fw"></span> Add Page
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="col-md-8">
 
           <app-empty-panel *ngIf="!presentation.pages" message="No pages were found"></app-empty-panel>
@@ -23,41 +66,6 @@
             </div>
             <div *ngIf="presentation.pages[activePageIndex].type=='BGIMG' && imageData">
               <img class="img-thumbnail img-fluid" [src]="imageData">
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card mb-2">
-            <div class="card-header">
-              Pages
-              <button class="btn btn-xs btn-outline-primary" (click)="addPage()">
-                <span class="fa fa-plus fa-fw"></span>
-              </button>
-            </div>
-            <div class="list-group list-group-flush">
-              <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item"
-                *ngFor="let page of presentation.pages; let i = index;">
-                <div class="media">
-                  <!-- <img style="width:90px;height:90px;" class="rounded mr-3" [src]="page.preview" alt="Generic placeholder image"> -->
-                  <div class="media-body">
-                    <h5 class="mt-0">{{page.title}}</h5>
-                    <span class="badge">page #{{i+1}}</span>
-                    Cras sit amet nibh libero, in gravida nulla.
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="card mb-2">
-            <div class="card-header">
-              Forms
-              <button class="btn btn-xs btn-outline-primary">
-                <span class="fa fa-plus fa-fw"></span>
-              </button>
-            </div>
-            <div class="card-body text-center">
-              No forms were found
             </div>
           </div>
         </div>

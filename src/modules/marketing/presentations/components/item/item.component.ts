@@ -61,25 +61,6 @@ export class ItemComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/presentations');
   }
 
-  upload() {
-    const modalRef = this.modal.open(UploadComponent)
-    modalRef.result
-      .then((result) => {
-        this.presentation.pages.push({
-          "key": "1",
-          "title": "lala",
-          "preview": result,
-          "type": "BGIMG",
-          "params": {
-            "image": "http://lorempixel.com/1024/1024/cats/1"
-          }
-        })
-        this.presentation.save()
-      }, (reject) => {
-        console.log("dismissed", reject)
-      })
-  }
-
   s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
