@@ -1,5 +1,6 @@
+@import "../../../../../../../scss/components/bootstrap";
 :host {
-  height: 3.5rem;
+  min-height: 3.5rem;
   background: #fafafa;
   display: flex;
   justify-content: flex-start;
@@ -32,6 +33,19 @@
       color: #666;
       margin: 0;
       font-size: .6rem;
+    }
+  }
+  .content-header-menu {
+    @extend .ml-auto;
+    .dropdown-toggle {
+      .fa {
+        @extend .text-muted;
+      }
+    }
+  }
+  .dropdown-toggle {
+    &::after {
+      display: none;
     }
   }
 }

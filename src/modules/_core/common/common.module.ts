@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule as ngCommonModule } from '@angular/common';
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
@@ -11,6 +12,7 @@ import { EmptyPanelComponent } from './components/empty-panel/empty-panel.compon
   imports: [
     ngCommonModule,
     RouterModule,
+    NgbModule,
   ],
   declarations: [
     MainComponent,

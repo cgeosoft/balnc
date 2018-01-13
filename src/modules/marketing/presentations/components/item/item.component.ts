@@ -11,7 +11,6 @@ import { UploadComponent } from "../upload/upload.component"
 import { AddPageComponent } from "../add-page/add-page.component"
 import { RxCollection, RxDocumentBase } from 'rxdb'
 
-
 @Component({
   selector: 'app-presentations-item',
   templateUrl: './item.component.html',
@@ -24,6 +23,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   db: RxCollection<RxPresentationDocument>
   sub
   presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument
+  settingsMenu: any[] = []
 
   constructor(
     private route: ActivatedRoute,
@@ -35,9 +35,30 @@ export class ItemComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._show()
+    this.settingsMenu = [{
+      label: "Configure",
+      icon: "edit",
+      callback: () => {
+        console.log("Configure")
+      }
+    }, {
+      isDivider: true
+    }, {
+      label: "Delete",
+      cssClass: "text-danger",
+      icon: "trash-o",
+      callback: () => {
+        this.deletePresentation()
+      }
+    }]
   }
 
   ngOnDestroy() {
+  }
+
+  deletePresentation() {
+    this.presentation.remove();
+    this.router.navigateByUrl('/presentations');
   }
 
   upload() {

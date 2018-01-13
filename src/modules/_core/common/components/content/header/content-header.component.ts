@@ -7,14 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ContentHeaderComponent implements OnInit {
 
-  @Input()
-  icon = "cubes"
-
-  @Input()
-  title = "Page"
-
-  @Input()
-  details: any[] = []
+  @Input() icon = "cubes"
+  @Input() title = "Page"
+  @Input() details: any[] = []
+  @Input() settingsMenu: any[] = []
 
   constructor() { }
 

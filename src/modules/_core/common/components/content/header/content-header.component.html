@@ -11,4 +11,19 @@
       </li>
     </ul>
   </div>
+  <div class="content-header-menu" *ngIf="settingsMenu.length>0">
+    <div ngbDropdown placement="bottom-right" class="d-inline-block">
+      <button class="btn btn-link" ngbDropdownToggle>
+        <span class="fa fa-cog"></span>
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <ng-template ngFor let-item [ngForOf]="settingsMenu">
+          <div *ngIf="item.isDivider" class="dropdown-divider"></div>
+          <button *ngIf="!item.isDivider" class="dropdown-item {{item.cssClass}}" (click)="item.callback()">
+            <span *ngIf="item.icon" class="fa fa-{{item.icon}}"></span> {{item.label}}
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
 </div>
