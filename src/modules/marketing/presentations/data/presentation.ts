@@ -1,3 +1,5 @@
+import * as _presentationSchema from '../../../../../schemas/marketing/presentation.json'
+
 declare interface RxPresentationDocumentType {
     title: string
     description: string
@@ -12,6 +14,4 @@ declare interface RxPresentationDocumentType {
 }
 
 export type RxPresentationDocument = RxPresentationDocumentType
-
-import * as _presentationSchema from '../../../../../schemas/marketing/presentation.json';
 export const PresentationSchema = _presentationSchema
