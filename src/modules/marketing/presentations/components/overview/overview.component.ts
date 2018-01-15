@@ -10,6 +10,8 @@ import { RxPresentationDocument } from '../../data/presentation'
 import { CreateComponent } from "../create/create.component"
 import { UploadComponent } from "../upload/upload.component"
 import { RxCollection, RxDocumentBase } from 'rxdb'
+import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-presentations-overview',
@@ -18,8 +20,11 @@ import { RxCollection, RxDocumentBase } from 'rxdb'
 })
 export class OverviewComponent implements OnInit, OnDestroy {
 
+  presentations: Observable<(RxDocumentBase<RxPresentationDocument> & RxPresentationDocument)[]>;
+  // presentations: Subscription;
+
   db: RxCollection<RxPresentationDocument>
-  presentations: RxPresentationDocument[] = []
+  // presentations: RxPresentationDocument[] = []
   sub
   loading = true
 
@@ -32,7 +37,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   closeResult: string
 
   ngOnInit() {
-    this._show()
+    this.loadPresentations()
   }
 
   ngOnDestroy() {
@@ -51,44 +56,35 @@ export class OverviewComponent implements OnInit, OnDestroy {
       })
   }
 
-  upload() {
-    const modalRef = this.modal.open(UploadComponent)
-    modalRef.result
-      .then((result) => {
-        this._create(result.title)
-      }, (reject) => {
-        console.log("dismissed", reject)
-      })
-  }
-
-  private async _show() {
+  private async loadPresentations() {
     this.db = await this.dbService.get<RxPresentationDocument>("presentation")
-    const presentations$ = this.db.find().$
-    this.sub = presentations$
-      .subscribe(async presentations => {
 
-        if (presentations.length) {
-          await this.loadPresentationsImage(presentations)
-          const _presentations = _.chain(presentations)
-            .map((presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument & any) => {
-              presentation._docVersion =
-                `${presentation.get("_rev").split("-")[0]} / ${moment(presentation.dateUpdated).fromNow()}`
-              return presentation
-            })
-            .sortBy("dateCreated")
-            .reverse()
-            .value()
-          this.zone.run(() => {
-            this.presentations = _presentations
-          })
-        }
-        this.zone.run(() => {
-          this.loading = false
-        })
-      })
+    const presentations$ = this.db..find().$
+
+
+
+    this.presentations = presentations$
+      .map
+    // .map(async presentations => {
+
+    //   if (presentations.c.length) {
+    //     await this.loadPresentationsImage(presentations)
+    //     presentations = _.chain(presentations)
+    //       .map((presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument & any) => {
+    //         presentation._docVersion =
+    //           `${presentation.get("_rev").split("-")[0]} / ${moment(presentation.dateUpdated).fromNow()}`
+    //         return presentation
+    //       })
+    //       .sortBy("dateCreated")
+    //       .reverse()
+    //       .value()
+
+    //     return presentations
+    //   }
+    // })
   }
 
-  async loadPresentationsImage(presentations: any[]) {
+  private async loadPresentationsImage(presentations: any[]) {
     for (const presentation of presentations) {
       if (presentation.pages.length) {
         const contentImage = presentation.pages[0].params.image

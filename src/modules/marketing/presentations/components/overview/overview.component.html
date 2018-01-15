@@ -1,5 +1,5 @@
 <div class="content d-flex flex-column justify-content-start">
-  <app-content-header [title]="'Presentations'" [icon]="'desktop'"></app-content-header>
+  <app-content-header title="Presentations" icon="desktop"></app-content-header>
   <app-content-body>
     <div class="btn-toolbar mb-4">
       <div class="btn-group mr-2">
@@ -8,31 +8,39 @@
       </div>
     </div>
 
-    <app-empty-panel *ngIf="!presentations.length && !loading" message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty-panel>
+    <div *ngIf="presentations | async as _presentations; else loading">
+      <ng-container *ngIf="_presentations.length; else noItems">
+        <table class="table table-hover">
+          <tbody>
+            <tr *ngFor="let presentation of _presentations">
+              <td style="width:150px">
+                <img class="img-thumbnail mr-3" [src]="presentation._image">
+              </td>
+              <td class="flex-column align-items-start mb-auto">
+                <h5 class="mb-0">{{presentation.title}}</h5>
+                <div class="text-secondary">
+                  <small>{{presentation.dateCreated | date:'medium'}} - Version: {{presentation._docVersion}}</small>
+                </div>
+                <div *ngIf="presentation.description">
+                  <hr class="mt-1 mb-2">
+                  <p class="text-muted">{{presentation.description | ellipsis:250}}</p>
+                </div>
+              </td>
+              <td class="text-center" style="width:100px">
+                <a [routerLink]="['/presentations/item',presentation._id]" class="btn btn-outline-primary">Open</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
 
-    <table *ngIf="presentations.length" class="table table-hover">
-      <tbody>
-        <tr *ngFor="let presentation of presentations">
-          <td style="width:150px">
-            <img class="img-thumbnail mr-3" [src]="presentation._image">
-          </td>
-          <td class="flex-column align-items-start mb-auto">
-            <h5 class="mb-0">{{presentation.title}}</h5>
-            <div class="text-secondary">
-              <small>{{presentation.dateCreated | date:'medium'}} - Version: {{presentation._docVersion}}</small>
-            </div>
-            <div *ngIf="presentation.description">
-              <hr class="mt-1 mb-2">
-              <p class="text-muted">{{presentation.description | ellipsis:250}}</p>
-            </div>
-          </td>
-          <td class="text-center" style="width:100px">
-            <a [routerLink]="['/presentations/item',presentation._id]" class="btn btn-outline-primary">Open</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <ng-template #noItems>No Items!</ng-template>
+    </div>
+    <ng-template #loading>loading animation...</ng-template>
+    <!-- <app-empty-panel #empty message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty-panel>
+    </div>
+    <app-empty-panel #loading message="loading..." icon="refresh fa-spin"></app-empty-panel> -->
 
-    <app-debug-panel [data]="presentations"></app-debug-panel>
+    <app-debug-panel [data]="presentations | async"></app-debug-panel>
   </app-content-body>
 </div>
