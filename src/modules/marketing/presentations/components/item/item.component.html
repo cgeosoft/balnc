@@ -84,7 +84,7 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="presentation.pages[activePageIndex].type=='BGIMG' && imageData">
+                <div class="text-center bg-secondary" *ngIf="presentation.pages[activePageIndex].type=='BGIMG' && imageData">
                   <img class="img-fluid" [src]="imageData">
                 </div>
                 <div class="card-body" *ngIf="presentation.pages[activePageIndex].description">
@@ -95,7 +95,7 @@
           </div>
         </div>
 
-        <app-debug-panel [data]="presentation"></app-debug-panel>
       </div>
+      <app-debug-panel [data]="presentation"></app-debug-panel>
     </div>
   </div>

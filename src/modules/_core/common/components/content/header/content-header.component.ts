@@ -9,6 +9,7 @@ export class ContentHeaderComponent implements OnInit {
 
   @Input() icon = "cubes"
   @Input() title = "Page"
+  @Input() subtitle = null
   @Input() details: any[] = []
   @Input() settingsMenu: any[] = []
 
