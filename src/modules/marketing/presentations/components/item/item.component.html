@@ -53,8 +53,7 @@
             <app-empty-panel class="m-0" *ngIf="!presentation.pages.length" message="No pages were found"></app-empty-panel>
 
             <div class="list-group list-group-flush" style="height: 230px;overflow-y:scroll" *ngIf="presentation.pages.length">
-              <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item p-2"
-                *ngFor="let page of presentation.pages; let i = index;">
+              <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item p-2" *ngFor="let page of presentation.pages; let i = index;">
                 {{page.title}}
                 <small class="pull-right">#{{i+1}}</small>
               </a>
@@ -64,38 +63,39 @@
 
         <div class="col-md-8">
 
-          <app-empty-panel *ngIf="!presentation.pages.length" message="No pages were found"></app-empty-panel>
+          <div class="card">
+            <app-empty-panel *ngIf="!presentation.pages.length" message="No pages were found"></app-empty-panel>
 
-          <div *ngIf="presentation.pages">
-            <div class="card" *ngIf="presentation.pages[activePageIndex]">
-              <div class="card-header">
-                {{presentation.pages[activePageIndex].title}}
-                <small class="text-secondary">#{{activePageIndex+1}}</small>
-                <div class="card-header-buttons">
-                  <div ngbDropdown placement="bottom-right" class="d-inline-block">
-                    <button class="btn btn-link text-secondary dropdown-toggle-hidden" ngbDropdownToggle>
-                      <span class="fa fa-bars"></span>
-                    </button>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                      <button class="dropdown-item text-danger" (click)="deletePage(activePageIndex)">
-                        <span class="fa fa-trash-o"></span> Delete
+            <div *ngIf="presentation.pages">
+              <div *ngIf="presentation.pages[activePageIndex]">
+                <div class="card-header">
+                  {{presentation.pages[activePageIndex].title}}
+                  <small class="text-secondary">#{{activePageIndex+1}}</small>
+                  <div class="card-header-buttons">
+                    <div ngbDropdown placement="bottom-right" class="d-inline-block">
+                      <button class="btn btn-link text-secondary dropdown-toggle-hidden" ngbDropdownToggle>
+                        <span class="fa fa-bars"></span>
                       </button>
+                      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        <button class="dropdown-item text-danger" (click)="deletePage(activePageIndex)">
+                          <span class="fa fa-trash-o"></span> Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div *ngIf="presentation.pages[activePageIndex].type=='BGIMG' && imageData">
-                <img class="img-fluid" [src]="imageData">
-              </div>
-              <div class="card-body" *ngIf="presentation.pages[activePageIndex].description">
-                {{presentation.pages[activePageIndex].description}}
+                <div *ngIf="presentation.pages[activePageIndex].type=='BGIMG' && imageData">
+                  <img class="img-fluid" [src]="imageData">
+                </div>
+                <div class="card-body" *ngIf="presentation.pages[activePageIndex].description">
+                  {{presentation.pages[activePageIndex].description}}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <app-debug-panel [data]="presentation"></app-debug-panel>
+        <app-debug-panel [data]="presentation"></app-debug-panel>
+      </div>
     </div>
   </div>
-</div>
