@@ -7,9 +7,21 @@
   padding: 4rem;
   .fa {
     font-size: 4rem;
+    padding: 2rem 2rem 1.5rem;
+    border-radius: 3rem;
+    margin-bottom: 1rem;
+    color: #FFF;
+    background: #444;
   }
-  p {
+  .message {
     font-size: 2rem;
+    font-weight: 300;
+    padding: 0;
+    margin: 0;
+  }
+  .submessage {
+    font-size: 1.5rem;
+    font-weight: 300;
     padding: 0;
   }
   &.sm {}

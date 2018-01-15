@@ -9,7 +9,7 @@
         </div>
       </div>
 
-      <app-empty-panel *ngIf="!presentations.length && !loading" message="There are no presentations yet"></app-empty-panel>
+      <app-empty-panel *ngIf="!presentations.length && !loading" message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty-panel>
 
       <table *ngIf="presentations.length" class="table table-hover">
         <tbody>
