@@ -67,19 +67,22 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.sub = presentations$
       .subscribe(async presentations => {
 
-        await this.loadPresentationsImage(presentations)
-
-        const _presentations = _.chain(presentations)
-          .map((presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument & any) => {
-            presentation._docVersion =
-              `${presentation.get("_rev").split("-")[0]} / ${moment(presentation.dateUpdated).fromNow()}`
-            return presentation
+        if (presentations.length) {
+          await this.loadPresentationsImage(presentations)
+          const _presentations = _.chain(presentations)
+            .map((presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument & any) => {
+              presentation._docVersion =
+                `${presentation.get("_rev").split("-")[0]} / ${moment(presentation.dateUpdated).fromNow()}`
+              return presentation
+            })
+            .sortBy("dateCreated")
+            .reverse()
+            .value()
+          this.zone.run(() => {
+            this.presentations = _presentations
           })
-          .sortBy("dateCreated")
-          .reverse()
-          .value()
+        }
         this.zone.run(() => {
-          this.presentations = _presentations
           this.loading = false
         })
       })
