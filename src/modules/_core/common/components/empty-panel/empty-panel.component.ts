@@ -1,5 +1,3 @@
-
-
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -9,11 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class EmptyPanelComponent implements OnInit {
 
-  @Input()
-  message = "Nothing where found"
+  @Input() message = "Nothing where found"
 
-  @Input()
-  icon = "folder-open-o"
+  @Input() icon = "folder-open-o"
 
   constructor() { }
 

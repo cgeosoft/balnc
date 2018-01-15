@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
+import { CommonModule } from '../../_core/common/common.module';
 import { SettingsComponent } from './settings.component'
 
 const appRoutes: Routes = [

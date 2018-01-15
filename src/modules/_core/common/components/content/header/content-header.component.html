@@ -4,11 +4,16 @@
   </div>
   <div class="content-header-body">
     <h1>{{title}}</h1>
-    <ul class="list-inline" *ngIf="details.length">
-      <li *ngFor="let item of details" class="list-inline-item">
-        {{item.label}}:
-        <strong>{{item.value}}</strong>
+    <ul class="list-inline">
+      <li class="list-inline-item" *ngIf="subtitle">
+        {{subtitle}}
       </li>
+      <ng-template ngFor let-item [ngForOf]="details" *ngIf="details.length">
+        <li class="list-inline-item">
+          {{item.label}}:
+          <strong>{{item.value}}</strong>
+        </li>
+      </ng-template>
     </ul>
   </div>
   <div class="content-header-menu" *ngIf="settingsMenu.length>0">
