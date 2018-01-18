@@ -1,6 +1,8 @@
 <app-content>
   <app-content-header title="Presentations" icon="desktop"></app-content-header>
+
   <app-content-body>
+
     <div class="btn-toolbar mb-4">
       <div class="btn-group mr-2">
         <button type="button" class="btn btn-primary" (click)="create()">
@@ -9,16 +11,15 @@
     </div>
 
     <div *ngIf="presentations$ | async as presentations; else loading">
-      <ng-container *ngIf="presentations.length; else noItems">
+      <div *ngIf="presentations.length; else noItems">
         <table class="table table-hover">
           <tbody>
             <tr *ngFor="let presentation of presentations">
               <td style="width:150px">
-                <div *ngIf="presentation.pages.length">
-                  <!-- <img class="img-thumbnail mr-3" [src]="getImage(presentation) | async"> -->
-                </div>
-                <div class="img-empty" *ngIf="presentation.pages.length === 0">
-                  <span class="fa fa-picture-o"></span>
+                <div *ngIf="presentationImages[presentation._id] | async as image; else loading2">
+                  <div *ngIf="image; else noItems">
+                    <img class="img-thumbnail mr-3" [src]="image">
+                  </div>
                 </div>
               </td>
               <td class="flex-column align-items-start mb-auto">
@@ -37,19 +38,25 @@
           </tbody>
         </table>
         <app-debug-panel [data]="presentations"></app-debug-panel>
-      </ng-container>
-      <ng-template #noItems>
-        <app-empty-panel message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty-panel>
-      </ng-template>
+      </div>
     </div>
+    <ng-template #noItems>
+      <app-empty-panel message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty-panel>
+    </ng-template>
     <ng-template #loading>
       <div class="text-center m-4 p-4">
         <span class="fa fa-refresh fa-spin fa-5x text-secondary"></span>
       </div>
     </ng-template>
-    <!-- <app-empty-panel #empty message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty-panel>
-    </div>
-    <app-empty-panel #loading message="loading..." icon="refresh fa-spin"></app-empty-panel> -->
-
+    <ng-template #loading2>
+      <div class="text-center m-2 p-2">
+        <span class="fa fa-refresh fa-spin fa-3x text-secondary"></span>
+      </div>
+    </ng-template>
+    <ng-template #noImg>
+      <div class="img-empty">
+        <span class="fa fa-picture-o"></span>
+      </div>
+    </ng-template>
   </app-content-body>
 </app-content>

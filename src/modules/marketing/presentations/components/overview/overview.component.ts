@@ -1,8 +1,8 @@
 import { Component, NgZone, OnInit, OnDestroy } from '@angular/core'
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 
-import * as _ from "lodash"
-import * as moment from "moment"
+import * as _ from 'lodash'
+import * as moment from 'moment'
 
 import { DatabaseService } from '../../../../_core/database/database.service'
 import { RxPresentationDocument } from '../../data/presentation'
@@ -11,6 +11,7 @@ import { CreateComponent } from "../create/create.component"
 import { UploadComponent } from "../upload/upload.component"
 import { RxCollection, RxDocumentBase } from 'rxdb'
 import { Observable } from 'rxjs/Observable'
+import { setTimeout } from 'core-js/library/web/timers';
 
 @Component({
   selector: 'app-presentations-overview',
@@ -20,17 +21,32 @@ import { Observable } from 'rxjs/Observable'
 export class OverviewComponent implements OnInit {
 
   db: RxCollection<RxPresentationDocument>
-  presentations$: Observable<(RxDocumentBase<RxPresentationDocument> & RxPresentationDocument)[]>
+  presentations$: Observable<any>
+  presentationImages: any = {}
 
   constructor(
     private dbService: DatabaseService,
     private zone: NgZone,
-    private modal: NgbModal,
+    private modal: NgbModal
   ) { }
 
-  async ngOnInit() {
+  ngOnInit() {
+    this.setup()
+  }
+
+  async setup() {
     this.db = await this.dbService.get<RxPresentationDocument>("presentation")
+
+    console.log("presentations loading")
+
     this.presentations$ = this.db.find().$
+    this.presentations$.subscribe((presentations) => {
+      console.log("presentations loaded")
+      for (const presentation of presentations) {
+        this.presentationImages[presentation.get("_id")] = this.getImage(presentation)
+      }
+      this.zone.run(() => { });
+    })
   }
 
   create() {
@@ -46,22 +62,32 @@ export class OverviewComponent implements OnInit {
           pages: []
         })
         presentation.save()
+        this.zone.run(() => { })
       }, (reject) => {
         console.log("dismissed", reject)
       })
   }
 
   async getImage(presentation): Promise<any> {
+    if (presentation.pages.length === 0) {
+      this.zone.run(() => { })
+      return Promise.resolve(false)
+    }
     const contentImage = presentation.pages[0].params.image
+    // console.log("contentImage", contentImage)
     const attachment = await presentation.getAttachment(contentImage)
+    // console.log("attachment", attachment)
     const blobBuffer = await attachment.getData()
+    // console.log("blobBuffer", blobBuffer)
     return new Promise((resolve, reject) => {
       try {
         const reader = new FileReader()
         reader.onload = () => {
-          console.log("onloaded")
+          console.log("loaded")
           const base64 = reader.result.split(',')[1]
-          resolve('data:' + attachment.type + 'base64,' + base64)
+          const src = 'data:' + attachment.type + ';base64,' + base64
+          resolve(src)
+          this.zone.run(() => { })
         }
         reader.readAsDataURL(blobBuffer)
       } catch (err) {
@@ -71,7 +97,7 @@ export class OverviewComponent implements OnInit {
   }
 
   getVersion(presentation) {
-    return presentation.get("_rev").split("-")[0]
+    return "-"//presentation.get("_rev").split("-")[0]
   }
 
   getLastEdit(presentation) {

@@ -15,7 +15,7 @@ import { PresentationSchema } from './data/presentation';
 const entities: Entity[] = [{
   name: 'presentation',
   schema: PresentationSchema,
-  sync: true,
+  sync: false,
 }]
 
 const routes: Routes = [{
