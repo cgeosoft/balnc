@@ -7,7 +7,7 @@
 <div class="modal-body">
   <div class="form-group form-control-lg">
     <label>Title</label>
-    <input type="text" class="form-control" placeholder="Presentation title" [(ngModel)]="presentationTitle">
+    <input type="text" class="form-control" placeholder="Presentation title" (keyup.enter)="submit()" [(ngModel)]="presentationTitle">
   </div>
 </div>
 <div class="modal-footer">

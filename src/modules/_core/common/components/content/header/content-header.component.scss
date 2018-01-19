@@ -4,6 +4,7 @@
   background: #fafafa;
   display: flex;
   justify-content: flex-start;
+  border-bottom: solid 1px #DDD;
   .container {
     display: flex;
     justify-content: flex-start;
@@ -11,7 +12,7 @@
   }
   .content-header-icon {
     color: lighten(#333, 10);
-    border-right: solid 1px #CCC;
+    border-right: solid 1px #DDD;
     padding: 0 .75rem;
     margin-right: 1rem;
     font-size: 1.6rem;

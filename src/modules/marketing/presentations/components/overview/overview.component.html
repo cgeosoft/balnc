@@ -1,40 +1,60 @@
-<div class="content d-flex flex-column justify-content-start">
-  <app-content-header [title]="'Presentations'" [icon]="'desktop'"></app-content-header>
-  <div class="content-body">
-    <div class="container">
-      <div class="btn-toolbar mb-4">
-        <div class="btn-group mr-2">
-          <button type="button" class="btn btn-primary" (click)="create()">
-            <span class="fa fa-plus-circle fa-fw"></span> Create</button>
-        </div>
+<app-content>
+  <app-content-header title="Presentations" icon="desktop"></app-content-header>
+
+  <app-content-body>
+
+    <div class="btn-toolbar mb-4">
+      <div class="btn-group mr-2">
+        <button type="button" class="btn btn-primary" (click)="create()">
+          <span class="fa fa-plus-circle fa-fw"></span> Create</button>
       </div>
-
-      <app-empty-panel *ngIf="!presentations.length && !loading" message="There are no presentations yet"></app-empty-panel>
-
-      <table *ngIf="presentations.length" class="table table-hover">
-        <tbody>
-          <tr *ngFor="let presentation of presentations">
-            <td style="width:150px">
-              <img class="img-thumbnail mr-3" [src]="presentation._image">
-            </td>
-            <td class="flex-column align-items-start mb-auto">
-              <h5 class="mb-0">{{presentation.title}}</h5>
-              <div class="text-secondary">
-                <small>{{presentation.dateCreated | date:'medium'}} - Version: {{presentation._docVersion}}</small>
-              </div>
-              <div *ngIf="presentation.description">
-                <hr class="mt-1 mb-2">
-                <p class="text-muted">{{presentation.description | ellipsis:250}}</p>
-              </div>
-            </td>
-            <td class="text-center" style="width:100px">
-              <a [routerLink]="['/presentations/item',presentation._id]" class="btn btn-outline-primary">Open</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <app-debug-panel [data]="presentations"></app-debug-panel>
     </div>
-  </div>
-</div>
+
+    <ng-container *ngIf="presentations$ | async as presentations; else loading">
+      <ng-container *ngIf="presentations.length; else noItems">
+        <table class="table table-hover">
+          <tbody>
+            <tr *ngFor="let presentation of presentations">
+              <td style="width:150px">
+                <ng-container *ngIf="presentationImages[presentation._id] | async as image; else noImg">
+                  <img class="img-thumbnail mr-3" [src]="image">
+                </ng-container>
+              </td>
+              <td class="flex-column align-items-start mb-auto">
+                <h5 class="mb-0">{{presentation.title}}
+                  <small class="text-secondary">edit {{getLastEdit(presentation)}}</small>
+                </h5>
+                <div *ngIf="presentation.description">
+                  <hr class="mt-1 mb-2">
+                  <p class="text-muted">{{presentation.description | ellipsis:250}}</p>
+                </div>
+              </td>
+              <td class="text-center" style="width:100px">
+                <a [routerLink]="['/presentations/item',presentation._id]" class="btn btn-outline-primary">Open</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <app-debug-panel [data]="presentations"></app-debug-panel>
+      </ng-container>
+    </ng-container>
+    <ng-template #noItems>
+      <app-empty-panel message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty-panel>
+    </ng-template>
+    <ng-template #loading>
+      <div class="text-center m-4 p-4">
+        <span class="fa fa-refresh fa-spin fa-5x text-secondary"></span>
+      </div>
+    </ng-template>
+    <ng-template #loading2>
+      <div class="text-center m-2 p-2">
+        <span class="fa fa-refresh fa-spin fa-3x text-secondary"></span>
+      </div>
+    </ng-template>
+    <ng-template #noImg>
+      <div class="img-empty">
+        <span class="fa fa-picture-o"></span>
+      </div>
+    </ng-template>
+  </app-content-body>
+</app-content>

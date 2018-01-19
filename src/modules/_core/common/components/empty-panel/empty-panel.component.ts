@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class EmptyPanelComponent implements OnInit {
 
   @Input() message = "Nothing where found"
-
+  @Input() submessage = null
   @Input() icon = "folder-open-o"
 
   constructor() { }
