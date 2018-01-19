@@ -10,17 +10,15 @@
       </div>
     </div>
 
-    <div *ngIf="presentations$ | async as presentations; else loading">
-      <div *ngIf="presentations.length; else noItems">
+    <ng-container *ngIf="presentations$ | async as presentations; else loading">
+      <ng-container *ngIf="presentations.length; else noItems">
         <table class="table table-hover">
           <tbody>
             <tr *ngFor="let presentation of presentations">
               <td style="width:150px">
-                <div *ngIf="presentationImages[presentation._id] | async as image; else loading2">
-                  <div *ngIf="image; else noItems">
-                    <img class="img-thumbnail mr-3" [src]="image">
-                  </div>
-                </div>
+                <ng-container *ngIf="presentationImages[presentation._id] | async as image; else noImg">
+                  <img class="img-thumbnail mr-3" [src]="image">
+                </ng-container>
               </td>
               <td class="flex-column align-items-start mb-auto">
                 <h5 class="mb-0">{{presentation.title}}
@@ -38,8 +36,8 @@
           </tbody>
         </table>
         <app-debug-panel [data]="presentations"></app-debug-panel>
-      </div>
-    </div>
+      </ng-container>
+    </ng-container>
     <ng-template #noItems>
       <app-empty-panel message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty-panel>
     </ng-template>

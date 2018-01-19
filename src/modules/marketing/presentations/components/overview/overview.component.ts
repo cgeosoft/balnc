@@ -39,7 +39,13 @@ export class OverviewComponent implements OnInit {
 
     console.log("presentations loading")
 
-    this.presentations$ = this.db.find().$
+    this.presentations$ = this.db.find().$.map((data) => {
+      if (!data) { return data }
+      data.sort((a, b) => {
+        return a.title < b.title ? -1 : 1;
+      });
+      return data;
+    });
     this.presentations$.subscribe((presentations) => {
       console.log("presentations loaded")
       for (const presentation of presentations) {
@@ -69,18 +75,17 @@ export class OverviewComponent implements OnInit {
   }
 
   async getImage(presentation): Promise<any> {
-    if (presentation.pages.length === 0) {
-      this.zone.run(() => { })
-      return Promise.resolve(false)
-    }
-    const contentImage = presentation.pages[0].params.image
-    // console.log("contentImage", contentImage)
-    const attachment = await presentation.getAttachment(contentImage)
-    // console.log("attachment", attachment)
-    const blobBuffer = await attachment.getData()
-    // console.log("blobBuffer", blobBuffer)
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+      if (presentation.pages.length === 0) {
+        resolve(null)
+        this.zone.run(() => { })
+        console.log("not found")
+        return
+      }
       try {
+        const contentImage = presentation.pages[0].params.image
+        const attachment = await presentation.getAttachment(contentImage)
+        const blobBuffer = await attachment.getData()
         const reader = new FileReader()
         reader.onload = () => {
           console.log("loaded")
@@ -97,7 +102,7 @@ export class OverviewComponent implements OnInit {
   }
 
   getVersion(presentation) {
-    return "-"//presentation.get("_rev").split("-")[0]
+    return presentation.get("_rev").split("-")[0]
   }
 
   getLastEdit(presentation) {
