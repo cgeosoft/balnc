@@ -31,7 +31,7 @@
                   </li>
                   <li>Total
                     <strong>{{statistics.totalFilesCount}}</strong> files of
-                    <strong>{{statistics.totalFilesBytesize}}</strong> bytes size
+                    <strong>{{statistics.totalFilesBytesize | bytes:0}}</strong> size
                   </li>
                 </ul>
               </dd>
@@ -94,7 +94,7 @@
         </div>
       </div>
 
-      <app-debug-panel [data]="presentation"></app-debug-panel>
     </div>
+    <app-debug-panel [data]="presentation"></app-debug-panel>
   </app-content-body>
 </div>
