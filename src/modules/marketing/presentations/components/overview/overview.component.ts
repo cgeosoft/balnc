@@ -23,6 +23,7 @@ export class OverviewComponent implements OnInit {
   db: RxCollection<RxPresentationDocument>
   presentations$: Observable<any>
   presentationImages: any = {}
+  presentationFilesize: any = {}
 
   constructor(
     private dbService: DatabaseService,
@@ -49,7 +50,9 @@ export class OverviewComponent implements OnInit {
     this.presentations$.subscribe((presentations) => {
       console.log("presentations loaded")
       for (const presentation of presentations) {
-        this.presentationImages[presentation.get("_id")] = this.getImage(presentation)
+        const _id = presentation.get("_id")
+        this.presentationImages[_id] = this.getImage(presentation)
+        this.presentationFilesize[_id] = this.getFilesize(presentation)
       }
       this.zone.run(() => { });
     })
@@ -74,7 +77,7 @@ export class OverviewComponent implements OnInit {
       })
   }
 
-  async getImage(presentation): Promise<any> {
+  async getImage(presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument): Promise<any> {
     return new Promise(async (resolve, reject) => {
       if (presentation.pages.length === 0) {
         resolve(null)
@@ -101,12 +104,20 @@ export class OverviewComponent implements OnInit {
     })
   }
 
-  getVersion(presentation) {
+  getVersion(presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument) {
     return presentation.get("_rev").split("-")[0]
   }
 
-  getLastEdit(presentation) {
+  getLastEdit(presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument) {
     return moment(presentation.dateUpdated).fromNow()
+  }
+
+  async getFilesize(presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument) {
+    const attachments = await presentation.allAttachments()
+    const size = attachments.reduce((t, i) => {
+      return t + i.length
+    }, 0)
+    return size
   }
 
 }

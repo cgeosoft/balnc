@@ -12,21 +12,40 @@
 
     <ng-container *ngIf="presentations$ | async as presentations; else loading">
       <ng-container *ngIf="presentations.length; else noItems">
-        <table class="table table-hover">
+
+        <table class="table table-double">
+          <thead>
+            <tr>
+              <th>Presentation</th>
+              <th>Size</th>
+              <th>Last Edit</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
           <tbody>
             <tr *ngFor="let presentation of presentations">
-              <td style="width:150px">
-                <ng-container *ngIf="presentationImages[presentation._id] | async as image; else noImg">
-                  <img class="img-thumbnail mr-3" [src]="image">
+              <td>
+                <div class="d-flex flex-row align-items-start">
+                  <div class="presentation-thumbnail">
+                    <ng-container *ngIf="presentationImages[presentation._id] | async as image; else noImg">
+                      <img class="img-fluid" [src]="image">
+                    </ng-container>
+                  </div>
+                  <div class="d-flex flex-column align-items-start">
+                    <strong class="mb-0">{{presentation.title || '[Without title]'}}</strong>
+                    <small class="text-muted">{{presentation.description || '[Without title]' | ellipsis:250}}</small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <ng-container *ngIf="presentationFilesize[presentation._id] | async as filesize; else noPages">
+                  {{filesize | bytes:0}}
                 </ng-container>
               </td>
-              <td class="flex-column align-items-start mb-auto">
-                <h5 class="mb-0">{{presentation.title}}
-                  <small class="text-secondary">edit {{getLastEdit(presentation)}}</small>
-                </h5>
-                <div *ngIf="presentation.description">
-                  <hr class="mt-1 mb-2">
-                  <p class="text-muted">{{presentation.description | ellipsis:250}}</p>
+              <td>
+                <div class="d-flex flex-column align-items-start">
+                  <span>{{getLastEdit(presentation)}}</span>
+                  <small class="text-muted">{{presentation.dateUpdated | date:'medium'}}</small>
                 </div>
               </td>
               <td class="text-center" style="width:100px">
@@ -35,6 +54,7 @@
             </tr>
           </tbody>
         </table>
+
         <app-debug-panel [data]="presentations"></app-debug-panel>
       </ng-container>
     </ng-container>
@@ -55,6 +75,9 @@
       <div class="img-empty">
         <span class="fa fa-picture-o"></span>
       </div>
+    </ng-template>
+    <ng-template #noPages>
+      -
     </ng-template>
   </app-content-body>
 </app-content>
