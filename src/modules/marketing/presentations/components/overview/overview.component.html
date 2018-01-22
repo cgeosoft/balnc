@@ -10,10 +10,10 @@
       </div>
     </div>
 
-    <ng-container *ngIf="presentations$ | async as presentations; else loading">
+    <ng-container *ngIf="presentations$ | async as presentations; else loader">
       <ng-container *ngIf="presentations.length; else noItems">
 
-        <table class="table table-double">
+        <table class="table table-max">
           <thead>
             <tr>
               <th>Presentation</th>
@@ -32,7 +32,7 @@
                     </ng-container>
                   </div>
                   <div class="d-flex flex-column align-items-start">
-                    <strong class="mb-0">{{presentation.title || '[Without title]'}}</strong>
+                    <strong>{{presentation.title || '[Without title]'}}</strong>
                     <small class="text-muted">{{presentation.description || '[Without title]' | ellipsis:250}}</small>
                   </div>
                 </div>
@@ -49,7 +49,7 @@
                 </div>
               </td>
               <td class="text-center" style="width:100px">
-                <a [routerLink]="['/presentations/item',presentation._id]" class="btn btn-outline-primary">Open</a>
+                <a [routerLink]="['/presentations/item',presentation._id]" class="btn btn-sm btn-outline-primary">Open</a>
               </td>
             </tr>
           </tbody>
@@ -61,15 +61,8 @@
     <ng-template #noItems>
       <app-empty-panel message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty-panel>
     </ng-template>
-    <ng-template #loading>
-      <div class="text-center m-4 p-4">
-        <span class="fa fa-refresh fa-spin fa-5x text-secondary"></span>
-      </div>
-    </ng-template>
-    <ng-template #loading2>
-      <div class="text-center m-2 p-2">
-        <span class="fa fa-refresh fa-spin fa-3x text-secondary"></span>
-      </div>
+    <ng-template #loader>
+      <app-loader></app-loader>
     </ng-template>
     <ng-template #noImg>
       <div class="img-empty">

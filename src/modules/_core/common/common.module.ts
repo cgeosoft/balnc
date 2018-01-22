@@ -11,6 +11,7 @@ import { ContentHeaderComponent } from './components/content/header/content-head
 import { ContentBodyComponent } from './components/content/body/content-body.component'
 import { EmptyPanelComponent } from './components/empty-panel/empty-panel.component'
 import { DebugPanelComponent } from './components/debug-panel/debug-panel.component'
+import { LoaderComponent } from './components/loader/loader.component'
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { DebugPanelComponent } from './components/debug-panel/debug-panel.compon
     ContentHeaderComponent,
     ContentBodyComponent,
     EmptyPanelComponent,
-    DebugPanelComponent
+    DebugPanelComponent,
+    LoaderComponent,
   ],
   providers: [],
   exports: [
@@ -37,6 +39,7 @@ import { DebugPanelComponent } from './components/debug-panel/debug-panel.compon
     ContentBodyComponent,
     EmptyPanelComponent,
     DebugPanelComponent,
+    LoaderComponent,
     NgPipesModule,
   ]
 })
