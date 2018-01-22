@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router'
 import { NgPipesModule } from 'ngx-pipes';
 
 import { MainComponent } from './components/main/main.component'
+import { SidebarComponent } from './components/sidebar/sidebar.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 import { ContentComponent } from './components/content/content/content.component'
 import { ContentHeaderComponent } from './components/content/header/content-header.component'
@@ -22,6 +23,7 @@ import { LoaderComponent } from './components/loader/loader.component'
   ],
   declarations: [
     MainComponent,
+    SidebarComponent,
     PageNotFoundComponent,
     ContentComponent,
     ContentHeaderComponent,
@@ -34,6 +36,7 @@ import { LoaderComponent } from './components/loader/loader.component'
   exports: [
     ngCommonModule,
     NgbModule,
+    SidebarComponent,
     ContentComponent,
     ContentHeaderComponent,
     ContentBodyComponent,

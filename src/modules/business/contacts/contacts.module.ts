@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
@@ -8,6 +7,7 @@ import { Entity } from '../../_core/database/models/entity';
 import { ContactItemComponent, ContactsOverviewComponent } from './components'
 
 import { ContactSchema } from './data/contact';
+import { CommonModule } from '../../_core/common/common.module';
 
 const entities: Entity[] = [{
   name: 'contact',

@@ -1,4 +1,4 @@
-<div class="sidebar sidebar-menu d-flex flex-column justify-content-start">
+<app-sidebar>
   <input class="form-control form-control-search" type="text" placeholder="search contacts...">
   <div class="">
     <ul class="list-menu dark">
@@ -52,142 +52,122 @@
       </li>
     </ul>
   </div>
-</div>
-
-<div class="content d-flex flex-column justify-content-start">
-  <div class="content-header">
-    <div class="container">
-      <div class="content-header-icon">
-        <span class="fa fa-files-o"></span>
-      </div>
-      <div class="content-header-body">
-        <h1>Contacts Overview</h1>
-        <ul class="list-inline">
-          <li class="list-inline-item">Total:
-            <strong>50</strong>
-          </li>
-          <li class="list-inline-item">Latest:
-            <strong>2015-05-05</strong>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="content-body">
-    <div class="container">
-      <div class="row">
-        <div class="col-7">
-          <div class="card mb-4">
-            <div class="card-body">
-              <h4 class="card-title">Activity</h4>
-              <img class="card-img-top" src="https://alesandrab.files.wordpress.com/2013/04/seasonal-chart.png" alt="Card image cap" style="height: 230px;">
-              <div class="row mt-4">
-                <div class="col">
-                  <span>lorem</span>
-                  <p class="lead">15.440</p>
-                </div>
-                <div class="col">
-                  <span>ispum</span>
-                  <p class="lead">15.440</p>
-                </div>
-                <div class="col">
-                  <span>dolor</span>
-                  <p class="lead">15.440</p>
-                </div>
-                <div class="col">
-                  <span>amet</span>
-                  <p class="lead">15.440</p>
-                </div>
+</app-sidebar>
+<app-content>
+  <app-content-header title="Contacts" icon="users"></app-content-header>
+  <app-content-body>
+    <div class="row">
+      <div class="col-7">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="card-title">Activity</h4>
+            <img class="card-img-top" src="https://alesandrab.files.wordpress.com/2013/04/seasonal-chart.png" alt="Card image cap" style="height: 230px;">
+            <div class="row mt-4">
+              <div class="col">
+                <span>lorem</span>
+                <p class="lead">15.440</p>
+              </div>
+              <div class="col">
+                <span>ispum</span>
+                <p class="lead">15.440</p>
+              </div>
+              <div class="col">
+                <span>dolor</span>
+                <p class="lead">15.440</p>
+              </div>
+              <div class="col">
+                <span>amet</span>
+                <p class="lead">15.440</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-5">
-          <div class="card bg-primary text-white mb-4" style="height: 400px;">
-            <div class="card-body">
-              <h4 class="card-title">Pending</h4>
-              <ul class="list-menu">
-                <li>
-                  <a routerLink="/contacts/preview" class="media">
-                    <span class="media-body">Google - Extra services
-                      <small>#446841 - 2017-06-23</small>
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="/contacts/preview" class="media">
-                    <span class="media-body">Microsoft - Subscription
-                      <small>#446841 - 2017-06-15</small>
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="/contacts/preview" class="media">
-                    <span class="media-body">Apple - Product development
-                      <small>#446841 - 2017-05-28</small>
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="/contacts/preview" class="media">
-                    <span class="media-body">Google - Extra services
-                      <small>#446841 - 2017-06-23</small>
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="/contacts/preview" class="media">
-                    <span class="media-body">Microsoft - Subscription
-                      <small>#446841 - 2017-06-15</small>
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a routerLink="/contacts/preview" class="media">
-                    <span class="media-body">Apple - Product development
-                      <small>#446841 - 2017-05-28</small>
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <div class="card mb-4">
-            <div class="card-body">
-              <h4 class="card-title">Statuses</h4>
-              <img class="card-img-top" src="http://www.excel-easy.com/data-analysis/images/charts/column-chart.png" alt="Card image cap"
-                style="height:250px">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mb-4">
-            <div class="card-body">
-              <h4 class="card-title">Revenue</h4>
-              <img class="card-img-top" src="http://www.serif.com/appresources/PPX7/Tutorials/en-gb/graphics/tutorials/charts_line_updated.jpg"
-                alt="Card image cap" style="height:250px">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card mb-4">
-            <div class="card-body">
-              <h4 class="card-title">Targets</h4>
-              <img class="card-img-top" src="https://i.stack.imgur.com/qNiO7.png" alt="Card image cap" style="height:250px">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-              </p>
-            </div>
+      <div class="col-5">
+        <div class="card bg-primary text-white mb-4" style="height: 400px;">
+          <div class="card-body">
+            <h4 class="card-title">Pending</h4>
+            <ul class="list-menu">
+              <li>
+                <a routerLink="/contacts/preview" class="media">
+                  <span class="media-body">Google - Extra services
+                    <small>#446841 - 2017-06-23</small>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/contacts/preview" class="media">
+                  <span class="media-body">Microsoft - Subscription
+                    <small>#446841 - 2017-06-15</small>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/contacts/preview" class="media">
+                  <span class="media-body">Apple - Product development
+                    <small>#446841 - 2017-05-28</small>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/contacts/preview" class="media">
+                  <span class="media-body">Google - Extra services
+                    <small>#446841 - 2017-06-23</small>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/contacts/preview" class="media">
+                  <span class="media-body">Microsoft - Subscription
+                    <small>#446841 - 2017-06-15</small>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/contacts/preview" class="media">
+                  <span class="media-body">Apple - Product development
+                    <small>#446841 - 2017-05-28</small>
+                  </span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+    <div class="row">
+      <div class="col">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="card-title">Statuses</h4>
+            <img class="card-img-top" src="http://www.excel-easy.com/data-analysis/images/charts/column-chart.png" alt="Card image cap"
+              style="height:250px">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="card-title">Revenue</h4>
+            <img class="card-img-top" src="http://www.serif.com/appresources/PPX7/Tutorials/en-gb/graphics/tutorials/charts_line_updated.jpg"
+              alt="Card image cap" style="height:250px">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h4 class="card-title">Targets</h4>
+            <img class="card-img-top" src="https://i.stack.imgur.com/qNiO7.png" alt="Card image cap" style="height:250px">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-content-body>
+</app-content>
