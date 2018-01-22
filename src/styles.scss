@@ -24,3 +24,12 @@ $color-second: #00AA72;
     display: none
   }
 }
+
+.table {
+  &.table-max {
+    td,
+    th {
+      vertical-align: middle !important;
+    }
+  }
+}

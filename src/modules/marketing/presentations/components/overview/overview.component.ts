@@ -12,6 +12,7 @@ import { UploadComponent } from "../upload/upload.component"
 import { RxCollection, RxDocumentBase } from 'rxdb'
 import { Observable } from 'rxjs/Observable'
 import { setTimeout } from 'core-js/library/web/timers';
+import { retryWhen } from 'rxjs/operator/retryWhen';
 
 @Component({
   selector: 'app-presentations-overview',
@@ -23,6 +24,7 @@ export class OverviewComponent implements OnInit {
   db: RxCollection<RxPresentationDocument>
   presentations$: Observable<any>
   presentationImages: any = {}
+  presentationFilesize: any = {}
 
   constructor(
     private dbService: DatabaseService,
@@ -32,26 +34,36 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit() {
     this.setup()
+    setTimeout(() => {
+      this.zone.run(() => { })
+    }, 500)
   }
 
   async setup() {
     this.db = await this.dbService.get<RxPresentationDocument>("presentation")
 
-    console.log("presentations loading")
+    console.log("presentations loading", this.presentations$)
 
     this.presentations$ = this.db.find().$.map((data) => {
       if (!data) { return data }
       data.sort((a, b) => {
-        return a.title < b.title ? -1 : 1;
-      });
-      return data;
-    });
+        return a.title < b.title ? -1 : 1
+      })
+      return data
+    })
     this.presentations$.subscribe((presentations) => {
-      console.log("presentations loaded")
-      for (const presentation of presentations) {
-        this.presentationImages[presentation.get("_id")] = this.getImage(presentation)
+
+      console.log("presentations loaded", presentations.length)
+      if (presentations.length === 0) {
+        this.zone.run(() => { })
+        return
       }
-      this.zone.run(() => { });
+      for (const presentation of presentations) {
+        const _id = presentation.get("_id")
+        this.presentationImages[_id] = this.getImage(presentation)
+        this.presentationFilesize[_id] = this.getFilesize(presentation)
+      }
+      this.zone.run(() => { })
     })
   }
 
@@ -68,18 +80,16 @@ export class OverviewComponent implements OnInit {
           pages: []
         })
         presentation.save()
-        this.zone.run(() => { })
       }, (reject) => {
         console.log("dismissed", reject)
       })
   }
 
-  async getImage(presentation): Promise<any> {
+  async getImage(presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument): Promise<any> {
     return new Promise(async (resolve, reject) => {
       if (presentation.pages.length === 0) {
         resolve(null)
-        this.zone.run(() => { })
-        console.log("not found")
+        console.log("Presentation image not found")
         return
       }
       try {
@@ -92,7 +102,6 @@ export class OverviewComponent implements OnInit {
           const base64 = reader.result.split(',')[1]
           const src = 'data:' + attachment.type + ';base64,' + base64
           resolve(src)
-          this.zone.run(() => { })
         }
         reader.readAsDataURL(blobBuffer)
       } catch (err) {
@@ -101,12 +110,21 @@ export class OverviewComponent implements OnInit {
     })
   }
 
-  getVersion(presentation) {
+  getVersion(presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument) {
     return presentation.get("_rev").split("-")[0]
   }
 
-  getLastEdit(presentation) {
+  getLastEdit(presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument) {
     return moment(presentation.dateUpdated).fromNow()
+  }
+
+  async getFilesize(presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument) {
+    if (!presentation.get("_attachments")) { return 0 }
+    const attachments = await presentation.allAttachments()
+    const size = attachments.reduce((t, i) => {
+      return t + i.length
+    }, 0)
+    return size
   }
 
 }
