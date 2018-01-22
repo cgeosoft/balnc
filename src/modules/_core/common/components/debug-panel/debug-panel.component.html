@@ -1,6 +1,8 @@
-<div *ngIf="show" class="card text-white bg-secondary mt-2 mb-4">
-  <div class="card-header">DEBUG</div>
-  <div class="card-body">
-    <pre class="text-white">{{data|json:2}}</pre>
+<div *ngIf="show">
+  <div class="card text-white bg-secondary mt-4 mb-4">
+    <div class="card-header">DEBUG</div>
+    <div class="card-body">
+      <pre class="text-white">{{data|json:2}}</pre>
+    </div>
   </div>
 </div>

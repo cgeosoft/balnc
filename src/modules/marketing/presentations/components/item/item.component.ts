@@ -10,8 +10,9 @@ import { RxPresentationDocument } from '../../data/presentation'
 import { UploadComponent } from "../upload/upload.component"
 import { AddPageComponent } from "../add-page/add-page.component"
 import { RxCollection, RxDocumentBase } from 'rxdb'
-import { reduce } from 'rxjs/operators/reduce';
-import { Date } from 'core-js/library/web/timers';
+import { reduce } from 'rxjs/operators/reduce'
+import { Date } from 'core-js/library/web/timers'
+import { Observable } from 'rxjs/Observable'
 
 @Component({
   selector: 'app-presentations-item',
@@ -20,6 +21,7 @@ import { Date } from 'core-js/library/web/timers';
 })
 export class ItemComponent implements OnInit, OnDestroy {
 
+  presentation$: Observable<RxDocumentBase<RxPresentationDocument> & RxPresentationDocument>
   activePageIndex: Number = 0
   imageData: string
   db: RxCollection<RxPresentationDocument>
@@ -37,7 +39,12 @@ export class ItemComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this._show()
+    this.route
+      .params
+      .subscribe(params => {
+        this.setup(params['id'])
+      })
+
     this.settingsMenu = [{
       label: "Configure",
       icon: "edit",
@@ -66,14 +73,14 @@ export class ItemComponent implements OnInit, OnDestroy {
   }
 
   deletePresentation() {
-    this.presentation.remove();
-    this.router.navigateByUrl('/presentations');
+    this.presentation.remove()
+    this.router.navigateByUrl('/presentations')
   }
 
   s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
-      .substring(1);
+      .substring(1)
   }
 
   addPage() {
@@ -156,47 +163,42 @@ export class ItemComponent implements OnInit, OnDestroy {
 
     if (!attachment) { return }
 
-    const blobBuffer = await attachment.getData();
+    const blobBuffer = await attachment.getData()
 
-    const reader = new FileReader();
+    const reader = new FileReader()
     reader.onload = () => {
-      const base64 = reader.result.split(',')[1];
+      const base64 = reader.result.split(',')[1]
       this.imageData = 'data:' + attachment.type + ';base64,' + base64
-    };
-    reader.readAsDataURL(blobBuffer);
+    }
+    reader.readAsDataURL(blobBuffer)
 
   }
 
-  private async _show() {
+  private async setup(presentationId: string) {
     this.db = await this.dbService.get<RxPresentationDocument>("presentation")
 
-    this.route
-      .params
-      .subscribe(params => {
 
-        const presentation$ = this.db.findOne(params['id']).$
-        this.sub = presentation$
-          .subscribe(presentation => {
+    this.presentation$ = this.db.findOne(presentationId).$
+    this.presentation$
+      .subscribe(presentation => {
 
-            presentation.pages = presentation.pages || []
+        this.presentation = presentation
 
-            presentation.allAttachments$
-              .subscribe((attachments) => {
-                this.statistics.totalFilesCount = attachments.length
-                this.statistics.totalFilesBytesize = attachments.reduce((t, i) => {
-                  return t + i.length
-                }, 0)
-              })
+        presentation.pages = presentation.pages || []
 
-            this.statistics.docVersion =
-              `${presentation.get("_rev").split("-")[0]} / ${moment(presentation.dateUpdated).fromNow()}`
-
-            this.zone.run(() => {
-              this.presentation = presentation
-              this.setPageIndex(0)
-            })
+        presentation.allAttachments$
+          .subscribe((attachments) => {
+            this.statistics.totalFilesCount = attachments.length
+            this.statistics.totalFilesBytesize = attachments.reduce((t, i) => {
+              return t + i.length
+            }, 0)
           })
-      })
 
+        this.statistics.docVersion =
+          `${presentation.get("_rev").split("-")[0]} / ${moment(presentation.dateUpdated).fromNow()}`
+
+        this.setPageIndex(0)
+        this.zone.run(() => { })
+      })
   }
 }

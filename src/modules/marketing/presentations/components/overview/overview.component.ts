@@ -36,7 +36,7 @@ export class OverviewComponent implements OnInit {
     this.setup()
     setTimeout(() => {
       this.zone.run(() => { })
-    }, 100)
+    }, 500)
   }
 
   async setup() {
@@ -80,7 +80,6 @@ export class OverviewComponent implements OnInit {
           pages: []
         })
         presentation.save()
-        this.zone.run(() => { })
       }, (reject) => {
         console.log("dismissed", reject)
       })
@@ -90,8 +89,7 @@ export class OverviewComponent implements OnInit {
     return new Promise(async (resolve, reject) => {
       if (presentation.pages.length === 0) {
         resolve(null)
-        this.zone.run(() => { })
-        console.log("not found")
+        console.log("Presentation image not found")
         return
       }
       try {
@@ -104,7 +102,6 @@ export class OverviewComponent implements OnInit {
           const base64 = reader.result.split(',')[1]
           const src = 'data:' + attachment.type + ';base64,' + base64
           resolve(src)
-          this.zone.run(() => { })
         }
         reader.readAsDataURL(blobBuffer)
       } catch (err) {
