@@ -28,7 +28,7 @@
                 <div class="d-flex flex-row align-items-start">
                   <div class="presentation-thumbnail">
                     <ng-container *ngIf="presentationImages[presentation._id] | async as image; else noImg">
-                      <img class="img-fluid" [src]="image">
+                      <div class="img-thumb" [ngStyle]="{'background-image': 'url('+image+')'}"></div>
                     </ng-container>
                   </div>
                   <div class="d-flex flex-column align-items-start">

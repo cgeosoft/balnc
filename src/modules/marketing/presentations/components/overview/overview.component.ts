@@ -12,6 +12,7 @@ import { UploadComponent } from "../upload/upload.component"
 import { RxCollection, RxDocumentBase } from 'rxdb'
 import { Observable } from 'rxjs/Observable'
 import { setTimeout } from 'core-js/library/web/timers';
+import { retryWhen } from 'rxjs/operator/retryWhen';
 
 @Component({
   selector: 'app-presentations-overview',
@@ -33,28 +34,36 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit() {
     this.setup()
+    setTimeout(() => {
+      this.zone.run(() => { })
+    }, 100)
   }
 
   async setup() {
     this.db = await this.dbService.get<RxPresentationDocument>("presentation")
 
-    console.log("presentations loading")
+    console.log("presentations loading", this.presentations$)
 
     this.presentations$ = this.db.find().$.map((data) => {
       if (!data) { return data }
       data.sort((a, b) => {
-        return a.title < b.title ? -1 : 1;
-      });
-      return data;
-    });
+        return a.title < b.title ? -1 : 1
+      })
+      return data
+    })
     this.presentations$.subscribe((presentations) => {
-      console.log("presentations loaded")
+
+      console.log("presentations loaded", presentations.length)
+      if (presentations.length === 0) {
+        this.zone.run(() => { })
+        return
+      }
       for (const presentation of presentations) {
         const _id = presentation.get("_id")
         this.presentationImages[_id] = this.getImage(presentation)
         this.presentationFilesize[_id] = this.getFilesize(presentation)
       }
-      this.zone.run(() => { });
+      this.zone.run(() => { })
     })
   }
 
@@ -113,6 +122,7 @@ export class OverviewComponent implements OnInit {
   }
 
   async getFilesize(presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument) {
+    if (!presentation.get("_attachments")) { return 0 }
     const attachments = await presentation.allAttachments()
     const size = attachments.reduce((t, i) => {
       return t + i.length
