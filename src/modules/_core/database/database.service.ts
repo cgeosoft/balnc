@@ -11,6 +11,7 @@ import RxDBReplicationModule from 'rxdb/plugins/replication'
 import KeycompressionPlugin from 'rxdb/plugins/key-compression'
 import AttachmentsPlugin from 'rxdb/plugins/attachments';
 import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages';
+import AdapterCheckPlugin from 'rxdb/plugins/adapter-check';
 import { RxDatabase, RxCollection } from 'rxdb'
 
 import { environment } from '../../../environments/environment'
@@ -28,11 +29,15 @@ RxDB.plugin(RxDBLeaderElectionModule)
 RxDB.plugin(RxDBReplicationModule)
 RxDB.plugin(AttachmentsPlugin);
 RxDB.plugin(RxDBErrorMessagesModule);
+RxDB.plugin(AdapterCheckPlugin);
 RxDB.plugin(require('pouchdb-adapter-http'))
 RxDB.plugin(require('pouchdb-adapter-idb'))
+RxDB.plugin(require('pouchdb-adapter-websql'))
 
 RxDB.QueryChangeDetector.enable()
 RxDB.QueryChangeDetector.enableDebugging()
+
+const levelAdapters = ["idb", "websql"]
 
 @Injectable()
 export class DatabaseService {
@@ -42,6 +47,7 @@ export class DatabaseService {
     loadedEntities: string[] = []
     loadedEntitesSubject: BehaviorSubject<Array<string>> = new BehaviorSubject([])
     hadAuthed = false
+    adapter = "localstorage"
 
     constructor(
         @Inject("APP_ENTITIES") entities: Entity[],
@@ -59,10 +65,11 @@ export class DatabaseService {
     }
 
     private async init() {
+        this.adapter = await this.getAdapter()
         DatabaseService.db = await RxDB
             .create({
                 name: "db",
-                adapter: "idb",
+                adapter: this.adapter,
             })
         this.http
             .post(`${this.configSrv.get("remoteDB")}/_session`, {
@@ -106,6 +113,19 @@ export class DatabaseService {
                     if (entity) { resolve(DatabaseService.db[name]) }
                 })
         })
+    }
+
+    private async getAdapter() {
+
+        if (await RxDB.checkAdapter('idb')) {
+            return "idb"
+        }
+        if (await RxDB.checkAdapter('websql')) {
+            return "websql"
+        }
+        // if (await RxDB.checkAdapter('localstorage')) {
+        //     return "localstorage"
+        // }
     }
 
 }
