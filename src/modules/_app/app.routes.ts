@@ -21,7 +21,10 @@ export const CORE_ROUTES: Routes = [
             loadChildren: "./../marketing/presentations/presentations.module#PresentationsModule",
         }, {
             path: 'chat',
-            loadChildren: "./../general/chat/chat.module#ChatModule"
+            loadChildren: "./../teams/chat/chat.module#ChatModule"
+        }, {
+            path: 'projects',
+            loadChildren: "./../teams/projects/projects.module#ProjectsModule"
         }, {
             path: 'settings',
             loadChildren: "./../general/settings/settings.module#SettingsModule"
