@@ -13,6 +13,7 @@ import { ContentBodyComponent } from './components/content/body/content-body.com
 import { EmptyPanelComponent } from './components/empty-panel/empty-panel.component'
 import { DebugPanelComponent } from './components/debug-panel/debug-panel.component'
 import { LoaderComponent } from './components/loader/loader.component'
+import { EllipsisPipe } from '../../../pipes/ellipsis.pipe';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { LoaderComponent } from './components/loader/loader.component'
     EmptyPanelComponent,
     DebugPanelComponent,
     LoaderComponent,
+    EllipsisPipe,
   ],
   providers: [],
   exports: [
@@ -44,6 +46,7 @@ import { LoaderComponent } from './components/loader/loader.component'
     DebugPanelComponent,
     LoaderComponent,
     NgPipesModule,
+    EllipsisPipe,
   ]
 })
 export class CommonModule { }

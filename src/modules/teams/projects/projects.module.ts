@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { CommonModule } from '../../_core/common/common.module';
 import { Entity } from '../../_core/database/models/entity';
 
-import { ProjectsComponent, TasksComponent } from './components'
+import { ProjectsComponent, TasksComponent, CreateComponent } from './components'
 
 import { ProjectSchema } from './data/project';
 import { TaskSchema } from './data/task';
@@ -26,12 +26,17 @@ const routes: Routes = [{
   path: '',
   children: [
     { path: 'overview', component: ProjectsComponent },
-    { path: 'project/:id/task', component: TasksComponent },
+    { path: ':id', component: TasksComponent },
     { path: '', redirectTo: "overview" },
   ],
 }]
 
 @NgModule({
+  declarations: [
+    ProjectsComponent,
+    TasksComponent,
+    CreateComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -39,10 +44,9 @@ const routes: Routes = [{
     DatabaseModule.forChild(entities),
     RouterModule.forChild(routes)
   ],
-  declarations: [
-    ProjectsComponent,
-    TasksComponent,
-  ],
-  providers: []
+  providers: [],
+  entryComponents: [
+    CreateComponent,
+  ]
 })
 export class ProjectsModule { }

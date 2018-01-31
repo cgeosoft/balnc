@@ -1,5 +1,6 @@
 declare interface RxProjectDocumentType {
     name: string
+    description: string
 }
 
 export type RxProjectDocument = RxProjectDocumentType
