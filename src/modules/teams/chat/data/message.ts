@@ -8,4 +8,4 @@ declare interface RxChatMessageDocumentType {
 export type RxChatMessageDocument = RxChatMessageDocumentType
 
 
-export const ChatMessageSchema = require('../../../../../schemas/general/chat/message.json')
+export const ChatMessageSchema = require('../../../../../schemas/teams/chat/message.json')

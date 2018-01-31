@@ -1,0 +1,37 @@
+<app-content>
+  <app-content-header [title]="(project$|async)?.name" subtitle="Project" icon="cube"></app-content-header>
+  <app-content-body>
+    <ng-container *ngIf="tasks$ | async as tasks; else loader">
+      <ng-container *ngIf="tasks.length; else noItems">
+        <table class="table table-max">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of tasks">
+              <td>
+                <div class="d-flex flex-column align-items-start">
+                  <strong>{{task.name || '[Without name]'}}</strong>
+                  <small class="text-muted">{{task.description || 'Without description' | ellipsis:250}}</small>
+                </div>
+              </td>
+              <td class="text-center" style="width:100px">
+                <a [routerLink]="['/tasks',task._id]" class="btn btn-sm btn-outline-primary">Open</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <app-debug-panel [data]="tasks"></app-debug-panel>
+      </ng-container>
+    </ng-container>
+    <ng-template #noItems>
+      <app-empty-panel message="You don't have any tasks yet" submessage="Click create to add your first one" icon="cube"></app-empty-panel>
+    </ng-template>
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+  </app-content-body>
+</app-content>

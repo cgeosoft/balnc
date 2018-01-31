@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router'
 
-import { EllipsisPipe } from '../../../pipes/ellipsis.pipe'
-
 import { CommonModule } from '../../_core/common/common.module';
 import { DatabaseModule } from '../../_core/database/database.module'
 
@@ -22,7 +20,7 @@ const routes: Routes = [{
   path: '',
   children: [
     { path: 'overview', component: OverviewComponent },
-    { path: 'item/:id', component: ItemComponent },
+    { path: ':id', component: ItemComponent },
     { path: '', redirectTo: "overview" },
   ]
 }]
@@ -31,12 +29,9 @@ const routes: Routes = [{
   declarations: [
     OverviewComponent,
     ItemComponent,
-
     CreateComponent,
     UploadComponent,
     AddPageComponent,
-
-    EllipsisPipe,
   ],
   imports: [
     CommonModule,
