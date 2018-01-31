@@ -1,5 +1,5 @@
 {
-  "id": "todo",
+  "id": "task",
   "type": "object",
   "version": 0,
   "properties": {

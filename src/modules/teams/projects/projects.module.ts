@@ -4,14 +4,21 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { RouterModule, Routes } from '@angular/router'
 
 import { CommonModule } from '../../_core/common/common.module';
+import { Entity } from '../../_core/database/models/entity';
 
-import {ProjectsComponent} from './components'
+import { ProjectsComponent, TasksComponent } from './components'
 
-import { TodoSchema } from './data/message';
+import { ProjectSchema } from './data/project';
+import { TaskSchema } from './data/task';
+import { DatabaseModule } from '../../_core/database/database.module';
 
 const entities: Entity[] = [{
-  name: 'todo',
-  schema: TodoSchema,
+  name: 'project',
+  schema: ProjectSchema,
+  sync: false,
+}, {
+  name: 'task',
+  schema: TaskSchema,
   sync: false,
 }]
 
@@ -19,10 +26,10 @@ const routes: Routes = [{
   path: '',
   children: [
     { path: 'overview', component: ProjectsComponent },
-    { path: 'project/:id/todo', component: ProjectsComponent },
+    { path: 'project/:id/task', component: TasksComponent },
     { path: '', redirectTo: "overview" },
-  ]}
-]
+  ],
+}]
 
 @NgModule({
   imports: [
@@ -33,7 +40,8 @@ const routes: Routes = [{
     RouterModule.forChild(routes)
   ],
   declarations: [
-    ProjectsComponent
+    ProjectsComponent,
+    TasksComponent,
   ],
   providers: []
 })
