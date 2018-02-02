@@ -14,9 +14,9 @@ import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages';
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check';
 import { RxDatabase, RxCollection } from 'rxdb'
 
-import { environment } from '../../../environments/environment'
-import { ConfigService } from "../config/config.service"
-import { Entity } from "./models/entity"
+import { environment } from '../../../../environments/environment'
+import { ConfigService } from "../../config/config.service"
+import { Entity } from "../models/entity"
 import { HttpClient } from '@angular/common/http';
 
 if (!environment.production) {

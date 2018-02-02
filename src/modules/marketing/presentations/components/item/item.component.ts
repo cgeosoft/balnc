@@ -5,7 +5,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import * as _ from "lodash"
 import * as moment from "moment"
 
-import { DatabaseService } from '../../../../_core/database/database.service'
+import { DatabaseService } from '../../../../_core/database/services/database.service'
 import { RxPresentationDocument } from '../../data/presentation'
 import { UploadComponent } from "../upload/upload.component"
 import { AddPageComponent } from "../add-page/add-page.component"
@@ -193,9 +193,6 @@ export class ItemComponent implements OnInit, OnDestroy {
               return t + i.length
             }, 0)
           })
-
-        this.statistics.docVersion =
-          `${presentation.get("_rev").split("-")[0]} / ${moment(presentation.dateUpdated).fromNow()}`
 
         this.setPageIndex(0)
         this.zone.run(() => { })

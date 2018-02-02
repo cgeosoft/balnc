@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs/Subscription'
 import { RxCollection, RxDocumentBase } from 'rxdb';
 import { RxProjectDocument } from '../../data/project';
 import { Observable } from 'rxjs/Observable';
-import { DatabaseService } from '../../../../_core/database/database.service';
+import { DatabaseService } from '../../../../_core/database/services/database.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateComponent } from '../create/create.component';
 import * as _ from 'lodash'
@@ -29,15 +29,10 @@ export class ProjectsComponent {
 
   ngOnInit() {
     this.setup()
-    setTimeout(() => {
-      this.zone.run(() => { })
-    }, 500)
   }
 
   async setup() {
     this.db = await this.dbService.get<RxProjectDocument>("project")
-
-    console.log("projects loading", this.projects$)
 
     this.projects$ = this.db.find().$.map((data) => {
       if (!data) { return data }
@@ -46,9 +41,8 @@ export class ProjectsComponent {
       })
       return data
     })
-    this.projects$.subscribe((projects) => {
 
-      console.log("projects loaded", projects.length)
+    this.projects$.subscribe((projects) => {
       if (projects.length === 0) {
         this.zone.run(() => { })
         return
@@ -73,9 +67,4 @@ export class ProjectsComponent {
         console.log("dismissed", reject)
       })
   }
-
-  getVersion(project: RxDocumentBase<RxProjectDocument> & RxProjectDocument) {
-    return project.get("_rev").split("-")[0]
-  }
-
 }

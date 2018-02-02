@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { DatabaseService } from '../../../../_core/database/database.service'
+import { DatabaseService } from '../../../../_core/database/services/database.service'
 import { RxChatMessageDocument } from '../../data/message'
 import { RxCollection } from 'rxdb'
 import { Date, setTimeout } from 'core-js/library/web/timers'

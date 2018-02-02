@@ -4,7 +4,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { DatabaseService } from '../../../../_core/database/database.service'
+import { DatabaseService } from '../../../../_core/database/services/database.service'
 import { RxPresentationDocument } from '../../data/presentation'
 
 import { CreateComponent } from "../create/create.component"
@@ -108,10 +108,6 @@ export class OverviewComponent implements OnInit {
         reject()
       }
     })
-  }
-
-  getVersion(presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument) {
-    return presentation.get("_rev").split("-")[0]
   }
 
   getLastEdit(presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument) {
