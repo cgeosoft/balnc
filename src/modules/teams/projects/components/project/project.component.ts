@@ -60,7 +60,7 @@ export class ProjectComponent {
         .map((data) => {
           if (!data) { return data }
           data.sort((a, b) => {
-            return a.title < b.title ? -1 : 1
+            return a.updatedAt > b.updatedAt ? -1 : 1
           })
           return data
         })

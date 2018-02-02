@@ -1,5 +1,5 @@
 <app-content>
-  <app-content-header [title]="(task$|async)?.title | ellipsis:70" subtitle="Task of {{(project$|async)?.name}}" icon="cube"></app-content-header>
+  <app-content-header [title]="(project$|async)?.name" subtitle="Project" icon="cube"></app-content-header>
   <app-content-body>
     <div class="btn-toolbar mb-4">
       <div class="btn-group mr-2">
@@ -7,21 +7,51 @@
           <span class="fa fa-chevron-left fa-fw"></span>
         </a>
       </div>
+      <h4>{{(task$|async)?.title | ellipsis:70}}</h4>
     </div>
-    <ng-container *ngIf="task$ | async as task; else loader">
-      <ng-container *ngIf="task.log; else noItems">
-        <table class="table table-max">
-          <tbody>
-            <tr *ngFor="let logItem of task.log">
-              <td>
-                {{logItem|json:2}}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <app-debug-panel [data]="task"></app-debug-panel>
-      </ng-container>
-    </ng-container>
+    <div class="row">
+      <div class="col-md-8">
+        <ng-container *ngIf="task$ | async as task; else loader">
+          <ng-container *ngIf="task.log; else noItems">
+            <div class="card mb-4" *ngFor="let logItem of task.log">
+              <div class="card-header">
+                {{logItem.from}} commented at {{logItem.at | amTimeAgo}}
+              </div>
+              <div class="card-body">
+                <p class="card-text">
+                  {{logItem.comment}}
+                </p>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <div class="card">
+          <div class="card-header">
+            Write Comment
+          </div>
+          <div class="card-body">
+            <textarea class="form-control" placeholder="comment" [(ngModel)]="comment"></textarea>
+            <div>
+              <button type="button" class="btn btn-success" (click)="submitComment()">submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+
+        <ng-container *ngIf="task$ | async as task; else loader">
+          <pre>{{task|json:2}}</pre>
+        </ng-container>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
     <ng-template #noItems>
       <app-empty-panel message="You don't have any tasks yet" submessage="Click create to add your first one" icon="cube"></app-empty-panel>
     </ng-template>

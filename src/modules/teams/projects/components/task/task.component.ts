@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable'
 import { DatabaseService } from '../../../../_core/database/services/database.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import { CreateTaskComponent } from '../create-task/create-task.component';
+import { CreateTaskComponent } from '../create-task/create-task.component'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 import { RxProjectDocument } from '../../data/project'
@@ -18,6 +18,8 @@ import { ActivatedRoute } from '@angular/router'
   styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent {
+  comment: string = null
+  task: RxDocumentBase<RxTaskDocument> & RxTaskDocument
 
   dbProject: RxCollection<any>
   dbTask: RxCollection<any>
@@ -25,7 +27,7 @@ export class TaskComponent {
   project$: Observable<any>
   task$: Observable<any>
 
-  project: RxProjectDocument;
+  project: RxProjectDocument
 
   constructor(
     private route: ActivatedRoute,
@@ -54,33 +56,37 @@ export class TaskComponent {
     this.project$ = this.dbProject.findOne(projectId).$
     this.task$ = this.dbTask.findOne(taskId).$
 
+    this.task$.subscribe((task: RxDocumentBase<RxTaskDocument> & RxTaskDocument) => {
+      this.task = task
+    })
+
     this.zone.run(() => { })
   }
 
-  createTask() {
-    const modalRef = this.modal.open(CreateTaskComponent)
-    modalRef.result
-      .then((result) => {
-        const now = moment().toISOString()
-        const user = "anonymous"
-        const task = this.dbTask.newDocument({
-          title: result.title,
-          insertedAt: now,
-          updatedAt: now,
-          insertedFrom: user,
-          log: [{
-            comment: "Task inserted to project",
-            from: user,
-            at: now,
-          }],
-          status: "PENDING",
-          project: this.project.name
-        })
-        task.save()
+  submitComment() {
+
+    if (!this.comment.length) {
+
+      console.log("empty")
+      return
+    }
+
+    const now = moment().toISOString()
+    const user = "anonymous"
+    const log = this.task.log
+    log.push({
+      comment: this.comment,
+      from: user,
+      at: now,
+    })
+    this.task.log = log
+    this.task
+      .save()
+      .then(() => {
+        this.comment = null
         this.zone.run(() => { })
-      }, (reject) => {
-        console.log("dismissed", reject)
       })
+
   }
 
 }
