@@ -1,5 +1,5 @@
 <app-content>
-  <app-content-header [title]="(project$|async)?.name" subtitle="Project" icon="cube"></app-content-header>
+  <app-content-header [title]="(task$|async)?.title" subtitle="Task of {{(task$|async)?.name}}" icon="cube"></app-content-header>
   <app-content-body>
     <div class="btn-toolbar mb-4">
       <div class="btn-group mr-2">
@@ -22,7 +22,7 @@
               </td>
               <td>
                 <div class="d-flex flex-column align-items-start">
-                  <a [routerLink]="['/projects',(project$|async)?._id,task._id]" class="task-title">{{task.title || '[Without title]'}}</a>
+                  <a [routerLink]="['/tasks',task._id]" class="task-title">{{task.title || '[Without title]'}}</a>
                   <small class="text-muted">opened {{task.insertedAt | amTimeAgo}} ago by {{task.insertedFrom}} - {{task.log.length}} comments</small>
                 </div>
               </td>

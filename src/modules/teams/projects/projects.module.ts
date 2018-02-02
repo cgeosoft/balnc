@@ -6,7 +6,13 @@ import { RouterModule, Routes } from '@angular/router'
 import { CommonModule } from '../../_core/common/common.module';
 import { Entity } from '../../_core/database/models/entity';
 
-import { ProjectsComponent, ProjectComponent, CreateComponent } from './components'
+import {
+  ProjectsComponent,
+  ProjectComponent,
+  TaskComponent,
+  CreateTaskComponent,
+  CreateProjectComponent
+} from './components'
 
 import { ProjectSchema } from './data/project';
 import { TaskSchema } from './data/task';
@@ -26,7 +32,8 @@ const routes: Routes = [{
   path: '',
   children: [
     { path: 'overview', component: ProjectsComponent },
-    { path: ':id', component: ProjectComponent },
+    { path: ':projectId', component: ProjectComponent },
+    { path: ':projectId/:taskId', component: TaskComponent },
     { path: '', redirectTo: "overview" },
   ],
 }]
@@ -35,7 +42,9 @@ const routes: Routes = [{
   declarations: [
     ProjectsComponent,
     ProjectComponent,
-    CreateComponent,
+    TaskComponent,
+    CreateTaskComponent,
+    CreateProjectComponent,
   ],
   imports: [
     CommonModule,
@@ -46,7 +55,8 @@ const routes: Routes = [{
   ],
   providers: [],
   entryComponents: [
-    CreateComponent,
+    CreateTaskComponent,
+    CreateProjectComponent,
   ]
 })
 export class ProjectsModule { }

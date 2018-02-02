@@ -5,12 +5,12 @@ import { RxProjectDocument } from '../../data/project';
 import { Observable } from 'rxjs/Observable';
 import { DatabaseService } from '../../../../_core/database/services/database.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreateComponent } from '../create/create.component';
+import { CreateProjectComponent } from '../create-project/create-project.component';
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
 @Component({
-  selector: 'app-team-projects',
+  selector: 'app-team-projects-projects',
   templateUrl: 'projects.component.html',
   styleUrls: ['./projects.component.scss'],
 })
@@ -43,19 +43,12 @@ export class ProjectsComponent {
     })
 
     this.projects$.subscribe((projects) => {
-      if (projects.length === 0) {
-        this.zone.run(() => { })
-        return
-      }
-      for (const project of projects) {
-        const _id = project.get("_id")
-      }
       this.zone.run(() => { })
     })
   }
 
   create() {
-    const modalRef = this.modal.open(CreateComponent)
+    const modalRef = this.modal.open(CreateProjectComponent)
     modalRef.result
       .then((result) => {
         const now = moment().toISOString()

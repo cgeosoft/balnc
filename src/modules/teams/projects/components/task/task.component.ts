@@ -13,11 +13,11 @@ import { RxProjectDocument } from '../../data/project'
 import { ActivatedRoute } from '@angular/router'
 
 @Component({
-  selector: 'app-team-projects-project',
-  templateUrl: 'project.component.html',
-  styleUrls: ['./project.component.scss'],
+  selector: 'app-team-projects-task',
+  templateUrl: 'task.component.html',
+  styleUrls: ['./task.component.scss'],
 })
-export class ProjectComponent {
+export class TaskComponent {
 
   dbProject: RxCollection<any>
   dbTask: RxCollection<any>
@@ -39,7 +39,7 @@ export class ProjectComponent {
     this.route
       .params
       .subscribe(params => {
-        this.setup(params['projectId'])
+        this.setup(params['projectId'], params['taskId'])
       })
 
     setTimeout(() => {
@@ -47,11 +47,13 @@ export class ProjectComponent {
     }, 500)
   }
 
-  private async setup(projectId: string) {
+  private async setup(projectId: string, taskId: string) {
     this.dbProject = await this.dbService.get<RxProjectDocument>("project")
     this.dbTask = await this.dbService.get<RxTaskDocument>("task")
 
     this.project$ = this.dbProject.findOne(projectId).$
+    this.project$ = this.dbTask.findOne(taskId).$
+
     this.project$.subscribe((project: RxProjectDocument) => {
       this.project = project
 
