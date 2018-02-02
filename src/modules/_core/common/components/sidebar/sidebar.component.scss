@@ -1,5 +1,38 @@
+@import "../../../../../../scss/colors";
+$color-sidebar-background: lighten($color-sidemenu-background, 5);
+$color-sidebar-font: $color-sidemenu-font;
 :host {
+  height: 100%;
   .sidebar {
     height: 100%;
+    min-width: 200px;
+    width: 200px;
+    background: $color-sidebar-background;
+    padding: .7rem;
+    .form-control-search {
+      background: none;
+      border: solid 1px lighten($color-sidebar-background, 20);
+      color: $color-sidebar-font;
+      transition: border .7s;
+      margin-bottom: 1rem;
+      &:focus {
+        border-color: $color-sidebar-font;
+      }
+      &::placeholder {
+        color: lighten($color-sidebar-font, 20);
+      }
+    }
+    .list-menu {
+      &::-webkit-scrollbar-track {
+        background-color: none;
+      }
+      &::-webkit-scrollbar {
+        width: 3px;
+        background-color: none;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: darken($color-sidebar-background, 5);
+      }
+    }
   }
 }

@@ -2,14 +2,20 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http';
 
-import { DatabaseService } from './database.service'
+import { DatabaseService } from './services/database.service'
+import { DocVersionPipe } from './pipes/doc-version.pipe'
 import { Entity } from './models/entity';
 
 @NgModule({
   imports: [
-    HttpClientModule
+    HttpClientModule,
   ],
-  declarations: [],
+  declarations: [
+    DocVersionPipe,
+  ],
+  exports: [
+    DocVersionPipe,
+  ],
   providers: []
 })
 export class DatabaseModule {

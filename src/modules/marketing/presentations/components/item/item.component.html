@@ -25,7 +25,8 @@
                 <dd>
                   <ul class="list-unstyled">
                     <li>Version
-                      <strong>{{statistics.docVersion}}</strong>
+                      <strong>{{presentation | docVersion}}</strong> with last edit
+                      <strong>{{presentation.dateUpdated | amTimeAgo}}</strong>
                     </li>
                     <li>Total
                       <strong>{{presentation.pages.length}}</strong> pages
@@ -52,8 +53,7 @@
             <app-empty-panel class="m-0" *ngIf="!presentation.pages.length" message="No pages were found"></app-empty-panel>
 
             <div class="list-group list-group-flush" style="height: 230px;overflow-y:scroll" *ngIf="presentation.pages.length">
-              <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item p-2"
-                *ngFor="let page of presentation.pages; let i = index;">
+              <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item p-2" *ngFor="let page of presentation.pages; let i = index;">
                 {{page.title}}
                 <small class="pull-right">#{{i+1}}</small>
               </a>

@@ -13,19 +13,19 @@ import { RxProjectDocument } from '../../data/project'
 import { ActivatedRoute } from '@angular/router'
 
 @Component({
-  selector: 'app-team-projects-project',
-  templateUrl: 'project.component.html',
-  styleUrls: ['./project.component.scss'],
+  selector: 'app-team-projects-task',
+  templateUrl: 'task.component.html',
+  styleUrls: ['./task.component.scss'],
 })
-export class ProjectComponent {
+export class TaskComponent {
 
   dbProject: RxCollection<any>
   dbTask: RxCollection<any>
 
-  tasks$: Observable<any[]>
   project$: Observable<any>
+  task$: Observable<any>
 
-  project: RxDocumentBase<RxProjectDocument> & RxProjectDocument;
+  project: RxProjectDocument;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +39,7 @@ export class ProjectComponent {
     this.route
       .params
       .subscribe(params => {
-        this.setup(params['projectId'])
+        this.setup(params['projectId'], params['taskId'])
       })
 
     setTimeout(() => {
@@ -47,28 +47,14 @@ export class ProjectComponent {
     }, 500)
   }
 
-  private async setup(projectId: string) {
+  private async setup(projectId: string, taskId: string) {
     this.dbProject = await this.dbService.get<RxProjectDocument>("project")
     this.dbTask = await this.dbService.get<RxTaskDocument>("task")
 
     this.project$ = this.dbProject.findOne(projectId).$
-    this.project$.subscribe((project: RxDocumentBase<RxProjectDocument> & RxProjectDocument) => {
-      this.project = project
+    this.task$ = this.dbTask.findOne(taskId).$
 
-      this.tasks$ = this.dbTask
-        .find({ project: { $eq: this.project.get('_id') } }).$
-        .map((data) => {
-          if (!data) { return data }
-          data.sort((a, b) => {
-            return a.title < b.title ? -1 : 1
-          })
-          return data
-        })
-
-      this.tasks$.subscribe(() => {
-        this.zone.run(() => { })
-      })
-    })
+    this.zone.run(() => { })
   }
 
   createTask() {
@@ -88,7 +74,7 @@ export class ProjectComponent {
             at: now,
           }],
           status: "PENDING",
-          project: this.project.get('_id')
+          project: this.project.name
         })
         task.save()
         this.zone.run(() => { })

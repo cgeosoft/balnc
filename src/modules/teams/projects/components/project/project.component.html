@@ -1,25 +1,34 @@
 <app-content>
   <app-content-header [title]="(project$|async)?.name" subtitle="Project" icon="cube"></app-content-header>
   <app-content-body>
+    <div class="btn-toolbar mb-4">
+      <div class="btn-group mr-2">
+        <button type="button" class="btn btn-primary" (click)="createTask()">
+          <span class="fa fa-plus-circle fa-fw"></span> New Task</button>
+      </div>
+    </div>
     <ng-container *ngIf="tasks$ | async as tasks; else loader">
       <ng-container *ngIf="tasks.length; else noItems">
         <table class="table table-max">
-          <thead>
-            <tr>
-              <th>Task</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
           <tbody>
             <tr *ngFor="let task of tasks">
               <td>
                 <div class="d-flex flex-column align-items-start">
-                  <strong>{{task.name || '[Without name]'}}</strong>
-                  <small class="text-muted">{{task.description || 'Without description' | ellipsis:250}}</small>
+                  <ng-container [ngSwitch]="task.status">
+                    <span class="badge badge-primary" *ngSwitchCase="'PENDING'">PENDING</span>
+                    <span class="badge badge-success" *ngSwitchCase="'COMPLETE'">COMPLETE</span>
+                  </ng-container>
                 </div>
               </td>
-              <td class="text-center" style="width:100px">
-                <a [routerLink]="['/tasks',task._id]" class="btn btn-sm btn-outline-primary">Open</a>
+              <td>
+                <div class="d-flex flex-column align-items-start">
+                  <a [routerLink]="['/projects',(project$|async)?._id,task._id]" class="task-title">{{task.title || '[Without title]'}}</a>
+                  <small class="text-muted">opened
+                    <strong>{{task.insertedAt | amTimeAgo}}</strong> ago by
+                    <strong>{{task.insertedFrom}}</strong> - {{task.log.length}}
+                    <span class="far fa-comments"></span>
+                  </small>
+                </div>
               </td>
             </tr>
           </tbody>

@@ -3,14 +3,14 @@ import { Subscription } from 'rxjs/Subscription'
 import { RxCollection, RxDocumentBase } from 'rxdb';
 import { RxProjectDocument } from '../../data/project';
 import { Observable } from 'rxjs/Observable';
-import { DatabaseService } from '../../../../_core/database/database.service';
+import { DatabaseService } from '../../../../_core/database/services/database.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreateComponent } from '../create/create.component';
+import { CreateProjectComponent } from '../create-project/create-project.component';
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
 @Component({
-  selector: 'app-team-projects',
+  selector: 'app-team-projects-projects',
   templateUrl: 'projects.component.html',
   styleUrls: ['./projects.component.scss'],
 })
@@ -29,15 +29,10 @@ export class ProjectsComponent {
 
   ngOnInit() {
     this.setup()
-    setTimeout(() => {
-      this.zone.run(() => { })
-    }, 500)
   }
 
   async setup() {
     this.db = await this.dbService.get<RxProjectDocument>("project")
-
-    console.log("projects loading", this.projects$)
 
     this.projects$ = this.db.find().$.map((data) => {
       if (!data) { return data }
@@ -46,22 +41,14 @@ export class ProjectsComponent {
       })
       return data
     })
-    this.projects$.subscribe((projects) => {
 
-      console.log("projects loaded", projects.length)
-      if (projects.length === 0) {
-        this.zone.run(() => { })
-        return
-      }
-      for (const project of projects) {
-        const _id = project.get("_id")
-      }
+    this.projects$.subscribe((projects) => {
       this.zone.run(() => { })
     })
   }
 
   create() {
-    const modalRef = this.modal.open(CreateComponent)
+    const modalRef = this.modal.open(CreateProjectComponent)
     modalRef.result
       .then((result) => {
         const now = moment().toISOString()
@@ -73,9 +60,4 @@ export class ProjectsComponent {
         console.log("dismissed", reject)
       })
   }
-
-  getVersion(project: RxDocumentBase<RxProjectDocument> & RxProjectDocument) {
-    return project.get("_rev").split("-")[0]
-  }
-
 }

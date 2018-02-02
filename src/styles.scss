@@ -1,10 +1,6 @@
-// @import "../scss/balance-theme.scss";
-$color-dark: #333333;
-$color-base: rgb(17, 235, 90);
-$color-second: #00AA72;
+@import "../scss/colors";
 @import "../scss/components/bootstrap";
 @import "../scss/components/core";
-@import "../scss/components/sidebar";
 @import "../scss/components/content";
 @import "../scss/components/centerbox";
 @import "../scss/components/invoice";
@@ -32,4 +28,10 @@ $color-second: #00AA72;
       vertical-align: middle !important;
     }
   }
+}
+
+.module-content {
+  display: flex;
+  width: 100%;
+  height: 100%
 }

@@ -3,18 +3,18 @@ import { Component, Input } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-    selector: 'app-project-create',
-    templateUrl: './create.component.html'
+    selector: 'app-team-projects-project-create',
+    templateUrl: './create-project.component.html'
 })
-export class CreateComponent {
+export class CreateProjectComponent {
 
-    projectName: string;
+    name: string;
 
     constructor(public activeModal: NgbActiveModal) { }
 
     submit() {
         this.activeModal.close({
-            name: this.projectName
+            name: this.name
         })
     }
 }
