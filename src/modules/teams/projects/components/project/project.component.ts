@@ -25,7 +25,7 @@ export class ProjectComponent {
   tasks$: Observable<any[]>
   project$: Observable<any>
 
-  project: RxProjectDocument;
+  project: RxDocumentBase<RxProjectDocument> & RxProjectDocument;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,11 +52,11 @@ export class ProjectComponent {
     this.dbTask = await this.dbService.get<RxTaskDocument>("task")
 
     this.project$ = this.dbProject.findOne(projectId).$
-    this.project$.subscribe((project: RxProjectDocument) => {
+    this.project$.subscribe((project: RxDocumentBase<RxProjectDocument> & RxProjectDocument) => {
       this.project = project
 
       this.tasks$ = this.dbTask
-        .find({ project: { $eq: this.project.name } }).$
+        .find({ project: { $eq: this.project.get('_id') } }).$
         .map((data) => {
           if (!data) { return data }
           data.sort((a, b) => {
@@ -88,7 +88,7 @@ export class ProjectComponent {
             at: now,
           }],
           status: "PENDING",
-          project: this.project.name
+          project: this.project.get('_id')
         })
         task.save()
         this.zone.run(() => { })

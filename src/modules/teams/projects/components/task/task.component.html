@@ -1,35 +1,25 @@
 <app-content>
-  <app-content-header [title]="(task$|async)?.title" subtitle="Task of {{(task$|async)?.name}}" icon="cube"></app-content-header>
+  <app-content-header [title]="(task$|async)?.title | ellipsis:70" subtitle="Task of {{(project$|async)?.name}}" icon="cube"></app-content-header>
   <app-content-body>
     <div class="btn-toolbar mb-4">
       <div class="btn-group mr-2">
-        <button type="button" class="btn btn-primary" (click)="createTask()">
-          <span class="fa fa-plus-circle fa-fw"></span> New Task</button>
+        <a [routerLink]="['/projects',(project$|async)?._id]" class="btn btn-outline-secondary">
+          <span class="fa fa-chevron-left fa-fw"></span>
+        </a>
       </div>
     </div>
-    <ng-container *ngIf="tasks$ | async as tasks; else loader">
-      <ng-container *ngIf="tasks.length; else noItems">
+    <ng-container *ngIf="task$ | async as task; else loader">
+      <ng-container *ngIf="task.log; else noItems">
         <table class="table table-max">
           <tbody>
-            <tr *ngFor="let task of tasks">
+            <tr *ngFor="let logItem of task.log">
               <td>
-                <div class="d-flex flex-column align-items-start">
-                  <ng-container [ngSwitch]="task.status">
-                    <span class="badge badge-primary" *ngSwitchCase="'PENDING'">PENDING</span>
-                    <span class="badge badge-success" *ngSwitchCase="'COMPLETE'">COMPLETE</span>
-                  </ng-container>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex flex-column align-items-start">
-                  <a [routerLink]="['/tasks',task._id]" class="task-title">{{task.title || '[Without title]'}}</a>
-                  <small class="text-muted">opened {{task.insertedAt | amTimeAgo}} ago by {{task.insertedFrom}} - {{task.log.length}} comments</small>
-                </div>
+                {{logItem|json:2}}
               </td>
             </tr>
           </tbody>
         </table>
-        <app-debug-panel [data]="tasks"></app-debug-panel>
+        <app-debug-panel [data]="task"></app-debug-panel>
       </ng-container>
     </ng-container>
     <ng-template #noItems>

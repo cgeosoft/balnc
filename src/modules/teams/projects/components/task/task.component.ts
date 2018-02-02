@@ -22,8 +22,8 @@ export class TaskComponent {
   dbProject: RxCollection<any>
   dbTask: RxCollection<any>
 
-  tasks$: Observable<any[]>
   project$: Observable<any>
+  task$: Observable<any>
 
   project: RxProjectDocument;
 
@@ -52,25 +52,9 @@ export class TaskComponent {
     this.dbTask = await this.dbService.get<RxTaskDocument>("task")
 
     this.project$ = this.dbProject.findOne(projectId).$
-    this.project$ = this.dbTask.findOne(taskId).$
+    this.task$ = this.dbTask.findOne(taskId).$
 
-    this.project$.subscribe((project: RxProjectDocument) => {
-      this.project = project
-
-      this.tasks$ = this.dbTask
-        .find({ project: { $eq: this.project.name } }).$
-        .map((data) => {
-          if (!data) { return data }
-          data.sort((a, b) => {
-            return a.title < b.title ? -1 : 1
-          })
-          return data
-        })
-
-      this.tasks$.subscribe(() => {
-        this.zone.run(() => { })
-      })
-    })
+    this.zone.run(() => { })
   }
 
   createTask() {
