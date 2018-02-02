@@ -1,3 +1,5 @@
 $color-dark: #333333;
 $color-base: #9E9E9E;
 $color-second: #00AA72;
+$color-sidemenu-background:$color-dark;
+$color-sidemenu-font:lighten($color-sidemenu-background, 40);

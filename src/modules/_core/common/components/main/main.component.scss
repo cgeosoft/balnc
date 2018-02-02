@@ -1,24 +1,25 @@
 @import "../../../../../../scss/colors";
 :host {
   .sidemenu {
-    color: #FFF;
     text-align: center;
     min-width: 50px;
     width: 50px;
-    background: darken($color-dark, 10);
+    background: $color-sidemenu-background;
     .logo {
       margin: .7rem .5rem .2rem;
       padding-bottom: .5rem;
-      border-bottom: solid 1px #666;
+      border-bottom: solid 1px lighten($color-sidemenu-background, 5);
       img {
         width: 100%;
         filter: brightness(0) invert(1);
         opacity: .8;
       }
       .fa {
+        text-shadow: none;
         line-height: 2rem;
         font-size: 1.3rem;
         display: block;
+        color: lighten($color-sidemenu-font, 20);
       }
     }
     .items {
@@ -32,7 +33,7 @@
         background-color: none;
       }
       &::-webkit-scrollbar-thumb {
-        background-color: darken($color-dark, 5);
+        background-color: darken($color-sidemenu-background, 5);
       }
       .item {
         display: block;
@@ -52,24 +53,24 @@
             padding: .6rem;
             transition: background-color .7s;
             text-decoration: none;
-            color: lighten($color-dark, 20);
-            text-shadow: 1px 2px 0 #000;
+            color: $color-sidemenu-font;
+            text-shadow: 1px 2px 0 darken($color-sidemenu-background, 30);
             &:hover {
-              background: darken($color-dark, 5);
-              color: #FFF;
+              background: lighten($color-sidemenu-background, 15);
+              color: lighten($color-sidemenu-font, 15);
             }
           }
           &.active {
-            border-left: solid 2px $color-base;
-            background: $color-dark;
+            border-left: solid 3px lighten($color-sidemenu-font, 15);
+            background: lighten($color-sidemenu-background, 5);
             >a {
               margin-left: -2px;
-              color: $color-base;
+              color: $color-sidemenu-font;
             }
           }
           &.highlight {
             >a {
-              color: $color-base;
+              color: $color-sidemenu-font;
               span {
                 margin: 0
               }
