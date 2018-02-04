@@ -42,10 +42,10 @@ export class ProjectComponent {
   }
 
   private async setup() {
-    // this.zone.run(() => {
     this.project$ = this.projectsService.getProject(this.projectId)
-    this.tasks$ = this.projectsService.getTasksForProject(this.projectId)
-    // })
+    this.tasks$ = this.projectsService.getTasks({
+      query: { project: { $eq: this.projectId } }
+    })
   }
 
   createTask() {

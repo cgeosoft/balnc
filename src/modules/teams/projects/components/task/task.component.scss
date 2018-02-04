@@ -11,4 +11,12 @@
       text-decoration: none;
     }
   }
+  markdown.comment {
+    overflow-y: auto;
+    height: 254px;
+    display: block;
+    min-height: 100px;
+    background: #fafafa;
+    padding: 1rem;
+  }
 }

@@ -13,6 +13,13 @@
       <button (click)="createTask()">
         <span class="fa fa-plus-circle fa-fw"></span> New Task</button>
     </li>
+    <li class="divider"></li>
+    <li>
+      <button (click)="generateDump()">
+        <strong>
+          <span class="fa fa-plus-circle fa-fw"></span> Generate Data</strong>
+      </button>
+    </li>
   </ul>
   <ul class="list-menu dark">
     <li class="header">Pinned</li>
@@ -33,7 +40,7 @@
     <li class="header">Latest Tasks</li>
     <ng-container *ngIf="tasks$ | async as tasks; else loader">
       <ng-container *ngIf="tasks.length; else noItems">
-        <li *ngFor="let task of tasks">
+        <li *ngFor="let task of tasks | slice:0:5;">
           <a [routerLink]="['/projects/tasks',task._id]" class="media">
             <span class="media-body">{{task.title || '[Without title]'}}
               <small>

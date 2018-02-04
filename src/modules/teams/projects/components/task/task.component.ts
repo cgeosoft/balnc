@@ -11,6 +11,8 @@ import * as _ from 'lodash'
 import * as moment from 'moment'
 import { RxProjectDocument } from '../../data/project'
 import { ActivatedRoute } from '@angular/router'
+import { ProjectsService } from '../../services/projects.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-team-projects-task',
@@ -18,77 +20,58 @@ import { ActivatedRoute } from '@angular/router'
   styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent {
+  taskId: string;
   comment: string = null
   task: RxDocumentBase<RxTaskDocument> & RxTaskDocument
 
-  dbProject: RxCollection<any>
-  dbTask: RxCollection<any>
-
   project$: Observable<any>
   task$: Observable<any>
-
-  project: RxProjectDocument
+  form: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
-    private dbService: DatabaseService,
-    private zone: NgZone,
-    private modal: NgbModal
+    private ngZone: NgZone,
+    private modal: NgbModal,
+    private formBuilder: FormBuilder,
+    private projectsService: ProjectsService,
   ) { }
 
   ngOnInit() {
-
     this.route
       .params
       .subscribe(params => {
-        this.setup(params['id'])
+        this.taskId = params['id']
+        this.setup()
       })
-
-    setTimeout(() => {
-      this.zone.run(() => { })
-    }, 500)
   }
 
-  private async setup(taskId: string) {
-    this.dbProject = await this.dbService.get<RxProjectDocument>("project")
-    this.dbTask = await this.dbService.get<RxTaskDocument>("task")
-
-    this.task$ = this.dbTask.findOne(taskId).$
-
+  private async setup() {
+    this.task$ = this.projectsService.getTask(this.taskId)
     this.task$.subscribe((task: RxDocumentBase<RxTaskDocument> & RxTaskDocument) => {
-      this.dbProject.findOne().where('_id').eq(task.project).exec().then(project => {
-        this.project = project
-      })
       this.task = task
+      this.project$ = this.projectsService.getProject(task.project)
+      this.ngZone.run(() => { })
     })
 
-    this.zone.run(() => { })
+    this.form = this.formBuilder.group({
+      comment: ["", [Validators.required]],
+    });
   }
 
-  submitComment() {
-
-    if (!this.comment.length) {
-
-      console.log("empty")
-      return
-    }
+  async submitComment() {
+    const formModel = this.form.value;
 
     const now = moment().toISOString()
     const user = "anonymous"
     const log = this.task.log
     log.push({
-      comment: this.comment,
+      comment: formModel.comment,
       from: user,
       at: now,
+      type: "COMMENT"
     })
     this.task.log = log
-    this.task
-      .save()
-      .then(() => {
-        this.comment = null
-        this.zone.run(() => { })
-      })
-
+    await this.task.save()
+    this.form.reset()
   }
-
 }

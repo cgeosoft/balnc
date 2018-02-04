@@ -10,8 +10,8 @@ import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 
 @Injectable()
 export class ProjectsService implements Resolve<any> {
-    dbTasks: RxCollection<RxTaskDocument>
-    dbProjects: RxCollection<RxProjectDocument>
+    tasks: RxCollection<RxTaskDocument>
+    projects: RxCollection<RxProjectDocument>
 
     constructor(
         private dbService: DatabaseService,
@@ -24,13 +24,13 @@ export class ProjectsService implements Resolve<any> {
 
     async setup() {
         console.log("async")
-        this.dbProjects = await this.dbService.get<RxProjectDocument>("project")
-        this.dbTasks = await this.dbService.get<RxTaskDocument>("task")
+        this.projects = await this.dbService.get<RxProjectDocument>("project")
+        this.tasks = await this.dbService.get<RxTaskDocument>("task")
     }
 
     getProjects() {
         console.log("getProjects")
-        return this.dbProjects.find().$
+        return this.projects.find().$
             .map((data) => {
                 if (!data) { return data }
                 data.sort((a, b) => {
@@ -42,22 +42,22 @@ export class ProjectsService implements Resolve<any> {
 
     getProject(projectId) {
         console.log("getProject", projectId)
-        return this.dbProjects.findOne(projectId).$
+        return this.projects.findOne(projectId).$
     }
 
     addProject(name: string, description: string) {
         console.log("addProject")
-        const project = this.dbProjects.newDocument({
+        const project = this.projects.newDocument({
             name: name,
             description: description,
         })
         return project.save()
     }
 
-    getTasksForProject(projectId: string) {
-        console.log("getTasksForProject", projectId)
-        return this.dbTasks
-            .find({ project: { $eq: projectId } }).$
+    getTasks(params: any = {}) {
+        console.log("getTasks", params)
+        return this.tasks
+            .find(params.query).$
             .map((data) => {
                 if (!data) { return data }
                 data.sort((a, b) => {
@@ -65,6 +65,11 @@ export class ProjectsService implements Resolve<any> {
                 })
                 return data
             })
+    }
+
+    getTask(taskId) {
+        console.log("getTask", taskId)
+        return this.tasks.findOne(taskId).$
     }
 
     addTask(title: string, projectId: string, description: string) {
@@ -96,7 +101,28 @@ export class ProjectsService implements Resolve<any> {
             })
         }
 
-        const task = this.dbTasks.newDocument(taskObj)
+        const task = this.tasks.newDocument(taskObj)
         return task.save()
     }
+
+    async generateDump() {
+        // await this.projects.remove()
+        // await this.tasks.remove()
+
+        let projects: any[] = [];
+        for (let i = 0; i < 10; i++) {
+            const project = await this.projects.insert({
+                name: `Project ${i}`,
+                description: "lorem ipsum dolor"
+            })
+            projects.push(project);
+        }
+
+        for (let k = 0; k < 100; k++) {
+            const pr = Math.floor(Math.random() * 9)
+            this.addTask(`Task ${k}`, projects[pr]._id, "lorem ipsum dolor")
+        }
+
+    }
+
 }

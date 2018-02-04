@@ -10,7 +10,7 @@
               <ng-container *ngIf="tasks.length; else noItems">
                 <table class="table table-max">
                   <tbody>
-                    <tr *ngFor="let task of tasks">
+                    <tr *ngFor="let task of tasks | slice:0:15;">
                       <td>
                         <div class="d-flex flex-column align-items-start">
                           <ng-container [ngSwitch]="task.status">

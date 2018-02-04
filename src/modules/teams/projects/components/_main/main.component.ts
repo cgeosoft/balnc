@@ -7,6 +7,7 @@ import { RxTaskDocument } from '../../data/task';
 
 import { CreateTaskComponent } from '../create-task/create-task.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProjectsService } from '../../services/projects.service';
 
 @Component({
   selector: 'app-team-projects-main',
@@ -24,7 +25,7 @@ export class MainComponent implements OnInit {
   project: RxDocumentBase<RxProjectDocument> & RxProjectDocument;
 
   constructor(
-    private dbService: DatabaseService,
+    private projectsService: ProjectsService,
     private zone: NgZone,
     private modal: NgbModal,
   ) { }
@@ -34,38 +35,15 @@ export class MainComponent implements OnInit {
   }
 
   private async setup() {
-    this.dbProject = await this.dbService.get<RxProjectDocument>("project")
-    this.dbTask = await this.dbService.get<RxTaskDocument>("task")
-
-    this.tasks$ = this.dbTask
-      .find().$
-      .map((data) => {
-        if (!data) { return data }
-        data.sort((a, b) => {
-          return a.updatedAt > b.updatedAt ? -1 : 1
-        })
-        return data
-      })
-      .take(5)
-
-    // this.project$ = this.dbProject.findOne(projectId).$
-    // this.project$.subscribe((project: RxDocumentBase<RxProjectDocument> & RxProjectDocument) => {
-    //   this.project = project
-
-    //   this.tasks$.subscribe(() => {
-    //     this.zone.run(() => { })
-    //   })
-    // })
+    this.tasks$ = this.projectsService.getTasks()
   }
 
   createTask() {
-    const modalRef = this.modal.open(CreateTaskComponent)
-    modalRef.result
-      .then((result) => {
-        this.zone.run(() => { })
-      }, (reject) => {
-        console.log("dismissed", reject)
-      })
+    this.modal.open(CreateTaskComponent)
+  }
+
+  generateDump() {
+    this.projectsService.generateDump()
   }
 
 }
