@@ -28,6 +28,9 @@
           },
           "at": {
             "type": "string"
+          },
+          "type": {
+            "type": "string"
           }
         }
       }

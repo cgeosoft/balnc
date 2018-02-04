@@ -22,7 +22,7 @@
               </td>
               <td>
                 <div class="d-flex flex-column align-items-start">
-                  <a [routerLink]="['/projects',(project$|async)?._id,task._id]" class="task-title">{{task.title || '[Without title]'}}</a>
+                  <a [routerLink]="['/projects/tasks',task._id]" class="task-title">{{task.title || '[Without title]'}}</a>
                   <small class="text-muted">opened
                     <strong>{{task.insertedAt | amTimeAgo}}</strong> ago by
                     <strong>{{task.insertedFrom}}</strong> - {{task.log.length}}
@@ -37,7 +37,7 @@
       </ng-container>
     </ng-container>
     <ng-template #noItems>
-      <app-empty-panel message="You don't have any tasks yet" submessage="Click create to add your first one" icon="cube"></app-empty-panel>
+      <app-empty-panel message="You don't have any tasks yet" submessage="Click create to add your first one" icon="tasks"></app-empty-panel>
     </ng-template>
     <ng-template #loader>
       <app-loader></app-loader>

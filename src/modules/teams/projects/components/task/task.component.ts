@@ -6,11 +6,13 @@ import { Observable } from 'rxjs/Observable'
 import { DatabaseService } from '../../../../_core/database/services/database.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import { CreateTaskComponent } from '../create-task/create-task.component';
+import { CreateTaskComponent } from '../create-task/create-task.component'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 import { RxProjectDocument } from '../../data/project'
 import { ActivatedRoute } from '@angular/router'
+import { ProjectsService } from '../../services/projects.service';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-team-projects-task',
@@ -18,69 +20,58 @@ import { ActivatedRoute } from '@angular/router'
   styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent {
-
-  dbProject: RxCollection<any>
-  dbTask: RxCollection<any>
+  taskId: string;
+  comment: string = null
+  task: RxDocumentBase<RxTaskDocument> & RxTaskDocument
 
   project$: Observable<any>
   task$: Observable<any>
-
-  project: RxProjectDocument;
+  form: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
-    private dbService: DatabaseService,
-    private zone: NgZone,
-    private modal: NgbModal
+    private ngZone: NgZone,
+    private modal: NgbModal,
+    private formBuilder: FormBuilder,
+    private projectsService: ProjectsService,
   ) { }
 
   ngOnInit() {
-
     this.route
       .params
       .subscribe(params => {
-        this.setup(params['projectId'], params['taskId'])
-      })
-
-    setTimeout(() => {
-      this.zone.run(() => { })
-    }, 500)
-  }
-
-  private async setup(projectId: string, taskId: string) {
-    this.dbProject = await this.dbService.get<RxProjectDocument>("project")
-    this.dbTask = await this.dbService.get<RxTaskDocument>("task")
-
-    this.project$ = this.dbProject.findOne(projectId).$
-    this.task$ = this.dbTask.findOne(taskId).$
-
-    this.zone.run(() => { })
-  }
-
-  createTask() {
-    const modalRef = this.modal.open(CreateTaskComponent)
-    modalRef.result
-      .then((result) => {
-        const now = moment().toISOString()
-        const user = "anonymous"
-        const task = this.dbTask.newDocument({
-          title: result.title,
-          insertedAt: now,
-          updatedAt: now,
-          insertedFrom: user,
-          log: [{
-            comment: "Task inserted to project",
-            from: user,
-            at: now,
-          }],
-          status: "PENDING",
-          project: this.project.name
-        })
-        task.save()
-        this.zone.run(() => { })
-      }, (reject) => {
-        console.log("dismissed", reject)
+        this.taskId = params['id']
+        this.setup()
       })
   }
 
+  private async setup() {
+    this.task$ = this.projectsService.getTask(this.taskId)
+    this.task$.subscribe((task: RxDocumentBase<RxTaskDocument> & RxTaskDocument) => {
+      this.task = task
+      this.project$ = this.projectsService.getProject(task.project)
+      this.ngZone.run(() => { })
+    })
+
+    this.form = this.formBuilder.group({
+      comment: ["", [Validators.required]],
+    });
+  }
+
+  async submitComment() {
+    const formModel = this.form.value;
+
+    const now = moment().toISOString()
+    const user = "anonymous"
+    const log = this.task.log
+    log.push({
+      comment: formModel.comment,
+      from: user,
+      at: now,
+      type: "COMMENT"
+    })
+    this.task.log = log
+    await this.task.save()
+    this.form.reset()
+  }
 }

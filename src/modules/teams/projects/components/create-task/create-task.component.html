@@ -4,13 +4,54 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body">
-  <div class="form-group form-control-lg">
-    <label>Description</label>
-    <textarea class="form-control" placeholder="Task description" [(ngModel)]="title"></textarea>
-  </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="activeModal.dismiss()">Close</button>
-  <button type="button" class="btn btn-success" (click)="submit()">Create</button>
-</div>
+<ng-container *ngIf="projects$ | async as projects; else loader">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Title
+          <small class="text-muted">required</small>
+        </label>
+        <input #title tabindex="1" formControlName="title" class="form-control" [ngClass]="{'is-invalid':form.get('title').invalid && (form.get('title').dirty || form.get('title').touched)}">
+        <ng-container *ngIf="form.get('title').invalid && (form.get('title').dirty || form.get('title').touched)">
+          <div *ngIf="form.get('title').errors.required" class="invalid-feedback">
+            Title is required.
+          </div>
+          <div *ngIf="form.get('title').errors.maxlength" class="invalid-feedback">
+            Title must be less than 100 characters long.
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="form-group">
+        <label>Project</label>
+        <select tabindex="2" class="form-control" formControlName="project">
+          <option *ngFor="let project of projects" [value]="project._id">{{project.name}}</option>
+        </select>
+      </div>
+
+      <ngb-tabset>
+        <ngb-tab title="Description">
+          <ng-template ngbTabContent>
+            <div class="form-group mt-2">
+              <textarea tabindex="3" formControlName="description" class="form-control" rows="8"></textarea>
+            </div>
+            <p class="form-text text-muted">Markdown is supported -
+              <a target="_blank" href="https://www.markdownguide.org/">Markdown Guide</a>
+            </p>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Preview">
+          <ng-template ngbTabContent>
+            <markdown [data]="form.get('description').value"></markdown>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" type="submit">Add & New</button>
+    </div>
+  </form>
+</ng-container>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

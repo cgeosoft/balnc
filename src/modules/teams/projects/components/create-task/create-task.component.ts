@@ -1,19 +1,62 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ProjectsService } from '../../services/projects.service';
+import { RxDocumentBase } from 'rxdb';
+import { Observable } from 'rxjs/Observable';
+import { RxProjectDocument } from '../../data/project';
 
 @Component({
     selector: 'app-team-projects-task-create',
-    templateUrl: './create-task.component.html'
+    templateUrl: './create-task.component.html',
+    styleUrls: ['./create-task.component.scss']
 })
-export class CreateTaskComponent {
+export class CreateTaskComponent implements OnInit {
 
-    title: string;
+    projects$: Observable<(RxDocumentBase<RxProjectDocument> & RxProjectDocument)[]>;
 
-    constructor(public activeModal: NgbActiveModal) { }
+    @Input() projectId: string = "";
 
-    submit() {
-        this.activeModal.close({
-            title: this.title
-        })
+    @ViewChild("title") title: ElementRef;
+
+    form: FormGroup;
+
+    constructor(
+        private activeModal: NgbActiveModal,
+        private formBuilder: FormBuilder,
+        private projectsService: ProjectsService,
+        private ngZone: NgZone,
+    ) { }
+
+    async ngOnInit() {
+
+        this.projects$ = await this.projectsService.getProjects()
+
+        if (this.projectId === null) {
+            const projects = await this.projects$.toPromise()
+            if (projects.length !== 0) {
+                this.projectId = projects[0].get("_id")
+            }
+        }
+
+        this.form = this.formBuilder.group({
+            title: ["", [Validators.required, Validators.maxLength(100)]],
+            project: [this.projectId, [Validators.required]],
+            description: ["", []],
+        });
+
+        this.ngZone.run(() => { })
+    }
+
+    onSubmit() {
+        const formModel = this.form.value;
+        const projectId = formModel.project
+        this.projectsService
+            .addTask(formModel.title, formModel.project, formModel.description)
+            .then(() => {
+                this.form.reset()
+                this.form.get("project").setValue(projectId)
+                this.title.nativeElement.focus()
+            })
     }
 }

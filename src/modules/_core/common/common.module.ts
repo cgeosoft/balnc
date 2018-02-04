@@ -1,5 +1,6 @@
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule as ngCommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
@@ -16,6 +17,7 @@ import { EmptyPanelComponent } from './components/empty-panel/empty-panel.compon
 import { DebugPanelComponent } from './components/debug-panel/debug-panel.component'
 import { LoaderComponent } from './components/loader/loader.component'
 import { EllipsisPipe } from './pipes/ellipsis.pipe';
+import { BSControlStatusDirective } from './directives/bs-control-status.directive';
 
 @NgModule({
   imports: [
@@ -24,6 +26,7 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe';
     NgbModule,
     NgPipesModule,
     MomentModule,
+    FormsModule,
   ],
   declarations: [
     MainComponent,
@@ -36,11 +39,13 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe';
     DebugPanelComponent,
     LoaderComponent,
     EllipsisPipe,
+    // BSControlStatusDirective,
   ],
   providers: [],
   exports: [
     ngCommonModule,
     NgbModule,
+    FormsModule,
     SidebarComponent,
     ContentComponent,
     ContentHeaderComponent,
@@ -51,6 +56,7 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe';
     NgPipesModule,
     MomentModule,
     EllipsisPipe,
+    // BSControlStatusDirective,
   ]
 })
 export class CommonModule { }

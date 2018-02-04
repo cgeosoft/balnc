@@ -17,7 +17,9 @@
         font-size: .8rem;
       }
     }
+    >button,
     >a {
+      background: none;
       border-radius: 5px;
       display: block;
       overflow: hidden;
@@ -36,6 +38,7 @@
       }
       &:hover {
         color: #111;
+        cursor: pointer;
         .fa {
           color: #AAA;
         }
@@ -78,6 +81,7 @@
           color: #999;
         }
       }
+      >button,
       >a {
         color: #CCC;
         .fa {

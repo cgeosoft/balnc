@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core'
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';  // <-- #1 import module
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { RouterModule, Routes } from '@angular/router'
+
+import { MarkdownModule } from 'ngx-md';
 
 import { CommonModule } from '../../_core/common/common.module';
 import { Entity } from '../../_core/database/models/entity';
@@ -17,6 +19,11 @@ import {
 import { ProjectSchema } from './data/project';
 import { TaskSchema } from './data/task';
 import { DatabaseModule } from '../../_core/database/database.module';
+import { OverviewComponent } from './components/overview/overview.component';
+import { MainComponent } from './components/_main/main.component';
+import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
+import { ProjectsService } from './services/projects.service';
+
 
 const entities: Entity[] = [{
   name: 'project',
@@ -30,16 +37,23 @@ const entities: Entity[] = [{
 
 const routes: Routes = [{
   path: '',
+  component: MainComponent,
+  resolve: {
+    service: ProjectsService
+  },
   children: [
-    { path: 'overview', component: ProjectsComponent },
-    { path: ':projectId', component: ProjectComponent },
-    { path: ':projectId/:taskId', component: TaskComponent },
+    { path: 'overview', component: OverviewComponent },
+    { path: 'manage', component: ProjectsComponent },
+    { path: ':id', component: ProjectComponent },
+    { path: 'tasks/:id', component: TaskComponent },
     { path: '', redirectTo: "overview" },
   ],
 }]
 
 @NgModule({
   declarations: [
+    MainComponent,
+    OverviewComponent,
     ProjectsComponent,
     ProjectComponent,
     TaskComponent,
@@ -48,12 +62,17 @@ const routes: Routes = [{
   ],
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     NgbModule,
+    // NgBootstrapFormValidationModule.forRoot(),
+
     DatabaseModule.forChild(entities),
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MarkdownModule,
   ],
-  providers: [],
+  providers: [
+    ProjectsService
+  ],
   entryComponents: [
     CreateTaskComponent,
     CreateProjectComponent,
