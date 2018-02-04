@@ -1,0 +1,52 @@
+<app-sidebar>
+  <ul class="list-menu dark">
+    <li class="header">Projects</li>
+    <li>
+      <a [routerLink]="['/projects/overview']">
+        <span class="fa fa-desktop fa-fw"></span> Overview</a>
+    </li>
+    <li>
+      <a [routerLink]="['/projects/manage']">
+        <span class="fa fa-th-list fa-fw"></span> Manage</a>
+    </li>
+  </ul>
+  <ul class="list-menu dark">
+    <li class="header">Pinned</li>
+    <li>
+      <a routerLink="/contacts/report/1">
+        <span class="fa fa-list fa-fw"></span> Last 7 days</a>
+    </li>
+    <li>
+      <a routerLink="/contacts/report/2">
+        <span class="fa fa-list fa-fw"></span> Last Month</a>
+    </li>
+    <li>
+      <a routerLink="/contacts/report/3">
+        <span class="fa fa-list fa-fw"></span> Pending Only</a>
+    </li>
+  </ul>
+  <ul class="list-menu dark mt-auto">
+    <li class="header">Latest Tasks</li>
+    <ng-container *ngIf="tasks$ | async as tasks; else loader">
+      <ng-container *ngIf="tasks.length; else noItems">
+        <li *ngFor="let task of tasks">
+          <a [routerLink]="['/projects/tasks',task._id]" class="media">
+            <span class="media-body">{{task.title || '[Without title]'}}
+              <small>
+                <!-- {{task._project.name}} -->
+                <strong>{{task.insertedAt | amTimeAgo}}</strong>
+              </small>
+            </span>
+          </a>
+        </li>
+      </ng-container>
+    </ng-container>
+    <ng-template #noItems>
+      <app-empty-panel message="You don't have any tasks yet" icon="cube"></app-empty-panel>
+    </ng-template>
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+  </ul>
+</app-sidebar>
+<router-outlet></router-outlet>

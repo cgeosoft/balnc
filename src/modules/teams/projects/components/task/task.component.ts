@@ -41,7 +41,7 @@ export class TaskComponent {
     this.route
       .params
       .subscribe(params => {
-        this.setup(params['projectId'], params['taskId'])
+        this.setup(params['id'])
       })
 
     setTimeout(() => {
@@ -49,14 +49,16 @@ export class TaskComponent {
     }, 500)
   }
 
-  private async setup(projectId: string, taskId: string) {
+  private async setup(taskId: string) {
     this.dbProject = await this.dbService.get<RxProjectDocument>("project")
     this.dbTask = await this.dbService.get<RxTaskDocument>("task")
 
-    this.project$ = this.dbProject.findOne(projectId).$
     this.task$ = this.dbTask.findOne(taskId).$
 
     this.task$.subscribe((task: RxDocumentBase<RxTaskDocument> & RxTaskDocument) => {
+      this.dbProject.findOne().where('_id').eq(task.project).exec().then(project => {
+        this.project = project
+      })
       this.task = task
     })
 

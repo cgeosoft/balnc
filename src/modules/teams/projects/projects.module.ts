@@ -17,6 +17,8 @@ import {
 import { ProjectSchema } from './data/project';
 import { TaskSchema } from './data/task';
 import { DatabaseModule } from '../../_core/database/database.module';
+import { OverviewComponent } from './components/overview/overview.component';
+import { MainComponent } from './components/_main/main.component';
 
 const entities: Entity[] = [{
   name: 'project',
@@ -30,16 +32,20 @@ const entities: Entity[] = [{
 
 const routes: Routes = [{
   path: '',
+  component: MainComponent,
   children: [
-    { path: 'overview', component: ProjectsComponent },
-    { path: ':projectId', component: ProjectComponent },
-    { path: ':projectId/:taskId', component: TaskComponent },
+    { path: 'overview', component: OverviewComponent },
+    { path: 'manage', component: ProjectsComponent },
+    { path: ':id', component: ProjectComponent },
+    { path: 'tasks/:id', component: TaskComponent },
     { path: '', redirectTo: "overview" },
   ],
 }]
 
 @NgModule({
   declarations: [
+    MainComponent,
+    OverviewComponent,
     ProjectsComponent,
     ProjectComponent,
     TaskComponent,

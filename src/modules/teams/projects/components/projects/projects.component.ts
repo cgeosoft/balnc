@@ -34,17 +34,17 @@ export class ProjectsComponent {
   async setup() {
     this.db = await this.dbService.get<RxProjectDocument>("project")
 
-    this.projects$ = this.db.find().$.map((data) => {
-      if (!data) { return data }
-      data.sort((a, b) => {
-        return a.name < b.name ? -1 : 1
-      })
-      return data
-    })
+    this.projects$ = this.db.find().$
+    // .map((data) => {
+    //   if (!data) { return data }
+    //   data.sort((a, b) => {
+    //     return a.name < b.name ? -1 : 1
+    //   })
+    //   return data
+    // })
 
-    this.projects$.subscribe((projects) => {
-      this.zone.run(() => { })
-    })
+    // this.zone.run(() => { })
+
   }
 
   create() {

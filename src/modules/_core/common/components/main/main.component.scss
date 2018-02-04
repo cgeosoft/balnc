@@ -66,6 +66,9 @@
             >a {
               margin-left: -2px;
               color: $color-sidemenu-font;
+              &:hover {
+                background: lighten($color-sidemenu-background, 5);
+              }
             }
           }
           &.highlight {

@@ -1,9 +1,9 @@
 <app-content>
-  <app-content-header [title]="(project$|async)?.name" subtitle="Project" icon="cube"></app-content-header>
+  <app-content-header [title]="project.name" subtitle="Project" icon="cube"></app-content-header>
   <app-content-body>
     <div class="btn-toolbar mb-4">
       <div class="btn-group mr-2">
-        <a [routerLink]="['/projects',(project$|async)?._id]" class="btn btn-outline-secondary">
+        <a [routerLink]="['/projects',project._id]" class="btn btn-outline-secondary">
           <span class="fa fa-chevron-left fa-fw"></span>
         </a>
       </div>
