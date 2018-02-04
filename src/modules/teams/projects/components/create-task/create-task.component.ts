@@ -24,6 +24,7 @@ export class CreateTaskComponent implements OnInit {
     }
 
     submit() {
+
         const formModel = this.form.value;
         const task = {
             title: formModel.title as string,
@@ -32,3 +33,5 @@ export class CreateTaskComponent implements OnInit {
         this.activeModal.close(task)
     }
 }
+
+// lorem ipsum dolor sit amet lorem ipsum dolor sit 

@@ -21,6 +21,8 @@ import { TaskSchema } from './data/task';
 import { DatabaseModule } from '../../_core/database/database.module';
 import { OverviewComponent } from './components/overview/overview.component';
 import { MainComponent } from './components/_main/main.component';
+import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
+
 
 const entities: Entity[] = [{
   name: 'project',
@@ -58,6 +60,8 @@ const routes: Routes = [{
     CommonModule,
     ReactiveFormsModule,
     NgbModule,
+    // NgBootstrapFormValidationModule.forRoot(),
+
     DatabaseModule.forChild(entities),
     RouterModule.forChild(routes),
     MarkdownModule,

@@ -17,6 +17,7 @@ import { EmptyPanelComponent } from './components/empty-panel/empty-panel.compon
 import { DebugPanelComponent } from './components/debug-panel/debug-panel.component'
 import { LoaderComponent } from './components/loader/loader.component'
 import { EllipsisPipe } from './pipes/ellipsis.pipe';
+import { BSControlStatusDirective } from './directives/bs-control-status.directive';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe';
     DebugPanelComponent,
     LoaderComponent,
     EllipsisPipe,
+    // BSControlStatusDirective,
   ],
   providers: [],
   exports: [
@@ -54,6 +56,7 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe';
     NgPipesModule,
     MomentModule,
     EllipsisPipe,
+    // BSControlStatusDirective,
   ]
 })
 export class CommonModule { }
