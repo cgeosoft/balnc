@@ -1,6 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ProjectsService } from '../../services/projects.service';
+import { RxDocumentBase } from 'rxdb';
+import { Observable } from 'rxjs/Observable';
+import { RxProjectDocument } from '../../data/project';
 
 @Component({
     selector: 'app-team-projects-task-create',
@@ -9,29 +13,51 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class CreateTaskComponent implements OnInit {
 
+    projects$: Observable<(RxDocumentBase<RxProjectDocument> & RxProjectDocument)[]>;
+
+    @Input() projectId = null;
+
+    @ViewChild("title") title: ElementRef;
+
     form: FormGroup;
 
     constructor(
-        public activeModal: NgbActiveModal,
-        private formBuilder: FormBuilder
+        private activeModal: NgbActiveModal,
+        private formBuilder: FormBuilder,
+        private projectsService: ProjectsService,
+        private ngZone: NgZone,
     ) { }
 
-    ngOnInit() {
+    async ngOnInit() {
+
+        this.projects$ = await this.projectsService.getProjects()
+
+        if (!this.projectId) {
+            this.projects$.subscribe(projects => {
+                if (projects.length !== 0) {
+                    this.projectId = projects[0].get("_id")
+                }
+            })
+        }
+
         this.form = this.formBuilder.group({
             title: ["", [Validators.required, Validators.maxLength(100)]],
+            project: [this.projectId, [Validators.required]],
             description: ["", []],
         });
+
+        this.ngZone.run(() => { })
     }
 
-    submit() {
-
+    onSubmit() {
         const formModel = this.form.value;
-        const task = {
-            title: formModel.title as string,
-            description: formModel.name as string,
-        }
-        this.activeModal.close(task)
+        const projectId = formModel.project
+        this.projectsService
+            .addTask(formModel.title, formModel.project, formModel.description)
+            .then(() => {
+                this.form.reset()
+                this.form.get("project").setValue(projectId)
+                this.title.nativeElement.focus()
+            })
     }
 }
-
-// lorem ipsum dolor sit amet lorem ipsum dolor sit 

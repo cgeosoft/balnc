@@ -22,6 +22,7 @@ import { DatabaseModule } from '../../_core/database/database.module';
 import { OverviewComponent } from './components/overview/overview.component';
 import { MainComponent } from './components/_main/main.component';
 import { NgBootstrapFormValidationModule } from 'ng-bootstrap-form-validation';
+import { ProjectsService } from './services/projects.service';
 
 
 const entities: Entity[] = [{
@@ -37,6 +38,9 @@ const entities: Entity[] = [{
 const routes: Routes = [{
   path: '',
   component: MainComponent,
+  resolve: {
+    service: ProjectsService
+  },
   children: [
     { path: 'overview', component: OverviewComponent },
     { path: 'manage', component: ProjectsComponent },
@@ -66,7 +70,9 @@ const routes: Routes = [{
     RouterModule.forChild(routes),
     MarkdownModule,
   ],
-  providers: [],
+  providers: [
+    ProjectsService
+  ],
   entryComponents: [
     CreateTaskComponent,
     CreateProjectComponent,

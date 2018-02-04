@@ -5,6 +5,9 @@ import { RxCollection, RxDocumentBase } from 'rxdb';
 import { DatabaseService } from '../../../../_core/database/services/database.service';
 import { RxTaskDocument } from '../../data/task';
 
+import { CreateTaskComponent } from '../create-task/create-task.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-team-projects-main',
   templateUrl: './main.component.html',
@@ -23,12 +26,12 @@ export class MainComponent implements OnInit {
   constructor(
     private dbService: DatabaseService,
     private zone: NgZone,
+    private modal: NgbModal,
   ) { }
 
   ngOnInit() {
     this.setup()
   }
-
 
   private async setup() {
     this.dbProject = await this.dbService.get<RxProjectDocument>("project")
@@ -43,7 +46,7 @@ export class MainComponent implements OnInit {
         })
         return data
       })
-    // .take(3)
+      .take(5)
 
     // this.project$ = this.dbProject.findOne(projectId).$
     // this.project$.subscribe((project: RxDocumentBase<RxProjectDocument> & RxProjectDocument) => {
@@ -54,4 +57,15 @@ export class MainComponent implements OnInit {
     //   })
     // })
   }
+
+  createTask() {
+    const modalRef = this.modal.open(CreateTaskComponent)
+    modalRef.result
+      .then((result) => {
+        this.zone.run(() => { })
+      }, (reject) => {
+        console.log("dismissed", reject)
+      })
+  }
+
 }

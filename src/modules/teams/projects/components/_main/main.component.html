@@ -9,6 +9,10 @@
       <a [routerLink]="['/projects/manage']">
         <span class="fa fa-th-list fa-fw"></span> Manage</a>
     </li>
+    <li>
+      <button (click)="createTask()">
+        <span class="fa fa-plus-circle fa-fw"></span> New Task</button>
+    </li>
   </ul>
   <ul class="list-menu dark">
     <li class="header">Pinned</li>

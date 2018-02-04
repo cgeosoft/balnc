@@ -2,10 +2,12 @@
 :host {
   width: 100%;
   markdown {
-    @extend .form-control;
-    overflow-y: scroll;
-    max-height: 200px;
+    margin-top: 1rem;
+    overflow-y: auto;
+    height: 254px;
     display: block;
     min-height: 100px;
+    background: #fafafa;
+    padding: 1rem;
   }
 }

@@ -42,9 +42,7 @@ export class ProjectComponent {
         this.setup(params['projectId'])
       })
 
-    setTimeout(() => {
-      this.zone.run(() => { })
-    }, 500)
+    this.zone.run(() => { })
   }
 
   private async setup(projectId: string) {
@@ -73,29 +71,6 @@ export class ProjectComponent {
 
   createTask() {
     const modalRef = this.modal.open(CreateTaskComponent)
-    modalRef.result
-      .then((result) => {
-        const now = moment().toISOString()
-        const user = "anonymous"
-        const task = this.dbTask.newDocument({
-          title: result.title,
-          insertedAt: now,
-          updatedAt: now,
-          insertedFrom: user,
-          log: [{
-            comment: result.description,
-            from: user,
-            at: now,
-            type: "COMMENT"
-          }],
-          status: "PENDING",
-          project: this.project.get('_id')
-        })
-        task.save()
-        this.zone.run(() => { })
-      }, (reject) => {
-        console.log("dismissed", reject)
-      })
+    modalRef.componentInstance.projectId = this.project.get('_id');
   }
-
 }
