@@ -1,5 +1,5 @@
 <app-content>
-  <app-content-header [title]="(project$|async)?.name" subtitle="Project" icon="cube"></app-content-header>
+  <app-content-header [title]="(project$|async)?.name" subtitle="Project" icon="tasks"></app-content-header>
   <app-content-body>
     <div class="btn-toolbar mb-4">
       <div class="btn-group mr-2">
@@ -37,7 +37,7 @@
       </ng-container>
     </ng-container>
     <ng-template #noItems>
-      <app-empty-panel message="You don't have any tasks yet" submessage="Click create to add your first one" icon="cube"></app-empty-panel>
+      <app-empty-panel message="You don't have any tasks yet" submessage="Click create to add your first one" icon="tasks"></app-empty-panel>
     </ng-template>
     <ng-template #loader>
       <app-loader></app-loader>

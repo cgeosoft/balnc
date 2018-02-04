@@ -6,11 +6,12 @@ import { Observable } from 'rxjs/Observable'
 import { DatabaseService } from '../../../../_core/database/services/database.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import { CreateTaskComponent } from '../create-task/create-task.component';
+import { CreateTaskComponent } from '../create-task/create-task.component'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 import { RxProjectDocument } from '../../data/project'
 import { ActivatedRoute } from '@angular/router'
+import { ProjectsService } from '../../services/projects.service'
 
 @Component({
   selector: 'app-team-projects-project',
@@ -18,6 +19,7 @@ import { ActivatedRoute } from '@angular/router'
   styleUrls: ['./project.component.scss'],
 })
 export class ProjectComponent {
+  projectId: string;
 
   dbProject: RxCollection<any>
   dbTask: RxCollection<any>
@@ -25,52 +27,29 @@ export class ProjectComponent {
   tasks$: Observable<any[]>
   project$: Observable<any>
 
-  project: RxDocumentBase<RxProjectDocument> & RxProjectDocument;
-
   constructor(
     private route: ActivatedRoute,
-    private dbService: DatabaseService,
+    private projectsService: ProjectsService,
     private zone: NgZone,
     private modal: NgbModal
   ) { }
 
   ngOnInit() {
-
-    this.route
-      .params
-      .subscribe(params => {
-        this.setup(params['projectId'])
-      })
-
-    this.zone.run(() => { })
+    this.route.params.subscribe(params => {
+      this.projectId = params['id']
+      this.setup()
+    })
   }
 
-  private async setup(projectId: string) {
-    this.dbProject = await this.dbService.get<RxProjectDocument>("project")
-    this.dbTask = await this.dbService.get<RxTaskDocument>("task")
-
-    this.project$ = this.dbProject.findOne(projectId).$
-    this.project$.subscribe((project: RxDocumentBase<RxProjectDocument> & RxProjectDocument) => {
-      this.project = project
-
-      this.tasks$ = this.dbTask
-        .find({ project: { $eq: this.project.get('_id') } }).$
-        .map((data) => {
-          if (!data) { return data }
-          data.sort((a, b) => {
-            return a.updatedAt > b.updatedAt ? -1 : 1
-          })
-          return data
-        })
-
-      this.tasks$.subscribe(() => {
-        this.zone.run(() => { })
-      })
-    })
+  private async setup() {
+    // this.zone.run(() => {
+    this.project$ = this.projectsService.getProject(this.projectId)
+    this.tasks$ = this.projectsService.getTasksForProject(this.projectId)
+    // })
   }
 
   createTask() {
     const modalRef = this.modal.open(CreateTaskComponent)
-    modalRef.componentInstance.projectId = this.project.get('_id');
+    modalRef.componentInstance.projectId = this.projectId
   }
 }

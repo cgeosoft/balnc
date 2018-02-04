@@ -23,11 +23,13 @@ export class ProjectsService implements Resolve<any> {
     }
 
     async setup() {
+        console.log("async")
         this.dbProjects = await this.dbService.get<RxProjectDocument>("project")
         this.dbTasks = await this.dbService.get<RxTaskDocument>("task")
     }
 
     getProjects() {
+        console.log("getProjects")
         return this.dbProjects.find().$
             .map((data) => {
                 if (!data) { return data }
@@ -38,7 +40,13 @@ export class ProjectsService implements Resolve<any> {
             })
     }
 
+    getProject(projectId) {
+        console.log("getProject", projectId)
+        return this.dbProjects.findOne(projectId).$
+    }
+
     addProject(name: string, description: string) {
+        console.log("addProject")
         const project = this.dbProjects.newDocument({
             name: name,
             description: description,
@@ -46,7 +54,21 @@ export class ProjectsService implements Resolve<any> {
         return project.save()
     }
 
+    getTasksForProject(projectId: string) {
+        console.log("getTasksForProject", projectId)
+        return this.dbTasks
+            .find({ project: { $eq: projectId } }).$
+            .map((data) => {
+                if (!data) { return data }
+                data.sort((a, b) => {
+                    return a.updatedAt > b.updatedAt ? -1 : 1
+                })
+                return data
+            })
+    }
+
     addTask(title: string, projectId: string, description: string) {
+        console.log("addTask")
         const now = moment().toISOString()
         const user = "anonymous"
 
