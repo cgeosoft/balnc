@@ -1,19 +1,34 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-team-projects-task-create',
-    templateUrl: './create-task.component.html'
+    templateUrl: './create-task.component.html',
+    styleUrls: ['./create-task.component.scss']
 })
-export class CreateTaskComponent {
+export class CreateTaskComponent implements OnInit {
 
-    title: string;
+    form: FormGroup;
 
-    constructor(public activeModal: NgbActiveModal) { }
+    constructor(
+        public activeModal: NgbActiveModal,
+        private formBuilder: FormBuilder
+    ) { }
+
+    ngOnInit() {
+        this.form = this.formBuilder.group({
+            title: ["", [Validators.required, Validators.maxLength(100)]],
+            description: ["", []],
+        });
+    }
 
     submit() {
-        this.activeModal.close({
-            title: this.title
-        })
+        const formModel = this.form.value;
+        const task = {
+            title: formModel.title as string,
+            description: formModel.name as string,
+        }
+        this.activeModal.close(task)
     }
 }

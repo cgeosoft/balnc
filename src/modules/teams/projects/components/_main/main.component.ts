@@ -43,7 +43,7 @@ export class MainComponent implements OnInit {
         })
         return data
       })
-      .take(3)
+    // .take(3)
 
     // this.project$ = this.dbProject.findOne(projectId).$
     // this.project$.subscribe((project: RxDocumentBase<RxProjectDocument> & RxProjectDocument) => {

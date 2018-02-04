@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core'
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';  // <-- #1 import module
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { RouterModule, Routes } from '@angular/router'
+
+import { MarkdownModule } from 'ngx-md';
 
 import { CommonModule } from '../../_core/common/common.module';
 import { Entity } from '../../_core/database/models/entity';
@@ -54,10 +56,11 @@ const routes: Routes = [{
   ],
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     DatabaseModule.forChild(entities),
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MarkdownModule,
   ],
   providers: [],
   entryComponents: [

@@ -1,30 +1,40 @@
 <app-content>
-  <app-content-header title="Overview" icon="Cubes"></app-content-header>
+  <app-content-header title="Overview" icon="cubes"></app-content-header>
   <app-content-body>
     <div class="row">
       <div class="col-7">
         <div class="card mb-4">
           <div class="card-body">
-            <h4 class="card-title">Activity</h4>
-            <img class="card-img-top" src="https://alesandrab.files.wordpress.com/2013/04/seasonal-chart.png" alt="Card image cap" style="height: 230px;">
-            <div class="row mt-4">
-              <div class="col">
-                <span>lorem</span>
-                <p class="lead">15.440</p>
-              </div>
-              <div class="col">
-                <span>ispum</span>
-                <p class="lead">15.440</p>
-              </div>
-              <div class="col">
-                <span>dolor</span>
-                <p class="lead">15.440</p>
-              </div>
-              <div class="col">
-                <span>amet</span>
-                <p class="lead">15.440</p>
-              </div>
-            </div>
+            <h4 class="card-title">Latest Tasks</h4>
+            <ng-container *ngIf="tasks$ | async as tasks; else loader">
+              <ng-container *ngIf="tasks.length; else noItems">
+                <table class="table table-max">
+                  <tbody>
+                    <tr *ngFor="let task of tasks">
+                      <td>
+                        <div class="d-flex flex-column align-items-start">
+                          <ng-container [ngSwitch]="task.status">
+                            <span class="badge badge-primary" *ngSwitchCase="'PENDING'">PENDING</span>
+                            <span class="badge badge-success" *ngSwitchCase="'COMPLETE'">COMPLETE</span>
+                          </ng-container>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex flex-column align-items-start">
+                          <a [routerLink]="['/projects/tasks',task._id]" class="task-title">{{task.title}}</a>
+                          <small class="text-muted">opened
+                            <strong>{{task.insertedAt | amTimeAgo}}</strong> ago by
+                            <strong>{{task.insertedFrom}}</strong> - {{task.log.length}}
+                            <span class="far fa-comments"></span>
+                          </small>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <app-debug-panel [data]="tasks"></app-debug-panel>
+              </ng-container>
+            </ng-container>
           </div>
         </div>
       </div>
@@ -114,3 +124,10 @@
     </div>
   </app-content-body>
 </app-content>
+
+<ng-template #noItems>
+  <app-empty-panel message="You don't have any tasks yet" submessage="Click create to add your first one" icon="cube"></app-empty-panel>
+</ng-template>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

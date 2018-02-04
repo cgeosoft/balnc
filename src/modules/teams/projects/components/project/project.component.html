@@ -22,7 +22,7 @@
               </td>
               <td>
                 <div class="d-flex flex-column align-items-start">
-                  <a [routerLink]="['/projects',(project$|async)?._id,task._id]" class="task-title">{{task.title || '[Without title]'}}</a>
+                  <a [routerLink]="['/projects/tasks',task._id]" class="task-title">{{task.title || '[Without title]'}}</a>
                   <small class="text-muted">opened
                     <strong>{{task.insertedAt | amTimeAgo}}</strong> ago by
                     <strong>{{task.insertedFrom}}</strong> - {{task.log.length}}

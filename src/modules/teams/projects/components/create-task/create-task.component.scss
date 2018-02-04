@@ -1,0 +1,11 @@
+@import "../../../../../../scss/components/bootstrap";
+:host {
+  width: 100%;
+  markdown {
+    @extend .form-control;
+    overflow-y: scroll;
+    max-height: 200px;
+    display: block;
+    min-height: 100px;
+  }
+}

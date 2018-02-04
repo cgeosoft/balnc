@@ -4,13 +4,31 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body">
-  <div class="form-group form-control-lg">
-    <label>Description</label>
-    <textarea class="form-control" placeholder="Task description" [(ngModel)]="title"></textarea>
+<form (ngSubmit)="submit()" [formGroup]="form" [ngClass]="{'was-validated':form.invalid && (form.dirty || form.touched)}">
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Title *</label>
+      <input formControlName="title" class="form-control">
+      <div *ngIf="form.get('title').invalid && (form.get('title').dirty || form.get('title').touched)">
+        <div *ngIf="form.get('title').errors.required" class="invalid-feedback">
+          Title is required.
+        </div>
+        <div *ngIf="form.get('title').errors.maxlength" class="invalid-feedback">
+          Title must be less than 100 characters long.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea formControlName="description" class="form-control" rows="10"></textarea>
+    </div>
+    <hr>
+    <h4>Preview</h4>
+    <markdown [data]="form.get('description').value"></markdown>
+    <pre>{{form|json:2}}</pre>
   </div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-light" (click)="activeModal.dismiss()">Close</button>
-  <button type="button" class="btn btn-success" (click)="submit()">Create</button>
-</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" type="button" (click)="activeModal.dismiss()">Close</button>
+    <button type="button" class="btn btn-success" type="submit">Create</button>
+  </div>
+</form>

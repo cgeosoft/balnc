@@ -1,5 +1,6 @@
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule as ngCommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
@@ -24,6 +25,7 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe';
     NgbModule,
     NgPipesModule,
     MomentModule,
+    FormsModule,
   ],
   declarations: [
     MainComponent,
@@ -41,6 +43,7 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe';
   exports: [
     ngCommonModule,
     NgbModule,
+    FormsModule,
     SidebarComponent,
     ContentComponent,
     ContentHeaderComponent,

@@ -83,9 +83,10 @@ export class ProjectComponent {
           updatedAt: now,
           insertedFrom: user,
           log: [{
-            comment: "Task inserted to project",
+            comment: result.description,
             from: user,
             at: now,
+            type: "COMMENT"
           }],
           status: "PENDING",
           project: this.project.get('_id')
