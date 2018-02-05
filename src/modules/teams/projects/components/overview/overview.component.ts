@@ -22,7 +22,6 @@ export class OverviewComponent implements OnInit {
 
   constructor(
     private dbService: DatabaseService,
-    private zone: NgZone,
   ) { }
 
   ngOnInit() {
@@ -43,16 +42,5 @@ export class OverviewComponent implements OnInit {
         })
         return data
       })
-
-    this.zone.run(() => { })
-
-    // this.project$ = this.dbProject.findOne(projectId).$
-    // this.project$.subscribe((project: RxDocumentBase<RxProjectDocument> & RxProjectDocument) => {
-    //   this.project = project
-
-    //   this.tasks$.subscribe(() => {
-    //     this.zone.run(() => { })
-    //   })
-    // })
   }
 }

@@ -30,7 +30,6 @@ export class ProjectComponent {
   constructor(
     private route: ActivatedRoute,
     private projectsService: ProjectsService,
-    private zone: NgZone,
     private modal: NgbModal
   ) { }
 
