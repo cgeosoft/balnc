@@ -20,6 +20,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent {
+
+  commentPreview: boolean
   taskId: string;
   comment: string = null
   task: RxDocumentBase<RxTaskDocument> & RxTaskDocument
@@ -30,7 +32,6 @@ export class TaskComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private ngZone: NgZone,
     private modal: NgbModal,
     private formBuilder: FormBuilder,
     private projectsService: ProjectsService,
@@ -50,7 +51,6 @@ export class TaskComponent {
     this.task$.subscribe((task: RxDocumentBase<RxTaskDocument> & RxTaskDocument) => {
       this.task = task
       this.project$ = this.projectsService.getProject(task.project)
-      this.ngZone.run(() => { })
     })
 
     this.form = this.formBuilder.group({

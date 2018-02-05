@@ -39,21 +39,21 @@
           <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
               <li class="nav-item">
-                <button (click)="commentView = 'write'" class="nav-link" href>Write Comment</button>
+                <button (click)="commentPreview = false" class="nav-link" href>Write Comment</button>
               </li>
               <li class="nav-item">
-                <button (click)="commentView = 'preview'" class="nav-link">Preview</button>
+                <button (click)="commentPreview = true" class="nav-link">Preview</button>
               </li>
             </ul>
           </div>
           <div class="card-body">
             <form [formGroup]="form" (ngSubmit)="submitComment()">
-              <ng-container *ngIf="commentView === 'write' || !commentView">
+              <ng-container *ngIf="commentPreview">
                 <div class="form-group mt-2">
                   <textarea tabindex="3" formControlName="comment" class="form-control" rows="8"></textarea>
                 </div>
               </ng-container>
-              <ng-container *ngIf="commentView === 'preview'">
+              <ng-container *ngIf="commentPreview">
                 <markdown class="comment" [data]="form.get('comment').value"></markdown>
               </ng-container>
               <div class="d-flex">

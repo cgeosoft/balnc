@@ -22,10 +22,9 @@ export class CreateTaskComponent implements OnInit {
     form: FormGroup;
 
     constructor(
-        private activeModal: NgbActiveModal,
+        public activeModal: NgbActiveModal,
         private formBuilder: FormBuilder,
         private projectsService: ProjectsService,
-        private ngZone: NgZone,
     ) { }
 
     async ngOnInit() {
@@ -44,8 +43,6 @@ export class CreateTaskComponent implements OnInit {
             project: [this.projectId, [Validators.required]],
             description: ["", []],
         });
-
-        this.ngZone.run(() => { })
     }
 
     onSubmit() {

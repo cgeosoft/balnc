@@ -14,10 +14,9 @@ export class CreateProjectComponent implements OnInit {
     form: FormGroup;
 
     constructor(
-        private activeModal: NgbActiveModal,
+        public activeModal: NgbActiveModal,
         private formBuilder: FormBuilder,
         private projectsService: ProjectsService,
-        private ngZone: NgZone,
     ) { }
 
     async ngOnInit() {
@@ -33,7 +32,6 @@ export class CreateProjectComponent implements OnInit {
         this.projectsService
             .addProject(formModel.name, formModel.description)
             .then(() => {
-                this.ngZone.run(() => { })
                 this.activeModal.close()
             })
     }

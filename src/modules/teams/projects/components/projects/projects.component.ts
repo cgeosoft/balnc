@@ -16,7 +16,6 @@ export class ProjectsComponent {
   projects$: Observable<any>
 
   constructor(
-    private zone: NgZone,
     private modal: NgbModal,
     private projectsService: ProjectsService,
   ) { }

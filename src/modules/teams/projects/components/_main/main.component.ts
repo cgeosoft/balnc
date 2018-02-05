@@ -26,7 +26,6 @@ export class MainComponent implements OnInit {
 
   constructor(
     private projectsService: ProjectsService,
-    private zone: NgZone,
     private modal: NgbModal,
   ) { }
 
