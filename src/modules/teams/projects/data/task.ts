@@ -1,3 +1,5 @@
+import * as _taskSchema from '../../../../../schemas/teams/projects/task.json'
+
 declare interface RxTaskDocumentType {
     title?: string
     insertedAt?: string
@@ -16,5 +18,4 @@ declare interface RxTaskDocumentType {
 }
 
 export type RxTaskDocument = RxTaskDocumentType
-
-export const TaskSchema = require('../../../../../schemas/teams/projects/task.json')
+export const TaskSchema = _taskSchema

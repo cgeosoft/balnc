@@ -1,4 +1,4 @@
-import { RxDocumentBase } from "rxdb";
+import * as _projectSchema from '../../../../../schemas/teams/projects/project.json'
 
 declare interface RxProjectDocumentType {
     name: string
@@ -6,5 +6,4 @@ declare interface RxProjectDocumentType {
 }
 
 export type RxProjectDocument = RxProjectDocumentType
-// export type Project = RxDocumentBase<RxProjectDocument> & RxProjectDocument
-export const ProjectSchema = require('../../../../../schemas/teams/projects/project.json')
+export const ProjectSchema = _projectSchema
