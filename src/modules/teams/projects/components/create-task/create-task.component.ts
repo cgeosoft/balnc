@@ -15,7 +15,7 @@ export class CreateTaskComponent implements OnInit {
 
     projects$: Observable<(RxDocumentBase<RxProjectDocument> & RxProjectDocument)[]>;
 
-    @Input() projectId: string = "";
+    @Input() projectId = "";
 
     @ViewChild("title") title: ElementRef;
 
@@ -29,7 +29,7 @@ export class CreateTaskComponent implements OnInit {
 
     async ngOnInit() {
 
-        this.projects$ = await this.projectsService.getProjects()
+        // this.projects$ = await this.projectsService.getProjects()
 
         if (this.projectId === null) {
             const projects = await this.projects$.toPromise()

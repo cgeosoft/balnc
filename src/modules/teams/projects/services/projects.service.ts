@@ -4,12 +4,14 @@ import * as moment from 'moment'
 import { DatabaseService } from "../../../_core/database/services/database.service"
 import { RxProjectDocument } from "../data/project"
 import { RxTaskDocument } from "../data/task"
-import { RxCollection } from "rxdb"
-import { Observable } from "rxjs";
+import { RxCollection, RxReplicationState, RxDocumentBase } from "rxdb"
+import { Observable, } from "rxjs/Observable";
+import { Subject } from "rxjs/Subject";
 import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 
 @Injectable()
 export class ProjectsService implements Resolve<any> {
+
     tasks: RxCollection<RxTaskDocument>
     projects: RxCollection<RxProjectDocument>
 
@@ -23,30 +25,21 @@ export class ProjectsService implements Resolve<any> {
     }
 
     async setup() {
-        console.log("async")
         this.projects = await this.dbService.get<RxProjectDocument>("project")
         this.tasks = await this.dbService.get<RxTaskDocument>("task")
     }
 
     getProjects() {
-        console.log("getProjects")
-        return this.projects.find().$
-            .map((data) => {
-                if (!data) { return data }
-                data.sort((a, b) => {
-                    return a.name < b.name ? -1 : 1
-                })
-                return data
-            })
+        return this.projects.find()
+            // .sort("name")
+            .$
     }
 
     getProject(projectId) {
-        console.log("getProject", projectId)
         return this.projects.findOne(projectId).$
     }
 
     addProject(name: string, description: string) {
-        console.log("addProject")
         const project = this.projects.newDocument({
             name: name,
             description: description,
@@ -55,25 +48,17 @@ export class ProjectsService implements Resolve<any> {
     }
 
     getTasks(params: any = {}) {
-        console.log("getTasks", params)
         return this.tasks
-            .find(params.query).$
-            .map((data) => {
-                if (!data) { return data }
-                data.sort((a, b) => {
-                    return a.updatedAt > b.updatedAt ? -1 : 1
-                })
-                return data
-            })
+            .find(params.query)
+            // .sort("updatedAt")
+            .$
     }
 
     getTask(taskId) {
-        console.log("getTask", taskId)
         return this.tasks.findOne(taskId).$
     }
 
     addTask(title: string, projectId: string, description: string) {
-        console.log("addTask")
         const now = moment().toISOString()
         const user = "anonymous"
 

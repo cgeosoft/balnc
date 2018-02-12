@@ -22,7 +22,7 @@ import { DatabaseModule } from '../../_core/database/database.module';
 import { OverviewComponent } from './components/overview/overview.component';
 import { MainComponent } from './components/_main/main.component';
 import { ProjectsService } from './services/projects.service';
-
+import { ProjectsTableComponent } from './components/projects/projects-table.component';
 
 const entities: Entity[] = [{
   name: 'project',
@@ -58,6 +58,7 @@ const routes: Routes = [{
     TaskComponent,
     CreateTaskComponent,
     CreateProjectComponent,
+    ProjectsTableComponent,
   ],
   imports: [
     CommonModule,

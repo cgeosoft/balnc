@@ -6,6 +6,7 @@
 @import "../scss/components/invoice";
 @import "../scss/components/chat";
 @import "../scss/components/list-menu";
+@import "../scss/components/table-max";
 .card-header-buttons {
   float: right;
   >button,
@@ -18,15 +19,6 @@
 .dropdown-toggle-hidden {
   &::after {
     display: none
-  }
-}
-
-.table {
-  &.table-max {
-    td,
-    th {
-      vertical-align: middle !important;
-    }
   }
 }
 

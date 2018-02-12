@@ -12,15 +12,18 @@ import KeycompressionPlugin from 'rxdb/plugins/key-compression'
 import AttachmentsPlugin from 'rxdb/plugins/attachments';
 import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages';
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check';
-import { RxDatabase, RxCollection } from 'rxdb'
+import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
 
 import { environment } from '../../../../environments/environment'
 import { ConfigService } from "../../config/config.service"
 import { Entity } from "../models/entity"
 import { HttpClient } from '@angular/common/http';
 
+RxDB.QueryChangeDetector.enable()
+
 if (!environment.production) {
     RxDB.plugin(RxDBSchemaCheckModule)
+    RxDB.QueryChangeDetector.enableDebugging()
 }
 
 RxDB.plugin(KeycompressionPlugin)
@@ -34,20 +37,16 @@ RxDB.plugin(require('pouchdb-adapter-http'))
 RxDB.plugin(require('pouchdb-adapter-idb'))
 RxDB.plugin(require('pouchdb-adapter-websql'))
 
-RxDB.QueryChangeDetector.enable()
-RxDB.QueryChangeDetector.enableDebugging()
-
-const levelAdapters = ["idb", "websql"]
-
 @Injectable()
 export class DatabaseService {
 
+    replicationStates: { [key: string]: RxReplicationState; } = {}
     static db: RxDatabase = null
 
     loadedEntities: string[] = []
     loadedEntitesSubject: BehaviorSubject<Array<string>> = new BehaviorSubject([])
     hadAuthed = false
-    adapter = "localstorage"
+    adapter = null
 
     constructor(
         @Inject("APP_ENTITIES") entities: Entity[],
@@ -76,8 +75,8 @@ export class DatabaseService {
                 name: "demo",
                 password: "demo",
             }, {
-                withCredentials: true
-            })
+                    withCredentials: true
+                })
     }
 
     public setup(entities: Entity[]) {
@@ -90,12 +89,13 @@ export class DatabaseService {
                 })
                 .then(collection => {
                     if (entity.sync) {
-                        collection.sync({
+                        const replicationState = collection.sync({
                             remote: `${this.configSrv.get("remoteDB")}/${entity.name}/`,
                             // options: {
                             //     retry: true
                             // },
                         })
+                        this.replicationStates[entity.name] = replicationState
                     }
                     this.loadedEntities.push(entity.name)
                     this.loadedEntitesSubject.next(this.loadedEntities)

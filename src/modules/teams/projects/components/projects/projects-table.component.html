@@ -1,0 +1,32 @@
+<ng-container *ngIf="projects; else loader">
+  <ng-container *ngIf="projects.length; else noItems">
+    <table class="table table-max">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projects">
+          <td>
+            <div class="d-flex flex-column align-items-start">
+              <strong>{{project.name || '[Without name]'}}</strong>
+              <small class="text-muted">{{project.description || 'Without description' | ellipsis:250}}</small>
+            </div>
+          </td>
+          <td class="text-center" style="width:100px">
+            <a [routerLink]="['/projects',project._id]" class="btn btn-sm btn-outline-primary">Open</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-debug-panel [data]="projects"></app-debug-panel>
+  </ng-container>
+</ng-container>
+<ng-template #noItems>
+  <app-empty-panel message="You don't have any projects yet" submessage="Click create to add your first one" icon="cubes"></app-empty-panel>
+</ng-template>
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
