@@ -19,7 +19,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
   templateUrl: 'task.component.html',
   styleUrls: ['./task.component.scss'],
 })
-export class TaskComponent {
+export class TaskComponent implements OnInit {
 
   commentPreview: boolean
   taskId: string;
@@ -63,14 +63,14 @@ export class TaskComponent {
 
     const now = moment().toISOString()
     const user = "anonymous"
-    const log = this.task.log
-    log.push({
-      comment: formModel.comment,
-      from: user,
-      at: now,
-      type: "COMMENT"
-    })
-    this.task.log = log
+    // const log = this.task.log
+    // log.push({
+    //   comment: formModel.comment,
+    //   from: user,
+    //   at: now,
+    //   type: "COMMENT"
+    // })
+    // this.task.log = log
     await this.task.save()
     this.form.reset()
   }

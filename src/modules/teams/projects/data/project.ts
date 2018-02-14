@@ -3,6 +3,10 @@ import * as _projectSchema from '../../../../../schemas/teams/projects/project.j
 declare interface RxProjectDocumentType {
     name: string
     description: string
+    features: { [key: string]: boolean }
+    tags: any[]
+    isStarred: boolean
+    isArchived: boolean
 }
 
 export type RxProjectDocument = RxProjectDocumentType

@@ -20,7 +20,7 @@ export class MainComponent implements OnInit {
   dbTask: RxCollection<any>
 
   tasks$: Observable<any[]>
-  project$: Observable<any>
+
 
   project: RxDocumentBase<RxProjectDocument> & RxProjectDocument;
 
@@ -34,7 +34,7 @@ export class MainComponent implements OnInit {
   }
 
   private async setup() {
-    this.tasks$ = this.projectsService.getTasks()
+    this.tasks$ = this.projectsService.tasks.find().$
   }
 
   createTask() {

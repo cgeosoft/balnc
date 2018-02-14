@@ -6,6 +6,15 @@
     "title": {
       "type": "string"
     },
+    "description": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string"
+    },
+    "parentTask": {
+      "type": "string"
+    },
     "insertedAt": {
       "type": "string"
     },
@@ -15,30 +24,7 @@
     "insertedFrom": {
       "type": "string"
     },
-    "log": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "comment": {
-            "type": "string"
-          },
-          "from": {
-            "type": "string"
-          },
-          "at": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          }
-        }
-      }
-    },
     "status": {
-      "type": "string"
-    },
-    "parent": {
       "type": "string"
     },
     "labels": {
@@ -46,9 +32,6 @@
       "items": {
         "type": "string"
       }
-    },
-    "project": {
-      "type": "string"
     }
   }
 }

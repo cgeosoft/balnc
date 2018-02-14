@@ -1,0 +1,25 @@
+{
+  "id": "log",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "project": {
+      "type": "string"
+    },
+    "task": {
+      "type": "string"
+    },
+    "insertedAt": {
+      "type": "string"
+    },
+    "insertedFrom": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    }
+  }
+}

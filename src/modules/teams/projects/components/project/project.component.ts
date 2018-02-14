@@ -18,7 +18,7 @@ import { ProjectsService } from '../../services/projects.service'
   templateUrl: 'project.component.html',
   styleUrls: ['./project.component.scss'],
 })
-export class ProjectComponent {
+export class ProjectComponent implements OnInit {
   projectId: string;
 
   dbProject: RxCollection<any>
@@ -42,9 +42,9 @@ export class ProjectComponent {
 
   private async setup() {
     this.project$ = this.projectsService.getProject(this.projectId)
-    this.tasks$ = this.projectsService.getTasks({
+    this.tasks$ = this.projectsService.tasks.find({
       query: { project: { $eq: this.projectId } }
-    })
+    }).$
   }
 
   createTask() {
