@@ -1,4 +1,4 @@
-import * as _taskSchema from '../../../../../schemas/teams/projects/task.json'
+import * as _taskSchema from '@blnc/schemas/teams/projects/task.json'
 
 declare interface RxTaskDocumentType {
     title: string

@@ -1,4 +1,4 @@
-import * as _projectSchema from '../../../../../schemas/teams/projects/project.json'
+import * as _projectSchema from '@blnc/schemas/teams/projects/project.json'
 
 declare interface RxProjectDocumentType {
     name: string

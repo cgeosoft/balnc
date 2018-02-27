@@ -1,12 +1,13 @@
 import { Component, OnInit, NgZone } from '@angular/core'
-import { RxProjectDocument } from '../../data/project';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { RxCollection, RxDocumentBase } from 'rxdb';
-import { DatabaseService } from '../../../../_core/database/services/database.service';
-import { RxTaskDocument } from '../../data/task';
 
+import { DatabaseService } from '@blnc/_core/database/services/database.service';
+
+import { RxProjectDocument } from '../../data/project';
+import { RxTaskDocument } from '../../data/task';
 import { CreateTaskComponent } from '../create-task/create-task.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProjectsService } from '../../services/projects.service';
 
 @Component({

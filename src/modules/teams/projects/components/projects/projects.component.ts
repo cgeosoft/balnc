@@ -1,11 +1,13 @@
 import { Component, NgZone, ChangeDetectorRef, ChangeDetectionStrategy, OnInit } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { CreateProjectComponent } from '../create-project/create-project.component'
+
 import * as _ from 'lodash'
 import * as moment from 'moment'
+
 import { ProjectsService } from '../../services/projects.service'
-import { HttpClient } from '@angular/common/http'
+import { CreateProjectComponent } from '../create-project/create-project.component'
 
 @Component({
   selector: 'app-team-projects-projects',

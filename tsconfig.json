@@ -20,7 +20,16 @@
       "es2015",
       "es5",
       "es6"
-    ]
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "@blnc/*": [
+        "modules/*"
+      ],
+      "@blnc/schemas/*": [
+        "../schemas/*"
+      ]
+    }
   },
   "exclude": [
     "./node_modules",

@@ -1,13 +1,15 @@
-import { Injectable } from "@angular/core"
-
-import * as moment from 'moment'
-import { DatabaseService } from "../../../_core/database/services/database.service"
-import { RxProjectDocument } from "../data/project"
-import { RxTaskDocument } from "../data/task"
+import { Subject } from "rxjs/Subject";
 import { RxCollection, RxReplicationState, RxDocumentBase } from "rxdb"
 import { Observable, } from "rxjs/Observable";
-import { Subject } from "rxjs/Subject";
+import { Injectable } from "@angular/core"
 import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
+
+import * as moment from 'moment'
+
+import { DatabaseService } from "@blnc/_core/database/services/database.service"
+
+import { RxProjectDocument } from "../data/project"
+import { RxTaskDocument } from "../data/task"
 
 @Injectable()
 export class ProjectsService implements Resolve<any> {

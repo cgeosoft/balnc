@@ -5,8 +5,9 @@ import { RouterModule, Routes } from '@angular/router'
 
 import { MarkdownModule } from 'ngx-md';
 
-import { CommonModule } from '../../_core/common/common.module';
-import { Entity } from '../../_core/database/models/entity';
+import { CommonModule } from '@blnc/_core/common/common.module';
+import { Entity } from '@blnc/_core/database/models/entity';
+import { DatabaseModule } from '@blnc/_core/database/database.module';
 
 import {
   ProjectsComponent,
@@ -18,11 +19,10 @@ import {
 
 import { ProjectSchema } from './data/project';
 import { TaskSchema } from './data/task';
-import { DatabaseModule } from '../../_core/database/database.module';
 import { OverviewComponent } from './components/overview/overview.component';
 import { MainComponent } from './components/_main/main.component';
-import { ProjectsService } from './services/projects.service';
 import { ProjectsTableComponent } from './components/projects/projects-table.component';
+import { ProjectsService } from './services/projects.service';
 
 const entities: Entity[] = [{
   name: 'project',

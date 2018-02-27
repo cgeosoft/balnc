@@ -1,4 +1,4 @@
-import * as _logSchema from '../../../../../schemas/teams/projects/log.json'
+import * as _logSchema from '@blnc/schemas/teams/projects/log.json'
 
 declare interface RxLogDocumentType {
     project: string
