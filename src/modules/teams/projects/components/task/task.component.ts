@@ -8,7 +8,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { DatabaseService } from '@blnc/_core/database/services/database.service'
+import { DatabaseService } from '@blnc-core/database/services/database.service'
 
 import { CreateTaskComponent } from '../create-task/create-task.component'
 import { RxProjectDocument } from '../../data/project'

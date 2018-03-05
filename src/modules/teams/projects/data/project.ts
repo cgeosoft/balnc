@@ -1,4 +1,4 @@
-import * as _projectSchema from '@blnc/schemas/teams/projects/project.json'
+import * as schema from './project.json'
 
 declare interface RxProjectDocumentType {
     name: string
@@ -10,4 +10,4 @@ declare interface RxProjectDocumentType {
 }
 
 export type RxProjectDocument = RxProjectDocumentType
-export const ProjectSchema = _projectSchema
+export const ProjectSchema = schema

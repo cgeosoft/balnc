@@ -1,3 +1,5 @@
+import * as schema from './invoice.json'
+
 declare interface RxInvoiceDocumentType {
     orders: Array<string>
     dateCreated: string
@@ -9,5 +11,4 @@ declare interface RxInvoiceDocumentType {
 }
 
 export type RxInvoiceDocument = RxInvoiceDocumentType
-
-export const InvoiceSchema = require('../../../../../schemas/business/invoices/invoice.json')
+export const InvoiceSchema = schema

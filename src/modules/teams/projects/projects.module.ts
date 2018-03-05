@@ -5,9 +5,9 @@ import { RouterModule, Routes } from '@angular/router'
 
 import { MarkdownModule } from 'ngx-md';
 
-import { CommonModule } from '@blnc/_core/common/common.module';
-import { Entity } from '@blnc/_core/database/models/entity';
-import { DatabaseModule } from '@blnc/_core/database/database.module';
+import { CommonModule } from '@blnc-core/common/common.module';
+import { Entity } from '@blnc-core/database/models/entity';
+import { DatabaseModule } from '@blnc-core/database/database.module';
 
 import {
   ProjectsComponent,

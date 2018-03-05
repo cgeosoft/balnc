@@ -1,4 +1,4 @@
-import * as _taskSchema from '@blnc/schemas/teams/projects/task.json'
+import * as schema from './task.json'
 
 declare interface RxTaskDocumentType {
     title: string
@@ -13,4 +13,4 @@ declare interface RxTaskDocumentType {
 }
 
 export type RxTaskDocument = RxTaskDocumentType
-export const TaskSchema = _taskSchema
+export const TaskSchema = schema

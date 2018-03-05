@@ -1,4 +1,4 @@
-import * as _logSchema from '@blnc/schemas/teams/projects/log.json'
+import * as schema from './log.json'
 
 declare interface RxLogDocumentType {
     project: string
@@ -10,4 +10,4 @@ declare interface RxLogDocumentType {
 }
 
 export type RxLogDocument = RxLogDocumentType
-export const LogSchema = _logSchema
+export const LogSchema = schema

@@ -1,0 +1,39 @@
+{
+  "id": "contact",
+  "title": "contact",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "faker": "internet.email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "taxDetails": {
+      "type": "object",
+      "properties": {
+        "vatNumber": {
+          "type": "string"
+        },
+        "taxOffice": {
+          "type": "string"
+        }
+      },
+      "required": ["taxOffice", "vatNumber"]
+    }
+  },
+  "subContacts": {
+    "type": "array",
+    "items": {
+      "$ref": "contact"
+    }
+  }
+}

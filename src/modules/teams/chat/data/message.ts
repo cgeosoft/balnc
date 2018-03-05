@@ -1,4 +1,4 @@
-import * as _chatMessageSchema from '@blnc/schemas/teams/chat/message.json'
+import * as schema from './message.json'
 
 declare interface RxChatMessageDocumentType {
     text: string
@@ -8,6 +8,4 @@ declare interface RxChatMessageDocumentType {
 }
 
 export type RxChatMessageDocument = RxChatMessageDocumentType
-
-
-export const ChatMessageSchema = _chatMessageSchema
+export const ChatMessageSchema = schema

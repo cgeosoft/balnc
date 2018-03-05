@@ -5,7 +5,7 @@ import { RxCollection } from 'rxdb'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { DatabaseService } from '@blnc/_core/database/services/database.service'
+import { DatabaseService } from '@blnc-core/database/services/database.service'
 
 import { RxChatMessageDocument } from '../../data/message'
 
