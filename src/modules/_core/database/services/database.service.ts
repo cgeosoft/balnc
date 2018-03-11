@@ -18,6 +18,7 @@ import { environment } from '../../../../environments/environment'
 import { ConfigService } from "../../config/config.service"
 import { Entity } from "../models/entity"
 import { HttpClient } from '@angular/common/http';
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 
 RxDB.QueryChangeDetector.enable()
 
@@ -38,10 +39,12 @@ RxDB.plugin(require('pouchdb-adapter-idb'))
 RxDB.plugin(require('pouchdb-adapter-websql'))
 
 @Injectable()
+
 export class DatabaseService {
 
-    replicationStates: { [key: string]: RxReplicationState; } = {}
     static db: RxDatabase = null
+
+    replicationStates: { [key: string]: RxReplicationState; } = {}
 
     loadedEntities: string[] = []
     loadedEntitesSubject: BehaviorSubject<Array<string>> = new BehaviorSubject([])

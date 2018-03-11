@@ -1,8 +1,11 @@
-<div class="wrapper d-flex">
+<div class="wrapper d-flex" *ngIf="!selectedAccount">
+  loading...
+</div>
+<div class="wrapper d-flex" *ngIf="selectedAccount">
   <div class="sidemenu d-flex flex-column justify-content-start">
     <div class="logo">
-      <a>
-        <span class="fa fa-balance-scale"></span>
+      <a href="javascript:;" (click)="viewAccounts()">
+        {{selectedAccount.alias}}
       </a>
     </div>
     <div class="items d-flex flex-column justify-content-start">
@@ -52,3 +55,40 @@
   </div>
   <router-outlet></router-outlet>
 </div>
+
+<ng-template #accountForm>
+  <form [formGroup]="form" (ngSubmit)="saveAccount()">
+    <div class="modal-header">
+      <h4 class="modal-title">Account</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input [(ngModel)]="alias">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success">Save</button>
+    </div>
+  </form>
+</ng-template>
+
+
+<ng-template #accountsView>
+  <div class="modal-header">
+    <h4 class="modal-title">Accounts</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table">
+      <tr *ngFor="let account of accounts">
+        <td>{{account.alias}}</td>
+        <td>
+          <button class="btn btn-default" (click)="selectAccount(account)">Select</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</ng-template>

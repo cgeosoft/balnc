@@ -1,6 +1,5 @@
 {
-  "id": "http://balance.cgeosoft.com/schemas/core/user.json",
-  "title": "User",
+  "id": "user",
   "type": "object",
   "version": 0,
   "definitions": {

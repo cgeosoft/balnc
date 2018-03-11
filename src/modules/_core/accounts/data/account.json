@@ -1,6 +1,5 @@
 {
-  "id": "http://balance.cgeosoft.com/schemas/core/org.json",
-  "title": "Organization",
+  "id": "account",
   "type": "object",
   "version": 0,
   "properties": {
@@ -16,7 +15,7 @@
     "users": {
       "type": "array",
       "items": {
-        "$ref": "user.json#"
+        "$ref": "user.json"
       }
     }
   }

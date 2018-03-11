@@ -1,6 +1,4 @@
 import { NgModule } from '@angular/core'
-import { ReactiveFormsModule } from '@angular/forms';  // <-- #1 import module
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { RouterModule, Routes } from '@angular/router'
 
 import { MarkdownModule } from 'ngx-md';
@@ -62,9 +60,6 @@ const routes: Routes = [{
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    NgbModule,
-
     DatabaseModule.forChild(entities),
     RouterModule.forChild(routes),
     MarkdownModule,
