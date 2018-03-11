@@ -8,10 +8,13 @@
   .container {
     @extend .d-flex;
     @extend .flex-column;
+    @extend .justify-content-center;
+    padding-top: .5rem;
     .header-title-bar {
       @extend .d-flex;
       @extend .flex-row;
       @extend .align-items-start;
+      height: 52px;
       .header-icon {
         color: lighten(#333, 10);
         border-right: solid 1px #DDD;
@@ -22,9 +25,9 @@
         align-items: center;
       }
       .header-body {
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: column;
+        @extend .d-flex;
+        @extend .flex-column;
+        @extend .justify-content-start;
         h1 {
           color: #333;
           font-size: 1.3rem;
@@ -47,7 +50,20 @@
         }
       }
     }
-    .header-menu-tab {}
+    .header-menu-tab {
+      margin-top: .7rem;
+      .nav-tabs {
+        border-bottom: none;
+        .nav-item {
+          .nav-link {
+            color: #666;
+            &.active {
+              color: #333;
+            }
+          }
+        }
+      }
+    }
   }
   .dropdown-toggle {
     &::after {

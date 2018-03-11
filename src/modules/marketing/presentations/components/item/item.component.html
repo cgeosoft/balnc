@@ -1,5 +1,6 @@
 <app-content>
-  <app-content-header [title]="(presentation$|async)?.title" icon="desktop" [settingsMenu]="settingsMenu" [tabsMenu]="tabsMenu"></app-content-header>
+  <app-content-header [title]="(presentation$|async)?.title" subtitle="Presentation" icon="desktop" [settingsMenu]="settingsMenu"
+    [tabsMenu]="tabsMenu"></app-content-header>
   <app-content-body>
     <ng-container *ngIf="presentation$ | async as presentation; else loader">
       <div class="row">

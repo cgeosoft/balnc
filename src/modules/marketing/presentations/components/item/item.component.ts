@@ -28,7 +28,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   sub
   presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument
   settingsMenu: any[] = []
-  tabsMenu: any[] = []
+  tabsMenu: any = {}
   statistics: any = {}
 
   constructor(
@@ -69,28 +69,21 @@ export class ItemComponent implements OnInit, OnDestroy {
       }
     }]
 
-    this.tabsMenu = [{
-      label: "Configure",
-      icon: "edit",
-      callback: () => {
-        console.log("Configure")
+    this.tabsMenu = {
+      active: "details",
+      tabs: [{
+        id: "details",
+        label: "Details",
+        icon: "edit",
+      }, {
+        id: "settings",
+        label: "Settings",
+        icon: "cogs",
+      }],
+      select: (tabId) => {
+        this.tabsMenu.active = tabId
       }
-    }, {
-      label: "Cleanup Files",
-      icon: "trash-o",
-      callback: () => {
-        this.cleanupFiles()
-      }
-    }, {
-      isDivider: true
-    }, {
-      label: "Delete",
-      cssClass: "text-danger",
-      icon: "trash-o",
-      callback: () => {
-        this.deletePresentation()
-      }
-    }]
+    }
   }
 
   ngOnDestroy() {
