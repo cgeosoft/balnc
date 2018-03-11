@@ -1,25 +1,26 @@
 import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs/Subscription'
 import { RxCollection, RxDocumentBase } from 'rxdb'
-import { RxTaskDocument } from '../../data/task'
 import { Observable } from 'rxjs/Observable'
-import { DatabaseService } from '../../../../_core/database/services/database.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-
-import { CreateTaskComponent } from '../create-task/create-task.component'
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import * as _ from 'lodash'
 import * as moment from 'moment'
+
+import { DatabaseService } from '@blnc-core/database/services/database.service'
+
+import { CreateTaskComponent } from '../create-task/create-task.component'
 import { RxProjectDocument } from '../../data/project'
-import { ActivatedRoute } from '@angular/router'
+import { RxTaskDocument } from '../../data/task'
 import { ProjectsService } from '../../services/projects.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-team-projects-task',
   templateUrl: 'task.component.html',
   styleUrls: ['./task.component.scss'],
 })
-export class TaskComponent {
+export class TaskComponent implements OnInit {
 
   commentPreview: boolean
   taskId: string;
@@ -63,14 +64,14 @@ export class TaskComponent {
 
     const now = moment().toISOString()
     const user = "anonymous"
-    const log = this.task.log
-    log.push({
-      comment: formModel.comment,
-      from: user,
-      at: now,
-      type: "COMMENT"
-    })
-    this.task.log = log
+    // const log = this.task.log
+    // log.push({
+    //   comment: formModel.comment,
+    //   from: user,
+    //   at: now,
+    //   type: "COMMENT"
+    // })
+    // this.task.log = log
     await this.task.save()
     this.form.reset()
   }

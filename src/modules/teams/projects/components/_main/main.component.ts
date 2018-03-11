@@ -1,12 +1,13 @@
 import { Component, OnInit, NgZone } from '@angular/core'
-import { RxProjectDocument } from '../../data/project';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/Observable';
 import { RxCollection, RxDocumentBase } from 'rxdb';
-import { DatabaseService } from '../../../../_core/database/services/database.service';
-import { RxTaskDocument } from '../../data/task';
 
+import { DatabaseService } from '@blnc-core/database/services/database.service';
+
+import { RxProjectDocument } from '../../data/project';
+import { RxTaskDocument } from '../../data/task';
 import { CreateTaskComponent } from '../create-task/create-task.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProjectsService } from '../../services/projects.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class MainComponent implements OnInit {
   dbTask: RxCollection<any>
 
   tasks$: Observable<any[]>
-  project$: Observable<any>
+
 
   project: RxDocumentBase<RxProjectDocument> & RxProjectDocument;
 
@@ -34,7 +35,7 @@ export class MainComponent implements OnInit {
   }
 
   private async setup() {
-    this.tasks$ = this.projectsService.getTasks()
+    this.tasks$ = this.projectsService.tasks.find().$
   }
 
   createTask() {

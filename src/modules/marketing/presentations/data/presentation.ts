@@ -1,4 +1,4 @@
-import * as _presentationSchema from '../../../../../schemas/marketing/presentation.json'
+import * as schema from './presentation.json'
 
 declare interface RxPresentationDocumentType {
     title: string
@@ -14,4 +14,4 @@ declare interface RxPresentationDocumentType {
 }
 
 export type RxPresentationDocument = RxPresentationDocumentType
-export const PresentationSchema = _presentationSchema
+export const PresentationSchema = schema

@@ -18,7 +18,7 @@
         <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
-    <ng-container *ngIf="projects$ | async as projects; else loader">
+    <ng-container *ngIf="projects; else loader">
       <ng-container *ngIf="projects.length; else noItems">
         <table class="table table-max">
           <thead>
@@ -26,12 +26,11 @@
               <th>
                 Show:
                 <div ngbDropdown class="d-inline-block">
-                  <button class="btn btn-light btn-sm" ngbDropdownToggle>Active</button>
+                  <button class="btn btn-light btn-sm" ngbDropdownToggle>
+                    {{typeFilterSelected}}
+                  </button>
                   <div ngbDropdownMenu>
-                    <button class="dropdown-item">Starred</button>
-                    <button class="dropdown-item">Active</button>
-                    <button class="dropdown-item">Archived</button>
-                    <button class="dropdown-item">Everything</button>
+                    <button class="dropdown-item" *ngFor="let filter of typeFilters" (click)="setFilter(filter.label)">{{filter.label}}</button>
                   </div>
                 </div>
               </th>
@@ -43,9 +42,9 @@
             <tr *ngFor="let project of projects">
               <td class="td-double">
                 <div>
-                  <span class="fa fa-star text-warning"></span>
+                  <span class="fa fa-star text-warning" *ngIf="project.isStarred"></span>
                   <a [routerLink]="['/projects',project._id]">{{project.name || '[Without name]'}}</a>
-                  <span class="badge badge-secondary">ARCHIVED</span>
+                  <span class="badge badge-secondary" *ngIf="project.isArchived">ARCHIVED</span>
                 </div>
                 <div class="description">{{project.description || 'Without description' | ellipsis:250}}</div>
               </td>
@@ -53,7 +52,7 @@
                 <span placement="top" ngbTooltip="2018-01-25 15:55:21">12 hours ago</span>
               </td>
               <td class="td-large text-center text-muted" style="max-width:100px">
-                <span class="fas fa-tasks"></span> 20
+                <span class="fas fa-tasks"></span> {{project._tasksTotal}}
               </td>
             </tr>
           </tbody>

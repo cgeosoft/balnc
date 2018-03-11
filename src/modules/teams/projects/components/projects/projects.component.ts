@@ -1,11 +1,13 @@
 import { Component, NgZone, ChangeDetectorRef, ChangeDetectionStrategy, OnInit } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { CreateProjectComponent } from '../create-project/create-project.component'
+
 import * as _ from 'lodash'
 import * as moment from 'moment'
+
 import { ProjectsService } from '../../services/projects.service'
-import { HttpClient } from '@angular/common/http';
+import { CreateProjectComponent } from '../create-project/create-project.component'
 
 @Component({
   selector: 'app-team-projects-projects',
@@ -14,7 +16,17 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProjectsComponent implements OnInit {
 
-  projects$: Observable<any[]>;
+  projects: any[] = null
+  projects$: Observable<any[]>
+
+  typeFilterSelected = null
+  typeFilters = [
+    { label: "Starred" },
+    { label: "Active" },
+    { label: "Archived" },
+    { label: "Everything" },
+  ]
+  filters: any
 
   constructor(
     private modal: NgbModal,
@@ -22,11 +34,13 @@ export class ProjectsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.setFilter("Active")
     this.load()
   }
 
   async load() {
-    this.projects$ = this.projectsService.getProjects()
+    console.log(this.filters)
+    this.projects = await this.projectsService.getProjects(this.filters)
   }
 
   refresh() {
@@ -35,6 +49,25 @@ export class ProjectsComponent implements OnInit {
 
   async create() {
     await this.modal.open(CreateProjectComponent).result
+    this.load()
+  }
+
+  setFilter(filter) {
+    this.typeFilterSelected = filter
+    switch (filter) {
+      case "Starred":
+        this.filters = { isStarred: { $eq: true } }
+        break;
+      case "Active":
+        this.filters = { isArchived: { $eq: false } }
+        break;
+      case "Archived":
+        this.filters = { isArchived: { $eq: true } }
+        break;
+      case "Everything":
+        this.filters = {}
+        break;
+    }
     this.load()
   }
 }

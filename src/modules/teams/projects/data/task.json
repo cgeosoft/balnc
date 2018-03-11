@@ -1,0 +1,37 @@
+{
+  "id": "task",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string"
+    },
+    "parentTask": {
+      "type": "string"
+    },
+    "insertedAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "insertedFrom": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

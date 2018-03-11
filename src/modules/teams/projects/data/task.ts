@@ -1,21 +1,16 @@
-import * as _taskSchema from '../../../../../schemas/teams/projects/task.json'
+import * as schema from './task.json'
 
 declare interface RxTaskDocumentType {
-    title?: string
-    insertedAt?: string
+    title: string
+    description?: string
+    project: string
+    insertedAt: string
     updatedAt?: string
-    insertedFrom?: string
-    log?: {
-        comment: string
-        from?: string
-        at?: string
-        type?: string
-    }[]
-    status?: string
+    insertedFrom: string
+    status: string
     parent?: string
     labels?: string[]
-    project?: string
 }
 
 export type RxTaskDocument = RxTaskDocumentType
-export const TaskSchema = _taskSchema
+export const TaskSchema = schema

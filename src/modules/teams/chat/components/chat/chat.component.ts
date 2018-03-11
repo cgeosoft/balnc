@@ -1,14 +1,13 @@
 import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { Subscription } from 'rxjs/Subscription'
+import { RxCollection } from 'rxdb'
 
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { DatabaseService } from '../../../../_core/database/services/database.service'
-import { RxChatMessageDocument } from '../../data/message'
-import { RxCollection } from 'rxdb'
-import { Date, setTimeout } from 'core-js/library/web/timers'
+import { DatabaseService } from '@blnc-core/database/services/database.service'
 
+import { RxChatMessageDocument } from '../../data/message'
 
 @Component({
   selector: 'app-chat',
