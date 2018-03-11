@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core'
 import { Observable } from 'rxjs/Observable';
 import { RxCollection, RxDocumentBase } from 'rxdb';
 
-import { DatabaseService } from '@blnc-core/database/services/database.service';
+import { DatabaseService } from '@blnc/core/database/services/database.service';
 
 import { RxProjectDocument } from '../../data/project';
 import { RxTaskDocument } from '../../data/task';

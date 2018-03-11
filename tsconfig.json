@@ -21,24 +21,24 @@
       "es5",
       "es6"
     ],
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "@blnc-core/*": [
+      "@blnc/core/*": [
         "modules/_core/*"
       ],
-      "@blnc-business/*": [
+      "@blnc/business/*": [
         "modules/business/*"
       ],
-      "@blnc-general/*": [
+      "@blnc/general/*": [
         "modules/general/*"
       ],
-      "@blnc-marketing/*": [
+      "@blnc/marketing/*": [
         "modules/marketing/*"
       ],
-      "@blnc-teams/*": [
+      "@blnc/teams/*": [
         "modules/teams/*"
       ],
-      "@blnc-bookings/*": [
+      "@blnc/bookings/*": [
         "modules/bookings/*"
       ]
     }

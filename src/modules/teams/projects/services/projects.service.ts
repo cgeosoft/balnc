@@ -6,7 +6,7 @@ import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 
 import * as moment from 'moment'
 
-import { DatabaseService } from "@blnc-core/database/services/database.service"
+import { DatabaseService } from "@blnc/core/database/services/database.service"
 
 import { RxProjectDocument } from "../data/project"
 import { RxTaskDocument } from "../data/task"

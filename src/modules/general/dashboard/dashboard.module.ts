@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { CommonModule } from "../../_core/common/common.module"
+import { CommonModule } from "@blnc/core/common/common.module"
 import { DashboardComponent } from './dashboard.component'
 
 const appRoutes: Routes = [

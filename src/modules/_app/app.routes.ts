@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router'
 
-import { MainComponent } from '../_core/common/components/main/main.component'
-import { PageNotFoundComponent } from '../_core/common/components/page-not-found/page-not-found.component'
+import { MainComponent } from '@blnc/core/common/components/main/main.component'
+import { PageNotFoundComponent } from '@blnc/core/common/components/page-not-found/page-not-found.component'
 
 export const CORE_ROUTES: Routes = [
     {
