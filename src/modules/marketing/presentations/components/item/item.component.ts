@@ -28,6 +28,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   sub
   presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument
   settingsMenu: any[] = []
+  tabsMenu: any[] = []
   statistics: any = {}
 
   constructor(
@@ -46,6 +47,29 @@ export class ItemComponent implements OnInit, OnDestroy {
       })
 
     this.settingsMenu = [{
+      label: "Configure",
+      icon: "edit",
+      callback: () => {
+        console.log("Configure")
+      }
+    }, {
+      label: "Cleanup Files",
+      icon: "trash-o",
+      callback: () => {
+        this.cleanupFiles()
+      }
+    }, {
+      isDivider: true
+    }, {
+      label: "Delete",
+      cssClass: "text-danger",
+      icon: "trash-o",
+      callback: () => {
+        this.deletePresentation()
+      }
+    }]
+
+    this.tabsMenu = [{
       label: "Configure",
       icon: "edit",
       callback: () => {

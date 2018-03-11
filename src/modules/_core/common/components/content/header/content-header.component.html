@@ -33,19 +33,11 @@
       </div>
     </div>
   </div>
-  <div class="header-menu-tab">
+  <div class="header-menu-tab" *ngIf="tabsMenu.length">
     <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" href="#">Active</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+      <li class="nav-item" *ngFor="let tab of tabsMenu">
+        <a class="nav-link" [ngClass]="{active:tab.isActive}" href (click)="tab.callback()">
+          <span *ngIf="item.icon" class="fa fa-{{item.icon}}"></span> {{tab.label}}</a>
       </li>
     </ul>
   </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-content-header',
@@ -12,6 +12,7 @@ export class ContentHeaderComponent implements OnInit {
   @Input() subtitle = null
   @Input() details: any[] = []
   @Input() settingsMenu: any[] = []
+  @Input() tabsMenu: any[] = []
 
   constructor() { }
 
