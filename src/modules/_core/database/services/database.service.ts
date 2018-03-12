@@ -44,6 +44,8 @@ export class DatabaseService {
 
     static db: RxDatabase = null
 
+    dbspace: string
+
     replicationStates: { [key: string]: RxReplicationState; } = {}
 
     loadedEntities: string[] = []
@@ -83,12 +85,14 @@ export class DatabaseService {
     }
 
     public setup(entities: Entity[]) {
-        console.log("entities", entities)
         if (!entities) { return }
+
         entities.forEach(entity => {
+            const name = (this.dbspace) ? `${this.dbspace}-${entity.name}` : `${entity.name}`
+
             DatabaseService.db
                 .collection({
-                    name: entity.name,
+                    name: name,
                     schema: entity.schema,
                 })
                 .then(collection => {

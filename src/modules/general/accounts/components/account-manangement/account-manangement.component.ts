@@ -4,6 +4,8 @@ import { RxAccountDocument } from '@blnc/general/accounts/data/account'
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RxCollection } from 'rxdb';
 import { CreateAccountComponent } from '@blnc/general/accounts/components/create-account/create-account.component';
+import { AccountsService } from '@blnc/general/accounts/services/accounts.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-manangement',
@@ -20,13 +22,12 @@ export class AccountManangementComponent implements OnInit {
   accounts: RxAccountDocument[] = []
   dbAccounts: RxCollection<any>
 
-  @ViewChild('accountForm') accountForm
-  @ViewChild('accountsView') accountsView
-
   constructor(
     private activeModal: NgbActiveModal,
     private modalService: NgbModal,
     private dbService: DatabaseService,
+    private accountService: AccountsService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -55,8 +56,9 @@ export class AccountManangementComponent implements OnInit {
       })
   }
 
-  select(account: RxAccountDocument) {
-    localStorage.setItem("selectedAccount", account.alias)
-    this.selectedAccount = account
+  async select(account: RxAccountDocument) {
+    await this.accountService.selectAccount(account.alias)
+    console.log("Selected", account)
+    // this.router.navigate(['/dashboard']);
   }
 }

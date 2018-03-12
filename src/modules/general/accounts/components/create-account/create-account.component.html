@@ -7,16 +7,32 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="modal-body">
     <div class="form-group">
+      <label>Name
+        <small class="text-muted">required</small>
+      </label>
+      <input #name tabindex="1" formControlName="name" class="form-control" [ngClass]="{'is-invalid':form.get('name').invalid && (form.get('name').dirty || form.get('name').touched)}">
+      <small class="form-text text-muted pull-right">{{form.get('name').value.length || 0}}/100</small>
+      <ng-container *ngIf="form.get('name').invalid && (form.get('name').dirty || form.get('name').touched)">
+        <div *ngIf="form.get('name').errors.required" class="invalid-feedback">
+          Name is required.
+        </div>
+        <div *ngIf="form.get('name').errors.maxlength" class="invalid-feedback">
+          Name must be less than 100 characters long.
+        </div>
+      </ng-container>
+    </div>
+    <div class="form-group">
       <label>Alias
         <small class="text-muted">required</small>
       </label>
       <input #alias tabindex="1" formControlName="alias" class="form-control" [ngClass]="{'is-invalid':form.get('alias').invalid && (form.get('alias').dirty || form.get('alias').touched)}">
+      <small class="form-text text-muted pull-right">{{form.get('alias').value.length || 0}}/50</small>
       <ng-container *ngIf="form.get('alias').invalid && (form.get('alias').dirty || form.get('alias').touched)">
         <div *ngIf="form.get('alias').errors.required" class="invalid-feedback">
           Alias is required.
         </div>
         <div *ngIf="form.get('alias').errors.maxlength" class="invalid-feedback">
-          Alias must be less than 100 characters long.
+          Alias must be less than 50 characters long.
         </div>
       </ng-container>
     </div>

@@ -13,7 +13,7 @@ import { RxAccountDocument } from '../../data/account';
 })
 export class CreateAccountComponent implements OnInit {
 
-    @ViewChild("title") title: ElementRef;
+    @ViewChild("name") name: ElementRef;
     @ViewChild("alias") alias: ElementRef;
 
     form: FormGroup;
@@ -26,8 +26,8 @@ export class CreateAccountComponent implements OnInit {
 
     async ngOnInit() {
         this.form = this.formBuilder.group({
-            alias: ["", [Validators.required, Validators.maxLength(100)]],
-            title: ["", [Validators.required, Validators.maxLength(100)]],
+            alias: ["", [Validators.required, Validators.maxLength(50)]],
+            name: ["", [Validators.required, Validators.maxLength(100)]],
         });
     }
 
@@ -35,11 +35,9 @@ export class CreateAccountComponent implements OnInit {
         const formModel = this.form.value;
         const accountId = formModel.account
         this.accountsService
-            .addAccount(formModel.alias, formModel.title)
+            .addAccount(formModel.alias, formModel.name)
             .then(() => {
-                this.form.reset()
-                this.form.get("account").setValue(accountId)
-                this.title.nativeElement.focus()
+                this.activeModal.close()
             })
     }
 }

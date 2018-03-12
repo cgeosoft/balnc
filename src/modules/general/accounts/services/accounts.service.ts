@@ -7,7 +7,8 @@ import { DatabaseService } from '@blnc/core/database/services/database.service';
 @Injectable()
 export class AccountsService implements Resolve<any> {
 
-    accounts: RxCollection<RxAccountDocument>
+    selectedAccount: RxAccountDocument
+    accountsDB: RxCollection<RxAccountDocument>
 
     constructor(
         private dbService: DatabaseService,
@@ -15,20 +16,41 @@ export class AccountsService implements Resolve<any> {
     }
 
     resolve(route: ActivatedRouteSnapshot): Promise<any> | boolean {
-        this.setup()
-        return true
+        return this.setup()
     }
 
     async setup() {
-        this.accounts = await this.dbService.get<RxAccountDocument>("account")
+        console.log("set", "AccountsService")
+        this.accountsDB = await this.dbService.get<RxAccountDocument>("account")
+
+        const defaultAccount = localStorage.getItem("account")
+        if (defaultAccount) {
+            await this.selectAccount(defaultAccount)
+        }
     }
 
     addAccount(alias: string, name: string) {
-        const account = this.accounts.newDocument({
-            name: name,
+        const account = this.accountsDB.newDocument({
             alias: alias,
+            name: name,
         })
         return account.save()
     }
 
+    async getAccounts() {
+        return await this.accountsDB.find().exec();
+    }
+
+    async selectAccount(alias: string) {
+        const accounts = await this.getAccounts()
+
+        this.selectedAccount = accounts.find(x => {
+            return x.alias === alias
+        })
+
+        if (this.selectAccount) {
+            localStorage.setItem("account", alias)
+            this.dbService.dbspace = alias
+        }
+    }
 }

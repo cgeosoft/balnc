@@ -6,13 +6,13 @@ import { AccountSchema } from '@blnc/general/accounts/data/account';
 import { CommonModule } from '@blnc/core/common/common.module';
 import { AccountManangementComponent } from '@blnc/general/accounts/components/account-manangement/account-manangement.component';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountGuard } from '@blnc/general/accounts/guards/account.guard';
+import { DefaultAccountGuard } from '@blnc/general/accounts/guards/account.guard';
 import { CreateAccountComponent } from '@blnc/general/accounts/components/create-account/create-account.component';
 import { AccountsService } from '@blnc/general/accounts/services/accounts.service';
 import { LoginComponent } from '@blnc/general/accounts/components/login/login.component';
 import { RegisterComponent } from '@blnc/general/accounts/components/register/register.component';
 
-const asd: Entity[] = [{
+const entities: Entity[] = [{
   name: 'account',
   schema: AccountSchema,
   sync: false,
@@ -35,7 +35,7 @@ const routes: Routes = [{
 @NgModule({
   imports: [
     CommonModule,
-    DatabaseModule.forChild(asd),
+    DatabaseModule.forChild(entities),
     RouterModule.forChild(routes),
   ],
   declarations: [
@@ -46,9 +46,8 @@ const routes: Routes = [{
   ],
   providers: [
     AccountsService,
-    AccountGuard
+    DefaultAccountGuard
   ],
-  exports: [],
   entryComponents: [
     CreateAccountComponent
   ]

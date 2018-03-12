@@ -29,11 +29,11 @@ import { AccountsModule } from '@blnc/general/accounts/accounts.module'
     DatabaseModule.forRoot(),
 
     CommonModule,
-
     FilesModule,
     ConfigModule,
-    AccountsModule,
+
     MainModule,
+    AccountsModule,
   ],
   declarations: [
     AppComponent
@@ -44,7 +44,6 @@ import { AccountsModule } from '@blnc/general/accounts/accounts.module'
   providers: [],
   exports: [
     RouterModule,
-    AccountsModule,
   ]
 })
 export class AppModule { }
