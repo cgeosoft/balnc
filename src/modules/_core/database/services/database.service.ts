@@ -87,12 +87,18 @@ export class DatabaseService {
     public setup(entities: Entity[]) {
         if (!entities) { return }
 
+        console.log("setup entities", entities, this.dbspace, "loadedEntities", this.loadedEntities)
+
         entities.forEach(entity => {
-            const name = (this.dbspace) ? `${this.dbspace}-${entity.name}` : `${entity.name}`
+
+            if (this.dbspace) {
+                console.log("namespace found")
+                entity.name = `${this.dbspace}/${entity.name}`
+            }
 
             DatabaseService.db
                 .collection({
-                    name: name,
+                    name: entity.name,
                     schema: entity.schema,
                 })
                 .then(collection => {
@@ -112,6 +118,10 @@ export class DatabaseService {
     }
 
     public get<T>(name: string): Promise<RxCollection<T>> {
+        if (this.dbspace) {
+            console.log("namespace found")
+            name = `${this.dbspace}/${name}`
+        }
         return new Promise((resolve, reject) => {
             this.loadedEntitesSubject
                 .subscribe((loadedEntities) => {

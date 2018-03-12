@@ -59,6 +59,6 @@ export class AccountManangementComponent implements OnInit {
   async select(account: RxAccountDocument) {
     await this.accountService.selectAccount(account.alias)
     console.log("Selected", account)
-    // this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard']);
   }
 }

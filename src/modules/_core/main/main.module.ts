@@ -11,6 +11,9 @@ const routes: Routes = [{
   path: '',
   component: MainComponent,
   canActivate: [DefaultAccountGuard],
+  resolve: {
+    service: AccountsService
+  },
   children: [{
     path: 'dashboard',
     loadChildren: "@blnc/general/dashboard/dashboard.module#DashboardModule"

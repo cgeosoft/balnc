@@ -21,16 +21,6 @@ import { OverviewComponent } from './components/overview/overview.component'
 import { MainComponent } from './components/_main/main.component'
 import { ProjectsService } from './services/projects.service'
 
-const entities: Entity[] = [{
-  name: 'project',
-  schema: ProjectSchema,
-  sync: false,
-}, {
-  name: 'task',
-  schema: TaskSchema,
-  sync: false,
-}]
-
 const routes: Routes = [{
   path: '',
   component: MainComponent,
@@ -58,7 +48,7 @@ const routes: Routes = [{
   ],
   imports: [
     CommonModule,
-    DatabaseModule.forChild(entities),
+    // DatabaseModule.forChild(entities),
     RouterModule.forChild(routes),
     MarkdownModule,
   ],

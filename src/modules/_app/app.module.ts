@@ -23,7 +23,7 @@ import { AccountsModule } from '@blnc/general/accounts/accounts.module'
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot([], {
-      enableTracing: true
+      // enableTracing: true
     }),
     NgbModule.forRoot(),
     DatabaseModule.forRoot(),
@@ -42,8 +42,6 @@ import { AccountsModule } from '@blnc/general/accounts/accounts.module'
     AppComponent
   ],
   providers: [],
-  exports: [
-    RouterModule,
-  ]
+  exports: []
 })
 export class AppModule { }

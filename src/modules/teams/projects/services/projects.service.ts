@@ -8,8 +8,19 @@ import * as moment from 'moment'
 
 import { DatabaseService } from "@blnc/core/database/services/database.service"
 
-import { RxProjectDocument } from "../data/project"
-import { RxTaskDocument } from "../data/task"
+import { RxProjectDocument, ProjectSchema } from "../data/project"
+import { RxTaskDocument, TaskSchema } from "../data/task"
+import { Entity } from "@blnc/core/database/models/entity";
+
+const entities: Entity[] = [{
+    name: 'project',
+    schema: ProjectSchema,
+    sync: false,
+}, {
+    name: 'task',
+    schema: TaskSchema,
+    sync: false,
+}]
 
 @Injectable()
 export class ProjectsService implements Resolve<any> {
@@ -27,6 +38,7 @@ export class ProjectsService implements Resolve<any> {
     }
 
     async setup() {
+        await this.dbService.setup(entities)
         this.projects = await this.dbService.get<RxProjectDocument>("project")
         this.tasks = await this.dbService.get<RxTaskDocument>("task")
     }

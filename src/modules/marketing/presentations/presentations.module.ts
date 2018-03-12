@@ -9,6 +9,7 @@ import { ItemComponent, OverviewComponent, CreateComponent, UploadComponent, Add
 import { Entity } from '@blnc/core/database/models/entity'
 import { FileUploadModule } from 'ng2-file-upload';
 import { PresentationSchema } from './data/presentation';
+import { PresentationsService } from '@blnc/marketing/presentations/services/presentations.service';
 
 const entities: Entity[] = [{
   name: 'presentation',
@@ -18,6 +19,9 @@ const entities: Entity[] = [{
 
 const routes: Routes = [{
   path: '',
+  resolve: {
+    service: PresentationsService
+  },
   children: [
     { path: 'overview', component: OverviewComponent },
     { path: ':id', component: ItemComponent },
@@ -37,10 +41,12 @@ const routes: Routes = [{
     CommonModule,
     FormsModule,
     FileUploadModule,
-    DatabaseModule.forChild(entities),
+    // DatabaseModule.forChild(entities),
     RouterModule.forChild(routes),
   ],
-  providers: [],
+  providers: [
+    PresentationsService
+  ],
   entryComponents: [
     CreateComponent,
     UploadComponent,

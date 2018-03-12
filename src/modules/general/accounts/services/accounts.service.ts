@@ -51,6 +51,7 @@ export class AccountsService implements Resolve<any> {
         if (this.selectAccount) {
             localStorage.setItem("account", alias)
             this.dbService.dbspace = alias
+            console.log("dbspace", this.dbService.dbspace)
         }
     }
 }
