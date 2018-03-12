@@ -83,6 +83,7 @@ export class DatabaseService {
     }
 
     public setup(entities: Entity[]) {
+        console.log("entities", entities)
         if (!entities) { return }
         entities.forEach(entity => {
             DatabaseService.db

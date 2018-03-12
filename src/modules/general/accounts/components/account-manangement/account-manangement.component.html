@@ -1,0 +1,40 @@
+<app-content>
+  <app-content-header title="Manage" icon="cubes"></app-content-header>
+  <app-content-body>
+    <div class="btn-toolbar mb-4">
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary" (click)="create()">
+          <span class="fa fa-plus-circle fa-fw"></span> New account</button>
+      </div>
+    </div>
+    <ng-container *ngIf="accounts; else loader">
+      <ng-container *ngIf="accounts.length; else noItems">
+        <table class="table table-max">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let account of accounts">
+              <td>
+                {{account.alias}}
+              </td>
+              <td>
+                {{account.alias}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+    <ng-template #noItems>
+      <app-empty-panel message="You don't have any accounts yet" submessage="Click create to add your first one" icon="cubes"></app-empty-panel>
+    </ng-template>
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+    <app-debug-panel [data]="accounts"></app-debug-panel>
+  </app-content-body>
+</app-content>

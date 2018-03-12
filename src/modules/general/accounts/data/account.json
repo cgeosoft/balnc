@@ -8,15 +8,6 @@
     },
     "alias": {
       "type": "string"
-    },
-    "config": {
-      "type": "object"
-    },
-    "users": {
-      "type": "array",
-      "items": {
-        "$ref": "user.json"
-      }
     }
   }
 }
