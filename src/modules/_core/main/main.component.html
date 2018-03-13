@@ -1,8 +1,8 @@
 <div class="wrapper d-flex">
   <div class="sidemenu d-flex flex-column justify-content-start">
     <div class="logo">
-      <a routerLink="/manage">
-        {{account.alias}}
+      <a routerLink="/accounts/manage">
+        {{($account | async)?.alias}}
       </a>
     </div>
     <div class="items d-flex flex-column justify-content-start">

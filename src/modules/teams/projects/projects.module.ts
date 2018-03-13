@@ -23,7 +23,6 @@ import { ProjectsService } from './services/projects.service'
 
 const routes: Routes = [{
   path: '',
-  component: MainComponent,
   resolve: {
     service: ProjectsService
   },
@@ -48,7 +47,6 @@ const routes: Routes = [{
   ],
   imports: [
     CommonModule,
-    // DatabaseModule.forChild(entities),
     RouterModule.forChild(routes),
     MarkdownModule,
   ],

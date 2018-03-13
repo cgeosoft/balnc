@@ -1,21 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { DatabaseService } from '@blnc/core/database/services/database.service'
 import { RxAccountDocument } from '@blnc/general/accounts/data/account'
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RxCollection } from 'rxdb';
-import { CreateAccountComponent } from '@blnc/general/accounts/components/create-account/create-account.component';
+import { CreateAccountComponent } from '@blnc/general/accounts/components/create/create.component';
 import { AccountsService } from '@blnc/general/accounts/services/accounts.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-account-manangement',
-  templateUrl: './account-manangement.component.html',
-  styleUrls: ['./account-manangement.component.scss'],
-  providers: [
-    NgbActiveModal,
-  ]
+  selector: 'app-accounts-manage',
+  templateUrl: './manage.component.html',
+  styleUrls: ['./manage.component.scss'],
 })
-export class AccountManangementComponent implements OnInit {
+export class ManangeComponent implements OnInit {
 
   alias: any;
   selectedAccount: RxAccountDocument
@@ -23,24 +20,17 @@ export class AccountManangementComponent implements OnInit {
   dbAccounts: RxCollection<any>
 
   constructor(
-    private activeModal: NgbActiveModal,
     private modalService: NgbModal,
-    private dbService: DatabaseService,
     private accountService: AccountsService,
     private router: Router,
   ) { }
 
   ngOnInit() {
-    this.setup()
-  }
-
-  private async setup() {
-    this.dbAccounts = await this.dbService.get<RxAccountDocument>("account")
     this.getAccounts()
   }
 
   async getAccounts() {
-    this.accounts = await this.dbAccounts.find().exec()
+    this.accounts = await this.accountService.accountsDB.find().exec()
   }
 
   create() {

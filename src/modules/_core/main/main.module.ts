@@ -6,15 +6,19 @@ import { MainComponent } from '@blnc/core/main/main.component';
 import { PageNotFoundComponent } from '@blnc/core/common/components/page-not-found/page-not-found.component';
 import { DefaultAccountGuard } from '@blnc/general/accounts/guards/account.guard';
 import { AccountsService } from '@blnc/general/accounts/services/accounts.service';
+import { DatabaseService } from '@blnc/core/database/services/database.service';
 
 const routes: Routes = [{
   path: '',
   component: MainComponent,
   canActivate: [DefaultAccountGuard],
   resolve: {
-    service: AccountsService
+    db: DatabaseService,
   },
   children: [{
+    path: 'accounts',
+    loadChildren: "@blnc/general/accounts/accounts.module#AccountsModule"
+  }, {
     path: 'dashboard',
     loadChildren: "@blnc/general/dashboard/dashboard.module#DashboardModule"
   }, {
@@ -53,10 +57,7 @@ const routes: Routes = [{
     CommonModule,
     RouterModule.forChild(routes),
   ],
-  providers: [
-    AccountsService
-  ],
-  entryComponents: [
-  ]
+  providers: [DefaultAccountGuard],
+  entryComponents: []
 })
 export class MainModule { }

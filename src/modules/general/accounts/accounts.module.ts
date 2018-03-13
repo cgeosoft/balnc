@@ -4,42 +4,40 @@ import { DatabaseModule } from '@blnc/core/database/database.module';
 import { Entity } from '@blnc/core/database/models/entity';
 import { AccountSchema } from '@blnc/general/accounts/data/account';
 import { CommonModule } from '@blnc/core/common/common.module';
-import { AccountManangementComponent } from '@blnc/general/accounts/components/account-manangement/account-manangement.component';
+import { ManangeComponent } from '@blnc/general/accounts/components/manage/manage.component';
 import { RouterModule, Routes } from '@angular/router';
 import { DefaultAccountGuard } from '@blnc/general/accounts/guards/account.guard';
-import { CreateAccountComponent } from '@blnc/general/accounts/components/create-account/create-account.component';
+import { CreateAccountComponent } from '@blnc/general/accounts/components/create/create.component';
 import { AccountsService } from '@blnc/general/accounts/services/accounts.service';
 import { LoginComponent } from '@blnc/general/accounts/components/login/login.component';
 import { RegisterComponent } from '@blnc/general/accounts/components/register/register.component';
-
-const entities: Entity[] = [{
-  name: 'account',
-  schema: AccountSchema,
-  sync: false,
-}]
+import { DatabaseService } from '@blnc/core/database/services/database.service';
+import { MainComponent } from '@blnc/core/main/main.component';
 
 const routes: Routes = [{
-  path: 'manage',
-  component: AccountManangementComponent,
+  path: '',
   resolve: {
     service: AccountsService
   },
-}, {
-  path: 'login',
-  component: LoginComponent
-}, {
-  path: 'register',
-  component: RegisterComponent
+  children: [{
+    path: 'manage',
+    component: ManangeComponent,
+  }]
+  // }, {
+  //   path: 'login',
+  //   component: LoginComponent
+  // }, {
+  //   path: 'register',
+  //   component: RegisterComponent
 }]
 
 @NgModule({
   imports: [
     CommonModule,
-    DatabaseModule.forChild(entities),
     RouterModule.forChild(routes),
   ],
   declarations: [
-    AccountManangementComponent,
+    ManangeComponent,
     CreateAccountComponent,
     LoginComponent,
     RegisterComponent,

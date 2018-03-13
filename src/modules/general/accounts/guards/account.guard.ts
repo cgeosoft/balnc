@@ -8,12 +8,6 @@ export class DefaultAccountGuard implements CanActivate {
   ) { }
 
   canActivate() {
-    const account = localStorage.getItem("account")
-    if (account) {
-      return true
-    }
-
-    this.router.navigate(['/manage'])
-    return false
+    return true
   }
 }

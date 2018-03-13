@@ -21,15 +21,18 @@ import { Entity } from './models/entity';
 export class DatabaseModule {
 
   public static forRoot(): ModuleWithProviders {
+    console.log("DatabaseModule forRoot")
     return {
       ngModule: DatabaseModule,
       providers: [
-        DatabaseService
+        DatabaseService,
+        { provide: 'APP_ENTITIES', useValue: [] }
       ]
     }
   }
 
-  public static forChild(entities: any[]): ModuleWithProviders {
+  public static forChild(entities: Entity[]): ModuleWithProviders {
+    console.log("DatabaseModule forChild", entities)
     return {
       ngModule: DatabaseModule,
       providers: [

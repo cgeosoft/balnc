@@ -1,5 +1,5 @@
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CommonModule as ngCommonModule } from '@angular/common';
+import { CommonModule as AngularCommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
@@ -16,10 +16,12 @@ import { EmptyPanelComponent } from './components/empty-panel/empty-panel.compon
 import { DebugPanelComponent } from './components/debug-panel/debug-panel.component'
 import { LoaderComponent } from './components/loader/loader.component'
 import { EllipsisPipe } from './pipes/ellipsis.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
-    ngCommonModule,
+    HttpClientModule,
+    AngularCommonModule,
     RouterModule,
     NgbModule,
     NgPipesModule,
@@ -40,7 +42,8 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe';
   ],
   providers: [],
   exports: [
-    ngCommonModule,
+    HttpClientModule,
+    AngularCommonModule,
     NgbModule,
     FormsModule,
     ReactiveFormsModule,

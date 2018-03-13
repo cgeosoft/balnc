@@ -1,32 +1,41 @@
 import { Injectable } from '@angular/core'
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { RxCollection } from 'rxdb';
-import { RxAccountDocument } from '@blnc/general/accounts/data/account';
+import { RxAccountDocument, AccountSchema } from '@blnc/general/accounts/data/account';
 import { DatabaseService } from '@blnc/core/database/services/database.service';
+import { ConfigService } from '@blnc/core/config/config.service';
+import { Entity } from '@blnc/core/database/models/entity';
+
+const entities: Entity[] = [{
+    name: 'account',
+    schema: AccountSchema,
+    sync: false,
+    single: true
+}]
 
 @Injectable()
 export class AccountsService implements Resolve<any> {
 
-    selectedAccount: RxAccountDocument
     accountsDB: RxCollection<RxAccountDocument>
 
     constructor(
         private dbService: DatabaseService,
+        private configService: ConfigService,
     ) {
+        console.log("AccountsService constructor")
+        this.setup()
     }
 
     resolve(route: ActivatedRouteSnapshot): Promise<any> | boolean {
+        console.log("AccountsService resolve")
         return this.setup()
     }
 
     async setup() {
-        console.log("set", "AccountsService")
+        console.log("AccountsService setup")
+        await this.dbService.setup(entities)
         this.accountsDB = await this.dbService.get<RxAccountDocument>("account")
-
-        const defaultAccount = localStorage.getItem("account")
-        if (defaultAccount) {
-            await this.selectAccount(defaultAccount)
-        }
+        console.log("loaded", this.accountsDB)
     }
 
     addAccount(alias: string, name: string) {
@@ -44,14 +53,15 @@ export class AccountsService implements Resolve<any> {
     async selectAccount(alias: string) {
         const accounts = await this.getAccounts()
 
-        this.selectedAccount = accounts.find(x => {
+        const account = accounts.find(x => {
             return x.alias === alias
         })
 
+        this.configService.$account.next(account)
+
         if (this.selectAccount) {
             localStorage.setItem("account", alias)
-            this.dbService.dbspace = alias
-            console.log("dbspace", this.dbService.dbspace)
+            this.dbService.setNamespace(alias)
         }
     }
 }

@@ -1,25 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
-import { DatabaseService } from '@blnc/core/database/services/database.service'
-import { RxAccountDocument } from '@blnc/general/accounts/data/account'
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { RxCollection } from 'rxdb';
-import { AccountsService } from '@blnc/general/accounts/services/accounts.service';
+import { Component, OnInit } from '@angular/core'
+import { RxCollection } from 'rxdb'
+import { ConfigService } from '@blnc/core/config/config.service'
+import { BehaviorSubject } from 'rxjs/Rx'
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
-  providers: [
-    NgbActiveModal,
-  ]
 })
 export class MainComponent implements OnInit {
 
-  account: RxAccountDocument
+  $account: BehaviorSubject<any>
 
   constructor(
-    private accountsService: AccountsService,
-    private dbService: DatabaseService,
+    private configService: ConfigService,
   ) { }
 
   ngOnInit() {
@@ -27,6 +21,6 @@ export class MainComponent implements OnInit {
   }
 
   private async setup() {
-    this.account = this.accountsService.selectedAccount
+    this.$account = this.configService.$account
   }
 }

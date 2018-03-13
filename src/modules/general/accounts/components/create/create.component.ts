@@ -8,8 +8,8 @@ import { AccountsService } from '../../services/accounts.service';
 import { RxAccountDocument } from '../../data/account';
 
 @Component({
-    selector: 'app-team-accounts-account-create',
-    templateUrl: './create-account.component.html',
+    selector: 'app-accounts-create',
+    templateUrl: './create.component.html',
 })
 export class CreateAccountComponent implements OnInit {
 

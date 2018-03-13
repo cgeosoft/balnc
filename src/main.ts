@@ -11,8 +11,10 @@ if (environment.production) {
   enableProdMode()
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule).then((module) => {
-  let applicationRef = module.injector.get(ApplicationRef);
-  let appComponent = applicationRef.components[0];
-  enableDebugTools(appComponent);
-});
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .then((module) => {
+    const applicationRef = module.injector.get(ApplicationRef);
+    const appComponent = applicationRef.components[0];
+    enableDebugTools(appComponent);
+  })

@@ -3,4 +3,5 @@ export class Entity {
   schema: any
   schemaPath?: string
   sync: boolean
+  single?: boolean
 }
