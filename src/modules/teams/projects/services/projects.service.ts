@@ -9,7 +9,7 @@ import * as moment from 'moment'
 import { DatabaseService } from "@blnc/core/database/services/database.service"
 
 import { RxProjectDocument, ProjectSchema } from "../data/project"
-import { RxTaskDocument, TaskSchema } from "../data/task"
+import { RxLogDocument, LogSchema } from "../data/log"
 import { Entity } from "@blnc/core/database/models/entity";
 
 const entities: Entity[] = [{
@@ -17,33 +17,30 @@ const entities: Entity[] = [{
     schema: ProjectSchema,
     sync: false,
 }, {
-    name: 'task',
-    schema: TaskSchema,
+    name: 'log',
+    schema: LogSchema,
     sync: false,
 }]
 
 @Injectable()
-export class ProjectsService implements OnInit, OnDestroy {
+export class ProjectsService implements Resolve<any> {
 
-    tasks: RxCollection<RxTaskDocument>
+    logs: RxCollection<RxLogDocument>
     projects: RxCollection<RxProjectDocument>
 
     constructor(
         private dbService: DatabaseService,
     ) { }
 
-    ngOnInit() {
-        console.log('ProjectsService Init')
-        this.setup()
-    }
-    ngOnDestroy() {
-        console.log('ProjectsService destroy')
+    async resolve(route: ActivatedRouteSnapshot): Promise<boolean> {
+        await this.setup()
+        return true
     }
 
     async setup() {
         await this.dbService.setup(entities)
         this.projects = await this.dbService.get<RxProjectDocument>("project")
-        this.tasks = await this.dbService.get<RxTaskDocument>("task")
+        this.logs = await this.dbService.get<RxLogDocument>("log")
     }
 
     async getProjects(params?: any) {
@@ -82,45 +79,53 @@ export class ProjectsService implements OnInit, OnDestroy {
     }
 
     async getTasks(params: any = {}) {
-        const tasks = await this.tasks
-            .find(params.query)
-            .exec()
+        Object.assign(params, { query: { type: { $eq: "TASK" } } })
+        const tasks = await this.logs.find(params.query).exec()
         return tasks
     }
 
-    async getTask(taskId): Promise<RxTaskDocument> {
-        return await this.tasks.findOne(taskId).exec()
+    async getLog(taskId): Promise<RxLogDocument> {
+        return await this.logs.findOne(taskId).exec()
     }
 
-    async  addTask(title: string, projectId: string, description: string) {
+    async getLogs(taskId): Promise<RxLogDocument[]> {
+        const logs = await this.logs.find({ parent: { $eq: taskId } }).exec()
+        return logs
+    }
+
+    async addTask(title: string, projectId: string, description: string) {
         const now = moment().toISOString()
         const user = "anonymous"
 
-        const taskObj = {
+        const log = {
             title: title,
+            description: description,
             insertedAt: now,
             updatedAt: now,
             insertedFrom: user,
-            log: [{
-                comment: "Task Created",
-                from: user,
-                at: now,
-                type: "SYSTEM"
-            }],
+            type: "TASK",
             status: "PENDING",
             project: projectId
         }
 
-        if (description) {
-            taskObj.log.push({
-                comment: description,
-                from: user,
-                at: now,
-                type: "COMMENT"
-            })
+        const result = this.logs.newDocument(log).save()
+        return result
+    }
+
+    async addComment(text: string, task: RxLogDocument) {
+        const now = moment().toISOString()
+        const user = "anonymous"
+
+        const log = {
+            description: text,
+            insertedAt: now,
+            insertedFrom: user,
+            type: "COMMENT",
+            project: task.project,
+            parent: task.get("_id")
         }
 
-        const result = this.tasks.newDocument(taskObj).save()
+        const result = this.logs.newDocument(log).save()
         return result
     }
 
@@ -128,7 +133,7 @@ export class ProjectsService implements OnInit, OnDestroy {
         // await this.projects.remove()
         // await this.tasks.remove()
 
-        const projects: any[] = [];
+        const projects: RxProjectDocument[] = [];
         for (let i = 0; i < 10; i++) {
             const project = await this.projects.insert({
                 name: `Project ${i}`,
@@ -142,7 +147,7 @@ export class ProjectsService implements OnInit, OnDestroy {
 
         for (let k = 0; k < 50; k++) {
             const pr = Math.floor(Math.random() * 9)
-            await this.addTask(`Task ${k}`, projects[pr]._id, "lorem ipsum dolor")
+            await this.addTask(`Task ${k}`, projects[pr].get("_id"), "lorem ipsum dolor")
         }
     }
 }

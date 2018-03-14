@@ -9,6 +9,7 @@ import { FilesModule } from '@blnc/core/files/files.module'
 import { MainModule } from '@blnc/core/main/main.module'
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { MarkdownModule } from 'ngx-md';
 
 @NgModule({
   imports: [

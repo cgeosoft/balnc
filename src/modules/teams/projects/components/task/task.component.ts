@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription'
 import { RxCollection, RxDocumentBase } from 'rxdb'
 import { Observable } from 'rxjs/Observable'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
@@ -12,8 +12,8 @@ import { DatabaseService } from '@blnc/core/database/services/database.service'
 
 import { CreateTaskComponent } from '../create-task/create-task.component'
 import { RxProjectDocument } from '../../data/project'
-import { RxTaskDocument } from '../../data/task'
-import { ProjectsService } from '../../services/projects.service';
+import { RxLogDocument } from '../../data/log'
+import { ProjectsService } from '../../services/projects.service'
 
 @Component({
   selector: 'app-team-projects-task',
@@ -23,12 +23,14 @@ import { ProjectsService } from '../../services/projects.service';
 export class TaskComponent implements OnInit {
 
   commentPreview: boolean
-  taskId: string;
+  taskId: string
   comment: string = null
-  task: RxTaskDocument
-  project: RxProjectDocument;
 
-  form: FormGroup;
+  task: RxLogDocument
+  project: RxProjectDocument & any = {}
+  logs: RxLogDocument[] = []
+
+  form: FormGroup
 
   constructor(
     private route: ActivatedRoute,
@@ -42,33 +44,30 @@ export class TaskComponent implements OnInit {
       .params
       .subscribe(params => {
         this.taskId = params['id']
+        this.form = this.formBuilder.group({
+          comment: ["", [Validators.required]],
+        })
         this.setup()
+        this.getLogs()
       })
   }
 
   private async setup() {
-    this.task = await this.projectsService.getTask(this.taskId)
+    this.task = await this.projectsService.getLog(this.taskId)
     this.project = await this.projectsService.getProject(this.task.project)
+  }
 
-    this.form = this.formBuilder.group({
-      comment: ["", [Validators.required]],
-    });
+  private async getLogs() {
+    const logs = await this.projectsService.getLogs(this.taskId)
+    this.logs = logs.sort((a, b) => {
+      return a.insertedAt < b.insertedAt ? -1 : 1
+    })
   }
 
   async submitComment() {
-    const formModel = this.form.value;
-
-    const now = moment().toISOString()
-    const user = "anonymous"
-    // const log = this.task.log
-    // log.push({
-    //   comment: formModel.comment,
-    //   from: user,
-    //   at: now,
-    //   type: "COMMENT"
-    // })
-    // this.task.log = log
-    await this.task.save()
+    const formModel = this.form.value
+    await this.projectsService.addComment(formModel.comment, this.task)
+    await this.getLogs()
     this.form.reset()
   }
 }

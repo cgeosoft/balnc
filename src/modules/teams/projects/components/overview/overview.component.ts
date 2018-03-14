@@ -5,7 +5,7 @@ import { RxCollection, RxDocumentBase } from 'rxdb'
 import { DatabaseService } from '@blnc/core/database/services/database.service'
 
 import { RxProjectDocument } from '../../data/project'
-import { RxTaskDocument } from '../../data/task'
+import { RxLogDocument } from '../../data/log'
 import { ProjectsService } from '@blnc/teams/projects/services/projects.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class OverviewComponent implements OnInit {
   dbProject: RxCollection<any>
   dbTask: RxCollection<any>
 
-  tasks: RxTaskDocument[] = []
+  tasks: RxLogDocument[] = []
 
   constructor(
     private projectsService: ProjectsService,

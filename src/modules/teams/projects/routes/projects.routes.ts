@@ -9,6 +9,9 @@ import { MainComponent } from "@blnc/teams/projects/components/_main/main.compon
 const routes: Routes = [{
   path: '',
   component: MainComponent,
+  resolve: {
+    db: ProjectsService,
+  },
   children: [
     { path: 'overview', component: OverviewComponent },
     { path: 'manage', component: ProjectsComponent },

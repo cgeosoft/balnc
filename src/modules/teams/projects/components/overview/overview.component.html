@@ -6,34 +6,32 @@
         <div class="card mb-4">
           <div class="card-body">
             <h4 class="card-title">Latest Tasks</h4>
-            <ng-container *ngIf="tasks.length; else noItems">
-              <table class="table table-max">
-                <tbody>
-                  <tr *ngFor="let task of tasks | slice:0:15;">
-                    <td>
-                      <div class="d-flex flex-column align-items-start">
-                        <ng-container [ngSwitch]="task.status">
-                          <span class="badge badge-primary" *ngSwitchCase="'PENDING'">PENDING</span>
-                          <span class="badge badge-success" *ngSwitchCase="'COMPLETE'">COMPLETE</span>
-                        </ng-container>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex flex-column align-items-start">
-                        <a [routerLink]="['/projects/tasks',task._id]" class="task-title">{{task.title}}</a>
-                        <small class="text-muted">opened
-                          <strong>{{task.insertedAt | amTimeAgo}}</strong> ago by
-                          <strong>{{task.insertedFrom}}</strong> - {{task.log.length}}
-                          <span class="far fa-comments"></span>
-                        </small>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <app-debug-panel [data]="tasks"></app-debug-panel>
-            </ng-container>
           </div>
+          <ng-container *ngIf="tasks.length; else noItems">
+            <table class="table table-max">
+              <tbody>
+                <tr *ngFor="let task of tasks | slice:0:5;">
+                  <td>
+                    <div class="d-flex flex-column align-items-start">
+                      <ng-container [ngSwitch]="task.status">
+                        <span class="badge badge-primary" *ngSwitchCase="'PENDING'">PENDING</span>
+                        <span class="badge badge-success" *ngSwitchCase="'COMPLETE'">COMPLETE</span>
+                      </ng-container>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex flex-column align-items-start">
+                      <a [routerLink]="['/projects/tasks',task._id]" class="task-title">{{task.title}}</a>
+                      <small class="text-muted">opened
+                        <strong>{{task.insertedAt | amTimeAgo}}</strong> ago by
+                        <strong>{{task.insertedFrom}}</strong>
+                      </small>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
         </div>
       </div>
       <div class="col-5">

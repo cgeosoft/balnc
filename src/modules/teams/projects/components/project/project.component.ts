@@ -10,7 +10,7 @@ import * as moment from 'moment'
 
 import { DatabaseService } from '@blnc/core/database/services/database.service'
 
-import { RxTaskDocument } from '../../data/task'
+import { RxLogDocument } from '../../data/log'
 import { CreateTaskComponent } from '../create-task/create-task.component'
 import { RxProjectDocument } from '../../data/project'
 import { ProjectsService } from '../../services/projects.service'
@@ -22,9 +22,10 @@ import { ProjectsService } from '../../services/projects.service'
 })
 export class ProjectComponent implements OnInit {
 
-  tasks: RxTaskDocument[];
-  project: RxProjectDocument;
-  projectId: string;
+  tabsMenu: any
+  tasks: RxLogDocument[]
+  project: RxProjectDocument
+  projectId: string
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +34,23 @@ export class ProjectComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.tabsMenu = {
+      active: "tasks",
+      tabs: [{
+        id: "tasks",
+        label: "Tasks",
+        icon: "tasks",
+      }, {
+        id: "settings",
+        label: "Settings",
+        icon: "cogs",
+      }],
+      select: (tabId) => {
+        this.tabsMenu.active = tabId
+      }
+    }
+
     this.route.params.subscribe(params => {
       this.projectId = params['id']
       this.setup()

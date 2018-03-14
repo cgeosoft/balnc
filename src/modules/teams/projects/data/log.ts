@@ -1,13 +1,21 @@
 import * as schema from './log.json'
+import { RxDocument } from 'rxdb';
 
 declare interface RxLogDocumentType {
+    title?: string
+    description?: string
+
     project: string
-    task: string
+    type: string
+    status: string
+    parent?: string
+    labels?: string[]
+
     insertedAt: string
     insertedFrom: string
-    type: string
-    comment: string
+    updatedAt?: string
+    updatedFrom?: string
 }
 
-export type RxLogDocument = RxLogDocumentType
+export type RxLogDocument = RxDocument<RxLogDocumentType> & RxLogDocumentType
 export const LogSchema = schema
