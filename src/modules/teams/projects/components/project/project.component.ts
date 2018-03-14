@@ -21,13 +21,10 @@ import { ProjectsService } from '../../services/projects.service'
   styleUrls: ['./project.component.scss'],
 })
 export class ProjectComponent implements OnInit {
+
+  tasks: RxTaskDocument[];
+  project: RxProjectDocument;
   projectId: string;
-
-  dbProject: RxCollection<any>
-  dbTask: RxCollection<any>
-
-  tasks$: Observable<any[]>
-  project$: Observable<any>
 
   constructor(
     private route: ActivatedRoute,
@@ -43,10 +40,10 @@ export class ProjectComponent implements OnInit {
   }
 
   private async setup() {
-    this.project$ = this.projectsService.getProject(this.projectId)
-    this.tasks$ = this.projectsService.tasks.find({
+    this.project = await this.projectsService.getProject(this.projectId)
+    this.tasks = await this.projectsService.getTasks({
       query: { project: { $eq: this.projectId } }
-    }).$
+    })
   }
 
   createTask() {

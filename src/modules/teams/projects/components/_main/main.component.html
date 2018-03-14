@@ -38,19 +38,17 @@
   </ul>
   <ul class="list-menu dark mt-auto">
     <li class="header">Latest Tasks</li>
-    <ng-container *ngIf="tasks$ | async as tasks; else loader">
-      <ng-container *ngIf="tasks.length; else noItems">
-        <li *ngFor="let task of tasks | slice:0:5;">
-          <a [routerLink]="['/projects/tasks',task._id]" class="media">
-            <span class="media-body">{{task.title || '[Without title]'}}
-              <small>
-                <!-- {{task._project.name}} -->
-                <strong>{{task.insertedAt | amTimeAgo}}</strong>
-              </small>
-            </span>
-          </a>
-        </li>
-      </ng-container>
+    <ng-container *ngIf="tasks.length; else noItems">
+      <li *ngFor="let task of tasks | slice:0:5;">
+        <a [routerLink]="['/projects/tasks',task._id]" class="media">
+          <span class="media-body">{{task.title || '[Without title]'}}
+            <small>
+              <!-- {{task._project.name}} -->
+              <strong>{{task.insertedAt | amTimeAgo}}</strong>
+            </small>
+          </span>
+        </a>
+      </li>
     </ng-container>
     <ng-template #noItems>
       You don't have any tasks yet

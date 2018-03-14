@@ -1,7 +1,7 @@
 import { Subject } from "rxjs/Subject";
 import { RxCollection, RxReplicationState, RxDocumentBase } from "rxdb"
 import { Observable, } from "rxjs/Observable";
-import { Injectable } from "@angular/core"
+import { Injectable, OnDestroy, OnInit } from "@angular/core"
 import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 
 import * as moment from 'moment'
@@ -23,18 +23,21 @@ const entities: Entity[] = [{
 }]
 
 @Injectable()
-export class ProjectsService implements Resolve<any> {
+export class ProjectsService implements OnInit, OnDestroy {
 
     tasks: RxCollection<RxTaskDocument>
     projects: RxCollection<RxProjectDocument>
 
     constructor(
         private dbService: DatabaseService,
-    ) {
-    }
+    ) { }
 
-    resolve(route: ActivatedRouteSnapshot): Promise<any> | boolean {
-        return this.setup()
+    ngOnInit() {
+        console.log('ProjectsService Init')
+        this.setup()
+    }
+    ngOnDestroy() {
+        console.log('ProjectsService destroy')
     }
 
     async setup() {
@@ -44,20 +47,14 @@ export class ProjectsService implements Resolve<any> {
     }
 
     async getProjects(params?: any) {
-        const projects = await this.projects
-            .find(params)
-            .exec()
-
+        const projects = await this.projects.find(params).exec()
         const tasks = await this.getTasks()
-
         const tasksTotals = {}
 
         tasks.forEach((task) => {
             if (!tasksTotals[task.project]) { tasksTotals[task.project] = 0 }
             tasksTotals[task.project]++
         })
-
-        console.log(tasksTotals)
 
         return projects
             .map(project => {
@@ -70,16 +67,18 @@ export class ProjectsService implements Resolve<any> {
             })
     }
 
-    getProject(projectId) {
-        return this.projects.findOne(projectId).$
+    async getProject(projectId): Promise<RxProjectDocument> {
+        return await this.projects.findOne(projectId).exec()
     }
 
-    addProject(name: string, description: string) {
-        const project = this.projects.newDocument({
-            name: name,
-            description: description,
-        })
-        return project.save()
+    async addProject(name: string, description: string) {
+        const result = await this.projects
+            .newDocument({
+                name: name,
+                description: description,
+            })
+            .save()
+        return result
     }
 
     async getTasks(params: any = {}) {
@@ -89,11 +88,11 @@ export class ProjectsService implements Resolve<any> {
         return tasks
     }
 
-    getTask(taskId) {
-        return this.tasks.findOne(taskId).$
+    async getTask(taskId): Promise<RxTaskDocument> {
+        return await this.tasks.findOne(taskId).exec()
     }
 
-    addTask(title: string, projectId: string, description: string) {
+    async  addTask(title: string, projectId: string, description: string) {
         const now = moment().toISOString()
         const user = "anonymous"
 
@@ -121,8 +120,8 @@ export class ProjectsService implements Resolve<any> {
             })
         }
 
-        const task = this.tasks.newDocument(taskObj)
-        return task.save()
+        const result = this.tasks.newDocument(taskObj).save()
+        return result
     }
 
     async generateDump() {
@@ -143,9 +142,7 @@ export class ProjectsService implements Resolve<any> {
 
         for (let k = 0; k < 50; k++) {
             const pr = Math.floor(Math.random() * 9)
-            // this.addTask(`Task ${k}`, projects[pr]._id, "lorem ipsum dolor")
+            await this.addTask(`Task ${k}`, projects[pr]._id, "lorem ipsum dolor")
         }
-
     }
-
 }

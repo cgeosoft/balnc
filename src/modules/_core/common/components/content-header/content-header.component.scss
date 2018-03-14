@@ -20,21 +20,20 @@
         border-right: solid 1px #DDD;
         padding: 0 .75rem;
         margin-right: 1rem;
-        font-size: 1.6rem;
-        text-align: center;
-        align-items: center;
+        font-size: 1.8rem;
+        height: 100%;
       }
       .header-body {
         @extend .d-flex;
         @extend .flex-column;
-        @extend .justify-content-start;
+        @extend .justify-content-center;
+        height: 100%;
         h1 {
           color: #333;
           font-size: 1.3rem;
           margin: 0;
           font-weight: normal;
         }
-        p,
         ul {
           color: #666;
           margin: 0;

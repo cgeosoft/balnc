@@ -1,14 +1,12 @@
 <app-content>
-  <app-content-header [title]="(project$|async)?.name" subtitle="Project" icon="tasks"></app-content-header>
+  <app-content-header [title]="project.name" subtitle="Project" icon="tasks"></app-content-header>
   <app-content-body>
     <div class="btn-toolbar mb-4">
-      <ng-container *ngIf="project$ | async as project">
-        <div class="btn-group mr-2">
-          <a [routerLink]="['/projects',project._id]" class="btn btn-outline-secondary">
-            <span class="fa fa-chevron-left fa-fw"></span>
-          </a>
-        </div>
-      </ng-container>
+      <div class="btn-group mr-2">
+        <a [routerLink]="['/projects',project._id]" class="btn btn-outline-secondary">
+          <span class="fa fa-chevron-left fa-fw"></span>
+        </a>
+      </div>
       <h4>{{(task$|async)?.title}}&nbsp;</h4>
     </div>
     <div class="row">

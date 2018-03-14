@@ -1,5 +1,0 @@
-export * from "./projects/projects.component"
-export * from "./project/project.component"
-export * from "./task/task.component"
-export * from "./create-project/create-project.component"
-export * from "./create-task/create-task.component"

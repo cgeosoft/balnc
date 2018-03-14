@@ -1,4 +1,5 @@
 import * as schema from './project.json'
+import { RxDocument } from 'rxdb';
 
 declare interface RxProjectDocumentType {
     name: string
@@ -9,5 +10,5 @@ declare interface RxProjectDocumentType {
     isArchived: boolean
 }
 
-export type RxProjectDocument = RxProjectDocumentType
+export type RxProjectDocument = RxDocument<RxProjectDocumentType> & RxProjectDocumentType
 export const ProjectSchema = schema

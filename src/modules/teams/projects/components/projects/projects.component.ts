@@ -39,7 +39,6 @@ export class ProjectsComponent implements OnInit {
   }
 
   async load() {
-    console.log(this.filters)
     this.projects = await this.projectsService.getProjects(this.filters)
   }
 

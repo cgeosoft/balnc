@@ -1,4 +1,5 @@
 import * as schema from './task.json'
+import { RxDocument } from 'rxdb';
 
 declare interface RxTaskDocumentType {
     title: string
@@ -12,5 +13,5 @@ declare interface RxTaskDocumentType {
     labels?: string[]
 }
 
-export type RxTaskDocument = RxTaskDocumentType
+export type RxTaskDocument = RxDocument<RxTaskDocumentType> & RxTaskDocumentType
 export const TaskSchema = schema

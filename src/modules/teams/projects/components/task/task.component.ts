@@ -25,10 +25,9 @@ export class TaskComponent implements OnInit {
   commentPreview: boolean
   taskId: string;
   comment: string = null
-  task: RxDocumentBase<RxTaskDocument> & RxTaskDocument
+  task: RxTaskDocument
+  project: RxProjectDocument;
 
-  project$: Observable<any>
-  task$: Observable<any>
   form: FormGroup;
 
   constructor(
@@ -48,11 +47,8 @@ export class TaskComponent implements OnInit {
   }
 
   private async setup() {
-    this.task$ = this.projectsService.getTask(this.taskId)
-    this.task$.subscribe((task: RxDocumentBase<RxTaskDocument> & RxTaskDocument) => {
-      this.task = task
-      this.project$ = this.projectsService.getProject(task.project)
-    })
+    this.task = await this.projectsService.getTask(this.taskId)
+    this.project = await this.projectsService.getProject(this.task.project)
 
     this.form = this.formBuilder.group({
       comment: ["", [Validators.required]],

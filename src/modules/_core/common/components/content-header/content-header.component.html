@@ -5,7 +5,7 @@
     </div>
     <div class="header-body">
       <h1>{{title}}</h1>
-      <ul class="list-inline">
+      <ul class="list-inline" *ngIf="subtitle || details.length">
         <li class="list-inline-item" *ngIf="subtitle">
           {{subtitle}}
         </li>
