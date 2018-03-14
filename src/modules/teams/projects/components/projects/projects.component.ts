@@ -27,6 +27,7 @@ export class ProjectsComponent implements OnInit {
     { label: "Everything" },
   ]
   filters: any
+  showFilters = false
 
   constructor(
     private modal: NgbModal,
