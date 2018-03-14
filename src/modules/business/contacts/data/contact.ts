@@ -1,3 +1,5 @@
+import * as schema from './contact.json'
+
 declare interface RxContactDocumentType {
     orders: Array<string>
     dateCreated: string
@@ -9,5 +11,4 @@ declare interface RxContactDocumentType {
 }
 
 export type RxContactDocument = RxContactDocumentType
-
-export const ContactSchema = require('../../../../../schemas/business/contacts/contact.json')
+export const ContactSchema = schema

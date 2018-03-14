@@ -1,16 +1,18 @@
 import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs/Subscription'
 import { RxCollection, RxDocumentBase } from 'rxdb'
-import { RxTaskDocument } from '../../data/task'
-import { Observable } from 'rxjs/Observable'
-import { DatabaseService } from '../../../../_core/database/services/database.service'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { Observable } from 'rxjs/Observable'
 
-import { CreateTaskComponent } from '../create-task/create-task.component'
 import * as _ from 'lodash'
 import * as moment from 'moment'
+
+import { DatabaseService } from '@blnc/core/database/services/database.service'
+
+import { RxLogDocument } from '../../data/log'
+import { CreateTaskComponent } from '../create-task/create-task.component'
 import { RxProjectDocument } from '../../data/project'
-import { ActivatedRoute } from '@angular/router'
 import { ProjectsService } from '../../services/projects.service'
 
 @Component({
@@ -18,14 +20,12 @@ import { ProjectsService } from '../../services/projects.service'
   templateUrl: 'project.component.html',
   styleUrls: ['./project.component.scss'],
 })
-export class ProjectComponent {
-  projectId: string;
+export class ProjectComponent implements OnInit {
 
-  dbProject: RxCollection<any>
-  dbTask: RxCollection<any>
-
-  tasks$: Observable<any[]>
-  project$: Observable<any>
+  tabsMenu: any
+  tasks: RxLogDocument[]
+  project: RxProjectDocument
+  projectId: string
 
   constructor(
     private route: ActivatedRoute,
@@ -34,6 +34,23 @@ export class ProjectComponent {
   ) { }
 
   ngOnInit() {
+
+    this.tabsMenu = {
+      active: "tasks",
+      tabs: [{
+        id: "tasks",
+        label: "Tasks",
+        icon: "tasks",
+      }, {
+        id: "settings",
+        label: "Settings",
+        icon: "cogs",
+      }],
+      select: (tabId) => {
+        this.tabsMenu.active = tabId
+      }
+    }
+
     this.route.params.subscribe(params => {
       this.projectId = params['id']
       this.setup()
@@ -41,8 +58,8 @@ export class ProjectComponent {
   }
 
   private async setup() {
-    this.project$ = this.projectsService.getProject(this.projectId)
-    this.tasks$ = this.projectsService.getTasks({
+    this.project = await this.projectsService.getProject(this.projectId)
+    this.tasks = await this.projectsService.getTasks({
       query: { project: { $eq: this.projectId } }
     })
   }

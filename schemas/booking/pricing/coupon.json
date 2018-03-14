@@ -1,0 +1,10 @@
+{
+  "id": "coupon",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "text": {
+      "type": "string"
+    }
+  }
+}

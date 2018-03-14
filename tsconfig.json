@@ -20,7 +20,28 @@
       "es2015",
       "es5",
       "es6"
-    ]
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "@blnc/core/*": [
+        "modules/_core/*"
+      ],
+      "@blnc/business/*": [
+        "modules/business/*"
+      ],
+      "@blnc/general/*": [
+        "modules/general/*"
+      ],
+      "@blnc/marketing/*": [
+        "modules/marketing/*"
+      ],
+      "@blnc/teams/*": [
+        "modules/teams/*"
+      ],
+      "@blnc/bookings/*": [
+        "modules/bookings/*"
+      ]
+    }
   },
   "exclude": [
     "./node_modules",
@@ -33,6 +54,7 @@
   ],
   "filesGlob": [
     "**/*.ts",
+    "./schemas/**/*.json",
     "!node_modules/**"
   ]
 }

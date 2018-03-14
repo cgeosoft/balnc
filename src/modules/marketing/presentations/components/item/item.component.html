@@ -1,5 +1,6 @@
 <app-content>
-  <app-content-header [title]="(presentation$|async)?.title" [icon]="'desktop'" [settingsMenu]="settingsMenu"></app-content-header>
+  <app-content-header [title]="(presentation$|async)?.title" subtitle="Presentation" icon="desktop" [settingsMenu]="settingsMenu"
+    [tabsMenu]="tabsMenu"></app-content-header>
   <app-content-body>
     <ng-container *ngIf="presentation$ | async as presentation; else loader">
       <div class="row">
@@ -53,7 +54,8 @@
             <app-empty-panel class="m-0" *ngIf="!presentation.pages.length" message="No pages were found"></app-empty-panel>
 
             <div class="list-group list-group-flush" style="height: 230px;overflow-y:scroll" *ngIf="presentation.pages.length">
-              <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item p-2" *ngFor="let page of presentation.pages; let i = index;">
+              <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item p-2"
+                *ngFor="let page of presentation.pages; let i = index;">
                 {{page.title}}
                 <small class="pull-right">#{{i+1}}</small>
               </a>

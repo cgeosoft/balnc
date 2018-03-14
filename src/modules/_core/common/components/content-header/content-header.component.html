@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="header-title-bar">
+    <div class="header-icon">
+      <span class="fa fa-{{icon}} fa-fw"></span>
+    </div>
+    <div class="header-body">
+      <h1>{{title}}</h1>
+      <ul class="list-inline" *ngIf="subtitle || details.length">
+        <li class="list-inline-item" *ngIf="subtitle">
+          {{subtitle}}
+        </li>
+        <ng-template ngFor let-item [ngForOf]="details" *ngIf="details.length">
+          <li class="list-inline-item">
+            {{item.label}}:
+            <strong>{{item.value}}</strong>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+    <div class="header-menu" *ngIf="settingsMenu.length>0">
+      <div ngbDropdown placement="bottom-right" class="d-inline-block">
+        <button class="btn btn-link" ngbDropdownToggle>
+          <span class="fa fa-cog"></span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <ng-template ngFor let-item [ngForOf]="settingsMenu">
+            <div *ngIf="item.isDivider" class="dropdown-divider"></div>
+            <button *ngIf="!item.isDivider" class="dropdown-item {{item.cssClass}}" (click)="item.callback()">
+              <span *ngIf="item.icon" class="fa fa-{{item.icon}}"></span> {{item.label}}
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-menu-tab" *ngIf="tabsMenu">
+    <ul class="nav nav-tabs">
+      <li class="nav-item" *ngFor="let tab of tabsMenu.tabs">
+        <a class="nav-link" [ngClass]="{active:tabsMenu.active == tab.id}" href="javascript:void(0);" (click)="tabsMenu.select(tab.id)">
+          <span *ngIf="tab.icon" class="fa fa-{{tab.icon}}"></span> {{tab.label}}</a>
+      </li>
+    </ul>
+  </div>
+</div>

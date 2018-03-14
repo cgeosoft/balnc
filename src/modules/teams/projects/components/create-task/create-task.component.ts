@@ -1,9 +1,10 @@
 import { Component, Input, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ProjectsService } from '../../services/projects.service';
 import { RxDocumentBase } from 'rxdb';
 import { Observable } from 'rxjs/Observable';
+
+import { ProjectsService } from '../../services/projects.service';
 import { RxProjectDocument } from '../../data/project';
 
 @Component({
@@ -15,7 +16,7 @@ export class CreateTaskComponent implements OnInit {
 
     projects$: Observable<(RxDocumentBase<RxProjectDocument> & RxProjectDocument)[]>;
 
-    @Input() projectId: string = "";
+    @Input() projectId = "";
 
     @ViewChild("title") title: ElementRef;
 
@@ -29,7 +30,7 @@ export class CreateTaskComponent implements OnInit {
 
     async ngOnInit() {
 
-        this.projects$ = await this.projectsService.getProjects()
+        // this.projects$ = await this.projectsService.getProjects()
 
         if (this.projectId === null) {
             const projects = await this.projects$.toPromise()

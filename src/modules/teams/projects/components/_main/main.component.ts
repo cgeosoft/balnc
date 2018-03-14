@@ -1,13 +1,14 @@
 import { Component, OnInit, NgZone } from '@angular/core'
-import { RxProjectDocument } from '../../data/project';
-import { Observable } from 'rxjs/Observable';
-import { RxCollection, RxDocumentBase } from 'rxdb';
-import { DatabaseService } from '../../../../_core/database/services/database.service';
-import { RxTaskDocument } from '../../data/task';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { Observable } from 'rxjs/Observable'
+import { RxCollection, RxDocumentBase } from 'rxdb'
 
-import { CreateTaskComponent } from '../create-task/create-task.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ProjectsService } from '../../services/projects.service';
+import { DatabaseService } from '@blnc/core/database/services/database.service'
+
+import { RxProjectDocument } from '../../data/project'
+import { RxLogDocument } from '../../data/log'
+import { CreateTaskComponent } from '../create-task/create-task.component'
+import { ProjectsService } from '../../services/projects.service'
 
 @Component({
   selector: 'app-team-projects-main',
@@ -16,13 +17,7 @@ import { ProjectsService } from '../../services/projects.service';
 })
 export class MainComponent implements OnInit {
 
-  dbProject: RxCollection<any>
-  dbTask: RxCollection<any>
-
-  tasks$: Observable<any[]>
-  project$: Observable<any>
-
-  project: RxDocumentBase<RxProjectDocument> & RxProjectDocument;
+  tasks: RxLogDocument[] = []
 
   constructor(
     private projectsService: ProjectsService,
@@ -30,11 +25,7 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.setup()
-  }
-
-  private async setup() {
-    this.tasks$ = this.projectsService.getTasks()
+    this.refreshTasks()
   }
 
   createTask() {
@@ -43,6 +34,10 @@ export class MainComponent implements OnInit {
 
   generateDump() {
     this.projectsService.generateDump()
+  }
+
+  async refreshTasks() {
+    this.tasks = await this.projectsService.getTasks()
   }
 
 }

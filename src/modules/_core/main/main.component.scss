@@ -1,0 +1,86 @@
+@import "colors";
+:host {
+  .sidemenu {
+    text-align: center;
+    min-width: 50px;
+    width: 50px;
+    background: $color-sidemenu-background;
+    .logo {
+      margin: .7rem .5rem .2rem;
+      padding-bottom: .5rem;
+      border-bottom: solid 1px lighten($color-sidemenu-background, 5);
+      img {
+        width: 100%;
+        filter: brightness(0) invert(1);
+        opacity: .8;
+      }
+      .fa {
+        text-shadow: none;
+        line-height: 2rem;
+        font-size: 1.3rem;
+        display: block;
+        color: #FFF;
+      }
+    }
+    .items {
+      overflow-y: auto;
+      height: 100%;
+      &::-webkit-scrollbar-track {
+        background-color: none;
+      }
+      &::-webkit-scrollbar {
+        width: 3px;
+        background-color: none;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: darken($color-sidemenu-background, 5);
+      }
+      .item {
+        display: block;
+        &.menu {
+          transition: color .7s;
+          .fa {
+            line-height: 2rem;
+            font-size: 1.5rem;
+            display: block;
+          }
+          .label {
+            font-size: .8rem;
+            display: none;
+          }
+          >a {
+            display: block;
+            padding: .6rem;
+            transition: background-color .7s;
+            text-decoration: none;
+            color: $color-sidemenu-font;
+            text-shadow: 1px 2px 0 darken($color-sidemenu-background, 30);
+            &:hover {
+              background: lighten($color-sidemenu-background, 15);
+              color: lighten($color-sidemenu-font, 15);
+            }
+          }
+          &.active {
+            border-left: solid 3px lighten($color-sidemenu-font, 15);
+            background: lighten($color-sidemenu-background, 5);
+            >a {
+              margin-left: -2px;
+              color: $color-sidemenu-font;
+              &:hover {
+                background: lighten($color-sidemenu-background, 5);
+              }
+            }
+          }
+          &.highlight {
+            >a {
+              color: $color-sidemenu-font;
+              span {
+                margin: 0
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

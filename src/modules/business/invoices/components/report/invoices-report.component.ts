@@ -1,6 +1,6 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
 
-import { DatabaseService } from '../../../../_core/database/services/database.service'
+import { DatabaseService } from '@blnc/core/database/services/database.service'
 import { RxInvoiceDocument } from '../../data/invoice'
 
 @Component({

@@ -5,7 +5,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import * as _ from "lodash"
 import * as moment from "moment"
 
-import { DatabaseService } from '../../../../_core/database/services/database.service'
+import { DatabaseService } from '@blnc/core/database/services/database.service'
 import { RxPresentationDocument } from '../../data/presentation'
 import { UploadComponent } from "../upload/upload.component"
 import { AddPageComponent } from "../add-page/add-page.component"
@@ -28,6 +28,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   sub
   presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument
   settingsMenu: any[] = []
+  tabsMenu: any = {}
   statistics: any = {}
 
   constructor(
@@ -67,6 +68,22 @@ export class ItemComponent implements OnInit, OnDestroy {
         this.deletePresentation()
       }
     }]
+
+    this.tabsMenu = {
+      active: "details",
+      tabs: [{
+        id: "details",
+        label: "Details",
+        icon: "edit",
+      }, {
+        id: "settings",
+        label: "Settings",
+        icon: "cogs",
+      }],
+      select: (tabId) => {
+        this.tabsMenu.active = tabId
+      }
+    }
   }
 
   ngOnDestroy() {

@@ -4,7 +4,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { DatabaseService } from '../../../../_core/database/services/database.service'
+import { DatabaseService } from '@blnc/core/database/services/database.service'
 import { RxPresentationDocument } from '../../data/presentation'
 
 import { CreateComponent } from "../create/create.component"

@@ -1,9 +1,12 @@
 import { Component, OnInit, NgZone } from '@angular/core'
-import { RxProjectDocument } from '../../data/project';
-import { Observable } from 'rxjs/Observable';
-import { RxCollection, RxDocumentBase } from 'rxdb';
-import { DatabaseService } from '../../../../_core/database/services/database.service';
-import { RxTaskDocument } from '../../data/task';
+import { Observable } from 'rxjs/Observable'
+import { RxCollection, RxDocumentBase } from 'rxdb'
+
+import { DatabaseService } from '@blnc/core/database/services/database.service'
+
+import { RxProjectDocument } from '../../data/project'
+import { RxLogDocument } from '../../data/log'
+import { ProjectsService } from '@blnc/teams/projects/services/projects.service';
 
 @Component({
   selector: 'app-team-projects-overview',
@@ -15,32 +18,20 @@ export class OverviewComponent implements OnInit {
   dbProject: RxCollection<any>
   dbTask: RxCollection<any>
 
-  tasks$: Observable<any[]>
-  project$: Observable<any>
-
-  project: RxDocumentBase<RxProjectDocument> & RxProjectDocument;
+  tasks: RxLogDocument[] = []
 
   constructor(
-    private dbService: DatabaseService,
+    private projectsService: ProjectsService,
   ) { }
 
   ngOnInit() {
     this.setup()
   }
 
-
   private async setup() {
-    this.dbProject = await this.dbService.get<RxProjectDocument>("project")
-    this.dbTask = await this.dbService.get<RxTaskDocument>("task")
-
-    this.tasks$ = this.dbTask
-      .find().$
-      .map((data) => {
-        if (!data) { return data }
-        data.sort((a, b) => {
-          return a.updatedAt > b.updatedAt ? -1 : 1
-        })
-        return data
-      })
+    const tasks = await this.projectsService.getTasks()
+    this.tasks = tasks.sort((a, b) => {
+      return a.updatedAt > b.updatedAt ? -1 : 1
+    })
   }
 }

@@ -1,0 +1,44 @@
+{
+  "id": "invoice",
+  "title": "Invoice",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "orders": {
+      "type": "array",
+      "items": {
+        "$ref": "../../orders/order.json"
+      }
+    },
+    "dateCreated": {
+      "type": "string",
+      "faker": "date.past"
+    },
+    "dateUpdated": {
+      "type": "string",
+      "faker": "date.past"
+    },
+    "dateIssued": {
+      "type": "string",
+      "faker": "date.past"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "issued"]
+    },
+    "file": {
+      "type": "string",
+      "faker": "system.fileName"
+    },
+    "comment": {
+      "type": "string",
+      "faker": "lorem.sentence"
+    }
+  },
+  "required": [
+    "orders",
+    "dateCreated",
+    "dateUpdated",
+    "status"
+  ]
+}

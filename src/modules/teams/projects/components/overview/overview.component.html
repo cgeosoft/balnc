@@ -1,41 +1,37 @@
 <app-content>
-  <app-content-header title="Overview" icon="cubes"></app-content-header>
+  <app-content-header title="Projects Overview" icon="cubes"></app-content-header>
   <app-content-body>
     <div class="row">
       <div class="col-7">
         <div class="card mb-4">
           <div class="card-body">
             <h4 class="card-title">Latest Tasks</h4>
-            <ng-container *ngIf="tasks$ | async as tasks; else loader">
-              <ng-container *ngIf="tasks.length; else noItems">
-                <table class="table table-max">
-                  <tbody>
-                    <tr *ngFor="let task of tasks | slice:0:15;">
-                      <td>
-                        <div class="d-flex flex-column align-items-start">
-                          <ng-container [ngSwitch]="task.status">
-                            <span class="badge badge-primary" *ngSwitchCase="'PENDING'">PENDING</span>
-                            <span class="badge badge-success" *ngSwitchCase="'COMPLETE'">COMPLETE</span>
-                          </ng-container>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="d-flex flex-column align-items-start">
-                          <a [routerLink]="['/projects/tasks',task._id]" class="task-title">{{task.title}}</a>
-                          <small class="text-muted">opened
-                            <strong>{{task.insertedAt | amTimeAgo}}</strong> ago by
-                            <strong>{{task.insertedFrom}}</strong> - {{task.log.length}}
-                            <span class="far fa-comments"></span>
-                          </small>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <app-debug-panel [data]="tasks"></app-debug-panel>
-              </ng-container>
-            </ng-container>
           </div>
+          <ng-container *ngIf="tasks.length; else noItems">
+            <table class="table table-max">
+              <tbody>
+                <tr *ngFor="let task of tasks | slice:0:5;">
+                  <td>
+                    <div class="d-flex flex-column align-items-start">
+                      <ng-container [ngSwitch]="task.status">
+                        <span class="badge badge-primary" *ngSwitchCase="'PENDING'">PENDING</span>
+                        <span class="badge badge-success" *ngSwitchCase="'COMPLETE'">COMPLETE</span>
+                      </ng-container>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex flex-column align-items-start">
+                      <a [routerLink]="['/projects/tasks',task._id]" class="task-title">{{task.title}}</a>
+                      <small class="text-muted">opened
+                        <strong>{{task.insertedAt | amTimeAgo}}</strong> ago by
+                        <strong>{{task.insertedFrom}}</strong>
+                      </small>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
         </div>
       </div>
       <div class="col-5">
@@ -95,7 +91,8 @@
         <div class="card mb-4">
           <div class="card-body">
             <h4 class="card-title">Statuses</h4>
-            <img class="card-img-top" src="http://www.excel-easy.com/data-analysis/images/charts/column-chart.png" alt="Card image cap" style="height:250px">
+            <img class="card-img-top" src="http://www.excel-easy.com/data-analysis/images/charts/column-chart.png" alt="Card image cap"
+              style="height:250px">
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
             </p>
           </div>
@@ -105,7 +102,8 @@
         <div class="card mb-4">
           <div class="card-body">
             <h4 class="card-title">Revenue</h4>
-            <img class="card-img-top" src="http://www.serif.com/appresources/PPX7/Tutorials/en-gb/graphics/tutorials/charts_line_updated.jpg" alt="Card image cap" style="height:250px">
+            <img class="card-img-top" src="http://www.serif.com/appresources/PPX7/Tutorials/en-gb/graphics/tutorials/charts_line_updated.jpg"
+              alt="Card image cap" style="height:250px">
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
             </p>
           </div>

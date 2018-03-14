@@ -1,33 +1,29 @@
 import { NgModule } from '@angular/core'
-import { HttpClientModule } from '@angular/common/http'
-import { FormsModule } from '@angular/forms'
-import { BrowserModule } from '@angular/platform-browser'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { RouterModule } from '@angular/router'
 
-import { CORE_ROUTES } from './app.routes'
-import { AppComponent } from './app.component'
-
-import { CommonModule } from "../_core/common/common.module"
-import { DatabaseModule } from '../_core/database/database.module'
-import { ConfigModule } from '../_core/config/config.module'
-import { FilesModule } from '../_core/files/files.module'
+import { CommonModule } from "@blnc/core/common/common.module"
+import { DatabaseModule } from '@blnc/core/database/database.module'
+import { ConfigModule } from '@blnc/core/config/config.module'
+import { FilesModule } from '@blnc/core/files/files.module'
+import { MainModule } from '@blnc/core/main/main.module'
+import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { MarkdownModule } from 'ngx-md';
 
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule.forRoot(CORE_ROUTES, {
+    NgbModule.forRoot(),
+    DatabaseModule.forRoot(),
+    RouterModule.forRoot([], {
       // enableTracing: true
     }),
-    NgbModule.forRoot(),
-
-    DatabaseModule.forRoot(),
+    CommonModule,
     FilesModule,
     ConfigModule,
 
-    CommonModule,
+    MainModule,
   ],
   declarations: [
     AppComponent
@@ -36,8 +32,6 @@ import { FilesModule } from '../_core/files/files.module'
     AppComponent
   ],
   providers: [],
-  exports: [
-    RouterModule
-  ]
+  exports: []
 })
 export class AppModule { }

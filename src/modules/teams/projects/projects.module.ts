@@ -1,53 +1,21 @@
 import { NgModule } from '@angular/core'
-import { ReactiveFormsModule } from '@angular/forms';  // <-- #1 import module
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { RouterModule, Routes } from '@angular/router'
 
-import { MarkdownModule } from 'ngx-md';
+import { MarkdownModule } from 'ngx-md'
 
-import { CommonModule } from '../../_core/common/common.module';
-import { Entity } from '../../_core/database/models/entity';
-
-import {
-  ProjectsComponent,
-  ProjectComponent,
-  TaskComponent,
-  CreateTaskComponent,
-  CreateProjectComponent
-} from './components'
-
-import { ProjectSchema } from './data/project';
-import { TaskSchema } from './data/task';
-import { DatabaseModule } from '../../_core/database/database.module';
-import { OverviewComponent } from './components/overview/overview.component';
-import { MainComponent } from './components/_main/main.component';
-import { ProjectsService } from './services/projects.service';
-
-
-const entities: Entity[] = [{
-  name: 'project',
-  schema: ProjectSchema,
-  sync: false,
-}, {
-  name: 'task',
-  schema: TaskSchema,
-  sync: false,
-}]
-
-const routes: Routes = [{
-  path: '',
-  component: MainComponent,
-  resolve: {
-    service: ProjectsService
-  },
-  children: [
-    { path: 'overview', component: OverviewComponent },
-    { path: 'manage', component: ProjectsComponent },
-    { path: ':id', component: ProjectComponent },
-    { path: 'tasks/:id', component: TaskComponent },
-    { path: '', redirectTo: "overview" },
-  ],
-}]
+import { CommonModule } from '@blnc/core/common/common.module'
+import { Entity } from '@blnc/core/database/models/entity'
+import { DatabaseModule } from '@blnc/core/database/database.module'
+import { CreateProjectComponent } from '@blnc/teams/projects/components/create-project/create-project.component'
+import { CreateTaskComponent } from '@blnc/teams/projects/components/create-task/create-task.component'
+import { MainComponent } from '@blnc/teams/projects/components/_main/main.component'
+import { OverviewComponent } from '@blnc/teams/projects/components/overview/overview.component'
+import { ProjectComponent } from '@blnc/teams/projects/components/project/project.component'
+import { ProjectRoutes } from '@blnc/teams/projects/routes/projects.routes'
+import { ProjectSchema } from '@blnc/teams/projects/data/project'
+import { ProjectsComponent } from '@blnc/teams/projects/components/projects/projects.component'
+import { ProjectsService } from '@blnc/teams/projects/services/projects.service'
+import { TaskComponent } from '@blnc/teams/projects/components/task/task.component'
 
 @NgModule({
   declarations: [
@@ -61,11 +29,7 @@ const routes: Routes = [{
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    NgbModule,
-
-    DatabaseModule.forChild(entities),
-    RouterModule.forChild(routes),
+    RouterModule.forChild(ProjectRoutes),
     MarkdownModule,
   ],
   providers: [
