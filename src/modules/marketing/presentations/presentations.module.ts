@@ -8,14 +8,7 @@ import { DatabaseModule } from '@blnc/core/database/database.module'
 import { ItemComponent, OverviewComponent, CreateComponent, UploadComponent, AddPageComponent } from './components'
 import { Entity } from '@blnc/core/database/models/entity'
 import { FileUploadModule } from 'ng2-file-upload';
-import { PresentationSchema } from './data/presentation';
 import { PresentationsService } from '@blnc/marketing/presentations/services/presentations.service';
-
-const entities: Entity[] = [{
-  name: 'presentation',
-  schema: PresentationSchema,
-  sync: false,
-}]
 
 const routes: Routes = [{
   path: '',
@@ -41,7 +34,6 @@ const routes: Routes = [{
     CommonModule,
     FormsModule,
     FileUploadModule,
-    // DatabaseModule.forChild(entities),
     RouterModule.forChild(routes),
   ],
   providers: [
