@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { RouterModule } from '@angular/router'
+import { RouterModule, PreloadAllModules } from '@angular/router'
 
 import { CommonModule } from "@blnc/core/common/common.module"
 import { DatabaseModule } from '@blnc/core/database/database.module'
@@ -18,6 +18,7 @@ import { MarkdownModule } from 'ngx-md';
     DatabaseModule.forRoot(),
     RouterModule.forRoot([], {
       // enableTracing: true
+      preloadingStrategy: PreloadAllModules
     }),
     CommonModule,
     FilesModule,
