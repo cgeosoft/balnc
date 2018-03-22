@@ -35,7 +35,7 @@
   </div>
   <div class="header-menu-tab" *ngIf="tabsMenu">
     <ul class="nav nav-tabs">
-      <li class="nav-item" *ngFor="let tab of tabsMenu.tabs">
+      <li class="nav-item" *ngFor="let tab of tabsMenu.tabs" [ngClass]="{'ml-auto':tab.right}">
         <a class="nav-link" [ngClass]="{active:tabsMenu.active == tab.id}" href="javascript:void(0);" (click)="tabsMenu.select(tab.id)">
           <span *ngIf="tab.icon" class="fa fa-{{tab.icon}}"></span> {{tab.label}}</a>
       </li>

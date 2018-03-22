@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { RouterModule } from '@angular/router'
+import { RouterModule, PreloadAllModules } from '@angular/router'
 
 import { CommonModule } from "@blnc/core/common/common.module"
 import { DatabaseModule } from '@blnc/core/database/database.module'
@@ -10,6 +10,8 @@ import { MainModule } from '@blnc/core/main/main.module'
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { MarkdownModule } from 'ngx-md';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../../environments/environment';
 
 @NgModule({
   imports: [
@@ -18,12 +20,15 @@ import { MarkdownModule } from 'ngx-md';
     DatabaseModule.forRoot(),
     RouterModule.forRoot([], {
       // enableTracing: true
+      preloadingStrategy: PreloadAllModules
     }),
     CommonModule,
     FilesModule,
     ConfigModule,
 
     MainModule,
+
+    environment.production ? ServiceWorkerModule.register('ngsw-worker.js') : []
   ],
   declarations: [
     AppComponent

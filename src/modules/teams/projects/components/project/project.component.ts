@@ -43,8 +43,8 @@ export class ProjectComponent implements OnInit {
         icon: "tasks",
       }, {
         id: "settings",
-        label: "Settings",
-        icon: "cogs",
+        icon: "cog",
+        right: true
       }],
       select: (tabId) => {
         this.tabsMenu.active = tabId
