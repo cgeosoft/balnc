@@ -10,6 +10,8 @@ import { MainModule } from '@blnc/core/main/main.module'
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { MarkdownModule } from 'ngx-md';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../../environments/environment';
 
 @NgModule({
   imports: [
@@ -25,6 +27,8 @@ import { MarkdownModule } from 'ngx-md';
     ConfigModule,
 
     MainModule,
+
+    environment.production ? ServiceWorkerModule.register('ngsw-worker.js') : []
   ],
   declarations: [
     AppComponent
