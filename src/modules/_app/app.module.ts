@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { MarkdownModule } from 'ngx-md';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../../environments/environment';
+import { ENV } from 'environments/environment';
 
 @NgModule({
   imports: [
@@ -28,7 +28,7 @@ import { environment } from '../../environments/environment';
 
     MainModule,
 
-    environment.production ? ServiceWorkerModule.register('ngsw-worker.js') : []
+    ENV.production ? ServiceWorkerModule.register('ngsw-worker.js') : []
   ],
   declarations: [
     AppComponent

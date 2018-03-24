@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { RxCollection } from 'rxdb';
-import { RxAccountDocument, AccountSchema } from '@blnc/general/accounts/data/account';
+import { RxAccountDocument, AccountSchema } from '@blnc/core/accounts/data/account';
 import { DatabaseService } from '@blnc/core/database/services/database.service';
 import { ConfigService } from '@blnc/core/config/config.service';
 import { Entity } from '@blnc/core/database/models/entity';

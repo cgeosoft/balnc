@@ -2,7 +2,9 @@ import { Component, OnInit, ElementRef, NgZone, Renderer, ViewChild } from '@ang
 import { RxCollection } from 'rxdb'
 import { ConfigService } from '@blnc/core/config/config.service'
 import { BehaviorSubject } from 'rxjs/Rx'
-import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router'
+
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-main',
@@ -32,12 +34,15 @@ export class MainComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-    this.setup()
-  }
+  menu: any[] = []
 
-  private async setup() {
+  ngOnInit() {
+
     this.$account = this.configService.$account
+
+    this.menu = _.chain(ConfigService.modules)
+      .filter(m => (m.isActive && m.hasMenu))
+      .value()
   }
 
   // Shows and hides the loading spinner during RouterEvent changes
