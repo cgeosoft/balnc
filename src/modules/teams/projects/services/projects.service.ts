@@ -46,17 +46,28 @@ export class ProjectsService implements Resolve<any> {
     async getProjects(params?: any) {
         const projects = await this.projects.find(params).exec()
         const tasks = await this.getTasks()
-        const tasksTotals = {}
+        const stats = {
+            tasksCounter: {},
+            latestTask: {},
+        }
 
         tasks.forEach((task) => {
-            if (!tasksTotals[task.project]) { tasksTotals[task.project] = 0 }
-            tasksTotals[task.project]++
+            if (!stats.tasksCounter[task.project]) { stats.tasksCounter[task.project] = 0 }
+            stats.tasksCounter[task.project]++
+
+            if (!stats.latestTask[task.project]) { stats.latestTask[task.project] = task }
+            if (stats.latestTask[task.project].insertedAt > task.insertedAt) {
+                stats.latestTask[task.project] = task
+            }
         })
 
         return projects
             .map(project => {
                 const p: any = project
-                p._tasksTotal = tasksTotals[p._id] || 0
+                p.stats = {
+                    tasksCounter: stats.tasksCounter[p._id] || 0,
+                    latestTask: stats.latestTask[p._id] || {},
+                }
                 return p
             })
             .sort((a, b) => {

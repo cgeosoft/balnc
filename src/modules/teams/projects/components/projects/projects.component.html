@@ -1,5 +1,5 @@
 <app-content>
-  <app-content-header title="Manage" icon="cubes"></app-content-header>
+  <app-content-header title="Manage Projects" icon="cubes"></app-content-header>
   <app-content-body>
     <div class="btn-toolbar mb-4">
       <div class="btn-group">
@@ -49,10 +49,11 @@
                 <div class="description">{{project.description || 'Without description' | ellipsis:250}}</div>
               </td>
               <td class="td-large text-center text-muted" style="max-width:100px">
-                <span placement="top" ngbTooltip="2018-01-25 15:55:21">12 hours ago</span>
+                <span *ngIf="!project.stats.latestTask">-</span>
+                <span *ngIf="project.stats.latestTask" ngbTooltip="{{project.stats.latestTask.insertedAt}}" placement="top">{{project.stats.latestTask.insertedAt | amTimeAgo}}</span>
               </td>
               <td class="td-large text-center text-muted" style="max-width:100px">
-                <span class="fas fa-tasks"></span> {{project._tasksTotal}}
+                <span class="fas fa-tasks"></span> {{project.stats.tasksCounter}}
               </td>
             </tr>
           </tbody>
