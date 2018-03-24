@@ -1,10 +1,8 @@
 <app-content>
-  <app-content-header [title]="(presentation$|async)?.title" subtitle="Presentation" icon="desktop" [settingsMenu]="settingsMenu"
-    [tabsMenu]="tabsMenu"></app-content-header>
+  <app-content-header [title]="presentation?.title" subtitle="Presentation" icon="desktop" [tabsMenu]="tabsMenu"></app-content-header>
   <app-content-body>
-    <ng-container *ngIf="presentation$ | async as presentation; else loader">
+    <ng-container *ngIf="presentation; else loader">
       <div class="row">
-
         <div class="col-md-4">
           <div class="card mb-2">
             <div class="card-body">
@@ -33,8 +31,8 @@
                       <strong>{{presentation.pages.length}}</strong> pages
                     </li>
                     <li>Total
-                      <strong>{{statistics.totalFilesCount}}</strong> files of
-                      <strong>{{statistics.totalFilesBytesize | bytes:0}}</strong> size
+                      <strong>{{presentation.stats.filecount}}</strong> files of
+                      <strong>{{presentation.stats.filesize | bytes:0}}</strong> size
                     </li>
                   </ul>
                 </dd>
@@ -96,7 +94,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </ng-container>
     <ng-template #loader>

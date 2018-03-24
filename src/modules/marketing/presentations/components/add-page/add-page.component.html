@@ -5,30 +5,51 @@
   </button>
 </div>
 <div class="modal-body">
-  <div class="row">
-    <div class="col-md-5">
-      <div class="form-group">
-        <label>Title</label>
-        <input type="text" class="form-control" [(ngModel)]="page.title">
-      </div>
-      <div class="form-group">
-        <label>Description</label>
-        <textarea class="form-control" rows="7" [(ngModel)]="page.description"></textarea>
-      </div>
-    </div>
-    <div class="col-md-7">
-      <div class="form-group">
-        <label>Image</label>
-        <input type="file" class="form-control" accept="image/*" (change)="loadFile($event)">
-      </div>
-      <div class="form-group">
+  <div class="form-group">
+    <label>Title</label>
+    <input type="text" class="form-control" [(ngModel)]="page.title">
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <textarea class="form-control" rows="4" [(ngModel)]="page.description"></textarea>
+  </div>
+  <div class="form-group">
+    <label>Image</label>
+    <div class="media">
+      <div class="mr-3" style="max-width:150px;">
         <app-empty-panel *ngIf="!imagePreview" message="Select an image"></app-empty-panel>
-        <img *ngIf="imagePreview" class="img-thumbnail img-fluid mb-3" [src]="imagePreview">
+        <img *ngIf="imagePreview" class="img-thumbnail img-fluid" [src]="imagePreview">
+      </div>
+      <div class="media-body">
+        <input type="file" class="form-control" accept="image/*" (change)="loadFile($event)">
+        <div class="card small mt-2">
+          <div class="card-body p-2">
+            <p class="mb-2">Image details</p>
+            <div class="row ">
+              <div class="col-4 text-right">Size:</div>
+              <div class="col-8">
+                <strong>{{imageInfo.size | bytes:0}}</strong>
+              </div>
+            </div>
+            <div class="row ">
+              <div class="col-4 text-right">Width:</div>
+              <div class="col-8">
+                <strong>{{imageInfo.width}}px</strong>
+              </div>
+            </div>
+            <div class="row ">
+              <div class="col-4 text-right">Height:</div>
+              <div class="col-8">
+                <strong>{{imageInfo.height}}px</strong>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-link" (click)="activeModal.dismiss()">Close</button>
-  <button type="button" class="btn btn-success" (click)="submit()">Add Page</button>
+  <button type="button" class="btn btn-success" (click)="onSubmit()">Add Page</button>
 </div>

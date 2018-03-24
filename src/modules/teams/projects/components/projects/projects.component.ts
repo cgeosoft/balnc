@@ -17,7 +17,6 @@ import { CreateProjectComponent } from '../create-project/create-project.compone
 export class ProjectsComponent implements OnInit {
 
   projects: any[] = null
-  projects$: Observable<any[]>
 
   typeFilterSelected = null
   typeFilters = [
