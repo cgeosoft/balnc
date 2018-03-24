@@ -33,6 +33,11 @@
       transform: translateZ(0);
       -webkit-animation-delay: -0.16s;
       animation-delay: -0.16s;
+      display: none;
+    }
+
+    .loader.active {
+      display: block;
     }
 
     .loader:before,
@@ -83,7 +88,7 @@
 
 <body>
   <app-main>
-    <div class="loader">Loading...</div>
+    <div class="loader active">Loading...</div>
   </app-main>
   <noscript>
     <h3 style="color: #673ab7; font-family: Helvetica; margin: 2rem;">

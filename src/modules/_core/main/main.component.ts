@@ -51,7 +51,7 @@ export class MainComponent implements OnInit {
       // We wanna run this function outside of Angular's zone to
       // bypass change detection
       this.ngZone.runOutsideAngular(() => {
-        this.renderer.setElementClass(this.spinnerElement.nativeElement, 'loading', true)
+        this.renderer.setElementClass(this.spinnerElement.nativeElement, 'active', true)
       })
     }
     if (event instanceof NavigationEnd) {
@@ -74,7 +74,7 @@ export class MainComponent implements OnInit {
       // For simplicity we are going to turn opacity on / off
       // you could add/remove a class for more advanced styling
       // and enter/leave animation of the spinner
-      this.renderer.setElementClass(this.spinnerElement.nativeElement, 'loading', false)
+      this.renderer.setElementClass(this.spinnerElement.nativeElement, 'active', false)
     })
   }
 }
