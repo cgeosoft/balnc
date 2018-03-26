@@ -15,7 +15,7 @@ import { PresentationSchema, RxPresentationDocument } from "@blnc/marketing/pres
 const entities: Entity[] = [{
   name: 'presentation',
   schema: PresentationSchema,
-  sync: false,
+  sync: true,
 }]
 
 @Injectable()

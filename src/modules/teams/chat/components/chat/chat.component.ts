@@ -8,6 +8,7 @@ import * as moment from 'moment'
 import { DatabaseService } from '@blnc/core/database/services/database.service'
 
 import { RxChatMessageDocument } from '../../data/message'
+import { ChatService } from '@blnc/teams/chat/services/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -20,7 +21,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   @ViewChild('chatInput') private chatInput: ElementRef
 
   // db
-  db: RxCollection<RxChatMessageDocument>
   room: RoomViewModel = new RoomViewModel()
   rooms: RoomViewModel[] = []
   sub: Subscription
@@ -28,7 +28,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   user: any
 
   constructor(
-    private database: DatabaseService,
+    private chatService: ChatService,
     private zone: NgZone,
   ) { }
 
@@ -46,27 +46,24 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public async send() {
-    const room = this.room
-    if (!room.inputMsg.text) { return }
-    room.inputMsg.isDisabled = true
 
-    const doc = this.db.newDocument({
-      room: room.name,
-      sendAt: moment().toISOString(),
+    if (!this.room.inputMsg.text) { return }
+    this.room.inputMsg.isDisabled = true
+
+    await this.chatService.sendMessage({
+      room: this.room.name,
       sender: this.user.name,
-      text: room.inputMsg.text
+      text: this.room.inputMsg.text
     })
 
-    await doc.save()
-      .then(() => {
-        room.inputMsg.isDisabled = false
-        room.inputMsg.text = null
-        this.zone.run(() => {
-          this.scrollToBottom()
-          this.chatInput.nativeElement.focus()
-        })
-      })
+    this.room.inputMsg.isDisabled = false
+    this.room.inputMsg.text = null
+    this.zone.run(() => {
+      this.scrollToBottom()
+      this.chatInput.nativeElement.focus()
+    })
   }
+
   keyDownFunction(event) {
     if (event.keyCode === 13) {
       this.send()
@@ -74,9 +71,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private async _show() {
-
-    this.db = await this.database.get<RxChatMessageDocument>("message")
-    const messages$ = this.db.find().$
+    const messages$ = await this.chatService.getMessages()
 
     this.sub = messages$
       .subscribe(messages => {

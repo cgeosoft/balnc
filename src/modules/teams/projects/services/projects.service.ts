@@ -15,11 +15,11 @@ import { Entity } from "@blnc/core/database/models/entity";
 const entities: Entity[] = [{
     name: 'project',
     schema: ProjectSchema,
-    sync: false,
+    sync: true,
 }, {
     name: 'log',
     schema: LogSchema,
-    sync: false,
+    sync: true,
 }]
 
 @Injectable()

@@ -112,7 +112,7 @@ export class DatabaseService implements Resolve<any> {
         console.log("start syncing")
 
         DatabaseService.entities
-            .filter(entity => !entity.sync)
+            .filter(entity => entity.sync)
             .forEach(entity => {
                 DatabaseService.db[entity.name].sync({
                     remote: `${this.config.host}/${entity.name}/`,

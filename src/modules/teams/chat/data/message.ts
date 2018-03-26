@@ -1,4 +1,5 @@
 import * as schema from './message.json'
+import { RxDocument } from 'rxdb';
 
 declare interface RxChatMessageDocumentType {
     text: string
@@ -7,5 +8,5 @@ declare interface RxChatMessageDocumentType {
     sendAt: string
 }
 
-export type RxChatMessageDocument = RxChatMessageDocumentType
+export type RxChatMessageDocument = RxDocument<RxChatMessageDocumentType> & RxChatMessageDocumentType
 export const ChatMessageSchema = schema
