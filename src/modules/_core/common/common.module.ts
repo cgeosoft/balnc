@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DocVersionPipe } from '@blnc/core/common/pipes/doc-version.pipe';
 import { FilesModule } from '@blnc/core/files/files.module';
 import { ConfigModule } from '@blnc/core/config/config.module';
+import { ProdNotifComponent } from '@blnc/core/common/components/prod-notif/prod-notif.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { ConfigModule } from '@blnc/core/config/config.module';
     ContentBodyComponent,
     EmptyPanelComponent,
     DebugPanelComponent,
+    ProdNotifComponent,
     LoaderComponent,
     EllipsisPipe,
     DocVersionPipe,
@@ -59,6 +61,7 @@ import { ConfigModule } from '@blnc/core/config/config.module';
     ContentBodyComponent,
     EmptyPanelComponent,
     DebugPanelComponent,
+    ProdNotifComponent,
     LoaderComponent,
     NgPipesModule,
     MomentModule,
@@ -66,6 +69,9 @@ import { ConfigModule } from '@blnc/core/config/config.module';
     DocVersionPipe,
     FilesModule,
     ConfigModule,
+  ],
+  entryComponents: [
+    ProdNotifComponent,
   ]
 })
 export class CommonModule { }
