@@ -4,14 +4,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RxDocumentBase } from 'rxdb';
 import { Observable } from 'rxjs/Observable';
 
-import { AccountsService } from '../../services/accounts.service';
-import { RxAccountDocument } from '../../data/account';
+import { ProfileService } from '../../services/profile.service';
+import { RxProfileDocument } from '../../data/profile';
 
 @Component({
-    selector: 'app-accounts-create',
+    selector: 'app-profile-create',
     templateUrl: './create.component.html',
 })
-export class CreateAccountComponent implements OnInit {
+export class CreateProfileComponent implements OnInit {
 
     @ViewChild("name") name: ElementRef;
     @ViewChild("alias") alias: ElementRef;
@@ -21,7 +21,7 @@ export class CreateAccountComponent implements OnInit {
     constructor(
         public activeModal: NgbActiveModal,
         private formBuilder: FormBuilder,
-        private accountsService: AccountsService,
+        private profileService: ProfileService,
     ) { }
 
     async ngOnInit() {
@@ -33,9 +33,9 @@ export class CreateAccountComponent implements OnInit {
 
     onSubmit() {
         const formModel = this.form.value;
-        const accountId = formModel.account
-        this.accountsService
-            .addAccount(formModel.alias, formModel.name)
+        const profileId = formModel.profile
+        this.profileService
+            .addProfile(formModel.alias, formModel.name)
             .then(() => {
                 this.activeModal.close()
             })

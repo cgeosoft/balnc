@@ -11,7 +11,7 @@ export class ConfigService {
     public static modules: BalanceModule[] = null
     public static namespaces: BalanceNamespace[] = null
 
-    $account: BehaviorSubject<any> = new BehaviorSubject({
+    profile$: BehaviorSubject<any> = new BehaviorSubject({
         alias: "X"
     })
 

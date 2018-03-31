@@ -22,11 +22,11 @@
     "canChange": false,
     "canConfigure": false
   }, {
-    "id": "@blnc/core-accounts",
+    "id": "@blnc/core-profiles",
     "namespace": "@blnc/core-*",
     "icon": null,
-    "title": "Accounts",
-    "description": "Accounts are the groups that hold all the details and setting of your company",
+    "title": "Profiles",
+    "description": "Profiles are the groups that hold all the details and setting of your company",
     "path": null,
     "hasMenu": false,
     "isActive": true,
@@ -150,7 +150,7 @@
   }, {
     "id": "@blnc/business-*",
     "title": "Business",
-    "description": "In this namespace you will find business modules that will help you manage your customers, orders and accounting."
+    "description": "In this namespace you will find business modules that will help you manage your customers, orders and profileing."
   }, {
     "id": "@blnc/marketing-*",
     "title": "Marketing",

@@ -13,7 +13,7 @@ import * as _ from 'lodash'
 })
 export class MainComponent implements OnInit {
 
-  $account: BehaviorSubject<any>
+  profile$: BehaviorSubject<any>
 
   @ViewChild('spinnerElement')
 
@@ -38,7 +38,7 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
 
-    this.$account = this.configService.$account
+    this.profile$ = this.configService.profile$
 
     this.menu = _.chain(ConfigService.modules)
       .filter(m => (m.isActive && m.hasMenu))

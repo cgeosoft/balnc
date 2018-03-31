@@ -4,20 +4,19 @@ import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from "@blnc/core/common/common.module"
 import { MainComponent } from '@blnc/core/main/main.component';
 import { PageNotFoundComponent } from '@blnc/core/common/components/page-not-found/page-not-found.component';
-import { DefaultAccountGuard } from '@blnc/core/accounts/guards/account.guard';
-import { AccountsService } from '@blnc/core/accounts/services/accounts.service';
+import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard';
 import { DatabaseService } from '@blnc/core/database/services/database.service';
 
 const routes: Routes = [{
   path: '',
   component: MainComponent,
-  canActivate: [DefaultAccountGuard],
+  canActivate: [DefaultProfileGuard],
   resolve: {
     db: DatabaseService,
   },
   children: [{
-    path: 'accounts',
-    loadChildren: "@blnc/core/accounts/accounts.module#AccountsModule"
+    path: 'profile',
+    loadChildren: "@blnc/core/profile/profile.module#ProfilesModule"
   }, {
     path: 'dashboard',
     loadChildren: "@blnc/core/dashboard/dashboard.module#DashboardModule"
@@ -57,7 +56,7 @@ const routes: Routes = [{
     CommonModule,
     RouterModule.forChild(routes),
   ],
-  providers: [DefaultAccountGuard],
+  providers: [DefaultProfileGuard],
   entryComponents: []
 })
 export class MainModule { }

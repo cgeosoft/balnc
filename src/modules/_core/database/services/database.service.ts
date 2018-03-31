@@ -148,7 +148,7 @@ export class DatabaseService implements Resolve<any> {
     public setNamespace(namespace: string) {
         console.log("set amespasne", namespace)
         if (namespace !== DatabaseService.namespace) { return }
-        localStorage.setItem("account", namespace)
+        localStorage.setItem("profile", namespace)
         DatabaseService.namespace = namespace
         this.setup(DatabaseService.entities)
     }
@@ -165,7 +165,7 @@ export class DatabaseService implements Resolve<any> {
             return
         }
         console.log("DatabaseService initializing...")
-        DatabaseService.namespace = localStorage.getItem("account")
+        DatabaseService.namespace = localStorage.getItem("profile")
         DatabaseService.adapter = await this.getAdapter()
         DatabaseService.db = await RxDB.create({
             name: "db",
