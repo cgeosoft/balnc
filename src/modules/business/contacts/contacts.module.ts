@@ -6,31 +6,21 @@ import { Entity } from '@blnc/core/database/models/entity';
 
 import { ContactItemComponent, ContactsOverviewComponent } from './components'
 
-import { ContactSchema } from './data/contact';
 import { CommonModule } from '@blnc/core/common/common.module';
-
-const entities: Entity[] = [{
-  name: 'contact',
-  schema: ContactSchema,
-  sync: true,
-}]
-
-const routes: Routes = [
-  { path: 'overview', component: ContactsOverviewComponent },
-  { path: 'contact/:id', component: ContactItemComponent },
-  { path: '', redirectTo: "overview" },
-]
+import { ContactsService } from '@blnc/business/contacts/services/contacts.service';
+import { ContactsRoutes } from '@blnc/business/contacts/routes/contacts.routes';
 
 @NgModule({
   imports: [
     CommonModule,
-    DatabaseModule.forChild(entities),
-    RouterModule.forChild(routes),
+    RouterModule.forChild(ContactsRoutes),
   ],
   declarations: [
     ContactsOverviewComponent,
     ContactItemComponent,
   ],
-  providers: []
+  providers: [
+    ContactsService
+  ]
 })
 export class ContactsModule { }

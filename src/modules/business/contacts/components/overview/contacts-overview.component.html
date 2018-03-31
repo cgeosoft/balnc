@@ -1,7 +1,6 @@
 <app-sidebar>
-  <input class="form-control form-control-search" type="text" placeholder="search contacts...">
   <ul class="list-menu dark">
-    <li class="header">Menu</li>
+    <li class="header">Contacts</li>
     <li>
       <a routerLink="/contacts/overview">
         <span class="fa fa-desktop fa-fw"></span> Overview</a>
@@ -52,36 +51,56 @@
   </ul>
 </app-sidebar>
 <app-content>
-  <app-content-header title="Contacts" icon="users"></app-content-header>
+  <app-content-header title="Contacts Overview" icon="users"></app-content-header>
   <app-content-body>
+    <div class="card">
+      <div class="card-body">
+        <input class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" [resultTemplate]="rt">
+        <ng-template #rt let-r="search" let-t="contact">
+          {{contact|json}} {{contact.name}}
+          <br>
+          <small class="text-muted">{{contact.email}} - {{contact.address}}</small>
+        </ng-template>
+      </div>
+    </div>
     <div class="row">
       <div class="col-7">
         <div class="card mb-4">
           <div class="card-body">
-            <h4 class="card-title">Activity</h4>
-            <img class="card-img-top" src="https://alesandrab.files.wordpress.com/2013/04/seasonal-chart.png" alt="Card image cap" style="height: 230px;">
-            <div class="row mt-4">
-              <div class="col">
-                <span>lorem</span>
-                <p class="lead">15.440</p>
-              </div>
-              <div class="col">
-                <span>ispum</span>
-                <p class="lead">15.440</p>
-              </div>
-              <div class="col">
-                <span>dolor</span>
-                <p class="lead">15.440</p>
-              </div>
-              <div class="col">
-                <span>amet</span>
-                <p class="lead">15.440</p>
-              </div>
-            </div>
+            <h4 class="card-title">Latest Contacts [total: {{contacts?.length}}]</h4>
+            <ng-container *ngIf="contacts; else loader">
+              <ng-container *ngIf="contacts.length; else noItems">
+                <table class="table table-max">
+                  <tbody>
+                    <tr *ngFor="let contact of contacts | slice:0:5;">
+                      <td>
+                        <div class="d-flex flex-column align-items-start">
+                          <a [routerLink]="['/projects/contacts',contact._id]" class="contact-title">{{contact.name}}</a>
+                          <small class="text-muted">{{contact.email}} - {{contact.address}}</small>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ng-container>
+            </ng-container>
+            <ng-template #noItems>
+              <app-empty-panel message="You don't have any contacts yet" submessage="Click create to add your first one" icon="cubes"></app-empty-panel>
+            </ng-template>
+            <ng-template #loader>
+              <app-loader></app-loader>
+            </ng-template>
           </div>
         </div>
       </div>
       <div class="col-5">
+        <div class="card bg-danger text-white mb-4">
+          <div class="card-body">
+            <h4 class="card-title">Generate Mock</h4>
+            <button class="btn btn-light" (click)="generateMockData()">Generate Data</button>
+          </div>
+        </div>
+
         <div class="card bg-primary text-white mb-4" style="height: 400px;">
           <div class="card-body">
             <h4 class="card-title">Pending</h4>

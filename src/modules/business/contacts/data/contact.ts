@@ -1,14 +1,14 @@
 import * as schema from './contact.json'
+import { RxDocument } from 'rxdb';
 
 declare interface RxContactDocumentType {
-    orders: Array<string>
-    dateCreated: string
-    dateUpdated: string
-    dateIssued?: string
-    status: ("pending" | "issued")
-    file?: string
-    comment?: string
+    name?: string
+    address?: string
+    email?: string
+    phone?: string
+    details?: any
+    subContacts?: any[]
 }
 
-export type RxContactDocument = RxContactDocumentType
+export type RxContactDocument = RxDocument<RxContactDocumentType> & RxContactDocumentType
 export const ContactSchema = schema
