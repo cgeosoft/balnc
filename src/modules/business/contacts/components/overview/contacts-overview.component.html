@@ -55,7 +55,7 @@
   <app-content-body>
     <div class="card">
       <div class="card-body">
-        <input class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" [resultTemplate]="rt">
+        <input class="form-control" [(ngModel)]="searchTerm" [ngbTypeahead]="search" [resultTemplate]="rt">
         <ng-template #rt let-r="search" let-t="contact">
           {{contact|json}} {{contact.name}}
           <br>
