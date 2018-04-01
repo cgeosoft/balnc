@@ -1,30 +1,33 @@
-<div class="wrapper d-flex">
-  <div class="sidemenu d-flex flex-column justify-content-start">
-    <div class="logo">
-      <img src="/assets/img/icons/icon-72x72.png">
-    </div>
-    <div class="items d-flex flex-column justify-content-start">
-      <div class="item menu" ngbTooltip="Dashboard" placement="right" routerLinkActive="active">
-        <a routerLink="/dashboard">
-          <span class="fa fa-tachometer-alt"></span>
-        </a>
+<div class="wrapper d-flex flex-column">
+  <div class="wrapper-main d-flex flex-row">
+    <div class="sidemenu d-flex flex-column justify-content-start">
+      <div class="logo">
+        <img src="/assets/img/icons/icon-72x72.png">
       </div>
-      <ng-template ngFor let-item [ngForOf]="menu" *ngIf="menu.length">
-        <div class="item menu" ngbTooltip="{{item.title}}" placement="right" routerLinkActive="active">
-          <a routerLink="{{item.path}}">
-            <span class="fa fa-{{item.icon}}"></span>
+      <div class="items d-flex flex-column justify-content-start">
+        <div class="item menu" ngbTooltip="Dashboard" placement="right" routerLinkActive="active">
+          <a routerLink="/dashboard">
+            <span class="fa fa-tachometer-alt"></span>
           </a>
         </div>
-      </ng-template>
-      <div class="mt-auto">
-        <div class="item menu" ngbTooltip="Settings" placement="right" routerLinkActive="active">
-          <a routerLink="/settings">
-            <span class="fa fa-cogs"></span>
-          </a>
+        <ng-template ngFor let-item [ngForOf]="menu" *ngIf="menu.length">
+          <div class="item menu" ngbTooltip="{{item.title}}" placement="right" routerLinkActive="active">
+            <a routerLink="{{item.path}}">
+              <span class="fa fa-{{item.icon}}"></span>
+            </a>
+          </div>
+        </ng-template>
+        <div class="mt-auto">
+          <div class="item menu" ngbTooltip="Settings" placement="right" routerLinkActive="active">
+            <a routerLink="/settings">
+              <span class="fa fa-cogs"></span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
+    <div class="loader" #spinnerElement></div>
+    <router-outlet></router-outlet>
   </div>
-  <div class="loader" #spinnerElement></div>
-  <router-outlet></router-outlet>
+  <app-status-bar></app-status-bar>
 </div>

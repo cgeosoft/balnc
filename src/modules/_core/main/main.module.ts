@@ -16,14 +16,14 @@ const routes: Routes = [{
   },
   children: [{
     path: 'profile',
-    loadChildren: "@blnc/core/profile/profile.module#ProfilesModule"
+    loadChildren: "@blnc/core/profile/profile.module#ProfileModule"
   }, {
     path: 'dashboard',
     loadChildren: "@blnc/core/dashboard/dashboard.module#DashboardModule"
   }, {
-    path: 'contacts',
-    loadChildren: "@blnc/business/contacts/contacts.module#ContactsModule"
-  }, {
+    //   path: 'contacts',
+    //   loadChildren: "@blnc/business/contacts/contacts.module#ContactsModule"
+    // }, {
     path: 'invoices',
     loadChildren: "@blnc/business/invoices/invoices.module#InvoicesModule"
   }, {
