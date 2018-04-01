@@ -1,25 +1,25 @@
 @import "colors";
-$color-sidebar-background: lighten($color-sidemenu-background, 5);
-$color-sidebar-font: $color-sidemenu-font;
+$color-side-bar-background: lighten($color-sidemenu-background, 5);
+$color-side-bar-font: $color-sidemenu-font;
 :host {
   height: 100%;
-  .sidebar {
+  .side-bar {
     height: 100%;
     min-width: 200px;
     width: 200px;
-    background: $color-sidebar-background;
+    background: $color-side-bar-background;
     padding: .7rem;
     .form-control-search {
       background: none;
-      border: solid 1px lighten($color-sidebar-background, 20);
-      color: $color-sidebar-font;
+      border: solid 1px lighten($color-side-bar-background, 20);
+      color: $color-side-bar-font;
       transition: border .7s;
       margin-bottom: 1rem;
       &:focus {
-        border-color: $color-sidebar-font;
+        border-color: $color-side-bar-font;
       }
       &::placeholder {
-        color: lighten($color-sidebar-font, 20);
+        color: lighten($color-side-bar-font, 20);
       }
     }
     .list-menu {
@@ -31,7 +31,7 @@ $color-sidebar-font: $color-sidemenu-font;
         background-color: none;
       }
       &::-webkit-scrollbar-thumb {
-        background-color: darken($color-sidebar-background, 5);
+        background-color: darken($color-side-bar-background, 5);
       }
     }
   }

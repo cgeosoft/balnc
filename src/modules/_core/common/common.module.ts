@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router'
 import { NgPipesModule } from 'ngx-pipes';
 import { MomentModule } from 'angular2-moment';
 
-import { SidebarComponent } from '@blnc/core/common/components/sidebar/sidebar.component';
+import { SideBarComponent } from '@blnc/core/common/components/side-bar/side-bar.component';
 import { StatusBarComponent } from '@blnc/core/common/components/status-bar/status-bar.component';
 import { PageNotFoundComponent } from '@blnc/core/common/components/page-not-found/page-not-found.component'
 import { ContentComponent } from '@blnc/core/common/components/content/content.component'
@@ -37,7 +37,7 @@ import { ProdNotifComponent } from '@blnc/core/common/components/prod-notif/prod
     ConfigModule,
   ],
   declarations: [
-    SidebarComponent,
+    SideBarComponent,
     StatusBarComponent,
     PageNotFoundComponent,
     ContentComponent,
@@ -57,7 +57,7 @@ import { ProdNotifComponent } from '@blnc/core/common/components/prod-notif/prod
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    SidebarComponent,
+    SideBarComponent,
     StatusBarComponent,
     ContentComponent,
     ContentHeaderComponent,
