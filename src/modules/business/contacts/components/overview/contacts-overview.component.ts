@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ContactsOverviewComponent implements OnInit {
 
+  searchTerm: string
   contacts: RxContactDocument[]
 
   constructor(
