@@ -1,0 +1,13 @@
+{
+  "id": "profile",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "alias": {
+      "type": "string"
+    }
+  }
+}

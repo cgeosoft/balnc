@@ -1,0 +1,40 @@
+<app-content>
+  <app-content-header title="Manage Profile" icon="desktop"></app-content-header>
+
+  <app-content-body>
+
+    <div class="btn-toolbar mb-4">
+      <div class="btn-group mr-2">
+        <button type="button" class="btn btn-primary" (click)="create()">
+          <span class="fa fa-plus-circle fa-fw"></span> New</button>
+      </div>
+    </div>
+
+    <ng-container *ngIf="profile; else loader">
+      <ng-container *ngIf="profile.length; else noItems">
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let profile of profile">
+              <td>
+                {{profile.name}}
+                <br>
+                <span class="mono">{{profile.alias}}</span>
+              </td>
+              <td style="width:100px">
+                <button type="button" class="btn btn-outline-primary btn-sm pull-right" (click)="select(profile)">
+                  use</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+    <ng-template #noItems>
+      <app-empty-panel message="You don't have any profile yet" submessage="Click create to add your first one" icon="cubes"></app-empty-panel>
+    </ng-template>
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+
+  </app-content-body>
+</app-content>

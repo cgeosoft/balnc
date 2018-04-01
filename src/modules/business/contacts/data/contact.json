@@ -1,6 +1,5 @@
 {
   "id": "contact",
-  "title": "contact",
   "type": "object",
   "version": 0,
   "properties": {
@@ -11,29 +10,19 @@
       "type": "string"
     },
     "email": {
-      "type": "string",
-      "faker": "internet.email"
+      "type": "string"
     },
     "phone": {
       "type": "string"
     },
-    "taxDetails": {
-      "type": "object",
-      "properties": {
-        "vatNumber": {
-          "type": "string"
-        },
-        "taxOffice": {
-          "type": "string"
-        }
-      },
-      "required": ["taxOffice", "vatNumber"]
-    }
-  },
-  "subContacts": {
-    "type": "array",
-    "items": {
-      "$ref": "contact"
+    "details": {
+      "type": "object"
+    },
+    "subContacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   }
 }

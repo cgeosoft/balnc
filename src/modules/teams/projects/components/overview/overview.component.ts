@@ -2,10 +2,8 @@ import { Component, OnInit, NgZone } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import { RxCollection, RxDocumentBase } from 'rxdb'
 
-import { DatabaseService } from '@blnc/core/database/services/database.service'
-
-import { RxProjectDocument } from '../../data/project'
-import { RxLogDocument } from '../../data/log'
+import { RxProjectDocument } from '@blnc/teams/projects/data/project'
+import { RxLogDocument } from '@blnc/teams/projects/data/log'
 import { ProjectsService } from '@blnc/teams/projects/services/projects.service';
 
 @Component({
@@ -14,9 +12,6 @@ import { ProjectsService } from '@blnc/teams/projects/services/projects.service'
   styleUrls: ['./overview.component.scss']
 })
 export class OverviewComponent implements OnInit {
-
-  dbProject: RxCollection<any>
-  dbTask: RxCollection<any>
 
   tasks: RxLogDocument[] = []
 

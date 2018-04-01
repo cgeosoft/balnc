@@ -29,9 +29,6 @@
       "@blnc/business/*": [
         "modules/business/*"
       ],
-      "@blnc/general/*": [
-        "modules/general/*"
-      ],
       "@blnc/marketing/*": [
         "modules/marketing/*"
       ],
@@ -40,6 +37,9 @@
       ],
       "@blnc/bookings/*": [
         "modules/bookings/*"
+      ],
+      "environments/*": [
+        "environments/*"
       ]
     }
   },

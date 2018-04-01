@@ -2,7 +2,9 @@ import { Component, OnInit, ElementRef, NgZone, Renderer, ViewChild } from '@ang
 import { RxCollection } from 'rxdb'
 import { ConfigService } from '@blnc/core/config/config.service'
 import { BehaviorSubject } from 'rxjs/Rx'
-import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router'
+
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-main',
@@ -11,7 +13,7 @@ import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, 
 })
 export class MainComponent implements OnInit {
 
-  $account: BehaviorSubject<any>
+  profile$: BehaviorSubject<any>
 
   @ViewChild('spinnerElement')
 
@@ -32,12 +34,15 @@ export class MainComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-    this.setup()
-  }
+  menu: any[] = []
 
-  private async setup() {
-    this.$account = this.configService.$account
+  ngOnInit() {
+
+    this.profile$ = this.configService.profile$
+
+    this.menu = _.chain(ConfigService.modules)
+      .filter(m => (m.isActive && m.hasMenu))
+      .value()
   }
 
   // Shows and hides the loading spinner during RouterEvent changes
@@ -46,7 +51,7 @@ export class MainComponent implements OnInit {
       // We wanna run this function outside of Angular's zone to
       // bypass change detection
       this.ngZone.runOutsideAngular(() => {
-        this.renderer.setElementClass(this.spinnerElement.nativeElement, 'loading', true)
+        this.renderer.setElementClass(this.spinnerElement.nativeElement, 'active', true)
       })
     }
     if (event instanceof NavigationEnd) {
@@ -69,7 +74,7 @@ export class MainComponent implements OnInit {
       // For simplicity we are going to turn opacity on / off
       // you could add/remove a class for more advanced styling
       // and enter/leave animation of the spinner
-      this.renderer.setElementClass(this.spinnerElement.nativeElement, 'loading', false)
+      this.renderer.setElementClass(this.spinnerElement.nativeElement, 'active', false)
     })
   }
 }

@@ -13,6 +13,7 @@ import { RxCollection, RxDocumentBase } from 'rxdb'
 import { reduce } from 'rxjs/operators/reduce'
 import { Date } from 'core-js/library/web/timers'
 import { Observable } from 'rxjs/Observable'
+import { PresentationsService } from '@blnc/marketing/presentations/services/presentations.service';
 
 @Component({
   selector: 'app-presentations-item',
@@ -21,15 +22,10 @@ import { Observable } from 'rxjs/Observable'
 })
 export class ItemComponent implements OnInit, OnDestroy {
 
-  presentation$: Observable<RxDocumentBase<RxPresentationDocument> & RxPresentationDocument>
   activePageIndex: Number = 0
   imageData: string
-  db: RxCollection<RxPresentationDocument>
-  sub
-  presentation: RxDocumentBase<RxPresentationDocument> & RxPresentationDocument
-  settingsMenu: any[] = []
+  presentation: RxPresentationDocument
   tabsMenu: any = {}
-  statistics: any = {}
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +33,7 @@ export class ItemComponent implements OnInit, OnDestroy {
     private zone: NgZone,
     private router: Router,
     private modal: NgbModal,
+    private presentationsService: PresentationsService,
   ) { }
 
   ngOnInit() {
@@ -45,29 +42,6 @@ export class ItemComponent implements OnInit, OnDestroy {
       .subscribe(params => {
         this.setup(params['id'])
       })
-
-    this.settingsMenu = [{
-      label: "Configure",
-      icon: "edit",
-      callback: () => {
-        console.log("Configure")
-      }
-    }, {
-      label: "Cleanup Files",
-      icon: "trash-o",
-      callback: () => {
-        this.cleanupFiles()
-      }
-    }, {
-      isDivider: true
-    }, {
-      label: "Delete",
-      cssClass: "text-danger",
-      icon: "trash-o",
-      callback: () => {
-        this.deletePresentation()
-      }
-    }]
 
     this.tabsMenu = {
       active: "details",
@@ -94,52 +68,11 @@ export class ItemComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/presentations')
   }
 
-  s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1)
-  }
-
-  addPage() {
-
-    const modalRef = this.modal.open(AddPageComponent, {
-      size: "lg"
-    })
-    modalRef.result
-      .then((page: any) => {
-
-        const pageKey = this.s4() + this.s4()
-        const _pages: any[] = this.presentation.pages
-        const _att = {
-          id: `file-${pageKey}`,
-          data: page.file,
-          type: page.fileType
-        }
-
-        this.presentation
-          .putAttachment(_att)
-          .then((att) => {
-
-            _pages.unshift({
-              key: pageKey,
-              title: page.title || `Page ${pageKey}`,
-              description: page.description,
-              type: "BGIMG",
-              params: {
-                image: `file-${pageKey}`
-              }
-            })
-
-            this.presentation.pages = _pages
-            this.presentation.dateUpdated = moment().toISOString()
-            this.presentation.save()
-
-            this.setPageIndex(0)
-          })
-
-      }, (reject) => {
-        console.log("dismissed", reject)
-      })
+  async addPage() {
+    const modalRef = this.modal.open(AddPageComponent)
+    modalRef.componentInstance.presentation = this.presentation
+    await modalRef.result
+    this.setPageIndex(0)
   }
 
   async deletePage(index) {
@@ -166,53 +99,19 @@ export class ItemComponent implements OnInit, OnDestroy {
         console.log("removed", attachment.id)
       }
     }
-
   }
 
   async setPageIndex(index) {
     this.activePageIndex = index
-
     if (this.presentation.pages.length === 0) {
       return
     }
     const contentImage = this.presentation.pages[index].params.image
-    const attachment = await this.presentation.getAttachment(contentImage)
-
-    if (!attachment) { return }
-
-    const blobBuffer = await attachment.getData()
-
-    const reader = new FileReader()
-    reader.onload = () => {
-      const base64 = reader.result.split(',')[1]
-      this.imageData = 'data:' + attachment.type + ';base64,' + base64
-    }
-    reader.readAsDataURL(blobBuffer)
-
+    this.imageData = await this.presentationsService.getImage(this.presentation, this.presentation.pages[index].params.image)
   }
 
   private async setup(presentationId: string) {
-    this.db = await this.dbService.get<RxPresentationDocument>("presentation")
-
-
-    this.presentation$ = this.db.findOne(presentationId).$
-    this.presentation$
-      .subscribe(presentation => {
-
-        this.presentation = presentation
-
-        presentation.pages = presentation.pages || []
-
-        presentation.allAttachments$
-          .subscribe((attachments) => {
-            this.statistics.totalFilesCount = attachments.length
-            this.statistics.totalFilesBytesize = attachments.reduce((t, i) => {
-              return t + i.length
-            }, 0)
-          })
-
-        this.setPageIndex(0)
-        this.zone.run(() => { })
-      })
+    this.presentation = await this.presentationsService.getPresentation(presentationId)
+    this.setPageIndex(0)
   }
 }

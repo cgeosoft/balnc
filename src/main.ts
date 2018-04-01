@@ -4,9 +4,9 @@ import { ApplicationRef } from "@angular/core";
 import { enableDebugTools } from "@angular/platform-browser";
 
 import { AppModule } from './modules/_app/app.module'
-import { environment } from './environments/environment'
+import { ENV } from 'environments/environment'
 
-if (environment.production) {
+if (ENV.production) {
   console.log("PROD")
   enableProdMode()
 }

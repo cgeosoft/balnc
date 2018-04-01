@@ -1,0 +1,56 @@
+<app-content>
+  <app-content-header title="Settings" subtitle="Manage the application settings" icon="cogs"></app-content-header>
+  <app-content-body>
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <div class="row">
+          <div class="col-sm-3">
+            <nav class="nav nav-pills flex-column">
+              <a class="nav-link" *ngFor="let item of menu.items" [ngClass]="{active:menu.active == item.id}" href="javascript:void(0);"
+                (click)="menu.active = item.id">
+                <span *ngIf="item.icon" class="fa fa-{{item.icon}}"></span> {{item.label}}</a>
+            </nav>
+          </div>
+          <div class="col-sm-9">
+            <div *ngIf="menu.active == 'general'">
+              <div class="card">
+                <div class="card-header">General</div>
+                <div class="card-body">
+                  <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque temporibus sed commodi dolor unde. Eius
+                    rem architecto eligendi, odit perferendis deleniti est aliquam nulla? Natus laboriosam aut dolor animi
+                    rem.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="menu.active == 'modules'">
+              <div class="card mb-4" *ngFor="let namespace of namespaces">
+                <h5 class="card-header">{{namespace.title}}
+                  <small class="text-muted">{{namespace.id}}</small>
+                </h5>
+                <div class="card-body">{{namespace.description}}</div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" *ngFor="let module of namespace.modules">
+                    <div class="d-flex justify-content-between">
+                      <strong>
+                        {{module.title}}
+                        <small class="text-muted">{{module.id}}</small>
+                      </strong>
+                      <label>
+                        <input type="checkbox" [(ngModel)]="module.isActive" [disabled]="!module.canChange"> Enable
+                      </label>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <em class="text-muted" *ngIf="module.description">{{module.description}}</em>
+                      <button type="button" class="btn btn-outline-dark btn-sm" (click)="openConfig(module.id)" *ngIf="module.canConfigure">configure</button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-content-body>
+</app-content>

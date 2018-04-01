@@ -8,16 +8,21 @@
         <button type="button" class="btn btn-primary" (click)="create()">
           <span class="fa fa-plus-circle fa-fw"></span> Create</button>
       </div>
+      <div class="btn-group ml-auto">
+        <button type="button" class="btn btn-light" (click)="refresh()">
+          <span class="fa fa-sync fa-fw"></span>
+        </button>
+      </div>
     </div>
 
-    <ng-container *ngIf="presentations$ | async as presentations; else loader">
+    <ng-container *ngIf="presentations; else loader">
       <ng-container *ngIf="presentations.length; else noItems">
 
         <table class="table table-max">
           <thead>
             <tr>
               <th>Presentation</th>
-              <th>Size</th>
+              <th>Files</th>
               <th>Last Edit</th>
               <th>Actions</th>
             </tr>
@@ -27,19 +32,19 @@
               <td>
                 <div class="d-flex flex-row align-items-start">
                   <div class="presentation-thumbnail">
-                    <ng-container *ngIf="presentationImages[presentation._id] | async as image; else noImg">
-                      <div class="img-thumb" [ngStyle]="{'background-image': 'url('+image+')'}"></div>
+                    <ng-container *ngIf="presentation.thumb; else noImg">
+                      <div class="img-thumb" [ngStyle]="{'background-image': 'url('+presentation.thumb+')'}"></div>
                     </ng-container>
                   </div>
                   <div class="d-flex flex-column align-items-start">
                     <strong>{{presentation.title || '[Without title]'}}</strong>
-                    <small class="text-muted">{{presentation.description || '[Without title]' | ellipsis:250}}</small>
+                    <small class="text-muted">{{presentation.description || 'no description' | ellipsis:250}}</small>
                   </div>
                 </div>
               </td>
               <td>
-                <ng-container *ngIf="presentationFilesize[presentation._id] | async as filesize; else noPages">
-                  {{filesize | bytes:0}}
+                <ng-container *ngIf="presentation.stats.filecount; else noPages">
+                  {{presentation.stats.filecount}} / {{presentation.stats.filesize | bytes:0}}
                 </ng-container>
               </td>
               <td>
@@ -54,10 +59,10 @@
             </tr>
           </tbody>
         </table>
-
         <app-debug-panel [data]="presentations"></app-debug-panel>
       </ng-container>
     </ng-container>
+
     <ng-template #noItems>
       <app-empty-panel message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty-panel>
     </ng-template>
