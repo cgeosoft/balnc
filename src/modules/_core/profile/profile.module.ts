@@ -1,34 +1,24 @@
-import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
 
-import { DatabaseModule } from '@blnc/core/database/database.module';
-import { Entity } from '@blnc/core/database/models/entity';
-import { ProfileSchema } from '@blnc/core/profile/data/profile';
-import { CommonModule } from '@blnc/core/common/common.module';
-import { ManangeComponent } from '@blnc/core/profile/components/manage/manage.component';
-import { RouterModule, Routes } from '@angular/router';
-import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard';
-import { CreateProfileComponent } from '@blnc/core/profile/components/create/create.component';
-import { ProfileService } from '@blnc/core/profile/services/profile.service';
-import { LoginComponent } from '@blnc/core/profile/components/login/login.component';
-import { RegisterComponent } from '@blnc/core/profile/components/register/register.component';
-import { DatabaseService } from '@blnc/core/database/services/database.service';
-import { MainComponent } from '@blnc/core/main/main.component';
+import { CommonModule } from '@blnc/core/common/common.module'
+
+import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard'
+import { ProfileService } from '@blnc/core/profile/services/profile.service'
+
+import { ManageComponent } from '@blnc/core/profile/components/manage/manage.component'
+import { LandingComponent } from '@blnc/core/profile/components/landing/landing.component'
+import { CreateProfileComponent } from '@blnc/core/profile/components/create/create.component'
 
 const routes: Routes = [{
   path: '',
-  resolve: {
-    service: ProfileService
-  },
   children: [{
+    path: 'start',
+    component: LandingComponent,
+  }, {
     path: 'manage',
-    component: ManangeComponent,
+    component: ManageComponent,
   }]
-  // }, {
-  //   path: 'login',
-  //   component: LoginComponent
-  // }, {
-  //   path: 'register',
-  //   component: RegisterComponent
 }]
 
 @NgModule({
@@ -37,10 +27,9 @@ const routes: Routes = [{
     RouterModule.forChild(routes),
   ],
   declarations: [
-    ManangeComponent,
+    ManageComponent,
+    LandingComponent,
     CreateProfileComponent,
-    LoginComponent,
-    RegisterComponent,
   ],
   providers: [
     ProfileService,

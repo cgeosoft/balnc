@@ -1,15 +1,34 @@
 import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
+import { ServiceWorkerModule } from '@angular/service-worker'
+import { RouterModule, PreloadAllModules, Routes } from '@angular/router'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { RouterModule, PreloadAllModules } from '@angular/router'
+import { MarkdownModule } from 'ngx-md'
+
+import { ENV } from 'environments/environment'
 
 import { CommonModule } from "@blnc/core/common/common.module"
 import { DatabaseModule } from '@blnc/core/database/database.module'
 import { MainModule } from '@blnc/core/main/main.module'
-import { AppComponent } from './app.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { MarkdownModule } from 'ngx-md';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { ENV } from 'environments/environment';
+import { ProfileModule } from '@blnc/core/profile/profile.module'
+import { DatabaseService } from '@blnc/core/database/services/database.service';
+
+import { AppComponent } from './app.component'
+
+
+const AppRoutes: Routes = [{
+  path: '',
+  component: AppComponent,
+  resolve: {
+    db: DatabaseService,
+  },
+  children: [{
+    path: '',
+    redirectTo: '/dashboard',
+    pathMatch: 'full',
+  }],
+}]
+
 
 @NgModule({
   imports: [
@@ -17,13 +36,16 @@ import { ENV } from 'environments/environment';
     NgbModule.forRoot(),
 
     CommonModule,
+
+    ProfileModule,
     MainModule,
+
     ENV.production ? ServiceWorkerModule.register('ngsw-worker.js') : [],
 
     DatabaseModule.forRoot(),
-    RouterModule.forRoot([], {
-      // enableTracing: true
-      preloadingStrategy: PreloadAllModules
+    RouterModule.forRoot(AppRoutes, {
+      enableTracing: true
+      // preloadingStrategy: PreloadAllModules
     }),
   ],
   declarations: [
