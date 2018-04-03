@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RxDocumentBase } from 'rxdb';
-import { Observable } from 'rxjs/Observable';
+import { Component, Input, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core'
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { RxDocumentBase } from 'rxdb'
+import { Observable } from 'rxjs/Observable'
 
-import { ProfileService } from '../../services/profile.service';
-import { RxProfileDocument } from '../../data/profile';
+import { ProfileService } from '../../services/profile.service'
+import { RxProfileDocument } from '../../data/profile'
 
 @Component({
     selector: 'app-profile-create',
@@ -13,10 +13,10 @@ import { RxProfileDocument } from '../../data/profile';
 })
 export class CreateProfileComponent implements OnInit {
 
-    @ViewChild("name") name: ElementRef;
-    @ViewChild("alias") alias: ElementRef;
+    @ViewChild("name") name: ElementRef
+    @ViewChild("alias") alias: ElementRef
 
-    form: FormGroup;
+    form: FormGroup
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -28,16 +28,16 @@ export class CreateProfileComponent implements OnInit {
         this.form = this.formBuilder.group({
             alias: ["", [Validators.required, Validators.maxLength(50)]],
             name: ["", [Validators.required, Validators.maxLength(100)]],
-        });
+        })
     }
 
     onSubmit() {
-        const formModel = this.form.value;
+        const formModel = this.form.value
         const profileId = formModel.profile
-        this.profileService
-            .addProfile(formModel.alias, formModel.name)
-            .then(() => {
-                this.activeModal.close()
-            })
+        // this.profileService
+        //     .addProfile(formModel.alias, formModel.name)
+        //     .then(() => {
+        //         this.activeModal.close()
+        //     })
     }
 }

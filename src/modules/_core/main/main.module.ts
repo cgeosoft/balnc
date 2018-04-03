@@ -11,13 +11,7 @@ const routes: Routes = [{
   path: '',
   component: MainComponent,
   canActivate: [DefaultProfileGuard],
-  resolve: {
-    db: DatabaseService,
-  },
   children: [{
-    path: 'profile',
-    loadChildren: "@blnc/core/profile/profile.module#ProfileModule"
-  }, {
     path: 'dashboard',
     loadChildren: "@blnc/core/dashboard/dashboard.module#DashboardModule"
   }, {
