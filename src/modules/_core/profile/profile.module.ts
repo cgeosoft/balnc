@@ -11,14 +11,11 @@ import { LandingComponent } from '@blnc/core/profile/components/landing/landing.
 import { CreateProfileComponent } from '@blnc/core/profile/components/create/create.component'
 
 const routes: Routes = [{
-  path: '',
-  children: [{
-    path: 'start',
-    component: LandingComponent,
-  }, {
-    path: 'manage',
-    component: ManageComponent,
-  }]
+  path: 'start',
+  component: LandingComponent,
+}, {
+  path: 'manage',
+  component: ManageComponent,
 }]
 
 @NgModule({

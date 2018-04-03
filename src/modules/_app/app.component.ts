@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ProdNotifComponent } from '@blnc/core/common/components/prod-notif/prod-notif.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -10,9 +11,11 @@ export class AppComponent implements OnInit {
 
   constructor(
     private modal: NgbModal,
+    private router: Router,
   ) { }
 
   async ngOnInit() {
+    console.log("LALA")
     const productionWarnign = localStorage.getItem("productionWarnign")
     if (!productionWarnign) {
       console.log("productionWarnign")
@@ -22,6 +25,10 @@ export class AppComponent implements OnInit {
       if (result === "OK") {
         localStorage.setItem("productionWarnign", "OK")
       }
+    }
+    for (let i = 0; i < this.router.config.length; i++) {
+      let routePath: string = this.router.config[i].path;
+      console.log(this.router.config[i]);
     }
   }
 }

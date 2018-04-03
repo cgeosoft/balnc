@@ -49,6 +49,6 @@ export class ManageComponent implements OnInit {
   async select(profile: RxProfileDocument) {
     await this.profileService.selectProfile(profile.alias)
     console.log("Selected", profile)
-    this.router.navigate(['/dashboard'])
+    this.router.navigate(['dashboard'])
   }
 }

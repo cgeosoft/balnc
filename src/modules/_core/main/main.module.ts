@@ -37,8 +37,8 @@ const routes: Routes = [{
     component: PageNotFoundComponent,
   }, {
     path: '',
-    redirectTo: '/dashboard',
     pathMatch: 'full',
+    redirectTo: 'dashboard',
   }],
 }]
 

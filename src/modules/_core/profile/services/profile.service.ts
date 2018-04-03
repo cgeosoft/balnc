@@ -16,10 +16,12 @@ export class ProfileService {
     }
 
     hasProfile(): boolean {
-        return _.isNull(this.profile)
+        return !_.isNull(this.profile)
     }
 
     async selectProfile(alias: string) {
+        localStorage.setItem("profile", alias)
+        this.profile = alias
         // const profiles = await this.getProfile()
 
         // const profile = profiles.find(x => {

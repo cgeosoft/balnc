@@ -22,11 +22,6 @@ const AppRoutes: Routes = [{
   resolve: {
     db: DatabaseService,
   },
-  children: [{
-    path: '',
-    redirectTo: '/dashboard',
-    pathMatch: 'full',
-  }],
 }]
 
 
