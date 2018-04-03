@@ -8,7 +8,7 @@
         text-align: center;
         min-width: 50px;
         width: 50px;
-        background: $color-sidemenu-background;
+        background: url("/assets/img/cartographer.png") repeat;
         z-index: 1000;
         .logo {
           margin: .7rem .5rem .2rem;
@@ -59,7 +59,6 @@
                 transition: background-color .7s;
                 text-decoration: none;
                 color: $color-sidemenu-font;
-                text-shadow: 1px 2px 0 darken($color-sidemenu-background, 30);
                 &:hover {
                   background: lighten($color-sidemenu-background, 15);
                   color: lighten($color-sidemenu-font, 15);

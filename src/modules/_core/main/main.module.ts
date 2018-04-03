@@ -15,9 +15,9 @@ const routes: Routes = [{
     path: 'dashboard',
     loadChildren: "@blnc/core/dashboard/dashboard.module#DashboardModule"
   }, {
-    path: 'contacts',
-    loadChildren: "@blnc/business/contacts/contacts.module#ContactsModule"
-  }, {
+    //   path: 'contacts',
+    //   loadChildren: "@blnc/business/contacts/contacts.module#ContactsModule"
+    // }, {
     path: 'invoices',
     loadChildren: "@blnc/business/invoices/invoices.module#InvoicesModule"
   }, {
