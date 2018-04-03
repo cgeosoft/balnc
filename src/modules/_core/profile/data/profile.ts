@@ -1,9 +1,10 @@
-import * as schema from './profile.json'
-
-declare interface RxProfileDocumentType {
+declare interface ProfileType {
     name: string
-    alias: string
+    server?: {
+        host: string
+        user: string
+        pass: string
+    }
 }
 
-export type RxProfileDocument = RxProfileDocumentType
-export const ProfileSchema = schema
+export type Profile = ProfileType

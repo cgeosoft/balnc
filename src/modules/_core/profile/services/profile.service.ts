@@ -2,37 +2,56 @@ import { Injectable } from '@angular/core'
 
 import * as _ from 'lodash'
 
-import { ConfigService } from '@blnc/core/config/config.service'
+import { Profile } from '@blnc/core/profile/data/profile';
+import { ProfileConfig } from '@blnc/core/profile/data/config';
 
 @Injectable()
 export class ProfileService {
 
-    profile: any
+    static lsName = "profiles-config"
+    static config: ProfileConfig
 
-    constructor(
-        private configService: ConfigService,
-    ) {
-        this.profile = localStorage.getItem("profile")
+    static load() {
+        let configRaw = localStorage.getItem(ProfileService.lsName)
+        if (!configRaw) {
+            configRaw = "{}"
+        }
+        this.config = JSON.parse(configRaw)
     }
 
-    hasProfile(): boolean {
-        return !_.isNull(this.profile)
+    static save() {
+        localStorage.setItem(ProfileService.lsName, JSON.stringify(ProfileService.config))
     }
 
-    async selectProfile(alias: string) {
-        localStorage.setItem("profile", alias)
-        this.profile = alias
-        // const profiles = await this.getProfile()
+    static clear() {
+        ProfileService.config = {}
+        localStorage.removeItem(ProfileService.lsName)
+    }
 
-        // const profile = profiles.find(x => {
-        //     return x.alias === alias
-        // })
+    static selectProfile(name: string) {
+        const profile = ProfileService.config.profiles.find(x => {
+            return x.name === name
+        })
 
-        // // this.configService.profile$.next(profile)
+        if (!profile) {
+            throw new Error("Profile not found")
+        }
+        ProfileService.config.selected = profile.name
+        ProfileService.save()
+    }
 
-        // if (this.selectProfile) {
-        //     localStorage.setItem("profile", alias)
-        //     // this.dbService.setNamespace(alias)
-        // }
+    static addProfile(profile: Profile) {
+        ProfileService.config.profiles.push(profile)
+        ProfileService.save()
+    }
+
+    static getSelectedProfile(): Profile {
+        const profile = ProfileService.config.profiles.find(x => {
+            return x.name === ProfileService.config.selected
+        })
+        if (!profile) {
+            throw new Error("Profile not found")
+        }
+        return profile
     }
 }

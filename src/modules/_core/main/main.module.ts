@@ -10,6 +10,9 @@ import { DatabaseService } from '@blnc/core/database/services/database.service';
 const routes: Routes = [{
   path: '',
   component: MainComponent,
+  resolve: {
+    db: DatabaseService,
+  },
   canActivate: [DefaultProfileGuard],
   children: [{
     path: 'dashboard',

@@ -19,29 +19,25 @@ import { AppComponent } from './app.component'
 const AppRoutes: Routes = [{
   path: '',
   component: AppComponent,
-  resolve: {
-    db: DatabaseService,
-  },
 }]
-
 
 @NgModule({
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
 
-    CommonModule,
-
-    ProfileModule,
-    MainModule,
-
     ENV.production ? ServiceWorkerModule.register('ngsw-worker.js') : [],
 
     DatabaseModule.forRoot(),
     RouterModule.forRoot(AppRoutes, {
-      enableTracing: true
-      // preloadingStrategy: PreloadAllModules
+      // enableTracing: true
+      preloadingStrategy: PreloadAllModules
     }),
+
+    CommonModule,
+
+    ProfileModule,
+    MainModule,
   ],
   declarations: [
     AppComponent

@@ -7,13 +7,9 @@ import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard'
 import { ProfileService } from '@blnc/core/profile/services/profile.service'
 
 import { ManageComponent } from '@blnc/core/profile/components/manage/manage.component'
-import { LandingComponent } from '@blnc/core/profile/components/landing/landing.component'
 import { CreateProfileComponent } from '@blnc/core/profile/components/create/create.component'
 
 const routes: Routes = [{
-  path: 'start',
-  component: LandingComponent,
-}, {
   path: 'manage',
   component: ManageComponent,
 }]
@@ -25,7 +21,6 @@ const routes: Routes = [{
   ],
   declarations: [
     ManageComponent,
-    LandingComponent,
     CreateProfileComponent,
   ],
   providers: [

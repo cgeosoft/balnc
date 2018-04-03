@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core'
 import { Router, CanActivate } from '@angular/router'
-import { ProfileService } from '@blnc/core/profile/services/profile.service';
+import { ProfileService } from '@blnc/core/profile/services/profile.service'
 
 @Injectable()
 export class DefaultProfileGuard implements CanActivate {
   constructor(
     private router: Router,
-    private profileService: ProfileService,
   ) { }
 
   canActivate() {
-    if (!this.profileService.hasProfile()) {
-      this.router.navigate(["start"])
-      return false
+    if (ProfileService.config && ProfileService.config.selected) {
+      return true
     }
-    return true
+    this.router.navigate(["manage"])
+    return false
   }
 }

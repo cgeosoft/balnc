@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { DatabaseService } from '@blnc/core/database/services/database.service'
-import { RxProfileDocument } from '@blnc/core/profile/data/profile'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { RxCollection } from 'rxdb'
+import { Router } from '@angular/router'
+
 import { CreateProfileComponent } from '@blnc/core/profile/components/create/create.component'
 import { ProfileService } from '@blnc/core/profile/services/profile.service'
-import { Router } from '@angular/router'
+import { Profile } from '@blnc/core/profile/data/profile';
 
 @Component({
   selector: 'app-profile-manage',
@@ -15,22 +15,17 @@ import { Router } from '@angular/router'
 export class ManageComponent implements OnInit {
 
   alias: any
-  selectedProfile: RxProfileDocument
-  profile: RxProfileDocument[] = []
-  dbProfile: RxCollection<any>
+  selectedProfile: Profile
+  profiles: Profile[] = []
 
   constructor(
     private modalService: NgbModal,
-    private profileService: ProfileService,
     private router: Router,
   ) { }
 
   ngOnInit() {
-    this.getProfile()
-  }
-
-  async getProfile() {
-    // this.profile = await this.profileService.profileDB.find().exec()
+    this.selectedProfile = ProfileService.getSelectedProfile()
+    this.profiles = ProfileService.config.profiles
   }
 
   create() {
@@ -38,17 +33,20 @@ export class ManageComponent implements OnInit {
       .open(CreateProfileComponent)
       .result
       .then((result) => {
-        console.log(`Closed with: ${result}`)
-        this.getProfile()
-        // this.selectProfile(result)
-      }, (reason) => {
-        console.log(`Dismissed ${reason}`)
+        this.profiles = ProfileService.config.profiles
       })
   }
 
-  async select(profile: RxProfileDocument) {
-    await this.profileService.selectProfile(profile.alias)
-    console.log("Selected", profile)
+  quickCreateProfile() {
+    const quickLocalName = "Local Profile #" + (new Date()).getTime()
+    ProfileService.addProfile({
+      name: quickLocalName
+    })
+    this.select(quickLocalName)
+  }
+
+  select(name: string) {
+    ProfileService.selectProfile(name)
     this.router.navigate(['dashboard'])
   }
 }

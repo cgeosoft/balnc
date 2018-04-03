@@ -15,7 +15,6 @@ export class AppComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    console.log("LALA")
     const productionWarnign = localStorage.getItem("productionWarnign")
     if (!productionWarnign) {
       console.log("productionWarnign")
@@ -25,10 +24,6 @@ export class AppComponent implements OnInit {
       if (result === "OK") {
         localStorage.setItem("productionWarnign", "OK")
       }
-    }
-    for (let i = 0; i < this.router.config.length; i++) {
-      let routePath: string = this.router.config[i].path;
-      console.log(this.router.config[i]);
     }
   }
 }
