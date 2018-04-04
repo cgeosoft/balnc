@@ -15,8 +15,7 @@
           padding-bottom: .5rem;
           border-bottom: solid 1px lighten($color-sidemenu-background, 5);
           img {
-            width: 100%;
-            filter: brightness(0) invert(1);
+            width: 100%; // filter: brightness(0) invert(1);
             opacity: .8;
           }
           .fa {
@@ -44,11 +43,10 @@
             display: block;
             &.menu {
               transition: color .7s;
-              padding: 5px;
+              padding: 5px 5px 0;
               .fa {
                 line-height: 1rem;
                 font-size: 1rem;
-                display: block;
               }
               .label {
                 font-size: .8rem;
@@ -56,12 +54,14 @@
               }
               >a {
                 display: block;
-                padding: .6rem;
                 transition: background-color .7s;
                 text-decoration: none;
+                height: 35px;
                 color: $color-sidemenu-font;
                 border-radius: 50px;
                 border: solid 1px rgba(0, 0, 0, 0);
+                text-align: center;
+                line-height: 2rem;
                 &:hover {
                   color: lighten($color-sidemenu-font, 15);
                   border: solid 1px darken($color-sidemenu-font, 15);

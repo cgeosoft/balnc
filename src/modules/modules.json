@@ -68,7 +68,7 @@
   }, {
     "id": "@blnc/business-invoices",
     "namespace": "@blnc/business-*",
-    "icon": "copy",
+    "icon": "copy:regular",
     "title": "Invoices",
     "description": "Setup a simple invoice system and generate statistics",
     "path": "/invoices",
@@ -134,7 +134,7 @@
   }, {
     "id": "@blnc/teams-chat",
     "namespace": "@blnc/teams-*",
-    "icon": "comment",
+    "icon": "comments:regular",
     "title": "Chat",
     "description": "A simple but full-feature team chat with customizable rooms",
     "path": "/chat",

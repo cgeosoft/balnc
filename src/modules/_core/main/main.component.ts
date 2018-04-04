@@ -42,6 +42,26 @@ export class MainComponent implements OnInit {
 
     this.menu = _.chain(ConfigService.modules)
       .filter(m => (m.isActive && m.hasMenu))
+      .map(m => {
+
+        const iconNS = m.icon.split(":")
+        if (iconNS.length > 1) {
+          switch (iconNS[1]) {
+            case "regular":
+              m.icon = "far fa-" + iconNS[0]
+              break;
+            default:
+              m.icon = "fa fa-" + iconNS[0]
+              break;
+          }
+        } else {
+          m.icon = "fa fa-" + m.icon
+        }
+
+        m.icon += " fa-fw"
+
+        return m
+      })
       .value()
   }
 
