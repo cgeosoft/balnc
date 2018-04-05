@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable, Inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
+import { Resolve, ActivatedRouteSnapshot } from '@angular/router'
 
 import { BehaviorSubject } from 'rxjs/Rx'
 import * as _ from 'lodash'
@@ -17,9 +18,9 @@ import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
 import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
 
 import { ENV } from 'environments/environment'
-import { ConfigService } from "@blnc/core/config/config.service"
 import { Entity } from "../models/entity"
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router'
+
+import { ConfigService } from '@blnc/core/common/services/config.service';
 
 RxDB.QueryChangeDetector.enable()
 
@@ -54,17 +55,16 @@ export class DatabaseService implements Resolve<any> {
     constructor(
         @Inject("APP_ENTITIES") entities: Entity[],
         private http: HttpClient,
-        private configService: ConfigService,
     ) {
         if (entities.length === 0) { return }
         console.log("DatabaseService constructor", entities)
         this.setup(entities)
-        this.config = this.configService.get("db")
+        this.config = ConfigService.config.db
     }
 
     public async resolve(route: ActivatedRouteSnapshot): Promise<boolean> {
         console.log("DatabaseService resolve")
-        this.config = this.configService.get("db")
+        this.config = ConfigService.config.db
         await this.initDB()
         return true
     }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { HelperService } from '@blnc/core/common/services/helper.service';
 
 @Component({
   selector: 'app-content-header',
@@ -17,24 +18,6 @@ export class ContentHeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
-    const iconNS = this.icon.split(":")
-    if (iconNS.length > 1) {
-      switch (iconNS[1]) {
-        case "regular":
-          this.icon = "far fa-" + iconNS[0]
-          break;
-        default:
-          this.icon = "fa fa-" + iconNS[0]
-          break;
-      }
-    } else {
-      this.icon = "fa fa-" + this.icon
-    }
-
-    this.icon += " fa-fw"
-
-    console.log(this.icon)
+    this.icon = HelperService.getIconClass(this.icon, true)
   }
-
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
-import { ProdNotifComponent } from '@blnc/core/common/components/prod-notif/prod-notif.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { ProdNotifComponent } from '@blnc/core/common/components/prod-notif/prod-notif.component';
+import { ConfigService } from '@blnc/core/common/services/config.service';
 
 @Component({
   selector: 'app-main',
@@ -13,6 +15,9 @@ export class AppComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+
+    ConfigService.loadConfig()
+
     const productionWarnign = localStorage.getItem("productionWarnign")
     if (!productionWarnign) {
       console.log("productionWarnign")

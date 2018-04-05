@@ -44,7 +44,7 @@ const AppRoutes: Routes = [{
 
     DatabaseModule.forRoot(),
     RouterModule.forRoot(AppRoutes, {
-      enableTracing: true
+      // enableTracing: true
       // preloadingStrategy: PreloadAllModules
     }),
   ],

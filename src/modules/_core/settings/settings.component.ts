@@ -1,9 +1,8 @@
-import { ConfigService } from './../config/config.service';
-import { BalanceModule } from './../config/models/balance-module';
-import { BalanceNamespace } from './../config/models/balance-namespace';
 import { Component, OnDestroy, OnInit } from '@angular/core'
 
 import * as _ from 'lodash'
+
+import { ConfigService } from '@blnc/core/common/services/config.service';
 
 @Component({
   selector: 'app-settings',

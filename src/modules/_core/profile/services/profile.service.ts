@@ -2,15 +2,12 @@ import { Injectable } from '@angular/core'
 
 import * as _ from 'lodash'
 
-import { ConfigService } from '@blnc/core/config/config.service'
-
 @Injectable()
 export class ProfileService {
 
     profile: any
 
     constructor(
-        private configService: ConfigService,
     ) {
         this.profile = localStorage.getItem("profile")
     }
