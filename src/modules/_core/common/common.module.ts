@@ -23,7 +23,6 @@ import { ProdNotifComponent } from '@blnc/core/common/components/prod-notif/prod
 
 import { HelperService } from '@blnc/core/common/services/helper.service'
 import { ConfigService } from '@blnc/core/common/services/config.service';
-import { RouterModule, Router } from '@angular/router';
 import { DatabaseService } from '@blnc/core/common/services/database.service';
 
 @NgModule({
@@ -36,7 +35,6 @@ import { DatabaseService } from '@blnc/core/common/services/database.service';
     FormsModule,
     ReactiveFormsModule,
     FilesModule,
-    // RouterModule.forChild([]),
   ],
   declarations: [
     SideBarComponent,
@@ -53,7 +51,6 @@ import { DatabaseService } from '@blnc/core/common/services/database.service';
     DocVersionPipe,
   ],
   providers: [
-
     HelperService,
     ConfigService,
     DatabaseService,
