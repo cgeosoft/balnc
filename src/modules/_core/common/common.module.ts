@@ -1,8 +1,7 @@
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { CommonModule as AngularCommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { NgModule } from '@angular/core'
-import { RouterModule } from '@angular/router'
+import { NgModule, APP_INITIALIZER, Injector } from '@angular/core'
 
 import { NgPipesModule } from 'ngx-pipes'
 import { MomentModule } from 'angular2-moment'
@@ -24,18 +23,20 @@ import { ProdNotifComponent } from '@blnc/core/common/components/prod-notif/prod
 
 import { HelperService } from '@blnc/core/common/services/helper.service'
 import { ConfigService } from '@blnc/core/common/services/config.service';
+import { RouterModule, Router } from '@angular/router';
+import { DatabaseService } from '@blnc/core/common/services/database.service';
 
 @NgModule({
   imports: [
     HttpClientModule,
     AngularCommonModule,
-    RouterModule,
     NgbModule,
     NgPipesModule,
     MomentModule,
     FormsModule,
     ReactiveFormsModule,
     FilesModule,
+    // RouterModule.forChild([]),
   ],
   declarations: [
     SideBarComponent,
@@ -52,8 +53,22 @@ import { ConfigService } from '@blnc/core/common/services/config.service';
     DocVersionPipe,
   ],
   providers: [
+
     HelperService,
     ConfigService,
+    DatabaseService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (configService: ConfigService) => () => configService.setup(),
+      deps: [ConfigService],
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (databaseService: DatabaseService) => () => databaseService.setup(),
+      deps: [DatabaseService],
+      multi: true
+    }
   ],
   exports: [
     HttpClientModule,

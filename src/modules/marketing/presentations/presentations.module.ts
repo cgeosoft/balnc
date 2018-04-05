@@ -3,9 +3,6 @@ import { FormsModule } from '@angular/forms'
 import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router'
 
 import { CommonModule } from '@blnc/core/common/common.module';
-import { DatabaseModule } from '@blnc/core/database/database.module'
-
-import { Entity } from '@blnc/core/database/models/entity'
 import { FileUploadModule } from 'ng2-file-upload';
 import { PresentationsService } from '@blnc/marketing/presentations/services/presentations.service';
 import { ItemComponent } from '@blnc/marketing/presentations/components/item/item.component';

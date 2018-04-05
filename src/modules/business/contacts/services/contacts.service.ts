@@ -8,11 +8,10 @@ import * as faker from "faker"
 import * as moment from 'moment'
 import * as _ from 'lodash'
 
-import { DatabaseService } from "@blnc/core/database/services/database.service"
-
 import { RxContactDocument, ContactSchema } from "../data/contact"
-import { Entity } from "@blnc/core/database/models/entity"
-import { CONTENT_ATTR } from "@angular/platform-browser/src/dom/dom_renderer";
+
+import { Entity } from "@blnc/core/common/models/entity";
+import { DatabaseService } from "@blnc/core/common/services/database.service";
 
 const entities: Entity[] = [{
     name: 'contact',
@@ -35,7 +34,7 @@ export class ContactsService implements Resolve<any> {
     }
 
     async setup() {
-        await this.dbService.setup(entities)
+        await this.dbService.loadEntities(entities)
         this.contacts = await this.dbService.get<RxContactDocument>("contact")
     }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { DatabaseService } from '@blnc/core/database/services/database.service'
+
 import { RxProfileDocument } from '@blnc/core/profile/data/profile'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { RxCollection } from 'rxdb'

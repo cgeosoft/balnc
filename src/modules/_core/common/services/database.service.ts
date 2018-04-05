@@ -41,7 +41,7 @@ RxDB.plugin(require('pouchdb-adapter-idb'))
 RxDB.plugin(require('pouchdb-adapter-websql'))
 
 @Injectable()
-export class DatabaseService implements Resolve<any> {
+export class DatabaseService {// } implements Resolve<any> {
 
     public static db: RxDatabase = null
     private static namespace: string
@@ -50,30 +50,24 @@ export class DatabaseService implements Resolve<any> {
     private static adapter = null
     private static replicationStates: { [key: string]: RxReplicationState } = {}
 
-    private config: any
+    private config: any;
 
     constructor(
-        @Inject("APP_ENTITIES") entities: Entity[],
         private http: HttpClient,
+        private configService: ConfigService
     ) {
-        if (entities.length === 0) { return }
-        console.log("DatabaseService constructor", entities)
-        this.setup(entities)
-        this.config = ConfigService.config.db
+        console.log("DatabaseService constructor")
+        this.config = this.configService.config.db
     }
 
-    public async resolve(route: ActivatedRouteSnapshot): Promise<boolean> {
-        console.log("DatabaseService resolve")
-        this.config = ConfigService.config.db
-        await this.initDB()
-        return true
-    }
+    // public async resolve(route: ActivatedRouteSnapshot): Promise<boolean> {
+    //     console.log("DatabaseService resolve")
+    //     await this.initDB()
+    //     this.config = this.configService.config.db
+    //     return true
+    // }
 
-    public async setup(entities: Entity[]) {
-        console.log("DatabaseService setup", entities)
-        await this.initDB()
-
-        if (!entities) { return }
+    public async loadEntities(entities: Entity[]) {
 
         console.log("DatabaseService setup entities", entities, DatabaseService.namespace, "loadedEntities", DatabaseService.entities)
 
@@ -126,7 +120,7 @@ export class DatabaseService implements Resolve<any> {
 
     public async get<T>(name: string): Promise<RxCollection<T>> {
         console.log("DatabaseService get", name)
-        await this.initDB()
+
         name = this.getEntityName(name)
         // Observable
         //     .from(DatabaseService.entities)
@@ -150,7 +144,7 @@ export class DatabaseService implements Resolve<any> {
         if (namespace !== DatabaseService.namespace) { return }
         localStorage.setItem("profile", namespace)
         DatabaseService.namespace = namespace
-        this.setup(DatabaseService.entities)
+        this.loadEntities(DatabaseService.entities)
     }
 
     private entityLoaded(parsedName) {
@@ -160,7 +154,7 @@ export class DatabaseService implements Resolve<any> {
         return entity !== -1
     }
 
-    private async initDB() {
+    async setup() {
         if (DatabaseService.db) {
             return
         }
@@ -178,6 +172,7 @@ export class DatabaseService implements Resolve<any> {
                 password: this.config.password,
             }, { withCredentials: true })
         }
+
         console.log("DatabaseService Initialized")
     }
 

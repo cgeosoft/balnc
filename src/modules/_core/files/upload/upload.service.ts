@@ -15,8 +15,9 @@ export class UploadService {
 
     constructor(
         private injector: Injector,
+        private configService: ConfigService
     ) {
-        const config = ConfigService.config.files
+        const config = this.configService.config.files
         const providerConfig = config[config._provider]
 
         switch (config._provider) {
@@ -40,5 +41,4 @@ export class UploadService {
     private titleCase(str) {
         return str.replace(/\b\S/g, function (t) { return t.toUpperCase() })
     }
-
 }

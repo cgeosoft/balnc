@@ -50,8 +50,7 @@
     "title": "Contacts",
     "description": "Setup companies and persons that you may include into orders and invoices",
     "path": "contacts",
-    "hasMenu": true,
-    "mainModule": "contacts/contacts.module#ContactsModule",
+    "hasMenu": false,
     "isActive": true,
     "canChange": true,
     "canConfigure": true
@@ -63,7 +62,6 @@
     "description": "Plain old order book for manage your day-to-day business",
     "path": "orders",
     "hasMenu": true,
-    "mainModule": "orders/orders.module#OrdersModule",
     "isActive": true,
     "canChange": true,
     "canConfigure": true
@@ -75,7 +73,6 @@
     "description": "Setup a simple invoice system and generate statistics",
     "path": "invoices",
     "hasMenu": true,
-    "mainModule": "invoices/invoices.module#InvoicesModule",
     "isActive": true,
     "canChange": true,
     "canConfigure": true
@@ -87,7 +84,6 @@
     "description": "Setup presentations and sync them seamlessly to your mobile devices",
     "path": "presentations",
     "hasMenu": true,
-    "mainModule": "presentations/presentations.module#PresentationsModule",
     "isActive": true,
     "canChange": true,
     "canConfigure": true
@@ -99,7 +95,6 @@
     "description": "Use for overview your website analytics",
     "path": "analytics",
     "hasMenu": true,
-    "mainModule": "analytics/analytics.module#AnalyticsModule",
     "isActive": false,
     "canChange": false,
     "canConfigure": false
@@ -111,7 +106,6 @@
     "description": "Setup usefull online polls and questionnaires",
     "path": "polls",
     "hasMenu": true,
-    "mainModule": "polls/polls.module#PollsModule",
     "isActive": false,
     "canChange": false,
     "canConfigure": false
@@ -123,7 +117,6 @@
     "description": "Setup email campains and manage automated responders",
     "path": "emails",
     "hasMenu": true,
-    "mainModule": "emails/emails.module#EmailsModule",
     "isActive": false,
     "canChange": false,
     "canConfigure": false
@@ -135,7 +128,6 @@
     "description": "An advanced project and task management tool.",
     "path": "projects",
     "hasMenu": true,
-    "mainModule": "projects/projects.module#ProjectsModule",
     "isActive": true,
     "canChange": true,
     "canConfigure": true
@@ -147,7 +139,6 @@
     "description": "A simple but full-feature team chat with customizable rooms",
     "path": "chat",
     "hasMenu": true,
-    "mainModule": "chat/chat.module#ChatModule",
     "isActive": true,
     "canChange": true,
     "canConfigure": true

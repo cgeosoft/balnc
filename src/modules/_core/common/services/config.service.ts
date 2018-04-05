@@ -1,7 +1,7 @@
 import { ENV } from 'environments/environment';
 
 import { BehaviorSubject } from 'rxjs/Rx'
-import { Router } from '@angular/router';
+import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { HelperService } from '@blnc/core/common/services/helper.service';
 import { Route } from '@angular/compiler/src/core';
 
@@ -9,58 +9,40 @@ import * as _ from 'lodash'
 
 import { BalanceModule } from '@blnc/core/common/models/balance-module';
 import { BalanceNamespace } from '@blnc/core/common/models/balance-namespace';
+import { Injectable, Injector } from '@angular/core';
+import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard';
+import { MainComponent } from '@blnc/teams/projects/components/_main/main.component';
 
+@Injectable()
 export class ConfigService {
 
-    public static config: any = null
-    public static modules: BalanceModule[] = null
-    public static namespaces: BalanceNamespace[] = null
+    public config: any = null
+    public modules: BalanceModule[] = null
+    public namespaces: BalanceNamespace[] = null
 
     profile$: BehaviorSubject<any> = new BehaviorSubject({
         alias: "X"
     })
 
-    static loadConfig() {
-        ConfigService.config = ENV.configuration
-        ConfigService.modules = ENV.modules.modules
-        ConfigService.namespaces = ENV.modules.namespaces
+    setup() {
+        this.config = ENV.configuration
+        console.log("this.config", this.config)
+        this.modules = ENV.modules.modules
+        console.log("this.modules", this.modules)
+        this.namespaces = ENV.modules.namespaces
+        console.log("this.namespaces", this.namespaces)
     }
 
-    static getMainMenu() {
-        const menu = _.chain(ConfigService.modules)
+    getMainMenu() {
+        const menu = _.chain(this.modules)
             .filter(m => (m.isActive && m.hasMenu))
             .map(m => {
-                m.path = `/${m.path}`
-                m.icon = HelperService.getIconClass(m.icon, true)
-                return m
+                const l = _.cloneDeep(m)
+                l.path = `/${l.path}`
+                l.icon = HelperService.getIconClass(l.icon, true)
+                return l
             })
             .value()
-
         return menu
     }
-
-    static enableRoutes(router: Router) {
-        const routes: Route[] = _.chain(ConfigService.modules)
-            .filter(m => (m.isActive && m.hasMenu))
-            .map(m => {
-                return {
-                    path: m.path,
-                    loadChildren: `${m.namespace}/${m.mainModule}`
-                }
-            })
-            .value()
-
-        const config = router.config
-            .filter(x => x.component)
-            .find(x => x.component.name === "MainComponent")
-
-        routes.forEach(route => {
-            config.children.push(route)
-        })
-
-        router.resetConfig(router.config)
-
-        console.log(router.config, routes)
-    }
-
 }

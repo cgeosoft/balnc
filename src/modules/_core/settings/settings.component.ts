@@ -27,14 +27,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
   namespaces: any[] = []
 
   constructor(
+    private configService: ConfigService
   ) { }
 
   ngOnInit() {
 
-    this.namespaces = _.chain(ConfigService.modules)
+    this.namespaces = _.chain(this.configService.modules)
       .groupBy("namespace")
       .map((modules, namespace) => {
-        let ns = _.find(ConfigService.namespaces, i => {
+        let ns = _.find(this.configService.namespaces, i => {
           return i.id === namespace
         })
 

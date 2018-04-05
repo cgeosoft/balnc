@@ -22,6 +22,7 @@ export class MainComponent implements OnInit {
   constructor(
     private router: Router,
     private ngZone: NgZone,
+    private configService: ConfigService,
     private renderer: Renderer
   ) {
     router.events.subscribe((event: RouterEvent) => {
@@ -31,9 +32,8 @@ export class MainComponent implements OnInit {
 
   menu: any[] = []
 
-  ngOnInit() {
-    ConfigService.enableRoutes(this.router)
-    this.menu = ConfigService.getMainMenu()
+  async ngOnInit() {
+    this.menu = this.configService.getMainMenu()
   }
 
   private _navigationInterceptor(event: RouterEvent): void {
