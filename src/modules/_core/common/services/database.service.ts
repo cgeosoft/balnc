@@ -41,7 +41,7 @@ RxDB.plugin(require('pouchdb-adapter-idb'))
 RxDB.plugin(require('pouchdb-adapter-websql'))
 
 @Injectable()
-export class DatabaseService {// } implements Resolve<any> {
+export class DatabaseService {
 
     public static db: RxDatabase = null
     private static namespace: string
@@ -50,22 +50,9 @@ export class DatabaseService {// } implements Resolve<any> {
     private static adapter = null
     private static replicationStates: { [key: string]: RxReplicationState } = {}
 
-    private config: any;
+    private static config: any;
 
-    constructor(
-        private http: HttpClient,
-        private configService: ConfigService
-    ) {
-        console.log("DatabaseService constructor")
-        this.config = this.configService.config.db
-    }
-
-    // public async resolve(route: ActivatedRouteSnapshot): Promise<boolean> {
-    //     console.log("DatabaseService resolve")
-    //     await this.initDB()
-    //     this.config = this.configService.config.db
-    //     return true
-    // }
+    constructor(private http: HttpClient, ) { }
 
     public async loadEntities(entities: Entity[]) {
 
@@ -99,7 +86,7 @@ export class DatabaseService {// } implements Resolve<any> {
 
     public sync() {
 
-        if (!this.config.enableSync) {
+        if (!DatabaseService.config.enableSync) {
             return;
         }
 
@@ -109,7 +96,7 @@ export class DatabaseService {// } implements Resolve<any> {
             .filter(entity => entity.sync)
             .forEach(entity => {
                 DatabaseService.db[entity.name].sync({
-                    remote: `${this.config.host}/${entity.name}/`,
+                    remote: `${DatabaseService.config.host}/${entity.name}/`,
                     options: {
                         live: true,
                         retry: true
@@ -154,11 +141,10 @@ export class DatabaseService {// } implements Resolve<any> {
         return entity !== -1
     }
 
-    async setup() {
-        if (DatabaseService.db) {
-            return
-        }
-        console.log("DatabaseService initializing...")
+    async setup(config) {
+        DatabaseService.config = config
+
+        console.log("DatabaseService initializing with config:", config)
         DatabaseService.namespace = localStorage.getItem("profile")
         DatabaseService.adapter = await this.getAdapter()
         DatabaseService.db = await RxDB.create({
@@ -166,10 +152,10 @@ export class DatabaseService {// } implements Resolve<any> {
             adapter: DatabaseService.adapter,
         })
 
-        if (this.config.needAuth) {
-            await this.http.post(`${this.config.host}/_session`, {
-                name: this.config.username,
-                password: this.config.password,
+        if (DatabaseService.config.needAuth) {
+            await this.http.post(`${DatabaseService.config.host}/_session`, {
+                name: DatabaseService.config.username,
+                password: DatabaseService.config.password,
             }, { withCredentials: true })
         }
 

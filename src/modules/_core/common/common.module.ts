@@ -59,15 +59,12 @@ import { DatabaseService } from '@blnc/core/common/services/database.service';
     DatabaseService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (configService: ConfigService) => () => configService.setup(),
-      deps: [ConfigService],
-      multi: true
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (databaseService: DatabaseService) => () => databaseService.setup(),
-      deps: [DatabaseService],
-      multi: true
+      useFactory: (databaseService: DatabaseService, configService: ConfigService) => () => {
+        configService.setup()
+        databaseService.setup(configService.config.db)
+      },
+      deps: [DatabaseService, ConfigService],
+      multi: true,
     }
   ],
   exports: [

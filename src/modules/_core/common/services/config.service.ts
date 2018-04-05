@@ -26,11 +26,9 @@ export class ConfigService {
 
     setup() {
         this.config = ENV.configuration
-        console.log("this.config", this.config)
         this.modules = ENV.modules.modules
-        console.log("this.modules", this.modules)
         this.namespaces = ENV.modules.namespaces
-        console.log("this.namespaces", this.namespaces)
+        console.log("ConfigService initializing with ENV:", ENV)
     }
 
     getMainMenu() {
