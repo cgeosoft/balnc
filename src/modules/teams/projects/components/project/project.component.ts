@@ -8,8 +8,6 @@ import { Observable } from 'rxjs/Observable'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { DatabaseService } from '@blnc/core/database/services/database.service'
-
 import { RxLogDocument } from '../../data/log'
 import { CreateTaskComponent } from '../create-task/create-task.component'
 import { RxProjectDocument } from '../../data/project'

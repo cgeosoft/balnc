@@ -11,6 +11,9 @@ export class ProfileService {
     static lsName = "profiles-config"
     static config: ProfileConfig
 
+    constructor(
+    ) {
+        this.profile = localStorage.getItem("profile")
     static load() {
         let configRaw = localStorage.getItem(ProfileService.lsName)
         if (!configRaw) {

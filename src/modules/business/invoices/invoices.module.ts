@@ -1,35 +1,33 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { DatabaseModule } from '@blnc/core/database/database.module'
-import { Entity } from '@blnc/core/database/models/entity';
-
-import { InvoicesItemComponent, InvoicesOverviewComponent, InvoicesReportComponent } from './components'
-
-import { InvoiceSchema } from './data/invoice';
 import { CommonModule } from '@blnc/core/common/common.module';
 
-const entities: Entity[] = [{
-  name: 'invoice',
-  schema: InvoiceSchema,
-  sync: true,
-}]
+import { InvoicesWrapperComponent } from '@blnc/business/invoices/components/_wrapper/invoices-wrapper.component';
+import { InvoicesOverviewComponent } from '@blnc/business/invoices/components/overview/invoices-overview.component';
+import { InvoicesReportComponent } from '@blnc/business/invoices/components/report/invoices-report.component';
+import { InvoicesItemComponent } from '@blnc/business/invoices/components/item/invoices-item.component';
 
 const routes: Routes = [
-  { path: 'overview', component: InvoicesOverviewComponent },
-  { path: 'report/:id', component: InvoicesReportComponent },
-  { path: 'report', component: InvoicesReportComponent },
-  { path: 'item/:id', component: InvoicesItemComponent },
-  { path: '', redirectTo: "report" },
-]
+  {
+    path: '',
+    component: InvoicesWrapperComponent,
+    children: [
+      { path: 'overview', component: InvoicesOverviewComponent },
+      { path: 'report/:id', component: InvoicesReportComponent },
+      { path: 'report', component: InvoicesReportComponent },
+      { path: 'item/:id', component: InvoicesItemComponent },
+      { path: '', redirectTo: "overview" },
+    ]
+  }]
 
 @NgModule({
   imports: [
     CommonModule,
-    DatabaseModule.forChild(entities),
     RouterModule.forChild(routes),
   ],
   declarations: [
+    InvoicesWrapperComponent,
     InvoicesOverviewComponent,
     InvoicesItemComponent,
     InvoicesReportComponent,

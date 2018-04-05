@@ -1,9 +1,8 @@
-import { ConfigService } from './../config/config.service';
-import { BalanceModule } from './../config/models/balance-module';
-import { BalanceNamespace } from './../config/models/balance-namespace';
 import { Component, OnDestroy, OnInit } from '@angular/core'
 
 import * as _ from 'lodash'
+
+import { ConfigService } from '@blnc/core/common/services/config.service';
 
 @Component({
   selector: 'app-settings',
@@ -28,14 +27,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
   namespaces: any[] = []
 
   constructor(
+    private configService: ConfigService
   ) { }
 
   ngOnInit() {
 
-    this.namespaces = _.chain(ConfigService.modules)
+    this.namespaces = _.chain(this.configService.modules)
       .groupBy("namespace")
       .map((modules, namespace) => {
-        let ns = _.find(ConfigService.namespaces, i => {
+        let ns = _.find(this.configService.namespaces, i => {
           return i.id === namespace
         })
 

@@ -1,15 +1,12 @@
-import { BalanceNamespace } from './models/balance-namespace'
-import { BalanceModule } from './models/balance-module'
+import { BalanceNamespace } from './models/balance-namespace';
+import { BalanceModule } from './models/balance-module';
 import { BehaviorSubject } from 'rxjs/Rx'
 import { Injectable } from '@angular/core'
-import { ENV } from 'environments/environment'
-
-import { Profile } from '@blnc/core/profile/data/profile';
+import { ENV } from 'environments/environment';
 
 @Injectable()
 export class ConfigService {
 
-    public static profile: Profile = null
     public static config: any = null
     public static modules: BalanceModule[] = null
     public static namespaces: BalanceNamespace[] = null

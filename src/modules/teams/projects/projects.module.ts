@@ -4,8 +4,6 @@ import { RouterModule, Routes } from '@angular/router'
 import { MarkdownModule } from 'ngx-md'
 
 import { CommonModule } from '@blnc/core/common/common.module'
-import { Entity } from '@blnc/core/database/models/entity'
-import { DatabaseModule } from '@blnc/core/database/database.module'
 import { CreateProjectComponent } from '@blnc/teams/projects/components/create-project/create-project.component'
 import { CreateTaskComponent } from '@blnc/teams/projects/components/create-task/create-task.component'
 import { MainComponent } from '@blnc/teams/projects/components/_main/main.component'

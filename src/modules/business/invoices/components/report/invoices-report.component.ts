@@ -1,6 +1,6 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
 
-import { DatabaseService } from '@blnc/core/database/services/database.service'
+
 import { RxInvoiceDocument } from '../../data/invoice'
 
 @Component({
@@ -14,7 +14,6 @@ export class InvoicesReportComponent implements OnInit, OnDestroy {
   sub
 
   constructor(
-    private db: DatabaseService,
     private zone: NgZone,
   ) { }
 
@@ -29,13 +28,13 @@ export class InvoicesReportComponent implements OnInit, OnDestroy {
   }
 
   private async _show() {
-    const db = await this.db.get<RxInvoiceDocument>("invoice")
-    const invoices$ = db.find().$
-    this.sub = invoices$
-      .subscribe(invoices => {
-        this.zone.run(() => {
-          this.invoices = invoices
-        })
-      })
+    // const db = await this.db.get<RxInvoiceDocument>("invoice")
+    // const invoices$ = db.find().$
+    // this.sub = invoices$
+    //   .subscribe(invoices => {
+    //     this.zone.run(() => {
+    //       this.invoices = invoices
+    //     })
+    //   })
   }
 }

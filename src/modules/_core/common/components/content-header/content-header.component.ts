@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { HelperService } from '@blnc/core/common/services/helper.service';
 
 @Component({
   selector: 'app-content-header',
@@ -17,6 +18,6 @@ export class ContentHeaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.icon = HelperService.getIconClass(this.icon, true)
   }
-
 }

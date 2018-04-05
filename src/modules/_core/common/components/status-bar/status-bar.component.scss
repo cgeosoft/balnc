@@ -1,15 +1,19 @@
 @import "colors";
 :host {
   background: #eaeaea;
-  height: 25px;
-  font-size: .7rem;
+  height: 20px;
+  font-size: .6rem;
   color: #404040;
+  border-top: solid 1px #DDD;
   .status-bar-item {
+    .fa {
+      font-size: .6rem;
+    }
     .status-bar-item-content {
       padding: 4px 7px;
     }
     .btn {
-      font-size: .7rem;
+      font-size: .6rem;
       padding: 4px 7px;
       height: 100%;
       background: none;

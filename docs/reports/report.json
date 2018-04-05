@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "fields": {
+      "type": "object"
+    },
+    "query": {
+      "type": "object"
+    }
+  }
+}

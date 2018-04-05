@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core'
-import { ProdNotifComponent } from '@blnc/core/common/components/prod-notif/prod-notif.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+
+import { ProdNotifComponent } from '@blnc/core/common/components/prod-notif/prod-notif.component';
 
 @Component({
   selector: 'app-main',
