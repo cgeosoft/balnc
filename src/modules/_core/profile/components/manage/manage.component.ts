@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 
-import { RxProfileDocument } from '@blnc/core/profile/data/profile'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { RxCollection } from 'rxdb'
 import { Router } from '@angular/router'

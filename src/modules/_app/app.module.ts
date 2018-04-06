@@ -12,10 +12,21 @@ import { MainModule } from '@blnc/core/main/main.module'
 import { ProfileModule } from '@blnc/core/profile/profile.module'
 
 import { AppComponent } from './app.component'
+import { MainComponent } from '@blnc/core/main/main.component';
+import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard';
+import { ManageComponent } from '@blnc/core/profile/components/manage/manage.component';
 
 const AppRoutes: Routes = [{
   path: '',
   component: AppComponent,
+  children: [{
+    path: '',
+    component: MainComponent,
+    canActivate: [DefaultProfileGuard],
+  }, {
+    path: 'manage',
+    component: ManageComponent,
+  }]
 }]
 
 @NgModule({
