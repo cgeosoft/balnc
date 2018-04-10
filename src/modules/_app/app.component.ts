@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    console.log('configured routes: ', this.router.config);
     const productionWarnign = localStorage.getItem("productionWarnign")
     if (!productionWarnign) {
       console.log("productionWarnign")

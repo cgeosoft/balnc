@@ -9,15 +9,20 @@
       <div class="d-flex">
         <div>
           {{profile.name}}
-          <span class="badge badge-primary" *ngIf="profile.name == selectedProfile">selected</span>
+          <span class="badge badge-primary" *ngIf="profile.name == selected.name">selected</span>
           <br>
           <small class="text-secondary" *ngIf="!profile.server">Local Profile</small>
           <small class="text-secondary" *ngIf="profile.server">{{profile.server.host}}</small>
         </div>
         <div class="ml-auto d-flex align-items-center">
-          <button class="btn btn-sm btn-outline-secondary">
-            <span class="fa fa-cog"></span>
-          </button>
+          <div>
+            <button class="btn btn-sm btn-outline-secondary">
+              <span class="fa fa-cog"></span>
+            </button>
+            <button class="btn btn-sm btn-primary" (click)="selectProfile(profile.name)">
+              <span class="far fa-check-circle"></span> Select
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -29,26 +34,9 @@
     <h1 class="display-4">Welcome to Balance!</h1>
     <p>Balance is a collection of business modules for managing simple operations of small companies and freelancers.</p>
     <p>It includes sales, marketing and accounting tools and it is both open source and free under the MIT license.</p>
-  </div>
-  <div class="card-group">
-    <div class="card">
-      <div class="card-body">
-        <h4>Local Profile</h4>
-        <p>If you would like to use Balance in your local machine, without online sync & backup use this option. You may export/import
-          data from other machines.</p>
-      </div>
-      <div class="card-footer text-center">
-        <button class="btn btn-block btn-primary" (click)="quickCreateProfile()">Use Local Profile</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <h4>Remote Profile</h4>
-        <p>If you would like to use a remote account of Balance use this option. You may manage accounts from the menu afterwards.</p>
-      </div>
-      <div class="card-footer text-center">
-        <button class="btn btn-block btn-secondary" (click)="create()">Add Remote Profile</button>
-      </div>
-    </div>
+    <p>Balance using an internal profile manager for storing localy all the necessary info to work.</p>
+    <button class="btn btn-primary" (click)="createProfile()">Create Profile</button>
+    <button class="btn btn-link" ngxFilePicker (filePick)="onFilePicked($event)">or import existing</button>
+    <pre>{{selected}}</pre>
   </div>
 </div>

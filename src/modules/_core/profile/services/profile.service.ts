@@ -1,3 +1,4 @@
+import { LoaderComponent } from './../../common/components/loader/loader.component';
 import { Injectable } from '@angular/core'
 
 import * as _ from 'lodash'
@@ -8,56 +9,66 @@ import { ProfileConfig } from '@blnc/core/profile/data/config';
 @Injectable()
 export class ProfileService {
 
-    static lsName = "profiles-config"
-    static config: ProfileConfig
-    profile: string
+    lsName = "profiles-config"
+    config: ProfileConfig
 
-    constructor(
-    ) {
-        this.profile = localStorage.getItem("profile")
-    }
-
-    static load() {
-        let configRaw = localStorage.getItem(ProfileService.lsName)
+    setup() {
+        const configRaw = localStorage.getItem(this.lsName)
         if (!configRaw) {
-            configRaw = "{}"
+            this.init()
+        } else {
+            this.config = JSON.parse(configRaw)
         }
-        this.config = JSON.parse(configRaw)
     }
 
-    static save() {
-        localStorage.setItem(ProfileService.lsName, JSON.stringify(ProfileService.config))
+    save() {
+        localStorage.setItem(this.lsName, JSON.stringify(this.config))
     }
 
-    static clear() {
-        ProfileService.config = {}
-        localStorage.removeItem(ProfileService.lsName)
+    init() {
+        this.config = {
+            selected: null,
+            profiles: []
+        }
     }
 
-    static selectProfile(name: string) {
-        const profile = ProfileService.config.profiles.find(x => {
+    clear() {
+        this.init()
+        this.save()
+        this.setup()
+    }
+
+    select(name: string) {
+        const profile = this.config.profiles.find(x => {
             return x.name === name
         })
 
         if (!profile) {
             throw new Error("Profile not found")
         }
-        ProfileService.config.selected = profile.name
-        ProfileService.save()
+        this.config.selected = profile.name
+        this.save()
     }
 
-    static addProfile(profile: Profile) {
-        ProfileService.config.profiles.push(profile)
-        ProfileService.save()
+    add(profile: Profile) {
+        profile.alias = this.slugify(profile.name)
+        this.config.profiles.push(profile)
+        this.save()
     }
 
-    static getSelectedProfile(): Profile {
-        const profile = ProfileService.config.profiles.find(x => {
-            return x.name === ProfileService.config.selected
+    get(): Profile {
+        const profile = this.config.profiles.find(x => {
+            return x.name === this.config.selected
         })
-        if (!profile) {
-            throw new Error("Profile not found")
-        }
         return profile
+    }
+
+    private slugify(text) {
+        return text.toString().toLowerCase()
+            .replace(/\s+/g, '-')           // Replace spaces with -
+            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+            .replace(/^-+/, '')             // Trim - from start of text
+            .replace(/-+$/, '');            // Trim - from end of text
     }
 }

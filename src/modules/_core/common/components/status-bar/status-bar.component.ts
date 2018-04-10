@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Profile } from '@blnc/core/profile/data/profile';
+import { ProfileService } from '@blnc/core/profile/services/profile.service';
 
 @Component({
   selector: 'app-status-bar',
@@ -7,9 +9,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class StatusBarComponent implements OnInit {
 
-  constructor() { }
+  selected: Profile
+
+  constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
+    this.selected = this.profileService.get()
   }
 
 }

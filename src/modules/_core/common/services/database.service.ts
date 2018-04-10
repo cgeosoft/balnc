@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable'
 import { Injectable, Inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router'
@@ -19,8 +19,7 @@ import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
 
 import { ENV } from 'environments/environment'
 import { Entity } from "../models/entity"
-
-import { ConfigService } from '@blnc/core/common/services/config.service';
+import { DatabaseConfig, Profile } from '@blnc/core/profile/data/profile';
 
 RxDB.QueryChangeDetector.enable()
 
@@ -50,15 +49,15 @@ export class DatabaseService {
     private static adapter = null
     private static replicationStates: { [key: string]: RxReplicationState } = {}
 
-    private static config: any;
+    private static config: DatabaseConfig
 
-    constructor(private http: HttpClient, ) { }
+    constructor(private http: HttpClient) { }
 
     public async loadEntities(entities: Entity[]) {
 
         console.log("DatabaseService setup entities", entities, DatabaseService.namespace, "loadedEntities", DatabaseService.entities)
 
-        const add: any[] = [];
+        const add: any[] = []
 
         for (const entity of entities) {
 
@@ -86,8 +85,8 @@ export class DatabaseService {
 
     public sync() {
 
-        if (!DatabaseService.config.enableSync) {
-            return;
+        if (!DatabaseService.config.host) {
+            return
         }
 
         console.log("start syncing")
@@ -127,7 +126,7 @@ export class DatabaseService {
     }
 
     public setNamespace(namespace: string) {
-        console.log("set amespasne", namespace)
+        console.log("set namespace", namespace)
         if (namespace !== DatabaseService.namespace) { return }
         localStorage.setItem("profile", namespace)
         DatabaseService.namespace = namespace
@@ -141,18 +140,18 @@ export class DatabaseService {
         return entity !== -1
     }
 
-    async setup(config) {
-        DatabaseService.config = config
+    async setup(profile: Profile) {
+        DatabaseService.config = profile.database || {}
 
-        console.log("DatabaseService initializing with config:", config)
-        DatabaseService.namespace = localStorage.getItem("profile")
+        console.log("DatabaseService initializing with profile:", profile)
+        DatabaseService.namespace = profile.alias
         DatabaseService.adapter = await this.getAdapter()
         DatabaseService.db = await RxDB.create({
             name: "db",
             adapter: DatabaseService.adapter,
         })
 
-        if (DatabaseService.config.needAuth) {
+        if (DatabaseService.config.username) {
             await this.http.post(`${DatabaseService.config.host}/_session`, {
                 name: DatabaseService.config.username,
                 password: DatabaseService.config.password,

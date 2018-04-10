@@ -5,16 +5,25 @@ import { CommonModule } from '@blnc/core/common/common.module'
 import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard'
 import { ProfileService } from '@blnc/core/profile/services/profile.service'
 
-import { ManageComponent } from '@blnc/core/profile/components/manage/manage.component'
+import { ProfilesComponent } from '@blnc/core/profile/components/profiles/profiles.component'
 import { CreateProfileComponent } from '@blnc/core/profile/components/create/create.component'
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [{
+  path: '',
+  children: [{
+    path: 'profiles',
+    component: ProfilesComponent,
+  }]
+}]
 
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule.forChild(routes),
   ],
   declarations: [
-    ManageComponent,
+    ProfilesComponent,
     CreateProfileComponent,
   ],
   providers: [

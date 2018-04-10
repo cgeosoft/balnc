@@ -1,14 +1,16 @@
 declare interface ProfileType {
-    alias: string
-    name?: string
+    alias?: string
+    name: string
     secret?: string
-    user?: {
-        fullname: string
-        username: string
-        password: string
-    }
-    remoteDB?: string
-    data?: any
+    database?: DatabaseConfigType
+    params?: any
 }
 
+declare interface DatabaseConfigType {
+    host?: string
+    username?: string
+    password?: string
+}
+
+export type DatabaseConfig = DatabaseConfigType
 export type Profile = ProfileType

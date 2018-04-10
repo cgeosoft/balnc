@@ -20,6 +20,7 @@ export class CreateProfileComponent implements OnInit {
     constructor(
         public activeModal: NgbActiveModal,
         private formBuilder: FormBuilder,
+        private profileService: ProfileService
     ) { }
 
     async ngOnInit() {
@@ -31,8 +32,8 @@ export class CreateProfileComponent implements OnInit {
     onSubmit() {
         const formModel = this.form.value
         const profileId = formModel.profile
-        ProfileService.addProfile({
-            alias: formModel.name
+        this.profileService.add({
+            name: formModel.name
         })
         // this.profileService
         //     .addProfile(formModel.alias, formModel.name)
@@ -40,4 +41,5 @@ export class CreateProfileComponent implements OnInit {
         //         this.activeModal.close()
         //     })
     }
+
 }

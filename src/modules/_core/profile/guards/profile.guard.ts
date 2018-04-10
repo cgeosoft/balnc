@@ -6,13 +6,14 @@ import { ProfileService } from '@blnc/core/profile/services/profile.service'
 export class DefaultProfileGuard implements CanActivate {
   constructor(
     private router: Router,
+    private profileService: ProfileService
   ) { }
 
   canActivate() {
-    if (ProfileService.config && ProfileService.config.selected) {
+    if (this.profileService.config && this.profileService.config.selected) {
       return true
     }
-    this.router.navigate(["manage"])
+    this.router.navigate(["profiles"])
     return false
   }
 }

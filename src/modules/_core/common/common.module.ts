@@ -5,6 +5,7 @@ import { NgModule, APP_INITIALIZER, Injector } from '@angular/core'
 
 import { NgPipesModule } from 'ngx-pipes'
 import { MomentModule } from 'angular2-moment'
+import { FileHelpersModule } from 'ngx-file-helpers';
 
 import { SideBarComponent } from '@blnc/core/common/components/side-bar/side-bar.component'
 import { StatusBarComponent } from '@blnc/core/common/components/status-bar/status-bar.component'
@@ -24,6 +25,8 @@ import { ProdNotifComponent } from '@blnc/core/common/components/prod-notif/prod
 import { HelperService } from '@blnc/core/common/services/helper.service'
 import { ConfigService } from '@blnc/core/common/services/config.service';
 import { DatabaseService } from '@blnc/core/common/services/database.service';
+import { ProfileService } from '@blnc/core/profile/services/profile.service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -31,10 +34,12 @@ import { DatabaseService } from '@blnc/core/common/services/database.service';
     AngularCommonModule,
     NgbModule,
     NgPipesModule,
+    FileHelpersModule,
     MomentModule,
     FormsModule,
     ReactiveFormsModule,
     FilesModule,
+    RouterModule.forChild([]),
   ],
   declarations: [
     SideBarComponent,
@@ -52,15 +57,20 @@ import { DatabaseService } from '@blnc/core/common/services/database.service';
   ],
   providers: [
     HelperService,
-    ConfigService,
     DatabaseService,
+    ProfileService,
+    ConfigService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (databaseService: DatabaseService, configService: ConfigService) => () => {
+      useFactory: (databaseService: DatabaseService, profileService: ProfileService, configService: ConfigService) => () => {
         configService.setup()
-        databaseService.setup(configService.config.db)
+        profileService.setup()
+        const profile = profileService.get()
+        if (profile) {
+          databaseService.setup(profile)
+        }
       },
-      deps: [DatabaseService, ConfigService],
+      deps: [DatabaseService, ProfileService, ConfigService],
       multi: true,
     }
   ],
@@ -80,6 +90,7 @@ import { DatabaseService } from '@blnc/core/common/services/database.service';
     ProdNotifComponent,
     LoaderComponent,
     NgPipesModule,
+    FileHelpersModule,
     MomentModule,
     EllipsisPipe,
     DocVersionPipe,
