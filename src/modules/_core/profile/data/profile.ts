@@ -1,10 +1,14 @@
 declare interface ProfileType {
-    name: string
-    server?: {
-        host: string
-        user: string
-        pass: string
+    alias: string
+    name?: string
+    secret?: string
+    user?: {
+        fullname: string
+        username: string
+        password: string
     }
+    remoteDB?: string
+    data?: any
 }
 
 export type Profile = ProfileType

@@ -39,9 +39,11 @@ export class ManageComponent implements OnInit {
   }
 
   quickCreateProfile() {
-    const quickLocalName = "Local Profile #" + (new Date()).getTime()
+    const quickLocalAlias = `#${(new Date()).getTime()}`
+    const quickLocalName = `Local Profile ${quickLocalAlias}`
     ProfileService.addProfile({
-      name: quickLocalName
+      alias: quickLocalAlias,
+      name: quickLocalName,
     })
     this.select(quickLocalName)
   }

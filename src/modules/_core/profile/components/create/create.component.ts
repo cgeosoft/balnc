@@ -32,7 +32,7 @@ export class CreateProfileComponent implements OnInit {
         const formModel = this.form.value
         const profileId = formModel.profile
         ProfileService.addProfile({
-            name: formModel.name
+            alias: formModel.name
         })
         // this.profileService
         //     .addProfile(formModel.alias, formModel.name)
