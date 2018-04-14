@@ -32,12 +32,15 @@ const routes: Routes = [{
     path: "chat",
     loadChildren: "@blnc/teams/chat/chat.module#ChatModule"
   }, {
+    path: "reports",
+    loadChildren: "@blnc/reports/report.module#ReportModule"
+  }, {
     path: 'page-not-found',
     component: PageNotFoundComponent,
   }, {
     path: '',
     pathMatch: "full",
-    redirectTo: "dashboard"
+    redirectTo: "reports"
   }]
 }]
 

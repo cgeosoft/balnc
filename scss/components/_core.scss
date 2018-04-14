@@ -46,10 +46,6 @@ a {
   font-weight: 400;
 }
 
-.text-mono {
-  font-family: monospace;
-}
-
 .text-lg {
   font-size: 1.2rem;
 }
@@ -69,5 +65,14 @@ a {
     &:hover {
       color: lighten($color-dark, 25);
     }
+  }
+}
+
+@import "bootstrap";
+.wrapper {
+  >:last-child {
+    @extend .d-flex;
+    @extend .flex-row;
+    width: 100%;
   }
 }

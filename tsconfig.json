@@ -38,6 +38,9 @@
       "@blnc/bookings/*": [
         "modules/bookings/*"
       ],
+      "@blnc/reports/*": [
+        "modules/reports/*"
+      ],
       "environments/*": [
         "environments/*"
       ]

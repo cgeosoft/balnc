@@ -29,7 +29,7 @@
     "@types/faker": "^4.1.2",
     "@types/pouchdb": "6.3.2",
     "angular2-moment": "^1.8.0",
-    "bootstrap": "^4.0.0",
+    "bootstrap": "^4.1.0",
     "cloudinary-core": "^2.5.0",
     "core-js": "2.5.4",
     "faker": "^4.1.0",

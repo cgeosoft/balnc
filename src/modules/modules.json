@@ -142,6 +142,17 @@
     "isActive": true,
     "canChange": true,
     "canConfigure": true
+  }, {
+    "id": "@blnc/reports",
+    "namespace": "@blnc/reports",
+    "icon": "file-alt:regular",
+    "title": "Reports",
+    "description": "A simple but full-feature team chat with customizable rooms",
+    "path": "reports",
+    "hasMenu": true,
+    "isActive": true,
+    "canChange": true,
+    "canConfigure": true
   }],
   "namespaces": [{
     "id": "@blnc/core",

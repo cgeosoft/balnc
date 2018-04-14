@@ -28,6 +28,23 @@
   height: 100%
 }
 
-.mono {
-  font-family: monospace;
+.card-header {
+  .form-control {
+    height: 24px !important;
+    padding: 0 !important;
+    margin: 0 0 0 .7rem;
+  }
+}
+
+thead {
+  th {
+    .btn {
+      background: none;
+      padding: 0;
+      .fa {
+        margin-left: 10px !important;
+        padding: 3px;
+      }
+    }
+  }
 }
