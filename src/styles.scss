@@ -29,9 +29,10 @@
 }
 
 .card-header {
+  .btn,
   .form-control {
     height: 24px !important;
-    padding: 0 !important;
+    padding: 0 5px !important;
     margin: 0 0 0 .7rem;
   }
 }

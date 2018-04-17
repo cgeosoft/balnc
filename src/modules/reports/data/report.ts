@@ -13,7 +13,8 @@ declare interface ReportFilterType {
     field: string
     type: string
     defaultValue?: string
-    values?: any
+    common?: string
+    values?: any[]
 }
 
 export type Report = ReportType

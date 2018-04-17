@@ -17,12 +17,14 @@ import { Report } from '@blnc/reports/data/report'
 })
 export class ReportComponent implements OnInit {
 
+  error: any;
   commons: any
   report: Report
   filters: any
   pagination: any = {}
   reportData: any
   reportLoading = false
+  maxPage: number
 
   constructor(
     private reportService: ReportService,
@@ -32,12 +34,72 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.loadReport(params['alias'])
-      this.execReport()
+      this.execReport(true)
     })
   }
 
   loadReport(alias) {
     this.report = this.reportService.getReport(alias)
+    this.resetFilters()
+  }
+
+  decideClosure(event, datepicker) {
+    const path = event.path.map(p => p.localName)
+    if (!path.includes('ngb-datepicker')) {
+      datepicker.close()
+    }
+  }
+
+  async execReport(restart = false) {
+    this.reportLoading = true
+    this.reportData = await this.reportService
+      .execReport(this.report.alias, this.filters, this.pagination)
+      .catch((err) => {
+        this.reportLoading = false
+        this.error = err
+      })
+    if (restart) {
+      this.pagination = { ...this.reportData.pagination }
+      this.calculateMaxPage()
+    }
+    this.reportLoading = false
+  }
+
+  setSort(field) {
+    if (this.pagination.sortBy === field) {
+      this.pagination.sortDir = (this.pagination.sortDir === "asc") ? "desc" : "asc"
+    } else {
+      this.pagination.sortBy = field
+      this.pagination.sortDir = "asc"
+    }
+    this.calculateMaxPage()
+    this.pagination.pageNo = (this.pagination.pageNo > this.maxPage) ? this.maxPage : this.pagination.pageNo;
+    this.execReport()
+  }
+
+  setPageSize() {
+    this.calculateMaxPage()
+    this.pagination.pageNo = (this.pagination.pageNo > this.maxPage) ? this.maxPage : this.pagination.pageNo;
+    this.execReport()
+  }
+
+  calculateMaxPage() {
+    this.maxPage = Math.floor(this.reportData.data.totalCount / this.pagination.pageSize)
+    this.maxPage += (this.reportData.data.totalCount % this.pagination.pageSize) ? 1 : 0
+  }
+
+  previousPage() {
+    this.pagination.pageNo--
+    this.pagination.pageNo = (this.pagination.pageNo < 0) ? 0 : this.pagination.pageNo;
+    this.execReport()
+  }
+  nextPage() {
+    this.pagination.pageNo++
+    this.pagination.pageNo = (this.pagination.pageNo > this.maxPage) ? this.maxPage : this.pagination.pageNo;
+    this.execReport()
+  }
+
+  resetFilters() {
     this.filters = this.report.filters
       .map(filter => {
         return {
@@ -49,30 +111,6 @@ export class ReportComponent implements OnInit {
         map[obj.key] = obj.value
         return map
       }, {})
-  }
-
-  decideClosure(event, datepicker) {
-    const path = event.path.map(p => p.localName)
-    if (!path.includes('ngb-datepicker')) {
-      datepicker.close()
-    }
-  }
-
-  async execReport() {
-    this.reportLoading = true
-    this.reportData = await this.reportService.execReport(this.report.alias, this.filters, this.pagination)
-    this.pagination = { ...this.reportData.pagination }
-    this.reportLoading = false
-  }
-
-  setSort(field) {
-    if (this.pagination.sortBy === field) {
-      this.pagination.sortDir = (this.pagination.sortDir === "asc") ? "desc" : "asc"
-    } else {
-      this.pagination.sortBy = field
-      this.pagination.sortDir = "asc"
-    }
-    this.execReport()
   }
 
 }

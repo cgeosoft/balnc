@@ -1,89 +1,99 @@
-<app-content style="height:100%;">
-  <app-content-header [title]="report.name" [subtitle]="report.description" icon="file-alt:regular"></app-content-header>
-  <app-content-body [fullWidth]="true" style="height:100%;">
-    <div class="d-flex align-items-stretch" style="height:100%;">
-      <ng-container *ngIf="!reportLoading; else loader">
-        <ng-container *ngIf="reportData; else notLoad">
-          <ng-container *ngIf="reportData.data.rows.length; else noResults">
-            <div class="card border-dark table-responsive" style="height:100%;">
-              <div class="card-header d-flex">
-                <div>
-                  Show
-                  <strong>{{reportData.pagination.pageSize}}</strong> of
-                  <strong>{{reportData.data.totalCount}}</strong> rows
-                </div>
-                <div class="d-flex ml-auto">
-                  <span>Show</span>
-                  <select class="form-control" [(ngModel)]="pagination.pageSize" (change)="execReport()">
-                    <option *ngFor="let i of [25,50,100]" [value]="i">{{i}} rows / page</option>
-                  </select>
-                </div>
-              </div>
-              <div class="table-responsive" style="height:100%;overflow-y: scroll;font-size:.8rem;">
-                <table class="table table-sm table-bordered">
-                  <thead class="thead-light">
-                    <tr>
-                      <th *ngFor="let header of reportData.data.columns">
-                        <button (click)="setSort(header.name)" href="javascript:" class="btn btn-sm btn-block d-flex">
-                          <span>{{report.fields[header.name]}}</span>
-                          <!-- <span class="fa fa-sort-up text-muted ml-auto" *ngIf="pagination.sortBy !== header.name"></span> -->
-                          <span class="fa fa-sort-up ml-auto" *ngIf="pagination.sortBy === header.name && pagination.sortDir === 'asc'"></span>
-                          <span class="fa fa-sort-down ml-auto" *ngIf="pagination.sortBy === header.name && pagination.sortDir === 'desc'"></span>
-                        </button>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let row of reportData.data.rows">
-                      <td *ngFor="let value of row">
-                        {{value}}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </ng-container>
-        </ng-container>
-      </ng-container>
-      <ng-template #notLoad>
-        <app-empty-panel message="Use the filters to fetch some data" icon="cubes"></app-empty-panel>
-      </ng-template>
-      <ng-template #noResults>
-        <app-empty-panel message="No data were found" icon="cubes"></app-empty-panel>
-      </ng-template>
-      <ng-template #loader>
-        <app-loader></app-loader>
-      </ng-template>
-      <div class="card bg-secondary text-white ml-4" style="width:300px;">
-        <div class="card-header">
-          Filters
-        </div>
-        <div class="card-body">
-          <ng-template ngFor let-filter [ngForOf]="report.filters" *ngIf="report.filters.length">
-            <div class="form-group" *ngIf="filter.type === 'select'">
-              <label>{{filter.name}}</label>
-              <select class="form-control form-control-sm" [(ngModel)]="filters[filter.field]">
-                <option value="-1">[ ALL ]</option>
-                <option *ngFor="let fkey of filter.values | keys" [value]="fkey">{{filter.values[fkey]}}</option>
-              </select>
-            </div>
-            <div class="form-group" *ngIf="filter.type === 'date'">
-              <label>{{filter.name}}</label>
-              <div class="input-group">
-                <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" [(ngModel)]="filters[filter.field]" ngbDatepicker #d="ngbDatepicker">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-light btn-sm" (click)="d.toggle(); $event.stopPropagation()" (document:click)="decideClosure($event, d)"
-                    type="button">
-                    <span class="fa fa-calendar-alt"></span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </ng-template>
-          <button class="btn btn-primary btn-block" (click)="execReport()" [disabled]="reportLoading">Execute</button>
+<div class="d-flex" style="height:100%;width:100%">
+  <div class="bg-dark text-white p-4" style="width:220px;height:100%">
+    <h4 style="font-weight: 300">{{report.name}}</h4>
+    <ng-template ngFor let-filter [ngForOf]="report.filters" *ngIf="report.filters.length">
+      <div class="form-group" *ngIf="filter.type === 'select'">
+        <label>{{filter.name}}</label>
+        <select class="form-control form-control-sm" [(ngModel)]="filters[filter.field]">
+          <option *ngFor="let filterVal of filter.values | keys" [ngValue]="filterVal.value">{{filterVal.label}}</option>
+        </select>
+      </div>
+      <div class="form-group" *ngIf="filter.type === 'date'">
+        <label>{{filter.name}}</label>
+        <div class="input-group">
+          <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" [(ngModel)]="filters[filter.field]" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-light btn-sm" (click)="d.toggle(); $event.stopPropagation()" (document:click)="decideClosure($event, d)"
+              type="button">
+              <span class="fa fa-calendar-alt"></span>
+            </button>
+          </div>
         </div>
       </div>
+    </ng-template>
+    <button class="btn btn-primary btn-block" (click)="execReport(true)" [disabled]="reportLoading">
+      <span class="fa fa-database"></span> Execute</button>
+    <button class="btn btn-dark btn-block" (click)="resetFilters()" [disabled]="reportLoading">
+      <span class="fa fa-times"></span> Reset</button>
+    <hr>
+    <button class="btn btn-outline-light btn-sm btn-block" (click)="execPrint()">
+      <span class="fa fa-print"></span> Print / PDF</button>
+    <button class="btn btn-outline-light btn-sm btn-block" (click)="execExport()">
+      <span class="fa fa-file-excel"></span> Export</button>
+    <!-- <app-debug-panel [data]="filters"></app-debug-panel> -->
+  </div>
+  <div class="d-flex flex-column" style="height:100%;width:100%">
+    <div class="btn-toolbar p-1 bg-dark text-white d-flex">
+      <label *ngIf="reportData" class=" p-1 m-0">
+        Show page
+        <strong>{{pagination.pageNo + 1}}</strong> of
+        <strong>{{maxPage}}</strong> rows | Rows
+        <strong>{{reportData.data.rows.length}}</strong> of
+        <strong>{{reportData.data.totalCount}}</strong>
+      </label>
+      <div class="d-flex ml-auto">
+        <label class="p-1 m-0">Show</label>
+        <select class="form-control form-control-sm ml-1" [(ngModel)]="pagination.pageSize" (change)="setPageSize();">
+          <option *ngFor="let i of [25,50,100]" [ngValue]="i">{{i}} rows / page</option>
+        </select>
+        <button class="btn btn-sm btn-outline-light ml-1" (click)="previousPage()" (disabled)="pagination.pageNo === 0">
+          <span class="fa fa-arrow-alt-circle-left"></span> Previous
+        </button>
+        <button class="btn btn-sm btn-outline-light ml-1" (click)="nextPage()" (disabled)="pagination.pageNo === maxPage">
+          Next
+          <span class="fa fa-arrow-alt-circle-right"></span>
+        </button>
+      </div>
     </div>
-  </app-content-body>
-</app-content>
+    <ng-container *ngIf="!reportLoading; else loader">
+      <ng-container *ngIf="reportData; else notLoad">
+        <ng-container *ngIf="reportData.data.rows.length; else noResults">
+          <div class="table-responsive" style="height:100%;overflow-y: scroll;font-size:.8rem;">
+            <table class="table table-sm table-bordered">
+              <thead class="thead-light">
+                <tr>
+                  <th *ngFor="let header of reportData.data.columns">
+                    <button (click)="setSort(header.name)" href="javascript:" class="btn btn-sm btn-block d-flex">
+                      <span>{{report.fields[header.name]}}</span>
+                      <!-- <span class="fa fa-sort-up text-muted ml-auto" *ngIf="pagination.sortBy !== header.name"></span> -->
+                      <span class="fa fa-sort-up ml-auto" *ngIf="pagination.sortBy === header.name && pagination.sortDir === 'asc'"></span>
+                      <span class="fa fa-sort-down ml-auto" *ngIf="pagination.sortBy === header.name && pagination.sortDir === 'desc'"></span>
+                    </button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of reportData.data.rows">
+                  <td *ngFor="let value of row">
+                    {{value}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+    <ng-template #notLoad>
+      <app-empty-panel message="Use the filters to fetch some data" icon="cubes"></app-empty-panel>
+    </ng-template>
+    <ng-template #noResults>
+      <app-empty-panel message="No data were found" icon="cubes"></app-empty-panel>
+    </ng-template>
+    <ng-template #loader>
+      <app-loader></app-loader>
+    </ng-template>
+
+    <app-debug-panel [data]="error"></app-debug-panel>
+  </div>
+</div>

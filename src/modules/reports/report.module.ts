@@ -7,6 +7,8 @@ import { OverviewComponent } from "@blnc/reports/components/overview/overview.co
 import { ReportComponent } from "@blnc/reports/components/report/report.component";
 import { ReportRoutes } from '@blnc/reports/routes/report.routes';
 import { ReportService } from '@blnc/reports/services/report.service';
+import { NgbDateNativeAdapter } from '@blnc/reports/adapters/datepicker.adapter';
+import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { ReportService } from '@blnc/reports/services/report.service';
     RouterModule.forChild(ReportRoutes),
   ],
   providers: [
-    ReportService
+    ReportService,
+    { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }
   ],
   entryComponents: []
 })

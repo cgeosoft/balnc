@@ -34,9 +34,7 @@ export class ReportService implements Resolve<any> {
             headers: {
                 Authorization: "Basic " + btoa(this.reportServerAuth.username + ":" + this.reportServerAuth.password)
             }
-        }).toPromise().then((result: Report[]) => {
-            return result
-        })
+        }).toPromise()
     }
 
 
@@ -46,11 +44,14 @@ export class ReportService implements Resolve<any> {
                 Authorization: "Basic " + btoa(this.reportServerAuth.username + ":" + this.reportServerAuth.password)
             }
         }).toPromise().then((reports: Report[]) => {
-
             reports = reports.map(report => {
                 report.filters = report.filters.map(filter => {
-                    if (typeof filter.values === "string") {
-                        filter.values = this.commons[filter.values]
+                    if (filter.common) {
+                        filter.values = this.commons[filter.common]
+                        filter.values.unshift({
+                            value: -1,
+                            label: "-- all --",
+                        })
                     }
                     return filter
                 })
@@ -82,6 +83,5 @@ export class ReportService implements Resolve<any> {
             }).toPromise().then((result: any[]) => {
                 return result
             })
-
     }
 }
