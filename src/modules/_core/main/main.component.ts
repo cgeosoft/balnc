@@ -7,6 +7,8 @@ import * as _ from 'lodash'
 
 import { HelperService } from '@blnc/core/common/services/helper.service'
 import { ConfigService } from '@blnc/core/common/services/config.service';
+import { ProfileService } from '@blnc/core/profile/services/profile.service';
+import { Profile } from '@blnc/core/profile/data/profile';
 
 @Component({
   selector: 'app-main',
@@ -15,6 +17,7 @@ import { ConfigService } from '@blnc/core/common/services/config.service';
 })
 export class MainComponent implements OnInit {
 
+  profile: Profile;
   @ViewChild('spinnerElement')
 
   spinnerElement: ElementRef
@@ -23,6 +26,7 @@ export class MainComponent implements OnInit {
     private router: Router,
     private ngZone: NgZone,
     private configService: ConfigService,
+    private profileService: ProfileService,
     private renderer: Renderer
   ) {
     router.events.subscribe((event: RouterEvent) => {
@@ -33,7 +37,8 @@ export class MainComponent implements OnInit {
   menu: any[] = []
 
   async ngOnInit() {
-    this.menu = this.configService.getMainMenu()
+    this.profile = this.profileService.get()
+    this.menu = this.configService.getMainMenu(this.profile)
   }
 
   private _navigationInterceptor(event: RouterEvent): void {

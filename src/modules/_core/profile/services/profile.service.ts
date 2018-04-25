@@ -1,4 +1,3 @@
-import { LoaderComponent } from './../../common/components/loader/loader.component';
 import { Injectable } from '@angular/core'
 
 import * as _ from 'lodash'
@@ -9,33 +8,31 @@ import { ProfileConfig } from '@blnc/core/profile/data/config';
 @Injectable()
 export class ProfileService {
 
-    lsName = "profiles-config"
-    config: ProfileConfig
+    config: ProfileConfig = {}
 
     setup() {
-        const configRaw = localStorage.getItem(this.lsName)
-        if (!configRaw) {
-            this.init()
-        } else {
-            this.config = JSON.parse(configRaw)
-        }
+        this.loadProfiles()
+        this.config.selected = localStorage.getItem("@blnc/profiles-selected")
     }
 
-    save() {
-        localStorage.setItem(this.lsName, JSON.stringify(this.config))
-    }
-
-    init() {
-        this.config = {
-            selected: null,
-            profiles: []
-        }
+    loadProfiles() {
+        this.config.profiles = Object.keys(localStorage)
+            .filter(item => {
+                return item.indexOf("@blnc/profiles/") === 0
+            })
+            .map(item => {
+                return JSON.parse(localStorage[item])
+            })
+        console.log(this.config)
     }
 
     clear() {
-        this.init()
-        this.save()
-        this.setup()
+        localStorage.removeItem(`@blnc/profiles-selected`)
+        this.config.profiles.forEach(profile => {
+            localStorage.removeItem(`@blnc/profiles/${profile.alias}`)
+        })
+        this.config.selected = null
+        this.config.profiles = []
     }
 
     select(name: string) {
@@ -47,13 +44,15 @@ export class ProfileService {
             throw new Error("Profile not found")
         }
         this.config.selected = profile.name
-        this.save()
+        localStorage.setItem(`@blnc/profiles-selected`, profile.name)
     }
 
     add(profile: Profile) {
-        profile.alias = this.slugify(profile.name)
+        const unique = new Date
+        profile.alias = `${this.slugify(profile.name)}-${unique.getTime()}`
+        profile.createdAt = unique.toISOString()
+        localStorage.setItem(`@blnc/profiles/${profile.alias}`, JSON.stringify(profile))
         this.config.profiles.push(profile)
-        this.save()
     }
 
     get(): Profile {

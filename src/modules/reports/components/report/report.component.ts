@@ -20,7 +20,7 @@ export class ReportComponent implements OnInit {
   error: any;
   commons: any
   report: Report
-  filters: any
+  filters: any = {}
   pagination: any = {}
   reportData: any
   reportLoading = false
@@ -52,6 +52,7 @@ export class ReportComponent implements OnInit {
 
   async execReport(restart = false) {
     this.reportLoading = true
+    console.log(this.report.alias, this.filters, this.pagination)
     this.reportData = await this.reportService
       .execReport(this.report.alias, this.filters, this.pagination)
       .catch((err) => {

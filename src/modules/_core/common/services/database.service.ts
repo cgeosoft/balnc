@@ -125,14 +125,6 @@ export class DatabaseService {
         // })
     }
 
-    public setNamespace(namespace: string) {
-        console.log("set namespace", namespace)
-        if (namespace !== DatabaseService.namespace) { return }
-        localStorage.setItem("profile", namespace)
-        DatabaseService.namespace = namespace
-        this.loadEntities(DatabaseService.entities)
-    }
-
     private entityLoaded(parsedName) {
         const entity = DatabaseService.entities.findIndex((e) => {
             return e.name === parsedName

@@ -17,6 +17,7 @@ import { DatabaseService } from '@blnc/core/common/services/database.service';
 })
 export class ProfilesComponent implements OnInit {
 
+  error: string;
   @ViewChild(FilePickerDirective)
 
   alias: any
@@ -44,9 +45,13 @@ export class ProfilesComponent implements OnInit {
       })
   }
 
-  createProfile() {
-    const quickLocalAlias = `#${(new Date()).getTime()}`
-    const quickLocalName = `Local Profile ${quickLocalAlias}`
+  clear() {
+    this.profileService.clear()
+    this.profiles = this.profileService.config.profiles
+  }
+
+  quickCreateProfile() {
+    const quickLocalName = `Local Profile #${(new Date).getTime()}`
     this.profileService.add({
       name: quickLocalName,
     })
@@ -54,13 +59,16 @@ export class ProfilesComponent implements OnInit {
   }
 
   onFilePicked(file: ReadFile) {
+    this.error = null
     try {
-      console.log(file.content)
-      const profileStr = atob(file.content.replace("data:;base64,", ""))
+      const data = file.content.split(',')[1]
+      console.log(data)
+      const profileStr = atob(data)
       const profile = JSON.parse(profileStr)
       this.profileService.add(profile)
       this.selectProfile(profile.name)
     } catch (error) {
+      this.error = "File is corrupted"
       console.log("error" + error)
     }
   }

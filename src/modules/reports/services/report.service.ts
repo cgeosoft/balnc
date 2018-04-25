@@ -4,7 +4,9 @@ import { Observable, } from "rxjs/Observable";
 import { Injectable, OnDestroy, OnInit } from "@angular/core"
 import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 
+import * as _ from 'lodash'
 import * as moment from 'moment'
+import * as flat from 'flat'
 import { Report } from "@blnc/reports/data/report";
 import { HttpClient } from "@angular/common/http";
 
@@ -24,42 +26,12 @@ export class ReportService implements Resolve<any> {
     ) { }
 
     async resolve(route: ActivatedRouteSnapshot): Promise<boolean> {
-        await this.loadCommons()
-        await this.loadReports()
+        // this.reports = await this.http.get(`${this.reportServer}/reports`, {
+        //     headers: {
+        //         Authorization: "Basic " + btoa(this.reportServerAuth.username + ":" + this.reportServerAuth.password)
+        //     }
+        // }).toPromise().then((r: Report[]) => r)
         return true
-    }
-
-    async loadCommons() {
-        this.commons = await this.http.get(`${this.reportServer}/commons`, {
-            headers: {
-                Authorization: "Basic " + btoa(this.reportServerAuth.username + ":" + this.reportServerAuth.password)
-            }
-        }).toPromise()
-    }
-
-
-    async loadReports() {
-        this.reports = await this.http.get(`${this.reportServer}/reports`, {
-            headers: {
-                Authorization: "Basic " + btoa(this.reportServerAuth.username + ":" + this.reportServerAuth.password)
-            }
-        }).toPromise().then((reports: Report[]) => {
-            reports = reports.map(report => {
-                report.filters = report.filters.map(filter => {
-                    if (filter.common) {
-                        filter.values = this.commons[filter.common]
-                        filter.values.unshift({
-                            value: -1,
-                            label: "-- all --",
-                        })
-                    }
-                    return filter
-                })
-                return report
-            })
-
-            return reports
-        })
     }
 
     getReports() {
@@ -73,15 +45,17 @@ export class ReportService implements Resolve<any> {
     }
 
     async execReport(alias, filters, pagination) {
-        return await this.http.post(`${this.reportServer}/report/${alias}`, {
-            filters: filters,
-            pagination: pagination,
-        }, {
-                headers: {
-                    Authorization: "Basic " + btoa(this.reportServerAuth.username + ":" + this.reportServerAuth.password)
-                }
-            }).toPromise().then((result: any[]) => {
-                return result
-            })
+        const params = {}
+        if (!_.isEmpty(filters)) { params["f"] = filters }
+        if (!_.isEmpty(pagination)) { params["p"] = pagination }
+        console.log(params)
+        return await this.http.get(`${this.reportServer}/reports/${alias}`, {
+            headers: {
+                Authorization: "Basic " + btoa(this.reportServerAuth.username + ":" + this.reportServerAuth.password)
+            },
+            params: flat.flatten(params),
+        }).toPromise().then((result: any[]) => {
+            return result
+        })
     }
 }

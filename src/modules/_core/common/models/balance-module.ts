@@ -1,14 +1,17 @@
 declare interface BalanceModuleType {
   id: string
   namespace: string
-  icon: string
   title: string
   description: string
+  menu?: BalanceModuleMenuType
+  config?: any
+}
+
+declare interface BalanceModuleMenuType {
+  label: string
+  icon: string
   path: string
-  hasMenu: string
-  isActive: string
-  canChange: string
-  canConfigure: string
 }
 
 export type BalanceModule = BalanceModuleType
+export type BalanceModuleMenu = BalanceModuleMenuType

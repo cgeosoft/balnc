@@ -33,6 +33,7 @@
     "cloudinary-core": "^2.5.0",
     "core-js": "2.5.4",
     "faker": "^4.1.0",
+    "flat": "^4.0.0",
     "lodash": "^4.17.5",
     "moment": "^2.22.0",
     "ng-pwa-tools": "0.0.15",
