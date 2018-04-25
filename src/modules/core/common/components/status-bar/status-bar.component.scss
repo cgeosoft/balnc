@@ -1,0 +1,38 @@
+@import "colors";
+:host {
+  background: #eaeaea;
+  height: 20px;
+  font-size: .6rem;
+  color: #404040;
+  border-top: solid 1px #DDD;
+  .status-bar-item {
+    .fa {
+      font-size: .6rem;
+    }
+    .status-bar-item-content {
+      padding: 2px 7px;
+    }
+    .btn {
+      font-size: .6rem;
+      padding: 2px 7px;
+      height: 100%;
+      background: none;
+      border: none;
+      color: #404040;
+      border-radius: 0;
+      &:hover {
+        background: #CCC;
+      }
+    }
+    &.status-bar-item-divider {
+      &:after {
+        content: "";
+        height: 17px;
+        background: #ddd;
+        display: block;
+        width: 1px;
+        margin-top: 4px;
+      }
+    }
+  }
+}
