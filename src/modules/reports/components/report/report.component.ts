@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 import { ReportService } from '@blnc/reports/services/report.service'
-import { Report } from '@blnc/reports/data/report'
+import { RxReportDocument } from '@blnc/reports/data/report'
 
 @Component({
   selector: 'app-reports-report',
@@ -19,7 +19,7 @@ export class ReportComponent implements OnInit {
 
   error: any;
   commons: any
-  report: Report
+  report: RxReportDocument
   filters: any = {}
   pagination: any = {}
   reportData: any
@@ -38,8 +38,8 @@ export class ReportComponent implements OnInit {
     })
   }
 
-  loadReport(alias) {
-    this.report = this.reportService.getReport(alias)
+  async loadReport(alias) {
+    this.report = await this.reportService.getReport(alias)
     this.resetFilters()
   }
 

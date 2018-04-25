@@ -1,18 +1,18 @@
-import { Profile } from '@blnc/core/profile/data/profile';
-import { ENV } from 'environments/environment';
+import { Profile } from '@blnc/core/profile/data/profile'
+import { ENV } from 'environments/environment'
 
-import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router'
 import { BehaviorSubject } from 'rxjs/Rx'
-import { HelperService } from '@blnc/core/common/services/helper.service';
-import { Route } from '@angular/compiler/src/core';
+import { HelperService } from '@blnc/core/common/services/helper.service'
+import { Route } from '@angular/compiler/src/core'
 
 import * as _ from 'lodash'
 
-import { BalanceModule } from '@blnc/core/common/models/balance-module';
-import { BalanceNamespace } from '@blnc/core/common/models/balance-namespace';
-import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard';
-import { Injectable, Injector } from '@angular/core';
-import { MainComponent } from '@blnc/teams/projects/components/_main/main.component';
+import { BalanceModule } from '@blnc/core/common/models/balance-module'
+import { BalanceNamespace } from '@blnc/core/common/models/balance-namespace'
+import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard'
+import { Injectable, Injector } from '@angular/core'
+import { MainComponent } from '@blnc/teams/projects/components/_main/main.component'
 
 @Injectable()
 export class ConfigService {
@@ -21,11 +21,22 @@ export class ConfigService {
     public modules: BalanceModule[] = null
     public namespaces: BalanceNamespace[] = null
 
+    public profile: Profile = null
+
     setup() {
         this.config = ENV.configuration
         this.modules = ENV.modules.modules
         this.namespaces = ENV.modules.namespaces
         console.log("ConfigService initializing with ENV:", ENV)
+    }
+
+    getModuleConfig(moduleId: string) {
+        // const moduleItem = this.modules.find(x => x.id === moduleId)
+        // const moduleConfig = (moduleItem) ? moduleItem.config : {}
+        // const profileConfig = this.profile.modules[moduleId] || {}
+        // return Object.assign(moduleConfig, profileConfig)
+
+        return this.profile.modules[moduleId]
     }
 
     getMainMenu(profile: Profile) {

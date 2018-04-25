@@ -42,20 +42,19 @@ RxDB.plugin(require('pouchdb-adapter-websql'))
 @Injectable()
 export class DatabaseService {
 
-    public static db: RxDatabase = null
-    private static namespace: string
-    private static entities: Entity[] = []
-    private static hadAuthed = false
-    private static adapter = null
-    private static replicationStates: { [key: string]: RxReplicationState } = {}
+    public db: RxDatabase = null
+    private entities: Entity[] = []
+    private hadAuthed = false
+    private adapter = null
+    private replicationStates: { [key: string]: RxReplicationState } = {}
 
-    private static config: DatabaseConfig
+    private config: DatabaseConfig
 
     constructor(private http: HttpClient) { }
 
     public async loadEntities(entities: Entity[]) {
 
-        console.log("DatabaseService setup entities", entities, DatabaseService.namespace, "loadedEntities", DatabaseService.entities)
+        console.log("DatabaseService setup entities", entities, this.config.prefix, "loadedEntities", this.entities)
 
         const add: any[] = []
 
@@ -68,12 +67,12 @@ export class DatabaseService {
             if (this.entityLoaded(entity.name)) { return }
 
             console.log("load entity", entity)
-            const a = await DatabaseService.db.collection({
+            const a = await this.db.collection({
                 name: entity.name,
                 schema: entity.schema,
             })
 
-            DatabaseService.entities.push(entity)
+            this.entities.push(entity)
 
             add.push(a)
         }
@@ -85,17 +84,17 @@ export class DatabaseService {
 
     public sync() {
 
-        if (!DatabaseService.config.host) {
+        if (!this.config.host) {
             return
         }
 
         console.log("start syncing")
 
-        DatabaseService.entities
+        this.entities
             .filter(entity => entity.sync)
             .forEach(entity => {
-                DatabaseService.db[entity.name].sync({
-                    remote: `${DatabaseService.config.host}/${entity.name}/`,
+                this.db[entity.name].sync({
+                    remote: `${this.config.host}/${entity.name}/`,
                     options: {
                         live: true,
                         retry: true
@@ -109,13 +108,13 @@ export class DatabaseService {
 
         name = this.getEntityName(name)
         // Observable
-        //     .from(DatabaseService.entities)
-        return DatabaseService.db[name]
+        //     .from(this.entities)
+        return this.db[name]
 
         // let db: RxCollection<T>
         // return new Promise<RxCollection<T>>((resolve, reject) => {
         //     const timer = setInterval(() => {
-        //         const db = DatabaseService.db[parsedName]
+        //         const db = this.db[parsedName]
         //         console.log("got", db)
         //         if (db !== null) {
         //             clearInterval(timer)
@@ -126,27 +125,26 @@ export class DatabaseService {
     }
 
     private entityLoaded(parsedName) {
-        const entity = DatabaseService.entities.findIndex((e) => {
+        const entity = this.entities.findIndex((e) => {
             return e.name === parsedName
         })
         return entity !== -1
     }
 
     async setup(profile: Profile) {
-        DatabaseService.config = profile.database || {}
+        this.config = profile.database || {}
 
         console.log("DatabaseService initializing with profile:", profile)
-        DatabaseService.namespace = profile.alias
-        DatabaseService.adapter = await this.getAdapter()
-        DatabaseService.db = await RxDB.create({
+        this.adapter = await this.getAdapter()
+        this.db = await RxDB.create({
             name: "db",
-            adapter: DatabaseService.adapter,
+            adapter: this.adapter,
         })
 
-        if (DatabaseService.config.username) {
-            await this.http.post(`${DatabaseService.config.host}/_session`, {
-                name: DatabaseService.config.username,
-                password: DatabaseService.config.password,
+        if (this.config.user) {
+            await this.http.post(`${this.config.host}/_session`, {
+                name: this.config.user,
+                password: this.config.pass,
             }, { withCredentials: true })
         }
 
@@ -154,11 +152,10 @@ export class DatabaseService {
     }
 
     private getEntityName(entityPrimaryName: string) {
-        console.log("namespace", DatabaseService.namespace)
-        if (!DatabaseService.namespace) {
+        if (!this.config.prefix) {
             return entityPrimaryName
         }
-        return `${DatabaseService.namespace}/${entityPrimaryName}`
+        return `${this.config.prefix}${entityPrimaryName}`
     }
 
     private async getAdapter() {

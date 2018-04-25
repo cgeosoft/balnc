@@ -1,0 +1,29 @@
+{
+  "id": "report",
+  "title": "report",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "alias": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "hierarchy": {
+      "type": "number"
+    },
+    "fields": {
+      "type": "object"
+    },
+    "filters": {
+      "type": "object"
+    },
+    "query": {
+      "type": "string"
+    }
+  }
+}

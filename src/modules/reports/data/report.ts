@@ -1,10 +1,13 @@
-declare interface ReportType {
+import * as schema from './report.json'
+import { RxDocument } from 'rxdb';
+
+declare interface RxReportDocumentType {
     alias?: string
     name?: string
     description?: string
     hierarchy?: number
     fields?: any
-    filters?: ReportFilterType[]
+    filters?: any
     query?: string
 }
 
@@ -17,5 +20,5 @@ declare interface ReportFilterType {
     values?: any[]
 }
 
-export type Report = ReportType
-export type ReportFilter = ReportFilterType
+export type RxReportDocument = RxDocument<RxReportDocumentType> & RxReportDocumentType
+export const ReportSchema = schema

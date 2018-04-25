@@ -12,6 +12,9 @@ import { MainModule } from '@blnc/core/main/main.module'
 import { ProfileModule } from '@blnc/core/profile/profile.module'
 
 import { AppComponent } from './app.component'
+import { DatabaseService } from '@blnc/core/common/services/database.service';
+import { ProfileService } from '@blnc/core/profile/services/profile.service';
+import { ConfigService } from '@blnc/core/common/services/config.service';
 
 @NgModule({
   imports: [
@@ -34,7 +37,24 @@ import { AppComponent } from './app.component'
   bootstrap: [
     AppComponent
   ],
-  providers: [],
+  providers: [
+    DatabaseService,
+    ProfileService,
+    ConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (databaseService: DatabaseService, profileService: ProfileService, configService: ConfigService) => () => {
+        configService.setup()
+        profileService.setup()
+        const profile = profileService.get()
+        if (profile) {
+          configService.profile = profile
+          databaseService.setup(profile)
+        }
+      },
+      deps: [DatabaseService, ProfileService, ConfigService],
+      multi: true,
+    }],
   exports: []
 })
 export class AppModule { }

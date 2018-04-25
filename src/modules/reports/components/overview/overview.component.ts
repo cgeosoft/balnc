@@ -1,3 +1,4 @@
+import { ConfigService } from './../../../core/common/services/config.service';
 import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs/Subscription'
@@ -7,6 +8,7 @@ import { Observable } from 'rxjs/Observable'
 
 import * as _ from 'lodash'
 import * as moment from 'moment'
+import { ReportService } from '@blnc/reports/services/report.service';
 
 @Component({
   selector: 'app-reports-overview',
@@ -15,10 +17,13 @@ import * as moment from 'moment'
 })
 export class OverviewComponent implements OnInit {
 
+  config: any
 
   constructor(
+    private reportService: ReportService,
   ) { }
 
   ngOnInit() {
+    this.config = this.reportService.config
   }
 }

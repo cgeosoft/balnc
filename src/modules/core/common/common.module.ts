@@ -57,22 +57,7 @@ import { RouterModule } from '@angular/router';
   ],
   providers: [
     HelperService,
-    DatabaseService,
-    ProfileService,
-    ConfigService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (databaseService: DatabaseService, profileService: ProfileService, configService: ConfigService) => () => {
-        configService.setup()
-        profileService.setup()
-        const profile = profileService.get()
-        if (profile) {
-          databaseService.setup(profile)
-        }
-      },
-      deps: [DatabaseService, ProfileService, ConfigService],
-      multi: true,
-    }
+
   ],
   exports: [
     HttpClientModule,

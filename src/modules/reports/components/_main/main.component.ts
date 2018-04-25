@@ -4,7 +4,7 @@ import { Component, OnInit, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs/Observable'
 import { RxCollection, RxDocumentBase } from 'rxdb'
-import { Report } from '@blnc/reports/data/report';
+import { RxReportDocument } from '@blnc/reports/data/report';
 
 @Component({
   selector: 'app-reports-main',
@@ -13,7 +13,8 @@ import { Report } from '@blnc/reports/data/report';
 })
 export class MainComponent implements OnInit {
 
-  reports: Report[]
+
+  reports: RxReportDocument[]
 
   constructor(
     private modal: NgbModal,
@@ -26,7 +27,7 @@ export class MainComponent implements OnInit {
   }
 
   async loadReports() {
-    // this.reports = await this.reportService.getReports()
+    this.reports = await this.reportService.getReports()
   }
 
 }
