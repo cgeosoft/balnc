@@ -24,7 +24,7 @@
     "baseUrl": "./src",
     "paths": {
       "@blnc/core/*": [
-        "modules/_core/*"
+        "modules/core/*"
       ],
       "@blnc/business/*": [
         "modules/business/*"
