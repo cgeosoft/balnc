@@ -27,7 +27,7 @@ export class MainComponent implements OnInit {
   }
 
   async loadReports() {
-    this.reports = await this.reportService.getReports()
+    this.reports = await this.reportService.all()
   }
 
 }

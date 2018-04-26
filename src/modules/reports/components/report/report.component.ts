@@ -33,13 +33,13 @@ export class ReportComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.loadReport(params['alias'])
+      this.loadReport(params['id'])
       this.execReport(true)
     })
   }
 
-  async loadReport(alias) {
-    this.report = await this.reportService.getReport(alias)
+  async loadReport(id) {
+    this.report = await this.reportService.one(id)
     this.resetFilters()
   }
 
@@ -54,7 +54,7 @@ export class ReportComponent implements OnInit {
     this.reportLoading = true
     console.log(this.report.alias, this.filters, this.pagination)
     this.reportData = await this.reportService
-      .execReport(this.report.alias, this.filters, this.pagination)
+      .execute(this.report.alias, this.filters, this.pagination)
       .catch((err) => {
         this.reportLoading = false
         this.error = err
