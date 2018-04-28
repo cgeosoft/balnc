@@ -5,10 +5,14 @@ import { RxCollection, RxDocumentBase } from 'rxdb'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs/Observable'
 
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
 import * as _ from 'lodash'
 import * as moment from 'moment'
 import { ReportService } from '@blnc/reports/services/report.service'
-import { RxReportDocument } from '@blnc/reports/data/report'
+import { RxReportDocument, Report } from '@blnc/reports/data/report'
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-reports-report',
@@ -19,27 +23,32 @@ export class ReportComponent implements OnInit {
 
   error: any;
   commons: any
-  report: RxReportDocument
+  r: RxReportDocument
+  report: Report
   filters: any = {}
   pagination: any = {}
   reportData: any
   reportLoading = false
   maxPage: number
+  pdfData: any
 
   constructor(
     private reportService: ReportService,
     private route: ActivatedRoute,
-  ) { }
+    private sanitizer: DomSanitizer,
+  ) {
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+  }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.loadReport(params['alias'])
-      this.execReport(true)
+    this.route.params.subscribe(async params => {
+      await this.loadReport(params['id'])
+      await this.execReport()
     })
   }
 
-  async loadReport(alias) {
-    this.report = await this.reportService.getReport(alias)
+  async loadReport(id) {
+    this.report = await this.reportService.one(id)
     this.resetFilters()
   }
 
@@ -50,19 +59,24 @@ export class ReportComponent implements OnInit {
     }
   }
 
-  async execReport(restart = false) {
+  async execReport() {
     this.reportLoading = true
-    console.log(this.report.alias, this.filters, this.pagination)
     this.reportData = await this.reportService
-      .execReport(this.report.alias, this.filters, this.pagination)
+      .execute(this.report, this.filters)
       .catch((err) => {
         this.reportLoading = false
         this.error = err
       })
-    if (restart) {
-      this.pagination = { ...this.reportData.pagination }
-      this.calculateMaxPage()
-    }
+
+    console.log(this.reportData)
+    const pdf = await this.reportService.generatePdfMake({})
+
+    const doc = pdfMake.createPdf(pdf);
+
+    doc.getDataUrl((data) => {
+      this.pdfData = this.sanitizer.bypassSecurityTrustResourceUrl(data)
+    }, doc);
+
     this.reportLoading = false
   }
 

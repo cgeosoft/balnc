@@ -9,12 +9,15 @@ import { ProfileService } from '@blnc/core/profile/services/profile.service';
 })
 export class StatusBarComponent implements OnInit {
 
-  selected: Profile
+  profileName: string
+  user: string
 
   constructor(private profileService: ProfileService) { }
 
   ngOnInit() {
-    this.selected = this.profileService.get()
+    const profile = this.profileService.get()
+    this.profileName = (profile.name)
+    this.user = (profile.database) ? profile.database.user : ""
   }
 
 }

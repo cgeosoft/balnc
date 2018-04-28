@@ -41,6 +41,7 @@
     "ngx-file-helpers": "^1.0.0-alpha.5",
     "ngx-md": "^3.1.1",
     "ngx-pipes": "^2.1.2",
+    "pdfmake": "^0.1.36",
     "pouchdb-adapter-http": "6.4.3",
     "pouchdb-adapter-idb": "6.4.3",
     "pouchdb-adapter-localstorage": "^6.4.3",

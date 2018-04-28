@@ -1,70 +1,89 @@
-import { Subject } from "rxjs/Subject"
-import { RxCollection, RxReplicationState, RxDocumentBase } from "rxdb"
-import { Observable, } from "rxjs/Observable"
-import { Injectable, OnDestroy, OnInit } from "@angular/core"
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router"
-
-import * as _ from 'lodash'
-import * as moment from 'moment'
-import * as flat from 'flat'
-import { RxReportDocument, ReportSchema } from "@blnc/reports/data/report"
-import { HttpClient } from "@angular/common/http"
-import { ConfigService } from "@blnc/core/common/services/config.service";
-import { DatabaseService } from "@blnc/core/common/services/database.service";
-import { Entity } from "@blnc/core/common/models/entity";
-
-const entities: Entity[] = [{
-    name: 'report',
-    schema: ReportSchema,
-    sync: true,
-}]
-
+import { HttpClient } from "@angular/common/http";
+import { Injectable, Injector, wtfStartTimeRange } from "@angular/core";
+import { ReportSchema, RxReportDocument, Report } from "@blnc/reports/data/report";
+import * as _ from 'lodash';
+import { RxCollection } from "rxdb";
+import { BaseService } from "@blnc/core/common/services/base.service";
+import { ReportConfig } from "@blnc/reports/data/module-config";
+import { Subject } from "rxjs/Subject";
 
 @Injectable()
-export class ReportService implements Resolve<any> {
+export class ReportService extends BaseService {
 
-    config: any
-    reports: RxCollection<RxReportDocument>
+    _config: ReportConfig
+    user: any
+
+    isAuthenticated: Subject<boolean> = new Subject<boolean>();
 
     constructor(
+        private injector: Injector,
         private http: HttpClient,
-        private configService: ConfigService,
-        private dbService: DatabaseService,
-    ) { }
-
-    async resolve(route: ActivatedRouteSnapshot): Promise<boolean> {
-        await this.setup()
-        return true
+    ) {
+        super(injector)
+        this._module = "@blnc/reports"
+        this._entities = [{
+            name: 'report',
+            schema: ReportSchema,
+            sync: true,
+        }]
     }
 
-    async setup() {
-        this.config = this.configService.getModuleConfig("@blnc/reports")
-        await this.dbService.loadEntities(entities)
-        this.reports = await this.dbService.get<RxReportDocument>("report")
+    async all(params: any = {}) {
+        const reports = await super.all<RxReportDocument>("report", params)
+        return reports
     }
 
-    async getReports(params: any = {}) {
-        Object.assign(params, { query: {} })
-        const tasks = await this.reports.find(params.query).exec()
-        return tasks
+    async one(id: string) {
+        const reportDoc = await super.one<RxReportDocument>("report", id)
+        const report = { ...reportDoc } as Report
+        report.filters = report.filters.map(filter => {
+            switch (filter.type) {
+                case "select":
+                    filter.values = []
+                    filter.defaultValue = -1
+                    break
+                case "date":
+                    filter.defaultValue = (new Date()).toISOString().split('T')[0]
+                    break
+            }
+            return filter
+        });
+        return report
     }
 
-    async getReport(reportAlias: string): Promise<RxReportDocument> {
-        return await this.reports.findOne(reportAlias).exec()
+    async execute(report: Report, filters) {
+        const url = `${this._config.server.host}/execute`
+        const headers = this.generateHeaders()
+        const result = await this.http.post(url, {
+            query: report.query
+        }, headers).toPromise()
+        return result
     }
 
-    async execReport(alias, filters, pagination) {
-        const params = {}
-        if (!_.isEmpty(filters)) { params["f"] = filters }
-        if (!_.isEmpty(pagination)) { params["p"] = pagination }
-        console.log(params)
-        // return await this.http.get(`${this.reportServer}/reports/${alias}`, {
-        //     headers: {
-        //         Authorization: "Basic " + btoa(this.reportServerAuth.username + ":" + this.reportServerAuth.password)
-        //     },
-        //     params: flat.flatten(params),
-        // }).toPromise().then((result: any[]) => {
-        //     return result
-        // })
+    async generatePdfMake(data: any) {
+        return {
+            content: [{
+                style: 'tableExample',
+                table: {
+                    body: [
+                        ['Column 1', 'Column 2', 'Column 3'],
+                        ['One value goes here', 'Another one here', 'OK?']
+                    ]
+                }
+            }],
+            styles: {
+                tableExample: {
+                    margin: [0, 5, 0, 15]
+                },
+            },
+        }
+    }
+
+    private generateHeaders() {
+        return {
+            headers: {
+                Authorization: "Basic " + btoa(this.user.username + ":" + this.user.password)
+            }
+        }
     }
 }

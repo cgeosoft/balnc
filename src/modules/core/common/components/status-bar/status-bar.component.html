@@ -2,7 +2,8 @@
   <div class="ml-auto d-flex flex-row">
     <div class="status-bar-item">
       <a routerLink="/profiles" class="btn">
-        <i class="fa fa-user-circle"></i> {{selected.name}}
+        <i class="fa fa-user-circle"></i> {{profileName}}
+        <span *ngIf="user">/ {{user}}</span>
       </a>
     </div>
     <div class="status-bar-item status-bar-item-divider"></div>

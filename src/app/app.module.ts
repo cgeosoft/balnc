@@ -43,13 +43,13 @@ import { ConfigService } from '@blnc/core/common/services/config.service';
     ConfigService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (databaseService: DatabaseService, profileService: ProfileService, configService: ConfigService) => () => {
+      useFactory: (databaseService: DatabaseService, profileService: ProfileService, configService: ConfigService) => async () => {
         configService.setup()
         profileService.setup()
         const profile = profileService.get()
         if (profile) {
           configService.profile = profile
-          databaseService.setup(profile)
+          await databaseService.setup(profile)
         }
       },
       deps: [DatabaseService, ProfileService, ConfigService],

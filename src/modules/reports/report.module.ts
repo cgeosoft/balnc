@@ -9,12 +9,14 @@ import { ReportRoutes } from '@blnc/reports/routes/report.routes';
 import { ReportService } from '@blnc/reports/services/report.service';
 import { NgbDateNativeAdapter } from '@blnc/reports/adapters/datepicker.adapter';
 import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { AuthComponent } from '@blnc/reports/components/auth/auth.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     OverviewComponent,
     ReportComponent,
+    AuthComponent,
   ],
   imports: [
     CommonModule,

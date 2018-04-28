@@ -60,15 +60,13 @@ export class DatabaseService {
 
         for (const entity of entities) {
 
-            if (!entity.single) {
-                entity.name = this.getEntityName(entity.name)
-            }
+            const prefixedName = this.getEntityName(entity.name)
 
             if (this.entityLoaded(entity.name)) { return }
 
             console.log("load entity", entity)
             const a = await this.db.collection({
-                name: entity.name,
+                name: prefixedName,
                 schema: entity.schema,
             })
 
@@ -76,7 +74,6 @@ export class DatabaseService {
 
             add.push(a)
         }
-        console.log(add)
 
         await Promise.all(add)
         this.sync()
@@ -93,8 +90,9 @@ export class DatabaseService {
         this.entities
             .filter(entity => entity.sync)
             .forEach(entity => {
-                this.db[entity.name].sync({
-                    remote: `${this.config.host}/${entity.name}/`,
+                const prefixedName = this.getEntityName(entity.name)
+                this.db[prefixedName].sync({
+                    remote: `${this.config.host}/${prefixedName}/`,
                     options: {
                         live: true,
                         retry: true
@@ -105,23 +103,8 @@ export class DatabaseService {
 
     public async get<T>(name: string): Promise<RxCollection<T>> {
         console.log("DatabaseService get", name)
-
-        name = this.getEntityName(name)
-        // Observable
-        //     .from(this.entities)
-        return this.db[name]
-
-        // let db: RxCollection<T>
-        // return new Promise<RxCollection<T>>((resolve, reject) => {
-        //     const timer = setInterval(() => {
-        //         const db = this.db[parsedName]
-        //         console.log("got", db)
-        //         if (db !== null) {
-        //             clearInterval(timer)
-        //             resolve(db)
-        //         }
-        //     }, 500)
-        // })
+        const prefixedName = this.getEntityName(name)
+        return this.db[prefixedName]
     }
 
     private entityLoaded(parsedName) {
@@ -142,10 +125,12 @@ export class DatabaseService {
         })
 
         if (this.config.user) {
-            await this.http.post(`${this.config.host}/_session`, {
+            console.log(" >> user:", this.config.user)
+            const res = await this.http.post(`${this.config.host}/_session`, {
                 name: this.config.user,
                 password: this.config.pass,
             }, { withCredentials: true })
+                .toPromise()
         }
 
         console.log("DatabaseService Initialized")

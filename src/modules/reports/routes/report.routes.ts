@@ -5,6 +5,8 @@ import { OverviewComponent } from "@blnc/reports/components/overview/overview.co
 import { ReportComponent } from "@blnc/reports/components/report/report.component";
 
 import { ReportService } from '@blnc/reports/services/report.service';
+import { AuthComponent } from "@blnc/reports/components/auth/auth.component";
+
 const routes: Routes = [{
   path: '',
   component: MainComponent,
@@ -13,7 +15,8 @@ const routes: Routes = [{
   },
   children: [
     { path: 'overview', component: OverviewComponent },
-    { path: ':alias', component: ReportComponent },
+    { path: 'auth', component: AuthComponent },
+    { path: ':id', component: ReportComponent },
     { path: '', redirectTo: "overview" },
   ],
 }]
