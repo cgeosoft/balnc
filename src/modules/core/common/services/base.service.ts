@@ -1,10 +1,8 @@
-import { RxCollection, RxDocument } from 'rxdb';
 import { Injector } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 import { Entity } from "@blnc/core/common/models/entity";
 import { ConfigService } from "@blnc/core/common/services/config.service";
 import { DatabaseService } from "@blnc/core/common/services/database.service";
-
 
 export abstract class BaseService implements Resolve<any> {
 
@@ -15,7 +13,7 @@ export abstract class BaseService implements Resolve<any> {
     protected _entities: Entity[]
 
     protected _config: any
-    protected _data: RxCollection<RxDocument<any>>[] = []
+    protected _data: any
 
     constructor(injector: Injector) {
         this.configService = injector.get(ConfigService)
@@ -35,13 +33,12 @@ export abstract class BaseService implements Resolve<any> {
         })
     }
 
-    public async all<T>(entity: string, params: any = {}) {
-        params = Object.assign(params, { query: {} })
-        const dd = this._data[entity]
-        return await dd.find(params.query).exec() as T[]
+    public async all(entity: string, params: any = {}) {
+        Object.assign(params, { query: {} })
+        return await this._data[entity].find(params.query).exec()
     }
 
-    public async one<T>(entity: string, id: string) {
-        return await this._data[entity].findOne(id).exec() as T
+    public async one(entity: string, id: string) {
+        return await this._data[entity].findOne(id).exec()
     }
 }

@@ -41,9 +41,9 @@ export class ReportComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(async params => {
-      await this.loadReport(params['id'])
-      await this.execReport()
+    this.route.params.subscribe(params => {
+      this.loadReport(params['id'])
+      this.execReport(true)
     })
   }
 
