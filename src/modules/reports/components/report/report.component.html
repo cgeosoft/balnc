@@ -1,5 +1,5 @@
 <div class="d-flex" style="height:100%;width:100%" *ngIf="report">
-  <div class="bg-dark text-white p-4" style="width:220px;height:100%">
+  <div class="bg-dark text-white p-4" style="width:250px;height:100%">
     <h4 style="font-weight: 300">Filters</h4>
     <ng-template ngFor let-filter [ngForOf]="report.filters" *ngIf="report.filters.length">
       <div class="form-group" *ngIf="filter.type === 'select'">
@@ -26,11 +26,9 @@
     <button class="btn btn-dark btn-block" (click)="resetFilters()" [disabled]="reportLoading">
       <span class="fa fa-times"></span> Reset</button>
     <hr>
-    <button class="btn btn-outline-light btn-sm btn-block" (click)="execPrint()">
-      <span class="fa fa-print"></span> Print / PDF</button>
     <button class="btn btn-outline-light btn-sm btn-block" (click)="execExport()">
       <span class="fa fa-file-excel"></span> Export</button>
-    <!-- <app-debug-panel [data]="filters"></app-debug-panel> -->
+    <app-debug-panel [data]="filters"></app-debug-panel>
   </div>
   <div class="d-flex flex-column" style="height:100%;width:100%">
     <ng-container *ngIf="!reportLoading; else loader">

@@ -8,6 +8,7 @@ declare interface RxReportDocumentType {
     hierarchy?: number
     fields?: any
     filters?: ReportFilter[]
+    pdf?: any
     query?: string
 }
 
@@ -15,8 +16,9 @@ declare interface ReportFilterType {
     name: string
     field: string
     type: string
-    defaultValue?: any
-    common?: string
+    default?: any
+    value?: any
+    data?: string
     values?: any[]
 }
 

@@ -68,9 +68,7 @@ export class ReportComponent implements OnInit {
         this.error = err
       })
 
-    console.log(this.reportData)
-    const pdf = await this.reportService.generatePdfMake({})
-
+    const pdf = await this.reportService.generatePdfMake(this.report, this.reportData)
     const doc = pdfMake.createPdf(pdf);
 
     doc.getDataUrl((data) => {
@@ -80,46 +78,12 @@ export class ReportComponent implements OnInit {
     this.reportLoading = false
   }
 
-  setSort(field) {
-    if (this.pagination.sortBy === field) {
-      this.pagination.sortDir = (this.pagination.sortDir === "asc") ? "desc" : "asc"
-    } else {
-      this.pagination.sortBy = field
-      this.pagination.sortDir = "asc"
-    }
-    this.calculateMaxPage()
-    this.pagination.pageNo = (this.pagination.pageNo > this.maxPage) ? this.maxPage : this.pagination.pageNo;
-    this.execReport()
-  }
-
-  setPageSize() {
-    this.calculateMaxPage()
-    this.pagination.pageNo = (this.pagination.pageNo > this.maxPage) ? this.maxPage : this.pagination.pageNo;
-    this.execReport()
-  }
-
-  calculateMaxPage() {
-    this.maxPage = Math.floor(this.reportData.data.totalCount / this.pagination.pageSize)
-    this.maxPage += (this.reportData.data.totalCount % this.pagination.pageSize) ? 1 : 0
-  }
-
-  previousPage() {
-    this.pagination.pageNo--
-    this.pagination.pageNo = (this.pagination.pageNo < 0) ? 0 : this.pagination.pageNo;
-    this.execReport()
-  }
-  nextPage() {
-    this.pagination.pageNo++
-    this.pagination.pageNo = (this.pagination.pageNo > this.maxPage) ? this.maxPage : this.pagination.pageNo;
-    this.execReport()
-  }
-
   resetFilters() {
     this.filters = this.report.filters
       .map(filter => {
         return {
           key: filter.field,
-          value: filter.defaultValue
+          value: filter.value
         }
       })
       .reduce((map, obj) => {
