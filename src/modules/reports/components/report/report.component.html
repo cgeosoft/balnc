@@ -1,0 +1,53 @@
+<div class="report-wrapper" *ngIf="report">
+  <div class="filters">
+    <h4>Filters</h4>
+    <ng-template ngFor let-filter [ngForOf]="report.filters" *ngIf="report.filters.length">
+      <div class="form-group" *ngIf="filter.type === 'select'">
+        <label>{{filter.name}}</label>
+        <select class="form-control form-control-sm" [(ngModel)]="filters[filter.field]">
+          <option *ngFor="let filterVal of filter.values | keys" [ngValue]="filterVal.value">{{filterVal.label}}</option>
+        </select>
+      </div>
+      <div class="form-group" *ngIf="filter.type === 'date'">
+        <label>{{filter.name}}</label>
+        <div class="input-group">
+          <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" [(ngModel)]="filters[filter.field]" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-light btn-sm" (click)="d.toggle(); $event.stopPropagation()" (document:click)="decideClosure($event, d)"
+              type="button">
+              <span class="fa fa-calendar-alt"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <button class="btn btn-primary btn-block" (click)="execReport(true)" [disabled]="reportLoading">
+      <span class="fa fa-database"></span> Execute</button>
+    <button class="btn btn-dark btn-block" (click)="resetFilters()" [disabled]="reportLoading">
+      <span class="fa fa-times"></span> Reset</button>
+    <hr>
+    <button class="btn btn-outline-light btn-sm btn-block" (click)="execExport()">
+      <span class="fa fa-file-excel"></span> Export</button>
+  </div>
+  <div class="d-flex flex-column" style="height:100%;width:100%">
+    <ng-container *ngIf="!reportLoading; else loader">
+      <ng-container *ngIf="pdfData">
+        <iframe [src]="pdfData" frameborder="0" style="height:100%;width:100%" type="application/pdf"></iframe>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="error">
+      <div class="container">
+        <app-debug-panel [data]="error" [isError]="true"></app-debug-panel>
+      </div>
+    </ng-container>
+    <ng-template #notLoad>
+      <app-empty-panel message="Use the filters to fetch some data" icon="cubes"></app-empty-panel>
+    </ng-template>
+    <ng-template #noResults>
+      <app-empty-panel message="No data were found" icon="cubes"></app-empty-panel>
+    </ng-template>
+    <ng-template #loader>
+      <app-loader animation="sk-cube" label="Building Report..."></app-loader>
+    </ng-template>
+  </div>
+</div>

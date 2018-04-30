@@ -6,11 +6,10 @@ import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 
 import * as moment from 'moment'
 
-import { DatabaseService } from "@blnc/core/database/services/database.service"
-
 import { RxProjectDocument, ProjectSchema } from "../data/project"
 import { RxLogDocument, LogSchema } from "../data/log"
-import { Entity } from "@blnc/core/database/models/entity";
+import { Entity } from "@blnc/core/common/models/entity";
+import { DatabaseService } from "@blnc/core/common/services/database.service";
 
 const entities: Entity[] = [{
     name: 'project',
@@ -38,7 +37,7 @@ export class ProjectsService implements Resolve<any> {
     }
 
     async setup() {
-        await this.dbService.setup(entities)
+        await this.dbService.loadEntities(entities)
         this.projects = await this.dbService.get<RxProjectDocument>("project")
         this.logs = await this.dbService.get<RxLogDocument>("log")
     }

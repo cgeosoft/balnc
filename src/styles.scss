@@ -1,12 +1,12 @@
-@import "../scss/colors";
-@import "../scss/components/bootstrap";
-@import "../scss/components/core";
-@import "../scss/components/content";
-@import "../scss/components/centerbox";
-@import "../scss/components/invoice";
-@import "../scss/components/chat";
-@import "../scss/components/list-menu";
-@import "../scss/components/table-max";
+@import "colors";
+@import "components/bootstrap";
+@import "components/core";
+@import "components/content";
+@import "components/centerbox";
+@import "components/invoice";
+@import "components/chat";
+@import "components/list-menu";
+@import "components/table-max";
 .card-header-buttons {
   float: right;
   >button,
@@ -28,6 +28,24 @@
   height: 100%
 }
 
-.mono {
-  font-family: monospace;
+.card-header {
+  .btn,
+  .form-control {
+    height: 24px !important;
+    padding: 0 5px !important;
+    margin: 0 0 0 .7rem;
+  }
+}
+
+thead {
+  th {
+    .btn {
+      background: none;
+      padding: 0;
+      .fa {
+        margin-left: 10px !important;
+        padding: 3px;
+      }
+    }
+  }
 }

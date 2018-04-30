@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { DatabaseModule } from '@blnc/core/database/database.module'
-import { Entity } from '@blnc/core/database/models/entity';
-
 import { ContactItemComponent, ContactsOverviewComponent } from './components'
 
 import { CommonModule } from '@blnc/core/common/common.module';

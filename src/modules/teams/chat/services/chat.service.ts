@@ -6,11 +6,9 @@ import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 
 import * as moment from 'moment'
 
-import { DatabaseService } from "@blnc/core/database/services/database.service"
-
 import { RxChatMessageDocument, ChatMessageSchema } from "../data/message"
-
-import { Entity } from "@blnc/core/database/models/entity";
+import { Entity } from "@blnc/core/common/models/entity";
+import { DatabaseService } from "@blnc/core/common/services/database.service";
 
 const entities: Entity[] = [{
     name: 'message',
@@ -33,7 +31,7 @@ export class ChatService implements Resolve<any> {
     }
 
     async setup() {
-        await this.dbService.setup(entities)
+        await this.dbService.loadEntities(entities)
         this.chatMessages = await this.dbService.get<RxChatMessageDocument>("message")
     }
 

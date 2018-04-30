@@ -31,3 +31,32 @@
   - if yes: send a join-team email, asking to login and accept invite
   - if no: send a register-and-join email
 
+
+## Query Report process
+- start screen
+- ‎add remote
+- ‎select file
+- ‎upload file to local storage
+- ‎load reports module
+- ‎load queries module
+- ‎decrypt queries using profile
+- ‎select query from list
+- ‎add query params
+- ‎submit query to local server
+- ‎render results to view
+- ‎export results to pdf/excel
+
+
+## Login and switching
+- start add local profile
+- ‎setup user
+- ‎do job
+- ‎add remote profile from file
+- ‎switch profile
+- ‎type username password
+- ‎do job
+- ‎logoff
+- ‎load remote profile
+- ‎type other username password
+- ‎do job
+

@@ -1,162 +1,165 @@
 {
   "modules": [{
     "id": "@blnc/core-common",
-    "namespace": "@blnc/core-*",
-    "icon": null,
+    "namespace": "@blnc/core",
     "title": "Core",
     "description": "It contains all the base components and ui mechanisms",
     "path": null,
-    "hasMenu": false,
-    "isActive": true,
-    "canChange": false,
-    "canConfigure": false
+    "menu": null,
+    "config": null
   }, {
     "id": "@blnc/core-dashboard",
-    "namespace": "@blnc/core-*",
-    "icon": null,
+    "namespace": "@blnc/core",
     "title": "Dashboard",
     "description": "You may configure the dasboard module from the panels",
-    "path": "/dashboard",
-    "hasMenu": false,
-    "isActive": true,
-    "canChange": false,
-    "canConfigure": false
+    "menu": {
+      "path": "dashboard"
+    },
+    "config": null
   }, {
     "id": "@blnc/core-profiles",
-    "namespace": "@blnc/core-*",
-    "icon": null,
+    "namespace": "@blnc/core",
     "title": "Profiles",
     "description": "Profiles are the groups that hold all the details and setting of your company",
     "path": null,
-    "hasMenu": false,
-    "isActive": true,
-    "canChange": false,
-    "canConfigure": false
+    "menu": null,
+    "config": null
   }, {
     "id": "@blnc/core-settings",
-    "namespace": "@blnc/core-*",
-    "icon": null,
+    "namespace": "@blnc/core",
     "title": "Settings",
     "description": "You are here!",
     "path": null,
-    "hasMenu": false,
-    "isActive": true,
-    "canChange": false,
-    "canConfigure": false
+    "menu": null,
+    "config": null
   }, {
     "id": "@blnc/business-contacts",
-    "namespace": "@blnc/business-*",
-    "icon": "users",
+    "namespace": "@blnc/business",
     "title": "Contacts",
     "description": "Setup companies and persons that you may include into orders and invoices",
-    "path": "/contacts",
-    "hasMenu": true,
-    "isActive": true,
-    "canChange": true,
-    "canConfigure": true
+    "menu": {
+      "label": "Contacts",
+      "icon": "users",
+      "path": "contacts"
+    },
+    "config": null
   }, {
     "id": "@blnc/business-orders",
-    "namespace": "@blnc/business-*",
-    "icon": "shopping-cart",
+    "namespace": "@blnc/business",
     "title": "Orders",
     "description": "Plain old order book for manage your day-to-day business",
-    "path": "/orders",
-    "hasMenu": true,
-    "isActive": true,
-    "canChange": true,
-    "canConfigure": true
+    "menu": {
+      "label": "Orders",
+      "icon": "shopping-cart",
+      "path": "orders"
+    },
+    "config": null
   }, {
     "id": "@blnc/business-invoices",
-    "namespace": "@blnc/business-*",
-    "icon": "copy",
+    "namespace": "@blnc/business",
     "title": "Invoices",
     "description": "Setup a simple invoice system and generate statistics",
-    "path": "/invoices",
-    "hasMenu": true,
-    "isActive": true,
-    "canChange": true,
-    "canConfigure": true
+    "menu": {
+      "label": "Invoices",
+      "icon": "copy:regular",
+      "path": "invoices"
+    },
+    "config": null
   }, {
     "id": "@blnc/marketing-presentations",
-    "namespace": "@blnc/marketing-*",
-    "icon": "desktop",
+    "namespace": "@blnc/marketing",
     "title": "Presentations",
     "description": "Setup presentations and sync them seamlessly to your mobile devices",
-    "path": "/presentations",
-    "hasMenu": true,
-    "isActive": true,
-    "canChange": true,
-    "canConfigure": true
+    "menu": {
+      "label": "Presentations",
+      "icon": "desktop",
+      "path": "presentations"
+    },
+    "config": null
   }, {
     "id": "@blnc/marketing-analytics",
-    "namespace": "@blnc/marketing-*",
-    "icon": null,
+    "namespace": "@blnc/marketing",
     "title": "Analytics - Under Construction",
     "description": "Use for overview your website analytics",
-    "path": "/analytics",
-    "hasMenu": true,
-    "isActive": false,
-    "canChange": false,
-    "canConfigure": false
+    "menu": {
+      "path": "analytics"
+    },
+    "config": null
   }, {
     "id": "@blnc/marketing-polls",
-    "namespace": "@blnc/marketing-*",
-    "icon": null,
+    "namespace": "@blnc/marketing",
     "title": "Polls - Under Construction",
     "description": "Setup usefull online polls and questionnaires",
-    "path": "/polls",
-    "hasMenu": true,
-    "isActive": false,
-    "canChange": false,
-    "canConfigure": false
+    "menu": {
+      "path": "polls"
+    },
+    "config": null
   }, {
     "id": "@blnc/marketing-emails",
-    "namespace": "@blnc/marketing-*",
-    "icon": null,
+    "namespace": "@blnc/marketing",
     "title": "Emails - Under Construction",
     "description": "Setup email campains and manage automated responders",
-    "path": "/emails",
-    "hasMenu": true,
-    "isActive": false,
-    "canChange": false,
-    "canConfigure": false
+    "menu": {
+      "path": "emails"
+    },
+    "config": null
   }, {
     "id": "@blnc/teams-projects",
-    "namespace": "@blnc/teams-*",
-    "icon": "cubes",
+    "namespace": "@blnc/teams",
     "title": "Projects",
     "description": "An advanced project and task management tool.",
-    "path": "/projects",
-    "hasMenu": true,
-    "isActive": true,
-    "canChange": true,
-    "canConfigure": true
+    "menu": {
+      "label": "Projects",
+      "icon": "cubes",
+      "path": "projects"
+    },
+    "config": null
   }, {
     "id": "@blnc/teams-chat",
-    "namespace": "@blnc/teams-*",
-    "icon": "comment",
+    "namespace": "@blnc/teams",
     "title": "Chat",
     "description": "A simple but full-feature team chat with customizable rooms",
-    "path": "/chat",
-    "hasMenu": true,
-    "isActive": true,
-    "canChange": true,
-    "canConfigure": true
+    "menu": {
+      "label": "Chat",
+      "icon": "comments:regular",
+      "path": "chat"
+    },
+    "config": null
+  }, {
+    "id": "@blnc/reports",
+    "namespace": "@blnc/reports",
+    "title": "Reports",
+    "description": "A simple but full-feature team chat with customizable rooms",
+    "menu": {
+      "label": "Reports",
+      "icon": "file-alt:regular",
+      "path": "reports"
+    },
+    "config": {
+      "server": {
+        "requireUser": {
+          "type": "boolean"
+        },
+        "host": {
+          "type": "string"
+        }
+      }
+    }
   }],
   "namespaces": [{
-    "id": "@blnc/core-*",
+    "id": "@blnc/core",
     "title": "Core System",
-    "description": "This is the balance core namespace and is is included by default. It hold all the basic modules/components like database and configuration."
+    "description": "This is the balance core namespace and is is included by default. It hold all the basic modules/components like database and configurati."
   }, {
-    "id": "@blnc/business-*",
+    "id": "@blnc/business",
     "title": "Business",
-    "description": "In this namespace you will find business modules that will help you manage your customers, orders and profileing."
+    "description": "In this namespace you will find business modules that will help you manage your customers, orders and profilei."
   }, {
-    "id": "@blnc/marketing-*",
+    "id": "@blnc/marketing",
     "title": "Marketing",
     "description": "It includes module for your marketing team. Use for set presentations, email campaings and view analytics."
   }, {
-    "id": "@blnc/teams-*",
+    "id": "@blnc/teams",
     "title": "Teams",
     "description": "A set of modules for easy team managements. It includes a chat systems, projects and task management."
   }]

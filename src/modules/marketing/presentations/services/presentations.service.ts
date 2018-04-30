@@ -7,10 +7,9 @@ import { ActivatedRouteSnapshot, Resolve } from "@angular/router"
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { DatabaseService } from "@blnc/core/database/services/database.service"
-
-import { Entity } from "@blnc/core/database/models/entity"
 import { PresentationSchema, RxPresentationDocument } from "@blnc/marketing/presentations/data/presentation"
+import { DatabaseService } from "@blnc/core/common/services/database.service";
+import { Entity } from "@blnc/core/common/models/entity";
 
 const entities: Entity[] = [{
   name: 'presentation',
@@ -33,7 +32,7 @@ export class PresentationsService implements Resolve<any> {
   }
 
   async setup() {
-    await this.dbService.setup(entities)
+    await this.dbService.loadEntities(entities)
     this.presentations = await this.dbService.get<RxPresentationDocument>("presentation")
   }
 
@@ -86,7 +85,6 @@ export class PresentationsService implements Resolve<any> {
       return
     }
     const image = presentation.pages[0].params.image
-    console.log(image)
     return await this.getImage(presentation, image)
 
   }

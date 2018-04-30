@@ -5,7 +5,6 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import * as _ from "lodash"
 import * as moment from "moment"
 
-import { DatabaseService } from '@blnc/core/database/services/database.service'
 import { RxPresentationDocument } from '../../data/presentation'
 import { UploadComponent } from "../upload/upload.component"
 import { AddPageComponent } from "../add-page/add-page.component"
@@ -29,7 +28,6 @@ export class ItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private dbService: DatabaseService,
     private zone: NgZone,
     private router: Router,
     private modal: NgbModal,
@@ -94,9 +92,7 @@ export class ItemComponent implements OnInit, OnDestroy {
 
     for (const attachment of attachments) {
       if (usedFiles.indexOf(attachment.id) === -1) {
-        console.log("removing", attachment.id)
         await attachment.remove()
-        console.log("removed", attachment.id)
       }
     }
   }

@@ -1,0 +1,27 @@
+{
+  "alias": "demo",
+  "name": "Demo Company",
+  "secret": null,
+  "user": null,
+  "database": {
+    "prefix": "demo",
+    "host": "http://s2.cgeosoft.com:5984",
+    "user": "demo",
+    "pass": "demo"
+  },
+  "modules": {
+    "@blnc/business-invoices": {
+      "enabled": true
+    },
+    "@blnc/marketing-presentations": {
+      "enabled": true
+    },
+    "@blnc/teams-projects": {
+      "enabled": true
+    },
+    "@blnc/teams-chat": {
+      "enabled": true
+    }
+  },
+  "params": null
+}
