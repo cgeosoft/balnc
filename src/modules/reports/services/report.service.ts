@@ -43,7 +43,6 @@ export class ReportService extends BaseService {
             if (a.name > b.name) { return 1; }
             return 0;
         })
-        console.log("reoirts", reports)
         return reports
     }
 

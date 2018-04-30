@@ -42,7 +42,7 @@ RxDB.plugin(require('pouchdb-adapter-websql'))
 @Injectable()
 export class DatabaseService {
 
-    public db: RxDatabase = null
+    private db: RxDatabase = null
     private entities: Entity[] = []
     private hadAuthed = false
     private adapter = null
@@ -105,12 +105,15 @@ export class DatabaseService {
     async setup(profile: Profile) {
         this.config = profile.database || {}
 
-        console.log("DatabaseService initializing with profile:", profile)
-        this.adapter = await this.getAdapter()
-        this.db = await RxDB.create({
-            name: "db",
-            adapter: this.adapter,
-        })
+        console.log("DatabaseService initializing...")
+
+        if (!this.db) {
+            this.adapter = await this.getAdapter()
+            this.db = await RxDB.create({
+                name: "db",
+                adapter: this.adapter,
+            })
+        }
 
         if (this.config.user) {
             const res = await this.http.post(`${this.config.host}/_session`, {
@@ -120,7 +123,7 @@ export class DatabaseService {
                 .toPromise()
         }
 
-        console.log("DatabaseService Initialized")
+        console.log("DatabaseService Initialized with profile:", profile)
     }
 
     private async getAdapter() {

@@ -5,7 +5,7 @@ import { NgModule, APP_INITIALIZER, Injector } from '@angular/core'
 
 import { NgPipesModule } from 'ngx-pipes'
 import { MomentModule } from 'angular2-moment'
-import { FileHelpersModule } from 'ngx-file-helpers';
+import { FileHelpersModule } from 'ngx-file-helpers'
 
 import { SideBarComponent } from '@blnc/core/common/components/side-bar/side-bar.component'
 import { StatusBarComponent } from '@blnc/core/common/components/status-bar/status-bar.component'
@@ -20,13 +20,13 @@ import { EllipsisPipe } from '@blnc/core/common/pipes/ellipsis.pipe'
 import { HttpClientModule } from '@angular/common/http'
 import { DocVersionPipe } from '@blnc/core/common/pipes/doc-version.pipe'
 import { FilesModule } from '@blnc/core/files/files.module'
-import { ProdNotifComponent } from '@blnc/core/common/components/prod-notif/prod-notif.component'
 
 import { HelperService } from '@blnc/core/common/services/helper.service'
-import { ConfigService } from '@blnc/core/common/services/config.service';
-import { DatabaseService } from '@blnc/core/common/services/database.service';
-import { ProfileService } from '@blnc/core/profile/services/profile.service';
-import { RouterModule } from '@angular/router';
+import { ConfigService } from '@blnc/core/common/services/config.service'
+import { DatabaseService } from '@blnc/core/common/services/database.service'
+import { ProfileService } from '@blnc/core/profile/services/profile.service'
+import { RouterModule } from '@angular/router'
+import { WelcomeGuard } from '@blnc/core/welcome/welcome.guard'
 
 @NgModule({
   imports: [
@@ -50,14 +50,13 @@ import { RouterModule } from '@angular/router';
     ContentBodyComponent,
     EmptyPanelComponent,
     DebugPanelComponent,
-    ProdNotifComponent,
     LoaderComponent,
     EllipsisPipe,
     DocVersionPipe,
   ],
   providers: [
     HelperService,
-
+    WelcomeGuard,
   ],
   exports: [
     HttpClientModule,
@@ -72,7 +71,6 @@ import { RouterModule } from '@angular/router';
     ContentBodyComponent,
     EmptyPanelComponent,
     DebugPanelComponent,
-    ProdNotifComponent,
     LoaderComponent,
     NgPipesModule,
     FileHelpersModule,
@@ -81,8 +79,6 @@ import { RouterModule } from '@angular/router';
     DocVersionPipe,
     FilesModule,
   ],
-  entryComponents: [
-    ProdNotifComponent,
-  ]
+  entryComponents: []
 })
 export class CommonModule { }

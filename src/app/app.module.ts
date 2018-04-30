@@ -15,6 +15,8 @@ import { AppComponent } from './app.component'
 import { DatabaseService } from '@blnc/core/common/services/database.service';
 import { ProfileService } from '@blnc/core/profile/services/profile.service';
 import { ConfigService } from '@blnc/core/common/services/config.service';
+import { WelcomeGuard } from '@blnc/core/welcome/welcome.guard';
+import { WelcomeModule } from '@blnc/core/welcome/welcome.module';
 
 @NgModule({
   imports: [
@@ -30,6 +32,7 @@ import { ConfigService } from '@blnc/core/common/services/config.service';
     CommonModule,
     MainModule,
     ProfileModule,
+    WelcomeModule,
   ],
   declarations: [
     AppComponent

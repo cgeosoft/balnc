@@ -39,8 +39,11 @@ export abstract class BaseService implements Resolve<any> {
 
     public async all<T>(entity: string, params: any = {}) {
         params = Object.assign(params, { query: {} })
-        const dd = this._data[entity]
-        return await dd.find(params.query).exec() as T[]
+        const dd = this._data[entity] as RxCollection<T>
+        if (!dd) { return [] }
+        const res = await dd.find(params.query).exec()
+        console.log("res", res)
+        return res as T[]
     }
 
     public async one<T>(entity: string, id: string) {
