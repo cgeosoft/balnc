@@ -17,6 +17,7 @@ import { MainComponent } from '@blnc/teams/projects/components/_main/main.compon
 @Injectable()
 export class ConfigService {
 
+    public version: any = null
     public config: any = null
     public modules: BalanceModule[] = null
     public namespaces: BalanceNamespace[] = null
@@ -27,20 +28,15 @@ export class ConfigService {
         this.config = ENV.configuration
         this.modules = ENV.modules.modules
         this.namespaces = ENV.modules.namespaces
+        this.version = ENV.package.version
         console.log("ConfigService initializing with ENV:", ENV)
     }
 
     getModuleConfig(moduleId: string) {
-        // const moduleItem = this.modules.find(x => x.id === moduleId)
-        // const moduleConfig = (moduleItem) ? moduleItem.config : {}
-        // const profileConfig = this.profile.modules[moduleId] || {}
-        // return Object.assign(moduleConfig, profileConfig)
-
         return this.profile.modules[moduleId]
     }
 
     getMainMenu(profile: Profile) {
-        console.log("profile", profile, this.modules)
         const menu = _.chain(this.modules)
             .filter(m => {
                 return profile.modules &&
@@ -55,7 +51,6 @@ export class ConfigService {
                 return l
             })
             .value()
-        console.log("menu", menu)
         return menu
     }
 }

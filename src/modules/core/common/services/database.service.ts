@@ -25,7 +25,7 @@ RxDB.QueryChangeDetector.enable()
 
 if (!ENV.production) {
     RxDB.plugin(RxDBSchemaCheckModule)
-    RxDB.QueryChangeDetector.enableDebugging()
+    // RxDB.QueryChangeDetector.enableDebugging()
 }
 
 RxDB.plugin(KeycompressionPlugin)
@@ -59,20 +59,13 @@ export class DatabaseService {
         const add: any[] = []
 
         for (const entity of entities) {
-
-            const prefixedName = this.getEntityName(entity.name)
-
             if (this.entityLoaded(entity.name)) { return }
-
-            console.log("load entity", entity)
-            const a = await this.db.collection({
-                name: prefixedName,
+            const ent = await this.db.collection({
+                name: `${this.config.prefix}/${entity.name}`,
                 schema: entity.schema,
             })
-
             this.entities.push(entity)
-
-            add.push(a)
+            add.push(ent)
         }
 
         await Promise.all(add)
@@ -85,14 +78,11 @@ export class DatabaseService {
             return
         }
 
-        console.log("start syncing")
-
         this.entities
             .filter(entity => entity.sync)
             .forEach(entity => {
-                const prefixedName = this.getEntityName(entity.name)
-                this.db[prefixedName].sync({
-                    remote: `${this.config.host}/${prefixedName}/`,
+                this.db[`${this.config.prefix}/${entity.name}`].sync({
+                    remote: `${this.config.host}/${this.config.prefix}-${entity.name}/`,
                     options: {
                         live: true,
                         retry: true
@@ -102,9 +92,7 @@ export class DatabaseService {
     }
 
     public async get<T>(name: string): Promise<RxCollection<T>> {
-        console.log("DatabaseService get", name)
-        const prefixedName = this.getEntityName(name)
-        return this.db[prefixedName]
+        return this.db[`${this.config.prefix}/${name}`]
     }
 
     private entityLoaded(parsedName) {
@@ -125,7 +113,6 @@ export class DatabaseService {
         })
 
         if (this.config.user) {
-            console.log(" >> user:", this.config.user)
             const res = await this.http.post(`${this.config.host}/_session`, {
                 name: this.config.user,
                 password: this.config.pass,
@@ -136,23 +123,13 @@ export class DatabaseService {
         console.log("DatabaseService Initialized")
     }
 
-    private getEntityName(entityPrimaryName: string) {
-        if (!this.config.prefix) {
-            return entityPrimaryName
-        }
-        return `${this.config.prefix}${entityPrimaryName}`
-    }
-
     private async getAdapter() {
-
-        if (await RxDB.checkAdapter('idb')) {
-            return "idb"
-        }
-        if (await RxDB.checkAdapter('websql')) {
-            return "websql"
-        }
-        // if (await RxDB.checkAdapter('localstorage')) {
-        //     return "localstorage"
+        return "idb"
+        // if (await RxDB.checkAdapter('idb')) {
+        //     return "idb"
+        // }
+        // if (await RxDB.checkAdapter('websql')) {
+        //     return "websql"
         // }
     }
 

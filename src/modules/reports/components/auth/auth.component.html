@@ -1,11 +1,12 @@
 <app-content>
+  <app-content-header title="Reports" icon="cubes"></app-content-header>
   <app-content-body>
-    <div class="card" style="max-width: 250px;">
+    <div class="card border-dark mb-3">
       <div class="card-body">
         <h1 class="display-4">
           Sign In
         </h1>
-        <p>Your report server requires authenticatio</p>
+        <p>Your report server requires authentication</p>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label>Username</label>

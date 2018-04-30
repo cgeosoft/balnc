@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms'
 @Component({
   selector: 'app-reports-auth',
   templateUrl: 'auth.component.html',
+  styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
 
@@ -35,11 +36,8 @@ export class AuthComponent implements OnInit {
 
   onSubmit() {
     const formModel = this.form.value
-    this.reportService.user = {
-      username: formModel.username,
-      password: formModel.password,
-    }
+    this.reportService.sign(formModel.username, formModel.password)
     this.reportService.isAuthenticated.next(true)
-    this.router.navigate(["reports/overview"])
+    this.router.navigate(["reports", "view", "overview"])
   }
 }

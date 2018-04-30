@@ -7,6 +7,7 @@ import { Component, Input, isDevMode, OnInit } from '@angular/core';
 export class DebugPanelComponent implements OnInit {
 
   @Input() data
+  @Input() isError
 
   show
 

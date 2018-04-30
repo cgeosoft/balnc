@@ -1,37 +1,39 @@
 @import "colors";
 :host {
-  background: #eaeaea;
+  background: $color-second;
   height: 20px;
   font-size: .6rem;
-  color: #404040;
-  border-top: solid 1px #DDD;
+  color: #eee;
   .status-bar-item {
+    .fab,
     .fa {
-      font-size: .6rem;
+      font-size: .5rem;
     }
     .status-bar-item-content {
-      padding: 2px 7px;
+      padding: 0 7px;
+      line-height: 21px;
     }
     .btn {
       font-size: .6rem;
-      padding: 2px 7px;
+      padding: 0 7px;
       height: 100%;
       background: none;
       border: none;
-      color: #404040;
+      color: #eee;
       border-radius: 0;
+      line-height: 21px;
       &:hover {
-        background: #CCC;
+        background: darken($color-second, 10%);
       }
     }
     &.status-bar-item-divider {
       &:after {
         content: "";
-        height: 17px;
-        background: #ddd;
+        height: 10px;
+        background: darken($color-second, 5%);
         display: block;
         width: 1px;
-        margin-top: 4px;
+        margin-top: 5px;
       }
     }
   }

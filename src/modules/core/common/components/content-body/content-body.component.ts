@@ -7,7 +7,7 @@ import { Component, Input, HostBinding, OnInit, ChangeDetectorRef } from '@angul
 })
 export class ContentBodyComponent implements OnInit {
 
-  @Input() fullWidth
+  @Input() fullWidth = false
   // @HostBinding('class.container') container = true;
 
   constructor(private cdRef: ChangeDetectorRef) { }

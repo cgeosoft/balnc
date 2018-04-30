@@ -23,16 +23,18 @@ export abstract class BaseService implements Resolve<any> {
     }
 
     public async resolve(route: ActivatedRouteSnapshot): Promise<boolean> {
+        console.log("[BaseService]", "resolving...")
         await this.setup()
         return true
     }
 
-    private async setup<T>() {
+    public async setup() {
         this._config = this.configService.getModuleConfig(this._module)
         await this.dbService.loadEntities(this._entities)
         this._entities.forEach(async e => {
-            this._data[e.name] = await this.dbService.get<T>(e.name)
+            this._data[e.name] = await this.dbService.get(e.name)
         })
+        console.log("[BaseService]", "setup", this._module)
     }
 
     public async all<T>(entity: string, params: any = {}) {
@@ -43,5 +45,20 @@ export abstract class BaseService implements Resolve<any> {
 
     public async one<T>(entity: string, id: string) {
         return await this._data[entity].findOne(id).exec() as T
+    }
+
+    public getStore(name) {
+        const item = localStorage.getItem(`${this._module}/${name}`)
+        return (item) ? JSON.parse(item) : {}
+    }
+
+    public setStore(name, value) {
+        let item = null
+        if (typeof value === "object") {
+            item = JSON.stringify(value)
+        } else {
+            item = value
+        }
+        return localStorage.setItem(`${this._module}/${name}`, item)
     }
 }

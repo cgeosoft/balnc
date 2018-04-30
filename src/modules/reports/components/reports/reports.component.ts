@@ -8,17 +8,25 @@ import { RxReportDoc } from '@blnc/reports/data/report';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-reports-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  selector: 'app-reports-reports',
+  templateUrl: './reports.component.html',
+  styleUrls: ['./reports.component.scss'],
 })
-export class MainComponent implements OnInit {
+export class ReportsComponent implements OnInit {
 
   isAuthenticated = false
   reports: RxReportDoc[]
 
-  constructor() { }
+  constructor(
+    private reportService: ReportService,
+  ) { }
 
   async ngOnInit() {
+    this.loadReports()
   }
+
+  async loadReports() {
+    this.reports = await this.reportService.all()
+  }
+
 }

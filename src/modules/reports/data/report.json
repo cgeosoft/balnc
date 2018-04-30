@@ -22,8 +22,11 @@
     "filters": {
       "type": "object"
     },
-    "query": {
-      "type": "string"
+    "pdf": {
+      "type": "object"
     }
+  },
+  "attachments": {
+    "encrypted": false
   }
 }

@@ -24,6 +24,6 @@ export class OverviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.config = {}//this.reportService._config
+    this.config = {}
   }
 }

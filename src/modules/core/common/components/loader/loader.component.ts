@@ -7,6 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class LoaderComponent implements OnInit {
 
+  @Input() animation
+  @Input() label
+
   constructor() { }
 
   ngOnInit() {

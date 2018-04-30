@@ -11,7 +11,7 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as _ from 'lodash'
 import * as moment from 'moment'
 import { ReportService } from '@blnc/reports/services/report.service'
-import { RxReportDocument, Report } from '@blnc/reports/data/report'
+import { RxReportDoc, Report } from '@blnc/reports/data/report'
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -21,10 +21,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ReportComponent implements OnInit {
 
+  report: Report;
   error: any;
   commons: any
-  r: RxReportDocument
-  report: Report
   filters: any = {}
   pagination: any = {}
   reportData: any
@@ -60,6 +59,7 @@ export class ReportComponent implements OnInit {
   }
 
   async execReport() {
+    this.error = null
     this.reportLoading = true
     this.reportData = await this.reportService
       .execute(this.report, this.filters)
@@ -68,7 +68,19 @@ export class ReportComponent implements OnInit {
         this.error = err
       })
 
+    if (!this.reportData) {
+      return
+    }
+
     const pdf = await this.reportService.generatePdfMake(this.report, this.reportData)
+      .catch((err) => {
+        this.reportLoading = false
+        this.error = err
+      })
+    if (!pdf) {
+      return
+    }
+
     const doc = pdfMake.createPdf(pdf);
 
     doc.getDataUrl((data) => {

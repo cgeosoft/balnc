@@ -92,9 +92,7 @@ export class ItemComponent implements OnInit, OnDestroy {
 
     for (const attachment of attachments) {
       if (usedFiles.indexOf(attachment.id) === -1) {
-        console.log("removing", attachment.id)
         await attachment.remove()
-        console.log("removed", attachment.id)
       }
     }
   }

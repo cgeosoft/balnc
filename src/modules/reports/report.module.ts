@@ -10,11 +10,14 @@ import { ReportService } from '@blnc/reports/services/report.service';
 import { NgbDateNativeAdapter } from '@blnc/reports/adapters/datepicker.adapter';
 import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 import { AuthComponent } from '@blnc/reports/components/auth/auth.component';
+import { ReportGuard } from '@blnc/reports/guards/report.guard';
+import { ReportsComponent } from '@blnc/reports/components/reports/reports.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     OverviewComponent,
+    ReportsComponent,
     ReportComponent,
     AuthComponent,
   ],
@@ -24,6 +27,7 @@ import { AuthComponent } from '@blnc/reports/components/auth/auth.component';
   ],
   providers: [
     ReportService,
+    ReportGuard,
     { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }
   ],
   entryComponents: []

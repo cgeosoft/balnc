@@ -1,7 +1,7 @@
 import * as schema from './report.json'
 import { RxDocument } from 'rxdb';
 
-declare interface RxReportDocumentType {
+declare interface IReport {
     alias?: string
     name?: string
     description?: string
@@ -9,7 +9,6 @@ declare interface RxReportDocumentType {
     fields?: any
     filters?: ReportFilter[]
     pdf?: any
-    query?: string
 }
 
 declare interface ReportFilterType {
@@ -22,7 +21,7 @@ declare interface ReportFilterType {
     values?: any[]
 }
 
-export type Report = RxReportDocumentType
-export type RxReportDocument = RxDocument<RxReportDocumentType> & RxReportDocumentType
+export type Report = IReport
+export type RxReportDoc = RxDocument<IReport> & IReport
 export type ReportFilter = ReportFilterType
 export const ReportSchema = schema

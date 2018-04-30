@@ -85,7 +85,6 @@ export class PresentationsService implements Resolve<any> {
       return
     }
     const image = presentation.pages[0].params.image
-    console.log(image)
     return await this.getImage(presentation, image)
 
   }

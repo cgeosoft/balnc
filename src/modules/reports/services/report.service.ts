@@ -1,12 +1,14 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable, Injector, wtfStartTimeRange } from "@angular/core"
-import { ReportSchema, RxReportDocument, Report } from "@blnc/reports/data/report"
+import { ReportSchema, RxReportDoc, Report } from "@blnc/reports/data/report"
 import * as _ from 'lodash'
 import * as moment from 'moment'
 import { RxCollection } from "rxdb"
 import { BaseService } from "@blnc/core/common/services/base.service"
 import { ReportConfig } from "@blnc/reports/data/module-config"
 import { Subject } from "rxjs/Subject"
+import { TemplateParseResult } from "@angular/compiler";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class ReportService extends BaseService {
@@ -14,7 +16,7 @@ export class ReportService extends BaseService {
     _config: ReportConfig
     user: any
 
-    isAuthenticated: Subject<boolean> = new Subject<boolean>()
+    isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
     constructor(
         private injector: Injector,
@@ -29,13 +31,24 @@ export class ReportService extends BaseService {
         }]
     }
 
+    async setup() {
+        await super.setup()
+        this.loadUser()
+    }
+
     async all(params: any = {}) {
-        const reports = await super.all<RxReportDocument>("report", params)
+        const data = await super.all<RxReportDoc>("report", params)
+        const reports = data.sort((a, b) => {
+            if (a.name < b.name) { return -1; }
+            if (a.name > b.name) { return 1; }
+            return 0;
+        })
+        console.log("reoirts", reports)
         return reports
     }
 
     async one(id: string) {
-        const reportDoc = await super.one<RxReportDocument>("report", id)
+        const reportDoc = await super.one<RxReportDoc>("report", id)
         const report = { ...reportDoc } as Report
         report.filters = report.filters.map(filter => {
             switch (filter.type) {
@@ -56,17 +69,47 @@ export class ReportService extends BaseService {
         return report
     }
 
+    loadUser() {
+        const user = this.getStore("report-user")
+        if (user) {
+            this.user = user
+            this.isAuthenticated.next(true)
+        }
+    }
+
+    sign(username: string, password: string) {
+        this.user = {
+            username: username,
+            password: password,
+        }
+        this.setStore("report-user", this.user)
+        this.isAuthenticated.next(true)
+    }
+
     async execute(report: Report, filters) {
         const url = `${this._config.server.host}/execute`
         const headers = this.generateHeaders()
+        let query
+        try {
+            const r = await super.one<RxReportDoc>("report", report.alias)
+            const attachment = await r.getAttachment("query.sql")
+            query = await attachment.getStringData()
+        } catch (err) {
+            return Promise.reject(err)
+        }
+
         const result = await this.http.post(url, {
-            query: this.formatQuery(report.query, filters)
+            query: this.formatQuery(query, filters)
         }, headers).toPromise()
         return result
     }
 
     async generatePdfMake(report: Report, data: any) {
         const pdf = report.pdf
+
+        if (!pdf) {
+            return Promise.reject("No pdf schema were found")
+        }
 
         const indexes = []
         const header = []
@@ -78,7 +121,7 @@ export class ReportService extends BaseService {
             if (i !== -1) {
                 indexes.push(i)
                 header.push(report.fields[field])
-                pdf.content[0].table.widths.push("100")
+                // pdf.content[0].table.widths.push("100")
             }
         })
 
@@ -91,7 +134,6 @@ export class ReportService extends BaseService {
             })
             pdf.content[0].table.body.push(r)
         })
-        console.log(pdf)
         return pdf
     }
 
@@ -102,7 +144,6 @@ export class ReportService extends BaseService {
             }
         }
     }
-
 
     formatQuery(query, filters) {
         for (const k in filters) {

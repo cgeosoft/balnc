@@ -1,6 +1,6 @@
-<div class="d-flex" style="height:100%;width:100%" *ngIf="report">
-  <div class="bg-dark text-white p-4" style="width:250px;height:100%">
-    <h4 style="font-weight: 300">Filters</h4>
+<div class="report-wrapper" *ngIf="report">
+  <div class="filters">
+    <h4>Filters</h4>
     <ng-template ngFor let-filter [ngForOf]="report.filters" *ngIf="report.filters.length">
       <div class="form-group" *ngIf="filter.type === 'select'">
         <label>{{filter.name}}</label>
@@ -28,11 +28,17 @@
     <hr>
     <button class="btn btn-outline-light btn-sm btn-block" (click)="execExport()">
       <span class="fa fa-file-excel"></span> Export</button>
-    <app-debug-panel [data]="filters"></app-debug-panel>
   </div>
   <div class="d-flex flex-column" style="height:100%;width:100%">
     <ng-container *ngIf="!reportLoading; else loader">
-      <iframe [src]="pdfData" frameborder="0" style="height:100%;width:100%"></iframe>
+      <ng-container *ngIf="pdfData">
+        <iframe [src]="pdfData" frameborder="0" style="height:100%;width:100%" type="application/pdf"></iframe>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="error">
+      <div class="container">
+        <app-debug-panel [data]="error" [isError]="true"></app-debug-panel>
+      </div>
     </ng-container>
     <ng-template #notLoad>
       <app-empty-panel message="Use the filters to fetch some data" icon="cubes"></app-empty-panel>
@@ -41,7 +47,7 @@
       <app-empty-panel message="No data were found" icon="cubes"></app-empty-panel>
     </ng-template>
     <ng-template #loader>
-      <app-loader></app-loader>
+      <app-loader animation="sk-cube" label="Building Report..."></app-loader>
     </ng-template>
   </div>
 </div>

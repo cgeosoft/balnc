@@ -8,28 +8,28 @@ import { ProfileConfig } from '@blnc/core/profile/data/config';
 @Injectable()
 export class ProfileService {
 
+    _module = "@blnc/profiles"
     config: ProfileConfig = {}
 
     setup() {
         this.loadProfiles()
-        this.config.selected = localStorage.getItem("@blnc/profiles-selected")
+        this.config.selected = localStorage.getItem("@blnc/profiles/selected-profile")
     }
 
     loadProfiles() {
         this.config.profiles = Object.keys(localStorage)
             .filter(item => {
-                return item.indexOf("@blnc/profiles/") === 0
+                return item.indexOf("@blnc/profiles/profiles") === 0
             })
             .map(item => {
                 return JSON.parse(localStorage[item])
             })
-        console.log(this.config)
     }
 
     clear() {
-        localStorage.removeItem(`@blnc/profiles-selected`)
+        localStorage.removeItem(`@blnc/profiles/selected-profile`)
         this.config.profiles.forEach(profile => {
-            localStorage.removeItem(`@blnc/profiles/${profile.alias}`)
+            localStorage.removeItem(`@blnc/profiles/profiles/${profile.alias}`)
         })
         this.config.selected = null
         this.config.profiles = []
@@ -44,14 +44,14 @@ export class ProfileService {
             throw new Error("Profile not found")
         }
         this.config.selected = profile.name
-        localStorage.setItem(`@blnc/profiles-selected`, profile.name)
+        localStorage.setItem("@blnc/profiles/selected-profile", profile.name)
     }
 
     add(profile: Profile) {
         const unique = new Date
         profile.alias = `${this.slugify(profile.name)}-${unique.getTime()}`
         profile.createdAt = unique.toISOString()
-        localStorage.setItem(`@blnc/profiles/${profile.alias}`, JSON.stringify(profile))
+        this.setStore(`profiles/${profile.alias}`, profile)
         this.config.profiles.push(profile)
     }
 
@@ -69,5 +69,15 @@ export class ProfileService {
             .replace(/\-\-+/g, '-')         // Replace multiple - with single -
             .replace(/^-+/, '')             // Trim - from start of text
             .replace(/-+$/, '');            // Trim - from end of text
+    }
+
+    private getStore(name) {
+        const item = localStorage.getItem(`${this._module}/${name}`)
+        return (item) ? JSON.parse(item) : null
+    }
+
+    private setStore(name, value) {
+        const item = JSON.stringify(value)
+        return localStorage.setItem(`${this._module}/${name}`, item)
     }
 }

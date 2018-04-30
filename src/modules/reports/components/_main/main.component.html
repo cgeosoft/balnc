@@ -1,17 +1,1 @@
-<app-side-bar *ngIf="isAuthenticated">
-  <ul class="list-menu dark">
-    <li class="header">Reports
-      <button class="btn btn-sm" (click)="loadReports()">
-        <span class="fa fa-sync-alt"></span>
-      </button>
-    </li>
-    <ng-template ngFor let-report [ngForOf]="reports" *ngIf="reports">
-      <li routerLinkActive="active">
-        <a [routerLink]="['/reports',report._id]" routerLinkActive="active">
-          {{report.name}}
-        </a>
-      </li>
-    </ng-template>
-  </ul>
-</app-side-bar>
 <router-outlet></router-outlet>

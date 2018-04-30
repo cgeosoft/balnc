@@ -1,0 +1,18 @@
+<app-side-bar>
+  <ul class="list-menu dark">
+    <li class="header d-flex">
+      <h4>Reports</h4>
+      <button class="btn btn-sm ml-auto" (click)="loadReports()">
+        <span class="fa fa-sync-alt"></span>
+      </button>
+    </li>
+    <ng-template ngFor let-report [ngForOf]="reports" *ngIf="reports">
+      <li routerLinkActive="active">
+        <a [routerLink]="[report._id]" routerLinkActive="active">
+          {{report.name}}
+        </a>
+      </li>
+    </ng-template>
+  </ul>
+</app-side-bar>
+<router-outlet></router-outlet>

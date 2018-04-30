@@ -14,6 +14,7 @@ export class ContentHeaderComponent implements OnInit {
   @Input() details: any[] = []
   @Input() settingsMenu: any[] = []
   @Input() tabsMenu: any[] = []
+  @Input() fullWidth = false
 
   constructor() { }
 

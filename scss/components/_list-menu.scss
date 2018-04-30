@@ -5,9 +5,9 @@
   list-style: none;
   li {
     &.header {
-      padding: .3rem .3rem .2rem;
-      font-size: 1.2rem;
-      font-weight: 300;
+      h4 {
+        font-weight: 300;
+      }
       .btn-tool {
         float: right;
         padding: .2rem;
@@ -27,8 +27,8 @@
       text-overflow: ellipsis;
       text-decoration: none;
       padding: .1rem .3rem;
-      border: solid 1px transparent;
       color: #333;
+      margin: 0 0 1px;
       .fa {
         font-size: .8rem;
         color: #999;
@@ -39,6 +39,8 @@
       &:hover {
         color: #111;
         cursor: pointer;
+        background: #444;
+        text-decoration: none;
         .fa {
           color: #AAA;
         }
