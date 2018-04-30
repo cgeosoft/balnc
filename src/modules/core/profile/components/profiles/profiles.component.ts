@@ -35,7 +35,7 @@ export class ProfilesComponent implements OnInit {
 
   ngOnInit() {
     this.selected = this.profileService.get()
-    this.profiles = this.profileService.config.profiles
+    this.profiles = this.profileService.config.profiles || []
   }
 
   create() {
@@ -53,9 +53,23 @@ export class ProfilesComponent implements OnInit {
   }
 
   quickCreateProfile() {
-    const quickLocalName = `Local Profile #${(new Date).getTime()}`
+    const quickLocalName = `Demo ${(new Date).getTime()} Profile`
     this.profileService.add({
       name: quickLocalName,
+      modules: {
+        "@blnc/business-invoices": {
+          "enabled": true
+        },
+        "@blnc/marketing-presentations": {
+          "enabled": true
+        },
+        "@blnc/teams-projects": {
+          "enabled": true
+        },
+        "@blnc/teams-chat": {
+          "enabled": true
+        }
+      },
     })
     this.select(quickLocalName)
   }

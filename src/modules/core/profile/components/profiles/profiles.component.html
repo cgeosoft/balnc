@@ -1,50 +1,56 @@
 <div class="card-wrapper">
-  <div class="card" *ngIf="profiles.length">
+  <div class="card">
     <div class="card-body">
       <div class="d-flex">
         <h4>Manage Profiles</h4>
-        <button class="btn btn-primary btn-sm ml-auto" routerLink="/dashboard">dashboard</button>
+        <button class="btn btn-link btn-sm ml-auto" *ngIf="selected" [routerLink]="['/dashboard']">
+          dashboard
+          <span class="fa fa-caret-right"></span>
+        </button>
       </div>
       <hr>
-      <button class="btn btn-primary" (click)="create()">Create</button>
-      <button class="btn btn-default" ngxFilePicker (filePick)="onFilePicked($event)">Import</button>
+      <button class="btn btn-primary" (click)="create()">New</button>
+      <button class="btn btn-link" ngxFilePicker (filePick)="onFilePicked($event)">Import</button>
     </div>
-    <div class="list-group list-group-flush">
-      <div class="list-group-item" *ngFor="let profile of profiles">
-        <div class="d-flex">
-          <div class="d-flex align-items-center mr-2">
-            <button class="btn btn-sm" [ngClass]="{'btn-outline-primary':profile.name==selected.name,'btn-outline-dark':profile.name!=selected.name}"
-              (click)="select(profile.name)" [disabled]="profile.name==selected.name">
-              <span class="far fa-check-circle"></span>
-            </button>
-          </div>
-          <div>
-            {{profile.name}}
-            <br>
-            <small class="text-secondary" *ngIf="!profile.server">Local Profile</small>
-            <small class="text-secondary" *ngIf="profile.server">{{profile.server.host}}</small>
-          </div>
-          <div class="ml-auto d-flex align-items-center">
-            <div>
-              <button class="btn btn-sm btn-outline-secondary" (click)="configure(profile.name)">
-                <span class="fa fa-cog"></span>
+    <ng-container *ngIf="profiles.length; else empty">
+      <div class="list-group list-group-flush">
+        <div class="list-group-item" *ngFor="let profile of profiles">
+          <div class="d-flex">
+            <div class="d-flex align-items-center mr-4">
+              <button class="btn btn-sm" [ngClass]="{'btn-link':profile.name==selected.name,'btn-outline-dark':profile.name!=selected.name}"
+                (click)="select(profile.name)" [disabled]="profile.name==selected.name">
+                <span class="far fa-check-circle"></span>
               </button>
+            </div>
+            <div>
+              {{profile.name}}
+              <br>
+              <small class="text-secondary" *ngIf="!profile.database">Local Profile</small>
+              <small class="text-secondary" *ngIf="profile.database">{{profile.database.host}}</small>
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+              <div>
+                <button class="btn btn-sm btn-outline-secondary" (click)="configure(profile.name)">
+                  <span class="fa fa-cog"></span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </ng-container>
+    <ng-template #empty>
+      <app-empty-panel message="No profiles were found" icon="cubes" style="height:200px"></app-empty-panel>
+    </ng-template>
 
-  <div class="card" *ngIf="!profiles.length">
-    <div class="card-body">
-      <h1 class="display-4">Welcome to Balance!</h1>
-      <p>Balance is a collection of business modules for managing simple operations of small companies and freelancers.</p>
-      <p>It includes sales, marketing and accounting tools and it is both open source and free under the MIT license.</p>
-      <p>Balance using an internal profile manager for storing localy all the necessary info to work.</p>
-      <button class="btn btn-primary" (click)="create()">Create Profile</button>
-      <button class="btn btn-link" ngxFilePicker (filePick)="onFilePicked($event)">or import existing</button>
-      <pre>{{selected}}</pre>
+    <div class="text-center p-4">
+      <strong>Psss...</strong>
+      <br>do you want to try some
+      <br>
+      <em>demo</em> configuration?
+      <br> Come here...
+      <br>
+      <a href="javascript:" (click)="quickCreateProfile()">click me</a>
     </div>
   </div>
 </div>

@@ -5,11 +5,12 @@ import { CommonModule } from "@blnc/core/common/common.module"
 import { MainComponent } from '@blnc/core/main/main.component';
 import { PageNotFoundComponent } from '@blnc/core/common/components/page-not-found/page-not-found.component';
 import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard';
+import { WelcomeGuard } from '@blnc/core/welcome/welcome.guard';
 
 const routes: Routes = [{
   path: '',
   component: MainComponent,
-  canActivate: [DefaultProfileGuard],
+  canActivate: [WelcomeGuard, DefaultProfileGuard],
   children: [{
     path: 'dashboard',
     loadChildren: "@blnc/core/dashboard/dashboard.module#DashboardModule"
