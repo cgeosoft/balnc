@@ -10,7 +10,7 @@ export class DefaultProfileGuard implements CanActivate {
   ) { }
 
   canActivate() {
-    if (this.profileService.config && this.profileService.config.selected) {
+    if (this.profileService.config && this.profileService.config.selectedProfile) {
       return true
     }
     this.router.navigate(["profiles"])

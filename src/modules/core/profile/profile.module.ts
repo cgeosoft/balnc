@@ -6,17 +6,18 @@ import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard'
 import { ProfileService } from '@blnc/core/profile/services/profile.service'
 
 import { ProfilesComponent } from '@blnc/core/profile/components/profiles/profiles.component'
-import { CreateProfileComponent } from '@blnc/core/profile/components/create/create.component'
 import { RouterModule, Routes } from '@angular/router';
 import { WelcomeGuard } from '@blnc/core/welcome/welcome.guard';
+import { ProfileComponent } from '@blnc/core/profile/components/profile/profile.component';
 
 const routes: Routes = [{
-  path: '',
+  path: 'profiles',
+  component: ProfilesComponent,
   canActivate: [WelcomeGuard],
-  children: [{
-    path: 'profiles',
-    component: ProfilesComponent,
-  }]
+}, {
+  path: 'profile/:alias',
+  component: ProfileComponent,
+  canActivate: [WelcomeGuard],
 }]
 
 @NgModule({
@@ -26,14 +27,12 @@ const routes: Routes = [{
   ],
   declarations: [
     ProfilesComponent,
-    CreateProfileComponent,
+    ProfileComponent,
   ],
   providers: [
     ProfileService,
     DefaultProfileGuard
   ],
-  entryComponents: [
-    CreateProfileComponent
-  ]
+  entryComponents: []
 })
 export class ProfileModule { }

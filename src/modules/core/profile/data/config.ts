@@ -1,7 +1,7 @@
 import { Profile } from "@blnc/core/profile/data/profile";
 
 declare interface ProfileConfigType {
-    selected?: string
+    selectedProfile?: string
     profiles?: Profile[]
 }
 

@@ -116,11 +116,14 @@ export class DatabaseService {
         }
 
         if (this.config.user) {
-            const res = await this.http.post(`${this.config.host}/_session`, {
+            await this.http.post(`${this.config.host}/_session`, {
                 name: this.config.user,
                 password: this.config.pass,
             }, { withCredentials: true })
                 .toPromise()
+                .catch((res) => {
+                    console.log("Failed to login to remote")
+                })
         }
 
         console.log("DatabaseService Initialized with profile:", profile)

@@ -49,3 +49,14 @@ thead {
     }
   }
 }
+
+.card {
+  >ngb-tabset {
+    .nav-tabs {
+      padding: 0 19px;
+      .nav-item {
+        margin: 0 1px -1px !important;
+      }
+    }
+  }
+}

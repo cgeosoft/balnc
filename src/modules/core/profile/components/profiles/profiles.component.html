@@ -3,41 +3,43 @@
     <div class="card-body">
       <div class="d-flex">
         <h4>Manage Profiles</h4>
-        <button class="btn btn-link btn-sm ml-auto" *ngIf="selected" [routerLink]="['/dashboard']">
+        <button class="btn btn-link btn-sm ml-auto" *ngIf="selectedProfile" [routerLink]="['/dashboard']">
           dashboard
           <span class="fa fa-caret-right"></span>
         </button>
       </div>
       <hr>
-      <button class="btn btn-primary" (click)="create()">New</button>
+      <button class="btn btn-primary" [routerLink]="['/profile','NEW']">New</button>
       <button class="btn btn-link" ngxFilePicker (filePick)="onFilePicked($event)">Import</button>
     </div>
-    <ng-container *ngIf="profiles.length; else empty">
-      <div class="list-group list-group-flush">
-        <div class="list-group-item" *ngFor="let profile of profiles">
-          <div class="d-flex">
-            <div class="d-flex align-items-center mr-4">
-              <button class="btn btn-sm" [ngClass]="{'btn-link':profile.name==selected.name,'btn-outline-dark':profile.name!=selected.name}"
-                (click)="select(profile.name)" [disabled]="profile.name==selected.name">
-                <span class="far fa-check-circle"></span>
-              </button>
-            </div>
-            <div>
-              {{profile.name}}
-              <br>
-              <small class="text-secondary" *ngIf="!profile.database">Local Profile</small>
-              <small class="text-secondary" *ngIf="profile.database">{{profile.database.host}}</small>
-            </div>
-            <div class="ml-auto d-flex align-items-center">
-              <div>
-                <button class="btn btn-sm btn-outline-secondary" (click)="configure(profile.name)">
-                  <span class="fa fa-cog"></span>
+    <ng-container *ngIf="profiles; else empty">
+      <ng-container *ngIf="profiles.length; else empty">
+        <div class="list-group list-group-flush">
+          <div class="list-group-item" *ngFor="let profile of profiles">
+            <div class="d-flex">
+              <div class="d-flex align-items-center mr-4">
+                <button class="btn btn-sm" [ngClass]="{'btn-link':profile.alias==selectedProfile.alias,'btn-outline-dark':profile.alias!=selectedProfile.alias}"
+                  (click)="select(profile.alias)" [disabled]="profile.alias==selectedProfile.alias">
+                  <span class="far fa-check-circle"></span>
                 </button>
+              </div>
+              <div>
+                {{profile.name}}
+                <br>
+                <small class="text-secondary" *ngIf="!profile.database">Local Profile</small>
+                <small class="text-secondary" *ngIf="profile.database">{{profile.database.host}}</small>
+              </div>
+              <div class="ml-auto d-flex align-items-center">
+                <div>
+                  <button class="btn btn-sm btn-outline-secondary" [routerLink]="['/profile',profile.alias]">
+                    <span class="fa fa-cog"></span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </ng-container>
     </ng-container>
     <ng-template #empty>
       <app-empty-panel message="No profiles were found" icon="cubes" style="height:200px"></app-empty-panel>
