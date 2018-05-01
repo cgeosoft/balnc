@@ -25,14 +25,6 @@
     "menu": null,
     "config": null
   }, {
-    "id": "@blnc/core-settings",
-    "namespace": "@blnc/core",
-    "title": "Settings",
-    "description": "You are here!",
-    "path": null,
-    "menu": null,
-    "config": null
-  }, {
     "id": "@blnc/business-contacts",
     "namespace": "@blnc/business",
     "title": "Contacts",
@@ -162,5 +154,9 @@
     "id": "@blnc/teams",
     "title": "Teams",
     "description": "A set of modules for easy team managements. It includes a chat systems, projects and task management."
+  }, {
+    "id": "@blnc/reports",
+    "title": "Reports",
+    "description": ""
   }]
 }

@@ -13,7 +13,7 @@ export class ProfileService {
 
     setup() {
         this.loadProfiles()
-        this.config.selected = localStorage.getItem("@blnc/profiles/selected-profile")
+        this.config.selectedProfile = localStorage.getItem("@blnc/profiles/selected-profile")
     }
 
     loadProfiles() {
@@ -24,6 +24,7 @@ export class ProfileService {
             .map(item => {
                 return JSON.parse(localStorage[item])
             })
+        console.log(this.config.profiles)
     }
 
     clear() {
@@ -31,20 +32,20 @@ export class ProfileService {
         this.config.profiles.forEach(profile => {
             localStorage.removeItem(`@blnc/profiles/profiles/${profile.alias}`)
         })
-        this.config.selected = null
+        this.config.selectedProfile = null
         this.config.profiles = []
     }
 
-    select(name: string) {
+    select(alias: string) {
         const profile = this.config.profiles.find(x => {
-            return x.name === name
+            return x.alias === alias
         })
 
         if (!profile) {
             throw new Error("Profile not found")
         }
-        this.config.selected = profile.name
-        localStorage.setItem("@blnc/profiles/selected-profile", profile.name)
+        this.config.selectedProfile = profile.alias
+        localStorage.setItem("@blnc/profiles/selected-profile", profile.alias)
     }
 
     add(profile: Profile) {
@@ -55,9 +56,13 @@ export class ProfileService {
         this.config.profiles.push(profile)
     }
 
-    get(): Profile {
+    getCurrent(): Profile {
+        return this.get(this.config.selectedProfile)
+    }
+
+    get(alias: string = null): Profile {
         const profile = this.config.profiles.find(x => {
-            return x.name === this.config.selected
+            return x.alias === alias
         })
         return profile
     }

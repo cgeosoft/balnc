@@ -8,15 +8,14 @@
     <div class="status-bar-item status-bar-item-divider"></div>
     <div class="status-bar-item">
       <a href="https://github.com/christosgeorgiou/balance" target="_blank" class="btn">
-        <span class="fab fa-github"></span>
-        repo
+        Repository
       </a>
     </div>
   </div>
   <div class="ml-auto d-flex flex-row">
     <div class="status-bar-item">
       <a routerLink="/profiles" class="btn">
-        <span class="fa fa-user-circle"></span> {{profileName}}
+        {{profileName}}
         <span *ngIf="user">/ {{user}}</span>
       </a>
     </div>

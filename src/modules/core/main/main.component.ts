@@ -37,7 +37,7 @@ export class MainComponent implements OnInit {
   menu: any[] = []
 
   async ngOnInit() {
-    this.profile = this.profileService.get()
+    this.profile = this.profileService.getCurrent()
     this.menu = this.configService.getMainMenu(this.profile)
   }
 

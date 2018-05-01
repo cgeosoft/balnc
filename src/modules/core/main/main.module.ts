@@ -15,9 +15,6 @@ const routes: Routes = [{
     path: 'dashboard',
     loadChildren: "@blnc/core/dashboard/dashboard.module#DashboardModule"
   }, {
-    path: 'settings',
-    loadChildren: "@blnc/core/settings/settings.module#SettingsModule"
-  }, {
     path: "orders",
     loadChildren: "@blnc/business/order/order.module#OrderModule"
   }, {
@@ -41,7 +38,7 @@ const routes: Routes = [{
   }, {
     path: '',
     pathMatch: "full",
-    redirectTo: "dashboard"
+    redirectTo: "/dashboard"
   }]
 }]
 
@@ -53,7 +50,7 @@ const routes: Routes = [{
     CommonModule,
     RouterModule.forChild(routes),
   ],
-  providers: [DefaultProfileGuard],
+  providers: [],
   entryComponents: []
 })
 export class MainModule { }

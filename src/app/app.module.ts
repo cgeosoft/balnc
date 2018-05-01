@@ -30,9 +30,9 @@ import { WelcomeModule } from '@blnc/core/welcome/welcome.module';
     }),
 
     CommonModule,
-    MainModule,
-    ProfileModule,
     WelcomeModule,
+    ProfileModule,
+    MainModule,
   ],
   declarations: [
     AppComponent
@@ -49,7 +49,7 @@ import { WelcomeModule } from '@blnc/core/welcome/welcome.module';
       useFactory: (databaseService: DatabaseService, profileService: ProfileService, configService: ConfigService) => async () => {
         configService.setup()
         profileService.setup()
-        const profile = profileService.get()
+        const profile = profileService.getCurrent()
         if (profile) {
           configService.profile = profile
           await databaseService.setup(profile)

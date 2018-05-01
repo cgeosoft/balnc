@@ -1,7 +1,7 @@
 import { UrlSerializer } from "@angular/router";
 
 declare interface ProfileType {
-    alias?: string
+    alias: string
     name: string
     secret?: string
     createdAt?: string

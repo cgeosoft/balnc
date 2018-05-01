@@ -4,7 +4,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { RxCollection } from 'rxdb'
 import { Router } from '@angular/router'
 
-import { CreateProfileComponent } from '@blnc/core/profile/components/create/create.component'
 import { ProfileService } from '@blnc/core/profile/services/profile.service'
 import { Profile } from '@blnc/core/profile/data/profile'
 import { FilePickerDirective, ReadFile } from 'ngx-file-helpers'
@@ -22,8 +21,8 @@ export class ProfilesComponent implements OnInit {
   @ViewChild(FilePickerDirective)
 
   alias: any
-  selected: Profile
-  profiles: Profile[] = []
+  selectedProfile: Profile
+  profiles: Profile[]
 
   constructor(
     private modalService: NgbModal,
@@ -34,19 +33,10 @@ export class ProfilesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.selected = this.profileService.get()
+    this.selectedProfile = this.profileService.getCurrent()
     this.profiles = this.profileService.config.profiles || []
+    console.log(this.profiles)
   }
-
-  create() {
-    this.modalService
-      .open(CreateProfileComponent)
-      .result
-      .then((result) => {
-        this.profiles = this.profileService.config.profiles
-      })
-  }
-
   clear() {
     this.profileService.clear()
     this.profiles = this.profileService.config.profiles
@@ -55,6 +45,7 @@ export class ProfilesComponent implements OnInit {
   quickCreateProfile() {
     const quickLocalName = `Demo ${(new Date).getTime()} Profile`
     this.profileService.add({
+      alias: "",
       name: quickLocalName,
       modules: {
         "@blnc/business-invoices": {
@@ -81,23 +72,18 @@ export class ProfilesComponent implements OnInit {
       const profileStr = atob(data)
       const profile = JSON.parse(profileStr)
       this.profileService.add(profile)
-      this.select(profile.name)
+      this.select(profile.alias)
     } catch (error) {
       this.error = "File is corrupted"
       console.log("error" + error)
     }
   }
 
-  select(name: string) {
-    this.profileService.select(name)
-    this.selected = this.profileService.get()
-    this.databaseService.setup(this.selected)
-    this.configService.profile = this.selected
+  select(alias: string) {
+    this.profileService.select(alias)
+    this.selectedProfile = this.profileService.getCurrent()
+    this.databaseService.setup(this.selectedProfile)
+    this.configService.profile = this.selectedProfile
     this.router.navigate(['dashboard'])
   }
-
-  configure(name: string) {
-
-  }
-
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { HelperService } from '@blnc/core/common/services/helper.service';
 
 @Component({
   selector: 'app-empty-panel',
@@ -14,6 +15,7 @@ export class EmptyPanelComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.icon = HelperService.getIconClass(this.icon, true)
   }
 
 }
