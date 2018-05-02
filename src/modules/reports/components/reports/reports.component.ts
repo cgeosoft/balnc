@@ -14,14 +14,17 @@ import { Router } from '@angular/router';
 })
 export class ReportsComponent implements OnInit {
 
+  loginRequired = false
   isAuthenticated = false
   reports: RxReportDoc[]
 
   constructor(
     private reportService: ReportService,
+    private router: Router,
   ) { }
 
   async ngOnInit() {
+    this.loginRequired = this.reportService._config.server.requireUser
     this.loadReports()
   }
 
@@ -29,4 +32,8 @@ export class ReportsComponent implements OnInit {
     this.reports = await this.reportService.all()
   }
 
+  logout() {
+    this.reportService.logout()
+    this.router.navigate(["/reports/login"])
+  }
 }

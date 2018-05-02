@@ -1,61 +1,55 @@
 <app-side-bar>
-  <ul class="list-menu dark">
-    <li class="header">Projects</li>
-    <li>
-      <a [routerLink]="['/projects/overview']">
+  <div class="menu">
+    <div class="header">
+      <h4>Projects</h4>
+    </div>
+    <div class="items">
+      <a routerLinkActive="active" [routerLink]="['/projects/overview']">
         <span class="fa fa-desktop fa-fw"></span> Overview</a>
-    </li>
-    <li>
-      <a [routerLink]="['/projects/manage']">
+      <a routerLinkActive="active" [routerLink]="['/projects/manage']">
         <span class="fa fa-th-list fa-fw"></span> Manage</a>
-    </li>
-    <li>
       <button (click)="createTask()">
         <span class="fa fa-plus-circle fa-fw"></span> New Task</button>
-    </li>
-    <li class="divider"></li>
-    <li>
+      <div class="divider"></div>
       <button (click)="generateDump()">
         <strong>
           <span class="fa fa-plus-circle fa-fw"></span> Generate Data</strong>
       </button>
-    </li>
-  </ul>
-  <ul class="list-menu dark">
-    <li class="header">Pinned</li>
-    <li>
-      <a routerLink="/contacts/report/1">
+    </div>
+  </div>
+  <div class="menu">
+    <div class="header">
+      <h4>Pinned</h4>
+    </div>
+    <div class="items">
+      <a routerLinkActive="active" routerLink="/contacts/report/1">
         <span class="fa fa-list fa-fw"></span> Last 7 days</a>
-    </li>
-    <li>
-      <a routerLink="/contacts/report/2">
+      <a routerLinkActive="active" routerLink="/contacts/report/2">
         <span class="fa fa-list fa-fw"></span> Last Month</a>
-    </li>
-    <li>
-      <a routerLink="/contacts/report/3">
+      <a routerLinkActive="active" routerLink="/contacts/report/3">
         <span class="fa fa-list fa-fw"></span> Pending Only</a>
-    </li>
-  </ul>
-  <ul class="list-menu dark mt-auto">
-    <li class="header">Latest Tasks</li>
-    <ng-container *ngIf="tasks.length; else noItems">
-      <li *ngFor="let task of tasks | slice:0:5;">
-        <a [routerLink]="['/projects/tasks',task._id]" class="media">
+    </div>
+  </div>
+  <div class="menu mt-auto">
+    <div class="header">
+      <h4>Latest Tasks</h4>
+    </div>
+    <div class="items">
+      <ng-container *ngIf="tasks.length; else noItems">
+        <a routerLinkActive="active" [routerLink]="['/projects/tasks',task._id]" class="media" *ngFor="let task of tasks | slice:0:5;">
           <span class="media-body">{{task.title || '[Without title]'}}
-            <small>
-              <!-- {{task._project.name}} -->
-              <strong>{{task.insertedAt | amTimeAgo}}</strong>
-            </small>
+            <!-- {{task._project.name}} -->
+            <strong>{{task.insertedAt | amTimeAgo}}</strong>
           </span>
         </a>
-      </li>
-    </ng-container>
-    <ng-template #noItems>
-      You don't have any tasks yet
-    </ng-template>
-    <ng-template #loader>
-      <app-loader></app-loader>
-    </ng-template>
-  </ul>
+      </ng-container>
+      <ng-template #noItems>
+        You don't have any tasks yet
+      </ng-template>
+      <ng-template #loader>
+        <app-loader></app-loader>
+      </ng-template>
+    </div>
+  </div>
 </app-side-bar>
 <router-outlet></router-outlet>

@@ -15,7 +15,7 @@ export class ReportGuard implements CanActivate {
     const userExists = localStorage.getItem("@blnc/reports/report-user")
     const requireUser = (this.configService.getModuleConfig("@blnc/reports") as ReportConfig).server.requireUser
     if (!userExists && requireUser) {
-      this.router.navigate(["reports/auth"])
+      this.router.navigate(["reports/login"])
       return false
     }
     return true

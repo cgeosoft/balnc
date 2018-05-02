@@ -9,7 +9,7 @@ import { ReportRoutes } from '@blnc/reports/routes/report.routes';
 import { ReportService } from '@blnc/reports/services/report.service';
 import { NgbDateNativeAdapter } from '@blnc/reports/adapters/datepicker.adapter';
 import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
-import { AuthComponent } from '@blnc/reports/components/auth/auth.component';
+import { LoginComponent } from '@blnc/reports/components/login/login.component';
 import { ReportGuard } from '@blnc/reports/guards/report.guard';
 import { ReportsComponent } from '@blnc/reports/components/reports/reports.component';
 
@@ -19,7 +19,7 @@ import { ReportsComponent } from '@blnc/reports/components/reports/reports.compo
     OverviewComponent,
     ReportsComponent,
     ReportComponent,
-    AuthComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,

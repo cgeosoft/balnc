@@ -76,13 +76,19 @@ export class ReportService extends BaseService {
         }
     }
 
-    sign(username: string, password: string) {
+    login(username: string, password: string) {
         this.user = {
             username: username,
             password: password,
         }
         this.setStore("report-user", this.user)
         this.isAuthenticated.next(true)
+    }
+
+    logout() {
+        this.user = null
+        this.clearStore("report-user")
+        this.isAuthenticated.next(false)
     }
 
     async execute(report: Report, filters) {
