@@ -5,7 +5,7 @@
       <div class="form-group" *ngIf="filter.type === 'select'">
         <label>{{filter.name}}</label>
         <select class="form-control form-control-sm" [(ngModel)]="filters[filter.field]">
-          <option *ngFor="let filterVal of filter.values | keys" [ngValue]="filterVal.value">{{filterVal.label}}</option>
+          <option *ngFor="let filterItem of filter.items" [ngValue]="filterItem.value">{{filterItem.label}}</option>
         </select>
       </div>
       <div class="form-group" *ngIf="filter.type === 'date'">

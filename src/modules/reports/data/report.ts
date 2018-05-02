@@ -17,8 +17,8 @@ declare interface ReportFilterType {
     type: string
     default?: any
     value?: any
-    data?: string
-    values?: any[]
+    query?: string
+    items?: any[]
 }
 
 export type Report = IReport
