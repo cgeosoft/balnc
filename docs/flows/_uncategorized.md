@@ -31,8 +31,8 @@
   - if yes: send a join-team email, asking to login and accept invite
   - if no: send a register-and-join email
 
-
 ## Query Report process
+
 - start screen
 - ‎add remote
 - ‎select file
@@ -46,8 +46,8 @@
 - ‎render results to view
 - ‎export results to pdf/excel
 
-
 ## Login and switching
+
 - start add local profile
 - ‎setup user
 - ‎do job

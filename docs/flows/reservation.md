@@ -40,7 +40,7 @@
 
 ## Canceled reservation with no refund
 
-    -  100% payment in advance 
+    -  100% payment in advance
     -  0% refund 0 days before start
 
 - customer creates reservation with status draft

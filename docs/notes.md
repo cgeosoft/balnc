@@ -1,22 +1,41 @@
-# notes
+# Notes
 
-**sessionstorage**
+## Models
 
-```json
-{
-  "activeCompany":"aaa-bbb-ccc"
-}
-```
+### Price scheme
 
-- setup remote-locations
-  - setup details
-  - setup credentials
-- create company
-  - insert details
-  - [option] enable remote
-    - set flag owner
-    - use remote-location
-- join company
-  - search listing
-  - request join
-  - use remote-location
+- price
+- duration
+
+### Property
+
+- characteristics
+
+### Season item
+
+- from
+- to
+- property
+- Price scheme
+
+### Reservation
+
+- from
+- to
+- price
+- notes
+- customer
+
+### Todo
+
+- reset button
+
+### Invoices
+
+- from details
+- to details
+- date
+- number
+- items
+- notes
+- template
