@@ -12,11 +12,11 @@ import { ReportService } from '@blnc/report/services/report.service'
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms'
 
 @Component({
-  selector: 'app-reports-auth',
-  templateUrl: 'auth.component.html',
-  styleUrls: ['./auth.component.scss'],
+  selector: 'app-reports-login',
+  templateUrl: 'login.component.html',
+  styleUrls: ['./login.component.scss'],
 })
-export class AuthComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   form: FormGroup
   config: any
@@ -36,7 +36,7 @@ export class AuthComponent implements OnInit {
 
   onSubmit() {
     const formModel = this.form.value
-    this.reportService.sign(formModel.username, formModel.password)
+    this.reportService.login(formModel.username, formModel.password)
     this.reportService.isAuthenticated.next(true)
     this.router.navigate(["reports", "view", "overview"])
   }

@@ -1,0 +1,8 @@
+@import "components/bootstrap";
+:host {
+  width: 100%;
+  .card {
+    @extend .mx-auto;
+    max-width: 400px;
+  }
+}

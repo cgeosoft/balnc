@@ -64,4 +64,8 @@ export abstract class BaseService implements Resolve<any> {
         }
         return localStorage.setItem(`${this._module}/${name}`, item)
     }
+
+    public clearStore(name) {
+        return localStorage.removeItem(`${this._module}/${name}`)
+    }
 }
