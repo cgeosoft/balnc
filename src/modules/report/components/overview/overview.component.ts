@@ -1,4 +1,3 @@
-import { ConfigService } from './../../../common/services/config.service';
 import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Subscription } from 'rxjs/Subscription'
@@ -8,6 +7,7 @@ import { Observable } from 'rxjs/Observable'
 
 import * as _ from 'lodash'
 import * as moment from 'moment'
+import { ConfigService } from '@blnc/common/services/config.service';
 import { ReportService } from '@blnc/report/services/report.service';
 
 @Component({

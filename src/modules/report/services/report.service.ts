@@ -49,11 +49,13 @@ export class ReportService extends BaseService {
     async one(id: string) {
         const reportDoc = await super.one<RxReportDoc>("report", id)
         const report = { ...reportDoc } as Report
-        report.filters = report.filters.map(filter => {
+
+        report.filters.forEach(async filter => {
             switch (filter.type) {
                 case "select":
-                    filter.values = []
                     filter.value = -1
+                    filter.items = !filter.items && filter.query ? await this.getCommonData(filter.query) : []
+                    filter.items.unshift({ label: "-- Select --", value: -1 })
                     break
                 case "date":
                     if (filter.default === null) {
@@ -68,6 +70,22 @@ export class ReportService extends BaseService {
         return report
     }
 
+    async getCommonData(query) {
+        const url = `${this._config.server.host}/execute`
+        const headers = this.generateHeaders()
+
+        const result = await this.http.post(url, {
+            query: query
+        }, headers).toPromise()
+        console.log(query, result)
+        return result["rows"].map(r => {
+            return {
+                value: r[0],
+                label: r[1],
+            }
+        })
+    }
+
     loadUser() {
         const user = this.getStore("report-user")
         if (user) {
@@ -76,7 +94,7 @@ export class ReportService extends BaseService {
         }
     }
 
-    sign(username: string, password: string) {
+    login(username: string, password: string) {
         this.user = {
             username: username,
             password: password,
@@ -85,10 +103,16 @@ export class ReportService extends BaseService {
         this.isAuthenticated.next(true)
     }
 
+    logout() {
+        this.user = null
+        this.clearStore("report-user")
+        this.isAuthenticated.next(false)
+    }
+
     async execute(report: Report, filters) {
         const url = `${this._config.server.host}/execute`
         const headers = this.generateHeaders()
-        let query
+        let query = ""
         try {
             const r = await super.one<RxReportDoc>("report", report.alias)
             const attachment = await r.getAttachment("query.sql")

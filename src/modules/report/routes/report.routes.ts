@@ -5,7 +5,7 @@ import { OverviewComponent } from "@blnc/report/components/overview/overview.com
 import { ReportComponent } from "@blnc/report/components/report/report.component";
 
 import { ReportService } from '@blnc/report/services/report.service';
-import { AuthComponent } from "@blnc/report/components/auth/auth.component";
+import { LoginComponent } from "@blnc/report/components/login/login.component";
 import { ReportGuard } from "@blnc/report/guards/report.guard";
 import { ReportsComponent } from "@blnc/report/components/reports/reports.component";
 
@@ -16,7 +16,7 @@ const routes: Routes = [{
     ReportService
   },
   children: [
-    { path: 'auth', component: AuthComponent },
+    { path: 'login', component: LoginComponent },
     {
       path: 'view',
       canActivate: [ReportGuard],
