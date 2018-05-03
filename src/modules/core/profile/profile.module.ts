@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core'
 
-import { CommonModule } from '@blnc/core/common/common.module'
-
 import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard'
 import { ProfileService } from '@blnc/core/profile/services/profile.service'
 
@@ -22,7 +20,6 @@ const routes: Routes = [{
 
 @NgModule({
   imports: [
-    CommonModule,
     RouterModule.forChild(routes),
   ],
   declarations: [

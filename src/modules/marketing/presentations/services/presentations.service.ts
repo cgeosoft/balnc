@@ -8,8 +8,8 @@ import * as _ from 'lodash'
 import * as moment from 'moment'
 
 import { PresentationSchema, RxPresentationDocument } from "@blnc/marketing/presentations/data/presentation"
-import { DatabaseService } from "@blnc/core/common/services/database.service";
-import { Entity } from "@blnc/core/common/models/entity";
+import { DatabaseService } from "@blnc/common/services/database.service";
+import { Entity } from "@blnc/common/models/entity";
 
 const entities: Entity[] = [{
   name: 'presentation',

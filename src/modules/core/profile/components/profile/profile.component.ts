@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable'
 import * as _ from 'lodash'
 
 import { ProfileService } from '../../services/profile.service'
-import { ConfigService } from '@blnc/core/common/services/config.service';
+import { ConfigService } from '@blnc/common/services/config.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Profile } from '@blnc/core/profile/data/profile';
 
@@ -18,7 +18,6 @@ import { Profile } from '@blnc/core/profile/data/profile';
 })
 export class ProfileComponent implements OnInit {
 
-    namespaces: any;
     @ViewChild("name") name: ElementRef
     @ViewChild("alias") alias: ElementRef
 
@@ -35,7 +34,7 @@ export class ProfileComponent implements OnInit {
     ) { }
 
     async ngOnInit() {
-        this.generateModuleList()
+        // this.generateModuleList()
         this.route.params.subscribe(params => {
             this.setup(params['alias'])
         })
@@ -65,25 +64,25 @@ export class ProfileComponent implements OnInit {
         //     })
     }
 
-    generateModuleList() {
-        this.namespaces = _.chain(this.configService.modules)
-            .groupBy("namespace")
-            .map((modules, namespace) => {
-                let ns = _.find(this.configService.namespaces, i => {
-                    return i.id === namespace
-                })
+    // generateModuleList() {
+    //     this.namespaces = _.chain(this.configService.modules)
+    //         .groupBy("namespace")
+    //         .map((modules, namespace) => {
+    //             let ns = _.find(this.configService.namespaces, i => {
+    //                 return i.id === namespace
+    //             })
 
-                if (!ns) {
-                    ns = {
-                        id: "?",
-                        title: "?",
-                    }
-                }
+    //             if (!ns) {
+    //                 ns = {
+    //                     id: "?",
+    //                     title: "?",
+    //                 }
+    //             }
 
-                ns.modules = modules
-                return ns
-            })
-            .value()
-    }
+    //             ns.modules = modules
+    //             return ns
+    //         })
+    //         .value()
+    // }
 
 }

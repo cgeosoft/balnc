@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { WelcomeComponent } from '@blnc/core/welcome/welcome.component';
 import { WelcomeGuard } from '@blnc/core/welcome/welcome.guard';
-import { CommonModule } from '@angular/common';
 
 const routes: Routes = [{
   path: 'welcome',
@@ -15,7 +14,6 @@ const routes: Routes = [{
     WelcomeComponent
   ],
   imports: [
-    CommonModule,
     RouterModule.forChild(routes),
   ],
   providers: [WelcomeGuard],

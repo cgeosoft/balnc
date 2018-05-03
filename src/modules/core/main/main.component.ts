@@ -5,8 +5,8 @@ import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, 
 
 import * as _ from 'lodash'
 
-import { HelperService } from '@blnc/core/common/services/helper.service'
-import { ConfigService } from '@blnc/core/common/services/config.service';
+import { HelperService } from '@blnc/common/services/helper.service'
+import { ConfigService } from '@blnc/common/services/config.service';
 import { ProfileService } from '@blnc/core/profile/services/profile.service';
 import { Profile } from '@blnc/core/profile/data/profile';
 

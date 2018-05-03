@@ -7,8 +7,8 @@ import { Router } from '@angular/router'
 import { ProfileService } from '@blnc/core/profile/services/profile.service'
 import { Profile } from '@blnc/core/profile/data/profile'
 import { FilePickerDirective, ReadFile } from 'ngx-file-helpers'
-import { DatabaseService } from '@blnc/core/common/services/database.service';
-import { ConfigService } from '@blnc/core/common/services/config.service';
+import { DatabaseService } from '@blnc/common/services/database.service';
+import { ConfigService } from '@blnc/common/services/config.service';
 
 @Component({
   selector: 'app-profile-profiles',
@@ -54,10 +54,10 @@ export class ProfilesComponent implements OnInit {
         "@blnc/marketing-presentations": {
           "enabled": true
         },
-        "@blnc/teams-projects": {
+        "@blnc/team-projects": {
           "enabled": true
         },
-        "@blnc/teams-chat": {
+        "@blnc/team-chat": {
           "enabled": true
         }
       },

@@ -3,7 +3,7 @@ import { ContactsOverviewComponent, ContactItemComponent } from "@blnc/business/
 import { ContactsService } from "@blnc/business/contacts/services/contacts.service";
 
 const routes: Routes = [{
-  path: '',
+  path: 'contacts',
   resolve: {
     db: ContactsService,
   },

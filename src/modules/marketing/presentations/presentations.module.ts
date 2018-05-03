@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router'
 
-import { CommonModule } from '@blnc/core/common/common.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { PresentationsService } from '@blnc/marketing/presentations/services/presentations.service';
 import { ItemComponent } from '@blnc/marketing/presentations/components/item/item.component';
@@ -12,7 +11,7 @@ import { AddPageComponent } from '@blnc/marketing/presentations/components/add-p
 import { OverviewComponent } from '@blnc/marketing/presentations/components/overview/overview.component';
 
 const routes: Routes = [{
-  path: '',
+  path: 'presentations',
   resolve: {
     service: PresentationsService
   },
@@ -32,7 +31,6 @@ const routes: Routes = [{
     AddPageComponent,
   ],
   imports: [
-    CommonModule,
     FormsModule,
     FileUploadModule,
     RouterModule.forChild(routes),
