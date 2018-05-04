@@ -10,7 +10,7 @@ import { ReportGuard } from "@blnc/report/guards/report.guard";
 import { ReportsComponent } from "@blnc/report/components/reports/reports.component";
 
 const routes: Routes = [{
-  path: 'reports',
+  path: '',
   component: MainComponent,
   resolve: {
     ReportService

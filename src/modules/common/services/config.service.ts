@@ -36,7 +36,7 @@ export class ConfigService {
     }
 
     getMainMenu(profile: Profile) {
-        const menu = _.chain(this.modules)
+        const menu = this.modules
             .filter(m => {
                 return profile.modules &&
                     profile.modules[m.module] &&
@@ -45,17 +45,16 @@ export class ConfigService {
             })
             .map(m => {
                 return m.menu.filter(x => {
-                    return profile.modules[m.module].menu[x.path]
+                    return profile.modules[m.module].menu[x.id]
                 })
             })
-            // .map(m => {
-            //     const l = _.cloneDeep(m.menu)
-            //     l.path = `/${l.path}`
-            //     l.icon = HelperService.getIconClass(l.icon, true)
-            //     return l
-            // })
-            .value()
-        console.log("menu", menu)
+            .reduce((supermenu, menus) => {
+                return supermenu.concat(menus);
+            }, [])
+            .map(m => {
+                m.icon = HelperService.getIconClass(m.icon, true)
+                return m
+            })
         return menu
     }
 }

@@ -1,13 +1,13 @@
 declare interface BalanceModuleType {
-  id: string
-  namespace: string
+  module: string
   title: string
   description: string
-  menu?: BalanceModuleMenuType
+  menu?: BalanceModuleMenuType[]
   config?: any
 }
 
 declare interface BalanceModuleMenuType {
+  id: string
   label: string
   icon: string
   path: string

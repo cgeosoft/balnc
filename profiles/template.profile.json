@@ -22,7 +22,7 @@
         "presentations": true
       }
     },
-    "@blnc/teams": {
+    "@blnc/team": {
       "enabled": true,
       "menu": {
         "projects": true,

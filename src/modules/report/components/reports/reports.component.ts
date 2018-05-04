@@ -34,6 +34,6 @@ export class ReportsComponent implements OnInit {
 
   logout() {
     this.reportService.logout()
-    this.router.navigate(["/reports/login"])
+    this.router.navigate(["/report/login"])
   }
 }

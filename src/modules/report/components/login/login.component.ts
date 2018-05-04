@@ -38,6 +38,6 @@ export class LoginComponent implements OnInit {
     const formModel = this.form.value
     this.reportService.login(formModel.username, formModel.password)
     this.reportService.isAuthenticated.next(true)
-    this.router.navigate(["reports", "view", "overview"])
+    this.router.navigate(["/report/view/overview"])
   }
 }

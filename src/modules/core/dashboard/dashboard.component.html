@@ -1,6 +1,10 @@
 <app-content>
   <app-content-header title="Dashboard" icon="tachometer-alt"></app-content-header>
   <app-content-body>
-    <app-empty-panel message="No dashboard is avalable yet." submessage="Select an component from menu at the left bar" icon="tachometer-alt"></app-empty-panel>
+    <app-empty-panel message="No dashboard is avalable yet." submessage="Select an sub-module from menu at the left" icon="exclamation-circle"></app-empty-panel>
+    <hr>
+    <app-debug-panel [data]="config"></app-debug-panel>
+    <app-debug-panel [data]="profile"></app-debug-panel>
+    <app-debug-panel [data]="menu"></app-debug-panel>
   </app-content-body>
 </app-content>
