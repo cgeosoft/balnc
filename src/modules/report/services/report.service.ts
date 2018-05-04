@@ -48,13 +48,13 @@ export class ReportService extends BaseService {
 
     async one(id: string) {
         const reportDoc = await super.one<RxReportDoc>("report", id)
-        const report = { ...reportDoc } as Report
+        const report = _.cloneDeep(reportDoc) as Report
 
         report.filters.forEach(async filter => {
             switch (filter.type) {
                 case "select":
                     filter.value = -1
-                    filter.items = !filter.items && filter.query ? await this.getCommonData(filter.query) : []
+                    filter.items = filter.items ? filter.items : await this.getCommonData(filter.query)
                     filter.items.unshift({ label: "-- Select --", value: -1 })
                     break
                 case "date":
@@ -128,7 +128,10 @@ export class ReportService extends BaseService {
     }
 
     async generatePdfMake(report: Report, data: any) {
-        const pdf = report.pdf
+        const fields = _.cloneDeep(report.fields)
+        const pdf = _.cloneDeep(report.pdf)
+        const d = _.cloneDeep(data)
+        console.log("f", pdf, data.rows.length)
 
         if (!pdf) {
             return Promise.reject("No pdf schema were found")
@@ -137,26 +140,28 @@ export class ReportService extends BaseService {
         const indexes = []
         const header = []
 
-        Object.keys(report.fields).forEach((field) => {
-            const i = data.columns.findIndex(column => {
-                return column.name === field
+        Object.keys(fields)
+            .forEach((field) => {
+                const i = d.columns.findIndex(column => {
+                    return column.name === field
+                })
+                if (i !== -1) {
+                    indexes.push(i)
+                    header.push(fields[field])
+                    // pdf.content[0].table.widths.push("100")
+                }
             })
-            if (i !== -1) {
-                indexes.push(i)
-                header.push(report.fields[field])
-                // pdf.content[0].table.widths.push("100")
-            }
-        })
 
         pdf.content[0].table.body.push(header)
 
-        data.rows.forEach(row => {
+        d.rows.forEach(row => {
             const r = []
             indexes.forEach(j => {
                 r.push(row[j])
             })
             pdf.content[0].table.body.push(r)
         })
+        console.log("pdf", pdf)
         return pdf
     }
 

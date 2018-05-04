@@ -65,7 +65,11 @@ export class ReportComponent implements OnInit {
       .execute(this.report, this.filters)
       .catch((err) => {
         this.reportLoading = false
-        this.error = err
+        if (err.status === 0) {
+          this.error = "SERVER_UNAVAILABLE"
+        } else {
+          this.error = err
+        }
       })
 
     if (!this.reportData) {

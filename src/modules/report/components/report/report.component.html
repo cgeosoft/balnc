@@ -36,9 +36,12 @@
       </ng-container>
     </ng-container>
     <ng-container *ngIf="error">
-      <div class="container">
+      <ng-container *ngIf="error == 'SERVER_UNAVAILABLE'">
+        <app-empty-panel message="Server is Unavailable" icon="exclamation-triangle"></app-empty-panel>
+      </ng-container>
+      <ng-container *ngIf="error != 'SERVER_UNAVAILABLE'">
         <app-debug-panel [data]="error" [isError]="true"></app-debug-panel>
-      </div>
+      </ng-container>
     </ng-container>
     <ng-template #notLoad>
       <app-empty-panel message="Use the filters to fetch some data" icon="cubes"></app-empty-panel>
