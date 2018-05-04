@@ -1,3 +1,4 @@
+import { reduce } from 'rxjs/operators/reduce';
 import { Profile } from '@blnc/core/profile/data/profile'
 import { ENV } from 'environments/environment'
 
@@ -43,12 +44,18 @@ export class ConfigService {
                     m.menu
             })
             .map(m => {
-                const l = _.cloneDeep(m.menu)
-                l.path = `/${l.path}`
-                l.icon = HelperService.getIconClass(l.icon, true)
-                return l
+                return m.menu.filter(x => {
+                    return profile.modules[m.module].menu[x.path]
+                })
             })
+            // .map(m => {
+            //     const l = _.cloneDeep(m.menu)
+            //     l.path = `/${l.path}`
+            //     l.icon = HelperService.getIconClass(l.icon, true)
+            //     return l
+            // })
             .value()
+        console.log("menu", menu)
         return menu
     }
 }

@@ -1,9 +1,9 @@
+import { NgModule } from '@angular/core'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { CommonModule as AngularCommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { NgModule, APP_INITIALIZER, Injector } from '@angular/core'
 
 import { NgPipesModule } from 'ngx-pipes'
 import { MomentModule } from 'angular2-moment'
@@ -21,8 +21,6 @@ import { LoaderComponent } from '@blnc/common/components/loader/loader.component
 import { EllipsisPipe } from '@blnc/common/pipes/ellipsis.pipe'
 import { DocVersionPipe } from '@blnc/common/pipes/doc-version.pipe'
 import { HelperService } from '@blnc/common/services/helper.service'
-import { ConfigService } from '@blnc/common/services/config.service'
-import { DatabaseService } from '@blnc/common/services/database.service'
 
 @NgModule({
   imports: [
@@ -37,41 +35,40 @@ import { DatabaseService } from '@blnc/common/services/database.service'
     RouterModule.forChild([]),
   ],
   declarations: [
-    SideBarComponent,
-    StatusBarComponent,
-    PageNotFoundComponent,
+    ContentBodyComponent,
     ContentComponent,
     ContentHeaderComponent,
-    ContentBodyComponent,
-    EmptyPanelComponent,
     DebugPanelComponent,
-    LoaderComponent,
-    EllipsisPipe,
     DocVersionPipe,
+    EllipsisPipe,
+    EmptyPanelComponent,
+    LoaderComponent,
+    PageNotFoundComponent,
+    SideBarComponent,
+    StatusBarComponent,
   ],
   providers: [
     HelperService,
   ],
   exports: [
-    HttpClientModule,
     AngularCommonModule,
-    NgbModule,
+    ContentBodyComponent,
+    ContentComponent,
+    ContentHeaderComponent,
+    DebugPanelComponent,
+    DocVersionPipe,
+    EllipsisPipe,
+    EmptyPanelComponent,
+    FileHelpersModule,
     FormsModule,
+    HttpClientModule,
+    LoaderComponent,
+    MomentModule,
+    NgbModule,
+    NgPipesModule,
     ReactiveFormsModule,
     SideBarComponent,
     StatusBarComponent,
-    ContentComponent,
-    ContentHeaderComponent,
-    ContentBodyComponent,
-    EmptyPanelComponent,
-    DebugPanelComponent,
-    LoaderComponent,
-    NgPipesModule,
-    FileHelpersModule,
-    MomentModule,
-    EllipsisPipe,
-    DocVersionPipe,
   ],
-  entryComponents: []
 })
 export class CommonModule { }

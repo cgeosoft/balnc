@@ -24,7 +24,7 @@ import { ProfileService } from '@blnc/core/profile/services/profile.service';
       // enableTracing: true
       // preloadingStrategy: PreloadAllModules
     }),
-CommonModule,
+    CommonModule,
     CoreModule,
   ],
   declarations: [
@@ -50,7 +50,10 @@ CommonModule,
       },
       deps: [DatabaseService, ProfileService, ConfigService],
       multi: true,
-    }],
-  exports: []
+    }
+  ],
+  // exports: [
+  //   CommonModule,
+  // ]
 })
 export class AppModule { }

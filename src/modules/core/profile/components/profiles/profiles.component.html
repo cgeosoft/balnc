@@ -44,8 +44,7 @@
     <ng-template #empty>
       <app-empty-panel message="No profiles were found" icon="cubes" style="height:200px"></app-empty-panel>
     </ng-template>
-
-    <div class="text-center p-4">
+    <div class="card-footer text-center p-4">
       <strong>Psss...</strong>
       <br>do you want to try some
       <br>
@@ -54,5 +53,8 @@
       <br>
       <a href="javascript:" (click)="quickCreateProfile()">click me</a>
     </div>
+  </div>
+  <div class="text-center p-4 text-white">
+    Balance v{{appVersion}}
   </div>
 </div>

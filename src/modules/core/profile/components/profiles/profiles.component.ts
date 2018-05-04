@@ -17,6 +17,7 @@ import { ConfigService } from '@blnc/common/services/config.service';
 })
 export class ProfilesComponent implements OnInit {
 
+  appVersion: any;
   error: string;
   @ViewChild(FilePickerDirective)
 
@@ -35,7 +36,7 @@ export class ProfilesComponent implements OnInit {
   ngOnInit() {
     this.selectedProfile = this.profileService.getCurrent()
     this.profiles = this.profileService.config.profiles || []
-    console.log(this.profiles)
+    this.appVersion = this.configService.version
   }
   clear() {
     this.profileService.clear()
