@@ -7,7 +7,7 @@ import { CloudaryUploadService } from "./cloudary.service"
 
 const cloudinaryConfiguration = {
     "cloud_name": "cgeosoft",
-    "upload_preset": "balance"
+    "upload_preset": "balnc"
 }
 
 @NgModule({

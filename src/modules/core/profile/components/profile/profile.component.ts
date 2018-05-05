@@ -7,9 +7,9 @@ import { Observable } from 'rxjs/Observable'
 import * as _ from 'lodash'
 
 import { ProfileService } from '../../services/profile.service'
-import { ConfigService } from '@blnc/common/services/config.service';
+import { ConfigService } from '@balnc/common/services/config.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Profile } from '@blnc/core/profile/data/profile';
+import { Profile } from '@balnc/core/profile/data/profile';
 
 @Component({
     selector: 'app-profile-profile',

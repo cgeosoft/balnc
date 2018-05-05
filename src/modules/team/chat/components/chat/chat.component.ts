@@ -7,7 +7,7 @@ import * as moment from 'moment'
 
 
 import { RxChatMessageDocument } from '../../data/message'
-import { ChatService } from '@blnc/team/chat/services/chat.service';
+import { ChatService } from '@balnc/team/chat/services/chat.service';
 
 @Component({
   selector: 'app-chat',

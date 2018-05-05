@@ -1,9 +1,9 @@
 import { RxCollection, RxDocument } from 'rxdb';
 import { Injector } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
-import { Entity } from "@blnc/common/models/entity";
-import { ConfigService } from "@blnc/common/services/config.service";
-import { DatabaseService } from "@blnc/common/services/database.service";
+import { Entity } from "@balnc/common/models/entity";
+import { ConfigService } from "@balnc/common/services/config.service";
+import { DatabaseService } from "@balnc/common/services/database.service";
 
 
 export abstract class BaseService implements Resolve<any> {

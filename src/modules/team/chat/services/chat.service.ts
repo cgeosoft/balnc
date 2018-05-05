@@ -7,8 +7,8 @@ import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 import * as moment from 'moment'
 
 import { RxChatMessageDocument, ChatMessageSchema } from "../data/message"
-import { Entity } from "@blnc/common/models/entity";
-import { DatabaseService } from "@blnc/common/services/database.service";
+import { Entity } from "@balnc/common/models/entity";
+import { DatabaseService } from "@balnc/common/services/database.service";
 
 const entities: Entity[] = [{
     name: 'message',

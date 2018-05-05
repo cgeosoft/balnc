@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
-import { ContactsOverviewComponent, ContactItemComponent } from "@blnc/business/contacts/components";
-import { ContactsService } from "@blnc/business/contacts/services/contacts.service";
+import { ContactsOverviewComponent, ContactItemComponent } from "@balnc/business/contacts/components";
+import { ContactsService } from "@balnc/business/contacts/services/contacts.service";
 
 const routes: Routes = [{
   path: 'contacts',

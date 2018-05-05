@@ -8,8 +8,8 @@ import * as moment from 'moment'
 
 import { RxProjectDocument, ProjectSchema } from "../data/project"
 import { RxLogDocument, LogSchema } from "../data/log"
-import { Entity } from "@blnc/common/models/entity";
-import { DatabaseService } from "@blnc/common/services/database.service";
+import { Entity } from "@balnc/common/models/entity";
+import { DatabaseService } from "@balnc/common/services/database.service";
 
 const entities: Entity[] = [{
     name: 'project',

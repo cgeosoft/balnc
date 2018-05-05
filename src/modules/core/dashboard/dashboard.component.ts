@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { ConfigService } from '@blnc/common/services/config.service';
-import { ProfileService } from '@blnc/core/profile/services/profile.service';
+import { ConfigService } from '@balnc/common/services/config.service';
+import { ProfileService } from '@balnc/core/profile/services/profile.service';
 
 @Component({
   selector: 'app-dashboard',

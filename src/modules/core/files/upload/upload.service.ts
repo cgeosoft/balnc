@@ -4,7 +4,7 @@ import { UploadInterface } from "./upload.interface"
 
 import { CloudaryUploadService } from './cloudary/cloudary.service'
 
-import { ConfigService } from '@blnc/common/services/config.service';
+import { ConfigService } from '@balnc/common/services/config.service';
 
 @Injectable()
 export class UploadService {

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Profile } from '@blnc/core/profile/data/profile';
-import { ProfileService } from '@blnc/core/profile/services/profile.service';
-import { ConfigService } from '@blnc/common/services/config.service';
+import { Profile } from '@balnc/core/profile/data/profile';
+import { ProfileService } from '@balnc/core/profile/services/profile.service';
+import { ConfigService } from '@balnc/common/services/config.service';
 
 @Component({
   selector: 'app-status-bar',

@@ -3,12 +3,12 @@ import { FormsModule } from '@angular/forms'
 import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router'
 
 import { FileUploadModule } from 'ng2-file-upload';
-import { PresentationsService } from '@blnc/marketing/presentations/services/presentations.service';
-import { ItemComponent } from '@blnc/marketing/presentations/components/item/item.component';
-import { CreatePresentationComponent } from '@blnc/marketing/presentations/components/create-presentation/create-presentation.component';
-import { UploadComponent } from '@blnc/marketing/presentations/components/upload/upload.component';
-import { AddPageComponent } from '@blnc/marketing/presentations/components/add-page/add-page.component';
-import { OverviewComponent } from '@blnc/marketing/presentations/components/overview/overview.component';
+import { PresentationsService } from '@balnc/marketing/presentations/services/presentations.service';
+import { ItemComponent } from '@balnc/marketing/presentations/components/item/item.component';
+import { CreatePresentationComponent } from '@balnc/marketing/presentations/components/create-presentation/create-presentation.component';
+import { UploadComponent } from '@balnc/marketing/presentations/components/upload/upload.component';
+import { AddPageComponent } from '@balnc/marketing/presentations/components/add-page/add-page.component';
+import { OverviewComponent } from '@balnc/marketing/presentations/components/overview/overview.component';
 
 const routes: Routes = [{
   path: 'presentations',

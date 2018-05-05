@@ -5,10 +5,10 @@ import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, 
 
 import * as _ from 'lodash'
 
-import { HelperService } from '@blnc/common/services/helper.service'
-import { ConfigService } from '@blnc/common/services/config.service';
-import { ProfileService } from '@blnc/core/profile/services/profile.service';
-import { Profile } from '@blnc/core/profile/data/profile';
+import { HelperService } from '@balnc/common/services/helper.service'
+import { ConfigService } from '@balnc/common/services/config.service';
+import { ProfileService } from '@balnc/core/profile/services/profile.service';
+import { Profile } from '@balnc/core/profile/data/profile';
 
 @Component({
   selector: 'app-main',

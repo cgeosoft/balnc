@@ -1,11 +1,11 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable, Injector, wtfStartTimeRange } from "@angular/core"
-import { ReportSchema, RxReportDoc, Report } from "@blnc/report/data/report"
+import { ReportSchema, RxReportDoc, Report } from "@balnc/report/data/report"
 import * as _ from 'lodash'
 import * as moment from 'moment'
 import { RxCollection } from "rxdb"
-import { BaseService } from "@blnc/common/services/base.service"
-import { ReportConfig } from "@blnc/report/data/module-config"
+import { BaseService } from "@balnc/common/services/base.service"
+import { ReportConfig } from "@balnc/report/data/module-config"
 import { Subject } from "rxjs/Subject"
 import { TemplateParseResult } from "@angular/compiler";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
@@ -23,7 +23,7 @@ export class ReportService extends BaseService {
         private http: HttpClient,
     ) {
         super(injector)
-        this._module = "@blnc/report"
+        this._module = "@balnc/report"
         this._entities = [{
             name: 'report',
             schema: ReportSchema,

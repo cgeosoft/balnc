@@ -1,5 +1,5 @@
-declare interface BalanceModuleConfigType {
+declare interface BalncModuleConfigType {
   enabled: string
 }
 
-export type BalanceModuleConfig = BalanceModuleConfigType
+export type BalncModuleConfig = BalncModuleConfigType

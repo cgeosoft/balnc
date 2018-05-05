@@ -5,14 +5,14 @@ import { RouterModule, PreloadAllModules, Routes } from '@angular/router'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { MarkdownModule } from 'ngx-md'
 
-import { CommonModule } from '@blnc/common/common.module'
-import { CoreModule } from '@blnc/core/core.module'
+import { CommonModule } from '@balnc/common/common.module'
+import { CoreModule } from '@balnc/core/core.module'
 
 import { ENV } from 'environments/environment'
 import { AppComponent } from './app.component'
-import { DatabaseService } from '@blnc/common/services/database.service'
-import { ConfigService } from '@blnc/common/services/config.service'
-import { ProfileService } from '@blnc/core/profile/services/profile.service';
+import { DatabaseService } from '@balnc/common/services/database.service'
+import { ConfigService } from '@balnc/common/services/config.service'
+import { ProfileService } from '@balnc/core/profile/services/profile.service';
 
 @NgModule({
   imports: [

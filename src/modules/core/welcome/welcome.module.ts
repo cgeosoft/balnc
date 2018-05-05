@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router';
 
-import { CommonModule } from '@blnc/common/common.module';
-import { WelcomeComponent } from '@blnc/core/welcome/welcome.component';
-import { WelcomeGuard } from '@blnc/core/welcome/welcome.guard';
+import { CommonModule } from '@balnc/common/common.module';
+import { WelcomeComponent } from '@balnc/core/welcome/welcome.component';
+import { WelcomeGuard } from '@balnc/core/welcome/welcome.guard';
 
 const routes: Routes = [{
   path: 'welcome',
@@ -12,7 +12,7 @@ const routes: Routes = [{
 
 @NgModule({
   imports: [
-    // CommonModule,
+    CommonModule,
     RouterModule.forChild(routes),
   ],
   declarations: [

@@ -10,8 +10,8 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 import * as _ from 'lodash'
 import * as moment from 'moment'
-import { ReportService } from '@blnc/report/services/report.service'
-import { RxReportDoc, Report } from '@blnc/report/data/report'
+import { ReportService } from '@balnc/report/services/report.service'
+import { RxReportDoc, Report } from '@balnc/report/data/report'
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({

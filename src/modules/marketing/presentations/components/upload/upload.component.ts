@@ -2,7 +2,7 @@ import { Component, OnInit, Input, NgZone } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { FileUploader } from 'ng2-file-upload'
 
-import { FilesService } from "@blnc/core/files/files.service"
+import { FilesService } from "@balnc/core/files/files.service"
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

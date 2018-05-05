@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { PresentationsService } from '@blnc/marketing/presentations/services/presentations.service';
+import { PresentationsService } from '@balnc/marketing/presentations/services/presentations.service';
 
 @Component({
     selector: 'app-presentations-create-presentation',

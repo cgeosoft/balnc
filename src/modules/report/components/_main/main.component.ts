@@ -4,7 +4,7 @@ import { Component, OnInit, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs/Observable'
 import { RxCollection, RxDocumentBase } from 'rxdb'
-import { RxReportDoc } from '@blnc/report/data/report';
+import { RxReportDoc } from '@balnc/report/data/report';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { ContactsService } from '@blnc/business/contacts/services/contacts.service';
-import { RxContactDocument } from '@blnc/business/contacts/data/contact';
+import { ContactsService } from '@balnc/business/contacts/services/contacts.service';
+import { RxContactDocument } from '@balnc/business/contacts/data/contact';
 import { Observable } from 'rxjs/Observable';
 
 @Component({

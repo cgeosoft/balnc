@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Router, CanActivate } from '@angular/router'
-import { ReportService } from '@blnc/report/services/report.service';
-import { ConfigService } from '@blnc/common/services/config.service';
-import { ReportConfig } from '@blnc/report/data/module-config';
+import { ReportService } from '@balnc/report/services/report.service';
+import { ConfigService } from '@balnc/common/services/config.service';
+import { ReportConfig } from '@balnc/report/data/module-config';
 
 @Injectable()
 export class ReportGuard implements CanActivate {
@@ -12,8 +12,8 @@ export class ReportGuard implements CanActivate {
   ) { }
 
   canActivate() {
-    const userExists = localStorage.getItem("@blnc/report/report-user")
-    const requireUser = (this.configService.getModuleConfig("@blnc/report") as ReportConfig).server.requireUser
+    const userExists = localStorage.getItem("@balnc/report/report-user")
+    const requireUser = (this.configService.getModuleConfig("@balnc/report") as ReportConfig).server.requireUser
     if (!userExists && requireUser) {
       this.router.navigate(["/report/login"])
       return false

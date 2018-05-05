@@ -7,8 +7,8 @@ import { Observable } from 'rxjs/Observable'
 
 import * as _ from 'lodash'
 import * as moment from 'moment'
-import { ConfigService } from '@blnc/common/services/config.service';
-import { ReportService } from '@blnc/report/services/report.service';
+import { ConfigService } from '@balnc/common/services/config.service';
+import { ReportService } from '@balnc/report/services/report.service';
 
 @Component({
   selector: 'app-reports-overview',

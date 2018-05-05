@@ -23,25 +23,25 @@
     ],
     "baseUrl": "./src",
     "paths": {
-      "@blnc/common/*": [
+      "@balnc/common/*": [
         "modules/common/*"
       ],
-      "@blnc/core/*": [
+      "@balnc/core/*": [
         "modules/core/*"
       ],
-      "@blnc/business/*": [
+      "@balnc/business/*": [
         "modules/business/*"
       ],
-      "@blnc/marketing/*": [
+      "@balnc/marketing/*": [
         "modules/marketing/*"
       ],
-      "@blnc/team/*": [
+      "@balnc/team/*": [
         "modules/team/*"
       ],
-      "@blnc/booking/*": [
+      "@balnc/booking/*": [
         "modules/booking/*"
       ],
-      "@blnc/report/*": [
+      "@balnc/report/*": [
         "modules/report/*"
       ],
       "environments/*": [

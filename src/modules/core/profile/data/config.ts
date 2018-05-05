@@ -1,4 +1,4 @@
-import { Profile } from "@blnc/core/profile/data/profile";
+import { Profile } from "@balnc/core/profile/data/profile";
 
 declare interface ProfileConfigType {
     selectedProfile?: string

@@ -4,11 +4,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { RxCollection } from 'rxdb'
 import { Router } from '@angular/router'
 
-import { ProfileService } from '@blnc/core/profile/services/profile.service'
-import { Profile } from '@blnc/core/profile/data/profile'
+import { ProfileService } from '@balnc/core/profile/services/profile.service'
+import { Profile } from '@balnc/core/profile/data/profile'
 import { FilePickerDirective, ReadFile } from 'ngx-file-helpers'
-import { DatabaseService } from '@blnc/common/services/database.service';
-import { ConfigService } from '@blnc/common/services/config.service';
+import { DatabaseService } from '@balnc/common/services/database.service';
+import { ConfigService } from '@balnc/common/services/config.service';
 
 @Component({
   selector: 'app-profile-profiles',
@@ -49,16 +49,16 @@ export class ProfilesComponent implements OnInit {
       alias: "",
       name: quickLocalName,
       modules: {
-        "@blnc/business-invoices": {
+        "@balnc/business-invoices": {
           "enabled": true
         },
-        "@blnc/marketing-presentations": {
+        "@balnc/marketing-presentations": {
           "enabled": true
         },
-        "@blnc/team-projects": {
+        "@balnc/team-projects": {
           "enabled": true
         },
-        "@blnc/team-chat": {
+        "@balnc/team-chat": {
           "enabled": true
         }
       },

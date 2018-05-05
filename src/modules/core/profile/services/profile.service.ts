@@ -2,24 +2,24 @@ import { Injectable } from '@angular/core'
 
 import * as _ from 'lodash'
 
-import { Profile } from '@blnc/core/profile/data/profile';
-import { ProfileConfig } from '@blnc/core/profile/data/config';
+import { Profile } from '@balnc/core/profile/data/profile';
+import { ProfileConfig } from '@balnc/core/profile/data/config';
 
 @Injectable()
 export class ProfileService {
 
-    _module = "@blnc/profiles"
+    _module = "@balnc/profiles"
     config: ProfileConfig = {}
 
     setup() {
         this.loadProfiles()
-        this.config.selectedProfile = localStorage.getItem("@blnc/profiles/selected-profile")
+        this.config.selectedProfile = localStorage.getItem("@balnc/profiles/selected-profile")
     }
 
     loadProfiles() {
         this.config.profiles = Object.keys(localStorage)
             .filter(item => {
-                return item.indexOf("@blnc/profiles/profiles") === 0
+                return item.indexOf("@balnc/profiles/profiles") === 0
             })
             .map(item => {
                 return JSON.parse(localStorage[item])
@@ -28,9 +28,9 @@ export class ProfileService {
     }
 
     clear() {
-        localStorage.removeItem(`@blnc/profiles/selected-profile`)
+        localStorage.removeItem(`@balnc/profiles/selected-profile`)
         this.config.profiles.forEach(profile => {
-            localStorage.removeItem(`@blnc/profiles/profiles/${profile.alias}`)
+            localStorage.removeItem(`@balnc/profiles/profiles/${profile.alias}`)
         })
         this.config.selectedProfile = null
         this.config.profiles = []
@@ -45,7 +45,7 @@ export class ProfileService {
             throw new Error("Profile not found")
         }
         this.config.selectedProfile = profile.alias
-        localStorage.setItem("@blnc/profiles/selected-profile", profile.alias)
+        localStorage.setItem("@balnc/profiles/selected-profile", profile.alias)
     }
 
     add(profile: Profile) {

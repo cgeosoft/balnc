@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core'
 
-import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard'
-import { ProfileService } from '@blnc/core/profile/services/profile.service'
+import { DefaultProfileGuard } from '@balnc/core/profile/guards/profile.guard'
+import { ProfileService } from '@balnc/core/profile/services/profile.service'
 
-import { CommonModule } from '@blnc/common/common.module';
-import { ProfilesComponent } from '@blnc/core/profile/components/profiles/profiles.component'
+import { CommonModule } from '@balnc/common/common.module';
+import { ProfilesComponent } from '@balnc/core/profile/components/profiles/profiles.component'
 import { RouterModule, Routes } from '@angular/router';
-import { WelcomeGuard } from '@blnc/core/welcome/welcome.guard';
-import { ProfileComponent } from '@blnc/core/profile/components/profile/profile.component';
+import { WelcomeGuard } from '@balnc/core/welcome/welcome.guard';
+import { ProfileComponent } from '@balnc/core/profile/components/profile/profile.component';
 
 const routes: Routes = [{
   path: 'profiles',

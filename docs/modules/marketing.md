@@ -1,9 +1,9 @@
 ## Marketing Modules
 
-## Analytics | `@balance/marketing-analytics`
+## Analytics | `@balnc/marketing-analytics`
 
-## Polls | `@balance/marketing-polls`
+## Polls | `@balnc/marketing-polls`
 
-## Presentations | `@balance/marketing-presentations`
+## Presentations | `@balnc/marketing-presentations`
 
-## Emails | `@balance/marketing-emails`
+## Emails | `@balnc/marketing-emails`

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable'
 
 import * as _ from 'lodash'
 import * as moment from 'moment'
-import { ReportService } from '@blnc/report/services/report.service'
+import { ReportService } from '@balnc/report/services/report.service'
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms'
 
 @Component({

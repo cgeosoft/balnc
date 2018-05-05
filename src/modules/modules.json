@@ -1,6 +1,6 @@
 {
   "modules": [{
-    "module": "@blnc/business",
+    "module": "@balnc/business",
     "title": "Business",
     "description": "In this namespace you will find business modules that will help you manage your customers, orders and profiles.",
     "menu": [{
@@ -21,7 +21,7 @@
     }],
     "config": null
   }, {
-    "module": "@blnc/marketing",
+    "module": "@balnc/marketing",
     "title": "Marketing",
     "description": "It includes module for your marketing team. Use for set presentations, email campaings and view analytics.",
     "menu": [{
@@ -47,7 +47,7 @@
     }],
     "config": null
   }, {
-    "module": "@blnc/team",
+    "module": "@balnc/team",
     "title": "Teams",
     "description": "A set of modules for easy team managements. It includes a chat systems, projects and task management.",
     "menu": [{
@@ -63,7 +63,7 @@
     }],
     "config": null
   }, {
-    "module": "@blnc/report",
+    "module": "@balnc/report",
     "title": "Reports",
     "description": "A simple but full-feature team chat with customizable rooms",
     "menu": [{

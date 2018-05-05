@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HelperService } from '@blnc/common/services/helper.service';
+import { HelperService } from '@balnc/common/services/helper.service';
 
 @Component({
   selector: 'app-empty-panel',

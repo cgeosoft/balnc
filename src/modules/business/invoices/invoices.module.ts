@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { InvoicesWrapperComponent } from '@blnc/business/invoices/components/_wrapper/invoices-wrapper.component';
-import { InvoicesOverviewComponent } from '@blnc/business/invoices/components/overview/invoices-overview.component';
-import { InvoicesReportComponent } from '@blnc/business/invoices/components/report/invoices-report.component';
-import { InvoicesItemComponent } from '@blnc/business/invoices/components/item/invoices-item.component';
+import { InvoicesWrapperComponent } from '@balnc/business/invoices/components/_wrapper/invoices-wrapper.component';
+import { InvoicesOverviewComponent } from '@balnc/business/invoices/components/overview/invoices-overview.component';
+import { InvoicesReportComponent } from '@balnc/business/invoices/components/report/invoices-report.component';
+import { InvoicesItemComponent } from '@balnc/business/invoices/components/item/invoices-item.component';
 
 const routes: Routes = [
   {

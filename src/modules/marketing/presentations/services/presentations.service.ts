@@ -7,9 +7,9 @@ import { ActivatedRouteSnapshot, Resolve } from "@angular/router"
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { PresentationSchema, RxPresentationDocument } from "@blnc/marketing/presentations/data/presentation"
-import { DatabaseService } from "@blnc/common/services/database.service";
-import { Entity } from "@blnc/common/models/entity";
+import { PresentationSchema, RxPresentationDocument } from "@balnc/marketing/presentations/data/presentation"
+import { DatabaseService } from "@balnc/common/services/database.service";
+import { Entity } from "@balnc/common/models/entity";
 
 const entities: Entity[] = [{
   name: 'presentation',

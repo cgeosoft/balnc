@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router';
 
-import { CommonModule } from '@blnc/common/common.module';
-import { MainComponent } from '@blnc/core/main/main.component';
-// import { PageNotFoundComponent } from '@blnc/common/components/page-not-found/page-not-found.component';
-import { DefaultProfileGuard } from '@blnc/core/profile/guards/profile.guard';
-import { WelcomeGuard } from '@blnc/core/welcome/welcome.guard';
+import { CommonModule } from '@balnc/common/common.module';
+import { MainComponent } from '@balnc/core/main/main.component';
+// import { PageNotFoundComponent } from '@balnc/common/components/page-not-found/page-not-found.component';
+import { DefaultProfileGuard } from '@balnc/core/profile/guards/profile.guard';
+import { WelcomeGuard } from '@balnc/core/welcome/welcome.guard';
 
 const routes: Routes = [{
   path: '',
@@ -16,19 +16,19 @@ const routes: Routes = [{
   ],
   children: [{
     path: 'dashboard',
-    loadChildren: "@blnc/core/dashboard/dashboard.module#DashboardModule"
+    loadChildren: "@balnc/core/dashboard/dashboard.module#DashboardModule"
   }, {
     path: 'business',
-    loadChildren: "@blnc/business/business.module#BusinessModule"
+    loadChildren: "@balnc/business/business.module#BusinessModule"
   }, {
     path: 'team',
-    loadChildren: "@blnc/team/team.module#TeamModule"
+    loadChildren: "@balnc/team/team.module#TeamModule"
   }, {
     path: 'marketing',
-    loadChildren: "@blnc/marketing/marketing.module#MarketingModule"
+    loadChildren: "@balnc/marketing/marketing.module#MarketingModule"
   }, {
     path: 'report',
-    loadChildren: "@blnc/report/report.module#ReportModule"
+    loadChildren: "@balnc/report/report.module#ReportModule"
   }, {
     //   path: 'page-not-found',
     //   component: PageNotFoundComponent,

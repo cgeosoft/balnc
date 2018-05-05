@@ -19,7 +19,7 @@ import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
 
 import { ENV } from 'environments/environment'
 import { Entity } from "../models/entity"
-import { DatabaseConfig, Profile } from '@blnc/core/profile/data/profile';
+import { DatabaseConfig, Profile } from '@balnc/core/profile/data/profile';
 
 RxDB.QueryChangeDetector.enable()
 

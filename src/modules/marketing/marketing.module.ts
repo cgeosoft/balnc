@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { CommonModule } from '@blnc/common/common.module'
-import { PresentationsModule } from '@blnc/marketing/presentations/presentations.module'
+import { CommonModule } from '@balnc/common/common.module'
+import { PresentationsModule } from '@balnc/marketing/presentations/presentations.module'
 
 @NgModule({
   imports: [
