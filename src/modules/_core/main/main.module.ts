@@ -15,28 +15,28 @@ const routes: Routes = [{
     DefaultProfileGuard,
   ],
   children: [{
-    path: 'dashboard',
-    loadChildren: "@balnc/core/dashboard/dashboard.module#DashboardModule"
-  }, {
-    path: 'business',
-    loadChildren: "@balnc/business/business.module#BusinessModule"
-  }, {
-    path: 'team',
-    loadChildren: "@balnc/team/team.module#TeamModule"
-  }, {
-    path: 'marketing',
-    loadChildren: "@balnc/marketing/marketing.module#MarketingModule"
-  }, {
-    path: 'report',
-    loadChildren: "@balnc/report/report.module#ReportModule"
-  }, {
-    //   path: 'page-not-found',
-    //   component: PageNotFoundComponent,
-    // }, {
     path: '',
     pathMatch: "full",
     redirectTo: "/dashboard"
-  }]
+  }, {
+    path: 'dashboard',
+    loadChildren: "@balnc/core/dashboard/dashboard.module#DashboardModule",
+  }, {
+    path: 'business',
+    loadChildren: "@balnc/business/business.module#BusinessModule",
+  }, {
+    path: 'team',
+    loadChildren: "@balnc/team/team.module#TeamModule",
+  }, {
+    path: 'marketing',
+    loadChildren: "@balnc/marketing/marketing.module#MarketingModule",
+  }, {
+    path: 'report',
+    loadChildren: "@balnc/report/report.module#ReportModule",
+  }, {
+    path: '**',
+    redirectTo: "dashboard"
+  },],
 }]
 
 @NgModule({

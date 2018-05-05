@@ -10,19 +10,19 @@
     "pass": "demo"
   },
   "modules": {
-    "@blnc/business": {
+    "@balnc/business": {
       "enabled": true,
       "menu": {
         "invoices": true
       }
     },
-    "@blnc/marketing": {
+    "@balnc/marketing": {
       "enabled": true,
       "menu": {
         "presentations": true
       }
     },
-    "@blnc/team": {
+    "@balnc/team": {
       "enabled": true,
       "menu": {
         "projects": true,

@@ -43,7 +43,7 @@
               <td class="td-double">
                 <div>
                   <span class="fa fa-star text-warning" *ngIf="project.isStarred"></span>
-                  <a [routerLink]="['/projects',project._id]">{{project.name || '[Without name]'}}</a>
+                  <a [routerLink]="['/team','projects',project._id]">{{project.name || '[Without name]'}}</a>
                   <span class="badge badge-secondary" *ngIf="project.isArchived">ARCHIVED</span>
                 </div>
                 <div class="description">{{project.description || 'Without description' | ellipsis:250}}</div>

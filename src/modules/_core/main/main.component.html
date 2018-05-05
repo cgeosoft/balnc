@@ -10,8 +10,8 @@
         </a>
       </div>
       <ng-template ngFor let-item [ngForOf]="menu" *ngIf="menu.length">
-        <div class="item menu" ngbTooltip="{{item.title}}" placement="right" routerLinkActive="active">
-          <a routerLink="{{item.path}}">
+        <div class="item menu" ngbTooltip="{{item.label}}" placement="right" routerLinkActive="active">
+          <a [routerLink]="item.path">
             <span class="{{item.icon}}"></span>
           </a>
         </div>

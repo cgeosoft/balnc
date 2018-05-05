@@ -12,7 +12,7 @@ export class StatusBarComponent implements OnInit {
 
   profileName: string
   user: string
-  appVersion: string
+  version: string
 
   constructor(
     private configService: ConfigService,
@@ -23,7 +23,7 @@ export class StatusBarComponent implements OnInit {
     const profile = this.profileService.getCurrent()
     this.profileName = (profile.name)
     this.user = (profile.database) ? profile.database.user : ""
-    this.appVersion = this.configService.version
+    this.version = this.configService.version
   }
 
 }

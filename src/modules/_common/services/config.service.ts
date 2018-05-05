@@ -25,8 +25,8 @@ export class ConfigService {
 
     setup() {
         this.config = ENV.configuration
-        this.modules = ENV.modules.modules
-        this.version = ENV.package.version
+        this.modules = ENV.modules
+        this.version = ENV.version
         console.log("ConfigService initializing with ENV:", ENV)
     }
 
@@ -51,8 +51,9 @@ export class ConfigService {
                 return supermenu.concat(menus);
             }, [])
             .map(m => {
-                m.icon = HelperService.getIconClass(m.icon, true)
-                return m
+                const v = { ...m }
+                v.icon = HelperService.getIconClass(m.icon, true)
+                return v
             })
         return menu
     }

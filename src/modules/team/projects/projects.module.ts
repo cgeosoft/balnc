@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router'
 
 import { MarkdownModule } from 'ngx-md'
 
+import { CommonModule } from '@balnc/common/common.module';
+
 import { CreateProjectComponent } from '@balnc/team/projects/components/create-project/create-project.component'
 import { CreateTaskComponent } from '@balnc/team/projects/components/create-task/create-task.component'
 import { MainComponent } from '@balnc/team/projects/components/_main/main.component'
@@ -15,6 +17,11 @@ import { ProjectsService } from '@balnc/team/projects/services/projects.service'
 import { TaskComponent } from '@balnc/team/projects/components/task/task.component'
 
 @NgModule({
+  imports: [
+    CommonModule,
+    RouterModule.forChild(ProjectRoutes),
+    MarkdownModule,
+  ],
   declarations: [
     MainComponent,
     OverviewComponent,
@@ -23,10 +30,6 @@ import { TaskComponent } from '@balnc/team/projects/components/task/task.compone
     TaskComponent,
     CreateTaskComponent,
     CreateProjectComponent,
-  ],
-  imports: [
-    RouterModule.forChild(ProjectRoutes),
-    MarkdownModule,
   ],
   providers: [
     ProjectsService

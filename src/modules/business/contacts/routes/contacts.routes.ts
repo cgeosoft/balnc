@@ -8,9 +8,9 @@ const routes: Routes = [{
     db: ContactsService,
   },
   children: [
+    { path: '', redirectTo: "overview" },
     { path: 'overview', component: ContactsOverviewComponent },
     { path: 'contact/:id', component: ContactItemComponent },
-    { path: '', redirectTo: "overview" },
   ]
 }]
 

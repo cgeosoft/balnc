@@ -24,10 +24,10 @@
     "baseUrl": "./src",
     "paths": {
       "@balnc/common/*": [
-        "modules/common/*"
+        "modules/_common/*"
       ],
       "@balnc/core/*": [
-        "modules/core/*"
+        "modules/_core/*"
       ],
       "@balnc/business/*": [
         "modules/business/*"

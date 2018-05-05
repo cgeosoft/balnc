@@ -24,7 +24,6 @@ export class ProfileService {
             .map(item => {
                 return JSON.parse(localStorage[item])
             })
-        console.log(this.config.profiles)
     }
 
     clear() {

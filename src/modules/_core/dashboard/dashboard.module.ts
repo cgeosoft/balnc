@@ -5,7 +5,10 @@ import { CommonModule } from '@balnc/common/common.module';
 import { DashboardComponent } from './dashboard.component'
 
 const appRoutes: Routes = [
-  { path: '', component: DashboardComponent },
+  {
+    path: '',
+    component: DashboardComponent
+  },
 ]
 
 @NgModule({

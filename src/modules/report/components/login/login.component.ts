@@ -1,15 +1,12 @@
-import { ConfigService } from './../../../common/services/config.service'
-import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
-import { Subscription } from 'rxjs/Subscription'
-import { RxCollection, RxDocumentBase } from 'rxdb'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { Observable } from 'rxjs/Observable'
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { FormBuilder, FormGroup } from '@angular/forms'
 
 import * as _ from 'lodash'
 import * as moment from 'moment'
+
+import { ConfigService } from '@balnc/common/services/config.service'
 import { ReportService } from '@balnc/report/services/report.service'
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms'
 
 @Component({
   selector: 'app-reports-login',
