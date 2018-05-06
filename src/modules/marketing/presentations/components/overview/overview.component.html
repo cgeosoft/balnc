@@ -59,12 +59,12 @@
             </tr>
           </tbody>
         </table>
-        <app-debug-panel [data]="presentations"></app-debug-panel>
+        <app-debug [data]="presentations"></app-debug>
       </ng-container>
     </ng-container>
 
     <ng-template #noItems>
-      <app-empty-panel message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty-panel>
+      <app-empty message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty>
     </ng-template>
     <ng-template #loader>
       <app-loader></app-loader>

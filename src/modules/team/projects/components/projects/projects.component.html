@@ -61,11 +61,11 @@
       </ng-container>
     </ng-container>
     <ng-template #noItems>
-      <app-empty-panel message="You don't have any projects yet" submessage="Click create to add your first one" icon="cubes"></app-empty-panel>
+      <app-empty message="You don't have any projects yet" submessage="Click create to add your first one" icon="cubes"></app-empty>
     </ng-template>
     <ng-template #loader>
       <app-loader></app-loader>
     </ng-template>
-    <app-debug-panel [data]="projects"></app-debug-panel>
+    <app-debug [data]="projects"></app-debug>
   </app-content-body>
 </app-content>

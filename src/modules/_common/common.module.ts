@@ -15,8 +15,8 @@ import { PageNotFoundComponent } from '@balnc/common/components/page-not-found/p
 import { ContentComponent } from '@balnc/common/components/content/content.component'
 import { ContentHeaderComponent } from '@balnc/common/components/content-header/content-header.component'
 import { ContentBodyComponent } from '@balnc/common/components/content-body/content-body.component'
-import { EmptyPanelComponent } from '@balnc/common/components/empty-panel/empty-panel.component'
-import { DebugPanelComponent } from '@balnc/common/components/debug-panel/debug-panel.component'
+import { EmptyComponent } from '@balnc/common/components/empty/empty.component'
+import { DebugComponent } from '@balnc/common/components/debug/debug.component'
 import { LoaderComponent } from '@balnc/common/components/loader/loader.component'
 import { EllipsisPipe } from '@balnc/common/pipes/ellipsis.pipe'
 import { DocVersionPipe } from '@balnc/common/pipes/doc-version.pipe'
@@ -38,10 +38,10 @@ import { HelperService } from '@balnc/common/services/helper.service'
     ContentBodyComponent,
     ContentComponent,
     ContentHeaderComponent,
-    DebugPanelComponent,
+    DebugComponent,
     DocVersionPipe,
     EllipsisPipe,
-    EmptyPanelComponent,
+    EmptyComponent,
     LoaderComponent,
     PageNotFoundComponent,
     SideBarComponent,
@@ -55,10 +55,10 @@ import { HelperService } from '@balnc/common/services/helper.service'
     ContentBodyComponent,
     ContentComponent,
     ContentHeaderComponent,
-    DebugPanelComponent,
+    DebugComponent,
     DocVersionPipe,
     EllipsisPipe,
-    EmptyPanelComponent,
+    EmptyComponent,
     FileHelpersModule,
     FormsModule,
     HttpClientModule,

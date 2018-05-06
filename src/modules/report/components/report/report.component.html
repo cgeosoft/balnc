@@ -37,17 +37,17 @@
     </ng-container>
     <ng-container *ngIf="error">
       <ng-container *ngIf="error == 'SERVER_UNAVAILABLE'">
-        <app-empty-panel message="Server is Unavailable" icon="exclamation-triangle"></app-empty-panel>
+        <app-empty message="Server is Unavailable" icon="exclamation-triangle"></app-empty>
       </ng-container>
       <ng-container *ngIf="error != 'SERVER_UNAVAILABLE'">
-        <app-debug-panel [data]="error" [isError]="true"></app-debug-panel>
+        <app-debug [data]="error" [isError]="true"></app-debug>
       </ng-container>
     </ng-container>
     <ng-template #notLoad>
-      <app-empty-panel message="Use the filters to fetch some data" icon="cubes"></app-empty-panel>
+      <app-empty message="Use the filters to fetch some data" icon="cubes"></app-empty>
     </ng-template>
     <ng-template #noResults>
-      <app-empty-panel message="No data were found" icon="cubes"></app-empty-panel>
+      <app-empty message="No data were found" icon="cubes"></app-empty>
     </ng-template>
     <ng-template #loader>
       <app-loader animation="sk-cube" label="Building Report..."></app-loader>

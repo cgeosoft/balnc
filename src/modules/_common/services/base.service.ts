@@ -14,7 +14,7 @@ export abstract class BaseService implements Resolve<any> {
     protected _module: string
     protected _entities: Entity[]
 
-    protected _config: any
+    protected settings: any
     protected _data: RxCollection<RxDocument<any>>[] = []
 
     constructor(injector: Injector) {
@@ -29,7 +29,7 @@ export abstract class BaseService implements Resolve<any> {
     }
 
     public async setup() {
-        this._config = this.configService.getModuleConfig(this._module)
+        this.settings = this.configService.getModuleConfig(this._module)
         await this.dbService.loadEntities(this._entities)
         this._entities.forEach(async e => {
             this._data[e.name] = await this.dbService.get(e.name)

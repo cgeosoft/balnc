@@ -1,20 +1,21 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable, Injector, wtfStartTimeRange } from "@angular/core"
-import { ReportSchema, RxReportDoc, Report } from "@balnc/report/data/report"
-import * as _ from 'lodash'
-import * as moment from 'moment'
-import { RxCollection } from "rxdb"
-import { BaseService } from "@balnc/common/services/base.service"
-import { ReportConfig } from "@balnc/report/data/module-config"
-import { Subject } from "rxjs/Subject"
 import { TemplateParseResult } from "@angular/compiler";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { RxCollection } from "rxdb"
+import { Subject } from "rxjs/Subject"
+
+import * as _ from 'lodash'
+import * as moment from 'moment'
+
+import { ReportSchema, RxReportDoc, Report } from "@balnc/report/data/report"
+import { BaseService } from "@balnc/common/services/base.service"
+import { ReportSettings } from "@balnc/report/data/module-settings"
 
 @Injectable()
 export class ReportService extends BaseService {
 
-    _config: ReportConfig
-    user: any
+    settings: ReportSettings
 
     isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
@@ -29,11 +30,6 @@ export class ReportService extends BaseService {
             schema: ReportSchema,
             sync: true,
         }]
-    }
-
-    async setup() {
-        await super.setup()
-        this.loadUser()
     }
 
     async all(params: any = {}) {
@@ -71,7 +67,7 @@ export class ReportService extends BaseService {
     }
 
     async getCommonData(query) {
-        const url = `${this._config.server.host}/execute`
+        const url = `${this.settings.host}/execute`
         const headers = this.generateHeaders()
 
         const result = await this.http.post(url, {
@@ -86,31 +82,8 @@ export class ReportService extends BaseService {
         })
     }
 
-    loadUser() {
-        const user = this.getStore("report-user")
-        if (user) {
-            this.user = user
-            this.isAuthenticated.next(true)
-        }
-    }
-
-    login(username: string, password: string) {
-        this.user = {
-            username: username,
-            password: password,
-        }
-        this.setStore("report-user", this.user)
-        this.isAuthenticated.next(true)
-    }
-
-    logout() {
-        this.user = null
-        this.clearStore("report-user")
-        this.isAuthenticated.next(false)
-    }
-
     async execute(report: Report, filters) {
-        const url = `${this._config.server.host}/execute`
+        const url = `${this.settings.host}/execute`
         const headers = this.generateHeaders()
         let query = ""
         try {
@@ -168,7 +141,7 @@ export class ReportService extends BaseService {
     private generateHeaders() {
         return {
             headers: {
-                Authorization: "Basic " + btoa(this.user.username + ":" + this.user.password)
+                Authorization: "Basic " + btoa("key:" + this.settings.key)
             }
         }
     }
