@@ -1,5 +1,4 @@
-$color-dark: #222222;
-$color-base: #9E9E9E;
-$color-second: #283593;
-$color-sidemenu-background:$color-dark;
-$color-sidemenu-font:lighten($color-sidemenu-background, 40);
+$color-primary: #3F51B5;
+$color-primary-font: get-font-color($color-primary);
+$color-background: #222222;
+$color-background-font: get-font-color($color-background);

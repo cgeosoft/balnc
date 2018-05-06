@@ -1,7 +1,7 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
 
 
-import { RxInvoiceDocument } from '../../data/invoice'
+import { Invoice } from '../../data/invoice'
 
 @Component({
   selector: 'app-invoices-report',
@@ -10,7 +10,7 @@ import { RxInvoiceDocument } from '../../data/invoice'
 })
 export class InvoicesReportComponent implements OnInit, OnDestroy {
 
-  invoices: RxInvoiceDocument[]
+  invoices: Invoice[]
   sub
 
   constructor(

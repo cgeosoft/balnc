@@ -1,4 +1,4 @@
-@import "components/bootstrap";
+@import "bootstrap";
 @import "colors";
 :host {
   width: 100%;
@@ -12,7 +12,7 @@
       @extend .p-2;
       @extend .d-flex;
       @extend .flex-column;
-      background: lighten( $color-sidemenu-background, 12%);
+      background: lighten( $color-background, 12%);
       width: 200px;
       min-width: 200px;
       height: 100%;

@@ -11,7 +11,7 @@ declare interface IReport {
     pdf?: any
 }
 
-declare interface ReportFilterType {
+declare interface IReportFilter {
     name: string
     field: string
     type: string
@@ -23,5 +23,6 @@ declare interface ReportFilterType {
 
 export type Report = IReport
 export type RxReportDoc = RxDocument<IReport> & IReport
-export type ReportFilter = ReportFilterType
+export type ReportFilter = IReportFilter
+
 export const ReportSchema = schema

@@ -21,6 +21,7 @@ import { LoaderComponent } from '@balnc/common/components/loader/loader.componen
 import { EllipsisPipe } from '@balnc/common/pipes/ellipsis.pipe'
 import { DocVersionPipe } from '@balnc/common/pipes/doc-version.pipe'
 import { HelperService } from '@balnc/common/services/helper.service'
+import { FooterComponent } from '@balnc/common/components/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { HelperService } from '@balnc/common/services/helper.service'
     PageNotFoundComponent,
     SideBarComponent,
     StatusBarComponent,
+    FooterComponent,
   ],
   providers: [
     HelperService,
@@ -69,6 +71,7 @@ import { HelperService } from '@balnc/common/services/helper.service'
     ReactiveFormsModule,
     SideBarComponent,
     StatusBarComponent,
+    FooterComponent,
   ],
 })
 export class CommonModule { }

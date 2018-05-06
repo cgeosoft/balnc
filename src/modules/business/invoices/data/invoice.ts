@@ -1,14 +1,45 @@
 import * as schema from './invoice.json'
+import { RxDocument } from 'rxdb';
 
-declare interface RxInvoiceDocumentType {
-    orders: Array<string>
-    dateCreated: string
-    dateUpdated: string
-    dateIssued?: string
+declare interface IInvoice {
+    serial: string
+    from: any
+    to: any
+    createdAt: string
+    updatedAt: string
+    issuedAt?: string
+    details: InvoiceItem[]
     status: ("pending" | "issued")
+    pdfTemplate?: string
     file?: string
     comment?: string
+    transformations: InvoiceTransformation[]
 }
 
-export type RxInvoiceDocument = RxInvoiceDocumentType
-export const InvoiceSchema = schema
+declare interface IInvoiceItem {
+    description: string
+    amount: number
+    price: number
+    transformations: InvoiceTransformation[]
+}
+
+declare interface IInvoiceTransformation {
+    description: string
+    status: ("perc" | "fix")
+    amount: number
+}
+
+declare interface IInvoiceTemplate {
+    name: string
+    schema: string
+}
+
+
+export type Invoice = IInvoice
+export type InvoiceItem = IInvoiceItem
+export type InvoiceTransformation = IInvoiceTransformation
+export type InvoiceTemplate = IInvoiceTemplate
+
+export type RxInvoiceDoc = RxDocument<IInvoice> & IInvoice
+
+export const ReportSchema = schema

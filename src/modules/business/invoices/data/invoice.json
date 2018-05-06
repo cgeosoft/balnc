@@ -4,41 +4,44 @@
   "type": "object",
   "version": 0,
   "properties": {
-    "orders": {
+    "from": {
+      "type": "object"
+    },
+    "to": {
+      "type": "object"
+    },
+    "serial": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "issuedAt": {
+      "type": "string"
+    },
+    "details": {
       "type": "array",
       "items": {
-        "$ref": "../../orders/order.json"
+        "type": "object"
       }
     },
-    "dateCreated": {
-      "type": "string",
-      "faker": "date.past"
-    },
-    "dateUpdated": {
-      "type": "string",
-      "faker": "date.past"
-    },
-    "dateIssued": {
-      "type": "string",
-      "faker": "date.past"
-    },
     "status": {
-      "type": "string",
-      "enum": ["pending", "issued"]
+      "type": "string"
+    },
+    "pdfTemplate": {
+      "type": "string"
     },
     "file": {
-      "type": "string",
-      "faker": "system.fileName"
+      "type": "string"
     },
     "comment": {
-      "type": "string",
-      "faker": "lorem.sentence"
+      "type": "string"
+    },
+    "transformations": {
+      "type": "object"
     }
-  },
-  "required": [
-    "orders",
-    "dateCreated",
-    "dateUpdated",
-    "status"
-  ]
+  }
 }

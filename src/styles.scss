@@ -1,11 +1,12 @@
+@import "functions";
 @import "colors";
-@import "components/bootstrap";
-@import "components/core";
-@import "components/content";
-@import "components/centerbox";
-@import "components/invoice";
-@import "components/chat";
-@import "components/table-max";
+@import "bootstrap";
+@import "core";
+@import "content";
+@import "centerbox";
+@import "invoice";
+@import "chat";
+@import "table-max";
 .card-header-buttons {
   float: right;
   >button,

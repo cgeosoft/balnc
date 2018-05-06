@@ -28,15 +28,14 @@ export class ProfilesComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private router: Router,
-    private configService: ConfigService,
     private databaseService: DatabaseService,
     private profileService: ProfileService,
+    private configService: ConfigService,
   ) { }
 
   ngOnInit() {
     this.selectedProfile = this.profileService.getCurrent()
     this.profiles = this.profileService.config.profiles || []
-    this.appVersion = this.configService.version
   }
   clear() {
     this.profileService.clear()
