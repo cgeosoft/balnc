@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class WrapperComponent implements OnInit {
 
+  idReportAdmin: boolean;
   reports: Report[]
 
   constructor(
@@ -26,6 +27,7 @@ export class WrapperComponent implements OnInit {
   }
 
   async loadReports() {
+    this.idReportAdmin = await this.reportService.idReportAdmin()
     this.reports = await this.reportService.all()
   }
 

@@ -16,6 +16,7 @@ import { ReportSettings } from "@balnc/report/data/module-settings"
 @Injectable()
 export class ReportService extends BaseService {
 
+    reportAdminRole = "report-admin"
     settings: ReportSettings
 
     isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
@@ -141,6 +142,10 @@ export class ReportService extends BaseService {
             pdf.content[0].table.body.push(r)
         })
         return pdf
+    }
+
+    idReportAdmin() {
+        return this.profileService.roles.indexOf(this.reportAdminRole) >= 0
     }
 
     private generateHeaders() {

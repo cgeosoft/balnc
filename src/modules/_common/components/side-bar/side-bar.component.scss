@@ -42,11 +42,12 @@ $color-side-bar-font: $color-sidemenu-font;
   padding: 0;
   color: #aaa;
   .header {
+    @extend .mb-2;
     h4 {
+      @extend .m-0;
+      @extend .p-0;
       font-weight: 300;
       color: #aaa;
-      margin: 0 0 .1rem;
-      padding: .1rem .3rem;
       .fa {
         font-size: .8rem;
       }
