@@ -81,7 +81,6 @@ export class PresentationsService implements Resolve<any> {
   async getThumb(presentation: RxPresentationDocument): Promise<any> {
 
     if (!presentation.pages || presentation.pages.length === 0) {
-      console.log("Presentation image not found")
       return
     }
     const image = presentation.pages[0].params.image

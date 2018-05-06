@@ -5,7 +5,7 @@ declare interface IReport {
     alias?: string
     name?: string
     description?: string
-    hierarchy?: number
+    roles?: string[]
     fields?: any
     filters?: ReportFilter[]
     pdf?: any

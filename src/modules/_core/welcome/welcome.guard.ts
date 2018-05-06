@@ -8,7 +8,6 @@ export class WelcomeGuard implements CanActivate {
   ) { }
 
   canActivate() {
-    console.log("WelcomeGuard canActivate")
     if (!localStorage.getItem("welcomeShown")) {
       this.router.navigate(["/welcome"])
       return false

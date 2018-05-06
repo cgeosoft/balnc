@@ -1,3 +1,4 @@
+import { ProfileService } from './../../_core/profile/services/profile.service';
 import { HttpClient } from "@angular/common/http"
 import { Injectable, Injector, wtfStartTimeRange } from "@angular/core"
 import { TemplateParseResult } from "@angular/compiler";
@@ -22,6 +23,7 @@ export class ReportService extends BaseService {
     constructor(
         private injector: Injector,
         private http: HttpClient,
+        private profileService: ProfileService,
     ) {
         super(injector)
         this._module = "@balnc/report"
@@ -34,11 +36,18 @@ export class ReportService extends BaseService {
 
     async all(params: any = {}) {
         const data = await super.all<RxReportDoc>("report", params)
-        const reports = data.sort((a, b) => {
-            if (a.name < b.name) { return -1; }
-            if (a.name > b.name) { return 1; }
-            return 0;
-        })
+        const reports = data
+            .filter(report => {
+                return report.roles
+            })
+            .filter(report => {
+                return report.roles.some(role => this.profileService.roles.indexOf(role) >= 0)
+            })
+            .sort((a, b) => {
+                if (a.name < b.name) { return -1; }
+                if (a.name > b.name) { return 1; }
+                return 0;
+            })
         return reports
     }
 
@@ -67,13 +76,7 @@ export class ReportService extends BaseService {
     }
 
     async getCommonData(query) {
-        const url = `${this.settings.host}/execute`
-        const headers = this.generateHeaders()
-
-        const result = await this.http.post(url, {
-            query: query
-        }, headers).toPromise()
-        console.log(query, result)
+        const result = await this.execute(query)
         return result["rows"].map(r => {
             return {
                 value: r[0],
@@ -82,9 +85,7 @@ export class ReportService extends BaseService {
         })
     }
 
-    async execute(report: Report, filters) {
-        const url = `${this.settings.host}/execute`
-        const headers = this.generateHeaders()
+    async generateQuery(report: Report, filters) {
         let query = ""
         try {
             const r = await super.one<RxReportDoc>("report", report.alias)
@@ -94,8 +95,14 @@ export class ReportService extends BaseService {
             return Promise.reject(err)
         }
 
+        return this.formatQuery(query, filters)
+    }
+
+    async execute(query) {
+        const url = `${this.settings.host}/execute`
+        const headers = this.generateHeaders()
         const result = await this.http.post(url, {
-            query: this.formatQuery(query, filters)
+            query: query
         }, headers).toPromise()
         return result
     }
@@ -104,7 +111,6 @@ export class ReportService extends BaseService {
         const fields = _.cloneDeep(report.fields)
         const pdf = _.cloneDeep(report.pdf)
         const d = _.cloneDeep(data)
-        console.log("f", pdf, data.rows.length)
 
         if (!pdf) {
             return Promise.reject("No pdf schema were found")
@@ -134,7 +140,6 @@ export class ReportService extends BaseService {
             })
             pdf.content[0].table.body.push(r)
         })
-        console.log("pdf", pdf)
         return pdf
     }
 

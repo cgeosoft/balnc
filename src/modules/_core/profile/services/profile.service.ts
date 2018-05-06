@@ -10,6 +10,7 @@ export class ProfileService {
 
     _module = "@balnc/profiles"
     config: ProfileConfig = {}
+    roles: string[]
 
     setup() {
         this.loadProfiles()

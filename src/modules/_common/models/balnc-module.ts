@@ -3,7 +3,7 @@ declare interface BalncModuleType {
   title: string
   description: string
   menu?: BalncModuleMenuType[]
-  config?: any
+  config?: BalncModuleConfigType
 }
 
 declare interface BalncModuleMenuType {
@@ -13,5 +13,12 @@ declare interface BalncModuleMenuType {
   path: string
 }
 
+declare interface BalncModuleConfigType {
+  enabled: string
+  menu: any[]
+  settings: any
+}
+
 export type BalncModule = BalncModuleType
 export type BalncModuleMenu = BalncModuleMenuType
+export type BalncModuleConfig = BalncModuleConfigType

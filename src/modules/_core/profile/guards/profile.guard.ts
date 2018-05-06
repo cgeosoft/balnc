@@ -10,7 +10,6 @@ export class DefaultProfileGuard implements CanActivate {
   ) { }
 
   canActivate() {
-    console.log("DefaultProfileGuard canActivate")
     if (this.profileService.config && this.profileService.config.selectedProfile) {
       return true
     }

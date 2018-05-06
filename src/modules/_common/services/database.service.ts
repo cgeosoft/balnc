@@ -20,6 +20,7 @@ import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
 import { ENV } from 'environments/environment'
 import { Entity } from "../models/entity"
 import { DatabaseConfig, Profile } from '@balnc/core/profile/data/profile';
+import { ProfileService } from '@balnc/core/profile/services/profile.service';
 
 RxDB.QueryChangeDetector.enable()
 
@@ -50,11 +51,14 @@ export class DatabaseService {
 
     private config: DatabaseConfig
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private profileService: ProfileService,
+    ) { }
 
     public async loadEntities(entities: Entity[]) {
 
-        console.log("DatabaseService setup entities", entities, this.config.prefix, "loadedEntities", this.entities)
+        console.log("[DatabaseService]", "setup entities", entities, this.config.prefix, "loadedEntities", this.entities)
 
         const add: any[] = []
 
@@ -105,7 +109,7 @@ export class DatabaseService {
     async setup(profile: Profile) {
         this.config = profile.database || {}
 
-        console.log("DatabaseService initializing...")
+        console.log("[DatabaseService]", "initializing...")
 
         if (!this.db) {
             this.adapter = await this.getAdapter()
@@ -116,17 +120,21 @@ export class DatabaseService {
         }
 
         if (this.config.user) {
-            await this.http.post(`${this.config.host}/_session`, {
+            const resp = await this.http.post(`${this.config.host}/_session`, {
                 name: this.config.user,
                 password: this.config.pass,
             }, { withCredentials: true })
                 .toPromise()
                 .catch((res) => {
-                    console.log("Failed to login to remote")
+                    console.log("[DatabaseService]", "Failed to login to remote")
                 })
+
+            if (resp) {
+                this.profileService.roles = resp["roles"]
+            }
         }
 
-        console.log("DatabaseService Initialized with profile:", profile)
+        console.log("[DatabaseService]", "Initialized with profile:", profile)
     }
 
     private async getAdapter() {

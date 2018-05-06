@@ -27,7 +27,7 @@ export class ConfigService {
         this.config = ENV.configuration
         this.modules = ENV.modules
         this.version = ENV.version
-        console.log("ConfigService initializing with ENV:", ENV)
+        console.log("[ConfigService]", "Initializing with ENV:", ENV)
     }
 
     getModuleConfig(moduleId: string) {

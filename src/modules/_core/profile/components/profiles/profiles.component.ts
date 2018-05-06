@@ -76,7 +76,7 @@ export class ProfilesComponent implements OnInit {
       this.select(profile.alias)
     } catch (error) {
       this.error = "File is corrupted"
-      console.log("error" + error)
+      console.log("[ProfileComponent]", "Error" + error)
     }
   }
 

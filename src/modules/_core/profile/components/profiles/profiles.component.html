@@ -25,6 +25,7 @@
               </div>
               <div>
                 {{profile.name}}
+                <span *ngIf="profile.database">/ {{profile.database.user}}</span>
                 <br>
                 <small class="text-secondary" *ngIf="!profile.database">Local Profile</small>
                 <small class="text-secondary" *ngIf="profile.database">{{profile.database.host}}</small>

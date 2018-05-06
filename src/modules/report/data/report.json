@@ -13,8 +13,11 @@
     "description": {
       "type": "string"
     },
-    "hierarchy": {
-      "type": "number"
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
     "fields": {
       "type": "object"

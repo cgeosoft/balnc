@@ -21,15 +21,17 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ReportComponent implements OnInit {
 
+  timeExec: number;
+  query: any;
   report: Report;
-  error: any;
+  err: any;
   commons: any
   filters: any = {}
   pagination: any = {}
   reportData: any
-  reportLoading = false
+  loading = false
   maxPage: number
-  pdfData: any
+  pdfData: any =null
 
   constructor(
     private reportService: ReportService,
@@ -42,7 +44,7 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(async params => {
       await this.loadReport(params['id'])
-      await this.execReport()
+      // await this.execReport()
     })
   }
 
@@ -59,29 +61,39 @@ export class ReportComponent implements OnInit {
   }
 
   async execReport() {
-    this.error = null
-    this.reportLoading = true
-    this.reportData = await this.reportService
-      .execute(this.report, this.filters)
+    const _time = (new Date).getTime()
+    this.err = null
+    this.pdfData = null
+    this.reportData = null
+    this.loading = true
+    this.query = await this.reportService.generateQuery(this.report, this.filters)
+    this.reportData = await this.reportService.execute(this.query)
       .catch((err) => {
-        this.reportLoading = false
         if (err.status === 0) {
-          this.error = "SERVER_UNAVAILABLE"
+          this.err = "SERVER_UNAVAILABLE"
         } else {
-          this.error = err
+          this.err = err
         }
       })
 
     if (!this.reportData) {
+      this.loading = false
+      return
+    }
+
+    if (this.reportData.rows.length > 1000) {
+      this.err = "TOO_MANY_DATA"
+      this.loading = false
       return
     }
 
     const pdf = await this.reportService.generatePdfMake(this.report, this.reportData)
       .catch((err) => {
-        this.reportLoading = false
-        this.error = err
+        this.err = err
       })
+
     if (!pdf) {
+      this.loading = false
       return
     }
 
@@ -89,10 +101,13 @@ export class ReportComponent implements OnInit {
 
     doc.getDataUrl((data) => {
       this.pdfData = this.sanitizer.bypassSecurityTrustResourceUrl(data)
+      this.timeExec = ((new Date).getTime() - _time) / 1000
     }, doc);
 
-    this.reportLoading = false
+    this.loading = false
   }
+
+
 
   resetFilters() {
     this.filters = this.report.filters
