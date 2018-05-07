@@ -5,18 +5,14 @@ import { RouterModule, PreloadAllModules, Routes } from '@angular/router'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { MarkdownModule } from 'ngx-md'
 
+import { CommonModule } from '@balnc/common/common.module'
+import { CoreModule } from '@balnc/core/core.module'
+
 import { ENV } from 'environments/environment'
-
-import { CommonModule } from "@blnc/core/common/common.module"
-import { MainModule } from '@blnc/core/main/main.module'
-import { ProfileModule } from '@blnc/core/profile/profile.module'
-
 import { AppComponent } from './app.component'
-import { DatabaseService } from '@blnc/core/common/services/database.service';
-import { ProfileService } from '@blnc/core/profile/services/profile.service';
-import { ConfigService } from '@blnc/core/common/services/config.service';
-import { WelcomeGuard } from '@blnc/core/welcome/welcome.guard';
-import { WelcomeModule } from '@blnc/core/welcome/welcome.module';
+import { DatabaseService } from '@balnc/common/services/database.service'
+import { ConfigService } from '@balnc/common/services/config.service'
+import { ProfileService } from '@balnc/core/profile/services/profile.service';
 
 @NgModule({
   imports: [
@@ -25,14 +21,11 @@ import { WelcomeModule } from '@blnc/core/welcome/welcome.module';
     ENV.production ? ServiceWorkerModule.register('ngsw-worker.js') : [],
 
     RouterModule.forRoot([], {
-      // enableTracing: true
-      // preloadingStrategy: PreloadAllModules
+      // enableTracing: true,
+      // preloadingStrategy: PreloadAllModules,
     }),
-
     CommonModule,
-    WelcomeModule,
-    ProfileModule,
-    MainModule,
+    CoreModule,
   ],
   declarations: [
     AppComponent
@@ -42,8 +35,8 @@ import { WelcomeModule } from '@blnc/core/welcome/welcome.module';
   ],
   providers: [
     DatabaseService,
-    ProfileService,
     ConfigService,
+    ProfileService,
     {
       provide: APP_INITIALIZER,
       useFactory: (databaseService: DatabaseService, profileService: ProfileService, configService: ConfigService) => async () => {
@@ -57,7 +50,10 @@ import { WelcomeModule } from '@blnc/core/welcome/welcome.module';
       },
       deps: [DatabaseService, ProfileService, ConfigService],
       multi: true,
-    }],
-  exports: []
+    }
+  ],
+  // exports: [
+  //   CommonModule,
+  // ]
 })
 export class AppModule { }

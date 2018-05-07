@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core'
 })
 export class AppComponent {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) {
+    console.log("Routes", this.router.config);
+  }
 }

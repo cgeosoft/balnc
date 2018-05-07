@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
+import { ContactsService } from '@balnc/business/contacts/services/contacts.service';
+import { ContactsRoutes } from '@balnc/business/contacts/routes/contacts.routes';
 import { ContactItemComponent, ContactsOverviewComponent } from './components'
-
-import { CommonModule } from '@blnc/core/common/common.module';
-import { ContactsService } from '@blnc/business/contacts/services/contacts.service';
-import { ContactsRoutes } from '@blnc/business/contacts/routes/contacts.routes';
+import { CommonModule } from '@balnc/common/common.module';
 
 @NgModule({
   imports: [

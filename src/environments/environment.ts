@@ -3,8 +3,8 @@ import * as _package from '../../package.json'
 
 export const ENV: any = {
   production: false,
-  modules: _modules,
-  package: _package,
+  modules: _modules["modules"],
+  version: _package["version"],
 }
 
 export default ENV

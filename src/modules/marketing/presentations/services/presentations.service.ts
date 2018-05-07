@@ -7,9 +7,9 @@ import { ActivatedRouteSnapshot, Resolve } from "@angular/router"
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { PresentationSchema, RxPresentationDocument } from "@blnc/marketing/presentations/data/presentation"
-import { DatabaseService } from "@blnc/core/common/services/database.service";
-import { Entity } from "@blnc/core/common/models/entity";
+import { PresentationSchema, RxPresentationDocument } from "@balnc/marketing/presentations/data/presentation"
+import { DatabaseService } from "@balnc/common/services/database.service";
+import { Entity } from "@balnc/common/models/entity";
 
 const entities: Entity[] = [{
   name: 'presentation',
@@ -81,7 +81,6 @@ export class PresentationsService implements Resolve<any> {
   async getThumb(presentation: RxPresentationDocument): Promise<any> {
 
     if (!presentation.pages || presentation.pages.length === 0) {
-      console.log("Presentation image not found")
       return
     }
     const image = presentation.pages[0].params.image

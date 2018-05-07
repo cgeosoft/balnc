@@ -17,7 +17,7 @@
     <label>Image</label>
     <div class="media">
       <div class="mr-3" style="max-width:150px;">
-        <app-empty-panel *ngIf="!imagePreview" message="Select an image"></app-empty-panel>
+        <app-empty *ngIf="!imagePreview" message="Select an image"></app-empty>
         <img *ngIf="imagePreview" class="img-thumbnail img-fluid" [src]="imagePreview">
       </div>
       <div class="media-body">

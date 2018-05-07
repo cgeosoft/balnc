@@ -1,5 +1,5 @@
 # Sports Modules
 
-## Teams | `@balance/sports-teams`
+## Teams | `@balnc/sports-teams`
 
-## Leagues | `@balance/sports-leagues`
+## Leagues | `@balnc/sports-leagues`

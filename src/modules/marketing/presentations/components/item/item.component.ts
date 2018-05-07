@@ -12,7 +12,7 @@ import { RxCollection, RxDocumentBase } from 'rxdb'
 import { reduce } from 'rxjs/operators/reduce'
 import { Date } from 'core-js/library/web/timers'
 import { Observable } from 'rxjs/Observable'
-import { PresentationsService } from '@blnc/marketing/presentations/services/presentations.service';
+import { PresentationsService } from '@balnc/marketing/presentations/services/presentations.service';
 
 @Component({
   selector: 'app-presentations-item',

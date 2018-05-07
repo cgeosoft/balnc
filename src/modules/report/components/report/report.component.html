@@ -1,0 +1,79 @@
+<div class="report-wrapper" *ngIf="report">
+  <div class="filters">
+    <h4>Filters</h4>
+    <ng-template ngFor let-filter [ngForOf]="report.filters" *ngIf="report.filters.length">
+      <div class="form-group" *ngIf="filter.type === 'select'">
+        <label>{{filter.name}}</label>
+        <select class="form-control form-control-sm" [(ngModel)]="filters[filter.field]">
+          <option *ngFor="let filterItem of filter.items" [ngValue]="filterItem.value">{{filterItem.label}}</option>
+        </select>
+      </div>
+      <div class="form-group" *ngIf="filter.type === 'date'">
+        <label>{{filter.name}}</label>
+        <div class="input-group">
+          <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" [(ngModel)]="filters[filter.field]" ngbDatepicker #d="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-light btn-sm" (click)="d.toggle(); $event.stopPropagation()" (document:click)="decideClosure($event, d)"
+              type="button">
+              <span class="fa fa-calendar-alt"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <button class="btn btn-primary btn-block" (click)="execReport(true)" [disabled]="loading">
+      <span class="fa fa-database"></span> Execute</button>
+    <button class="btn btn-dark btn-block" (click)="resetFilters()" [disabled]="loading">
+      <span class="fa fa-times"></span> Reset</button>
+    <hr>
+    <button class="btn btn-outline-light btn-sm btn-block" (click)="execExport()">
+      <span class="fa fa-file-excel"></span> Export</button>
+
+    <div class="mt-auto">
+      <h4>Options</h4>
+      <button class="btn btn-outline-light btn-sm btn-block" (click)="showQuery = !showQuery">Toggle Query</button>
+      <hr>
+      <h4>Stats</h4>
+      <p>Result: {{(reportData)?reportData.rows.length: '-'}} rows</p>
+      <p>Time: {{timeExec}} seconds</p>
+    </div>
+  </div>
+  <div class="d-flex flex-column" style="height:100%;width:100%" *ngIf="!showQuery">
+    <ng-container *ngIf="!err; else error">
+      <ng-container *ngIf="!loading; else loader">
+        <ng-container *ngIf="reportData; else noReport">
+          <ng-container *ngIf="reportData.rows.length; else noResults">
+            <iframe [src]="pdfData" frameborder="0" style="height:100%;width:100%" type="application/pdf"></iframe>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+    <ng-template #error>
+      <ng-container [ngSwitch]="err">
+        <ng-container *ngSwitchCase="'SERVER_UNAVAILABLE'">
+          <app-empty message="Server is Unavailable" icon="exclamation-triangle"></app-empty>
+        </ng-container>
+        <ng-container *ngSwitchCase="'TOO_MANY_DATA'">
+          <app-empty message="There are too many data." submessage="Use filters to get less result" icon="exclamation-triangle"></app-empty>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <app-debug [data]="err" [isError]="true"></app-debug>
+        </ng-container>
+      </ng-container>
+    </ng-template>
+    <ng-template #noResults>
+      <app-empty message="No data were found" icon="exclamation-triangle"></app-empty>
+    </ng-template>
+    <ng-template #noReport>
+      <app-empty message="Select some filters and hit Execute" icon="info-circle"></app-empty>
+    </ng-template>
+    <ng-template #loader>
+      <app-loader animation="sk-cube" label="Building Report..."></app-loader>
+    </ng-template>
+  </div>
+  <div class="d-flex flex-column p-4 bg-dark " style="height:100%;width:100%" *ngIf="showQuery">
+    <div class="container">
+      <pre class="text-white">{{query}}</pre>
+    </div>
+  </div>
+</div>

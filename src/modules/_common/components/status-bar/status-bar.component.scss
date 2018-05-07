@@ -1,0 +1,40 @@
+@import "colors";
+:host {
+  background: $color-primary;
+  height: 20px;
+  font-size: .6rem;
+  color: #eee;
+  .status-bar-item {
+    .fab,
+    .fa {
+      font-size: .5rem;
+    }
+    .status-bar-item-content {
+      padding: 0 7px;
+      line-height: 21px;
+    }
+    .btn {
+      font-size: .6rem;
+      padding: 0 7px;
+      height: 100%;
+      background: none;
+      border: none;
+      color: #eee;
+      border-radius: 0;
+      line-height: 21px;
+      &:hover {
+        background: darken($color-primary, 10%);
+      }
+    }
+    &.status-bar-item-divider {
+      &:after {
+        content: "";
+        height: 10px;
+        background: darken($color-primary, 5%);
+        display: block;
+        width: 1px;
+        margin-top: 5px;
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+<div class="card-wrapper">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="display-4">Welcome to Balnc!</h1>
+      <p>Balnc (balance) is a software framework for develop business applications. It is a base system that on top are implemented
+        collections of business modules which eventually create a tailor made application for small an medium size businesses.</p>
+
+      <p>With Balnc software developers may quickly bootstrap applications and use premade modules from Balnc Packages or create
+        their own. This collection includes sales, marketing and accounting modules and it is both open source and free under
+        the MIT license.</p>
+
+      <div class="text-white bg-warning p-4">
+        <h4>Warning</h4>
+        <p>This application is a MOCK-UP and is under heavy development. You SHOULD NOT be used for any other propose rather
+          than showcase the underline technologies and the implementation approach.</p>
+
+        <div class="form-group form-check m-0">
+          <input type="checkbox" class="form-check-input" id="acceptedCheck" [(ngModel)]="accepted">
+          <label class="form-check-label" for="acceptedCheck">Ι will not use this software for production</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer text-right">
+      <button class="btn btn-success" [disabled]="!accepted" (click)="Ok()">
+        <span class="fa fa-check-circle"></span> Continue</button>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

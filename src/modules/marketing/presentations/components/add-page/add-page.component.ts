@@ -4,7 +4,7 @@ import * as _ from "lodash"
 import * as moment from "moment"
 
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { RxPresentationDocument } from '@blnc/marketing/presentations/data/presentation';
+import { RxPresentationDocument } from '@balnc/marketing/presentations/data/presentation';
 
 @Component({
     selector: 'app-presentation-add-page',

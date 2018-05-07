@@ -1,54 +1,54 @@
 <app-side-bar>
-  <ul class="list-menu dark">
-    <li class="header">Contacts</li>
-    <li>
+  <div class="menu">
+    <div class="header">Contacts</div>
+    <div>
       <a routerLink="/contacts/overview">
         <span class="fa fa-desktop fa-fw"></span> Overview</a>
-    </li>
-    <li>
+    </div>
+    <div>
       <a routerLink="/contacts/wizard">
         <span class="fa fa-plus-circle fa-fw"></span> Create New</a>
-    </li>
-  </ul>
-  <ul class="list-menu dark">
-    <li class="header">Shortcuts</li>
-    <li>
+    </div>
+  </div>
+  <div class="menu">
+    <div class="header">Shortcuts</div>
+    <div>
       <a routerLink="/contacts/report/1">
         <span class="fa fa-list fa-fw"></span> Last 7 days</a>
-    </li>
-    <li>
+    </div>
+    <div>
       <a routerLink="/contacts/report/2">
         <span class="fa fa-list fa-fw"></span> Last Month</a>
-    </li>
-    <li>
+    </div>
+    <div>
       <a routerLink="/contacts/report/3">
         <span class="fa fa-list fa-fw"></span> Pending Only</a>
-    </li>
-  </ul>
-  <ul class="list-menu dark">
-    <li class="header">Latest Access</li>
-    <li>
+    </div>
+  </div>
+  <div class="menu">
+    <div class="header">Latest Access</div>
+    <div>
       <a routerLink="/contacts/preview" class="media">
         <span class="media-body">Google - Extra services
           <small>#446841 - 2017-06-23</small>
         </span>
       </a>
-    </li>
-    <li>
+    </div>
+    <div>
       <a routerLink="/contacts/preview" class="media">
         <span class="media-body">Microsoft - Subscription
           <small>#446841 - 2017-06-15</small>
         </span>
       </a>
-    </li>
-    <li>
+    </div>
+    <div>
       <a routerLink="/contacts/preview" class="media">
         <span class="media-body">Apple - Product development
           <small>#446841 - 2017-05-28</small>
         </span>
       </a>
-    </li>
-  </ul>
+    </div>
+  </div>
 </app-side-bar>
 <app-content>
   <app-content-header title="Contacts Overview" icon="users"></app-content-header>
@@ -85,7 +85,7 @@
               </ng-container>
             </ng-container>
             <ng-template #noItems>
-              <app-empty-panel message="You don't have any contacts yet" submessage="Click create to add your first one" icon="cubes"></app-empty-panel>
+              <app-empty message="You don't have any contacts yet" submessage="Click create to add your first one" icon="cubes"></app-empty>
             </ng-template>
             <ng-template #loader>
               <app-loader></app-loader>
@@ -100,88 +100,38 @@
             <button class="btn btn-light" (click)="generateMockData()">Generate Data</button>
           </div>
         </div>
-
-        <div class="card bg-primary text-white mb-4" style="height: 400px;">
-          <div class="card-body">
-            <h4 class="card-title">Pending</h4>
-            <ul class="list-menu">
-              <li>
-                <a routerLink="/contacts/preview" class="media">
-                  <span class="media-body">Google - Extra services
-                    <small>#446841 - 2017-06-23</small>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a routerLink="/contacts/preview" class="media">
-                  <span class="media-body">Microsoft - Subscription
-                    <small>#446841 - 2017-06-15</small>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a routerLink="/contacts/preview" class="media">
-                  <span class="media-body">Apple - Product development
-                    <small>#446841 - 2017-05-28</small>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a routerLink="/contacts/preview" class="media">
-                  <span class="media-body">Google - Extra services
-                    <small>#446841 - 2017-06-23</small>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a routerLink="/contacts/preview" class="media">
-                  <span class="media-body">Microsoft - Subscription
-                    <small>#446841 - 2017-06-15</small>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a routerLink="/contacts/preview" class="media">
-                  <span class="media-body">Apple - Product development
-                    <small>#446841 - 2017-05-28</small>
-                  </span>
-                </a>
-              </li>
-            </ul>
+      </div>
+      <div class="row ">
+        <div class="col ">
+          <div class="card mb-4 ">
+            <div class="card-body ">
+              <h4 class="card-title ">Statuses</h4>
+              <img class="card-img-top " src="https://www.excel-easy.com/data-analysis/images/charts/column-chart.png
+              " alt="Card image cap " style="height:250px ">
+              <p class="card-text ">Some quick example text to build on the card title and make up the bulk of the card's content.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h4 class="card-title">Statuses</h4>
-            <img class="card-img-top" src="https://www.excel-easy.com/data-analysis/images/charts/column-chart.png" alt="Card image cap"
-              style="height:250px">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-            </p>
+        <div class="col ">
+          <div class="card mb-4 ">
+            <div class="card-body ">
+              <h4 class="card-title ">Revenue</h4>
+              <img class="card-img-top " src="https://www.serif.com/appresources/PPX7/Tutorials/en-gb/graphics/tutorials/charts_line_updated.jpg "
+                alt="Card image cap " style="height:250px ">
+              <p class="card-text ">Some quick example text to build on the card title and make up the bulk of the card's content.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h4 class="card-title">Revenue</h4>
-            <img class="card-img-top" src="https://www.serif.com/appresources/PPX7/Tutorials/en-gb/graphics/tutorials/charts_line_updated.jpg"
-              alt="Card image cap" style="height:250px">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card mb-4">
-          <div class="card-body">
-            <h4 class="card-title">Targets</h4>
-            <img class="card-img-top" src="https://i.stack.imgur.com/qNiO7.png" alt="Card image cap" style="height:250px">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-            </p>
+        <div class="col ">
+          <div class="card mb-4 ">
+            <div class="card-body ">
+              <h4 class="card-title ">Targets</h4>
+              <img class="card-img-top " src="https://i.stack.imgur.com/qNiO7.png " alt="Card image cap " style="height:250px ">
+              <p class="card-text ">Some quick example text to build on the card title and make up the bulk of the card's content.
+              </p>
+            </div>
           </div>
         </div>
       </div>

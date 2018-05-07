@@ -1,7 +1,7 @@
 # Payments Modules
 
-## Strip | `@balance/payments-strip`
+## Strip | `@balnc/payments-strip`
 
-## Paypal | `@balance/payments-paypal`
+## Paypal | `@balnc/payments-paypal`
 
-## AlphaBank | `@balance/payments-alphabank`
+## AlphaBank | `@balnc/payments-alphabank`

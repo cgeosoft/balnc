@@ -1,0 +1,30 @@
+<div class="status-bar d-flex flex-row">
+  <div class="d-flex flex-row">
+    <div class="status-bar-item">
+      <div class="status-bar-item-content">
+        Balnc v{{version}}
+      </div>
+    </div>
+    <div class="status-bar-item status-bar-item-divider"></div>
+    <div class="status-bar-item">
+      <a href="https://github.com/christosgeorgiou/balnc" target="_blank" class="btn">
+        repo
+      </a>
+    </div>
+  </div>
+  <div class="ml-auto d-flex flex-row">
+    <div class="status-bar-item">
+      <a routerLink="/profiles" class="btn">
+        {{profileName}}
+        <span *ngIf="user">/ {{user}}</span>
+      </a>
+    </div>
+    <div class="status-bar-item status-bar-item-divider"></div>
+    <div class="status-bar-item">
+      <div class="status-bar-item-content">
+        <span class="fa fa-circle text-danger"></span>
+        Offline
+      </div>
+    </div>
+  </div>
+</div>

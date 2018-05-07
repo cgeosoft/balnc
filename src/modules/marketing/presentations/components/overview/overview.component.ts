@@ -4,9 +4,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { PresentationsService } from '@blnc/marketing/presentations/services/presentations.service'
-import { RxPresentationDocument } from '@blnc/marketing/presentations/data/presentation'
-import { CreatePresentationComponent } from "@blnc/marketing/presentations/components/create-presentation/create-presentation.component"
+import { PresentationsService } from '@balnc/marketing/presentations/services/presentations.service'
+import { RxPresentationDocument } from '@balnc/marketing/presentations/data/presentation'
+import { CreatePresentationComponent } from "@balnc/marketing/presentations/components/create-presentation/create-presentation.component"
 
 
 @Component({

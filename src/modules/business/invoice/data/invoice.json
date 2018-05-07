@@ -1,0 +1,47 @@
+{
+  "id": "invoice",
+  "title": "Invoice",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "from": {
+      "type": "object"
+    },
+    "to": {
+      "type": "object"
+    },
+    "serial": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "issuedAt": {
+      "type": "string"
+    },
+    "details": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "status": {
+      "type": "string"
+    },
+    "pdfTemplate": {
+      "type": "string"
+    },
+    "file": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "transformations": {
+      "type": "object"
+    }
+  }
+}

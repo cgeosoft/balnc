@@ -49,7 +49,7 @@
               </div>
             </div>
 
-            <app-empty-panel class="m-0" *ngIf="!presentation.pages.length" message="No pages were found"></app-empty-panel>
+            <app-empty class="m-0" *ngIf="!presentation.pages.length" message="No pages were found"></app-empty>
 
             <div class="list-group list-group-flush" style="height: 230px;overflow-y:scroll" *ngIf="presentation.pages.length">
               <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item p-2"
@@ -64,7 +64,7 @@
         <div class="col-md-8">
 
           <div class="card">
-            <app-empty-panel *ngIf="!presentation.pages.length" message="No pages were found"></app-empty-panel>
+            <app-empty *ngIf="!presentation.pages.length" message="No pages were found"></app-empty>
 
             <div *ngIf="presentation.pages">
               <div *ngIf="presentation.pages[activePageIndex]">
@@ -99,6 +99,6 @@
     <ng-template #loader>
       <app-loader></app-loader>
     </ng-template>
-    <app-debug-panel [data]="presentation"></app-debug-panel>
+    <app-debug [data]="presentation"></app-debug>
   </app-content-body>
 </app-content>

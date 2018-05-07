@@ -1,0 +1,10 @@
+@import "bootstrap";
+@import "colors";
+:host{
+  @extend .pt-2;
+  @extend .text-center;
+  width:100%;
+  display: block;
+  font-size:.8rem;
+  color: lighten($color-primary,10);
+}

@@ -15,7 +15,7 @@ Given that lets say that we have a data-object stored in version 1.5
 }
 ````
 
-If the `@balance/business-orders` modules is upgraded to version 1.6 an incompatibility may be presented. Let's say that the `name` property is converted from `type: string` to `type: object` and it contains `first` and `last` properties.
+If the `@balnc/business-orders` modules is upgraded to version 1.6 an incompatibility may be presented. Let's say that the `name` property is converted from `type: string` to `type: object` and it contains `first` and `last` properties.
 
 The next data object should be:
 

@@ -1,132 +1,77 @@
 {
   "modules": [{
-    "id": "@blnc/core-common",
-    "namespace": "@blnc/core",
-    "title": "Core",
-    "description": "It contains all the base components and ui mechanisms",
-    "path": null,
-    "menu": null,
-    "config": null
-  }, {
-    "id": "@blnc/core-dashboard",
-    "namespace": "@blnc/core",
-    "title": "Dashboard",
-    "description": "You may configure the dasboard module from the panels",
-    "menu": {
-      "path": "dashboard"
-    },
-    "config": null
-  }, {
-    "id": "@blnc/core-profiles",
-    "namespace": "@blnc/core",
-    "title": "Profiles",
-    "description": "Profiles are the groups that hold all the details and setting of your company",
-    "path": null,
-    "menu": null,
-    "config": null
-  }, {
-    "id": "@blnc/business-contacts",
-    "namespace": "@blnc/business",
-    "title": "Contacts",
-    "description": "Setup companies and persons that you may include into orders and invoices",
-    "menu": {
+    "module": "@balnc/business",
+    "title": "Business",
+    "description": "In this namespace you will find business modules that will help you manage your customers, orders and profiles.",
+    "menu": [{
+      "id": "contacts",
       "label": "Contacts",
       "icon": "users",
-      "path": "contacts"
-    },
-    "config": null
-  }, {
-    "id": "@blnc/business-orders",
-    "namespace": "@blnc/business",
-    "title": "Orders",
-    "description": "Plain old order book for manage your day-to-day business",
-    "menu": {
+      "path": "/business/contacts"
+    }, {
+      "id": "orders",
       "label": "Orders",
       "icon": "shopping-cart",
-      "path": "orders"
-    },
-    "config": null
-  }, {
-    "id": "@blnc/business-invoices",
-    "namespace": "@blnc/business",
-    "title": "Invoices",
-    "description": "Setup a simple invoice system and generate statistics",
-    "menu": {
+      "path": "/business/orders"
+    }, {
+      "id": "invoices",
       "label": "Invoices",
       "icon": "copy:regular",
-      "path": "invoices"
-    },
+      "path": "/business/invoice"
+    }],
     "config": null
   }, {
-    "id": "@blnc/marketing-presentations",
-    "namespace": "@blnc/marketing",
-    "title": "Presentations",
-    "description": "Setup presentations and sync them seamlessly to your mobile devices",
-    "menu": {
+    "module": "@balnc/marketing",
+    "title": "Marketing",
+    "description": "It includes module for your marketing team. Use for set presentations, email campaings and view analytics.",
+    "menu": [{
+      "id": "presentations",
       "label": "Presentations",
       "icon": "desktop",
-      "path": "presentations"
-    },
+      "path": "/marketing/presentations"
+    }, {
+      "id": "analytics",
+      "label": "analytics",
+      "icon": "desktop",
+      "path": "/marketing/analytics"
+    }, {
+      "id": "polls",
+      "label": "polls",
+      "icon": "desktop",
+      "path": "/marketing/polls"
+    }, {
+      "id": "emails",
+      "label": "emails",
+      "icon": "desktop",
+      "path": "/marketing/emails"
+    }],
     "config": null
   }, {
-    "id": "@blnc/marketing-analytics",
-    "namespace": "@blnc/marketing",
-    "title": "Analytics - Under Construction",
-    "description": "Use for overview your website analytics",
-    "menu": {
-      "path": "analytics"
-    },
-    "config": null
-  }, {
-    "id": "@blnc/marketing-polls",
-    "namespace": "@blnc/marketing",
-    "title": "Polls - Under Construction",
-    "description": "Setup usefull online polls and questionnaires",
-    "menu": {
-      "path": "polls"
-    },
-    "config": null
-  }, {
-    "id": "@blnc/marketing-emails",
-    "namespace": "@blnc/marketing",
-    "title": "Emails - Under Construction",
-    "description": "Setup email campains and manage automated responders",
-    "menu": {
-      "path": "emails"
-    },
-    "config": null
-  }, {
-    "id": "@blnc/teams-projects",
-    "namespace": "@blnc/teams",
-    "title": "Projects",
-    "description": "An advanced project and task management tool.",
-    "menu": {
+    "module": "@balnc/team",
+    "title": "Teams",
+    "description": "A set of modules for easy team managements. It includes a chat systems, projects and task management.",
+    "menu": [{
+      "id": "projects",
       "label": "Projects",
       "icon": "cubes",
-      "path": "projects"
-    },
-    "config": null
-  }, {
-    "id": "@blnc/teams-chat",
-    "namespace": "@blnc/teams",
-    "title": "Chat",
-    "description": "A simple but full-feature team chat with customizable rooms",
-    "menu": {
+      "path": "/team/projects"
+    }, {
+      "id": "chat",
       "label": "Chat",
       "icon": "comments:regular",
-      "path": "chat"
-    },
+      "path": "/team/chat"
+    }],
     "config": null
   }, {
-    "id": "@blnc/reports",
-    "namespace": "@blnc/reports",
+    "module": "@balnc/report",
     "title": "Reports",
     "description": "A simple but full-feature team chat with customizable rooms",
-    "menu": {
+    "menu": [{
+      "id": "reports",
       "label": "Reports",
       "icon": "file-alt:regular",
-      "path": "reports"
-    },
+      "path": "/report"
+    }],
     "config": {
       "server": {
         "requireUser": {
@@ -137,26 +82,5 @@
         }
       }
     }
-  }],
-  "namespaces": [{
-    "id": "@blnc/core",
-    "title": "Core System",
-    "description": "This is the balance core namespace and is is included by default. It hold all the basic modules/components like database and configurati."
-  }, {
-    "id": "@blnc/business",
-    "title": "Business",
-    "description": "In this namespace you will find business modules that will help you manage your customers, orders and profilei."
-  }, {
-    "id": "@blnc/marketing",
-    "title": "Marketing",
-    "description": "It includes module for your marketing team. Use for set presentations, email campaings and view analytics."
-  }, {
-    "id": "@blnc/teams",
-    "title": "Teams",
-    "description": "A set of modules for easy team managements. It includes a chat systems, projects and task management."
-  }, {
-    "id": "@blnc/reports",
-    "title": "Reports",
-    "description": ""
   }]
 }

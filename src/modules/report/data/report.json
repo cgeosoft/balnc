@@ -1,0 +1,35 @@
+{
+  "id": "report",
+  "title": "report",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "alias": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fields": {
+      "type": "object"
+    },
+    "filters": {
+      "type": "object"
+    },
+    "pdf": {
+      "type": "object"
+    }
+  },
+  "attachments": {
+    "encrypted": false
+  }
+}

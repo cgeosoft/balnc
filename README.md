@@ -1,31 +1,25 @@
-# Balance
+# Balnc
 
-**WARNING: This is a non-functional and under development software. If you are interested to be notified of future releases or to help me by any means, please contact me via email.**
+**WARNING: This application is a MOCK-UP and is under heavy development. You SHOULD NOT be used for any other propose rather than showcase the underline technologies and the implementation approach.**
 
 ![screenshot](docs/assets/screenshot.png)
 
-**Balance** is a collection of business modules for managing simple operations of small companies and freelancers.
-It includes sales, marketing and accounting tools and it is both open source and free under the MIT license.
-In addition it is highly extendable, allowing developers to add new custom modules or upgrade existing ones.
+Balnc (balance) is a software framework for develop business applications. It is a base system that on top are implemented collections of business modules which eventually create a tailor made application for small an medium size businesses.
 
-It is builded using web technologies and planned to be delivered within an electron container for full local offline. However a hosted solution is possible, as it is based in angular and in rxdb.
+With Balnc software developers may quickly bootstrap applications and use premade modules from Balnc Packages or create their own. This collection includes sales, marketing and accounting modules and it is both open source and free under the MIT license.
 
 ## Main Features
 
-- Builded with [Angular](https://angular.io/) and use [Electron](https://electron.atom.io) container for deliver
-- For the base theme latest [Bootstrap 4](http://getbootstrap.com/) framework is used
-- Offline first using local no-sql [pouchdb](https://pouchdb.com) the under the hood tech of [rxdb](https://github.com/pubkey/rxdb)
-- Cross platform clients (based in electron for desktop and ionic for mobile)
-- Do not require deticated server machine. A common client can be used as a server.
-- Low cost and scalable servers (pouchdb-server, couchdb, etc)
-- Every module can be extended
-- Custom modules can be implemented (menus are extendable)
+- Builded with [Angular](https://angular.io/) and [rxdb](https://github.com/pubkey/rxdb)
+- [PWA](https://developers.google.com/web/progressive-web-apps/) and offline-first
+- Low cost and scalable db servers (couchdb, etc)
+- Every module can be extended and custom modules can be implemented (menus are extendable)
 
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) 2017 Christos Georgiou
+Copyright (c) 2018 Christos Georgiou
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

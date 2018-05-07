@@ -1,0 +1,75 @@
+@import "bootstrap";
+:host {
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .justify-content-center;
+  min-height: 3.5rem;
+  background: #fafafa;
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: solid 1px #DDD;
+  padding-top: .5rem;
+  .header-title-bar {
+    @extend .d-flex;
+    @extend .flex-row;
+    @extend .align-items-start;
+    height: 52px;
+    padding-bottom: .5rem;
+    .header-icon {
+      color: lighten(#333, 20);
+      border-right: solid 1px #DDD;
+      padding: 0 .75rem;
+      margin-right: 1rem;
+      font-size: 1.6rem;
+      height: 100%;
+    }
+    .header-body {
+      @extend .d-flex;
+      @extend .flex-column;
+      @extend .justify-content-center;
+      height: 100%;
+      h1 {
+        color: #333;
+        font-size: 1.3rem;
+        margin: 0;
+        font-weight: normal;
+      }
+      ul {
+        color: #666;
+        margin: 0;
+        font-size: .6rem;
+      }
+    }
+    .header-menu {
+      @extend .ml-auto;
+      .dropdown-toggle {
+        .fa {
+          @extend .text-muted;
+        }
+      }
+    }
+    &.has-tabs {
+      padding-bottom: 0;
+    }
+  }
+  .header-menu-tab {
+    margin-top: .7rem;
+    .nav-tabs {
+      border-bottom: none;
+      .nav-item {
+        .nav-link {
+          color: #666;
+          &.active {
+            color: #333;
+          }
+        }
+      }
+    }
+  }
+}
+
+.dropdown-toggle {
+  &::after {
+    display: none;
+  }
+}

@@ -1,5 +1,5 @@
 # Doctors Modules
 
-## Person | `@balance/doctor-person`
+## Person | `@balnc/doctor-person`
 
-## Schedules | `@balance/doctor-schedules`
+## Schedules | `@balnc/doctor-schedules`
