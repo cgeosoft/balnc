@@ -48,17 +48,24 @@ export class ProfilesComponent implements OnInit {
       alias: "",
       name: quickLocalName,
       modules: {
-        "@balnc/business-invoices": {
-          "enabled": true
+        "@balnc/business": {
+          enabled: true,
+          menu: {
+            invoices: true
+          }
         },
-        "@balnc/marketing-presentations": {
-          "enabled": true
+        "@balnc/marketing": {
+          enabled: true,
+          menu: {
+            presentations: true
+          }
         },
-        "@balnc/team-projects": {
-          "enabled": true
-        },
-        "@balnc/team-chat": {
-          "enabled": true
+        "@balnc/team": {
+          enabled: true,
+          menu: {
+            projects: true,
+            chat: true
+          }
         }
       },
     })
