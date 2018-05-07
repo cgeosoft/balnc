@@ -18,9 +18,9 @@ import { Profile } from '@balnc/core/profile/data/profile';
 export class MainComponent implements OnInit {
 
   profile: Profile;
-  @ViewChild('spinnerElement')
+  @ViewChild('pageLoader')
 
-  spinnerElement: ElementRef
+  pageLoader: ElementRef
 
   constructor(
     private router: Router,
@@ -44,7 +44,7 @@ export class MainComponent implements OnInit {
   private _navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.ngZone.runOutsideAngular(() => {
-        this.renderer.setElementClass(this.spinnerElement.nativeElement, 'active', true)
+        this.renderer.setElementClass(this.pageLoader.nativeElement, 'active', true)
       })
     }
     if (event instanceof NavigationEnd) {
@@ -60,7 +60,7 @@ export class MainComponent implements OnInit {
 
   private _hideSpinner(): void {
     this.ngZone.runOutsideAngular(() => {
-      this.renderer.setElementClass(this.spinnerElement.nativeElement, 'active', false)
+      this.renderer.setElementClass(this.pageLoader.nativeElement, 'active', false)
     })
   }
 }

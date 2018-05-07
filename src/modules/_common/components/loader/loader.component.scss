@@ -10,7 +10,7 @@
   height: 100%;
   .animation-wrapper {
     .default {
-      color: #999;
+      color: $color-primary;
       font-size: 2rem;
     }
     .sk-cube-grid {
@@ -18,7 +18,7 @@
       height: 40px;
       margin: 0 auto;
       .sk-cube {
-        background: #999;
+        background: $color-primary;
         width: 33%;
         height: 33%;
         float: left;

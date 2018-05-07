@@ -27,75 +27,92 @@
   <meta name="theme-color" content="#3F51B5">
 
   <style>
-    .loader,
-    .loader:before,
-    .loader:after {
-      background: #333;
-      -webkit-animation: load1 1s infinite ease-in-out;
-      animation: load1 1s infinite ease-in-out;
-      width: .2em;
-      height: 2em;
-    }
-
-    .loader {
-      color: #333;
-      text-indent: -9999em;
-      top: 50%;
+    .sk-cube-grid {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top:50%;
       left: 50%;
-      position: absolute;
-      font-size: 11px;
-      -webkit-transform: translateZ(0);
-      -ms-transform: translateZ(0);
-      transform: translateZ(0);
-      -webkit-animation-delay: -0.16s;
-      animation-delay: -0.16s;
-      display: none;
+      margin: -20px 0 0 -20px;
     }
 
-    .loader.active {
-      display: block;
+    .sk-cube-grid .sk-cube {
+      background: #3F51B5;
+      width: 33%;
+      height: 33%;
+      float: left;
+      -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+      animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
     }
 
-    .loader:before,
-    .loader:after {
-      position: absolute;
-      top: 0;
-      content: '';
+    .sk-cube-grid .sk-cube1 {
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
     }
 
-    .loader:before {
-      left: -.5em;
-      -webkit-animation-delay: -0.32s;
-      animation-delay: -0.32s;
+    .sk-cube-grid .sk-cube2 {
+      -webkit-animation-delay: 0.3s;
+      animation-delay: 0.3s;
     }
 
-    .loader:after {
-      left: .5em;
+    .sk-cube-grid .sk-cube3 {
+      -webkit-animation-delay: 0.4s;
+      animation-delay: 0.4s;
     }
 
-    @-webkit-keyframes load1 {
+    .sk-cube-grid .sk-cube4 {
+      -webkit-animation-delay: 0.1s;
+      animation-delay: 0.1s;
+    }
+
+    .sk-cube-grid .sk-cube5 {
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
+
+    .sk-cube-grid .sk-cube6 {
+      -webkit-animation-delay: 0.3s;
+      animation-delay: 0.3s;
+    }
+
+    .sk-cube-grid .sk-cube7 {
+      -webkit-animation-delay: 0s;
+      animation-delay: 0s;
+    }
+
+    .sk-cube-grid .sk-cube8 {
+      -webkit-animation-delay: 0.1s;
+      animation-delay: 0.1s;
+    }
+
+    .sk-cube-grid .sk-cube9 {
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
+
+    @-webkit-keyframes sk-cubeGridScaleDelay {
       0%,
-      80%,
+      70%,
       100% {
-        box-shadow: 0 0;
-        height: 2em;
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
       }
-      40% {
-        box-shadow: 0 -2em;
-        height: 3em;
+      35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
       }
     }
 
-    @keyframes load1 {
+    @keyframes sk-cubeGridScaleDelay {
       0%,
-      80%,
+      70%,
       100% {
-        box-shadow: 0 0;
-        height: 2em;
+        -webkit-transform: scale3D(1, 1, 1);
+        transform: scale3D(1, 1, 1);
       }
-      40% {
-        box-shadow: 0 -2em;
-        height: 3em;
+      35% {
+        -webkit-transform: scale3D(0, 0, 1);
+        transform: scale3D(0, 0, 1);
       }
     }
 
@@ -104,10 +121,20 @@
 
 <body>
   <app-main>
-    <div class="loader active">Loading...</div>
+    <div class="sk-cube-grid">
+      <div class="sk-cube sk-cube1"></div>
+      <div class="sk-cube sk-cube2"></div>
+      <div class="sk-cube sk-cube3"></div>
+      <div class="sk-cube sk-cube4"></div>
+      <div class="sk-cube sk-cube5"></div>
+      <div class="sk-cube sk-cube6"></div>
+      <div class="sk-cube sk-cube7"></div>
+      <div class="sk-cube sk-cube8"></div>
+      <div class="sk-cube sk-cube9"></div>
+    </div>
   </app-main>
   <noscript>
-    <h3 style="color: #673ab7; font-family: Helvetica; margin: 2rem;">
+    <h3 style="color: #111; font-family: Helvetica; margin: 2rem;">
       Sorry, but app is not available without javascript
     </h3>
   </noscript>
