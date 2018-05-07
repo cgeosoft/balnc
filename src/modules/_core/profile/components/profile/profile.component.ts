@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
     @ViewChild("name") name: ElementRef
     @ViewChild("alias") alias: ElementRef
 
+    namespaces: any[]
     profileEdit: any
     profile: Profile
     form: FormGroup

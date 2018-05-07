@@ -8,6 +8,8 @@ import { Component } from '@angular/core'
 })
 export class WelcomeComponent {
 
+  accepted:boolean
+  
   constructor(
     private router: Router
   ) { }
