@@ -60,3 +60,27 @@ thead {
     }
   }
 }
+
+.modal-content {
+  border-color: #FFF;
+  .modal-header {
+    background: $color-primary;
+    padding: .5rem 1rem;
+    .modal-title {
+      color: $color-primary-font;
+      font-weight: 300;
+      font-size: 1.2rem;
+    }
+    .close {
+      span {
+        color: $color-primary-font;
+      }
+    }
+  }
+  .modal-body {
+  }
+  .modal-footer {
+    padding: .5rem 1rem;
+    background: #EEE;
+  }
+}

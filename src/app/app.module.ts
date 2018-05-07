@@ -21,8 +21,8 @@ import { ProfileService } from '@balnc/core/profile/services/profile.service';
     ENV.production ? ServiceWorkerModule.register('ngsw-worker.js') : [],
 
     RouterModule.forRoot([], {
-      enableTracing: true,
-      preloadingStrategy: PreloadAllModules,
+      // enableTracing: true,
+      // preloadingStrategy: PreloadAllModules,
     }),
     CommonModule,
     CoreModule,

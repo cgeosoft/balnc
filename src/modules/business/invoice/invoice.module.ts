@@ -2,15 +2,19 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
 import { CommonModule } from '@balnc/common/common.module'
-import { InvoicesWrapperComponent } from '@balnc/business/invoices/components/_wrapper/invoices-wrapper.component'
-import { InvoicesOverviewComponent } from '@balnc/business/invoices/components/overview/invoices-overview.component'
-import { InvoicesReportComponent } from '@balnc/business/invoices/components/report/invoices-report.component'
-import { InvoicesItemComponent } from '@balnc/business/invoices/components/item/invoices-item.component'
+import { InvoicesWrapperComponent } from '@balnc/business/invoice/components/_wrapper/invoices-wrapper.component'
+import { InvoicesOverviewComponent } from '@balnc/business/invoice/components/overview/invoices-overview.component'
+import { InvoicesReportComponent } from '@balnc/business/invoice/components/report/invoices-report.component'
+import { InvoicesItemComponent } from '@balnc/business/invoice/components/item/invoices-item.component'
+import { InvoiceService } from '@balnc/business/invoice/services/invoice.service';
 
 const routes: Routes = [
   {
-    path: 'invoices',
+    path: 'invoice',
     component: InvoicesWrapperComponent,
+    resolve: {
+      InvoiceService
+    },
     children: [
       { path: '', redirectTo: "overview" },
       { path: 'overview', component: InvoicesOverviewComponent },
@@ -31,6 +35,8 @@ const routes: Routes = [
     InvoicesItemComponent,
     InvoicesReportComponent,
   ],
-  providers: []
+  providers: [
+    InvoiceService,
+  ]
 })
-export class InvoicesModule { }
+export class InvoiceModule { }

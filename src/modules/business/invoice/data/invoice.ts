@@ -42,4 +42,4 @@ export type InvoiceTemplate = IInvoiceTemplate
 
 export type RxInvoiceDoc = RxDocument<IInvoice> & IInvoice
 
-export const ReportSchema = schema
+export const InvoiceSchema = schema

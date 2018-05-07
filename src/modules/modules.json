@@ -17,7 +17,7 @@
       "id": "invoices",
       "label": "Invoices",
       "icon": "copy:regular",
-      "path": "/business/invoices"
+      "path": "/business/invoice"
     }],
     "config": null
   }, {
