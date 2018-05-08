@@ -8,7 +8,8 @@
             <span class="fa fa-plus-circle fa-fw"></span> New Task</button>
         </div>
       </div>
-      <ng-container *ngIf="tasks.length; else noItems">
+      <ng-container *ngIf="tasks; else loader">
+        <ng-container *ngIf="tasks.length; else empty">
         <table class="table">
           <thead>
             <tr>
@@ -28,7 +29,7 @@
                 </div>
               </td>
               <td>
-                <a [routerLink]="['/projects/tasks',task._id]" class="task-title">{{task.title}}</a>
+                <a [routerLink]="['/team/projects/tasks',task._id]" class="task-title">{{task.title}}</a>
               </td>
               <td>
                 opened
@@ -39,6 +40,7 @@
           </tbody>
         </table>
       </ng-container>
+    </ng-container>
     </div>
     <div *ngIf="tabsMenu.active==='settings'">
       <div class="row">
@@ -68,7 +70,7 @@
         </div>
       </div>
     </div>
-    <ng-template #noItems>
+    <ng-template #empty>
       <app-empty message="You don't have any tasks yet" submessage="Click create to add your first one" icon="tasks"></app-empty>
     </ng-template>
     <ng-template #loader>

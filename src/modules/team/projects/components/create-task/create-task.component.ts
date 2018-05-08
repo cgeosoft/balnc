@@ -5,7 +5,7 @@ import { RxDocumentBase } from 'rxdb';
 import { Observable } from 'rxjs/Observable';
 
 import { ProjectsService } from '../../services/projects.service';
-import { RxProjectDocument } from '../../data/project';
+import { RxProject } from '../../data/project';
 
 @Component({
     selector: 'app-team-projects-task-create',
@@ -14,7 +14,7 @@ import { RxProjectDocument } from '../../data/project';
 })
 export class CreateTaskComponent implements OnInit {
 
-    projects$: Observable<(RxDocumentBase<RxProjectDocument> & RxProjectDocument)[]>;
+    projects$: Observable<(RxDocumentBase<RxProject> & RxProject)[]>;
 
     @Input() projectId = "";
 

@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs/Observable'
 import { RxCollection, RxDocumentBase } from 'rxdb'
 
-import { RxProjectDocument } from '../../data/project'
+import { RxProject } from '../../data/project'
 import { RxLogDocument } from '../../data/log'
 import { CreateTaskComponent } from '../create-task/create-task.component'
 import { ProjectsService } from '../../services/projects.service'

@@ -1,6 +1,6 @@
 import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription, AnonymousSubscription } from 'rxjs/Subscription'
 import { RxCollection, RxDocumentBase } from 'rxdb'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs/Observable'
@@ -10,7 +10,7 @@ import * as moment from 'moment'
 
 import { RxLogDocument } from '../../data/log'
 import { CreateTaskComponent } from '../create-task/create-task.component'
-import { RxProjectDocument } from '../../data/project'
+import { RxProject, Project } from '../../data/project'
 import { ProjectsService } from '../../services/projects.service'
 
 @Component({
@@ -22,7 +22,7 @@ export class ProjectComponent implements OnInit {
 
   tabsMenu: any
   tasks: RxLogDocument[]
-  project: RxProjectDocument
+  project: Project & any = {}
   projectId: string
 
   constructor(

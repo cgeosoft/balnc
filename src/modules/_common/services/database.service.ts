@@ -91,9 +91,9 @@ export class DatabaseService {
         return this.db[`${this.config.prefix}/${name}`]
     }
 
-    private entityLoaded(parsedName) {
+    private entityLoaded(name) {
         const entity = Object.keys(this.entities).findIndex((e) => {
-            return e === parsedName
+            return e === `${this.config.prefix}/${name}`
         })
         return entity !== -1
     }

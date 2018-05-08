@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core'
 import { Observable } from 'rxjs/Observable'
 import { RxCollection, RxDocumentBase } from 'rxdb'
 
-import { RxProjectDocument } from '@balnc/team/projects/data/project'
+import { RxProject } from '@balnc/team/projects/data/project'
 import { RxLogDocument } from '@balnc/team/projects/data/log'
 import { ProjectsService } from '@balnc/team/projects/services/projects.service';
 

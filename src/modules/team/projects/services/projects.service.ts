@@ -6,7 +6,7 @@ import { ActivatedRouteSnapshot, Resolve } from "@angular/router";
 
 import * as moment from 'moment'
 
-import { RxProjectDocument, ProjectSchema } from "../data/project"
+import { RxProject, ProjectSchema } from "../data/project"
 import { RxLogDocument, LogSchema } from "../data/log"
 import { Entity } from "@balnc/common/models/entity";
 import { DatabaseService } from "@balnc/common/services/database.service";
@@ -25,7 +25,7 @@ const entities: Entity[] = [{
 export class ProjectsService implements Resolve<any> {
 
     logs: RxCollection<RxLogDocument>
-    projects: RxCollection<RxProjectDocument>
+    projects: RxCollection<RxProject>
 
     constructor(
         private dbService: DatabaseService,
@@ -38,7 +38,7 @@ export class ProjectsService implements Resolve<any> {
 
     async setup() {
         await this.dbService.loadEntities(entities)
-        this.projects = await this.dbService.get<RxProjectDocument>("project")
+        this.projects = await this.dbService.get<RxProject>("project")
         this.logs = await this.dbService.get<RxLogDocument>("log")
     }
 
@@ -74,7 +74,7 @@ export class ProjectsService implements Resolve<any> {
             })
     }
 
-    async getProject(projectId): Promise<RxProjectDocument> {
+    async getProject(projectId): Promise<RxProject> {
         return await this.projects.findOne(projectId).exec()
     }
 
@@ -143,7 +143,7 @@ export class ProjectsService implements Resolve<any> {
         // await this.projects.remove()
         // await this.tasks.remove()
 
-        const projects: RxProjectDocument[] = [];
+        const projects: RxProject[] = [];
         for (let i = 0; i < 10; i++) {
             const project = await this.projects.insert({
                 name: `Project ${i}`,

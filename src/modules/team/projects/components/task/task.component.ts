@@ -9,7 +9,7 @@ import * as _ from 'lodash'
 import * as moment from 'moment'
 
 import { CreateTaskComponent } from '../create-task/create-task.component'
-import { RxProjectDocument } from '../../data/project'
+import { RxProject } from '../../data/project'
 import { RxLogDocument } from '../../data/log'
 import { ProjectsService } from '../../services/projects.service'
 
@@ -25,7 +25,7 @@ export class TaskComponent implements OnInit {
   comment: string = null
 
   task: RxLogDocument
-  project: RxProjectDocument & any = {}
+  project: RxProject & any = {}
   logs: RxLogDocument[] = []
 
   form: FormGroup
