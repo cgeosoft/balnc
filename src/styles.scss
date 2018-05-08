@@ -36,7 +36,6 @@
 //     margin: 0 0 0 .7rem;
 //   }
 // }
-
 thead {
   th {
     .btn {
@@ -77,10 +76,18 @@ thead {
       }
     }
   }
-  .modal-body {
-  }
+  .modal-body {}
   .modal-footer {
     padding: .5rem 1rem;
     background: #EEE;
   }
+}
+
+.btn-toolbar {
+  background: #fafafa;
+  border: solid 1px #EEE;
+  padding: 7.5px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  border-width: 0 1px 1px 0;
 }

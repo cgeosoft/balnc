@@ -1,4 +1,5 @@
-import { Component, Input, isDevMode, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ENV } from 'environments/environment.prod';
 
 @Component({
   selector: 'app-debug',
@@ -14,7 +15,7 @@ export class DebugComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.show = isDevMode()
+    this.show = !ENV.isProd
   }
 
 }

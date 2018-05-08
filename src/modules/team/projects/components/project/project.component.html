@@ -2,7 +2,7 @@
   <app-content-header [title]="project.name" subtitle="Project" icon="cube" [tabsMenu]="tabsMenu"></app-content-header>
   <app-content-body>
     <div *ngIf="tabsMenu.active==='tasks'">
-      <div class="btn-toolbar mb-4">
+      <div class="btn-toolbar">
         <div class="btn-group mr-2">
           <button type="button" class="btn btn-primary" (click)="createTask()">
             <span class="fa fa-plus-circle fa-fw"></span> New Task</button>
@@ -10,37 +10,37 @@
       </div>
       <ng-container *ngIf="tasks; else loader">
         <ng-container *ngIf="tasks.length; else empty">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Status</th>
-              <th>Details</th>
-              <th>Opened</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let task of tasks">
-              <td>
-                <div class="d-flex flex-column align-items-start">
-                  <ng-container [ngSwitch]="task.status">
-                    <span class="badge badge-primary" *ngSwitchCase="'PENDING'">PENDING</span>
-                    <span class="badge badge-success" *ngSwitchCase="'COMPLETE'">COMPLETE</span>
-                  </ng-container>
-                </div>
-              </td>
-              <td>
-                <a [routerLink]="['/team/projects/tasks',task._id]" class="task-title">{{task.title}}</a>
-              </td>
-              <td>
-                opened
-                <strong>{{task.insertedAt | amTimeAgo}}</strong> ago by
-                <strong>{{task.insertedFrom}}</strong>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Details</th>
+                <th>Opened</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let task of tasks">
+                <td>
+                  <div class="d-flex flex-column align-items-start">
+                    <ng-container [ngSwitch]="task.status">
+                      <span class="badge badge-primary" *ngSwitchCase="'PENDING'">PENDING</span>
+                      <span class="badge badge-success" *ngSwitchCase="'COMPLETE'">COMPLETE</span>
+                    </ng-container>
+                  </div>
+                </td>
+                <td>
+                  <a [routerLink]="['/team/projects/tasks',task._id]" class="task-title">{{task.title}}</a>
+                </td>
+                <td>
+                  opened
+                  <strong>{{task.insertedAt | amTimeAgo}}</strong> ago by
+                  <strong>{{task.insertedFrom}}</strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
       </ng-container>
-    </ng-container>
     </div>
     <div *ngIf="tabsMenu.active==='settings'">
       <div class="row">
@@ -54,8 +54,7 @@
                 <p class="text-light">Change name and description</p>
               </li>
               <li class="list-group-item">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat eligendi eius a praesentium beatae commodi est adipisci
-                doloremque ducimus esse in modi tempora molestias unde consequatur cupiditate sed, rerum quidem.
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat eligendi eius a praesentium beatae commodi est adipisci doloremque ducimus esse in modi tempora molestias unde consequatur cupiditate sed, rerum quidem.
               </li>
               <li class="list-group-item">
                 <div class="form-check">

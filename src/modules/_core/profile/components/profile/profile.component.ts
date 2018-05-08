@@ -29,6 +29,8 @@ export class ProfileComponent implements OnInit {
     profileEdit: any
     profile: Profile
     form: FormGroup
+    deleteData = false
+    deleteDataRemote = false
 
     constructor(
         private router: Router,

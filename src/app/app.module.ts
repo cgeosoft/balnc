@@ -8,17 +8,17 @@ import { MarkdownModule } from 'ngx-md'
 import { CommonModule } from '@balnc/common/common.module'
 import { CoreModule } from '@balnc/core/core.module'
 
-import { ENV } from 'environments/environment'
 import { AppComponent } from './app.component'
 import { DatabaseService } from '@balnc/common/services/database.service'
 import { ConfigService } from '@balnc/common/services/config.service'
 import { ProfileService } from '@balnc/core/profile/services/profile.service';
+import { ENV } from 'environments/environment';
 
 @NgModule({
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
-    ENV.production ? ServiceWorkerModule.register('ngsw-worker.js') : [],
+    ENV.isProd ? ServiceWorkerModule.register('ngsw-worker.js') : [],
 
     RouterModule.forRoot([], {
       // enableTracing: true,

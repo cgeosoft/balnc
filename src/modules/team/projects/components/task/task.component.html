@@ -2,7 +2,7 @@
   <app-content-header [title]="project.name" subtitle="Project" icon="tasks"></app-content-header>
   <app-content-body>
     <ng-container *ngIf="task">
-      <div class="btn-toolbar mb-4">
+      <div class="btn-toolbar">
         <a [routerLink]="['/projects',project._id]" class="btn btn-link">
           <span class="fa fa-chevron-left fa-fw"></span>
         </a>
