@@ -21,9 +21,13 @@
     </div>
     <div class="status-bar-item status-bar-item-divider"></div>
     <div class="status-bar-item">
-      <div class="status-bar-item-content">
-        <span class="fa fa-circle text-danger"></span>
-        Offline
+      <div class="status-bar-item-content" style="width:58px;">
+        <div class="online" *ngIf="isOnline">
+          <span class="fa fa-circle text-success"></span>
+          Online</div>
+        <div class="offline" *ngIf="!isOnline">
+          <span class="fa fa-circle text-danger"></span>
+          Offline</div>
       </div>
     </div>
   </div>
