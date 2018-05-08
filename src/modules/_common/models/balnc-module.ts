@@ -1,5 +1,5 @@
 declare interface BalncModuleType {
-  module: string
+  id: string
   title: string
   description: string
   menu?: BalncModuleMenuType[]

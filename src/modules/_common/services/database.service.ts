@@ -15,6 +15,8 @@ import KeycompressionPlugin from 'rxdb/plugins/key-compression'
 import AttachmentsPlugin from 'rxdb/plugins/attachments'
 import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages'
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
+import JsonDumpPlugin from 'rxdb/plugins/json-dump';
+
 import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
 
 import { ENV } from 'environments/environment'
@@ -36,6 +38,7 @@ RxDB.plugin(RxDBReplicationModule)
 RxDB.plugin(AttachmentsPlugin)
 RxDB.plugin(RxDBErrorMessagesModule)
 RxDB.plugin(AdapterCheckPlugin)
+RxDB.plugin(JsonDumpPlugin)
 RxDB.plugin(require('pouchdb-adapter-http'))
 RxDB.plugin(require('pouchdb-adapter-idb'))
 RxDB.plugin(require('pouchdb-adapter-websql'))
@@ -44,7 +47,7 @@ RxDB.plugin(require('pouchdb-adapter-websql'))
 export class DatabaseService {
 
     private db: RxDatabase = null
-    private entities: Entity[] = []
+    private entities: { [key: string]: Entity } = {}
     private hadAuthed = false
     private adapter = null
     private replicationStates: { [key: string]: RxReplicationState } = {}
@@ -60,39 +63,28 @@ export class DatabaseService {
 
         console.log("[DatabaseService]", "setup entities", entities, this.config.prefix, "loadedEntities", this.entities)
 
-        const add: any[] = []
-
         for (const entity of entities) {
             if (this.entityLoaded(entity.name)) { return }
             const ent = await this.db.collection({
                 name: `${this.config.prefix}/${entity.name}`,
                 schema: entity.schema,
             })
-            this.entities.push(entity)
-            add.push(ent)
-        }
 
-        await Promise.all(add)
-        this.sync()
-    }
-
-    public sync() {
-
-        if (!this.config.host) {
-            return
-        }
-
-        this.entities
-            .filter(entity => entity.sync)
-            .forEach(entity => {
-                this.db[`${this.config.prefix}/${entity.name}`].sync({
+            if (entity.sync && this.config.host) {
+                this.replicationStates[`${this.config.prefix}/${entity.name}`] = ent.sync({
                     remote: `${this.config.host}/${this.config.prefix}-${entity.name}/`,
                     options: {
                         live: true,
                         retry: true
                     },
                 })
-            })
+                this.replicationStates[`${this.config.prefix}/${entity.name}`].docs$.subscribe(docData => {
+                    console.dir("replicationState", docData)
+                });
+            }
+
+            this.entities[`${this.config.prefix}/${entity.name}`] = entity
+        }
     }
 
     public async get<T>(name: string): Promise<RxCollection<T>> {
@@ -100,8 +92,8 @@ export class DatabaseService {
     }
 
     private entityLoaded(parsedName) {
-        const entity = this.entities.findIndex((e) => {
-            return e.name === parsedName
+        const entity = Object.keys(this.entities).findIndex((e) => {
+            return e === parsedName
         })
         return entity !== -1
     }
@@ -145,6 +137,11 @@ export class DatabaseService {
         // if (await RxDB.checkAdapter('websql')) {
         //     return "websql"
         // }
+    }
+
+    async backup() {
+        await this.db.destroy();
+        return await this.db.dump()
     }
 
 }

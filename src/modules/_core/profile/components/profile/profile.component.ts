@@ -1,3 +1,4 @@
+import { reduce } from 'rxjs/operators/reduce';
 import { Component, Input, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core'
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
@@ -10,6 +11,8 @@ import { ProfileService } from '../../services/profile.service'
 import { ConfigService } from '@balnc/common/services/config.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Profile } from '@balnc/core/profile/data/profile';
+import { BalncModule } from '@balnc/common/models/balnc-module';
+import { DatabaseService } from '@balnc/common/services/database.service';
 
 @Component({
     selector: 'app-profile-profile',
@@ -21,7 +24,8 @@ export class ProfileComponent implements OnInit {
     @ViewChild("name") name: ElementRef
     @ViewChild("alias") alias: ElementRef
 
-    namespaces: any[]
+    modules: BalncModule[];
+    activeModules: any = {}
     profileEdit: any
     profile: Profile
     form: FormGroup
@@ -32,14 +36,21 @@ export class ProfileComponent implements OnInit {
         private formBuilder: FormBuilder,
         private profileService: ProfileService,
         private configService: ConfigService,
+        private databaseService: DatabaseService,
     ) { }
 
     async ngOnInit() {
-        // this.generateModuleList()
+        this.modules = this.configService.modules
+
         this.route.params.subscribe(params => {
             this.setup(params['alias'])
         })
         this.profileEdit = { ...this.profile }
+
+        this.activeModules = Object.keys(this.profile.modules).reduce((x, i) => {
+            x[i] = this.profile.modules[i].enabled
+            return x
+        }, {})
     }
 
     setup(alias) {
@@ -65,25 +76,16 @@ export class ProfileComponent implements OnInit {
         //     })
     }
 
-    // generateModuleList() {
-    //     this.namespaces = _.chain(this.configService.modules)
-    //         .groupBy("namespace")
-    //         .map((modules, namespace) => {
-    //             let ns = _.find(this.configService.namespaces, i => {
-    //                 return i.id === namespace
-    //             })
+    async backup() {
+        const data = await this.databaseService.backup();
 
-    //             if (!ns) {
-    //                 ns = {
-    //                     id: "?",
-    //                     title: "?",
-    //                 }
-    //             }
+        const a = document.createElement("a");
+        const file = new Blob([JSON.stringify(data)], { type: 'application/json' });
+        a.href = URL.createObjectURL(file);
+        a.download = `data-${(new Date).getTime()}.json`;
+        a.click();
+    }
 
-    //             ns.modules = modules
-    //             return ns
-    //         })
-    //         .value()
-    // }
+    restore() { }
 
 }

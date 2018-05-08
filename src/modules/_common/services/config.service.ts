@@ -38,13 +38,13 @@ export class ConfigService {
         const menu = this.modules
             .filter(m => {
                 return profile.modules &&
-                    profile.modules[m.module] &&
-                    profile.modules[m.module].enabled &&
+                    profile.modules[m.id] &&
+                    profile.modules[m.id].enabled &&
                     m.menu
             })
             .map(m => {
                 return m.menu.filter(x => {
-                    return profile.modules[m.module].menu[x.id]
+                    return profile.modules[m.id].menu[x.id]
                 })
             })
             .reduce((supermenu, menus) => {

@@ -37,6 +37,7 @@ export class PresentationsService implements Resolve<any> {
   }
 
   async getPresentations(params?: any) {
+    console.log("presentations")
     const presentations = await this.presentations.find().exec()
     const images$ = presentations
       .map(async (presentation) => {
