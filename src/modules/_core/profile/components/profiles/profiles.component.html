@@ -14,7 +14,7 @@
         <button class="btn btn-primary" [routerLink]="['/profile']">New Profile</button>
         <button class="btn btn-link" ngxFilePicker (filePick)="onFilePicked($event)">Import File</button>
       </div>
-      <app-debug [data]="profiles"></app-debug>
+      <div class="alert alert-danger" *ngIf="error" >{{error}}</div>
       <ng-container *ngIf="profiles; else empty">
         <ng-container *ngIf="profiles.length; else empty">
           <div class="list-group list-group-flush">

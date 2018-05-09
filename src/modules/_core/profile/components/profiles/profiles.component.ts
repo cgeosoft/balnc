@@ -17,13 +17,12 @@ import { ConfigService } from '@balnc/common/services/config.service';
 })
 export class ProfilesComponent implements OnInit {
 
-  appVersion: any;
-  error: string;
   @ViewChild(FilePickerDirective)
 
   alias: any
   selectedProfile: Profile & any
   profiles: Profile[]
+  error: string;
 
   constructor(
     private modalService: NgbModal,
