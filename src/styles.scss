@@ -7,6 +7,9 @@
 @import "invoice";
 @import "chat";
 @import "table-max";
+
+@import "~ngx-toastr/toastr-bs4-alert";
+
 .card-header-buttons {
   float: right;
   >button,
