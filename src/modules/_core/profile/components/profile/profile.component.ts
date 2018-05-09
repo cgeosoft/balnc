@@ -26,8 +26,8 @@ export class ProfileComponent implements OnInit {
 
     modules: BalncModule[];
     activeModules: any = {}
-    profileEdit: any
-    profile: Profile
+    profileEdit: Profile
+    profileName: string;
     form: FormGroup
     deleteData = false
     deleteDataRemote = false
@@ -44,38 +44,39 @@ export class ProfileComponent implements OnInit {
     async ngOnInit() {
         this.modules = this.configService.modules
 
+        this.setup()
+
         this.route.params.subscribe(params => {
             this.setup(params['alias'])
         })
-        this.profileEdit = { ...this.profile }
-
-        this.activeModules = Object.keys(this.profile.modules).reduce((x, i) => {
-            x[i] = this.profile.modules[i].enabled
-            return x
-        }, {})
     }
 
-    setup(alias) {
+    setup(alias: string = null) {
         if (alias) {
-            this.profile = this.profileService.get(alias)
+            const profile = this.profileService.get(alias)
+            this.profileName = profile.name
+            this.profileEdit = { ...profile }
+            this.profileEdit.database = this.profileEdit.database || {}
+            this.activeModules = Object.keys(profile.modules).reduce((x, i) => {
+                x[i] = profile.modules[i].enabled
+                return x
+            }, {})
+        } else {
+            this.profileName = "New Profile"
+            this.profileEdit = {
+                alias: "",
+                database: {},
+                modules: [],
+                name: "",
+            }
         }
-        this.form = this.formBuilder.group({
-            name: ["", [Validators.required, Validators.maxLength(50)]],
-        })
     }
 
-    onSubmit() {
-        const formModel = this.form.value
-        const profileId = formModel.profile
-        this.profileService.add({
-            alias: "",
-            name: formModel.name
-        })
-        // this.profileService
-        //     .addProfile(formModel.alias, formModel.name)
-        //     .then(() => {
-        //         this.activeModal.close()
-        //     })
+    save() {
+        const alias = this.profileService.save(this.profileEdit)
+        if (this.profileEdit.alias) {
+            this.router.navigate(['/profile', alias])
+        }
     }
 
     async backup() {

@@ -9,16 +9,17 @@
     </div>
     <div class="card-body">
       <div class="btn-toolbar">
-        <button class="btn btn-primary" [routerLink]="['/profile','NEW']">New Profile</button>
+        <button class="btn btn-primary" [routerLink]="['/profile']">New Profile</button>
         <button class="btn btn-link" ngxFilePicker (filePick)="onFilePicked($event)">Import File</button>
       </div>
+      <app-debug [data]="profiles"></app-debug>
       <ng-container *ngIf="profiles; else empty">
         <ng-container *ngIf="profiles.length; else empty">
           <div class="list-group list-group-flush">
             <div class="list-group-item d-flex px-0" *ngFor="let profile of profiles">
               <div>
                 {{profile.name}}
-                <span *ngIf="profile.database">/ {{profile.database.user}}</span>
+                <span *ngIf="profile.database && profile.database.user">/ {{profile.database.user}}</span>
                 <br>
                 <ul class="list-inline text-secondary m-0">
                   <li class="list-inline-item">{{profile.createdAt | date}}</li>
