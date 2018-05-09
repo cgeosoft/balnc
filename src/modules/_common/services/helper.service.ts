@@ -2,25 +2,24 @@ import * as _ from 'lodash'
 
 export class HelperService {
 
-    static getIconClass(name: string, addFw?: boolean): string {
+    static getIcon(name: string): string[] {
+        const array = []
         const iconNS = name.split(":")
         if (iconNS.length > 1) {
             switch (iconNS[1]) {
                 case "regular":
-                    name = "far fa-" + iconNS[0]
+                    array.push("far")
                     break;
-                default:
-                    name = "fa fa-" + iconNS[0]
+                case "solid":
+                    array.push("fas")
                     break;
             }
+            array.push(iconNS[0])
         } else {
-            name = "fa fa-" + name
+            array.push("fas")
+            array.push(name)
         }
 
-        if (addFw) {
-            name += " fa-fw"
-        }
-
-        return name
+        return array
     }
 }

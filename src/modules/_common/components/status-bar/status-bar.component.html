@@ -22,12 +22,11 @@
     <div class="status-bar-item status-bar-item-divider"></div>
     <div class="status-bar-item">
       <div class="status-bar-item-content" style="width:58px;">
-        <div class="online" *ngIf="isOnline">
-          <span class="fa fa-circle text-success"></span>
-          Online</div>
-        <div class="offline" *ngIf="!isOnline">
-          <span class="fa fa-circle text-danger"></span>
-          Offline</div>
+        <fa-layers class="fa-fw">
+          <fa-icon [icon]="['fas','circle']" [ngClass]="{'text-success':isOnline,'text-danger':!isOnline}"></fa-icon>
+        </fa-layers>
+        <span *ngIf="isOnline">Online</span>
+        <span *ngIf="!isOnline">Offline</span>
       </div>
     </div>
   </div>

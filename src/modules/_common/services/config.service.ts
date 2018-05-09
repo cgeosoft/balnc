@@ -52,7 +52,7 @@ export class ConfigService {
             }, [])
             .map(m => {
                 const v = { ...m }
-                v.icon = HelperService.getIconClass(m.icon, true)
+                v.icon = HelperService.getIcon(m.icon)
                 return v
             })
         return menu

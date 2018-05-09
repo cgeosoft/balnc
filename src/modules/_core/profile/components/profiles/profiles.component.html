@@ -4,7 +4,9 @@
       <h4 class="m-0">Manage Profiles</h4>
       <button class="btn btn-link btn-sm ml-auto" *ngIf="selectedProfile" [routerLink]="['/dashboard']">
         dashboard
-        <span class="fa fa-caret-right"></span>
+        <fa-layers class="fa-fw">
+          <fa-icon [icon]="['fas','caret-right']"></fa-icon>
+        </fa-layers>
       </button>
     </div>
     <div class="card-body">
@@ -25,7 +27,10 @@
                   <li class="list-inline-item">{{profile.createdAt | date}}</li>
                   <li class="list-inline-item">
                     <a [routerLink]="['/profile',profile.alias]">
-                      <span class="fa fa-cog"></span> Configure
+                      <fa-layers class="fa-fw">
+                        <fa-icon [icon]="['fas','cog']"></fa-icon>
+                      </fa-layers>
+                      Configure
                     </a>
                   </li>
                 </ul>

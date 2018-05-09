@@ -15,20 +15,30 @@
           <div class="input-group-append">
             <button class="btn btn-outline-light btn-sm" (click)="d.toggle(); $event.stopPropagation()" (document:click)="decideClosure($event, d)"
               type="button">
-              <span class="fa fa-calendar-alt"></span>
+              <fa-layers class="fa-fw">
+                <fa-icon [icon]="['fas','calendar-alt']"></fa-icon>
+              </fa-layers>
             </button>
           </div>
         </div>
       </div>
     </ng-template>
     <button class="btn btn-primary btn-block" (click)="execReport(true)" [disabled]="loading">
-      <span class="fa fa-database"></span> Execute</button>
+      <fa-layers class="fa-fw">
+        <fa-icon [icon]="['fas','database']"></fa-icon>
+      </fa-layers>
+      Execute</button>
     <button class="btn btn-dark btn-block" (click)="resetFilters()" [disabled]="loading">
-      <span class="fa fa-times"></span> Reset</button>
+      <fa-layers class="fa-fw">
+        <fa-icon [icon]="['fas','times']"></fa-icon>
+      </fa-layers>
+      Reset</button>
     <hr>
     <button class="btn btn-outline-light btn-sm btn-block" (click)="execExport()">
-      <span class="fa fa-file-excel"></span> Export</button>
-
+      <fa-layers class="fa-fw">
+        <fa-icon [icon]="['fas','excel']"></fa-icon>
+      </fa-layers>
+      Export</button>
     <div class="mt-auto">
       <h4>Options</h4>
       <button class="btn btn-outline-light btn-sm btn-block" (click)="showQuery = !showQuery">Toggle Query</button>

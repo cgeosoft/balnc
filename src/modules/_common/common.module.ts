@@ -4,6 +4,10 @@ import { CommonModule as AngularCommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 
 import { NgPipesModule } from 'ngx-pipes'
 import { MomentModule } from 'angular2-moment'
@@ -23,6 +27,9 @@ import { DocVersionPipe } from '@balnc/common/pipes/doc-version.pipe'
 import { HelperService } from '@balnc/common/services/helper.service'
 import { FooterComponent } from '@balnc/common/components/footer/footer.component';
 
+// Add an icon to the library for convenient access in other components
+library.add(fas, far);
+
 @NgModule({
   imports: [
     HttpClientModule,
@@ -34,6 +41,7 @@ import { FooterComponent } from '@balnc/common/components/footer/footer.componen
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild([]),
+    FontAwesomeModule,
   ],
   declarations: [
     ContentBodyComponent,
@@ -72,6 +80,7 @@ import { FooterComponent } from '@balnc/common/components/footer/footer.componen
     SideBarComponent,
     StatusBarComponent,
     FooterComponent,
+    FontAwesomeModule,
   ],
 })
 export class CommonModule { }

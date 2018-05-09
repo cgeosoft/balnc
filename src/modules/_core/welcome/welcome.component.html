@@ -23,7 +23,10 @@
 
     <div class="card-footer text-right">
       <button class="btn btn-success" [disabled]="!accepted" (click)="Ok()">
-        <span class="fa fa-check-circle"></span> Continue</button>
+        <fa-layers class="fa-fw">
+          <fa-icon [icon]="['fas','check-circle']"></fa-icon>
+        </fa-layers>
+        Continue</button>
     </div>
   </div>
   <app-footer></app-footer>

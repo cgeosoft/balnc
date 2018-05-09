@@ -9,7 +9,7 @@ declare interface BalncModuleType {
 declare interface BalncModuleMenuType {
   id: string
   label: string
-  icon: string
+  icon: any
   path: string
 }
 

@@ -6,13 +6,17 @@
     <div class="items">
       <div class="item menu" ngbTooltip="Dashboard" placement="right" routerLinkActive="active">
         <a routerLink="/dashboard">
-          <span class="fa fa-tachometer-alt"></span>
+          <fa-layers class="fa-fw">
+            <fa-icon [icon]="['fas','tachometer-alt']"></fa-icon>
+          </fa-layers>
         </a>
       </div>
       <ng-template ngFor let-item [ngForOf]="menu" *ngIf="menu.length">
         <div class="item menu" ngbTooltip="{{item.label}}" placement="right" routerLinkActive="active">
           <a [routerLink]="item.path">
-            <span class="{{item.icon}}"></span>
+            <fa-layers class="fa-fw">
+              <fa-icon [icon]="item.icon"></fa-icon>
+            </fa-layers>
           </a>
         </div>
       </ng-template>
