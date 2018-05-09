@@ -17,13 +17,12 @@ import { ConfigService } from '@balnc/common/services/config.service';
 })
 export class ProfilesComponent implements OnInit {
 
-  appVersion: any;
-  error: string;
   @ViewChild(FilePickerDirective)
 
   alias: any
-  selectedProfile: Profile
+  selectedProfile: Profile & any
   profiles: Profile[]
+  error: string;
 
   constructor(
     private modalService: NgbModal,
@@ -34,9 +33,10 @@ export class ProfilesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.selectedProfile = this.profileService.getCurrent()
     this.profiles = this.profileService.config.profiles || []
+    this.selectedProfile = this.profileService.getCurrent() || {}
   }
+
   clear() {
     this.profileService.clear()
     this.profiles = this.profileService.config.profiles
@@ -44,7 +44,7 @@ export class ProfilesComponent implements OnInit {
 
   quickCreateProfile() {
     const quickLocalName = `Demo ${(new Date).getTime()} Profile`
-    this.profileService.add({
+    const alias = this.profileService.save({
       alias: "",
       name: quickLocalName,
       modules: {
@@ -69,7 +69,7 @@ export class ProfilesComponent implements OnInit {
         }
       },
     })
-    this.select(quickLocalName)
+    this.select(alias)
   }
 
   onFilePicked(file: ReadFile) {
@@ -78,7 +78,7 @@ export class ProfilesComponent implements OnInit {
       const data = file.content.split(',')[1]
       const profileStr = atob(data)
       const profile = JSON.parse(profileStr)
-      this.profileService.add(profile)
+      this.profileService.save(profile)
       this.select(profile.alias)
     } catch (error) {
       this.error = "File is corrupted"

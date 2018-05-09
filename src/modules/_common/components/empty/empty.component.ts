@@ -13,10 +13,12 @@ export class EmptyComponent implements OnInit {
   @Input() icon = "folder-open-o"
   @Input() size = "normal"
 
+  _icon: string[]
+
   constructor() { }
 
   ngOnInit() {
-    this.icon = HelperService.getIconClass(this.icon, true)
+    this._icon = HelperService.getIcon(this.icon)
   }
 
 }

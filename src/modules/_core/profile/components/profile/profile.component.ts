@@ -1,3 +1,4 @@
+import { reduce } from 'rxjs/operators/reduce';
 import { Component, Input, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core'
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
@@ -10,6 +11,8 @@ import { ProfileService } from '../../services/profile.service'
 import { ConfigService } from '@balnc/common/services/config.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Profile } from '@balnc/core/profile/data/profile';
+import { BalncModule } from '@balnc/common/models/balnc-module';
+import { DatabaseService } from '@balnc/common/services/database.service';
 
 @Component({
     selector: 'app-profile-profile',
@@ -21,10 +24,13 @@ export class ProfileComponent implements OnInit {
     @ViewChild("name") name: ElementRef
     @ViewChild("alias") alias: ElementRef
 
-    namespaces: any[]
-    profileEdit: any
-    profile: Profile
+    modules: BalncModule[];
+    activeModules: any = {}
+    profileEdit: Profile
+    profileName: string;
     form: FormGroup
+    deleteData = false
+    deleteDataRemote = false
 
     constructor(
         private router: Router,
@@ -32,58 +38,57 @@ export class ProfileComponent implements OnInit {
         private formBuilder: FormBuilder,
         private profileService: ProfileService,
         private configService: ConfigService,
+        private databaseService: DatabaseService,
     ) { }
 
     async ngOnInit() {
-        // this.generateModuleList()
+        this.modules = this.configService.modules
+
+        this.setup()
+
         this.route.params.subscribe(params => {
             this.setup(params['alias'])
         })
-        this.profileEdit = { ...this.profile }
     }
 
-    setup(alias) {
+    setup(alias: string = null) {
         if (alias) {
-            this.profile = this.profileService.get(alias)
+            const profile = this.profileService.get(alias)
+            this.profileName = profile.name
+            this.profileEdit = { ...profile }
+            this.profileEdit.database = this.profileEdit.database || {}
+            this.activeModules = Object.keys(profile.modules).reduce((x, i) => {
+                x[i] = profile.modules[i].enabled
+                return x
+            }, {})
+        } else {
+            this.profileName = "New Profile"
+            this.profileEdit = {
+                alias: "",
+                database: {},
+                modules: [],
+                name: "",
+            }
         }
-        this.form = this.formBuilder.group({
-            name: ["", [Validators.required, Validators.maxLength(50)]],
-        })
     }
 
-    onSubmit() {
-        const formModel = this.form.value
-        const profileId = formModel.profile
-        this.profileService.add({
-            alias: "",
-            name: formModel.name
-        })
-        // this.profileService
-        //     .addProfile(formModel.alias, formModel.name)
-        //     .then(() => {
-        //         this.activeModal.close()
-        //     })
+    save() {
+        const alias = this.profileService.save(this.profileEdit)
+        if (this.profileEdit.alias) {
+            this.router.navigate(['/profile', alias])
+        }
     }
 
-    // generateModuleList() {
-    //     this.namespaces = _.chain(this.configService.modules)
-    //         .groupBy("namespace")
-    //         .map((modules, namespace) => {
-    //             let ns = _.find(this.configService.namespaces, i => {
-    //                 return i.id === namespace
-    //             })
+    async backup() {
+        const data = await this.databaseService.backup();
 
-    //             if (!ns) {
-    //                 ns = {
-    //                     id: "?",
-    //                     title: "?",
-    //                 }
-    //             }
+        const a = document.createElement("a");
+        const file = new Blob([JSON.stringify(data)], { type: 'application/json' });
+        a.href = URL.createObjectURL(file);
+        a.download = `data-${(new Date).getTime()}.json`;
+        a.click();
+    }
 
-    //             ns.modules = modules
-    //             return ns
-    //         })
-    //         .value()
-    // }
+    restore() { }
 
 }

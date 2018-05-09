@@ -1,85 +1,128 @@
 <div class="card-wrapper">
   <div class="card">
+    <div class="card-header d-flex">
+      <button type="button" class="btn btn-outline-secondary btn-sm mr-3" [routerLink]="['/profiles']">
+        <fa-layers class="fa-fw">
+          <fa-icon [icon]="['fas','chevron-left']"></fa-icon>
+        </fa-layers>
+      </button>
+      <h4 class="m-0">{{profileName}}</h4>
+    </div>
     <div class="card-body">
-      <h4 class="display-4">{{profile.name}}</h4>
-      <hr>
-      <fieldset>
-        <h4>General</h4>
-        <label>Name
-          <small class="text-muted">required</small>
-        </label>
-        <input [(ngModel)]="profileEdit.name" class="form-control">
-      </fieldset>
 
       <fieldset>
-        <h4>Database</h4>
-        <p>Configure the remote CouchDB for data sync</p>
-
-        <dl class="row">
-          <dt class="col-3">Prefix</dt>
-          <dd class="col-9">{{profileEdit.database.prefix}}</dd>
-        </dl>
+        <h4>Configuration</h4>
         <div class="form-group">
-          <label>Host</label>
-          <input [(ngModel)]="profileEdit.database.host" class="form-control">
+          <label>Profile Name
+            <small class="text-muted">required</small>
+          </label>
+          <input autocomplete="false" [(ngModel)]="profileEdit.name" class="form-control">
+        </div>
+        <h5>Database</h5>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label>Host</label>
+              <input autocomplete="false" [(ngModel)]="profileEdit.database.host" class="form-control">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label>Prefix</label>
+              <input autocomplete="false" [(ngModel)]="profileEdit.database.prefix" class="form-control">
+            </div>
+          </div>
         </div>
         <div class="row">
           <div class="col-6">
             <div class="form-group">
               <label>Username</label>
-              <input [(ngModel)]="profileEdit.database.user" class="form-control">
+              <input autocomplete="false" [(ngModel)]="profileEdit.database.user" class="form-control">
             </div>
           </div>
           <div class="col-6">
             <div class="form-group">
               <label>Password</label>
-              <input [(ngModel)]="profileEdit.database.pass" class="form-control" type="password">
+              <input autocomplete="false" [(ngModel)]="profileEdit.database.pass" class="form-control" type="password">
             </div>
+          </div>
+        </div>
+        <div class="d-flex">
+          <button class="btn btn-primary ml-auto" (click)="save()">
+            <span class="far fa-save fa-fw"></span> Save</button>
+        </div>
+      </fieldset>
+
+      <fieldset *ngIf="profileEdit.alias">
+        <h4>Modules</h4>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item px-0" *ngFor="let module of modules">
+            <div class="d-flex align-items-center">
+              <div class="w-100">
+                {{module.title}}
+                <em>
+                  <small class="text-muted">{{module.id}}</small>
+                </em>
+                <small class="badge badge-success" *ngIf="activeModules[module.id]">ACTIVE</small>
+                <br>
+                <small class="text-muted" *ngIf="module.description">{{module.description}}</small>
+              </div>
+              <button type="button" class="btn btn-outline-dark btn-sm" (click)="openConfig(module.id)">
+                <fa-layers class="fa-fw">
+                  <fa-icon [icon]="['fas','cog']"></fa-icon>
+                </fa-layers>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </fieldset>
+
+      <fieldset *ngIf="profileEdit.alias">
+        <h4>Backup / Restore</h4>
+        <p>You may export all profile data to json format as a backup or to move them to more clients.</p>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-outline-secondary mr-2" (click)="backup()" disabled>
+            <fa-layers class="fa-fw">
+              <fa-icon [icon]="['fas','cloud-download-alt']"></fa-icon>
+            </fa-layers>
+            Backup
+          </button>
+          <button class="btn btn-outline-secondary" (click)="restore()" disabled>
+            <fa-layers class="fa-fw">
+              <fa-icon [icon]="['fas','cloud-upload-alt']"></fa-icon>
+            </fa-layers>
+            Restore
+          </button>
+        </div>
+      </fieldset>
+
+      <fieldset class="text-danger" *ngIf="profileEdit.alias">
+        <h4>Danger Zone</h4>
+        <p>By deleting your profile, you immediately remove all local data(at your client). If you would like also to delete
+          the remote data please check the option below. If you do not delete remote data, all data will be synced once this
+          profile is recreated.</p>
+        <div class="d-flex">
+          <div class="d-flex flex-column">
+            <div class="form-group form-check m-0">
+              <input type="checkbox" class="form-check-input" id="deleteData" [(ngModel)]="deleteData">
+              <label class="form-check-label" for="deleteData">Ι understand that this is not reversable</label>
+            </div>
+            <div class="form-group form-check m-0">
+              <input type="checkbox" class="form-check-input" id="deleteDataRemote" [(ngModel)]="deleteDataRemote">
+              <label class="form-check-label" for="deleteDataRemote">Also delete remote data</label>
+            </div>
+          </div>
+          <div class="ml-auto d-flex align-items-center">
+            <button class="btn btn-danger" [disabled]="!deleteData">
+              <fa-layers class="fa-fw">
+                <fa-icon [icon]="['fas','trash-alt']"></fa-icon>
+              </fa-layers>
+              Delete Profile</button>
           </div>
         </div>
       </fieldset>
 
-      <fieldset>
-        <h4>Modules</h4>
-        <ng-container *ngFor="let namespace of namespaces">
-          <div class="card mb-4">
-            <div class="card-header">{{namespace.title}}</div>
-            <div class="card-body">
-              <p>{{namespace.description}}</p>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item" *ngFor="let module of namespace.modules">
-                <div class="d-flex justify-content-between">
-                  <strong>
-                    {{module.title}}
-                    <small class="text-muted">{{module.id}}</small>
-                  </strong>
-                  <label>
-                    <input type="checkbox" [(ngModel)]="module.isActive" [disabled]="!module.canChange"> Enable
-                  </label>
-                </div>
-                <div class="d-flex justify-content-between align-items-center">
-                  <em class="text-muted" *ngIf="module.description">{{module.description}}</em>
-                  <button type="button" class="btn btn-outline-dark btn-sm" (click)="openConfig(module.id)" *ngIf="module.canConfigure">configure</button>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </ng-container>
-      </fieldset>
-
-      <fieldset>
-        <h4>Danger Zone</h4>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate, blanditiis dolorem dolor est sunt ipsa ullam
-          placeat molestiae neque velit, ea ipsam officiis cumque voluptas? Reiciendis veritatis nobis fugiat non!</p>
-        <button class="btn btn-dark">Delete Profile</button>
-      </fieldset>
-
     </div>
-    <div class="card-footer d-flex">
-      <button type="button" class="btn btn-secondary" [routerLink]="[ '/profiles']">Back</button>
-    </div>
-    <app-debug [data]="profileEdit"></app-debug>
   </div>
   <app-footer></app-footer>
 </div>

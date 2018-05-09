@@ -1,8 +1,6 @@
 @import "bootstrap";
 @import "functions";
 @import "colors";
-$odd-bow: darken($color-primary, 40);
-$even-bow: darken($color-primary, 45);
 :host {
   @extend .d-flex;
   @extend .flex-column;
@@ -18,13 +16,10 @@ $even-bow: darken($color-primary, 45);
       text-align: center;
       min-width: 50px;
       width: 50px;
-      // background: url("/assets/img/cartographer.png") repeat;
       z-index: 1000;
-      background-color: $color-primary;
-      background-image: radial-gradient(circle at 100% 150%, $odd-bow 24%, $even-bow 25%, $even-bow 28%, $odd-bow 29%, $odd-bow 36%, $even-bow 36%, $even-bow 40%, transparent 40%, transparent), radial-gradient(circle at 0 150%, $odd-bow 24%, $even-bow 25%, $even-bow 28%, $odd-bow 29%, $odd-bow 36%, $even-bow 36%, $even-bow 40%, transparent 40%, transparent), radial-gradient(circle at 50% 100%, $even-bow 10%, $odd-bow 11%, $odd-bow 23%, $even-bow 24%, $even-bow 30%, $odd-bow 31%, $odd-bow 43%, $even-bow 44%, $even-bow 50%, $odd-bow 51%, $odd-bow 63%, $even-bow 64%, $even-bow 71%, transparent 71%, transparent), radial-gradient(circle at 100% 50%, $even-bow 5%, $odd-bow 6%, $odd-bow 15%, $even-bow 16%, $even-bow 20%, $odd-bow 21%, $odd-bow 30%, $even-bow 31%, $even-bow 35%, $odd-bow 36%, $odd-bow 45%, $even-bow 46%, $even-bow 49%, transparent 50%, transparent), radial-gradient(circle at 0 50%, $even-bow 5%, $odd-bow 6%, $odd-bow 15%, $even-bow 16%, $even-bow 20%, $odd-bow 21%, $odd-bow 30%, $even-bow 31%, $even-bow 35%, $odd-bow 36%, $odd-bow 45%, $even-bow 46%, $even-bow 49%, transparent 50%, transparent);
-      background-size: 100px 50px;
+      background: $color-background;
       .logo {
-        margin: .7rem .5rem .2rem;
+        margin: .7rem .5rem;
         .fa {
           text-shadow: none;
           line-height: 2rem;
@@ -55,7 +50,6 @@ $even-bow: darken($color-primary, 45);
           display: block;
           &.menu {
             transition: color .7s;
-            padding: 5px 5px 0;
             .fa {
               line-height: 1rem;
               font-size: 1rem;
@@ -68,17 +62,19 @@ $even-bow: darken($color-primary, 45);
               display: block;
               transition: background-color .7s;
               text-decoration: none;
-              height: 35px;
+              height: 40px;
               color: lighten($color-background, 30);
-              border-radius: 50px;
               text-align: center;
-              line-height: 2rem;
+              line-height: 40px;
+              border-left: solid 2px #ffffff00;
+              margin-bottom: 2px;
               &:hover {
                 color: get-text-color($color-background);
               }
             }
             &.active {
               >a {
+                border-color: $color-primary;
                 color: #FFF;
               }
             }
@@ -94,25 +90,17 @@ $even-bow: darken($color-primary, 45);
         }
       }
     }
-    .main-container {
-      .route-loading {
-        position: absolute;
-        opacity: 0;
-        background: rgba(255, 255, 255, .8);
-        z-index: -1;
-        width: 100%;
-        height: 100%;
-        transition: opacity 1s;
-        .fa {
-          position: absolute;
-          color: #aaa;
-          left: 50%;
-          top: 50%;
-        }
-        &.loading {
-          opacity: 1;
-          z-index: 100;
-        }
+    .page-loader {
+      position: absolute;
+      opacity: 0;
+      background: #ffffff85;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      transition: opacity 1s;
+      &.active {
+        opacity: 1;
+        z-index: 100;
       }
     }
     >:last-child {

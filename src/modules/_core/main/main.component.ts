@@ -6,9 +6,10 @@ import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, 
 import * as _ from 'lodash'
 
 import { HelperService } from '@balnc/common/services/helper.service'
-import { ConfigService } from '@balnc/common/services/config.service';
-import { ProfileService } from '@balnc/core/profile/services/profile.service';
-import { Profile } from '@balnc/core/profile/data/profile';
+import { ConfigService } from '@balnc/common/services/config.service'
+import { ProfileService } from '@balnc/core/profile/services/profile.service'
+import { Profile } from '@balnc/core/profile/data/profile'
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-main',
@@ -17,17 +18,18 @@ import { Profile } from '@balnc/core/profile/data/profile';
 })
 export class MainComponent implements OnInit {
 
-  profile: Profile;
-  @ViewChild('spinnerElement')
+  profile: Profile
+  @ViewChild('pageLoader')
 
-  spinnerElement: ElementRef
+  pageLoader: ElementRef
 
   constructor(
     private router: Router,
     private ngZone: NgZone,
     private configService: ConfigService,
     private profileService: ProfileService,
-    private renderer: Renderer
+    private renderer: Renderer,
+    private toastr: ToastrService,
   ) {
     router.events.subscribe((event: RouterEvent) => {
       this._navigationInterceptor(event)
@@ -36,7 +38,7 @@ export class MainComponent implements OnInit {
 
   menu: any[] = []
 
-  async ngOnInit() {
+  ngOnInit() {
     this.profile = this.profileService.getCurrent()
     this.menu = this.configService.getMainMenu(this.profile)
   }
@@ -44,7 +46,7 @@ export class MainComponent implements OnInit {
   private _navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.ngZone.runOutsideAngular(() => {
-        this.renderer.setElementClass(this.spinnerElement.nativeElement, 'active', true)
+        this.renderer.setElementClass(this.pageLoader.nativeElement, 'active', true)
       })
     }
     if (event instanceof NavigationEnd) {
@@ -55,12 +57,13 @@ export class MainComponent implements OnInit {
     }
     if (event instanceof NavigationError) {
       this._hideSpinner()
+      this.toastr.error('Could not load module. Check your internet connection', 'Load Failed');
     }
   }
 
   private _hideSpinner(): void {
     this.ngZone.runOutsideAngular(() => {
-      this.renderer.setElementClass(this.spinnerElement.nativeElement, 'active', false)
+      this.renderer.setElementClass(this.pageLoader.nativeElement, 'active', false)
     })
   }
 }

@@ -1,7 +1,7 @@
 import * as schema from './project.json'
 import { RxDocument } from 'rxdb';
 
-declare interface RxProjectDocumentType {
+declare interface IProject {
     name: string
     description: string
     features: { [key: string]: boolean }
@@ -10,5 +10,6 @@ declare interface RxProjectDocumentType {
     isArchived: boolean
 }
 
-export type RxProjectDocument = RxDocument<RxProjectDocumentType> & RxProjectDocumentType
+export type Project = IProject
+export type RxProject = RxDocument<IProject> & IProject
 export const ProjectSchema = schema

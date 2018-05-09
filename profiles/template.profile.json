@@ -1,8 +1,6 @@
 {
-  "alias": "demo",
   "name": "Demo Company",
   "secret": null,
-  "user": null,
   "database": {
     "prefix": "demo",
     "host": "https://s2.cgeosoft.com:6984",

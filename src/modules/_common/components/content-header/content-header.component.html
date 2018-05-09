@@ -1,6 +1,8 @@
 <div class="header-title-bar" [ngClass]="{'has-tabs':tabsMenu.length>0,'container':!fullWidth}">
   <div class="header-icon">
-    <span class="{{icon}} fa-fw"></span>
+    <fa-layers class="fa-fw">
+      <fa-icon [icon]="_icon"></fa-icon>
+    </fa-layers>
   </div>
   <div class="header-body">
     <h1>{{title}}</h1>
@@ -19,13 +21,18 @@
   <div class="header-menu" *ngIf="settingsMenu.length>0">
     <div ngbDropdown placement="bottom-right" class="d-inline-block">
       <button class="btn btn-link" ngbDropdownToggle>
-        <span class="fa fa-cog"></span>
+        <fa-layers class="fa-fw">
+          <fa-icon [icon]="['fas','cog']"></fa-icon>
+        </fa-layers>
       </button>
       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
         <ng-template ngFor let-item [ngForOf]="settingsMenu">
           <div *ngIf="item.isDivider" class="dropdown-divider"></div>
           <button *ngIf="!item.isDivider" class="dropdown-item {{item.cssClass}}" (click)="item.callback()">
-            <span *ngIf="item.icon" class="fa fa-{{item.icon}}"></span> {{item.label}}
+            <fa-layers class="fa-fw" *ngIf="item.icon">
+              <fa-icon [icon]="item.icon"></fa-icon>
+            </fa-layers>
+            {{item.label}}
           </button>
         </ng-template>
       </div>
@@ -36,7 +43,10 @@
   <ul class="nav nav-tabs">
     <li class="nav-item" *ngFor="let tab of tabsMenu.tabs" [ngClass]="{'ml-auto':tab.right}">
       <a class="nav-link" [ngClass]="{active:tabsMenu.active == tab.id}" href="javascript:void(0);" (click)="tabsMenu.select(tab.id)">
-        <span *ngIf="tab.icon" class="fa fa-{{tab.icon}}"></span> {{tab.label}}</a>
+        <fa-layers class="fa-fw" *ngIf="tab.icon">
+          <fa-icon [icon]="tab.icon"></fa-icon>
+        </fa-layers>
+        {{tab.label}}</a>
     </li>
   </ul>
 </div>

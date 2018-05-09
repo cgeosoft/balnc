@@ -1,6 +1,6 @@
 # Balnc
 
-**WARNING: This application is a MOCK-UP and is under heavy development. You SHOULD NOT be used for any other propose rather than showcase the underline technologies and the implementation approach.**
+**WARNING: This application is a currently MOCK-UP and is under heavy development. It SHOULD NOT be used for any other propose than showcase of the underline technologies and the implementation approach.**
 
 ![screenshot](docs/assets/screenshot.png)
 

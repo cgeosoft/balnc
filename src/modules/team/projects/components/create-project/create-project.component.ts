@@ -4,7 +4,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { ProjectsService } from '../../services/projects.service';
-import { RxProjectDocument } from '../../data/project';
+import { RxProject } from '../../data/project';
 
 @Component({
     selector: 'app-team-projects-project-create',

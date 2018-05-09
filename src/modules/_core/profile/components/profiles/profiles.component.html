@@ -1,58 +1,58 @@
 <div class="card-wrapper">
   <div class="card">
-    <div class="card-body">
-      <div class="d-flex">
-        <h4>Manage Profiles</h4>
-        <button class="btn btn-link btn-sm ml-auto" *ngIf="selectedProfile" [routerLink]="['/dashboard']">
-          dashboard
-          <span class="fa fa-caret-right"></span>
-        </button>
-      </div>
-      <hr>
-      <button class="btn btn-primary" [routerLink]="['/profile','NEW']">New</button>
-      <button class="btn btn-link" ngxFilePicker (filePick)="onFilePicked($event)">Import</button>
+    <div class="card-header d-flex">
+      <h4 class="m-0">Manage Profiles</h4>
+      <button class="btn btn-link btn-sm ml-auto" *ngIf="selectedProfile" [routerLink]="['/dashboard']">
+        dashboard
+        <fa-layers class="fa-fw">
+          <fa-icon [icon]="['fas','caret-right']"></fa-icon>
+        </fa-layers>
+      </button>
     </div>
-    <ng-container *ngIf="profiles; else empty">
-      <ng-container *ngIf="profiles.length; else empty">
-        <div class="list-group list-group-flush">
-          <div class="list-group-item" *ngFor="let profile of profiles">
-            <div class="d-flex">
-              <div class="d-flex align-items-center mr-4">
-                <button class="btn btn-sm" [ngClass]="{'btn-link':profile.alias==selectedProfile.alias,'btn-outline-dark':profile.alias!=selectedProfile.alias}"
-                  (click)="select(profile.alias)" [disabled]="profile.alias==selectedProfile.alias">
-                  <span class="far fa-check-circle"></span>
-                </button>
-              </div>
+    <div class="card-body">
+      <div class="btn-toolbar">
+        <button class="btn btn-primary" [routerLink]="['/profile']">New Profile</button>
+        <button class="btn btn-link" ngxFilePicker (filePick)="onFilePicked($event)">Import File</button>
+      </div>
+      <div class="alert alert-danger" *ngIf="error" >{{error}}</div>
+      <ng-container *ngIf="profiles; else empty">
+        <ng-container *ngIf="profiles.length; else empty">
+          <div class="list-group list-group-flush">
+            <div class="list-group-item d-flex px-0" *ngFor="let profile of profiles">
               <div>
                 {{profile.name}}
-                <span *ngIf="profile.database">/ {{profile.database.user}}</span>
+                <span *ngIf="profile.database && profile.database.user">/ {{profile.database.user}}</span>
                 <br>
-                <small class="text-secondary" *ngIf="!profile.database">Local Profile</small>
-                <small class="text-secondary" *ngIf="profile.database">{{profile.database.host}}</small>
+                <ul class="list-inline text-secondary m-0">
+                  <li class="list-inline-item">{{profile.createdAt | date}}</li>
+                  <li class="list-inline-item">
+                    <a [routerLink]="['/profile',profile.alias]">
+                      <fa-layers class="fa-fw">
+                        <fa-icon [icon]="['fas','cog']"></fa-icon>
+                      </fa-layers>
+                      Configure
+                    </a>
+                  </li>
+                </ul>
               </div>
               <div class="ml-auto d-flex align-items-center">
-                <div>
-                  <button class="btn btn-sm btn-outline-secondary" [routerLink]="['/profile',profile.alias]">
-                    <span class="fa fa-cog"></span>
-                  </button>
+                <button class="btn btn-sm btn-outline-primary" (click)="select(profile.alias)" *ngIf="profile.alias!=selectedProfile.alias">
+                  Select
+                </button>
+                <div class="badge badge-primary" *ngIf="profile.alias==selectedProfile.alias">
+                  Selected
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </ng-container>
-    </ng-container>
-    <ng-template #empty>
-      <app-empty message="No profiles were found" icon="cubes" style="height:200px"></app-empty>
-    </ng-template>
-    <div class="card-footer text-center p-4">
-      <strong>Psss...</strong>
-      <br>do you want to try some
-      <br>
-      <em>demo</em> configuration?
-      <br> Come here...
-      <br>
-      <a href="javascript:" (click)="quickCreateProfile()">click me</a>
+      <ng-template #empty>
+        <app-empty message="No profiles were found" icon="cubes" style="height:200px"></app-empty>
+      </ng-template>
+    </div>
+    <div class="card-footer">
+      <a href="javascript:" (click)="quickCreateProfile()">Import demo configuration</a>
     </div>
   </div>
   <app-footer></app-footer>

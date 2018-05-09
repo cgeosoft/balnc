@@ -3,7 +3,9 @@
     <div class="header d-flex">
       <h4>Reports</h4>
       <button class="ml-auto" (click)="loadReports()">
-        <span class="fa fa-sync-alt"></span>
+        <fa-layers class="fa-fw">
+          <fa-icon [icon]="['fas','sync-alt']"></fa-icon>
+        </fa-layers>
       </button>
     </div>
     <div class="items">

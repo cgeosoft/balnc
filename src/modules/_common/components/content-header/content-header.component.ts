@@ -16,9 +16,11 @@ export class ContentHeaderComponent implements OnInit {
   @Input() tabsMenu: any[] = []
   @Input() fullWidth = false
 
+  _icon: string[]
+
   constructor() { }
 
   ngOnInit() {
-    this.icon = HelperService.getIconClass(this.icon, true)
+    this._icon = HelperService.getIcon(this.icon)
   }
 }

@@ -1,6 +1,8 @@
 <div class="animation-wrapper">
   <div *ngIf="!animation" class="default">
-    <span class="fa fa-sync fa-spin"></span>
+    <fa-layers class="fa-fw">
+      <fa-icon [icon]="['fas','sync']" spin="true"></fa-icon>
+    </fa-layers>
   </div>
   <div *ngIf="animation=='sk-cube'" class="sk-cube-grid">
     <div class="sk-cube sk-cube1"></div>

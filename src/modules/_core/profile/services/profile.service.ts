@@ -48,12 +48,19 @@ export class ProfileService {
         localStorage.setItem("@balnc/profiles/selected-profile", profile.alias)
     }
 
-    add(profile: Profile) {
-        const unique = new Date
-        profile.alias = `${this.slugify(profile.name)}-${unique.getTime()}`
-        profile.createdAt = unique.toISOString()
-        this.setStore(`profiles/${profile.alias}`, profile)
-        this.config.profiles.push(profile)
+    save(profile: Profile): string {
+        if (!profile.alias) {
+            const unique = new Date
+            profile.alias = `${this.slugify(profile.name)}-${unique.getTime()}`
+            profile.createdAt = unique.toISOString()
+            this.setStore(`profiles/${profile.alias}`, profile)
+            this.config.profiles.push(profile)
+        } else {
+            let existingProfile = this.get(profile.alias)
+            existingProfile = Object.assign(existingProfile, profile)
+            this.setStore(`profiles/${profile.alias}`, existingProfile)
+        }
+        return profile.alias
     }
 
     getCurrent(): Profile {

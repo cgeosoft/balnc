@@ -16,6 +16,12 @@ const routes: Routes = [{
     WelcomeGuard
   ],
 }, {
+  path: 'profile',
+  component: ProfileComponent,
+  canActivate: [
+    WelcomeGuard
+  ],
+}, {
   path: 'profile/:alias',
   component: ProfileComponent,
   canActivate: [

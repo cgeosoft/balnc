@@ -15,35 +15,47 @@
           <div class="input-group-append">
             <button class="btn btn-outline-light btn-sm" (click)="d.toggle(); $event.stopPropagation()" (document:click)="decideClosure($event, d)"
               type="button">
-              <span class="fa fa-calendar-alt"></span>
+              <fa-layers class="fa-fw">
+                <fa-icon [icon]="['fas','calendar-alt']"></fa-icon>
+              </fa-layers>
             </button>
           </div>
         </div>
       </div>
     </ng-template>
     <button class="btn btn-primary btn-block" (click)="execReport(true)" [disabled]="loading">
-      <span class="fa fa-database"></span> Execute</button>
+      <fa-layers class="fa-fw">
+        <fa-icon [icon]="['fas','database']"></fa-icon>
+      </fa-layers>
+      Execute</button>
     <button class="btn btn-dark btn-block" (click)="resetFilters()" [disabled]="loading">
-      <span class="fa fa-times"></span> Reset</button>
+      <fa-layers class="fa-fw">
+        <fa-icon [icon]="['fas','times']"></fa-icon>
+      </fa-layers>
+      Reset</button>
     <hr>
     <button class="btn btn-outline-light btn-sm btn-block" (click)="execExport()">
-      <span class="fa fa-file-excel"></span> Export</button>
-
+      <fa-layers class="fa-fw">
+        <fa-icon [icon]="['fas','file-excel']"></fa-icon>
+      </fa-layers>
+      Export</button>
     <div class="mt-auto">
       <h4>Options</h4>
       <button class="btn btn-outline-light btn-sm btn-block" (click)="showQuery = !showQuery">Toggle Query</button>
       <hr>
       <h4>Stats</h4>
-      <p>Result: {{(reportData)?reportData.rows.length: '-'}} rows</p>
-      <p>Time: {{timeExec}} seconds</p>
+      <ul class="list-unstyled">
+        <li>Result: {{(reportData)?reportData.rows.length: '-'}} rows</li>
+        <li>Time: {{timeExec}} seconds</li>
+      </ul>
     </div>
   </div>
-  <div class="d-flex flex-column" style="height:100%;width:100%" *ngIf="!showQuery">
+  <div class="d-flex flex-column h-100 w-100" *ngIf="!showQuery">
     <ng-container *ngIf="!err; else error">
       <ng-container *ngIf="!loading; else loader">
         <ng-container *ngIf="reportData; else noReport">
           <ng-container *ngIf="reportData.rows.length; else noResults">
-            <iframe [src]="pdfData" frameborder="0" style="height:100%;width:100%" type="application/pdf"></iframe>
+            <iframe [src]="pdfData" frameborder="0" class="h-100 w-100" type="application/pdf"></iframe>
           </ng-container>
         </ng-container>
       </ng-container>
@@ -71,7 +83,7 @@
       <app-loader animation="sk-cube" label="Building Report..."></app-loader>
     </ng-template>
   </div>
-  <div class="d-flex flex-column p-4 bg-dark " style="height:100%;width:100%" *ngIf="showQuery">
+  <div class="d-flex flex-column p-4 bg-dark h-100 w-100" *ngIf="showQuery">
     <div class="container">
       <pre class="text-white">{{query}}</pre>
     </div>

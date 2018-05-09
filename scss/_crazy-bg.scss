@@ -1,8 +1,0 @@
-@import "colors";
-$odd-bow: darken($color-primary, 30);
-$even-bow: darken($color-primary, 35);
-.crazy-bg {
-  background-color: $color-primary;
-  background-image: radial-gradient(circle at 100% 150%, $odd-bow 24%, $even-bow 25%, $even-bow 28%, $odd-bow 29%, $odd-bow 36%, $even-bow 36%, $even-bow 40%, transparent 40%, transparent), radial-gradient(circle at 0 150%, $odd-bow 24%, $even-bow 25%, $even-bow 28%, $odd-bow 29%, $odd-bow 36%, $even-bow 36%, $even-bow 40%, transparent 40%, transparent), radial-gradient(circle at 50% 100%, $even-bow 10%, $odd-bow 11%, $odd-bow 23%, $even-bow 24%, $even-bow 30%, $odd-bow 31%, $odd-bow 43%, $even-bow 44%, $even-bow 50%, $odd-bow 51%, $odd-bow 63%, $even-bow 64%, $even-bow 71%, transparent 71%, transparent), radial-gradient(circle at 100% 50%, $even-bow 5%, $odd-bow 6%, $odd-bow 15%, $even-bow 16%, $even-bow 20%, $odd-bow 21%, $odd-bow 30%, $even-bow 31%, $even-bow 35%, $odd-bow 36%, $odd-bow 45%, $even-bow 46%, $even-bow 49%, transparent 50%, transparent), radial-gradient(circle at 0 50%, $even-bow 5%, $odd-bow 6%, $odd-bow 15%, $even-bow 16%, $even-bow 20%, $odd-bow 21%, $odd-bow 30%, $even-bow 31%, $even-bow 35%, $odd-bow 36%, $odd-bow 45%, $even-bow 46%, $even-bow 49%, transparent 50%, transparent);
-  background-size: 62px 31px;
-}
