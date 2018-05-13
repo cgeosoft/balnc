@@ -20,11 +20,11 @@
         "presentations": true
       }
     },
-    "@balnc/team": {
+    "@balnc/teams": {
       "enabled": true,
       "menu": {
         "projects": true,
-        "chat": true
+        "boards": true
       }
     }
   },

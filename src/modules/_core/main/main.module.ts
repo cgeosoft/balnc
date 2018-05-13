@@ -21,8 +21,8 @@ const routes: Routes = [{
     path: 'business',
     loadChildren: "@balnc/business/business.module#BusinessModule",
   }, {
-    path: 'team',
-    loadChildren: "@balnc/team/team.module#TeamModule",
+    path: 'teams',
+    loadChildren: "@balnc/teams/teams.module#TeamsModule",
   }, {
     path: 'marketing',
     loadChildren: "@balnc/marketing/marketing.module#MarketingModule",

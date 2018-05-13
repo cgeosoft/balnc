@@ -35,8 +35,8 @@
       "@balnc/marketing/*": [
         "modules/marketing/*"
       ],
-      "@balnc/team/*": [
-        "modules/team/*"
+      "@balnc/teams/*": [
+        "modules/teams/*"
       ],
       "@balnc/booking/*": [
         "modules/booking/*"

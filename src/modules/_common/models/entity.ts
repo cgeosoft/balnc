@@ -4,4 +4,5 @@ export class Entity {
   schemaPath?: string
   sync: boolean
   single?: boolean
+  migrationStrategies?: any
 }

@@ -47,19 +47,19 @@
     }],
     "config": null
   }, {
-    "id": "@balnc/team",
+    "id": "@balnc/teams",
     "title": "Teams",
     "description": "A set of modules for easy team managements. It includes a chat systems, projects and task management.",
     "menu": [{
       "id": "projects",
       "label": "Projects",
       "icon": "cubes",
-      "path": "/team/projects"
+      "path": "/teams/projects"
     }, {
-      "id": "chat",
-      "label": "Chat",
+      "id": "boards",
+      "label": "Message Boards",
       "icon": "comments:regular",
-      "path": "/team/chat"
+      "path": "/teams/boards"
     }],
     "config": null
   }, {

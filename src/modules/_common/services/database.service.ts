@@ -69,6 +69,7 @@ export class DatabaseService {
             const ent = await this.db.collection({
                 name: `${this.config.prefix}/${entity.name}`,
                 schema: entity.schema,
+                migrationStrategies: entity.migrationStrategies || {}
             })
 
             if (entity.sync && this.config.host) {
