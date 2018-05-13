@@ -32,7 +32,8 @@ export class MainComponent implements OnInit {
     this.nickname = this.boardService.nickname
     this.load()
   }
-  private async load() {
+
+  async load() {
     this.boards = this.boardService.boards
   }
 
