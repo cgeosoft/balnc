@@ -51,6 +51,11 @@ export abstract class BaseService implements Resolve<any> {
         return await this._data[entity].findOne(id).exec() as T
     }
 
+    public async add<T>(entity: string, item: T) {
+        const col = this._data[entity] as RxCollection<T>
+        await col.newDocument(item).save()
+    }
+
     public getStore(name) {
         const item = localStorage.getItem(`${this._module}/${name}`)
         return (item) ? JSON.parse(item) : {}

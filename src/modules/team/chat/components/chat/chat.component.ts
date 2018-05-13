@@ -1,4 +1,4 @@
-import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
+import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild, Pipe, PipeTransform } from '@angular/core'
 import { Subscription } from 'rxjs/Subscription'
 import { RxCollection } from 'rxdb'
 
@@ -6,8 +6,9 @@ import * as _ from 'lodash'
 import * as moment from 'moment'
 
 
-import { RxChatMessageDocument } from '../../data/message'
+import { RxChatMessageDoc, ChatMessage } from '@balnc/team/chat/data/message'
 import { ChatService } from '@balnc/team/chat/services/chat.service';
+import { ProfileService } from '@balnc/core/profile/services/profile.service';
 
 @Component({
   selector: 'app-chat',
@@ -20,22 +21,24 @@ export class ChatComponent implements OnInit, OnDestroy {
   @ViewChild('chatInput') private chatInput: ElementRef
 
   // db
-  room: RoomViewModel = new RoomViewModel()
-  rooms: RoomViewModel[] = []
+  channels: string[] = []
+  activeChannel = "default"
   sub: Subscription
   inputs: string[] = []
   user: any
+  messages: any
+  inputMsg: string
+  currentUser: string
 
   constructor(
     private chatService: ChatService,
+    private profileService: ProfileService,
     private zone: NgZone,
   ) { }
 
   ngOnInit() {
-    this._show()
-    this.user = {
-      name: `user_${_.random(10000, 99999)}`
-    }
+    this.currentUser = this.profileService.getCurrent().database.user
+    this.load()
   }
 
   ngOnDestroy() {
@@ -46,59 +49,70 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   public async send() {
 
-    if (!this.room.inputMsg.text) { return }
-    this.room.inputMsg.isDisabled = true
+    if (!this.inputMsg) { return }
 
     await this.chatService.sendMessage({
-      room: this.room.name,
-      sender: this.user.name,
-      text: this.room.inputMsg.text
+      channel: this.activeChannel,
+      sender: this.currentUser,
+      text: this.inputMsg
     })
 
-    this.room.inputMsg.isDisabled = false
-    this.room.inputMsg.text = null
+    // this.inputMsg.isDisabled = false
+    this.inputMsg = null
     this.zone.run(() => {
       this.scrollToBottom()
       this.chatInput.nativeElement.focus()
     })
   }
 
-  keyDownFunction(event) {
-    if (event.keyCode === 13) {
-      this.send()
-    }
-  }
+  private async load() {
+    const messages$ = await this.chatService.all$()
 
-  private async _show() {
-    const messages$ = await this.chatService.getMessages()
-
-    this.sub = messages$
-      .subscribe(messages => {
-        const rooms = _.chain(messages)
-          .sortBy("sendAt")
-          // .reverse()
-          .groupBy(i => {
-            return i.room
-          })
-          .map((msgs, roomName) => {
-            return new RoomViewModel({
-              name: roomName,
-              messages: msgs,
-              inputMsg: new RoomViewInputModel({
-                text: null,
-                isDisabled: false,
-              })
-            })
-          })
-          .sortBy("name")
-          .value()
+    this.sub = messages$.find().$.subscribe(messagesData => {
+      if (!messagesData) {
         this.zone.run(() => {
-          this.rooms = rooms
-          this.room = rooms[0]
-          this.scrollToBottom()
-          this.chatInput.nativeElement.focus()
+          this.messages = {}
+          this.channels = []
         })
+      }
+
+      const channels = messagesData
+        .map(msg => {
+          return msg.channel
+        })
+        .reduce((_channels, channel) => {
+          if (_channels.indexOf(channel) === -1) {
+            _channels.push(channel)
+          }
+          return _channels
+        }, [])
+        .sort((a, b) => {
+          if (a < b) { return -1; }
+          if (a > b) { return 1; }
+          return 0;
+        })
+
+      const messages = messagesData
+        .sort((a, b) => {
+          if (a.sendAt < b.sendAt) { return -1; }
+          if (a.sendAt > b.sendAt) { return 1; }
+          return 0;
+        })
+        .reduce((_groupedMsgs, msg) => {
+          if (!_groupedMsgs[msg.channel]) {
+            _groupedMsgs[msg.channel] = []
+          }
+          _groupedMsgs[msg.channel].push(msg)
+          return _groupedMsgs
+        }, {})
+
+      this.zone.run(() => {
+        this.messages = messages
+        this.channels = channels
+        this.scrollToBottom()
+        this.chatInput.nativeElement.focus()
       })
+    })
   }
 
   scrollToBottom(): void {
@@ -114,7 +128,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
 class RoomViewModel {
   name: string
-  messages: RxChatMessageDocument[]
+  messages: RxChatMessageDoc[]
   inputMsg: RoomViewInputModel
   constructor(init?: Partial<RoomViewModel>) {
     this.inputMsg = new RoomViewInputModel()
@@ -127,5 +141,18 @@ class RoomViewInputModel {
   isDisabled: boolean
   constructor(init?: Partial<RoomViewInputModel>) {
     Object.assign(this, init)
+  }
+}
+
+@Pipe({
+  name: 'channelFilter',
+  pure: false
+})
+export class ChannelFilterPipe implements PipeTransform {
+  transform(items: any[], channel: string): any {
+    if (!items || !channel) {
+      return items;
+    }
+    return items.filter(item => item.channel === channel);
   }
 }

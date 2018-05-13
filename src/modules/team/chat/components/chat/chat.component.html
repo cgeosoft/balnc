@@ -1,160 +1,78 @@
 <app-side-bar>
-  <input class="form-control form-control-search" type="text" placeholder="search user...">
-  <div class="d-flex justify-content-between">
-    <a href class="text-white">New</a>
-    <a href class="text-white">Advanced Search</a>
-  </div>
   <div class="menu">
-    <div class="header">
-      <span class="fa fa-thumb-tack fa-fw"></span> Pinned</div>
-    <div class="active">
-      <a href class="media">
-        <span class="img-thumbnail">
-          <span class="fa fa-users fa-fw"></span>
-        </span>
-        <span class="media-body">DevTeam
-          <small>lorem ipsum dolor sit amet lorem ipsum dolor sit amet</small>
-        </span>
-      </a>
+    <div class="header d-flex">
+      <h4>Channels</h4>
     </div>
-    <div>
-      <a href class="media">
-        <span class="img-thumbnail">
-          <span class="fa fa-users fa-fw"></span>
-        </span>
-        <span class="media-body"> Marketing
-          <small>lorem ipsum dolor sit amet lorem ipsum dolor sit amet</small>
-        </span>
-      </a>
-    </div>
-    <div class="header">Today</div>
-    <div>
-      <a href class="media">
-        <span class="img-thumbnail">
-          <span class="fa fa-users fa-fw"></span>
-        </span>
-        <span class="media-body">Room#3
-          <small>lorem ipsum dolor sit amet lorem ipsum dolor sit amet</small>
-        </span>
-      </a>
-    </div>
-    <div class="header">Monday</div>
-    <div>
-      <a href class="media">
-        <img class="img-thumbnail" src="https://randomuser.me/api/portraits/thumb/women/34.jpg">
-        <span class="fa fa-check status-indicator"></span>
-        <span class="media-body"> Soula
-          <small>lorem ipsum dolor sit amet lorem ipsum dolor sit amet</small>
-        </span>
-      </a>
-    </div>
-    <div class="header">Friday</div>
-    <div>
-      <a href class="media">
-        <img class="img-thumbnail" src="https://randomuser.me/api/portraits/thumb/men/24.jpg">
-        <span class="media-body"> Makis
-          <small>lorem ipsum dolor sit amet lorem ipsum dolor sit amet</small>
-        </span>
-      </a>
-    </div>
-    <div>
-      <a href class="media">
-        <span class="img-thumbnail">
-          <span class="fa fa-users fa-fw"></span>
-        </span>
-        <span class="media-body">Room#1
-          <small>lorem ipsum dolor sit amet lorem ipsum dolor sit amet</small>
-        </span>
-      </a>
-    </div>
-    <div class="header">Older than a week</div>
-    <div>
-      <a href class="media">
-        <img class="img-thumbnail" src="https://randomuser.me/api/portraits/thumb/men/54.jpg">
-        <span class="media-body">
-          <span class="badge badge-secondary pull-right">4</span>
-          Sakis
-          <small>lorem ipsum dolor sit amet lorem ipsum dolor sit amet</small>
-        </span>
-      </a>
-    </div>
-    <div>
-      <a href class="media">
-        <span class="img-thumbnail">
-          <span class="fa fa-users fa-fw"></span>
-        </span>
-        <span class="media-body">Room#2
-          <small>lorem ipsum dolor sit amet lorem ipsum dolor sit amet</small>
-        </span>
-      </a>
-    </div>
-    <div>
-      <a href class="media">
-        <span class="img-thumbnail">
-          <span class="fa fa-users fa-fw"></span>
-        </span>
-        <span class="media-body">Room#3
-          <small>lorem ipsum dolor sit amet lorem ipsum dolor sit amet</small>
-        </span>
-      </a>
-    </div>
-    <div>
-      <a href class="media">
-        <span class="img-thumbnail">
-          <span class="fa fa-users fa-fw"></span>
-        </span>
-        <span class="media-body">Room#4
-          <small>lorem ipsum dolor sit amet lorem ipsum dolor sit amet</small>
-        </span>
-      </a>
+    <div class="items">
+      <ng-container *ngIf="channels; else loader">
+        <ng-container *ngIf="channels.length; else empty">
+          <ng-template ngFor let-c [ngForOf]="channels">
+            <button (click)="activeChannel = c" [ngClass]="{'active':c==activeChannel}">
+              {{c}}
+            </button>
+          </ng-template>
+        </ng-container>
+      </ng-container>
+      <ng-template #empty>
+        <app-empty message="No channels were found" icon="file-alt:regular" size='small'></app-empty>
+      </ng-template>
+      <ng-template #loader>
+        <app-loader animation="sk-cube" label="Loading channels"></app-loader>
+      </ng-template>
     </div>
   </div>
 </app-side-bar>
 <app-content>
-  <app-content-header title="room.name" icon="users" subtitle="ondivne: 15 - register: 44567 - last message: 2017-08-05"></app-content-header>
-  <app-content-body>
-
-    <div class="container" style="height:100%">
-      <!-- <div *ngIf="!rooms.length" class="jumbotron">
-      <h1 class="display-4">There are no chartrooms</h1>
-      <p class="lead">Create your first one here</p>
-      <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">
-          <span class="fa fa-plus-circle fa-fw"></span> Create</a>
-      </p>
-    </div>
-    <div *ngIf="rooms.length" class="d-flex align-items-stretch"> -->
-      <!-- <div class="card" *ngFor="let room of rooms"> -->
-      <div class="card" style="width:100%">
-        <!-- <div class="card-header">{{room.name}}</div> -->
-        <div #chatMessages class="card-body">
-          <div class="media" *ngFor="let message of room.messages">
-            <img class="d-flex align-self-baseline avatar img-thumbnail rounded-circle" src="https://robohash.org/{{message.sender}}"
-              ngbTooltip="{{message.sender}}">
-            <div class="media-body" ngbTooltip="{{message.sendAt|date:'medium'}}" [ngClass]="{'bg-primary text-white':(message.sender == user.name)}">
-              {{message.text}}
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <input #chatInput class="form-control form-control-sm" placeholder="type message..." [(ngModel)]="room.inputMsg.text" [disabled]="room.inputMsg.isDisabled"
-            (keydown)="keyDownFunction($event)">
-          <div class="d-flex mt-2">
-            <div>
-              <button type="button" class="ml-auto btn btn-link">
-                <span class="fa fa-image "></span>
-              </button>
-              <button type="button" class="ml-auto btn btn-link">
-                <span class="fa fa-paperclip"></span>
-              </button>
-            </div>
-            <button type="button" class="ml-auto btn btn-outline-primary" (click)="send()">
-              <span class="fa fa-send"></span>
+  <app-content-header [title]="activeChannel" [subtitle]="currentUser" icon="users"></app-content-header>
+  <app-content-body class="h-100">
+    <div class="card d-flex h-100 w-100">
+      <div #chatMessages class="card-body h-100">
+        <ng-container *ngIf="messages; else loaderMsg">
+          <ng-container *ngIf="messages[activeChannel] as mGroup; else emptyMsg">
+            <ng-template ngFor let-m [ngForOf]="mGroup">
+              <ng-container *ngIf="m.sender !== currentUser">
+                <div class="msg-item d-flex justify-content-start mb-3">
+                  <img class="msg-avatar mr-2 img-thumbnail rounded-circle" src="https://robohash.org/{{m.sender}}" ngbTooltip="{{m.sender}}">
+                  <div class="msg-body" ngbTooltip="{{m.sendAt|date:'medium'}}">
+                    {{m.text}}
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="m.sender === currentUser">
+                <div class="msg-item d-flex justify-content-end mb-3">
+                  <div class="msg-body bg-primary text-white" ngbTooltip="{{m.sendAt|date:'medium'}}">
+                    {{m.text}}
+                  </div>
+                  <img class="msg-avatar ml-2 img-thumbnail rounded-circle" src="https://robohash.org/{{m.sender}}" ngbTooltip="{{m.sender}}">
+                </div>
+              </ng-container>
+            </ng-template>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="card-footer">
+        <input #chatInput class="form-control form-control-sm" placeholder="type message..." [(ngModel)]="inputMsg" (keydown.enter)="send()">
+        <div class="d-flex mt-2">
+          <div>
+            <button type="button" class="ml-auto btn btn-link">
+              <fa-icon [icon]="['fas','image']"></fa-icon>
+            </button>
+            <button type="button" class="ml-auto btn btn-link">
+              <fa-icon [icon]="['fas','paperclip']"></fa-icon>
             </button>
           </div>
+          <button type="button" class="ml-auto btn btn-outline-primary" (click)="send()">
+            <fa-icon [icon]="['far','paper-plane']"></fa-icon> send
+          </button>
         </div>
       </div>
     </div>
-
   </app-content-body>
 </app-content>
+
+<ng-template #emptyMsg>
+  <app-empty message="No messages" icon="file-alt:regular" size='small'></app-empty>
+</ng-template>
+<ng-template #loaderMsg>
+  <app-loader animation="sk-cube" label="Loading channels"></app-loader>
+</ng-template>

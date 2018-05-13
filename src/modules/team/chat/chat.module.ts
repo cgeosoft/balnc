@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router'
 
 import { CommonModule } from '@balnc/common/common.module';
 
-import { ChatComponent } from '@balnc/team/chat/components'
+import { ChatComponent, ChannelFilterPipe } from '@balnc/team/chat/components'
 import { ChatMessageSchema } from '@balnc/team/chat/data/message'
 import { ChatService } from '@balnc/team/chat/services/chat.service'
 import { ChatRoutes } from '@balnc/team/chat/routes/chat.routes'
@@ -15,6 +15,7 @@ import { ChatRoutes } from '@balnc/team/chat/routes/chat.routes'
   ],
   declarations: [
     ChatComponent,
+    ChannelFilterPipe,
   ],
   providers: [
     ChatService,

@@ -6,45 +6,17 @@
     "text": {
       "type": "string"
     },
-    "from": {
-      "type": "string",
-      "description": "User's id is been populated by server moddle based on usr-ctx",
-      "readonly": true
+    "sender": {
+      "type": "string"
     },
-    "room": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "members": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "personaId": {
-                "type": "string"
-              },
-              "isAdmin": {
-                "type": "boolean"
-              },
-              "lastAccessAt": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      }
+    "channel": {
+      "type": "string"
     },
     "sendAt": {
-      "type": "number",
-      "description": "This timestamp is been populated by server module before save",
-      "readonly": true
+      "type": "number"
     },
-    "pushHandleAt": {
-      "type": "number",
-      "description": "Server module update this prop when push notifications has been send",
-      "readonly": true
+    "status": {
+      "type": "string"
     }
   }
 }
