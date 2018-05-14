@@ -17,9 +17,10 @@ import { Router } from '@angular/router';
 })
 export class MainComponent implements OnInit {
 
-  boards: any[] = []
+  boards: any[]
   nickname: string
   newBoard: string
+  unread: { [key: string]: number } = {}
 
   constructor(
     private boardService: BoardService,
@@ -39,16 +40,12 @@ export class MainComponent implements OnInit {
 
   async addBoard() {
     if (!this.newBoard) { return }
-    await this.boardService.send({
-      board: this.newBoard,
-      sender: this.nickname,
-      type: "CMD-CREATE",
-      data: {
-        user: this.nickname
-      },
+    await this.boardService.createBoard({
+      name: this.newBoard,
     })
     this.router.navigate(["/teams/boards", this.newBoard])
     this.newBoard = null
     this.load()
   }
+
 }

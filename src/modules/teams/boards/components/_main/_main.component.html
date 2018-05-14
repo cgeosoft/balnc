@@ -30,13 +30,13 @@
         <ng-container *ngIf="boards.length; else empty">
           <ng-template ngFor let-board [ngForOf]="boards">
             <a class="d-flex  align-items-center" [routerLink]="['/teams','boards',board.name]" routerLinkActive="active">
-              <img class="my-1 mr-2 rounded" style="min-width:40px;height:40px;" src="https://api.adorable.io/avatars/48/{{board.name}}.png">
+              <img class="my-1 mr-2 rounded" style="min-width:30px;height:30px;" src="https://api.adorable.io/avatars/48/{{board.name}}.png">
               <span class="mr-2" style="overflow: hidden; line-height: 1.2rem;">
-                <strong>{{board.name}}</strong>
+                {{board.name}}
                 <br>
-                <small class="text-secondary">{{board.last.text}}</small>
+                <small class="text-secondary" *ngIf="board.lastMessage">{{board.lastMessage.text}}</small>
               </span>
-              <span class="ml-auto badge badge-secondary">{{board.messages.length}}</span>
+              <span class="ml-auto badge badge-secondary" *ngIf="unread[board.name]">{{unread[board.name]}}</span>
             </a>
           </ng-template>
         </ng-container>

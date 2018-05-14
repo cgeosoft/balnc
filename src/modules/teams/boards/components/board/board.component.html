@@ -1,11 +1,11 @@
 <app-content>
-  <app-content-header [title]="board.name" icon="comments:regular"></app-content-header>
+  <app-content-header [title]="board" icon="comments:regular"></app-content-header>
   <app-content-body class="h-100">
     <div class="card d-flex h-100 w-100">
       <div #messageList class="card-body h-100">
-        <ng-container *ngIf="board.messages; else loader">
-          <ng-container *ngIf="board.messages.length else empty">
-            <ng-template ngFor let-m [ngForOf]="board.messages">
+        <ng-container *ngIf="messages; else loader">
+          <ng-container *ngIf="messages.length else empty">
+            <ng-template ngFor let-m [ngForOf]="messages">
               <ng-container [ngSwitch]="m.type">
                 <ng-container *ngSwitchCase="'MESSAGE'">
                   <div class="msg-item" [ngClass]="{'own':m.sender === nickname}">

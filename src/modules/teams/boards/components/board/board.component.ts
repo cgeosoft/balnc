@@ -23,7 +23,8 @@ export class BoardComponent implements OnInit {
   @ViewChild('messageList') private messageList: ElementRef
   @ViewChild('messageInput') private messageInput: ElementRef
 
-  board: any
+  board: string
+  messages: Message[]
   sub: Subscription
   inputMessage: string
   nickname: string
@@ -46,8 +47,8 @@ export class BoardComponent implements OnInit {
 
     if (!this.inputMessage) { return }
 
-    await this.boardService.send({
-      board: this.board.name,
+    await this.boardService.sendMessage({
+      board: this.board,
       sender: this.nickname,
       text: this.inputMessage,
       type: "MESSAGE"
@@ -61,10 +62,9 @@ export class BoardComponent implements OnInit {
   }
 
   private async load(board: string) {
-    this.board = this.boardService.boards.find(b => {
-      return b.name === board
-    })
-    this.messageInput.nativeElement.focus()
+    this.board = board
+    await this.boardService.joinBoard(this.board)
+    this.messages = this.boardService.messages[this.board]
     this.messageInput.nativeElement.focus()
   }
 

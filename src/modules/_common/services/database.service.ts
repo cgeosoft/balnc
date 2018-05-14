@@ -29,7 +29,7 @@ RxDB.QueryChangeDetector.enable()
 if (!ENV.isProd) {
     console.log("[DatabaseService]", "In debug")
     RxDB.plugin(RxDBSchemaCheckModule)
-    RxDB.QueryChangeDetector.enableDebugging()
+    // RxDB.QueryChangeDetector.enableDebugging()
 }
 
 RxDB.plugin(KeycompressionPlugin)

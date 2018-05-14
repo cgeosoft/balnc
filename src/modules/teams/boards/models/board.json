@@ -1,0 +1,28 @@
+{
+  "title": "board",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "ref": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "members": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "created": {
+      "type": "number"
+    },
+    "lastMessage": {
+      "type": "object"
+    },
+    "avatar": {
+      "type": "string"
+    }
+  }
+}

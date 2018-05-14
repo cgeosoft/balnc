@@ -13,12 +13,15 @@ import { BaseService } from "@balnc/common/services/base.service"
 import { ProfileService } from "@balnc/core/profile/services/profile.service"
 
 import { RxMessageDoc, MessageSchema, Message } from "@balnc/teams/boards/models/message"
+import { RxBoardDoc, BoardSchema, Board } from "@balnc/teams/boards/models/board"
 
 @Injectable()
 export class BoardService extends BaseService {
 
     nickname: string;
-    boards: { name?: string, messages?: Message[], last?: Message }[] = []
+    boards: Board[]
+    messages: any
+
     constructor(
         private injector: Injector,
         private http: HttpClient,
@@ -27,20 +30,13 @@ export class BoardService extends BaseService {
         super(injector)
         this._module = "@balnc/teams"
         this._entities = [{
+            name: 'board',
+            schema: BoardSchema,
+            sync: true,
+        }, {
             name: 'message',
             schema: MessageSchema,
             sync: true,
-            migrationStrategies: {
-                1: (oldDoc) => {
-                    if (oldDoc.type === "COMMAND") {
-                        oldDoc.type = "CMD-CREATE"
-                        oldDoc.data = {
-                            user: "???",
-                        }
-                    }
-                    return oldDoc;
-                }
-            }
         }]
     }
 
@@ -49,10 +45,20 @@ export class BoardService extends BaseService {
 
         this.nickname = this.profileService.getCurrent().database.user
 
-        const collection = this._data["message"] as RxCollection<RxMessageDoc>
-        const boardsRaw = await collection.find().exec()
+        const boardCol = this._data["board"] as RxCollection<RxBoardDoc>
+        this.boards = await boardCol.find().exec() as Board[]
+        boardCol.$.subscribe(async (dbItem) => {
+            this.boards = await boardCol.find().exec() as Board[]
+        })
 
-        const _boards = boardsRaw
+        const messageDefaultArray = {}
+        this.boards.forEach(b => {
+            messageDefaultArray[b.name] = []
+        })
+
+        const messageCol = this._data["message"] as RxCollection<RxMessageDoc>
+        const messagesRaw = await messageCol.find().exec()
+        const messages = messagesRaw
             .sort((a, b) => {
                 if (a.sendAt < b.sendAt) { return -1 }
                 if (a.sendAt > b.sendAt) { return 1 }
@@ -60,50 +66,78 @@ export class BoardService extends BaseService {
             })
             .reduce((_bs, msg) => {
                 if (!_bs[msg.board]) {
-                    _bs[msg.board] = {
-                        name: msg.board,
-                        messages: [],
-                        last: {}
-                    }
+                    _bs[msg.board] = []
                 }
-                _bs[msg.board].messages.push(msg)
-                _bs[msg.board].last = msg
+                _bs[msg.board].push(msg)
                 return _bs
             }, {})
 
-        this.boards = Object.keys(_boards).map(key => _boards[key])
+        this.messages = Object.assign(messageDefaultArray, messages)
 
-        collection.$.subscribe(dbItem => {
+        messageCol.$.subscribe(dbItem => {
             const message = dbItem.data.v as Message
-            let board = this.boards.find(b => {
-                return b.name === message.board
+            this.messages[message.board].push(message)
+            this.updateBoard(message.board, {
+                lastMessage: message
             })
-
-            if (!board) {
-                board = {
-                    name: message.board,
-                    messages: [],
-                    last: {}
-                }
-                this.boards.push(board)
-            }
-            board.messages.push(message)
-            board.last = message
+            // console.log("boards",this.boards)
         })
     }
 
-    async all(params: any = {}) {
-        return await super.all<RxMessageDoc>("message", params)
+    async createBoard(board: any) {
+        const _board = Object.assign({
+            created: (new Date()).getTime(),
+            members: [{
+                name: this.nickname,
+                type: "ADMIN",
+                lastView: (new Date()).getTime(),
+            }],
+            lastMessage: {}
+        }, board)
+        this.boards.push(_board)
+        this.messages[board.name] = []
+        const _boardDoc: RxBoardDoc = Object.assign({}, _board)
+        await super.add<RxBoardDoc>("board", _boardDoc)
     }
 
-    all$(params: any = {}) {
-        const collection = this._data["message"] as RxCollection<RxMessageDoc>
-        return collection
+    async joinBoard(boardName: any) {
+        const _board = this.boards.find(b => {
+            return b.name === boardName
+        })
+
+        if (!_board) {
+            throw new Error('No board was found')
+        }
+
+        const _member = _board.members.find(m => {
+            return m.name === this.nickname
+        })
+
+        if (!_member) {
+            _board.members.push({
+                name: this.nickname,
+                type: "MEMBER",
+                lastView: (new Date()).getTime(),
+            })
+        } else {
+            _member.lastView = (new Date()).getTime()
+        }
+
+        await this.updateBoard(boardName, {
+            members: _board.members
+        })
     }
 
-    async send(board: any) {
-        const msg: RxMessageDoc = Object.assign({}, board)
-        msg.sendAt = (new Date()).getTime()
-        await super.add<RxMessageDoc>("message", msg)
+    async updateBoard(boardName, newItem: Board) {
+        const boardCol = this._data["board"] as RxCollection<RxBoardDoc>
+        const existBoard = await boardCol.findOne().where('name').eq(boardName).exec()
+        Object.assign(existBoard, newItem)
+        await existBoard.save()
+    }
+
+    async sendMessage(message: any) {
+        const _message: RxMessageDoc = Object.assign({}, message)
+        _message.sendAt = (new Date()).getTime()
+        await super.add<RxMessageDoc>("message", _message)
     }
 }
