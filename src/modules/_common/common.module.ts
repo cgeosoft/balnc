@@ -25,6 +25,7 @@ import { DebugComponent } from '@balnc/common/components/debug/debug.component'
 import { LoaderComponent } from '@balnc/common/components/loader/loader.component'
 import { EllipsisPipe } from '@balnc/common/pipes/ellipsis.pipe'
 import { DocVersionPipe } from '@balnc/common/pipes/doc-version.pipe'
+import { AgoPipe } from '@balnc/common/pipes/ago.pipe'
 import { HelperService } from '@balnc/common/services/helper.service'
 import { FooterComponent } from '@balnc/common/components/footer/footer.component'
 
@@ -51,6 +52,7 @@ library.add(fas, far)
     ContentHeaderComponent,
     DebugComponent,
     DocVersionPipe,
+    AgoPipe,
     EllipsisPipe,
     EmptyComponent,
     LoaderComponent,
@@ -69,6 +71,7 @@ library.add(fas, far)
     ContentHeaderComponent,
     DebugComponent,
     DocVersionPipe,
+    AgoPipe,
     EllipsisPipe,
     EmptyComponent,
     FileHelpersModule,

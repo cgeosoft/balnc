@@ -12,7 +12,6 @@ import * as _ from 'lodash'
 import { BalncModule } from '@balnc/common/models/balnc-module'
 import { DefaultProfileGuard } from '@balnc/core/profile/guards/profile.guard'
 import { Injectable, Injector } from '@angular/core'
-import { IsNullPipe } from 'ngx-pipes';
 
 @Injectable()
 export class ConfigService {

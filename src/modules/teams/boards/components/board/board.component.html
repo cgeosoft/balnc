@@ -13,7 +13,7 @@
                     <div class="msg-body">
                       {{m.text}}
                     </div>
-                    <small class="text-secondary">{{m.sendAt|date:'medium'}}</small>
+                    <small class="text-secondary" [ngbTooltip]="m.sendAt | date:'medium'">{{m.sendAt | ago}}</small>
                   </div>
                 </ng-container>
                 <ng-container *ngSwitchCase="'CMD-CREATE'">
