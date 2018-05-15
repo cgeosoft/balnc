@@ -14,10 +14,9 @@
   </div>
   <div class="ml-auto d-flex flex-row">
     <div class="status-bar-item">
-      <a routerLink="/profiles" class="btn">
-        {{profileName}}
-        <span *ngIf="user">/ {{user}}</span>
-      </a>
+      <a routerLink="/profiles" class="btn">{{profileName}}</a>
+      <span>/</span>
+      <a routerLink="/login" class="btn">{{username || '- none -'}}</a>
     </div>
     <div class="status-bar-item status-bar-item-divider"></div>
     <div class="status-bar-item">

@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
             const profile = this.profileService.get(alias)
             this.profileName = profile.name
             this.profileEdit = { ...profile }
-            this.profileEdit.database = this.profileEdit.database || {}
+            this.profileEdit.remote = this.profileEdit.remote || {}
             this.activeModules = Object.keys(profile.modules).reduce((x, i) => {
                 x[i] = profile.modules[i].enabled
                 return x
@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
             this.profileName = "New Profile"
             this.profileEdit = {
                 alias: "",
-                database: {},
+                remote: {},
                 modules: [],
                 name: "",
             }
@@ -90,5 +90,10 @@ export class ProfileComponent implements OnInit {
     }
 
     restore() { }
+
+    delete() {
+        this.profileService.delete(this.profileEdit.alias)
+        this.router.navigate(['/profiles'])
+    }
 
 }

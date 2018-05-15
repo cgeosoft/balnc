@@ -43,7 +43,7 @@ export class BoardService extends BaseService {
     async setup() {
         await super.setup()
 
-        this.nickname = this.profileService.getCurrent().database.user
+        this.nickname = this.profileService.username
 
         const boardCol = this._data["board"] as RxCollection<RxBoardDoc>
         this.boards = await boardCol.find().exec() as Board[]
@@ -76,6 +76,7 @@ export class BoardService extends BaseService {
 
         messageCol.$.subscribe(dbItem => {
             const message = dbItem.data.v as Message
+            if (!message) { return }
             this.messages[message.board].push(message)
             this.updateBoard(message.board, {
                 lastMessage: message

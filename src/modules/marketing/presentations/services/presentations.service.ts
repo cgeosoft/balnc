@@ -32,7 +32,7 @@ export class PresentationsService implements Resolve<any> {
   }
 
   async setup() {
-    await this.dbService.loadEntities(entities)
+    await this.dbService.load(entities)
     this.presentations = await this.dbService.get<RxPresentationDocument>("presentation")
   }
 

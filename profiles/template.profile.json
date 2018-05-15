@@ -1,11 +1,9 @@
 {
   "name": "Demo Company",
-  "secret": null,
-  "database": {
+  "key": "demo",
+  "remote": {
     "prefix": "demo",
-    "host": "https://s2.cgeosoft.com:6984",
-    "user": "demo",
-    "pass": "demo"
+    "host": "https://s2.cgeosoft.com:6984"
   },
   "modules": {
     "@balnc/business": {

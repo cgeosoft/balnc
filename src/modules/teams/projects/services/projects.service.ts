@@ -37,7 +37,7 @@ export class ProjectsService implements Resolve<any> {
     }
 
     async setup() {
-        await this.dbService.loadEntities(entities)
+        await this.dbService.load(entities)
         this.projects = await this.dbService.get<RxProject>("project")
         this.logs = await this.dbService.get<RxLogDocument>("log")
     }

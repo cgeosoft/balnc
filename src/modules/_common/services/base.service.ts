@@ -32,7 +32,7 @@ export abstract class BaseService implements Resolve<any> {
     public async setup() {
         this.config = this.configService.getModuleConfig(this._module)
         this.settings = this.config.settings
-        await this.dbService.loadEntities(this._entities)
+        await this.dbService.load(this._entities)
         this._entities.forEach(async e => {
             this._data[e.name] = await this.dbService.get(e.name)
         })

@@ -25,8 +25,8 @@ export class StatusBarComponent implements OnInit {
 
   ngOnInit() {
     const profile = this.profileService.getCurrent()
-    this.profileName = (profile.name)
-    this.user = (profile.database) ? profile.database.user : ""
+    this.profileName = profile.name
+    this.user =  this.profileService.username
     this.version = this.configService.version
 
     Observable.fromEvent(window, 'online')

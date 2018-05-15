@@ -60,36 +60,46 @@ export class DatabaseService {
         private profileService: ProfileService,
     ) { }
 
-    public async loadEntities(entities: Entity[]) {
-
+    async load(entities: Entity[]) {
         console.log("[DatabaseService]", "setup entities", entities, this.config.prefix, "loadedEntities", this.entities)
-
         for (const entity of entities) {
             if (this.entityLoaded(entity.name)) { return }
-            const ent = await this.db.collection({
+            await this.db.collection({
                 name: `${this.config.prefix}/${entity.name}`,
                 schema: entity.schema,
                 migrationStrategies: entity.migrationStrategies || {}
             })
+            this.entities[`${this.config.prefix}/${entity.name}`] = entity
+        }
+        this.sync()
+    }
+
+    sync() {
+        Object.keys(this.entities).forEach((key) => {
+            const entity = this.entities[key]
 
             if (entity.sync && this.config.host) {
-                this.replicationStates[`${this.config.prefix}/${entity.name}`] = ent.sync({
+                const ent: RxCollection<any> = this.db[key]
+                this.replicationStates[key] = ent.sync({
                     remote: `${this.config.host}/${this.config.prefix}-${entity.name}/`,
                     options: {
                         live: true,
                         retry: true
                     },
                 })
-                this.replicationStates[`${this.config.prefix}/${entity.name}`].docs$.subscribe(docData => {
-                    console.dir("replicationState", docData)
-                });
-            }
 
-            this.entities[`${this.config.prefix}/${entity.name}`] = entity
-        }
+                this.replicationStates[key].error$.subscribe((err) => {
+                    console.log("[DatabaseService]", "Sync Error", err)
+                    this.profileService.logout()
+                })
+                // this.replicationStates[key].docs$.subscribe(docData => {
+                //     console.dir("replicationState", docData)
+                // });
+            }
+        })
     }
 
-    public async get<T>(name: string): Promise<RxCollection<T>> {
+    async get<T>(name: string): Promise<RxCollection<T>> {
         return this.db[`${this.config.prefix}/${name}`]
     }
 
@@ -101,7 +111,7 @@ export class DatabaseService {
     }
 
     async setup(profile: Profile) {
-        this.config = profile.database || {}
+        this.config = profile.remote || {}
 
         console.log("[DatabaseService]", "initializing...")
 
@@ -113,22 +123,26 @@ export class DatabaseService {
             })
         }
 
-        if (this.config.user) {
-            const resp = await this.http.post(`${this.config.host}/_session`, {
-                name: this.config.user,
-                password: this.config.pass,
-            }, { withCredentials: true })
-                .toPromise()
-                .catch((res) => {
-                    console.log("[DatabaseService]", "Failed to login to remote")
-                })
+        console.log("[DatabaseService]", "Initialized with profile:", profile)
+    }
 
-            if (resp) {
-                this.profileService.roles = resp["roles"]
-            }
+    async authenticate(username: string, password: string) {
+        const resp = await this.http.post(`${this.config.host}/_session`, {
+            name: username,
+            password: password,
+        }, { withCredentials: true })
+            .toPromise()
+            .catch((res) => {
+                console.log("[DatabaseService]", "Failed to login to remote")
+            })
+
+        if (!resp) {
+            return false
         }
 
-        console.log("[DatabaseService]", "Initialized with profile:", profile)
+        this.profileService.login(username, resp["roles"])
+        this.sync()
+        return true
     }
 
     private async getAdapter() {

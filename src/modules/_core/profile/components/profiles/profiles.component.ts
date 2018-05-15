@@ -33,13 +33,13 @@ export class ProfilesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.profiles = this.profileService.config.profiles || []
+    this.profiles = this.profileService.profiles || []
     this.selectedProfile = this.profileService.getCurrent() || {}
   }
 
   clear() {
     this.profileService.clear()
-    this.profiles = this.profileService.config.profiles
+    this.profiles = this.profileService.profiles
   }
 
   quickCreateProfile() {

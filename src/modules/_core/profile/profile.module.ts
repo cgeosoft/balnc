@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+
+import { CommonModule } from '@balnc/common/common.module'
+import { WelcomeGuard } from '@balnc/core/welcome/welcome.guard'
 
 import { DefaultProfileGuard } from '@balnc/core/profile/guards/profile.guard'
 import { ProfileService } from '@balnc/core/profile/services/profile.service'
-
-import { CommonModule } from '@balnc/common/common.module';
 import { ProfilesComponent } from '@balnc/core/profile/components/profiles/profiles.component'
-import { RouterModule, Routes } from '@angular/router';
-import { WelcomeGuard } from '@balnc/core/welcome/welcome.guard';
-import { ProfileComponent } from '@balnc/core/profile/components/profile/profile.component';
+import { ProfileComponent } from '@balnc/core/profile/components/profile/profile.component'
+import { LoginComponent } from '@balnc/core/profile/components/login/login.component'
 
 const routes: Routes = [{
   path: 'profiles',
@@ -27,6 +28,12 @@ const routes: Routes = [{
   canActivate: [
     WelcomeGuard
   ],
+}, {
+  path: 'login',
+  component: LoginComponent,
+  canActivate: [
+    WelcomeGuard
+  ],
 }]
 
 @NgModule({
@@ -37,6 +44,7 @@ const routes: Routes = [{
   declarations: [
     ProfilesComponent,
     ProfileComponent,
+    LoginComponent,
   ],
   providers: [
     ProfileService,
