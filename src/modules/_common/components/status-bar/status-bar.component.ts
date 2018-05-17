@@ -16,7 +16,9 @@ export class StatusBarComponent implements OnInit {
   user: string
   version: string
 
-  isOnline = navigator.onLine
+  networkStatus = navigator.onLine
+  databaseStatus = false
+  isOnline = false
 
   constructor(
     private configService: ConfigService,
@@ -24,21 +26,29 @@ export class StatusBarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     const profile = this.profileService.getCurrent()
     this.profileName = profile.name
-    this.user =  this.profileService.username
+    this.user = this.profileService.username
     this.version = this.configService.version
 
     Observable.fromEvent(window, 'online')
       .subscribe(e => {
-        this.isOnline = true
+        this.networkStatus = true
+        this.setStatus()
       })
 
     Observable.fromEvent(window, 'offline')
       .subscribe(e => {
-        this.isOnline = false
+        this.networkStatus = false
+        this.setStatus()
       })
 
+      this.setStatus()
+  }
+
+  setStatus() {
+    this.isOnline = this.networkStatus && this.databaseStatus
   }
 
 }

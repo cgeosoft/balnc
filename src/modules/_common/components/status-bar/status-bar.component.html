@@ -19,13 +19,36 @@
       <a routerLink="/login" class="btn">{{username || '- none -'}}</a>
     </div>
     <div class="status-bar-item status-bar-item-divider"></div>
-    <div class="status-bar-item">
-      <div class="status-bar-item-content" style="width:58px;">
-        <fa-layers class="fa-fw">
-          <fa-icon [icon]="['fas','circle']" [ngClass]="{'text-success':isOnline,'text-danger':!isOnline}"></fa-icon>
+    <div class="status-bar-item" ngbDropdown placement="top-right">
+      <button ngbDropdownToggle class="btn">
+        <fa-layers class="fa-fw" [ngSwitch]="isOnline">
+          <fa-icon *ngSwitchCase="true" [icon]="['fas','check-circle']" style="color:#00ff3a"></fa-icon>
+          <fa-icon *ngSwitchCase="false" [icon]="['fas','exclamation-circle']" style="color:#ff0000"></fa-icon>
         </fa-layers>
-        <span *ngIf="isOnline">Online</span>
-        <span *ngIf="!isOnline">Offline</span>
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+        <h6 class="dropdown-header" [ngSwitch]="isOnline">
+          <ng-container *ngSwitchCase="true">
+            <fa-icon [icon]="['fas','check-circle']" style="color:#226832"></fa-icon> Your are Online
+          </ng-container>
+          <ng-container *ngSwitchCase="false">
+            <fa-icon [icon]="['fas','exclamation-circle']" style="color:#a32d2d"></fa-icon> Your are Offline
+          </ng-container>
+        </h6>
+        <div class="dropdown-item d-flex">
+          <fa-icon [icon]="['fas','database']"></fa-icon> Network
+          <fa-layers class="fa-fw ml-auto" [ngSwitch]="networkStatus">
+            <fa-icon *ngSwitchCase="true" [icon]="['fas','circle']" style="color:#226832"></fa-icon>
+            <fa-icon *ngSwitchCase="false" [icon]="['fas','circle']" style="color:#a32d2d"></fa-icon>
+          </fa-layers>
+        </div>
+        <div class="dropdown-item d-flex">
+          <fa-icon [icon]="['fas','database']"></fa-icon> Database
+          <fa-layers class="fa-fw ml-auto" [ngSwitch]="databaseStatus">
+            <fa-icon *ngSwitchCase="true" [icon]="['fas','circle']" style="color:#226832"></fa-icon>
+            <fa-icon *ngSwitchCase="false" [icon]="['fas','circle']" style="color:#a32d2d"></fa-icon>
+          </fa-layers>
+        </div>
       </div>
     </div>
   </div>

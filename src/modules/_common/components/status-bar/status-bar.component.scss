@@ -37,4 +37,7 @@
       }
     }
   }
+  .dropup .dropdown-toggle::after{
+    display: none;
+  }
 }
