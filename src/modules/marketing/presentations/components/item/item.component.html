@@ -1,6 +1,7 @@
 <app-content>
-  <app-content-header [title]="presentation?.title" subtitle="Presentation" icon="desktop" [tabsMenu]="tabsMenu"></app-content-header>
-  <app-content-body>
+  <app-content-header [title]="presentation?.title" subtitle="Presentation" icon="angle-left" route="/marketing/presentations"
+    [tabsMenu]="tabsMenu"></app-content-header>
+  <app-content-body *ngIf="tabsMenu.active === 'overview'">
     <ng-container *ngIf="presentation; else loader">
       <div class="row">
         <div class="col-md-4">
@@ -96,9 +97,20 @@
         </div>
       </div>
     </ng-container>
-    <ng-template #loader>
-      <app-loader></app-loader>
-    </ng-template>
-    <app-debug [data]="presentation"></app-debug>
   </app-content-body>
+
+  <app-content-body *ngIf="tabsMenu.active === 'slides'">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, ex. Asperiores aperiam iure soluta maiores! Doloremque, incidunt.
+    Repellendus laborum ex perferendis, voluptas illo labore vel ducimus, ipsa voluptate blanditiis esse.
+  </app-content-body>
+
+  <app-content-body *ngIf="tabsMenu.active === 'settings'"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, ex. Asperiores aperiam iure soluta maiores! Doloremque,
+    incidunt. Repellendus laborum ex perferendis, voluptas illo labore vel ducimus, ipsa voluptate blanditiis esse.
+
+  </app-content-body>
+
+  <ng-template #loader>
+    <app-loader></app-loader>
+  </ng-template>
+  <app-debug [data]="presentation"></app-debug>
 </app-content>

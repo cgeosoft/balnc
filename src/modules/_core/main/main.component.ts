@@ -22,6 +22,7 @@ export class MainComponent implements OnInit {
   @ViewChild('pageLoader')
 
   pageLoader: ElementRef
+  smClosed: boolean
 
   constructor(
     private router: Router,
@@ -41,6 +42,13 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.profile = this.profileService.getCurrent()
     this.menu = this.configService.getMainMenu(this.profile)
+
+    this.smClosed = localStorage.getItem("smClosed") === "true"
+  }
+
+  toggleSidemenu() {
+    this.smClosed = !this.smClosed
+    localStorage.setItem("smClosed", `${this.smClosed}`)
   }
 
   private _navigationInterceptor(event: RouterEvent): void {

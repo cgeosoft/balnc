@@ -15,6 +15,7 @@ export class ContentHeaderComponent implements OnInit {
   @Input() settingsMenu: any[] = []
   @Input() tabsMenu: any[] = []
   @Input() fullWidth = false
+  @Input() route = null
 
   _icon: string[]
 
