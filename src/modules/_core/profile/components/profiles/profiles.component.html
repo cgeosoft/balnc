@@ -20,7 +20,7 @@
           <div class="list-group-item d-flex px-0" *ngFor="let profile of profiles">
             <div>
               {{profile.name}}
-              <span *ngIf="profile.database && profile.database.user">/ {{profile.database.user}}</span>
+              <span *ngIf="profile.remote && profile.remote.user">/ {{profile.remote.user}}</span>
               <br>
               <ul class="list-inline text-secondary m-0">
                 <li class="list-inline-item">{{profile.createdAt | date}}</li>
@@ -51,7 +51,7 @@
     </ng-template>
   </div>
   <div class="card-footer">
-    <a href="javascript:" (click)="quickCreateProfile()">Import demo configuration</a>
+    <a href="javascript:void(0)" (click)="createDemoProfile()">Import demo configuration</a>
   </div>
 </div>
 <app-footer></app-footer>

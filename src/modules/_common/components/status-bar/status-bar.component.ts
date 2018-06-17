@@ -12,8 +12,9 @@ import 'rxjs/add/observable/fromEvent';
 })
 export class StatusBarComponent implements OnInit {
 
+  profile: Profile
   profileName: string
-  user: string
+  username: string
   version: string
 
   networkStatus = navigator.onLine
@@ -27,10 +28,9 @@ export class StatusBarComponent implements OnInit {
 
   ngOnInit() {
 
-    const profile = this.profileService.getCurrent()
-    this.profileName = profile.name
-    this.user = this.profileService.username
-    this.version = this.configService.version
+    this.profile = this.profileService.getCurrent()
+    this.profileName = this.profile.name
+    this.username = this.profileService.username
 
     Observable.fromEvent(window, 'online')
       .subscribe(e => {
@@ -44,7 +44,7 @@ export class StatusBarComponent implements OnInit {
         this.setStatus()
       })
 
-      this.setStatus()
+    this.setStatus()
   }
 
   setStatus() {

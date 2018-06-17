@@ -7,8 +7,10 @@ import { Router } from '@angular/router'
 import { ProfileService } from '@balnc/core/profile/services/profile.service'
 import { Profile } from '@balnc/core/profile/data/profile'
 import { FilePickerDirective, ReadFile } from 'ngx-file-helpers'
-import { DatabaseService } from '@balnc/common/services/database.service';
-import { ConfigService } from '@balnc/common/services/config.service';
+import { DatabaseService } from '@balnc/common/services/database.service'
+import { ConfigService } from '@balnc/common/services/config.service'
+
+import * as demoProfile from '../../assets/demo.profile.json'
 
 @Component({
   selector: 'app-profile-profiles',
@@ -22,7 +24,7 @@ export class ProfilesComponent implements OnInit {
   alias: any
   selectedProfile: Profile & any
   profiles: Profile[]
-  error: string;
+  error: string
 
   constructor(
     private modalService: NgbModal,
@@ -42,33 +44,9 @@ export class ProfilesComponent implements OnInit {
     this.profiles = this.profileService.profiles
   }
 
-  quickCreateProfile() {
-    const quickLocalName = `Demo ${(new Date).getTime()} Profile`
-    const alias = this.profileService.save({
-      alias: "",
-      name: quickLocalName,
-      modules: {
-        "@balnc/business": {
-          enabled: true,
-          menu: {
-            invoices: true
-          }
-        },
-        "@balnc/marketing": {
-          enabled: true,
-          menu: {
-            presentations: true
-          }
-        },
-        "@balnc/team": {
-          enabled: true,
-          menu: {
-            projects: true,
-            chat: true
-          }
-        }
-      },
-    })
+  createDemoProfile() {
+    const newProfile: Profile = <Profile>Object.assign({}, demoProfile)
+    const alias = this.profileService.save(newProfile)
     this.select(alias)
   }
 
