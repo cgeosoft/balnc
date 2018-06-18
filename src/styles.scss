@@ -1,12 +1,12 @@
-@import "functions";
-@import "colors";
-@import "bootstrap";
-@import "core";
-@import "content";
-@import "centerbox";
-@import "invoice";
-@import "chat";
-@import "table-max";
+@import "./scss/functions";
+@import "./scss/variables";
+@import "./scss/bootstrap";
+@import "./scss/core";
+@import "./scss/content";
+@import "./scss/centerbox";
+@import "./scss/invoice";
+@import "./scss/chat";
+@import "./scss/table-max";
 
 @import "~ngx-toastr/toastr-bs4-alert";
 

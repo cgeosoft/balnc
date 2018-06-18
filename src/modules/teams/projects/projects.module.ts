@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { MarkdownModule } from 'ngx-md'
+import { NgxMdModule  } from 'ngx-md'
 
 import { CommonModule } from '@balnc/common/common.module';
 
@@ -32,7 +32,7 @@ import { TaskComponent } from '@balnc/teams/projects/components/task/task.compon
         { path: '', redirectTo: "overview" },
       ],
     }]),
-    MarkdownModule,
+    NgxMdModule ,
   ],
   declarations: [
     MainComponent,

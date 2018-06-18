@@ -1,11 +1,5 @@
-import { Component, OnInit, ElementRef, NgZone, Renderer, ViewChild } from '@angular/core'
-import { RxCollection } from 'rxdb'
-import { BehaviorSubject } from 'rxjs/Rx'
-import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, Route } from '@angular/router'
-
-import * as _ from 'lodash'
-
-import { HelperService } from '@balnc/common/services/helper.service'
+import { Component, OnInit, ElementRef, NgZone, Renderer2, ViewChild } from '@angular/core'
+import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router'
 import { ConfigService } from '@balnc/common/services/config.service'
 import { ProfileService } from '@balnc/core/profile/services/profile.service'
 import { Profile } from '@balnc/core/profile/data/profile'
@@ -29,7 +23,7 @@ export class MainComponent implements OnInit {
     private ngZone: NgZone,
     private configService: ConfigService,
     private profileService: ProfileService,
-    private renderer: Renderer,
+    private renderer: Renderer2,
     private toastr: ToastrService,
   ) {
     router.events.subscribe((event: RouterEvent) => {
@@ -54,7 +48,7 @@ export class MainComponent implements OnInit {
   private _navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.ngZone.runOutsideAngular(() => {
-        this.renderer.setElementClass(this.pageLoader.nativeElement, 'active', true)
+        this.renderer.addClass(this.pageLoader.nativeElement, 'active')
       })
     }
     if (event instanceof NavigationEnd) {
@@ -71,7 +65,7 @@ export class MainComponent implements OnInit {
 
   private _hideSpinner(): void {
     this.ngZone.runOutsideAngular(() => {
-      this.renderer.setElementClass(this.pageLoader.nativeElement, 'active', false)
+      this.renderer.removeClass(this.pageLoader.nativeElement, 'active')
     })
   }
 }

@@ -27,8 +27,8 @@ export class ReportService extends BaseService {
         private profileService: ProfileService,
     ) {
         super(injector)
-        this._module = "@balnc/report"
-        this._entities = [{
+        super._module = "@balnc/report"
+        super._entities = [{
             name: 'report',
             schema: ReportSchema,
             sync: true,

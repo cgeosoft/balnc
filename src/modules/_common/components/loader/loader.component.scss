@@ -1,5 +1,5 @@
-@import "bootstrap";
-@import "colors";
+@import "./scss/bootstrap";
+@import "./scss/variables";
 :host {
   @extend .d-flex;
   @extend .justify-content-center;

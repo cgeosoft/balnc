@@ -19,7 +19,6 @@ export class OverviewComponent implements OnInit {
   presentations: any[] = null
 
   constructor(
-    private zone: NgZone,
     private modal: NgbModal,
     private presentationsService: PresentationsService,
   ) { }

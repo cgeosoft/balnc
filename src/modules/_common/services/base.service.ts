@@ -8,15 +8,15 @@ import { BalncModuleConfig } from '@balnc/common/models/balnc-module';
 
 export abstract class BaseService implements Resolve<any> {
 
-    protected configService: ConfigService
-    protected dbService: DatabaseService
+    public configService: ConfigService
+    public dbService: DatabaseService
 
-    protected _module: string
-    protected _entities: Entity[]
+    public _module: string
+    public _entities: Entity[]
 
-    protected config: BalncModuleConfig
-    protected settings: any
-    protected _data: RxCollection<RxDocument<any>>[] = []
+    public config: BalncModuleConfig
+    public settings: any
+    public _data: RxCollection<RxDocument<any>>[] = []
 
     constructor(injector: Injector) {
         this.configService = injector.get(ConfigService)

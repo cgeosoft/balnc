@@ -1,6 +1,6 @@
-@import "bootstrap";
-@import "functions";
-@import "colors";
+@import "./scss/bootstrap";
+@import "./scss/functions";
+@import "./scss/variables";
 :host {
   @extend .d-flex;
   @extend .flex-column;

@@ -14,8 +14,8 @@ export class InvoiceService extends BaseService {
         private injector: Injector,
     ) {
         super(injector)
-        this._module = "@balnc/business"
-        this._entities = [{
+        super._module = "@balnc/business"
+        super._entities = [{
             name: 'invoice',
             schema: InvoiceSchema,
             sync: true,

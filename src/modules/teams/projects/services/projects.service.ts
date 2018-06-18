@@ -145,7 +145,7 @@ export class ProjectsService implements Resolve<any> {
 
         const projects: RxProject[] = [];
         for (let i = 0; i < 10; i++) {
-            const project = await this.projects.insert({
+            const project = await this.projects.insert(<RxProject>{
                 name: `Project ${i}`,
                 description: "lorem ipsum dolor",
                 isArchived: Math.random() > .6,
