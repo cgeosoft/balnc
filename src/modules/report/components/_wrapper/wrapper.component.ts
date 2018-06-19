@@ -2,7 +2,7 @@ import { ReportService } from './../../services/report.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs'
 import { RxCollection, RxDocumentBase } from 'rxdb'
 import { Report } from '@balnc/report/data/report';
 import { Router } from '@angular/router';

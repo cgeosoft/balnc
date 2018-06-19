@@ -1,9 +1,9 @@
-import { reduce } from 'rxjs/operators/reduce';
+import { reduce } from 'rxjs/operators';
 import { Component, Input, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core'
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { RxDocumentBase } from 'rxdb'
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs'
 
 import * as _ from 'lodash'
 

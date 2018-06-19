@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core'
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs'
 import { RxCollection, RxDocumentBase } from 'rxdb'
 
 import { RxProject } from '@balnc/teams/projects/data/project'

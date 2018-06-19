@@ -1,9 +1,8 @@
-import { reduce } from 'rxjs/operators/reduce';
+import { reduce } from 'rxjs/operators';
 import { Profile } from '@balnc/core/profile/data/profile'
 import { ENV } from 'environments/environment'
 
 import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router'
-import { BehaviorSubject } from 'rxjs/Rx'
 import { HelperService } from '@balnc/common/services/helper.service'
 import { Route } from '@angular/compiler/src/core'
 

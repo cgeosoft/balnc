@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit, ElementRef, ViewChild, Pipe, PipeTransform } from '@angular/core'
-import { Subscription } from 'rxjs/Subscription'
+import { Subscription } from 'rxjs'
 import { RxCollection } from 'rxdb'
 
 import * as _ from 'lodash'

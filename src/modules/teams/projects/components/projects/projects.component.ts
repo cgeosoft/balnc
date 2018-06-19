@@ -1,6 +1,6 @@
 import { Component, NgZone, ChangeDetectorRef, ChangeDetectionStrategy, OnInit } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import * as _ from 'lodash'

@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs'
 import { RxCollection, RxDocumentBase } from 'rxdb'
 
 import { RxProject } from '../../data/project'

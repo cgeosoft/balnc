@@ -2,9 +2,8 @@ import { ProfileService } from './../../_core/profile/services/profile.service';
 import { HttpClient } from "@angular/common/http"
 import { Injectable, Injector, wtfStartTimeRange } from "@angular/core"
 import { TemplateParseResult } from "@angular/compiler";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { BehaviorSubject ,  Subject } from "rxjs";
 import { RxCollection } from "rxdb"
-import { Subject } from "rxjs/Subject"
 
 import * as _ from 'lodash'
 import * as moment from 'moment'

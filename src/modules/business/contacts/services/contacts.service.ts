@@ -1,6 +1,5 @@
-import { Subject } from "rxjs/Subject"
+import { Subject ,  Observable, } from "rxjs"
 import { RxCollection, RxReplicationState, RxDocumentBase } from "rxdb"
-import { Observable, } from "rxjs/Observable"
 import { Injectable, OnDestroy, OnInit } from "@angular/core"
 import { ActivatedRouteSnapshot, Resolve } from "@angular/router"
 

@@ -1,9 +1,8 @@
 import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Subscription, AnonymousSubscription } from 'rxjs/Subscription'
+import { Subscription, Unsubscribable as AnonymousSubscription ,  Observable } from 'rxjs'
 import { RxCollection, RxDocumentBase } from 'rxdb'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { Observable } from 'rxjs/Observable'
 
 import * as _ from 'lodash'
 import * as moment from 'moment'

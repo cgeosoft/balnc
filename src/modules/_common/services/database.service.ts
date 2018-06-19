@@ -1,9 +1,8 @@
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs'
 import { Injectable, Inject } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router'
 
-import { BehaviorSubject } from 'rxjs/Rx'
 import * as _ from 'lodash'
 
 import RxDB from 'rxdb/plugins/core'

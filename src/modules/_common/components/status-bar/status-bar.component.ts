@@ -1,9 +1,10 @@
+
+import {fromEvent as observableFromEvent,  Observable } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
 import { Profile } from '@balnc/core/profile/data/profile';
 import { ProfileService } from '@balnc/core/profile/services/profile.service';
 import { ConfigService } from '@balnc/common/services/config.service';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
+
 
 @Component({
   selector: 'app-status-bar',
@@ -32,13 +33,13 @@ export class StatusBarComponent implements OnInit {
     this.profileName = this.profile.name
     this.username = this.profileService.username
 
-    Observable.fromEvent(window, 'online')
+    observableFromEvent(window, 'online')
       .subscribe(e => {
         this.networkStatus = true
         this.setStatus()
       })
 
-    Observable.fromEvent(window, 'offline')
+    observableFromEvent(window, 'offline')
       .subscribe(e => {
         this.networkStatus = false
         this.setStatus()

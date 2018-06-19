@@ -28,10 +28,8 @@
     "@angular/http": "6.0.5",
     "@angular/platform-browser": "6.0.5",
     "@angular/platform-browser-dynamic": "6.0.5",
-    "@angular/platform-server": "^6.0.5",
     "@angular/router": "6.0.5",
     "@angular/service-worker": "^6.0.5",
-    "@cloudinary/angular-5.x": "^1.0.1",
     "@fortawesome/angular-fontawesome": "0.1.0-10",
     "@fortawesome/fontawesome-svg-core": "^1.2.0-14",
     "@fortawesome/free-brands-svg-icons": "^5.1.0-11",
@@ -44,7 +42,6 @@
     "@types/pouchdb-adapter-idb": "^6.1.2",
     "angular2-moment": "^1.9.0",
     "bootstrap": "^4.1.1",
-    "cloudinary-core": "^2.5.0",
     "core-js": "2.5.7",
     "faker": "^4.1.0",
     "flat": "^4.0.0",
@@ -66,7 +63,6 @@
     "rx-polling": "^1.0.0",
     "rxdb": "^7.6.1",
     "rxjs": "6.2.1",
-    "rxjs-compat": "^6.2.1",
     "zone.js": "0.8.26"
   },
   "devDependencies": {

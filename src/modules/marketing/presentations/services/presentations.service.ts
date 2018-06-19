@@ -1,6 +1,12 @@
-import { Subject } from "rxjs/Subject"
+
+(window as any).process = {
+  env: {
+    DEBUG: undefined
+  },
+};
+
+import { Subject ,  Observable, } from "rxjs"
 import { RxCollection, RxReplicationState, RxDocumentBase } from "rxdb"
-import { Observable, } from "rxjs/Observable"
 import { Injectable } from "@angular/core"
 import { ActivatedRouteSnapshot, Resolve } from "@angular/router"
 

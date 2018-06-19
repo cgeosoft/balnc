@@ -1,9 +1,7 @@
 import { Injectable, Injector } from "@angular/core"
 import { HttpClient } from "@angular/common/http"
-import { BehaviorSubject } from "rxjs/BehaviorSubject"
+import { BehaviorSubject ,  Observable ,  Subject } from "rxjs"
 import { RxCollection } from 'rxdb'
-import { Observable } from 'rxjs/Observable'
-import { Subject } from 'rxjs/Subject'
 
 import * as moment from 'moment'
 

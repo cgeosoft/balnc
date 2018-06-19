@@ -1,9 +1,8 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  Subscription } from 'rxjs';
 import { Component, NgZone, OnInit, ElementRef, ViewChild, Pipe, PipeTransform } from '@angular/core'
-import { Subscription } from 'rxjs/Subscription'
 import { ActivatedRoute } from '@angular/router'
 import { RxCollection } from 'rxdb'
-import 'rxjs/add/observable/from';
+
 
 import * as _ from 'lodash'
 import * as moment from 'moment'
