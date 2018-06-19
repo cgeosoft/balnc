@@ -1,26 +1,40 @@
 {
   "compileOnSave": false,
   "buildOnSave": false,
-  "preserveWhitespaces":false,
   "compilerOptions": {
+<<<<<<< HEAD
     "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
+=======
+    "target": "es5",
+    "module": "commonjs",
+>>>>>>> ng-upgrade
     "moduleResolution": "node",
+    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+<<<<<<< HEAD
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],
     "types":[
       "core-js"
+=======
+    "types": [
+      "core-js",
+      "requirejs"
+>>>>>>> ng-upgrade
     ],
     "lib": [
-      "es2017",
-      "dom"
+      "dom",
+      "es2015",
+      "es5",
+      "es6"
     ],
+    "baseUrl": "./src",
     "paths": {
       "@balnc/common/*": [
         "modules/_common/*"
@@ -47,5 +61,19 @@
         "environments/*"
       ]
     }
-  }
+  },
+  "exclude": [
+    "./node_modules",
+    "./log.txt",
+    "./config.json"
+  ],
+  "include": [
+    "./src/**/*.ts",
+    "./schemas/**/*.json"
+  ],
+  "filesGlob": [
+    "**/*.ts",
+    "./schemas/**/*.json",
+    "!node_modules/**"
+  ]
 }
