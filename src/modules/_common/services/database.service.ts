@@ -17,6 +17,9 @@ import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages'
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
 import JsonDumpPlugin from 'rxdb/plugins/json-dump';
 
+import * as AdapterHttp from 'pouchdb-adapter-http';
+import * as AdapterIDB from 'pouchdb-adapter-idb';
+
 import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
 
 import { ENV } from 'environments/environment'
@@ -40,9 +43,8 @@ RxDB.plugin(AttachmentsPlugin)
 RxDB.plugin(RxDBErrorMessagesModule)
 RxDB.plugin(AdapterCheckPlugin)
 RxDB.plugin(JsonDumpPlugin)
-RxDB.plugin(require('pouchdb-adapter-http'))
-RxDB.plugin(require('pouchdb-adapter-idb'))
-RxDB.plugin(require('pouchdb-adapter-websql'))
+RxDB.plugin(AdapterHttp)
+RxDB.plugin(AdapterIDB)
 
 @Injectable()
 export class DatabaseService {
@@ -146,13 +148,12 @@ export class DatabaseService {
     }
 
     private async getAdapter() {
-        return "idb"
-        // if (await RxDB.checkAdapter('idb')) {
-        //     return "idb"
-        // }
-        // if (await RxDB.checkAdapter('websql')) {
-        //     return "websql"
-        // }
+        if (await RxDB.checkAdapter('idb')) {
+            return "idb"
+        }
+        if (await RxDB.checkAdapter('websql')) {
+            return "websql"
+        }
     }
 
     async backup() {

@@ -14,8 +14,8 @@ export class InvoiceService extends BaseService {
         private injector: Injector,
     ) {
         super(injector)
-        super._module = "@balnc/business"
-        super._entities = [{
+        this._module = "@balnc/business"
+        this._entities = [{
             name: 'invoice',
             schema: InvoiceSchema,
             sync: true,
@@ -23,13 +23,13 @@ export class InvoiceService extends BaseService {
     }
 
     async all(params: any = {}) {
-        const data = await super.all<RxInvoiceDoc>("invoice", params)
+        const data = await super._all<RxInvoiceDoc>("invoice", params)
         const invoices = data
         return invoices
     }
 
     async one(id: string) {
-        const invoiceDoc = await super.one<RxInvoiceDoc>("invoice", id)
+        const invoiceDoc = await super._one<RxInvoiceDoc>("invoice", id)
         const invoice = _.cloneDeep(invoiceDoc) as Invoice
         return invoice
     }

@@ -3,7 +3,7 @@
   "buildOnSave": false,
   "preserveWhitespaces":false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -15,9 +15,7 @@
       "node_modules/@types"
     ],
     "types":[
-      "core-js",
-      "requirejs",
-      "node"
+      "core-js"
     ],
     "lib": [
       "es2017",
