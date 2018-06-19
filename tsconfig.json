@@ -1,28 +1,24 @@
 {
   "compileOnSave": false,
   "buildOnSave": false,
-  "preserveWhitespaces":false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
+    "target": "es5",
+    "module": "commonjs",
     "moduleResolution": "node",
+    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types":[
+    "types": [
       "core-js",
-      "requirejs",
-      "node"
+      "requirejs"
     ],
     "lib": [
-      "es2017",
-      "dom"
+      "dom",
+      "es2015",
+      "es5",
+      "es6"
     ],
+    "baseUrl": "./src",
     "paths": {
       "@balnc/common/*": [
         "modules/_common/*"
@@ -49,5 +45,19 @@
         "environments/*"
       ]
     }
-  }
+  },
+  "exclude": [
+    "./node_modules",
+    "./log.txt",
+    "./config.json"
+  ],
+  "include": [
+    "./src/**/*.ts",
+    "./schemas/**/*.json"
+  ],
+  "filesGlob": [
+    "**/*.ts",
+    "./schemas/**/*.json",
+    "!node_modules/**"
+  ]
 }

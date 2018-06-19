@@ -27,8 +27,8 @@ export class ReportService extends BaseService {
         private profileService: ProfileService,
     ) {
         super(injector)
-        super._module = "@balnc/report"
-        super._entities = [{
+        this._module = "@balnc/report"
+        this._entities = [{
             name: 'report',
             schema: ReportSchema,
             sync: true,
@@ -36,7 +36,7 @@ export class ReportService extends BaseService {
     }
 
     async all(params: any = {}) {
-        const data = await super.all<RxReportDoc>("report", params)
+        const data = await super._all<RxReportDoc>("report", params)
         const reports = data
             .filter(report => {
                 return report.roles
@@ -53,7 +53,7 @@ export class ReportService extends BaseService {
     }
 
     async one(id: string) {
-        const reportDoc = await super.one<RxReportDoc>("report", id)
+        const reportDoc = await super._one<RxReportDoc>("report", id)
         const report = _.cloneDeep(reportDoc) as Report
 
         report.filters.forEach(async filter => {
@@ -89,7 +89,7 @@ export class ReportService extends BaseService {
     async generateQuery(report: Report, filters) {
         let query = ""
         try {
-            const r = await super.one<RxReportDoc>("report", report.alias)
+            const r = await super._one<RxReportDoc>("report", report.alias)
             const attachment = await r.getAttachment("query.sql")
             query = await attachment.getStringData()
         } catch (err) {
