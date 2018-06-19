@@ -2,31 +2,17 @@
   "compileOnSave": false,
   "buildOnSave": false,
   "compilerOptions": {
-<<<<<<< HEAD
     "baseUrl": "./src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
-    "declaration": false,
-=======
-    "target": "es5",
-    "module": "commonjs",
->>>>>>> ng-upgrade
-    "moduleResolution": "node",
-    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-<<<<<<< HEAD
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],
     "types":[
       "core-js"
-=======
-    "types": [
-      "core-js",
-      "requirejs"
->>>>>>> ng-upgrade
     ],
     "lib": [
       "dom",
