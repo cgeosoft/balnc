@@ -18,7 +18,7 @@
     <ng-container *ngIf="presentations; else loader">
       <ng-container *ngIf="presentations.length; else noItems">
 
-        <table class="table table-max">
+        <!-- <table class="table table-max">
           <thead>
             <tr>
               <th>Presentation</th>
@@ -58,7 +58,28 @@
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
+
+        <div class="list-group list-group-flush">
+          <ng-container *ngFor="let presentation of presentations">
+            <a [routerLink]="['/marketing/presentations',presentation._id]" class="list-group-item list-group-item-action d-flex flex-row align-items-start">
+              <div class="presentation-thumbnail">
+                <ng-container *ngIf="presentation.thumb; else noImg">
+                  <div class="img-thumb" [ngStyle]="{'background-image': 'url('+presentation.thumb+')'}"></div>
+                </ng-container>
+              </div>
+              <div class="d-flex flex-column align-items-start">
+                <h4 class="mb-1">{{presentation.title || '[Without title]'}}</h4>
+                <ul class="m-0 list-inline text-muted">
+                  <li class="list-inline-item" ngbTooltip="{{presentation.dateUpdated | date:'medium'}}"  placement="right">
+                    <fa-layers class="fa-fw">
+                      <fa-icon [icon]="['far','edit']"></fa-icon>
+                    </fa-layers> {{getLastEdit(presentation)}}</li>
+                </ul>
+              </div>
+            </a>
+          </ng-container>
+        </div>
         <app-debug [data]="presentations"></app-debug>
       </ng-container>
     </ng-container>

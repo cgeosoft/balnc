@@ -3,7 +3,7 @@
   "key": "demo",
   "remote": {
     "prefix": "demo",
-    "host": "https://s2.cgeosoft.com:6984"
+    "host": "https://s2.cgeosoft.com"
   },
   "modules": {
     "@balnc/business": {

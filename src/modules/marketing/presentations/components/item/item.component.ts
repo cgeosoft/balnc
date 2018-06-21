@@ -24,7 +24,26 @@ export class ItemComponent implements OnInit, OnDestroy {
   activePageIndex: Number = 0
   imageData: string
   presentation: RxPresentationDocument
-  tabsMenu: any = {}
+
+  tabsMenu = {
+    active: "overview",
+    tabs: [{
+      id: "overview",
+      label: "Overview",
+      icon: "tasks",
+    }, {
+      id: "slides",
+      label: "Slides",
+      icon: "tasks",
+    }, {
+      id: "settings",
+      label: "Settings",
+      icon: "cog",
+    }],
+    select: (tabId) => {
+      this.tabsMenu.active = tabId
+    }
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -40,22 +59,6 @@ export class ItemComponent implements OnInit, OnDestroy {
       .subscribe(params => {
         this.setup(params['id'])
       })
-
-    this.tabsMenu = {
-      active: "details",
-      tabs: [{
-        id: "details",
-        label: "Details",
-        icon: "edit",
-      }, {
-        id: "settings",
-        label: "Settings",
-        icon: "cogs",
-      }],
-      select: (tabId) => {
-        this.tabsMenu.active = tabId
-      }
-    }
   }
 
   ngOnDestroy() {

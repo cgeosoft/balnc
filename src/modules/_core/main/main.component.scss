@@ -14,10 +14,11 @@
       @extend .flex-column;
       @extend .justify-content-start;
       text-align: center;
-      min-width: 50px;
       width: 50px;
       z-index: 1000;
       background: $color-background;
+      transition: width .5s;
+      overflow: hidden;
       .logo {
         margin: .7rem .5rem;
         .fa {
@@ -89,6 +90,10 @@
           }
         }
       }
+
+      &.closed{
+        width: 0;
+      }
     }
     .page-loader {
       position: absolute;
@@ -105,6 +110,18 @@
     }
     >:last-child {
       width: 100%;
+    }
+    .toggle{
+      position: absolute;
+      background: $color-background;
+      bottom: 25px;
+      left: 5px;
+      color: #FFF;
+      border-radius: 20px;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
     }
   }
 }
