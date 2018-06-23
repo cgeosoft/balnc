@@ -8,7 +8,6 @@ import { CommonModule } from '@balnc/common/common.module';
 import { PresentationsService } from '@balnc/marketing/presentations/services/presentations.service';
 import { ItemComponent } from '@balnc/marketing/presentations/components/item/item.component';
 import { CreatePresentationComponent } from '@balnc/marketing/presentations/components/create-presentation/create-presentation.component';
-import { UploadComponent } from '@balnc/marketing/presentations/components/upload/upload.component';
 import { AddPageComponent } from '@balnc/marketing/presentations/components/add-page/add-page.component';
 import { OverviewComponent } from '@balnc/marketing/presentations/components/overview/overview.component';
 
@@ -35,7 +34,6 @@ const routes: Routes = [{
     OverviewComponent,
     ItemComponent,
     CreatePresentationComponent,
-    UploadComponent,
     AddPageComponent,
   ],
   providers: [
@@ -43,7 +41,6 @@ const routes: Routes = [{
   ],
   entryComponents: [
     CreatePresentationComponent,
-    UploadComponent,
     AddPageComponent,
   ]
 })

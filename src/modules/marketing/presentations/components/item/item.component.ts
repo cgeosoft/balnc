@@ -6,7 +6,6 @@ import * as _ from "lodash"
 import * as moment from "moment"
 
 import { RxPresentationDocument } from '../../data/presentation'
-import { UploadComponent } from "../upload/upload.component"
 import { AddPageComponent } from "../add-page/add-page.component"
 import { RxCollection, RxDocumentBase } from 'rxdb'
 import { reduce } from 'rxjs/operators/reduce'

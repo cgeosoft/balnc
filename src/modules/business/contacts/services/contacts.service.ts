@@ -60,7 +60,7 @@ export class ContactsService implements Resolve<any> {
 
     async generateMock() {
         for (let i = 0; i < 10000; i++) {
-            const project = await this.contacts.insert({
+            const project = await this.contacts.insert(<RxContactDocument>{
                 name: `${faker.name.firstName()} ${faker.name.lastName()}`,
                 address: `${faker.address.streetAddress(true)} ${faker.address.zipCode()}, ${faker.address.country()}`,
                 email: `${faker.internet.exampleEmail()}`,
