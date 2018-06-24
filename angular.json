@@ -35,12 +35,10 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -111,45 +109,51 @@
         }
       }
     },
-    "balance-e2e": {
-      "root": "",
-      "sourceRoot": "e2e",
-      "projectType": "application",
+    "common": {
+      "root": "packages/_common",
+      "sourceRoot": "packages/_common/src",
+      "projectType": "library",
+      "prefix": "common",
       "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "balance:serve"
+            "tsConfig": "packages/_common/tsconfig.lib.json",
+            "project": "packages/_common/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "packages/_common/ng-package.prod.json"
+            }
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+        }
+      }
+    },
+    "core": {
+      "root": "packages/_core",
+      "sourceRoot": "packages/_core/src",
+      "projectType": "library",
+      "prefix": "core",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": "packages/_core/tsconfig.lib.json",
+            "project": "packages/_core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "packages/_core/ng-package.prod.json"
+            }
           }
         }
       }
     }
   },
-  "defaultProject": "balance",
+  "defaultProject": "balnc",
   "cli": {
     "warnings": {
       "typescriptMismatch": false
-    }
-  },
-  "schematics": {
-    "@schematics/angular:component": {
-      "prefix": "app",
-      "styleext": "scss"
-    },
-    "@schematics/angular:directive": {
-      "prefix": "app"
     }
   }
 }

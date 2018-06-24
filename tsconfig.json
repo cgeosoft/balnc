@@ -20,10 +20,12 @@
       "es5",
       "es6"
     ],
-    "baseUrl": "./src",
     "paths": {
+      "@balnc/common": [
+        "dist/common"
+      ],
       "@balnc/common/*": [
-        "modules/_common/*"
+        "dist/common/*"
       ],
       "@balnc/core/*": [
         "modules/_core/*"
