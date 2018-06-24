@@ -2,12 +2,12 @@ import { NgModule, APP_INITIALIZER } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ServiceWorkerModule } from '@angular/service-worker'
-import { RouterModule } from '@angular/router'
+import { RouterModule, PreloadAllModules } from '@angular/router'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
 import { CommonModule, DatabaseService, ConfigService } from '@balnc/common'
-import { CoreModule, ProfileService, MainComponent } from '@balnc/core'
+import { CoreModule, ProfileService, MainComponent, DashboardComponent, WelcomeComponent } from '@balnc/core'
 
 import { AppComponent } from './app.component';
 import ENV from '../environments/environment';
@@ -29,38 +29,36 @@ import ENV from '../environments/environment';
       //   DefaultProfileGuard,
       // ],
       children: [{
-      //   path: 'dashboard',
-      //   loadChildren: "@balnc/core/dashboard.module#DashboardModule",
-      // }, {
-      //   path: 'business',
-      //   loadChildren: "@balnc/business/business.module#BusinessModule",
-      // }, {
-      //   path: 'teams',
-      //   loadChildren: "@balnc/teams/teams.module#TeamsModule",
-      // }, {
-      //   path: 'marketing',
-      //   loadChildren: "@balnc/marketing/marketing.module#MarketingModule",
-      // }, {
-      //   path: 'report',
-      //   loadChildren: "@balnc/report/report.module#ReportModule",
-      // }, {
+        path: 'dashboard',
+        component: DashboardComponent
+        // }, {
+        //   path: 'business',
+        //   loadChildren: "@balnc/business/business.module#BusinessModule",
+        // }, {
+        //   path: 'teams',
+        //   loadChildren: "@balnc/teams/teams.module#TeamsModule",
+        // }, {
+        //   path: 'marketing',
+        //   loadChildren: "@balnc/marketing/marketing.module#MarketingModule",
+        // }, {
+        //   path: 'report',
+        //   loadChildren: "@balnc/report/report.module#ReportModule",
+      }, {
+        path: 'welcome',
+        component: WelcomeComponent
+      }, {
         path: '',
         pathMatch: "full",
-        redirectTo: "/dashboard"
+        redirectTo: "/welcome"
       }],
     }], {
-        // enableTracing: true,
-        // preloadingStrategy: PreloadAllModules,
+        enableTracing: true,
       }),
     CommonModule,
     CoreModule,
   ],
-  declarations: [
-    AppComponent
-  ],
-  bootstrap: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
   providers: [
     DatabaseService,
     ConfigService,

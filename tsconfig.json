@@ -1,6 +1,5 @@
 {
   "compileOnSave": false,
-  "buildOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
@@ -47,8 +46,5 @@
   },
   "exclude": [
     "node_modules"
-  ],
-  "include": [
-    "typings"
   ]
 }

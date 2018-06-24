@@ -3,17 +3,17 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "balnc": {
+    "app": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "balnc",
+      "prefix": "app",
       "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/balnc",
+            "outputPath": "dist/app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
@@ -61,13 +61,13 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "balnc:build",
+            "browserTarget": "app:build",
             "sslKey": "ssl/server.key",
             "sslCert": "ssl/server.crt"
           },
           "configurations": {
             "prod": {
-              "browserTarget": "balnc:build:prod"
+              "browserTarget": "app:build:prod"
             }
           }
         },
@@ -157,10 +157,5 @@
       }
     }
   },
-  "defaultProject": "balnc",
-  "cli": {
-    "warnings": {
-      "typescriptMismatch": false
-    }
-  }
+  "defaultProject": "app"
 }
