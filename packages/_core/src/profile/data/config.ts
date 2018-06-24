@@ -1,8 +1,6 @@
-import { Profile } from "profile/data/profile";
+import { Profile } from "./profile";
 
-declare interface ProfileConfigType {
+export interface ProfileConfig {
     selectedProfile?: string
     profiles?: Profile[]
 }
-
-export type ProfileConfig = ProfileConfigType

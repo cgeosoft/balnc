@@ -1,19 +1,18 @@
 import { UrlSerializer } from "@angular/router";
 
-declare interface ProfileType {
+export interface Profile {
     alias?: string
     name?: string
     key?: string
     createdAt?: string
-    remote?: DatabaseConfigType
+    remote?: DatabaseConfig
     modules?: any
     params?: any
 }
 
-declare interface DatabaseConfigType {
+export interface DatabaseConfig {
     prefix?: string
     host?: string
+    username?: string
+    password?: string
 }
-
-export type DatabaseConfig = DatabaseConfigType
-export type Profile = ProfileType

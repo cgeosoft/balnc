@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core'
 
 import * as _ from 'lodash'
 
-import { Profile } from 'profile/data/profile';
-import { ProfileConfig } from 'profile/data/config';
+import { Profile } from '../data/profile'
+import { ProfileConfig } from '../data/config'
 
 @Injectable()
 export class ProfileService {
 
-    username: string;
+    username: string
     roles: string[] = []
 
     selected: string
@@ -112,7 +112,7 @@ export class ProfileService {
             .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
             .replace(/\-\-+/g, '-')         // Replace multiple - with single -
             .replace(/^-+/, '')             // Trim - from start of text
-            .replace(/-+$/, '');            // Trim - from end of text
+            .replace(/-+$/, '')            // Trim - from end of text
     }
 
     private getStore(name) {

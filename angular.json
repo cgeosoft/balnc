@@ -7,27 +7,34 @@
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
+      "prefix": "balnc",
+      "schematics": {},
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/balnc",
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
-            "assets": [
-              "src/assets",
-              "src/favicon.ico",
-              "src/manifest.json",
-              "src/web.config",
-              "src/_redirects",
-              {
-                "glob": "../schemas/**/*.json",
-                "input": "src",
-                "output": "/schemas"
-              }
-            ],
+            "assets": [{
+              "glob": "**/*.*",
+              "input": "src/assets",
+              "output": "/assets"
+            }, {
+              "glob": "_redirects",
+              "input": "src/assets",
+              "output": "/"
+            }, {
+              "glob": "manifest.json",
+              "input": "src/assets/",
+              "output": "/"
+            }, {
+              "glob": "favicon.ico",
+              "input": "src/assets/icons/",
+              "output": "/"
+            }],
             "styles": [
               "src/styles.scss"
             ],

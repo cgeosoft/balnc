@@ -11,7 +11,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 // import { ToastrModule } from 'ngx-toastr'
 
 import { NgPipesModule } from 'ngx-pipes'
-import { MomentModule } from 'angular2-moment'
+// import { MomentModule } from 'angular2-moment'
 import { FileHelpersModule } from 'ngx-file-helpers'
 
 import { SideBarComponent } from './components/side-bar/side-bar.component'
@@ -39,7 +39,7 @@ library.add(fas, far)
     NgbModule,
     NgPipesModule,
     FileHelpersModule,
-    MomentModule,
+    // MomentModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild([]),
@@ -78,7 +78,7 @@ library.add(fas, far)
     FormsModule,
     HttpClientModule,
     LoaderComponent,
-    MomentModule,
+    // MomentModule,
     NgbModule,
     NgPipesModule,
     ReactiveFormsModule,

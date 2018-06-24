@@ -36,13 +36,13 @@
         <div class="col-6">
           <div class="form-group">
             <label>Username</label>
-            <input autocomplete="false" [(ngModel)]="profileEdit.remote.user" class="form-control">
+            <input autocomplete="false" [(ngModel)]="profileEdit.remote.username" class="form-control">
           </div>
         </div>
         <div class="col-6">
           <div class="form-group">
             <label>Password</label>
-            <input autocomplete="false" [(ngModel)]="profileEdit.remote.pass" class="form-control" type="password">
+            <input autocomplete="false" [(ngModel)]="profileEdit.remote.password" class="form-control" type="password">
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@
               <br>
               <small class="text-muted" *ngIf="module.description">{{module.description}}</small>
             </div>
-            <button type="button" class="btn btn-outline-dark btn-sm" (click)="openConfig(module.id)">
+            <button type="button" class="btn btn-outline-dark btn-sm">
               <fa-layers class="fa-fw">
                 <fa-icon [icon]="['fas','cog']"></fa-icon>
               </fa-layers>
@@ -123,4 +123,4 @@
 
   </div>
 </div>
-<app-footer></app-footer>
+<common-footer></common-footer>

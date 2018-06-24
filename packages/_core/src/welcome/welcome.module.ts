@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router'
 
-import { CommonModule } from '@balnc/common/common.module';
-import { WelcomeComponent } from 'welcome/welcome.component';
-import { WelcomeGuard } from 'welcome/welcome.guard';
+import { CommonModule } from '@balnc/common'
+
+import { WelcomeComponent } from './welcome.component'
+import { WelcomeGuard } from './welcome.guard'
 
 const routes: Routes = [{
   path: 'welcome',

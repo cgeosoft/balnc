@@ -1,17 +1,34 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core'
 
-import { CommonModule } from '@balnc/common/common.module';
+import { CommonModule } from '@balnc/common'
 
-import { WelcomeModule } from 'welcome/welcome.module'
-import { ProfileModule } from 'profile/profile.module'
-import { MainModule } from 'main/main.module'
+import { MainComponent } from './main/main.component'
+import { StatusBarComponent } from './status-bar/status-bar.component'
+
+import { WelcomeModule } from './welcome/welcome.module'
+import { ProfileModule } from './profile/profile.module'
+import { DashboardModule } from './dashboard/dashboard.module'
 
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule.forChild([]),
     WelcomeModule,
     ProfileModule,
-    MainModule,
+    DashboardModule,
   ],
+  declarations: [
+    StatusBarComponent,
+    MainComponent,
+  ],
+  exports: [
+    StatusBarComponent,
+    MainComponent,
+
+    WelcomeModule,
+    ProfileModule,
+    DashboardModule,
+  ]
 })
 export class CoreModule { }

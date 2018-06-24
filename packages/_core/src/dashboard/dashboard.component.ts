@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { ConfigService } from '@balnc/common/services/config.service';
-import { ProfileService } from 'profile/services/profile.service';
+import { ConfigService } from '@balnc/common'
+import { ProfileService } from '../profile/services/profile.service'
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'core-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  menu: any;
-  profile: any;
-  config: any;
+  menu: any
+  profile: any
+  config: any
   constructor(
     private configService: ConfigService,
     private profileService: ProfileService,

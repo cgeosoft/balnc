@@ -6,28 +6,52 @@ import { RouterModule } from '@angular/router'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import { CommonModule } from '@balnc/common/common.module'
-import { CoreModule } from '@balnc/core/core.module'
+import { CommonModule, DatabaseService, ConfigService } from '@balnc/common'
+import { CoreModule, ProfileService, MainComponent } from '@balnc/core'
 
-import { AppComponent } from './app.component'
-import { DatabaseService } from '@balnc/common/services/database.service'
-import { ConfigService } from '@balnc/common/services/config.service'
-import { ProfileService } from '@balnc/core/profile/services/profile.service'
-import { ENV } from 'environments/environment'
+import { AppComponent } from './app.component';
+import ENV from '../environments/environment';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule.forRoot(),
-    ENV.isProd ? ServiceWorkerModule.register('ngsw-worker.js') : [],
+    // ENV.isProd ? ServiceWorkerModule.register('ngsw-worker.js') : [],
     ToastrModule.forRoot({
       positionClass: "toast-bottom-center"
     }),
-    RouterModule.forRoot([], {
-      // enableTracing: true,
-      // preloadingStrategy: PreloadAllModules,
-    }),
+    RouterModule.forRoot([{
+      path: '',
+      component: MainComponent,
+      // canActivate: [
+      //   WelcomeGuard,
+      //   DefaultProfileGuard,
+      // ],
+      children: [{
+      //   path: 'dashboard',
+      //   loadChildren: "@balnc/core/dashboard.module#DashboardModule",
+      // }, {
+      //   path: 'business',
+      //   loadChildren: "@balnc/business/business.module#BusinessModule",
+      // }, {
+      //   path: 'teams',
+      //   loadChildren: "@balnc/teams/teams.module#TeamsModule",
+      // }, {
+      //   path: 'marketing',
+      //   loadChildren: "@balnc/marketing/marketing.module#MarketingModule",
+      // }, {
+      //   path: 'report',
+      //   loadChildren: "@balnc/report/report.module#ReportModule",
+      // }, {
+        path: '',
+        pathMatch: "full",
+        redirectTo: "/dashboard"
+      }],
+    }], {
+        // enableTracing: true,
+        // preloadingStrategy: PreloadAllModules,
+      }),
     CommonModule,
     CoreModule,
   ],
@@ -44,7 +68,7 @@ import { ENV } from 'environments/environment'
     {
       provide: APP_INITIALIZER,
       useFactory: (databaseService: DatabaseService, profileService: ProfileService, configService: ConfigService) => async () => {
-        configService.setup()
+        configService.setup(ENV)
         profileService.setup()
         const profile = profileService.getCurrent()
         if (profile) {
@@ -56,8 +80,5 @@ import { ENV } from 'environments/environment'
       multi: true,
     }
   ],
-  // exports: [
-  //   CommonModule,
-  // ]
 })
 export class AppModule { }

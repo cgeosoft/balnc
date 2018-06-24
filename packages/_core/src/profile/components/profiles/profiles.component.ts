@@ -1,19 +1,47 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { RxCollection } from 'rxdb'
 import { Router } from '@angular/router'
-
-import { ProfileService } from 'profile/services/profile.service'
-import { Profile } from 'profile/data/profile'
 import { FilePickerDirective, ReadFile } from 'ngx-file-helpers'
-import { DatabaseService } from '@balnc/common/services/database.service'
-import { ConfigService } from '@balnc/common/services/config.service'
 
-import * as demoProfile from '../../assets/demo.profile.json'
+import { DatabaseService, ConfigService } from '@balnc/common'
+
+import { ProfileService } from '../../services/profile.service'
+import { Profile } from '../../data/profile'
+
+const demoProfile = {
+  "name": "Demo Company",
+  "key": "demo",
+  "remote": {
+    "prefix": "demo",
+    "host": "https://s2.cgeosoft.com"
+  },
+  "modules": {
+    "@balnc/business": {
+      "enabled": true,
+      "menu": {
+        "invoices": true
+      }
+    },
+    "@balnc/marketing": {
+      "enabled": true,
+      "menu": {
+        "presentations": true
+      }
+    },
+    "@balnc/teams": {
+      "enabled": true,
+      "menu": {
+        "projects": true,
+        "boards": true
+      }
+    }
+  },
+  "params": null
+}
 
 @Component({
-  selector: 'app-profile-profiles',
+  selector: 'core-profile-profiles',
   templateUrl: './profiles.component.html',
   styleUrls: ['./profiles.component.scss'],
 })

@@ -109,7 +109,7 @@ export class DatabaseService {
         return entity !== -1
     }
 
-    async setup(profile: Profile) {
+    async setup(profile: any) {
         this.config = profile.remote || {}
 
         console.log("[DatabaseService]", "initializing...")

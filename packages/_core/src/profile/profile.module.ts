@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { CommonModule } from '@balnc/common/common.module'
-import { WelcomeGuard } from 'welcome/welcome.guard'
+import { FileHelpersModule } from 'ngx-file-helpers'
 
-import { DefaultProfileGuard } from 'profile/guards/profile.guard'
-import { ProfileService } from 'profile/services/profile.service'
-import { ProfilesComponent } from 'profile/components/profiles/profiles.component'
-import { ProfileComponent } from 'profile/components/profile/profile.component'
-import { LoginComponent } from 'profile/components/login/login.component'
+import { CommonModule } from '@balnc/common'
+
+import { WelcomeGuard } from '../welcome/welcome.guard'
+
+import { DefaultProfileGuard } from './guards/profile.guard'
+import { ProfileService } from './services/profile.service'
+import { ProfilesComponent } from './components/profiles/profiles.component'
+import { ProfileComponent } from './components/profile/profile.component'
+import { LoginComponent } from './components/login/login.component'
 
 const routes: Routes = [{
   path: 'profiles',
@@ -40,6 +43,7 @@ const routes: Routes = [{
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    FileHelpersModule,
   ],
   declarations: [
     ProfilesComponent,

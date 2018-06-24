@@ -1,4 +1,5 @@
-import { reduce } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router'
+import { reduce } from 'rxjs/operators'
 import { Component, Input, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core'
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'
@@ -7,15 +8,13 @@ import { Observable } from 'rxjs'
 
 import * as _ from 'lodash'
 
+import { BalncModule, DatabaseService, ConfigService } from '@balnc/common'
+
 import { ProfileService } from '../../services/profile.service'
-import { ConfigService } from '@balnc/common/services/config.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Profile } from 'profile/data/profile';
-import { BalncModule } from '@balnc/common/models/balnc-module';
-import { DatabaseService } from '@balnc/common/services/database.service';
+import { Profile } from '../../data/profile'
 
 @Component({
-    selector: 'app-profile-profile',
+    selector: 'core-profile-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss'],
 })
@@ -24,10 +23,10 @@ export class ProfileComponent implements OnInit {
     @ViewChild("name") name: ElementRef
     @ViewChild("alias") alias: ElementRef
 
-    modules: BalncModule[];
+    modules: BalncModule[]
     activeModules: any = {}
     profileEdit: Profile
-    profileName: string;
+    profileName: string
     form: FormGroup
     deleteData = false
     deleteDataRemote = false
@@ -80,13 +79,13 @@ export class ProfileComponent implements OnInit {
     }
 
     async backup() {
-        const data = await this.databaseService.backup();
+        const data = await this.databaseService.backup()
 
-        const a = document.createElement("a");
-        const file = new Blob([JSON.stringify(data)], { type: 'application/json' });
-        a.href = URL.createObjectURL(file);
-        a.download = `data-${(new Date).getTime()}.json`;
-        a.click();
+        const a = document.createElement("a")
+        const file = new Blob([JSON.stringify(data)], { type: 'application/json' })
+        a.href = URL.createObjectURL(file)
+        a.download = `data-${(new Date).getTime()}.json`
+        a.click()
     }
 
     restore() { }

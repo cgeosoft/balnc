@@ -15,12 +15,7 @@
     "lib": [
       "dom",
       "es2015"
-    ],
-    "paths": {
-      "@balnc/*": [
-        "src/*"
-      ]
-    }
+    ]
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,

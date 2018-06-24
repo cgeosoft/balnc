@@ -1,12 +1,14 @@
 import { Component, OnInit, ElementRef, NgZone, Renderer2, ViewChild } from '@angular/core'
 import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router'
-import { ConfigService } from '@balnc/common/services/config.service'
-import { ProfileService } from 'profile/services/profile.service'
-import { Profile } from 'profile/data/profile'
+
+import { ConfigService } from '@balnc/common'
+
+import { ProfileService } from '../profile/services/profile.service'
+import { Profile } from '../profile/data/profile'
 import { ToastrService } from 'ngx-toastr'
 
 @Component({
-  selector: 'app-main',
+  selector: 'core-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })

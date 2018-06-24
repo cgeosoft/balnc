@@ -1,13 +1,14 @@
 
-import {fromEvent as observableFromEvent,  Observable } from 'rxjs';
-import { Component, Input, OnInit } from '@angular/core';
-import { Profile } from 'profile/data/profile';
-import { ProfileService } from 'profile/services/profile.service';
-import { ConfigService } from '@balnc/common/services/config.service';
+import { Component, Input, OnInit } from '@angular/core'
+import {fromEvent as observableFromEvent,  Observable } from 'rxjs'
 
+import { ConfigService } from '@balnc/common'
+
+import { Profile } from '../profile/data/profile'
+import { ProfileService } from '../profile/services/profile.service'
 
 @Component({
-  selector: 'app-status-bar',
+  selector: 'core-status-bar',
   templateUrl: "./status-bar.component.html",
   styleUrls: ['./status-bar.component.scss']
 })
