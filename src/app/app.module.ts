@@ -6,11 +6,31 @@ import { RouterModule, PreloadAllModules } from '@angular/router'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import { CommonModule, DatabaseService, ConfigService } from '@balnc/common'
-import { CoreModule, ProfileService, MainComponent, DashboardComponent, WelcomeComponent } from '@balnc/core'
-
 import { AppComponent } from './app.component';
 import ENV from '../environments/environment';
+
+import {
+  CommonModule,
+
+  DatabaseService,
+  ConfigService,
+
+  ConfigGuard,
+  
+  ConfigRoutes,
+} from '@balnc/common'
+
+import {
+  CoreModule,
+
+  ProfileService,
+
+  MainComponent,
+  SetupComponent,
+
+  DashboardRoutes,
+  SetupRoutes,
+} from '@balnc/core'
 
 @NgModule({
   imports: [
@@ -24,33 +44,20 @@ import ENV from '../environments/environment';
     RouterModule.forRoot([{
       path: '',
       component: MainComponent,
-      // canActivate: [
-      //   WelcomeGuard,
-      //   DefaultProfileGuard,
-      // ],
-      children: [{
-        path: 'dashboard',
-        component: DashboardComponent
-        // }, {
-        //   path: 'business',
-        //   loadChildren: "@balnc/business/business.module#BusinessModule",
-        // }, {
-        //   path: 'teams',
-        //   loadChildren: "@balnc/teams/teams.module#TeamsModule",
-        // }, {
-        //   path: 'marketing',
-        //   loadChildren: "@balnc/marketing/marketing.module#MarketingModule",
-        // }, {
-        //   path: 'report',
-        //   loadChildren: "@balnc/report/report.module#ReportModule",
-      }, {
-        path: 'welcome',
-        component: WelcomeComponent
-      }, {
-        path: '',
-        pathMatch: "full",
-        redirectTo: "/welcome"
-      }],
+      canActivate: [
+        ConfigGuard,
+      ],
+      children: [
+        ...DashboardRoutes,
+        ...ConfigRoutes
+      ],
+    }, {
+      path: 'setup',
+      component: SetupComponent,
+    }, {
+      path: '',
+      pathMatch: "full",
+      redirectTo: "/dashboard"
     }], {
         enableTracing: true,
       }),
@@ -62,19 +69,12 @@ import ENV from '../environments/environment';
   providers: [
     DatabaseService,
     ConfigService,
-    ProfileService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (databaseService: DatabaseService, profileService: ProfileService, configService: ConfigService) => async () => {
+      useFactory: (configService: ConfigService) => async () => {
         configService.setup(ENV)
-        profileService.setup()
-        const profile = profileService.getCurrent()
-        if (profile) {
-          configService.profile = profile
-          await databaseService.setup(profile)
-        }
       },
-      deps: [DatabaseService, ProfileService, ConfigService],
+      deps: [ConfigService],
       multi: true,
     }
   ],

@@ -37,7 +37,10 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.profile = this.profileService.getCurrent()
-    this.menu = this.configService.getMainMenu(this.profile)
+
+    if(this.profile){
+      this.menu = this.configService.getMainMenu(this.profile)
+    }
 
     this.smClosed = localStorage.getItem("smClosed") === "true"
   }

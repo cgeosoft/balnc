@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core'
 import { Router, CanActivate } from '@angular/router'
 
-import { ProfileService } from '../services/profile.service'
+import { ConfigService } from '../services/config.service'
 
 @Injectable()
-export class DefaultProfileGuard implements CanActivate {
+export class ConfigGuard implements CanActivate {
   constructor(
     private router: Router,
-    private profileService: ProfileService
+    private configService: ConfigService
   ) { }
 
   canActivate() {
-    return !!this.profileService.selected
+    return !!this.configService.profile
     // if (this.profileService.selected) {
     //   return true
     // }

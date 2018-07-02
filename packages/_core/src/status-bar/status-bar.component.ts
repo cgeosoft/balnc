@@ -1,6 +1,6 @@
 
 import { Component, Input, OnInit } from '@angular/core'
-import {fromEvent as observableFromEvent,  Observable } from 'rxjs'
+import { fromEvent as observableFromEvent, Observable } from 'rxjs'
 
 import { ConfigService } from '@balnc/common'
 
@@ -31,8 +31,11 @@ export class StatusBarComponent implements OnInit {
   ngOnInit() {
 
     this.profile = this.profileService.getCurrent()
-    this.profileName = this.profile.name
-    this.username = this.profileService.username
+
+    if (this.profile) {
+      this.profileName = this.profile.name
+      this.username = this.profileService.username
+    }
 
     observableFromEvent(window, 'online')
       .subscribe(e => {

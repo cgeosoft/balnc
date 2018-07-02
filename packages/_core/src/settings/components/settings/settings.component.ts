@@ -95,4 +95,10 @@ export class ProfileComponent implements OnInit {
         this.router.navigate(['/profiles'])
     }
 
+    activate(alias: string) {
+      this.configService.activateProfile(alias)
+      this.selectedProfile = this.configService.getCurrent()
+      this.router.navigate(['dashboard'])
+    }
+
 }

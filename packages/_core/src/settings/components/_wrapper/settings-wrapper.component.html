@@ -1,0 +1,36 @@
+<common-side-bar>
+  <div class="menu">
+    <div class="header">
+      <h4>Settings</h4>
+    </div>
+    <div class="items">
+      <button>New Profile</button>
+    </div>
+    <div class="items">
+      <ng-container *ngIf="profiles; else empty">
+        <ng-container *ngIf="profiles.length; else empty">
+          <button *ngFor="let profile of profiles" [routerLink]="['/settings',profile.alias]" routerLinkActive="active">
+            <div>
+              {{profile.name}}
+            </div>
+            <div class="ml-auto d-flex align-items-center">
+              <div class="badge badge-primary" *ngIf="profile.alias==selectedProfile.alias">
+                Selected
+              </div>
+            </div>
+          </button>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="items mt-auto">
+      <button (click)="createDemo()">Create Demo</button>
+      <button ngxFilePicker>Import File</button>
+      <button (click)="clear()">Crear All</button>
+    </div>
+  </div>
+</common-side-bar>
+<router-outlet></router-outlet>
+
+<ng-template #empty>
+    <common-empty message="No profiles were found" icon="file-alt:regular" size='small'></common-empty>
+  </ng-template>

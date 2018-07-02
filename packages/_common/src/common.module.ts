@@ -29,6 +29,8 @@ import { AgoPipe } from './pipes/ago.pipe'
 import { HelperService } from './services/helper.service'
 import { FooterComponent } from './components/footer/footer.component'
 
+import { ConfigGuard } from './guards/config/config.guard'
+
 // Add an icon to the library for convenient access in other components
 library.add(fas, far)
 
@@ -60,6 +62,8 @@ library.add(fas, far)
     SideBarComponent,
     // StatusBarComponent,
     FooterComponent,
+
+    ConfigGuard,
   ],
   providers: [
     HelperService,
@@ -87,6 +91,8 @@ library.add(fas, far)
     FooterComponent,
     FontAwesomeModule,
     // ToastrModule,
+
+    ConfigGuard,
   ],
 })
 export class CommonModule { }

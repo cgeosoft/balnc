@@ -5,29 +5,29 @@ import { CommonModule } from '@balnc/common'
 
 import { MainComponent } from './main/main.component'
 import { StatusBarComponent } from './status-bar/status-bar.component'
+import { SetupComponent } from './setup/setup.component'
 
-import { WelcomeModule } from './welcome/welcome.module'
-import { ProfileModule } from './profile/profile.module'
+import { SettingsModule } from './settings/settings.module'
 import { DashboardModule } from './dashboard/dashboard.module'
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild([]),
-    WelcomeModule,
-    ProfileModule,
+    SettingsModule,
     DashboardModule,
   ],
   declarations: [
     StatusBarComponent,
     MainComponent,
+    SetupComponent,
   ],
   exports: [
     StatusBarComponent,
     MainComponent,
+    SetupComponent,
 
-    WelcomeModule,
-    ProfileModule,
+    SettingsModule,
     DashboardModule,
   ]
 })
