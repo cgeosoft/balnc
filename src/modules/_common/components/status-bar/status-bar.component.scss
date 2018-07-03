@@ -1,6 +1,6 @@
-@import "colors";
+@import "themes/variables";
 :host {
-  background: $color-primary;
+  background: $primary;
   height: 20px;
   font-size: .6rem;
   color: #eee;
@@ -23,21 +23,21 @@
       border-radius: 0;
       line-height: 21px;
       &:hover {
-        background: darken($color-primary, 10%);
+        background: darken($primary, 10%);
       }
     }
     &.status-bar-item-divider {
       &:after {
         content: "";
         height: 10px;
-        background: darken($color-primary, 5%);
+        background: darken($primary, 5%);
         display: block;
         width: 1px;
         margin-top: 5px;
       }
     }
   }
-  .dropup .dropdown-toggle::after{
+  .dropup .dropdown-toggle::after {
     display: none;
   }
 }

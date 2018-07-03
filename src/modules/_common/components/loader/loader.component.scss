@@ -1,5 +1,5 @@
-@import "bootstrap";
-@import "colors";
+@import "~bootstrap/scss/bootstrap";
+@import "themes/variables";
 :host {
   @extend .d-flex;
   @extend .justify-content-center;
@@ -10,7 +10,7 @@
   height: 100%;
   .animation-wrapper {
     .default {
-      color: $color-primary;
+      color: $primary;
       font-size: 2rem;
     }
     .sk-cube-grid {
@@ -18,7 +18,7 @@
       height: 40px;
       margin: 0 auto;
       .sk-cube {
-        background: $color-primary;
+        background: $primary;
         width: 33%;
         height: 33%;
         float: left;

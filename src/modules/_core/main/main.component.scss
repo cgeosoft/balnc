@@ -1,6 +1,6 @@
-@import "bootstrap";
 @import "functions";
-@import "colors";
+@import "themes/variables";
+@import "~bootstrap/scss/bootstrap";
 :host {
   @extend .d-flex;
   @extend .flex-column;
@@ -16,7 +16,7 @@
       text-align: center;
       width: 50px;
       z-index: 1000;
-      background: $color-background;
+      background: $dark;
       transition: width .5s;
       overflow: hidden;
       .logo {
@@ -27,7 +27,7 @@
           font-size: 1rem;
           display: block;
           color: #FFF;
-          background: $color-primary;
+          background: $dark;
           border-radius: 21px;
         }
       }
@@ -45,7 +45,7 @@
           background-color: none;
         }
         &::-webkit-scrollbar-thumb {
-          background-color: darken($color-background, 5);
+          background-color: darken($dark, 5);
         }
         .item {
           display: block;
@@ -64,24 +64,24 @@
               transition: background-color .7s;
               text-decoration: none;
               height: 40px;
-              color: lighten($color-background, 30);
+              color: lighten($dark, 30);
               text-align: center;
               line-height: 40px;
               border-left: solid 2px rgba($color: #000000, $alpha: 0);
               margin-bottom: 2px;
               &:hover {
-                color: get-text-color($color-background);
+                color: get-text-color($dark);
               }
             }
             &.active {
               >a {
-                border-color: $color-primary;
+                border-color: $primary;
                 color: #FFF;
               }
             }
             &.highlight {
               >a {
-                color: get-text-color($color-background);
+                color: get-text-color($dark);
                 span {
                   margin: 0
                 }
@@ -90,8 +90,7 @@
           }
         }
       }
-
-      &.closed{
+      &.closed {
         width: 0;
       }
     }
@@ -111,9 +110,9 @@
     >:last-child {
       width: 100%;
     }
-    .toggle{
+    .toggle {
       position: absolute;
-      background: $color-background;
+      background: $dark;
       bottom: 25px;
       left: 5px;
       color: #FFF;

@@ -1,10 +1,11 @@
-@import "bootstrap";
+@import "themes/variables";
+@import "~bootstrap/scss/bootstrap";
 :host {
   @extend .d-flex;
   @extend .flex-column;
   @extend .justify-content-center;
   min-height: 3.5rem;
-  background: #fafafa;
+  background: $light;
   display: flex;
   justify-content: flex-start;
   border-bottom: solid 1px #DDD;

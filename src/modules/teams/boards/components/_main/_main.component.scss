@@ -1,4 +1,4 @@
-@import "colors";
+@import "themes/variables";
 :host {
   display: flex;
   width: 100%;
@@ -37,8 +37,8 @@
     }
     &.own {
       .msg-body {
-        background: $color-primary;
-        color: $color-primary-font;
+        background: $primary;
+        color: #fff;
       }
     }
   }

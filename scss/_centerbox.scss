@@ -19,7 +19,7 @@
   }
   .card {
     margin: 1rem 0;
-    box-shadow: .1rem .1rem .2rem darken($color-background, 5);
+    box-shadow: .1rem .1rem .2rem darken($dark, 5);
     .card-body {
       overflow: auto;
       max-height: 500px;

@@ -1,7 +1,7 @@
-@import "bootstrap";
 @import "functions";
-@import "colors";
-$color-side-bar-background: lighten($color-background, 5);
+@import "themes/variables";
+@import "~bootstrap/scss/bootstrap";
+$color-side-bar-background: lighten($dark, 5);
 $color-side-bar-font: #FFF;
 :host {
   height: 100%;

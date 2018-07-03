@@ -1,15 +1,14 @@
+@import "themes/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "themes/template";
 @import "functions";
-@import "colors";
-@import "bootstrap";
 @import "core";
 @import "content";
 @import "centerbox";
 @import "invoice";
 @import "chat";
 @import "table-max";
-
 @import "~ngx-toastr/toastr-bs4-alert";
-
 .card-header-buttons {
   float: right;
   >button,
@@ -66,16 +65,16 @@ thead {
 .modal-content {
   border-color: #FFF;
   .modal-header {
-    background: $color-primary;
+    background: $primary;
     padding: .5rem 1rem;
     .modal-title {
-      color: $color-primary-font;
+      color: #FFF;
       font-weight: 300;
       font-size: 1.2rem;
     }
     .close {
       span {
-        color: $color-primary-font;
+        color: #FFF;
       }
     }
   }
