@@ -18,12 +18,11 @@
     height: 52px;
     padding-bottom: .5rem;
     .header-icon {
-      color: $body-color;
-      border-right: solid 1px $body-color;
+      color: lighten($body-color, 2%);
+      border-right: solid 1px lighten($body-color, 2%);
       padding: 0 .75rem;
       margin-right: 1rem;
-      font-size: 1.6rem;
-      height: 100%;
+      font-size: 30px;
     }
     .header-body {
       @extend .d-flex;
