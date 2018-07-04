@@ -26,6 +26,11 @@
         </div>
       </ng-template>
       <div class="item menu mt-auto">
+          <a routerLink="/settings">
+            <fa-layers class="fa-fw">
+              <fa-icon [icon]="['fas','cog']"></fa-icon>
+            </fa-layers>
+          </a>
         <a href="javascript:void(0)" (click)="toggleSidemenu()">
           <fa-layers class="fa-fw">
             <fa-icon [icon]="['fas','angle-left']"></fa-icon>
@@ -39,4 +44,58 @@
   </div>
   <router-outlet></router-outlet>
 </div>
-<core-status-bar></core-status-bar>
+<div class="statusbar d-flex flex-row">
+  <div class="d-flex flex-row">
+    <div class="statusbar-item">
+      <div class="statusbar-item-content">
+        Balnc v{{version}}
+      </div>
+    </div>
+    <div class="statusbar-item statusbar-item-divider"></div>
+    <div class="statusbar-item">
+      <a href="https://github.com/christosgeorgiou/balnc" target="_blank" class="btn">
+        repo
+      </a>
+    </div>
+  </div>
+  <div class="ml-auto d-flex flex-row">
+    <div class="statusbar-item">
+      <a routerLink="/profiles" class="btn">{{profileName}}</a>
+      <span>/</span>
+      <a routerLink="/login" class="btn">{{username || '- none -'}}</a>
+    </div>
+    <div class="statusbar-item statusbar-item-divider"></div>
+    <div class="statusbar-item" ngbDropdown placement="top-right">
+      <button ngbDropdownToggle class="btn">
+        <fa-layers class="fa-fw" [ngSwitch]="isOnline">
+          <fa-icon *ngSwitchCase="true" [icon]="['fas','check-circle']" style="color:#00ff3a"></fa-icon>
+          <fa-icon *ngSwitchCase="false" [icon]="['fas','exclamation-circle']" style="color:#ff0000"></fa-icon>
+        </fa-layers>
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+        <h6 class="dropdown-header" [ngSwitch]="isOnline">
+          <ng-container *ngSwitchCase="true">
+            <fa-icon [icon]="['fas','check-circle']" style="color:#226832"></fa-icon> Your are Online
+          </ng-container>
+          <ng-container *ngSwitchCase="false">
+            <fa-icon [icon]="['fas','exclamation-circle']" style="color:#a32d2d"></fa-icon> Your are Offline
+          </ng-container>
+        </h6>
+        <div class="dropdown-item d-flex">
+          <fa-icon [icon]="['fas','database']"></fa-icon> Network
+          <fa-layers class="fa-fw ml-auto" [ngSwitch]="networkStatus">
+            <fa-icon *ngSwitchCase="true" [icon]="['fas','circle']" style="color:#226832"></fa-icon>
+            <fa-icon *ngSwitchCase="false" [icon]="['fas','circle']" style="color:#a32d2d"></fa-icon>
+          </fa-layers>
+        </div>
+        <div class="dropdown-item d-flex">
+          <fa-icon [icon]="['fas','database']"></fa-icon> Database
+          <fa-layers class="fa-fw ml-auto" [ngSwitch]="databaseStatus">
+            <fa-icon *ngSwitchCase="true" [icon]="['fas','circle']" style="color:#226832"></fa-icon>
+            <fa-icon *ngSwitchCase="false" [icon]="['fas','circle']" style="color:#a32d2d"></fa-icon>
+          </fa-layers>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

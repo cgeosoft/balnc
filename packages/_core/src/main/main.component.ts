@@ -1,11 +1,9 @@
-import { Component, OnInit, ElementRef, NgZone, Renderer2, ViewChild } from '@angular/core'
+import { Component, Input, OnInit, ElementRef, NgZone, Renderer2, ViewChild } from '@angular/core'
+import { fromEvent as observableFromEvent, Observable } from 'rxjs'
 import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router'
-
-import { ConfigService } from '@balnc/common'
-
-import { ProfileService } from '../profile/services/profile.service'
-import { Profile } from '../profile/data/profile'
 import { ToastrService } from 'ngx-toastr'
+
+import { ConfigService, Profile } from '@balnc/common'
 
 @Component({
   selector: 'core-main',
@@ -14,17 +12,24 @@ import { ToastrService } from 'ngx-toastr'
 })
 export class MainComponent implements OnInit {
 
-  profile: Profile
   @ViewChild('pageLoader')
+  profile: Profile
 
   pageLoader: ElementRef
   smClosed: boolean
+
+  profileName: string
+  username: string
+  version: string
+
+  networkStatus = navigator.onLine
+  databaseStatus = false
+  isOnline = false
 
   constructor(
     private router: Router,
     private ngZone: NgZone,
     private configService: ConfigService,
-    private profileService: ProfileService,
     private renderer: Renderer2,
     private toastr: ToastrService,
   ) {
@@ -36,14 +41,38 @@ export class MainComponent implements OnInit {
   menu: any[] = []
 
   ngOnInit() {
-    this.profile = this.profileService.getCurrent()
+    this.profile = this.configService.getProfile()
 
-    if(this.profile){
+    if (this.profile) {
       this.menu = this.configService.getMainMenu(this.profile)
     }
 
     this.smClosed = localStorage.getItem("smClosed") === "true"
+
+    if (this.profile) {
+      this.profileName = this.profile.name
+      this.username = this.configService.username
+    }
+
+    observableFromEvent(window, 'online')
+      .subscribe(e => {
+        this.networkStatus = true
+        this.setStatus()
+      })
+
+    observableFromEvent(window, 'offline')
+      .subscribe(e => {
+        this.networkStatus = false
+        this.setStatus()
+      })
+
+    this.setStatus()
   }
+
+  setStatus() {
+    this.isOnline = this.networkStatus && this.databaseStatus
+  }
+
 
   toggleSidemenu() {
     this.smClosed = !this.smClosed

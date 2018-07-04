@@ -20,8 +20,15 @@
       "@balnc/common": [
         "dist/common"
       ],
+      "@balnc/common/*": [
+        "dist/common/*"
+      ],
+
       "@balnc/core": [
         "dist/core"
+      ],
+      "@balnc/core/*": [
+        "dist/core/*"
       ],
 
       "@balnc/business/*": [

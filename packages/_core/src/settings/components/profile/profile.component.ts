@@ -8,13 +8,10 @@ import { Observable } from 'rxjs'
 
 import * as _ from 'lodash'
 
-import { BalncModule, DatabaseService, ConfigService } from '@balnc/common'
-
-import { ProfileService } from '../../services/profile.service'
-import { Profile } from '../../data/profile'
+import { BalncModule, DatabaseService, ConfigService, Profile } from '@balnc/common'
 
 @Component({
-    selector: 'core-profile-profile',
+    selector: 'core-settings-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss'],
 })
@@ -35,7 +32,6 @@ export class ProfileComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private formBuilder: FormBuilder,
-        private profileService: ProfileService,
         private configService: ConfigService,
         private databaseService: DatabaseService,
     ) { }
@@ -52,7 +48,7 @@ export class ProfileComponent implements OnInit {
 
     setup(alias: string = null) {
         if (alias) {
-            const profile = this.profileService.get(alias)
+            const profile = this.configService.getProfile(alias)
             this.profileName = profile.name
             this.profileEdit = { ...profile }
             this.profileEdit.remote = this.profileEdit.remote || {}
@@ -72,9 +68,9 @@ export class ProfileComponent implements OnInit {
     }
 
     save() {
-        const alias = this.profileService.save(this.profileEdit)
+        // const alias = this.configService.saveProfile(this.profileEdit)
         if (this.profileEdit.alias) {
-            this.router.navigate(['/profile', alias])
+            this.router.navigate(['/profile', this.profileEdit.alias])
         }
     }
 
@@ -91,14 +87,14 @@ export class ProfileComponent implements OnInit {
     restore() { }
 
     delete() {
-        this.profileService.delete(this.profileEdit.alias)
+        // this.configService.deleteProfile(this.profileEdit.alias)
         this.router.navigate(['/profiles'])
     }
 
     activate(alias: string) {
-      this.configService.activateProfile(alias)
-      this.selectedProfile = this.configService.getCurrent()
-      this.router.navigate(['dashboard'])
+        this.configService.selectProfile(alias)
+        //   this.selectedProfile = this.configService.getCurrent()
+        //   this.router.navigate(['dashboard'])
     }
 
 }

@@ -1,5 +1,3 @@
-import * as _ from 'lodash'
-
 export class HelperService {
 
     static getIcon(name: string): string[] {

@@ -1,4 +1,4 @@
-<common-side-bar>
+<common-sidebar>
   <div class="menu">
     <div class="header">
       <h4>Settings</h4>
@@ -14,8 +14,10 @@
               {{profile.name}}
             </div>
             <div class="ml-auto d-flex align-items-center">
-              <div class="badge badge-primary" *ngIf="profile.alias==selectedProfile.alias">
-                Selected
+              <div class="badge badge-primary" *ngIf="profile.alias==selected.alias">
+                <fa-layers class="fa-fw">
+                  <fa-icon [icon]="['fas','check-circle']"></fa-icon>
+                </fa-layers>
               </div>
             </div>
           </button>
@@ -24,13 +26,13 @@
     </div>
     <div class="items mt-auto">
       <button (click)="createDemo()">Create Demo</button>
-      <button ngxFilePicker>Import File</button>
+      <!-- <button ngxFilePicker>Import File</button> -->
       <button (click)="clear()">Crear All</button>
     </div>
   </div>
-</common-side-bar>
+</common-sidebar>
 <router-outlet></router-outlet>
 
 <ng-template #empty>
-    <common-empty message="No profiles were found" icon="file-alt:regular" size='small'></common-empty>
-  </ng-template>
+  <common-empty message="No profiles were found" icon="file-alt:regular" size='small'></common-empty>
+</ng-template>

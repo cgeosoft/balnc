@@ -3,32 +3,31 @@ import { NgModule } from '@angular/core'
 
 import { CommonModule } from '@balnc/common'
 
-import { MainComponent } from './main/main.component'
-import { StatusBarComponent } from './status-bar/status-bar.component'
 import { SetupComponent } from './setup/setup.component'
 
-import { SettingsModule } from './settings/settings.module'
+import { MainComponent } from './main/main.component'
+
 import { DashboardModule } from './dashboard/dashboard.module'
+import { SettingsModule } from './settings/settings.module'
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild([]),
-    SettingsModule,
+
     DashboardModule,
+    SettingsModule,
   ],
   declarations: [
-    StatusBarComponent,
-    MainComponent,
     SetupComponent,
+    MainComponent,
   ],
   exports: [
-    StatusBarComponent,
-    MainComponent,
     SetupComponent,
+    MainComponent,
 
-    SettingsModule,
     DashboardModule,
+    SettingsModule,
   ]
 })
 export class CoreModule { }

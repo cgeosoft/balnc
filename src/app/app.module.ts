@@ -9,28 +9,9 @@ import { ToastrModule } from 'ngx-toastr'
 import { AppComponent } from './app.component';
 import ENV from '../environments/environment';
 
-import {
-  CommonModule,
+import { CommonModule, DatabaseService, ConfigService, ConfigGuard } from '@balnc/common'
 
-  DatabaseService,
-  ConfigService,
-
-  ConfigGuard,
-  
-  ConfigRoutes,
-} from '@balnc/common'
-
-import {
-  CoreModule,
-
-  ProfileService,
-
-  MainComponent,
-  SetupComponent,
-
-  DashboardRoutes,
-  SetupRoutes,
-} from '@balnc/core'
+import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRoutes } from '@balnc/core'
 
 @NgModule({
   imports: [
@@ -45,11 +26,11 @@ import {
       path: '',
       component: MainComponent,
       canActivate: [
-        ConfigGuard,
+        // ConfigGuard,
       ],
       children: [
         ...DashboardRoutes,
-        ...ConfigRoutes
+        ...SettingsRoutes,
       ],
     }, {
       path: 'setup',
@@ -59,7 +40,7 @@ import {
       pathMatch: "full",
       redirectTo: "/dashboard"
     }], {
-        enableTracing: true,
+        // enableTracing: true,
       }),
     CommonModule,
     CoreModule,

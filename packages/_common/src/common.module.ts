@@ -8,91 +8,84 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
-// import { ToastrModule } from 'ngx-toastr'
+import { ToastrModule } from 'ngx-toastr'
 
 import { NgPipesModule } from 'ngx-pipes'
-// import { MomentModule } from 'angular2-moment'
+import { MomentModule } from 'ngx-moment'
 import { FileHelpersModule } from 'ngx-file-helpers'
 
-import { SideBarComponent } from './components/side-bar/side-bar.component'
-// import { StatusBarComponent } from './components/status-bar/status-bar.component'
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
+import { AgoPipe } from './pipes/ago.pipe'
+
+import { ContentBodyComponent } from './components/content-body/content-body.component'
 import { ContentComponent } from './components/content/content.component'
 import { ContentHeaderComponent } from './components/content-header/content-header.component'
-import { ContentBodyComponent } from './components/content-body/content-body.component'
-import { EmptyComponent } from './components/empty/empty.component'
 import { DebugComponent } from './components/debug/debug.component'
-import { LoaderComponent } from './components/loader/loader.component'
-import { EllipsisPipe } from './pipes/ellipsis.pipe'
 import { DocVersionPipe } from './pipes/doc-version.pipe'
-import { AgoPipe } from './pipes/ago.pipe'
-import { HelperService } from './services/helper.service'
+import { EllipsisPipe } from './pipes/ellipsis.pipe'
+import { EmptyComponent } from './components/empty/empty.component'
 import { FooterComponent } from './components/footer/footer.component'
+import { LoaderComponent } from './components/loader/loader.component'
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
+import { SidebarComponent } from './components/sidebar/sidebar.component'
 
-import { ConfigGuard } from './guards/config/config.guard'
+import { HelperService } from './services/helper.service'
 
 // Add an icon to the library for convenient access in other components
 library.add(fas, far)
 
 @NgModule({
   imports: [
-    HttpClientModule,
     AngularCommonModule,
+    FileHelpersModule,
+    FontAwesomeModule,
+    FormsModule,
+    HttpClientModule,
+    MomentModule,
     NgbModule,
     NgPipesModule,
-    FileHelpersModule,
-    // MomentModule,
-    FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild([]),
-    FontAwesomeModule,
-    // ToastrModule,
+    ToastrModule,
   ],
   declarations: [
+    AgoPipe,
     ContentBodyComponent,
     ContentComponent,
     ContentHeaderComponent,
     DebugComponent,
     DocVersionPipe,
-    AgoPipe,
     EllipsisPipe,
     EmptyComponent,
+    FooterComponent,
     LoaderComponent,
     PageNotFoundComponent,
-    SideBarComponent,
-    // StatusBarComponent,
-    FooterComponent,
-
-    ConfigGuard,
+    SidebarComponent,
   ],
   providers: [
     HelperService,
   ],
   exports: [
+    AgoPipe,
     AngularCommonModule,
     ContentBodyComponent,
     ContentComponent,
     ContentHeaderComponent,
     DebugComponent,
     DocVersionPipe,
-    AgoPipe,
     EllipsisPipe,
     EmptyComponent,
     FileHelpersModule,
+    FontAwesomeModule,
+    FooterComponent,
     FormsModule,
     HttpClientModule,
     LoaderComponent,
-    // MomentModule,
+    MomentModule,
     NgbModule,
     NgPipesModule,
     ReactiveFormsModule,
-    SideBarComponent,
-    // StatusBarComponent,
-    FooterComponent,
-    FontAwesomeModule,
-    // ToastrModule,
-
-    ConfigGuard,
+    SidebarComponent,
+    ToastrModule,
   ],
 })
 export class CommonModule { }

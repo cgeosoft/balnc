@@ -8,10 +8,10 @@ import { ConfigService, Profile } from '@balnc/common'
 
 @Component({
   selector: 'core-settings-wrapper',
-  templateUrl: './settings-wrapper.component.html',
-  styleUrls: ['./settings-wrapper.component.scss'],
+  templateUrl: './wrapper.component.html',
+  styleUrls: ['./wrapper.component.scss'],
 })
-export class SettingsWrapperComponent implements OnInit {
+export class WrapperComponent implements OnInit {
 
   @ViewChild(FilePickerDirective)
 
@@ -31,7 +31,7 @@ export class SettingsWrapperComponent implements OnInit {
 
   load() {
     this.profiles = this.configService.profiles
-    this.selected = this.configService.profile
+    this.selected = this.configService.getProfile()
   }
 
   clear() {
@@ -39,8 +39,10 @@ export class SettingsWrapperComponent implements OnInit {
   }
 
   createDemo() {
-    const alias = this.configService.createProfile()
-    this.configService.activateProfile(alias)
+    // const alias = this.configService.createProfile({
+
+    // })
+    // this.configService.selectProfile(alias)
   }
 
   onFilePicked(file: ReadFile) {
@@ -49,8 +51,8 @@ export class SettingsWrapperComponent implements OnInit {
       const data = file.content.split(',')[1]
       const profileStr = atob(data)
       const profile = JSON.parse(profileStr)
-      const alias = this.configService.createProfile(profile)
-      this.configService.activateProfile(alias)
+      const alias = this.configService.saveProfile(profile)
+      // this.configService.selectProfile(alias)
     } catch (error) {
       this.error = "File is corrupted"
       console.log("[ProfileComponent]", "Error" + error)

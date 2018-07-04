@@ -115,7 +115,7 @@ export class ConfigService {
         window.location.reload()
     }
 
-    createProfile(profile: Profile): string {
+    saveProfile(profile: Profile): string {
         if (!profile.alias) {
             const unique = new Date
             profile.alias = `${this.slugify(profile.name)}-${unique.getTime()}`
@@ -123,25 +123,22 @@ export class ConfigService {
             this.setStore(`profiles/${profile.alias}`, profile)
             this.profiles.push(profile)
         } else {
-            let existingProfile = this.get(profile.alias)
+            let existingProfile = this.getProfile(profile.alias)
             existingProfile = Object.assign(existingProfile, profile)
             this.setStore(`profiles/${profile.alias}`, existingProfile)
         }
         return profile.alias
     }
 
-    getCurrent(): Profile {
-        return this.get(this.selected)
-    }
-
-    get(alias: string = null): Profile {
+    getProfile(alias: string = null): Profile {
+        alias = alias || this.selected
         const profile = this.profiles.find(x => {
             return x.alias === alias
         })
         return profile
     }
 
-    delete(alias: string) {
+    deleteProfile(alias: string) {
         console.log(`${this._module}/profiles/${alias}`)
         if (this.selected === alias) {
             this.selected = null

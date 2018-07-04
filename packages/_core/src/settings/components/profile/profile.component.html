@@ -1,13 +1,6 @@
-<div class="card">
-  <div class="card-header d-flex">
-    <button type="button" class="btn btn-outline-secondary btn-sm mr-3" [routerLink]="['/profiles']">
-      <fa-layers class="fa-fw">
-        <fa-icon [icon]="['fas','chevron-left']"></fa-icon>
-      </fa-layers>
-    </button>
-    <h4 class="m-0">{{profileName}}</h4>
-  </div>
-  <div class="card-body">
+<common-content>
+  <common-content-header [title]="profileName" icon="cog"></common-content-header>
+  <common-content-body style="height:100%">
 
     <fieldset>
       <h4>Configuration</h4>
@@ -97,9 +90,7 @@
 
     <fieldset class="text-danger" *ngIf="profileEdit.alias">
       <h4>Danger Zone</h4>
-      <p>By deleting your profile, you immediately remove all local data(at your client). If you would like also to delete the
-        remote data please check the option below. If you do not delete remote data, all data will be synced once this profile
-        is recreated.</p>
+      <p>By deleting your profile, you immediately remove all local data(at your client). If you would like also to delete the remote data please check the option below. If you do not delete remote data, all data will be synced once this profile is recreated.</p>
       <div class="d-flex">
         <div class="d-flex flex-column">
           <div class="form-group form-check m-0">
@@ -121,6 +112,5 @@
       </div>
     </fieldset>
 
-  </div>
-</div>
-<common-footer></common-footer>
+  </common-content-body>
+</common-content>

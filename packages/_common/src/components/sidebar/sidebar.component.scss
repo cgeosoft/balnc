@@ -1,27 +1,27 @@
 @import "./scss/bootstrap";
 @import "./scss/functions";
 @import "./scss/variables";
-$color-side-bar-background: lighten($color-background, 5);
-$color-side-bar-font: #FFF;
+$color-sidebar-background: lighten($color-background, 5);
+$color-sidebar-font: #FFF;
 :host {
   height: 100%;
-  .side-bar {
+  .sidebar {
     @extend .p-2;
     height: 100%;
     min-width: 200px;
     width: 200px;
-    background: $color-side-bar-background;
+    background: $color-sidebar-background;
     .form-control-search {
       background: none;
-      border: solid 1px lighten($color-side-bar-background, 20);
-      color: $color-side-bar-font;
+      border: solid 1px lighten($color-sidebar-background, 20);
+      color: $color-sidebar-font;
       transition: border .7s;
       margin-bottom: 1rem;
       &:focus {
-        border-color: $color-side-bar-font;
+        border-color: $color-sidebar-font;
       }
       &::placeholder {
-        color: lighten($color-side-bar-font, 20);
+        color: lighten($color-sidebar-font, 20);
       }
     }
     &::-webkit-scrollbar-track {
@@ -32,7 +32,7 @@ $color-side-bar-font: #FFF;
       background-color: none;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: darken($color-side-bar-background, 5);
+      background-color: darken($color-sidebar-background, 5);
     }
   }
 }
@@ -87,11 +87,11 @@ $color-side-bar-font: #FFF;
         margin: .2rem 0;
       }
       &.active {
-        background: lighten($color-side-bar-background, 10%);
+        background: lighten($color-sidebar-background, 10%);
         color: #FFF;
       }
       &:hover {
-        background: lighten($color-side-bar-background, 5%);
+        background: lighten($color-sidebar-background, 5%);
         cursor: pointer;
         color: #FFF;
         .fa {
@@ -101,7 +101,7 @@ $color-side-bar-font: #FFF;
       &:disabled {
         cursor: not-allowed;
         color: #666;
-        background: $color-side-bar-background;
+        background: $color-sidebar-background;
         .fa {
           color: #666;
         }
