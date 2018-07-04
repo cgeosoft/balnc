@@ -17,18 +17,18 @@ const routes: Routes = [{
   children: [{
     path: 'dashboard',
     loadChildren: "@balnc/core/dashboard/dashboard.module#DashboardModule",
-  }, {
-    path: 'business',
-    loadChildren: "@balnc/business/business.module#BusinessModule",
-  }, {
-    path: 'teams',
-    loadChildren: "@balnc/teams/teams.module#TeamsModule",
-  }, {
-    path: 'marketing',
-    loadChildren: "@balnc/marketing/marketing.module#MarketingModule",
-  }, {
-    path: 'report',
-    loadChildren: "@balnc/report/report.module#ReportModule",
+  // }, {
+  //   path: 'business',
+  //   loadChildren: "@balnc/business/business.module#BusinessModule",
+  // }, {
+  //   path: 'teams',
+  //   loadChildren: "@balnc/teams/teams.module#TeamsModule",
+  // }, {
+  //   path: 'marketing',
+  //   loadChildren: "@balnc/marketing/marketing.module#MarketingModule",
+  // }, {
+  //   path: 'report',
+  //   loadChildren: "@balnc/report/report.module#ReportModule",
   }, {
     path: '',
     pathMatch: "full",

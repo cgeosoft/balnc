@@ -1,4 +1,5 @@
-@import "themes/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "themes/theme";
 :host {
   background: $primary;
   height: 20px;

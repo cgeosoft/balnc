@@ -1,6 +1,6 @@
-@import "functions";
-@import "themes/variables";
 @import "~bootstrap/scss/bootstrap";
+@import "themes/theme";
+
 $color-side-bar-background: lighten($dark, 5);
 $color-side-bar-font: #FFF;
 :host {
