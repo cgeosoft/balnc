@@ -10,8 +10,8 @@ import { AppComponent } from './app.component';
 import ENV from '../environments/environment';
 
 import { CommonModule, DatabaseService, ConfigService, ConfigGuard } from '@balnc/common'
-
 import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRoutes } from '@balnc/core'
+import { PresentationsModule, PresentationsRoutes } from '@balnc/marketing'
 
 @NgModule({
   imports: [
@@ -31,6 +31,10 @@ import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRou
       children: [
         ...DashboardRoutes,
         ...SettingsRoutes,
+        {
+          path: '',
+          children: PresentationsRoutes,
+        }
       ],
     }, {
       path: 'setup',
@@ -44,6 +48,7 @@ import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRou
       }),
     CommonModule,
     CoreModule,
+    PresentationsModule,
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

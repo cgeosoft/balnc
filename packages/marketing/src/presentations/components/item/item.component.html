@@ -1,7 +1,7 @@
-<app-content>
-  <app-content-header [title]="presentation?.title" subtitle="Presentation" icon="angle-left" route="/marketing/presentations"
-    [tabsMenu]="tabsMenu"></app-content-header>
-  <app-content-body *ngIf="tabsMenu.active === 'overview'">
+<common-content>
+  <common-content-header [title]="presentation?.title" subtitle="Presentation" icon="angle-left" route="/marketing/presentations"
+    [tabsMenu]="tabsMenu"></common-content-header>
+  <common-content-body *ngIf="tabsMenu.active === 'overview'">
     <ng-container *ngIf="presentation; else loader">
       <div class="row">
         <div class="col-md-4">
@@ -50,7 +50,7 @@
               </div>
             </div>
 
-            <app-empty class="m-0" *ngIf="!presentation.pages.length" message="No pages were found"></app-empty>
+            <common-empty class="m-0" *ngIf="!presentation.pages.length" message="No pages were found"></common-empty>
 
             <div class="list-group list-group-flush" style="height: 230px;overflow-y:scroll" *ngIf="presentation.pages.length">
               <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item p-2"
@@ -82,7 +82,7 @@
           </div>
 
           <div class="card">
-            <app-empty *ngIf="!presentation.pages.length" message="No pages were found"></app-empty>
+            <common-empty *ngIf="!presentation.pages.length" message="No pages were found"></common-empty>
 
             <div *ngIf="presentation.pages">
               <div *ngIf="presentation.pages[activePageIndex]">
@@ -114,20 +114,20 @@
         </div>
       </div>
     </ng-container>
-  </app-content-body>
+  </common-content-body>
 
-  <app-content-body *ngIf="tabsMenu.active === 'slides'">
+  <common-content-body *ngIf="tabsMenu.active === 'slides'">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, ex. Asperiores aperiam iure soluta maiores! Doloremque, incidunt.
     Repellendus laborum ex perferendis, voluptas illo labore vel ducimus, ipsa voluptate blanditiis esse.
-  </app-content-body>
+  </common-content-body>
 
-  <app-content-body *ngIf="tabsMenu.active === 'settings'"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, ex. Asperiores aperiam iure soluta maiores! Doloremque,
+  <common-content-body *ngIf="tabsMenu.active === 'settings'"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, ex. Asperiores aperiam iure soluta maiores! Doloremque,
     incidunt. Repellendus laborum ex perferendis, voluptas illo labore vel ducimus, ipsa voluptate blanditiis esse.
 
-  </app-content-body>
+  </common-content-body>
 
   <ng-template #loader>
-    <app-loader></app-loader>
+    <common-loader></common-loader>
   </ng-template>
-  <app-debug [data]="presentation"></app-debug>
-</app-content>
+  <common-debug [data]="presentation"></common-debug>
+</common-content>

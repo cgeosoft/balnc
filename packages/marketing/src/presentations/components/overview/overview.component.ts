@@ -4,13 +4,13 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { PresentationsService } from '@balnc/marketing/presentations/services/presentations.service'
-import { RxPresentationDocument } from '@balnc/marketing/presentations/data/presentation'
-import { CreatePresentationComponent } from "@balnc/marketing/presentations/components/create-presentation/create-presentation.component"
+import { PresentationsService } from '../../services/presentations.service'
+import { RxPresentationDocument } from '../../models/presentation'
 
+import { CreatePresentationComponent } from "../create-presentation/create-presentation.component"
 
 @Component({
-  selector: 'app-presentations-overview',
+  selector: 'marketing-presentations-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })

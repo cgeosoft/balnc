@@ -1,38 +1,43 @@
 <common-sidebar>
-  <div class="menu">
+  <div class="menu mb-4">
     <div class="header">
       <h4>Settings</h4>
     </div>
     <div class="items">
-      <button>New Profile</button>
+      <button>
+        <fa-layers class="fa-fw">
+          <fa-icon [icon]="['fas','plus-circle']"></fa-icon>
+        </fa-layers> New Profile</button>
+      <button (click)="createDemo()">
+        <fa-layers class="fa-fw">
+          <fa-icon [icon]="['fas','random']"></fa-icon>
+        </fa-layers> Generate Demo</button>
+      <!-- <button ngxFilePicker>Import File</button> -->
+      <button (click)="clear()">
+        <fa-layers class="fa-fw">
+          <fa-icon [icon]="['fas','trash-alt']"></fa-icon>
+        </fa-layers> Crear All</button>
+    </div>
+  </div>
+  <div class="menu">
+    <div class="header">
+      <h4>Profiles</h4>
     </div>
     <div class="items">
       <ng-container *ngIf="profiles; else empty">
         <ng-container *ngIf="profiles.length; else empty">
           <button *ngFor="let profile of profiles" [routerLink]="['/settings',profile.alias]" routerLinkActive="active">
-            <div>
-              {{profile.name}}
-            </div>
-            <div class="ml-auto d-flex align-items-center">
-              <div class="badge badge-primary" *ngIf="profile.alias==selected.alias">
-                <fa-layers class="fa-fw">
-                  <fa-icon [icon]="['fas','check-circle']"></fa-icon>
-                </fa-layers>
-              </div>
-            </div>
+            {{profile.name}}
+            <fa-layers class="fa-fw text-primary float-right" *ngIf="profile.alias==selected.alias">
+              <fa-icon [icon]="['fas','check-circle']"></fa-icon>
+            </fa-layers>
           </button>
         </ng-container>
       </ng-container>
     </div>
-    <div class="items mt-auto">
-      <button (click)="createDemo()">Create Demo</button>
-      <!-- <button ngxFilePicker>Import File</button> -->
-      <button (click)="clear()">Crear All</button>
-    </div>
   </div>
 </common-sidebar>
 <router-outlet></router-outlet>
-
 <ng-template #empty>
   <common-empty message="No profiles were found" icon="file-alt:regular" size='small'></common-empty>
 </ng-template>

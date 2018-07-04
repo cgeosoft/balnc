@@ -1,20 +1,19 @@
 import { Component, NgZone, OnInit, OnDestroy } from '@angular/core'
 import { Router, ActivatedRoute, ParamMap } from '@angular/router'
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
+import { RxCollection, RxDocumentBase } from 'rxdb'
+import { reduce } from 'rxjs/operators'
+import { Observable } from 'rxjs'
 
 import * as _ from "lodash"
 import * as moment from "moment"
 
-import { RxPresentationDocument } from '../../data/presentation'
+import { RxPresentationDocument } from '../../models/presentation'
+import { PresentationsService } from '../../services/presentations.service'
 import { AddPageComponent } from "../add-page/add-page.component"
-import { RxCollection, RxDocumentBase } from 'rxdb'
-import { reduce } from 'rxjs/operators'
-import { Date } from 'core-js/library/web/timers'
-import { Observable } from 'rxjs'
-import { PresentationsService } from '@balnc/marketing/presentations/services/presentations.service';
 
 @Component({
-  selector: 'app-presentations-item',
+  selector: 'marketing-presentations-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss']
 })

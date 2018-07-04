@@ -155,6 +155,26 @@
           }
         }
       }
+    },
+    "marketing": {
+      "root": "packages/marketing",
+      "sourceRoot": "packages/marketing/src",
+      "projectType": "library",
+      "prefix": "marketing",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "packages/marketing/tsconfig.lib.json",
+            "project": "packages/marketing/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "packages/marketing/ng-package.prod.json"
+            }
+          }
+        }
+      }
     }
   },
   "defaultProject": "app"

@@ -1,18 +1,18 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core'
 
 import * as _ from "lodash"
 import * as moment from "moment"
 
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { RxPresentationDocument } from '@balnc/marketing/presentations/data/presentation';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { RxPresentationDocument } from '../../models/presentation'
 
 @Component({
-    selector: 'app-presentation-add-page',
+    selector: 'marketing-presentation-add-page',
     templateUrl: './add-page.component.html'
 })
 export class AddPageComponent {
 
-    @Input() presentation: RxPresentationDocument;
+    @Input() presentation: RxPresentationDocument
 
     page: any = {
         title: null,
@@ -20,7 +20,7 @@ export class AddPageComponent {
         file: null,
         blob: null,
         fileType: null,
-    };
+    }
     imagePreview: string
     imageInfo: any = {
         size: 0,
@@ -60,26 +60,26 @@ export class AddPageComponent {
     }
 
     loadFile($event): void {
-        this.page.file = $event.target.files[0];
-        const reader: FileReader = new FileReader();
+        this.page.file = $event.target.files[0]
+        const reader: FileReader = new FileReader()
 
         this.imageInfo.size = this.page.file.size
 
         reader.onloadend = (e) => {
-            const img = new Image;
+            const img = new Image
             img.onload = () => {
                 this.imageInfo.width = img.width
                 this.imageInfo.height = img.height
-            };
-            img.src = reader.result;
+            }
+            img.src = reader.result
 
             this.imagePreview = reader.result
             const parts = reader.result.split(",")
             const info = parts[0].split(";")
-            // this.page.blob = parts[1];
-            this.page.fileType = info[0].replace("data:", "");
+            // this.page.blob = parts[1]
+            this.page.fileType = info[0].replace("data:", "")
         }
-        reader.readAsDataURL(this.page.file);
+        reader.readAsDataURL(this.page.file)
     }
 
     s4() {

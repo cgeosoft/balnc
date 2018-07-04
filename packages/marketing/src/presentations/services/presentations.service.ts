@@ -1,21 +1,14 @@
-
-(window as any).process = {
-  env: {
-    DEBUG: undefined
-  },
-};
-
-import { Subject ,  Observable, } from "rxjs"
-import { RxCollection, RxReplicationState, RxDocumentBase } from "rxdb"
 import { Injectable } from "@angular/core"
 import { ActivatedRouteSnapshot, Resolve } from "@angular/router"
+import { Subject ,  Observable, } from "rxjs"
+import { RxCollection, RxReplicationState, RxDocumentBase } from "rxdb"
 
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { PresentationSchema, RxPresentationDocument } from "@balnc/marketing/presentations/data/presentation"
-import { DatabaseService } from "@balnc/common/services/database.service";
-import { Entity } from "@balnc/common/models/entity";
+import { Entity,DatabaseService } from "@balnc/common";
+
+import { PresentationSchema, RxPresentationDocument } from "../models/presentation"
 
 const entities: Entity[] = [{
   name: 'presentation',

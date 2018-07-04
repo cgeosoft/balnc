@@ -1,7 +1,7 @@
-<app-content>
-  <app-content-header title="Presentations" icon="desktop"></app-content-header>
+<common-content>
+  <common-content-header title="Presentations" icon="desktop"></common-content-header>
 
-  <app-content-body>
+  <common-content-body>
 
     <div class="btn-toolbar">
       <div class="btn-group mr-2">
@@ -64,10 +64,10 @@
     </ng-container>
 
     <ng-template #noItems>
-      <app-empty message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></app-empty>
+      <common-empty message="You don't have any presentations yet" submessage="Click create to add your first one" icon="desktop"></common-empty>
     </ng-template>
     <ng-template #loader>
-      <app-loader></app-loader>
+      <common-loader></common-loader>
     </ng-template>
     <ng-template #noImg>
       <div class="img-empty">
@@ -77,5 +77,5 @@
     <ng-template #noPages>
       -
     </ng-template>
-  </app-content-body>
-</app-content>
+  </common-content-body>
+</common-content>
