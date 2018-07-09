@@ -14,17 +14,7 @@ import { OverviewComponent } from './components/overview/overview.component'
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{
-      path: 'presentations',
-      resolve: {
-        service: PresentationsService
-      },
-      children: [
-        { path: 'overview', component: OverviewComponent },
-        { path: ':id', component: ItemComponent },
-        { path: '', redirectTo: "overview" },
-      ]
-    }]),
+    RouterModule,
   ],
   declarations: [
     OverviewComponent,

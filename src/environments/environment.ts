@@ -32,22 +32,22 @@ export const environment: any = {
       "id": "presentations",
       "label": "Presentations",
       "icon": "desktop",
-      "path": "/marketing/presentations"
+      "path": "/presentations"
     }, {
       "id": "analytics",
       "label": "analytics",
       "icon": "desktop",
-      "path": "/marketing/analytics"
+      "path": "/analytics"
     }, {
       "id": "polls",
       "label": "polls",
       "icon": "desktop",
-      "path": "/marketing/polls"
+      "path": "/polls"
     }, {
       "id": "emails",
       "label": "emails",
       "icon": "desktop",
-      "path": "/marketing/emails"
+      "path": "/emails"
     }],
     "config": null
   }, {
@@ -58,12 +58,12 @@ export const environment: any = {
       "id": "projects",
       "label": "Projects",
       "icon": "cubes",
-      "path": "/teams/projects"
+      "path": "/projects"
     }, {
       "id": "boards",
       "label": "Message Boards",
       "icon": "comments:regular",
-      "path": "/teams/boards"
+      "path": "/boards"
     }],
     "config": null
   }, {

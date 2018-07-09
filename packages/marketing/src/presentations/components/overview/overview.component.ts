@@ -28,7 +28,7 @@ export class OverviewComponent implements OnInit {
   }
 
   async load() {
-    this.presentations = await this.presentationsService.getPresentations()
+    // this.presentations = await this.presentationsService.getPresentations()
   }
 
   refresh() {

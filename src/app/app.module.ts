@@ -31,10 +31,7 @@ import { PresentationsModule, PresentationsRoutes } from '@balnc/marketing'
       children: [
         ...DashboardRoutes,
         ...SettingsRoutes,
-        {
-          path: '',
-          children: PresentationsRoutes,
-        }
+        ...PresentationsRoutes,
       ],
     }, {
       path: 'setup',

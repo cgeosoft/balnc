@@ -12,10 +12,7 @@ import { ConfigService, Profile } from '@balnc/common'
 })
 export class MainComponent implements OnInit {
 
-  @ViewChild('pageLoader')
   profile: Profile
-
-  pageLoader: ElementRef
   smClosed: boolean
 
   profileName: string
@@ -25,6 +22,8 @@ export class MainComponent implements OnInit {
   networkStatus = navigator.onLine
   databaseStatus = false
   isOnline = false
+
+  pageLoading = false
 
   constructor(
     private router: Router,
@@ -81,9 +80,7 @@ export class MainComponent implements OnInit {
 
   private _navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
-      this.ngZone.runOutsideAngular(() => {
-        this.renderer.addClass(this.pageLoader.nativeElement, 'active')
-      })
+      this.pageLoading = true
     }
     if (event instanceof NavigationEnd) {
       this._hideSpinner()
@@ -98,8 +95,8 @@ export class MainComponent implements OnInit {
   }
 
   private _hideSpinner(): void {
-    this.ngZone.runOutsideAngular(() => {
-      this.renderer.removeClass(this.pageLoader.nativeElement, 'active')
-    })
+    setTimeout(() => {
+      this.pageLoading = false
+    }, 3000);
   }
 }

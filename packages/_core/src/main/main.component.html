@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-  <div #pageLoader class="page-loader">
+  <div *ngIf="pageLoading" class="page-loader">
     <common-loader animation="sk-cube"></common-loader>
   </div>
   <router-outlet></router-outlet>
