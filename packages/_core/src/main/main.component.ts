@@ -40,6 +40,9 @@ export class MainComponent implements OnInit {
   menu: any[] = []
 
   ngOnInit() {
+
+    this.version = this.configService.version
+
     this.profile = this.configService.getProfile()
 
     if (this.profile) {

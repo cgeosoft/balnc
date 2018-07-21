@@ -120,11 +120,13 @@
     }
   }
   .statusbar {
+    @extend .d-flex;
     background: $color-primary;
     height: 20px;
     font-size: .6rem;
     color: #eee;
     .statusbar-item {
+      @extend .align-self-end;
       .fab,
       .fa {
         font-size: .5rem;
