@@ -1,0 +1,133 @@
+<common-content>
+  <common-content-header [title]="presentation?.title" subtitle="Presentation" icon="angle-left" route="/marketing/presentations"
+    [tabsMenu]="tabsMenu"></common-content-header>
+  <common-content-body *ngIf="tabsMenu.active === 'overview'">
+    <ng-container *ngIf="presentation; else loader">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-2">
+            <div class="card-body">
+              <dl>
+                <dt>Description
+                  <a href="javascript:void(0)" class="descCollToggle" (click)="descOpen = !descOpen">
+                    <span *ngIf="descOpen">
+                      <span class="fa fa-angle-double-up"></span> LESS
+                    </span>
+                    <span *ngIf="!descOpen">
+                      <span class="fa fa-angle-double-down"></span> MORE
+                    </span>
+                  </a>
+                </dt>
+                <dd class="descColl" [ngClass]="{'open':descOpen}">
+                  {{presentation.description}}
+                </dd>
+                <dt>Statistics</dt>
+                <dd>
+                  <ul class="list-unstyled">
+                    <li>Version
+                      <strong>{{presentation | docVersion}}</strong> with last edit
+                      <strong>{{presentation.dateUpdated | amTimeAgo}}</strong>
+                    </li>
+                    <li>Total
+                      <strong>{{presentation.pages.length}}</strong> pages
+                    </li>
+                    <li>Total
+                      <strong>{{presentation.stats.filecount}}</strong> files of
+                      <strong>{{presentation.stats.filesize | bytes:0}}</strong> size
+                    </li>
+                  </ul>
+                </dd>
+              </dl>
+            </div>
+          </div>
+          <div class="card card-primary">
+            <div class="card-header">
+              Pages
+              <div class="card-header-buttons">
+                <button class="btn btn-outline-primary" (click)="addPage()">
+                  <span class="fa fa-plus fa-fw"></span> Add
+                </button>
+              </div>
+            </div>
+
+            <common-empty class="m-0" *ngIf="!presentation.pages.length" message="No pages were found"></common-empty>
+
+            <div class="list-group list-group-flush" style="height: 230px;overflow-y:scroll" *ngIf="presentation.pages.length">
+              <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item p-2"
+                *ngFor="let page of presentation.pages; let i = index;">
+                {{page.title}}
+                <small class="pull-right">#{{i+1}}</small>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+
+          <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <ng-container *ngFor="let _p of presentation.pages">
+                <div class="carousel-item">
+                </div>
+              </ng-container>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+          <div class="card">
+            <common-empty *ngIf="!presentation.pages.length" message="No pages were found"></common-empty>
+
+            <div *ngIf="presentation.pages">
+              <div *ngIf="presentation.pages[activePageIndex]">
+                <div class="card-header">
+                  {{presentation.pages[activePageIndex].title}}
+                  <small class="text-secondary">#{{activePageIndex+1}}</small>
+                  <div class="card-header-buttons">
+                    <div ngbDropdown placement="bottom-right" class="d-inline-block">
+                      <button class="btn btn-link text-secondary dropdown-toggle-hidden" ngbDropdownToggle>
+                        <span class="fa fa-bars"></span>
+                      </button>
+                      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                        <button class="dropdown-item text-danger" (click)="deletePage(activePageIndex)">
+                          <span class="fa fa-trash-o"></span> Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center bg-secondary" *ngIf="presentation.pages[activePageIndex].type=='BGIMG' && imageData">
+                  <img class="img-fluid" [src]="imageData">
+                </div>
+                <div class="card-body" *ngIf="presentation.pages[activePageIndex].description">
+                  {{presentation.pages[activePageIndex].description}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </common-content-body>
+
+  <common-content-body *ngIf="tabsMenu.active === 'slides'">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, ex. Asperiores aperiam iure soluta maiores! Doloremque, incidunt.
+    Repellendus laborum ex perferendis, voluptas illo labore vel ducimus, ipsa voluptate blanditiis esse.
+  </common-content-body>
+
+  <common-content-body *ngIf="tabsMenu.active === 'settings'"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, ex. Asperiores aperiam iure soluta maiores! Doloremque,
+    incidunt. Repellendus laborum ex perferendis, voluptas illo labore vel ducimus, ipsa voluptate blanditiis esse.
+
+  </common-content-body>
+
+  <ng-template #loader>
+    <common-loader></common-loader>
+  </ng-template>
+  <common-debug [data]="presentation"></common-debug>
+</common-content>

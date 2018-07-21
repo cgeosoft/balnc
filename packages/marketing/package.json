@@ -1,0 +1,8 @@
+{
+  "name": "@balnc/marketing",
+  "version": "0.0.0",
+  "peerDependencies": {
+    "@angular/common": "^6.0.5",
+    "@angular/core": "^6.0.5"
+  }
+}

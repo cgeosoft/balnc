@@ -1,10 +1,10 @@
-import * as _modules from '../modules/modules.json'
+// import * as _modules from '../../../modules/modules.json'
 import * as _package from '../../package.json'
 
-export const ENV: any = {
+export const environment: any = {
   isProd: true,
-  modules: _modules["modules"],
+  modules: {}, //_modules["modules"],
   version: _package["version"],
 }
 
-export default ENV
+export default environment

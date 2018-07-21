@@ -1,0 +1,134 @@
+@import "./scss/bootstrap";
+@import "./scss/functions";
+@import "./scss/variables";
+$color-sidebar-background: lighten($color-background, 5);
+$color-sidebar-font: #FFF;
+:host {
+  height: 100%;
+  .sidebar {
+    @extend .p-2;
+    height: 100%;
+    min-width: 200px;
+    width: 200px;
+    background: $color-sidebar-background;
+    .form-control-search {
+      background: none;
+      border: solid 1px lighten($color-sidebar-background, 20);
+      color: $color-sidebar-font;
+      transition: border .7s;
+      margin-bottom: 1rem;
+      &:focus {
+        border-color: $color-sidebar-font;
+      }
+      &::placeholder {
+        color: lighten($color-sidebar-font, 20);
+      }
+    }
+    &::-webkit-scrollbar-track {
+      background-color: none;
+    }
+    &::-webkit-scrollbar {
+      width: 3px;
+      background-color: none;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: darken($color-sidebar-background, 5);
+    }
+  }
+}
+
+:host /deep/ .menu {
+  overflow-y: auto;
+  margin: 0 0 .5rem;
+  padding: 0;
+  color: #aaa;
+  .header {
+    @extend .mb-2;
+    h4 {
+      @extend .m-0;
+      @extend .p-0;
+      font-weight: 300;
+      color: #aaa;
+      .fa {
+        font-size: .8rem;
+      }
+    }
+    button {
+      @extend .btn;
+      @extend .btn-sm;
+      @extend .btn-link;
+      padding: .2rem;
+      font-size: .8rem;
+      color: #aaa;
+    }
+  }
+  .items {
+    a,
+    button {
+      outline: none;
+      background: none;
+      border-radius: 3px;
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      text-decoration: none;
+      padding: .1rem .3rem;
+      color: #aaa;
+      margin: 0 0 .1rem;
+      border: none;
+      width: 100%;
+      text-align: left;
+      .fa {
+        font-size: .7rem;
+        color: #999;
+      }
+      .badge {
+        margin: .2rem 0;
+      }
+      &.active {
+        background: lighten($color-sidebar-background, 10%);
+        color: #FFF;
+      }
+      &:hover {
+        background: lighten($color-sidebar-background, 5%);
+        cursor: pointer;
+        color: #FFF;
+        .fa {
+          color: #AAA;
+        }
+      }
+      &:disabled {
+        cursor: not-allowed;
+        color: #666;
+        background: $color-sidebar-background;
+        .fa {
+          color: #666;
+        }
+      }
+      &.media {
+        .img-thumbnail {
+          float: left;
+          margin: .3rem .3rem .3rem 0;
+          background: none;
+          width: 2rem;
+          text-align: center;
+          padding: 0;
+          border-radius: 2rem;
+          line-height: 2rem;
+          .fa {
+            font-size: 1rem;
+          }
+        }
+        small {
+          display: block;
+          font-size: .7rem;
+          color: rgba(255, 255, 225, 0.33);
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+}

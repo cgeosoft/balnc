@@ -1,0 +1,75 @@
+@import "./scss/bootstrap";
+:host {
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .justify-content-center;
+  min-height: 3.5rem;
+  background: darken($body-bg, 1%);
+  color: $body-color;
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: solid 1px darken($body-bg, 2%);
+  padding-top: .5rem;
+  .header-title-bar {
+    @extend .d-flex;
+    @extend .flex-row;
+    @extend .align-items-start;
+    height: 52px;
+    padding-bottom: .5rem;
+    .header-icon {
+      color: lighten($body-color, 2%);
+      border-right: solid 1px lighten($body-color, 2%);
+      padding: 0 .75rem;
+      margin-right: 1rem;
+      font-size: 30px;
+    }
+    .header-body {
+      @extend .d-flex;
+      @extend .flex-column;
+      @extend .justify-content-center;
+      height: 100%;
+      h1 {
+        color: $body-color;
+        font-size: 1.3rem;
+        margin: 0;
+        font-weight: normal;
+      }
+      ul {
+        color: $body-color;
+        margin: 0;
+        font-size: .6rem;
+      }
+    }
+    .header-menu {
+      @extend .ml-auto;
+      .dropdown-toggle {
+        .fa {
+          @extend .text-muted;
+        }
+      }
+    }
+    &.has-tabs {
+      padding-bottom: 0;
+    }
+  }
+  .header-menu-tab {
+    margin-top: .7rem;
+    .nav-tabs {
+      border-bottom: none;
+      .nav-item {
+        .nav-link {
+          color: #666;
+          &.active {
+            color: #333;
+          }
+        }
+      }
+    }
+  }
+}
+
+.dropdown-toggle {
+  &::after {
+    display: none;
+  }
+}

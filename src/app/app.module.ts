@@ -2,63 +2,64 @@ import { NgModule, APP_INITIALIZER } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ServiceWorkerModule } from '@angular/service-worker'
-import { RouterModule, PreloadAllModules, Routes } from '@angular/router'
+import { RouterModule, PreloadAllModules } from '@angular/router'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { MarkdownModule } from 'ngx-md'
 import { ToastrModule } from 'ngx-toastr'
 
-import { CommonModule } from '@balnc/common/common.module'
-import { CoreModule } from '@balnc/core/core.module'
+import { AppComponent } from './app.component';
+import ENV from '../environments/environment';
 
-import { AppComponent } from './app.component'
-import { DatabaseService } from '@balnc/common/services/database.service'
-import { ConfigService } from '@balnc/common/services/config.service'
-import { ProfileService } from '@balnc/core/profile/services/profile.service'
-import { ENV } from 'environments/environment'
+import { CommonModule, DatabaseService, ConfigService, ConfigGuard } from '@balnc/common'
+import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRoutes } from '@balnc/core'
+import { PresentationsModule, PresentationsRoutes } from '@balnc/marketing'
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule.forRoot(),
-    ENV.isProd ? ServiceWorkerModule.register('ngsw-worker.js') : [],
+    // ENV.isProd ? ServiceWorkerModule.register('ngsw-worker.js') : [],
     ToastrModule.forRoot({
       positionClass: "toast-bottom-center"
     }),
-    RouterModule.forRoot([], {
-      // enableTracing: true,
-      // preloadingStrategy: PreloadAllModules,
-    }),
+    RouterModule.forRoot([{
+      path: '',
+      component: MainComponent,
+      canActivate: [
+        // ConfigGuard,
+      ],
+      children: [
+        ...DashboardRoutes,
+        ...SettingsRoutes,
+        ...PresentationsRoutes,
+      ],
+    }, {
+      path: 'setup',
+      component: SetupComponent,
+    }, {
+      path: '',
+      pathMatch: "full",
+      redirectTo: "/dashboard"
+    }], {
+        // enableTracing: true,
+      }),
     CommonModule,
     CoreModule,
+    PresentationsModule,
   ],
-  declarations: [
-    AppComponent
-  ],
-  bootstrap: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
   providers: [
     DatabaseService,
     ConfigService,
-    ProfileService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (databaseService: DatabaseService, profileService: ProfileService, configService: ConfigService) => async () => {
-        configService.setup()
-        profileService.setup()
-        const profile = profileService.getCurrent()
-        if (profile) {
-          configService.profile = profile
-          await databaseService.setup(profile)
-        }
+      useFactory: (configService: ConfigService) => async () => {
+        configService.setup(ENV)
       },
-      deps: [DatabaseService, ProfileService, ConfigService],
+      deps: [ConfigService],
       multi: true,
     }
   ],
-  // exports: [
-  //   CommonModule,
-  // ]
 })
 export class AppModule { }

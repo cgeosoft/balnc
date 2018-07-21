@@ -1,0 +1,5 @@
+@import "./scss/bootstrap";
+:host {
+  @extend .d-flex;
+  width: 100%;
+}
