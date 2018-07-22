@@ -1,8 +1,0 @@
-@import "./scss/bootstrap";
-:host {
-  @extend .d-flex;
-  @extend .flex-column;
-  @extend .justify-content-start;
-  height: 100%;
-  width: 100%;
-}

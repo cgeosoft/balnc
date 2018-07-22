@@ -38,6 +38,11 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "scss"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -112,66 +117,6 @@
             "exclude": [
               "**/node_modules/**"
             ]
-          }
-        }
-      }
-    },
-    "common": {
-      "root": "packages/_common",
-      "sourceRoot": "packages/_common/src",
-      "projectType": "library",
-      "prefix": "common",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "packages/_common/tsconfig.lib.json",
-            "project": "packages/_common/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "project": "packages/_common/ng-package.prod.json"
-            }
-          }
-        }
-      }
-    },
-    "core": {
-      "root": "packages/_core",
-      "sourceRoot": "packages/_core/src",
-      "projectType": "library",
-      "prefix": "core",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "packages/_core/tsconfig.lib.json",
-            "project": "packages/_core/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "project": "packages/_core/ng-package.prod.json"
-            }
-          }
-        }
-      }
-    },
-    "marketing": {
-      "root": "packages/marketing",
-      "sourceRoot": "packages/marketing/src",
-      "projectType": "library",
-      "prefix": "marketing",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "packages/marketing/tsconfig.lib.json",
-            "project": "packages/marketing/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "project": "packages/marketing/ng-package.prod.json"
-            }
           }
         }
       }

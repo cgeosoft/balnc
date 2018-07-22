@@ -1,0 +1,165 @@
+@import "components/bootstrap";
+@import "themes/variables";
+:host {
+  @extend .d-flex;
+  @extend .flex-column;
+  height: 100%;
+  overflow: hidden;
+  .wrapper {
+    @extend .d-flex;
+    @extend .flex-row;
+    .sidemenu {
+      @extend .d-flex;
+      @extend .flex-column;
+      @extend .justify-content-start;
+      text-align: center;
+      width: 50px;
+      z-index: 1000;
+      background: $body-bg;
+      transition: width .5s;
+      overflow: hidden;
+      .logo {
+        margin: .7rem .5rem;
+        .fa {
+          text-shadow: none;
+          line-height: 2rem;
+          font-size: 1rem;
+          display: block;
+          color: #FFF;
+          background: $primary;
+          border-radius: 21px;
+        }
+      }
+      .items {
+        @extend .d-flex;
+        @extend .flex-column;
+        @extend .justify-content-start;
+        overflow-y: auto;
+        height: 100%;
+        &::-webkit-scrollbar-track {
+          background-color: none;
+        }
+        &::-webkit-scrollbar {
+          width: 3px;
+          background-color: none;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: darken($body-bg, 5);
+        }
+        .item {
+          display: block;
+          &.menu {
+            transition: color .7s;
+            .fa {
+              line-height: 1rem;
+              font-size: 1rem;
+            }
+            .label {
+              font-size: .8rem;
+              display: none;
+            }
+            >a {
+              display: block;
+              transition: background-color .7s;
+              text-decoration: none;
+              height: 40px;
+              color: lighten($body-bg, 30);
+              text-align: center;
+              line-height: 40px;
+              border-left: solid 2px rgba($color: #000000, $alpha: 0);
+              margin-bottom: 2px;
+              &:hover {
+                color: #FFF;
+              }
+            }
+            &.active {
+              >a {
+                border-color: $primary;
+                color: #FFF;
+              }
+            }
+            &.highlight {
+              >a {
+                color: #FFF;
+                span {
+                  margin: 0
+                }
+              }
+            }
+          }
+        }
+      }
+      &.closed {
+        width: 0;
+      }
+    }
+    .page-loader {
+      position: absolute;
+      opacity: .8;
+      background: #ffffff85;
+      z-index: 100;
+      width: 100%;
+      height: 100%;
+      transition: opacity 1s;
+    }
+    >:last-child {
+      width: 100%;
+    }
+    .toggle {
+      position: absolute;
+      background: $body-bg;
+      bottom: 25px;
+      left: 5px;
+      color: #FFF;
+      border-radius: 20px;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+    }
+  }
+  .statusbar {
+    @extend .d-flex;
+    background: $primary;
+    height: 20px;
+    font-size: .6rem;
+    color: #eee;
+    .statusbar-item {
+      @extend .align-self-end;
+      .fab,
+      .fa {
+        font-size: .5rem;
+      }
+      .statusbar-item-content {
+        padding: 0 7px;
+        line-height: 21px;
+      }
+      .btn {
+        font-size: .6rem;
+        padding: 0 7px;
+        height: 100%;
+        background: none;
+        border: none;
+        color: #eee;
+        border-radius: 0;
+        line-height: 21px;
+        &:hover {
+          background: darken($primary, 10%);
+        }
+      }
+      &.statusbar-item-divider {
+        &:after {
+          content: "";
+          height: 10px;
+          background: darken($primary, 5%);
+          display: block;
+          width: 1px;
+          margin-top: 5px;
+        }
+      }
+    }
+    .dropup .dropdown-toggle::after {
+      display: none;
+    }
+  }
+}

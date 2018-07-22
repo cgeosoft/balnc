@@ -1,16 +1,10 @@
-@import "./scss/functions";
-@import "./scss/variables";
-@import "./scss/bootstrap";
-@import "./scss/core";
-@import "./scss/content";
-@import "./scss/centerbox";
-@import "./scss/invoice";
-@import "./scss/chat";
-@import "./scss/table-max";
-
-@import "~ngx-toastr/toastr-bs4-alert";
-@import "scss/themes/theme";
-
-@import "slate/variables";
-@import "../components/all";
-@import "slate/template";
+@import "themes/variables";
+@import "components/bootstrap";
+@import "themes/template";
+@import "components/functions";
+@import "components/core";
+@import "components/content";
+@import "components/centerbox";
+@import "components/invoice";
+@import "components/chat";
+@import "components/table-max";

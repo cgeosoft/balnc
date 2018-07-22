@@ -18,25 +18,25 @@
     ],
     "paths": {
       "@balnc/common": [
-        "packages/_common"
+        "src/packages/_common"
       ],
       "@balnc/core": [
-        "packages/_core"
+        "src/packages/_core"
       ],
       "@balnc/marketing": [
-        "packages/marketing"
+        "src/packages/marketing"
       ],
       "@balnc/business/*": [
-        "packages/business/*"
+        "src/packages/business/*"
       ],
       "@balnc/teams/*": [
-        "packages/teams/*"
+        "src/packages/teams/*"
       ],
       "@balnc/booking/*": [
-        "packages/booking/*"
+        "src/packages/booking/*"
       ],
       "@balnc/report/*": [
-        "packages/report/*"
+        "src/packages/report/*"
       ],
       "environments/*": [
         "environments/*"
