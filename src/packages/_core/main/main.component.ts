@@ -46,7 +46,7 @@ export class MainComponent implements OnInit {
     this.profile = this.configService.getProfile()
 
     if (this.profile) {
-      this.menu = this.configService.getMainMenu(this.profile)
+      this.menu = this.configService.getMainMenu()
     }
 
     this.smClosed = localStorage.getItem("smClosed") === "true"
@@ -98,8 +98,6 @@ export class MainComponent implements OnInit {
   }
 
   private _hideSpinner(): void {
-    setTimeout(() => {
-      this.pageLoading = false
-    }, 3000);
+    this.pageLoading = false
   }
 }

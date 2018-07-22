@@ -1,12 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router'
-import { reduce } from 'rxjs/operators'
-import { Component, Input, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core'
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
-import { RxDocumentBase } from 'rxdb'
-import { Observable } from 'rxjs'
-
-import * as _ from 'lodash'
+import { Component,  OnInit, ElementRef, ViewChild } from '@angular/core'
+import { FormGroup } from '@angular/forms'
 
 import { BalncModule, DatabaseService, ConfigService, Profile } from '@balnc/common'
 
@@ -20,10 +14,13 @@ export class ProfileComponent implements OnInit {
     @ViewChild("name") name: ElementRef
     @ViewChild("alias") alias: ElementRef
 
+    profileName:string
+profileAlias:string
+
     modules: BalncModule[]
     activeModules: any = {}
+    profile: Profile
     profileEdit: Profile
-    profileName: string
     form: FormGroup
     deleteData = false
     deleteDataRemote = false
@@ -31,7 +28,6 @@ export class ProfileComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private formBuilder: FormBuilder,
         private configService: ConfigService,
         private databaseService: DatabaseService,
     ) { }
@@ -48,30 +44,27 @@ export class ProfileComponent implements OnInit {
 
     setup(alias: string = null) {
         if (alias) {
-            const profile = this.configService.getProfile(alias)
-            this.profileName = profile.name
-            this.profileEdit = { ...profile }
+            this.profile = this.configService.getProfile(alias)
+            this.profileName=this.profile.name
+            this.profileAlias=this.profile.alias
+            this.profileEdit = { ...this.profile }
             this.profileEdit.remote = this.profileEdit.remote || {}
-            this.activeModules = Object.keys(profile.modules).reduce((x, i) => {
-                x[i] = profile.modules[i].enabled
+            this.activeModules = Object.keys(this.profile.modules).reduce((x, i) => {
+                x[i] = this.profile.modules[i].enabled
                 return x
             }, {})
         } else {
-            this.profileName = "New Profile"
             this.profileEdit = {
-                alias: "",
+                name: "New Profile",
+                alias: null,
                 remote: {},
                 modules: [],
-                name: "",
             }
         }
     }
 
     save() {
-        // const alias = this.configService.saveProfile(this.profileEdit)
-        if (this.profileEdit.alias) {
-            this.router.navigate(['/profile', this.profileEdit.alias])
-        }
+        this.configService.saveProfile(this.profileEdit)
     }
 
     async backup() {

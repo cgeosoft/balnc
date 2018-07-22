@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.config = this.configService.config
     this.profile = this.configService.getProfile()
-    this.menu = this.configService.getMainMenu(this.profile)
+    this.menu = this.configService.getMainMenu()
   }
 
   ngOnDestroy() {

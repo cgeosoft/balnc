@@ -23,6 +23,7 @@ import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
 
 // import { ENV } from 'environments/environment'
 import { Entity } from "../models/entity"
+import { ConfigService } from './config.service';
 
 RxDB.QueryChangeDetector.enable()
 
@@ -48,27 +49,24 @@ export class DatabaseService {
 
     private db: RxDatabase = null
     private entities: { [key: string]: Entity } = {}
-    private hadAuthed = false
     private adapter = null
     private replicationStates: { [key: string]: RxReplicationState } = {}
 
-    private config: any
-
     constructor(
         private http: HttpClient,
-        // private profileService: ProfileService,
+        private configService: ConfigService,
     ) { }
 
     async load(entities: Entity[]) {
-        console.log("[DatabaseService]", "setup entities", entities, this.config.prefix, "loadedEntities", this.entities)
+        console.log("[DatabaseService]", "setup entities", entities, this.configService.profile.alias, "loadedEntities", this.entities)
         for (const entity of entities) {
             if (this.entityLoaded(entity.name)) { return }
             await this.db.collection({
-                name: `${this.config.prefix}/${entity.name}`,
+                name: `${this.configService.profile.alias}/${entity.name}`,
                 schema: entity.schema,
                 migrationStrategies: entity.migrationStrategies || {}
             })
-            this.entities[`${this.config.prefix}/${entity.name}`] = entity
+            this.entities[`${this.configService.profile.alias}/${entity.name}`] = entity
         }
         this.sync()
     }
@@ -77,10 +75,10 @@ export class DatabaseService {
         Object.keys(this.entities).forEach((key) => {
             const entity = this.entities[key]
 
-            if (entity.sync && this.config.host) {
+            if (entity.sync && this.configService.profile.remote && this.configService.profile.remote.host) {
                 const ent: RxCollection<any> = this.db[key]
                 this.replicationStates[key] = ent.sync({
-                    remote: `${this.config.host}/${this.config.prefix}-${entity.name}/`,
+                    remote: `${this.configService.profile.remote.host}/${this.configService.profile.remote.prefix}-${entity.name}/`,
                     options: {
                         live: true,
                         retry: true
@@ -99,19 +97,17 @@ export class DatabaseService {
     }
 
     async get<T>(name: string): Promise<RxCollection<T>> {
-        return this.db[`${this.config.prefix}/${name}`]
+        return this.db[`${this.configService.profile.alias}/${name}`]
     }
 
     private entityLoaded(name) {
         const entity = Object.keys(this.entities).findIndex((e) => {
-            return e === `${this.config.prefix}/${name}`
+            return e === `${this.configService.profile.alias}/${name}`
         })
         return entity !== -1
     }
 
-    async setup(profile: any) {
-        this.config = profile.remote || {}
-
+    async setup() {
         console.log("[DatabaseService]", "initializing...")
 
         if (!this.db) {
@@ -122,11 +118,11 @@ export class DatabaseService {
             })
         }
 
-        console.log("[DatabaseService]", "Initialized with profile:", profile)
+        console.log("[DatabaseService]", "Initialized")
     }
 
     async authenticate(username: string, password: string) {
-        const resp = await this.http.post(`${this.config.host}/_session`, {
+        const resp = await this.http.post(`${this.configService.profile.remote.host}/_session`, {
             name: username,
             password: password,
         }, { withCredentials: true })

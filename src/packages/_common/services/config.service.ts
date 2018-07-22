@@ -1,12 +1,7 @@
-import { Injectable, Injector } from '@angular/core'
-import { reduce } from 'rxjs/operators'
-import { Router, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router'
-import { Route } from '@angular/compiler/src/core'
-
-import * as _ from 'lodash'
+import { Injectable } from '@angular/core'
+import { LocalStorage } from 'ngx-store';
 
 import { HelperService } from '../services/helper.service'
-
 import { BalncModule } from '../models/balnc-module'
 import { Profile } from '../models/profile'
 
@@ -17,43 +12,43 @@ export class ConfigService {
     public config: any = null
     public modules: BalncModule[] = null
 
-    public profile: any = null
+    @LocalStorage() username: string
+    @LocalStorage() roles: string[] = []
 
-    public username: string
-    public roles: string[] = []
+    @LocalStorage() selected: string = ''
+    @LocalStorage() profiles: { [key: string]: Profile } = {}
 
-    public selected: string
-    public profiles: Profile[]
-
-    private _module = "@balnc/profiles"
-
+    public profile: Profile
 
     setup(env: any) {
         this.config = env.configuration
         this.modules = env.modules
         this.version = env.version
+
         console.log("[ConfigService]", "Initializing with env:", env)
-        this.load()
-        this.selected = localStorage.getItem(`${this._module}/selected`)
-        this.username = localStorage.getItem(`${this._module}/username`) || "none"
-        this.roles = JSON.parse(localStorage.getItem(`${this._module}/roles`) || "[]")
+        console.log("[ConfigService]", "Profiles available:", Object.values(this.profiles))
+
+        if (this.selected) {
+            this.profile = this.profiles[this.selected]
+            console.log("[ConfigService]", `Profile ${this.selected} laoded`)
+        }
     }
 
     getModuleConfig(moduleId: string) {
         return this.profile.modules[moduleId]
     }
 
-    getMainMenu(profile) {
+    getMainMenu() {
         const menu = this.modules
             .filter(m => {
-                return profile.modules &&
-                    profile.modules[m.id] &&
-                    profile.modules[m.id].enabled &&
+                return this.profile.modules &&
+                    this.profile.modules[m.id] &&
+                    this.profile.modules[m.id].enabled &&
                     m.menu
             })
             .map(m => {
                 return m.menu.filter(x => {
-                    return profile.modules[m.id].menu[x.id]
+                    return this.profile.modules[m.id].menu[x.id]
                 })
             })
             .reduce((supermenu, menus) => {
@@ -70,83 +65,50 @@ export class ConfigService {
     login(username: string, roles: string[]) {
         this.username = username
         this.roles = roles
-        localStorage.setItem(`${this._module}/username`, username)
-        localStorage.setItem(`${this._module}/roles`, JSON.stringify(roles))
     }
 
     logout() {
         this.username = null
         this.roles = []
-        localStorage.removeItem(`${this._module}/username`)
-        localStorage.removeItem(`${this._module}/roles`)
-    }
-
-    load() {
-        this.profiles = Object.keys(localStorage)
-            .filter(item => {
-                return item.indexOf(`${this._module}/profiles`) === 0
-            })
-            .map(item => {
-                return JSON.parse(localStorage[item])
-            })
-        console.log("Loaded profiles", this.profiles)
     }
 
     clearAllProfiles() {
-        localStorage.removeItem(`${this._module}/selected`)
-        this.profiles.forEach(profile => {
-            localStorage.removeItem(`${this._module}/profiles/${profile.alias}`)
-        })
         this.selected = null
-        this.profiles = []
+        this.profiles = {}
         window.location.reload()
     }
 
     selectProfile(alias: string) {
-        const profile = this.profiles.find(x => {
-            return x.alias === alias
-        })
-
-        if (!profile) {
-            throw new Error("Profile not found")
-        }
-        this.selected = profile.alias
-        localStorage.setItem(`${this._module}/selected`, profile.alias)
+        this.selected = alias
         window.location.reload()
     }
 
     saveProfile(profile: Profile): string {
+        let profiles = this.profiles
         if (!profile.alias) {
             const unique = new Date
             profile.alias = `${this.slugify(profile.name)}-${unique.getTime()}`
             profile.createdAt = unique.toISOString()
-            this.setStore(`profiles/${profile.alias}`, profile)
-            this.profiles.push(profile)
+            profiles[profile.alias] = profile
         } else {
-            let existingProfile = this.getProfile(profile.alias)
-            existingProfile = Object.assign(existingProfile, profile)
-            this.setStore(`profiles/${profile.alias}`, existingProfile)
+            profiles[profile.alias] = Object.assign(profiles[profile.alias], profile)
         }
+        this.profiles = profiles
+
+        if(this.selected === profile.alias){
+            window.location.reload()
+        }
+
         return profile.alias
     }
 
     getProfile(alias: string = null): Profile {
         alias = alias || this.selected
-        const profile = this.profiles.find(x => {
-            return x.alias === alias
-        })
-        return profile
+        return this.profiles[alias]
     }
 
     deleteProfile(alias: string) {
-        console.log(`${this._module}/profiles/${alias}`)
-        if (this.selected === alias) {
-            this.selected = null
-            localStorage.removeItem(`${this._module}/selected`)
-        }
-
-        localStorage.removeItem(`${this._module}/profiles/${alias}`)
-        this.load()
+        delete this.profiles[alias]
     }
 
     private slugify(text) {
@@ -156,15 +118,5 @@ export class ConfigService {
             .replace(/\-\-+/g, '-')         // Replace multiple - with single -
             .replace(/^-+/, '')             // Trim - from start of text
             .replace(/-+$/, '')            // Trim - from end of text
-    }
-
-    private getStore(name) {
-        const item = localStorage.getItem(`${this._module}/${name}`)
-        return (item) ? JSON.parse(item) : null
-    }
-
-    private setStore(name, value) {
-        const item = JSON.stringify(value)
-        return localStorage.setItem(`${this._module}/${name}`, item)
     }
 }

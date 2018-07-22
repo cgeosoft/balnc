@@ -23,7 +23,8 @@
     "build-libs": "run-p build-common build-core"
   },
   "dependencies": {
-    "ngx-moment": "^3.1.0"
+    "ngx-moment": "^3.1.0",
+    "ngx-store": "^2.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.8",

@@ -64,6 +64,9 @@ $color-sidebar-font: #FFF;
   .items {
     a,
     button {
+      @extend .d-flex;
+      @extend .flex-row;
+      @extend .align-items-center;
       outline: none;
       background: none;
       border-radius: 3px;
@@ -78,6 +81,9 @@ $color-sidebar-font: #FFF;
       border: none;
       width: 100%;
       text-align: left;
+      .item-icon {
+        @extend .mr-1;
+      }
       .fa {
         font-size: .7rem;
         color: #999;

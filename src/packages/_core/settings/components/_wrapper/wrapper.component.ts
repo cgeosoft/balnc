@@ -1,7 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { RxCollection } from 'rxdb'
-import { Router } from '@angular/router'
 import { FilePickerDirective, ReadFile } from 'ngx-file-helpers'
 
 import { ConfigService, Profile } from '@balnc/common'
@@ -20,8 +17,6 @@ export class WrapperComponent implements OnInit {
   error: string
 
   constructor(
-    private modalService: NgbModal,
-    private router: Router,
     private configService: ConfigService,
   ) { }
 
@@ -30,7 +25,7 @@ export class WrapperComponent implements OnInit {
   }
 
   load() {
-    this.profiles = this.configService.profiles
+    this.profiles = Object.values(this.configService.profiles)
     this.selected = this.configService.getProfile()
   }
 
@@ -39,10 +34,38 @@ export class WrapperComponent implements OnInit {
   }
 
   createDemo() {
-    // const alias = this.configService.createProfile({
-
-    // })
-    // this.configService.selectProfile(alias)
+    const alias = this.configService.saveProfile({
+      name: "Demo Company",
+      remote: {
+        prefix: "demo",
+        host: "https://s1.cgeosoft.com/couchdb",
+        username: "demo",
+        password: "demo"
+      },
+      modules: {
+        "@balnc/business": {
+          enabled: true,
+          menu: {
+            invoices: true
+          }
+        },
+        "@balnc/marketing": {
+          enabled: true,
+          menu: {
+            presentations: true
+          }
+        },
+        "@balnc/teams": {
+          enabled: true,
+          menu: {
+            projects: true,
+            boards: true
+          }
+        }
+      },
+      params: null
+    })
+    this.configService.selectProfile(alias)
   }
 
   onFilePicked(file: ReadFile) {

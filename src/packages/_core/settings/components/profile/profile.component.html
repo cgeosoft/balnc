@@ -1,9 +1,9 @@
 <common-content>
-  <common-content-header [title]="profileName" icon="cog"></common-content-header>
+  <common-content-header [title]="profileName" [subtitle]="profileAlias" icon="cog"></common-content-header>
   <common-content-body>
 
     <div class="row">
-      <div class="col-8 offset-2">
+      <div class="col-8">
         <fieldset>
           <h4>Configuration</h4>
           <div class="form-group">
@@ -115,6 +115,15 @@
             </div>
           </div>
         </fieldset>
+      </div>
+      <div class="col-lg-4">
+        <div class="card bg-info text-white">
+          <div class="card-body">
+            <h4 class="card-title">Title</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur similique consectetur adipisci placeat
+              nam autem magnam nulla molestiae et beatae quidem repellat, blanditiis odit vel, accusamus id in, aperiam ullam!</p>
+          </div>
+        </div>
       </div>
     </div>
 
