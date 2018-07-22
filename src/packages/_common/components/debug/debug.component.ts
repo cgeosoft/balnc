@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core'
 // import { ENV } from 'environments/environment.prod';
 
 @Component({
   selector: 'common-debug',
-  templateUrl: "./debug.component.html"
+  templateUrl: './debug.component.html'
 })
 export class DebugComponent implements OnInit {
 
@@ -12,9 +12,9 @@ export class DebugComponent implements OnInit {
 
   show
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit() {
+  ngOnInit () {
     // this.show = !ENV.isProd
   }
 

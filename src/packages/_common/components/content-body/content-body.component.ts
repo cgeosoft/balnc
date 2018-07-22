@@ -1,8 +1,8 @@
-import { Component, Input, HostBinding, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core'
 
 @Component({
   selector: 'common-content-body',
-  templateUrl: "./content-body.component.html",
+  templateUrl: './content-body.component.html',
   styleUrls: ['./content-body.component.scss']
 })
 export class ContentBodyComponent implements OnInit {
@@ -10,9 +10,9 @@ export class ContentBodyComponent implements OnInit {
   @Input() fullWidth = false
   // @HostBinding('class.container') container = true;
 
-  constructor(private cdRef: ChangeDetectorRef) { }
+  constructor (private cdRef: ChangeDetectorRef) { }
 
-  ngOnInit() {
+  ngOnInit () {
     // this.container = !this.fullWidth;
   }
 

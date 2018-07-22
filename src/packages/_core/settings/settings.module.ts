@@ -11,11 +11,11 @@ import { ProfileComponent } from './components/profile/profile.component'
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule,
+    RouterModule
   ],
   declarations: [
     WrapperComponent,
-    ProfileComponent,
+    ProfileComponent
   ],
   providers: [],
   entryComponents: []

@@ -13,11 +13,6 @@
   <div class="menu mb-4">
     <div class="header d-flex">
       <h4>Boards</h4>
-      <button class="ml-auto" (click)="load()">
-        <fa-layers class="fa-fw">
-          <fa-icon [icon]="['fas','sync-alt']"></fa-icon>
-        </fa-layers>
-      </button>
     </div>
     <div class="input-group input-group-sm mb-2">
       <input class="form-control" placeholder="New board" [(ngModel)]="newBoard">
@@ -26,7 +21,7 @@
       </div>
     </div>
     <div class="items">
-      <ng-container *ngIf="boards; else loader">
+      <ng-container *ngIf="(boards$ | async) as boards; else loader">
         <ng-container *ngIf="boards.length; else empty">
           <ng-template ngFor let-board [ngForOf]="boards">
             <a class="d-flex  align-items-center" [routerLink]="['/boards',board.name]" routerLinkActive="active">
@@ -45,7 +40,7 @@
         <common-empty board="No boards were found" icon="file-alt:regular" size='small'></common-empty>
       </ng-template>
       <ng-template #loader>
-        <common-loader animation="sk-cube" label="Loading boards"></common-loader>
+        <common-loader icon="file-alt:regular" label="Loading boards"></common-loader>
       </ng-template>
     </div>
   </div>

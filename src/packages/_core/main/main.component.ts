@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ElementRef, NgZone, Renderer2, ViewChild } from '@angular/core'
-import { fromEvent as observableFromEvent, Observable } from 'rxjs'
+import { Component, OnInit } from '@angular/core'
+import { fromEvent as observableFromEvent } from 'rxjs'
 import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 
@@ -8,7 +8,7 @@ import { ConfigService, Profile } from '@balnc/common'
 @Component({
   selector: 'core-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+  styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
 
@@ -25,21 +25,19 @@ export class MainComponent implements OnInit {
 
   pageLoading = false
 
-  constructor(
+  constructor (
     private router: Router,
-    private ngZone: NgZone,
     private configService: ConfigService,
-    private renderer: Renderer2,
-    private toastr: ToastrService,
+    private toastr: ToastrService
   ) {
-    router.events.subscribe((event: RouterEvent) => {
+    this.router.events.subscribe((event: RouterEvent) => {
       this._navigationInterceptor(event)
     })
   }
 
   menu: any[] = []
 
-  ngOnInit() {
+  ngOnInit () {
 
     this.version = this.configService.version
 
@@ -49,11 +47,11 @@ export class MainComponent implements OnInit {
       this.menu = this.configService.getMainMenu()
     }
 
-    this.smClosed = localStorage.getItem("smClosed") === "true"
+    this.smClosed = localStorage.getItem('smClosed') === 'true'
 
     if (this.profile) {
       this.profileName = this.profile.name
-      this.username = this.configService.username
+      this.username = this.configService.profile.remote.username
     }
 
     observableFromEvent(window, 'online')
@@ -71,17 +69,16 @@ export class MainComponent implements OnInit {
     this.setStatus()
   }
 
-  setStatus() {
+  setStatus () {
     this.isOnline = this.networkStatus && this.databaseStatus
   }
 
-
-  toggleSidemenu() {
+  toggleSidemenu () {
     this.smClosed = !this.smClosed
-    localStorage.setItem("smClosed", `${this.smClosed}`)
+    localStorage.setItem('smClosed', `${this.smClosed}`)
   }
 
-  private _navigationInterceptor(event: RouterEvent): void {
+  private _navigationInterceptor (event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.pageLoading = true
     }
@@ -93,11 +90,11 @@ export class MainComponent implements OnInit {
     }
     if (event instanceof NavigationError) {
       this._hideSpinner()
-      this.toastr.error('Could not load module. Check your internet connection', 'Load Failed');
+      this.toastr.error('Could not load module. Check your internet connection', 'Load Failed')
     }
   }
 
-  private _hideSpinner(): void {
+  private _hideSpinner (): void {
     this.pageLoading = false
   }
 }

@@ -1,15 +1,15 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { HelperService } from '../../services/helper.service';
+import { Component, Input, OnInit } from '@angular/core'
+import { HelperService } from '../../services/helper.service'
 
 @Component({
   selector: 'common-content-header',
-  templateUrl: "./content-header.component.html",
+  templateUrl: './content-header.component.html',
   styleUrls: ['./content-header.component.scss']
 })
 export class ContentHeaderComponent implements OnInit {
 
-  @Input() icon = "cubes"
-  @Input() title = "Page"
+  @Input() icon = 'cubes'
+  @Input() title = 'Page'
   @Input() subtitle = null
   @Input() details: any[] = []
   @Input() settingsMenu: any[] = []
@@ -19,9 +19,9 @@ export class ContentHeaderComponent implements OnInit {
 
   _icon: string[]
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit() {
+  ngOnInit () {
     this._icon = HelperService.getIcon(this.icon)
   }
 }

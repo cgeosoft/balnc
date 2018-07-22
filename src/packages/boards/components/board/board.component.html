@@ -3,7 +3,7 @@
   <common-content-body class="h-100">
     <div class="card d-flex h-100 w-100">
       <div #messageList class="card-body h-100">
-        <ng-container *ngIf="messages; else loader">
+        <ng-container *ngIf="(messages$ | async | filterBoard:board) as messages; else loader">
           <ng-container *ngIf="messages.length else empty">
             <ng-template ngFor let-m [ngForOf]="messages">
               <ng-container [ngSwitch]="m.type">

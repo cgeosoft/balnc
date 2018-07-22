@@ -1,7 +1,11 @@
-import { Component, NgZone, OnInit, ElementRef, ViewChild, Pipe, PipeTransform } from '@angular/core'
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 
-import { BoardService } from '../../services/board.service';
+import { BoardService } from '../../services/board.service'
+import { Subject,Subscription,Observable } from 'rxjs';
+
+import { Message } from '../../models/message'
+import { Board } from '../../models/board'
 
 @Component({
   selector: 'teams-boards-wrapper',
@@ -10,32 +14,30 @@ import { BoardService } from '../../services/board.service';
 })
 export class WrapperComponent implements OnInit {
 
-  boards: any[]
+  boards$: Observable<Board[]>
+  messages$: Observable<Message[]>
+    
   nickname: string
   newBoard: string
   unread: { [key: string]: number } = {}
 
-  constructor(
+  constructor (
     private boardService: BoardService,
     private router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.nickname = this.boardService.nickname
-    this.load()
+    this.boards$ = this.boardService.boards$
+    this.messages$ = this.boardService.messages$
   }
 
-  async load() {
-    this.boards = this.boardService.boards
-  }
-
-  async addBoard() {
+  async addBoard () {
     if (!this.newBoard) { return }
     await this.boardService.createBoard({
-      name: this.newBoard,
+      name: this.newBoard
     })
-    this.router.navigate(["/boards", this.newBoard])
+    this.router.navigate(['/boards', this.newBoard])
     this.newBoard = null
   }
-
 }

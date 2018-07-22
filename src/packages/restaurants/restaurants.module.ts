@@ -1,34 +1,34 @@
 import { NgModule,Component,OnInit } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { CommonModule } from '@balnc/common';
+import { CommonModule } from '@balnc/common'
 
 @Component({
-    selector: 'app-restaurants-client',
-    templateUrl: './client.component.html',
-    styleUrls: ['./client.component.scss'],
+  selector: 'app-restaurants-client',
+  templateUrl: './client.component.html',
+  styleUrls: ['./client.component.scss']
 })
 export class RestaurantsClientComponent implements OnInit {
 
-    constructor(
+  constructor (
     ) { }
 
-    ngOnInit() {
-    }
+  ngOnInit () {
+  }
 }
 
 const routes: Routes = [{
   path: 'restaurants-client',
-  component: RestaurantsClientComponent,
+  component: RestaurantsClientComponent
 }]
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(routes)
   ],
   declarations: [
-    RestaurantsClientComponent,
+    RestaurantsClientComponent
   ],
   providers: [
   ],

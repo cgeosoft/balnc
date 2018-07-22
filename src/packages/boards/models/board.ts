@@ -1,14 +1,14 @@
-import { Message } from './message';
+import { Message } from './message'
 import * as schema from './board.json'
-import { RxDocument } from 'rxdb';
+import { RxDocument } from 'rxdb'
 
 declare interface IBoard {
-    ref?: string
-    name?: string
-    members?: any[]
-    created?: number
-    lastMessage?: Message
-    avatar?: string
+  ref?: string
+  name?: string
+  members?: any[]
+  created?: number
+  lastMessage?: Message
+  avatar?: string
 }
 
 export type Board = IBoard

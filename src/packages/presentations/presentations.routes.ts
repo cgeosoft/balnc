@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes } from '@angular/router'
 
 import { OverviewComponent } from './components/overview/overview.component'
 import { ItemComponent } from './components/item/item.component'
@@ -8,6 +8,6 @@ export const PresentationsRoutes: Routes = [{
   children: [
     { path: 'overview', component: OverviewComponent },
     { path: ':id', component: ItemComponent },
-    { path: '', pathMatch: "full", redirectTo: "overview" },
+    { path: '', pathMatch: 'full', redirectTo: 'overview' }
   ]
 }]

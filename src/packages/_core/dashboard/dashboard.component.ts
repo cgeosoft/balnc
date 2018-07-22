@@ -12,16 +12,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   menu: any
   profile: any
   config: any
-  constructor(
-    private configService: ConfigService,
+  constructor (
+    private configService: ConfigService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.config = this.configService.config
     this.profile = this.configService.getProfile()
     this.menu = this.configService.getMainMenu()
   }
 
-  ngOnDestroy() {
+  ngOnDestroy () {
   }
 }

@@ -1,9 +1,9 @@
-import { Observable ,  Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs'
 import { Component, NgZone, OnInit, ElementRef, ViewChild, Pipe, PipeTransform } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 
 import { Message } from '../../models/message'
-import { BoardService } from '../../services/board.service';
+import { BoardService } from '../../services/board.service'
 
 @Component({
   selector: 'teams-boards-board',
@@ -12,8 +12,10 @@ import { BoardService } from '../../services/board.service';
 })
 export class BoardComponent implements OnInit {
 
-  @ViewChild('messageList') private messageList: ElementRef
-  @ViewChild('messageInput') private messageInput: ElementRef
+  @ViewChild('messageList') messageList: ElementRef
+  @ViewChild('messageInput') messageInput: ElementRef
+
+  messages$: Observable<Message[]>
 
   board: string
   messages: Message[]
@@ -21,20 +23,22 @@ export class BoardComponent implements OnInit {
   inputMessage: string
   nickname: string
 
-  constructor(
+  constructor (
     private boardService: BoardService,
     private route: ActivatedRoute,
-    private zone: NgZone,
+    private zone: NgZone
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.nickname = this.boardService.nickname
+    this.messages$ = this.boardService.messages$
     this.route.params.subscribe(params => {
-      this.load(params['board'])
+      this.board = params['board']
     })
+    this.messageInput.nativeElement.focus()
   }
 
-  public async send() {
+  public async send () {
 
     if (!this.inputMessage) { return }
 
@@ -42,7 +46,7 @@ export class BoardComponent implements OnInit {
       board: this.board,
       sender: this.nickname,
       text: this.inputMessage,
-      type: "MESSAGE"
+      type: 'MESSAGE'
     })
 
     this.inputMessage = null
@@ -52,14 +56,7 @@ export class BoardComponent implements OnInit {
     })
   }
 
-  private async load(board: string) {
-    this.board = board
-    await this.boardService.joinBoard(this.board)
-    this.messages = this.boardService.messages[this.board]
-    this.messageInput.nativeElement.focus()
-  }
-
-  scrollToBottom(): void {
+  scrollToBottom (): void {
     try {
       setTimeout(() => {
         this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
@@ -67,5 +64,12 @@ export class BoardComponent implements OnInit {
     } catch (err) {
       console.error(err)
     }
+  }
+}
+
+@Pipe({ name: 'filterBoard', pure: false })
+export class FilterBoardPipe implements PipeTransform {
+  transform (items: Message[], selectedBoard: string): Message[] {
+    return items.filter(item => item.board === selectedBoard)
   }
 }
