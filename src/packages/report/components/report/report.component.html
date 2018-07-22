@@ -28,7 +28,7 @@
         <fa-icon [icon]="['fas','database']"></fa-icon>
       </fa-layers>
       Execute</button>
-    <button class="btn btn-dark btn-block" (click)="resetFilters()" [disabled]="loading">
+    <button class="btn btn-secondary btn-block" (click)="resetFilters()" [disabled]="loading">
       <fa-layers class="fa-fw">
         <fa-icon [icon]="['fas','times']"></fa-icon>
       </fa-layers>
@@ -83,7 +83,7 @@
       <app-loader animation="sk-cube" label="Building Report..."></app-loader>
     </ng-template>
   </div>
-  <div class="d-flex flex-column p-4 bg-dark h-100 w-100" *ngIf="showQuery">
+  <div class="d-flex flex-column p-4 bg-secondary h-100 w-100" *ngIf="showQuery">
     <div class="container">
       <pre class="text-white">{{query}}</pre>
     </div>

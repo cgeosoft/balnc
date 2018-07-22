@@ -4,7 +4,7 @@
 
     <div class="row">
       <div class="col-8">
-        <fieldset>
+        <fieldset class="mb-4">
           <h4>Configuration</h4>
           <div class="form-group">
             <label>Profile Name
@@ -47,41 +47,39 @@
           </div>
         </fieldset>
 
-        <fieldset *ngIf="profileEdit.alias">
+        <fieldset *ngIf="profileEdit.alias" class="mb-4">
           <h4>Modules</h4>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item px-0" *ngFor="let module of modules">
-              <div class="d-flex align-items-center">
-                <div class="w-100">
-                  {{module.title}}
-                  <em>
-                    <small class="text-muted">{{module.id}}</small>
-                  </em>
-                  <small class="badge badge-success ml-2" *ngIf="activeModules[module.id]">ACTIVE</small>
-                  <br>
-                  <small class="text-muted" *ngIf="module.description">{{module.description}}</small>
-                </div>
-                <button type="button" class="btn btn-outline-dark btn-sm">
-                  <fa-layers class="fa-fw">
-                    <fa-icon [icon]="['fas','cog']"></fa-icon>
-                  </fa-layers>
-                </button>
+          <ul class="list-group">
+            <li class="list-group-item d-flex align-items-center" *ngFor="let module of modules">
+              <div class="w-100">
+                {{module.title}}
+                <em>
+                  <small class="text-muted">{{module.id}}</small>
+                </em>
+                <small class="badge badge-success ml-2" *ngIf="activeModules[module.id]">ACTIVE</small>
+                <br>
+                <small class="text-muted" *ngIf="module.description">{{module.description}}</small>
               </div>
+              <button type="button" class="btn btn-outline-primary btn-sm">
+                <fa-layers class="fa-fw">
+                  <fa-icon [icon]="['fas','cog']"></fa-icon>
+                </fa-layers>
+              </button>
             </li>
           </ul>
         </fieldset>
 
-        <fieldset *ngIf="profileEdit.alias">
+        <fieldset *ngIf="profileEdit.alias" class="mb-4">
           <h4>Backup / Restore</h4>
           <p>You may export all profile data to json format as a backup or to move them to more clients.</p>
           <div class="d-flex justify-content-center">
-            <button class="btn btn-outline-secondary mr-2" (click)="backup()" disabled>
+            <button class="btn btn-outline-primary mr-2" (click)="backup()" disabled>
               <fa-layers class="fa-fw">
                 <fa-icon [icon]="['fas','cloud-download-alt']"></fa-icon>
               </fa-layers>
               Backup
             </button>
-            <button class="btn btn-outline-secondary" (click)="restore()" disabled>
+            <button class="btn btn-outline-primary" (click)="restore()" disabled>
               <fa-layers class="fa-fw">
                 <fa-icon [icon]="['fas','cloud-upload-alt']"></fa-icon>
               </fa-layers>
@@ -90,7 +88,7 @@
           </div>
         </fieldset>
 
-        <fieldset class="text-danger" *ngIf="profileEdit.alias">
+        <fieldset class="text-danger" *ngIf="profileEdit.alias" class="mb-4">
           <h4>Danger Zone</h4>
           <p>By deleting your profile, you immediately remove all local data(at your client). If you would like also to delete
             the remote data please check the option below. If you do not delete remote data, all data will be synced once
@@ -117,12 +115,15 @@
         </fieldset>
       </div>
       <div class="col-lg-4">
-        <div class="list-group">
-          <button type="button" (click)="activate()" class="list-group-item list-group-item-action">Activate Profile</button>
+        <div class="card bg-primary text-white mb-4">
+          <div class="list-group">
+            <button type="button" (click)="activate()" class="list-group-item list-group-item-action">Activate Profile</button>
+          </div>
         </div>
-        <div class="card bg-info text-white">
+
+        <div class="card bg-primary text-white">
           <div class="card-body">
-            <h4 class="card-title">Title</h4>
+            <h4 class="card-title">Info</h4>
             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur similique consectetur adipisci placeat
               nam autem magnam nulla molestiae et beatae quidem repellat, blanditiis odit vel, accusamus id in, aperiam ullam!</p>
           </div>
