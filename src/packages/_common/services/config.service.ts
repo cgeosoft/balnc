@@ -42,25 +42,25 @@ export class ConfigService {
       return []
     }
     const menu = this.modules
-            .filter(m => {
-                return this.profile.modules &&
-                    this.profile.modules[m.id] &&
-                    this.profile.modules[m.id].enabled &&
-                    m.menu
-            })
-            .map(m => {
-                return m.menu.filter(x => {
-                    return this.profile.modules[m.id].menu[x.id]
-                })
-            })
-            .reduce((supermenu, menus) => {
-                return supermenu.concat(menus)
-            }, [])
-            .map(m => {
-              const v = { ...m }
-              v.icon = HelperService.getIcon(m.icon)
-              return v
-            })
+      .filter(m => {
+        return this.profile.modules &&
+          this.profile.modules[m.id] &&
+          this.profile.modules[m.id].enabled &&
+          m.menu
+      })
+      .map(m => {
+        return m.menu.filter(x => {
+          return this.profile.modules[m.id].menu[x.id]
+        })
+      })
+      .reduce((supermenu, menus) => {
+        return supermenu.concat(menus)
+      }, [])
+      .map(m => {
+        const v = { ...m }
+        v.icon = HelperService.getIcon(m.icon)
+        return v
+      })
     return menu
   }
 

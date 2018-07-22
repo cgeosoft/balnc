@@ -1,8 +1,8 @@
-import { Entity } from "@balnc/common";
-import { PresentationSchema } from "./models/presentation"
+import { Entity } from '@balnc/common'
+import { PresentationSchema } from './models/presentation'
 
-export const PresentationEntities: Entity[] = [{
+export const PresentationsEntities: Entity[] = [{
   name: 'presentation',
   schema: PresentationSchema,
-  sync: true,
+  sync: true
 }]

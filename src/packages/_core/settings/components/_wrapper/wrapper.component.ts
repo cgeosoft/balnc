@@ -50,7 +50,8 @@ export class WrapperComponent implements OnInit {
         prefix: 'demo',
         host: 'https://s1.cgeosoft.com/couchdb',
         username: 'demo',
-        password: 'demo'
+        password: 'demo',
+        enableSync: false
       },
       modules: {
         '@balnc/business': {

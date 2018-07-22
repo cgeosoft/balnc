@@ -1,18 +1,13 @@
-import { Component, NgZone, ChangeDetectorRef, ChangeDetectionStrategy, OnInit } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs'
+import { Component, OnInit } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-
-import * as _ from 'lodash'
-import * as moment from 'moment'
 
 import { ProjectsService } from '../../services/projects.service'
 import { CreateProjectComponent } from '../create-project/create-project.component'
 
 @Component({
-  selector: 'app-team-projects-projects',
+  selector: 'projects-projects',
   templateUrl: 'projects.component.html',
-  styleUrls: ['./projects.component.scss'],
+  styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
 
@@ -20,52 +15,52 @@ export class ProjectsComponent implements OnInit {
 
   typeFilterSelected = null
   typeFilters = [
-    { label: "Starred" },
-    { label: "Active" },
-    { label: "Archived" },
-    { label: "Everything" },
+    { label: 'Starred' },
+    { label: 'Active' },
+    { label: 'Archived' },
+    { label: 'Everything' }
   ]
   filters: any
   showFilters = false
 
-  constructor(
+  constructor (
     private modal: NgbModal,
-    private projectsService: ProjectsService,
+    private projectsService: ProjectsService
   ) { }
 
-  ngOnInit() {
-    this.setFilter("Active")
+  ngOnInit () {
+    this.setFilter('Active')
     this.load()
   }
 
-  async load() {
+  async load () {
     this.projects = await this.projectsService.getProjects(this.filters)
   }
 
-  refresh() {
+  refresh () {
     this.load()
   }
 
-  async create() {
+  async create () {
     await this.modal.open(CreateProjectComponent).result
     this.load()
   }
 
-  setFilter(filter) {
+  setFilter (filter) {
     this.typeFilterSelected = filter
     switch (filter) {
-      case "Starred":
+      case 'Starred':
         this.filters = { isStarred: { $eq: true } }
-        break;
-      case "Active":
+        break
+      case 'Active':
         this.filters = { isArchived: { $eq: false } }
-        break;
-      case "Archived":
+        break
+      case 'Archived':
         this.filters = { isArchived: { $eq: true } }
-        break;
-      case "Everything":
+        break
+      case 'Everything':
         this.filters = {}
-        break;
+        break
     }
     this.load()
   }

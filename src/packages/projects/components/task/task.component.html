@@ -1,6 +1,6 @@
-<app-content>
-  <app-content-header [title]="project.name" subtitle="Project" icon="tasks"></app-content-header>
-  <app-content-body>
+<common-content>
+  <common-content-header [title]="project.name" subtitle="Project" icon="tasks"></common-content-header>
+  <common-content-body>
     <ng-container *ngIf="task">
       <div class="btn-toolbar">
         <a [routerLink]="['/projects',project._id]" class="btn btn-link">
@@ -96,10 +96,10 @@
       </div>
     </ng-container>
     <ng-template #noItems>
-      <app-empty message="You don't have any tasks yet" submessage="Click create to add your first one" icon="cube"></app-empty>
+      <common-empty message="You don't have any tasks yet" submessage="Click create to add your first one" icon="cube"></common-empty>
     </ng-template>
     <ng-template #loader>
-      <app-loader></app-loader>
+      <common-loader></common-loader>
     </ng-template>
-  </app-content-body>
-</app-content>
+  </common-content-body>
+</common-content>

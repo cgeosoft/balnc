@@ -3,7 +3,7 @@ import { Entity } from '@balnc/common'
 import { BoardSchema } from './models/board'
 import { MessageSchema } from './models/message'
 
-export const BoardEntities: Entity[] = [{
+export const BoardsEntities: Entity[] = [{
   name: 'board',
   schema: BoardSchema,
   sync: true

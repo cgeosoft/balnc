@@ -1,6 +1,7 @@
 {
   "type": "object",
   "version": 0,
+  "disableKeyCompression": true,
   "properties": {
     "title": {
       "type": "string"

@@ -6,13 +6,14 @@ import { RouterModule } from '@angular/router'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
-import { AppComponent } from './app.component';
-import ENV from '../environments/environment';
+import { AppComponent } from './app.component'
+import ENV from '../environments/environment'
 
 import { CommonModule, DatabaseService, ConfigService, ConfigGuard } from '@balnc/common'
 import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRoutes } from '@balnc/core'
-import { PresentationsModule, PresentationsRoutes, PresentationEntities } from '@balnc/presentations'
-import { BoardsRoutes, BoardEntities, BoardsModule } from '@balnc/boards'
+import { PresentationsModule, PresentationsRoutes, PresentationsEntities } from '@balnc/presentations'
+import { BoardsRoutes, BoardsEntities, BoardsModule } from '@balnc/boards'
+import { ProjectsRoutes, ProjectsEntities, ProjectsModule } from '@balnc/projects'
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { BoardsRoutes, BoardEntities, BoardsModule } from '@balnc/boards'
     NgbModule.forRoot(),
     ENV.isProd ? ServiceWorkerModule.register('ngsw-worker.js') : [],
     ToastrModule.forRoot({
-      positionClass: "toast-bottom-center"
+      positionClass: 'toast-bottom-center'
     }),
     RouterModule.forRoot([{
       path: '',
@@ -31,24 +32,26 @@ import { BoardsRoutes, BoardEntities, BoardsModule } from '@balnc/boards'
       ],
       children: [
         ...DashboardRoutes,
-        ...SettingsRoutes, 
+        ...SettingsRoutes,
         ...PresentationsRoutes,
-        ...BoardsRoutes,
-      ],
+        ...ProjectsRoutes,
+        ...BoardsRoutes
+      ]
     }, {
       path: 'setup',
-      component: SetupComponent,
+      component: SetupComponent
     }, {
       path: '',
-      pathMatch: "full",
-      redirectTo: "/dashboard"
+      pathMatch: 'full',
+      redirectTo: '/dashboard'
     }], {
         // enableTracing: true,
-      }),
+    }),
     CommonModule,
     CoreModule,
+    ProjectsModule,
     PresentationsModule,
-    BoardsModule,
+    BoardsModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
@@ -60,13 +63,14 @@ import { BoardsRoutes, BoardEntities, BoardsModule } from '@balnc/boards'
       useFactory: (configService: ConfigService, databaseService: DatabaseService) => async () => {
         configService.setup(ENV)
         await databaseService.setup([
-          ...PresentationEntities,
-          ...BoardEntities,
+          ...PresentationsEntities,
+          ...ProjectsEntities,
+          ...BoardsEntities
         ])
       },
       deps: [ConfigService, DatabaseService],
-      multi: true,
+      multi: true
     }
-  ],
+  ]
 })
 export class AppModule { }

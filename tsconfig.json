@@ -32,6 +32,9 @@
       "@balnc/boards": [
         "src/packages/boards"
       ],
+      "@balnc/projects": [
+        "src/packages/projects"
+      ],
       "@balnc/booking/*": [
         "src/packages/booking/*"
       ],

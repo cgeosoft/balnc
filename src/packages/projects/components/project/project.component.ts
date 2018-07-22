@@ -1,46 +1,41 @@
-import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Subscription, Unsubscribable as AnonymousSubscription ,  Observable } from 'rxjs'
-import { RxCollection, RxDocumentBase } from 'rxdb'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import * as _ from 'lodash'
-import * as moment from 'moment'
-
-import { RxLogDocument } from '../../data/log'
+import { RxLogDoc } from '../../models/log'
 import { CreateTaskComponent } from '../create-task/create-task.component'
-import { RxProject, Project } from '../../data/project'
+import { Project } from '../../models/project'
 import { ProjectsService } from '../../services/projects.service'
 
 @Component({
-  selector: 'app-team-projects-project',
+  selector: 'projects-project',
   templateUrl: 'project.component.html',
-  styleUrls: ['./project.component.scss'],
+  styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit {
 
   tabsMenu: any
-  tasks: RxLogDocument[]
+  tasks: RxLogDoc[]
   project: Project & any = {}
   projectId: string
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private projectsService: ProjectsService,
     private modal: NgbModal
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
 
     this.tabsMenu = {
-      active: "tasks",
+      active: 'tasks',
       tabs: [{
-        id: "tasks",
-        label: "Tasks",
-        icon: "tasks",
+        id: 'tasks',
+        label: 'Tasks',
+        icon: 'tasks'
       }, {
-        id: "settings",
-        icon: "cog",
+        id: 'settings',
+        icon: 'cog',
         right: true
       }],
       select: (tabId) => {
@@ -54,14 +49,14 @@ export class ProjectComponent implements OnInit {
     })
   }
 
-  private async setup() {
+  private async setup () {
     this.project = await this.projectsService.getProject(this.projectId)
     this.tasks = await this.projectsService.getTasks({
       query: { project: { $eq: this.projectId } }
     })
   }
 
-  createTask() {
+  createTask () {
     const modalRef = this.modal.open(CreateTaskComponent)
     modalRef.componentInstance.projectId = this.projectId
   }

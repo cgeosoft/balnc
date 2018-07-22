@@ -1,6 +1,7 @@
 {
   "title": "board",
   "type": "object",
+  "disableKeyCompression": true,
   "version": 0,
   "properties": {
     "ref": {

@@ -1,4 +1,4 @@
-export class Entity {
+declare interface IEntity {
   name: string
   schema: any
   schemaPath?: string
@@ -6,3 +6,5 @@ export class Entity {
   single?: boolean
   migrationStrategies?: any
 }
+
+export type Entity = IEntity

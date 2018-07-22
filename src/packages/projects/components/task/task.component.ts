@@ -1,21 +1,16 @@
 import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Subscription ,  Observable } from 'rxjs'
-import { RxCollection, RxDocumentBase } from 'rxdb'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { FormBuilder, Validators, FormGroup } from '@angular/forms'
-import * as _ from 'lodash'
-import * as moment from 'moment'
 
-import { CreateTaskComponent } from '../create-task/create-task.component'
-import { RxProject } from '../../data/project'
-import { RxLogDocument } from '../../data/log'
+import { RxProjectDoc } from '../../models/project'
+import { RxLogDoc } from '../../models/log'
 import { ProjectsService } from '../../services/projects.service'
 
 @Component({
-  selector: 'app-team-projects-task',
+  selector: 'projects-task',
   templateUrl: 'task.component.html',
-  styleUrls: ['./task.component.scss'],
+  styleUrls: ['./task.component.scss']
 })
 export class TaskComponent implements OnInit {
 
@@ -23,45 +18,45 @@ export class TaskComponent implements OnInit {
   taskId: string
   comment: string = null
 
-  task: RxLogDocument
-  project: RxProject & any = {}
-  logs: RxLogDocument[] = []
+  task: RxLogDoc
+  project: RxProjectDoc & any = {}
+  logs: RxLogDoc[] = []
 
   form: FormGroup
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private modal: NgbModal,
     private formBuilder: FormBuilder,
-    private projectsService: ProjectsService,
+    private projectsService: ProjectsService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route
       .params
       .subscribe(params => {
         this.taskId = params['id']
         this.form = this.formBuilder.group({
-          comment: ["", [Validators.required]],
+          comment: ['', [Validators.required]]
         })
         this.setup()
         this.getLogs()
       })
   }
 
-  private async setup() {
+  private async setup () {
     this.task = await this.projectsService.getLog(this.taskId)
     this.project = await this.projectsService.getProject(this.task.project)
   }
 
-  private async getLogs() {
+  private async getLogs () {
     const logs = await this.projectsService.getLogs(this.taskId)
     this.logs = logs.sort((a, b) => {
       return a.insertedAt < b.insertedAt ? -1 : 1
     })
   }
 
-  async submitComment() {
+  async submitComment () {
     const formModel = this.form.value
     await this.projectsService.addComment(formModel.comment, this.task)
     await this.getLogs()

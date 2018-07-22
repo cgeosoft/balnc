@@ -1,40 +1,37 @@
 import { Component, OnInit, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { Observable } from 'rxjs'
-import { RxCollection, RxDocumentBase } from 'rxdb'
 
-import { RxProject } from '../../data/project'
-import { RxLogDocument } from '../../data/log'
+import { RxLogDoc } from '../../models/log'
 import { CreateTaskComponent } from '../create-task/create-task.component'
 import { ProjectsService } from '../../services/projects.service'
 
 @Component({
-  selector: 'app-teams-projects-main',
-  templateUrl: './_main.component.html',
-  styleUrls: ['./_main.component.scss']
+  selector: 'projects-wrapper',
+  templateUrl: './wrapper.component.html',
+  styleUrls: ['./wrapper.component.scss']
 })
-export class MainComponent implements OnInit {
+export class WrapperComponent implements OnInit {
 
-  tasks: RxLogDocument[] = []
+  tasks: RxLogDoc[] = []
 
-  constructor(
+  constructor (
     private projectsService: ProjectsService,
-    private modal: NgbModal,
+    private modal: NgbModal
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.refreshTasks()
   }
 
-  createTask() {
+  createTask () {
     this.modal.open(CreateTaskComponent)
   }
 
-  generateDump() {
+  generateDump () {
     this.projectsService.generateDump()
   }
 
-  async refreshTasks() {
+  async refreshTasks () {
     this.tasks = await this.projectsService.getTasks()
   }
 

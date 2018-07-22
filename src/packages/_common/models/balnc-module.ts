@@ -1,4 +1,4 @@
-export interface BalncModule {
+declare interface IBalncModule {
   id: string
   title: string
   description: string
@@ -6,15 +6,19 @@ export interface BalncModule {
   config?: BalncModuleConfig
 }
 
-export interface BalncModuleMenu {
+declare interface IBalncModuleMenu {
   id: string
   label: string
   icon: any
   path: string
 }
 
-export interface BalncModuleConfig {
+declare interface IBalncModuleConfig {
   enabled: string
   menu: any[]
   settings: any
 }
+
+export type BalncModule = IBalncModule
+export type BalncModuleMenu = IBalncModuleMenu
+export type BalncModuleConfig = IBalncModuleConfig

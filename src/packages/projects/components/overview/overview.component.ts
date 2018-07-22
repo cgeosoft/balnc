@@ -1,29 +1,25 @@
-import { Component, OnInit, NgZone } from '@angular/core'
-import { Observable } from 'rxjs'
-import { RxCollection, RxDocumentBase } from 'rxdb'
-
-import { RxProject } from '@balnc/teams/projects/data/project'
-import { RxLogDocument } from '@balnc/teams/projects/data/log'
-import { ProjectsService } from '@balnc/teams/projects/services/projects.service';
+import { Component, OnInit } from '@angular/core'
+import { RxLogDoc } from '../../models/log'
+import { ProjectsService } from '../../services/projects.service'
 
 @Component({
-  selector: 'app-team-projects-overview',
+  selector: 'projects-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })
 export class OverviewComponent implements OnInit {
 
-  tasks: RxLogDocument[] = []
+  tasks: RxLogDoc[] = []
 
-  constructor(
-    private projectsService: ProjectsService,
+  constructor (
+    private projectsService: ProjectsService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.setup()
   }
 
-  private async setup() {
+  private async setup () {
     const tasks = await this.projectsService.getTasks()
     this.tasks = tasks.sort((a, b) => {
       return a.updatedAt > b.updatedAt ? -1 : 1

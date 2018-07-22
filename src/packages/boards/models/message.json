@@ -1,6 +1,7 @@
 {
   "title": "message",
   "type": "object",
+  "disableKeyCompression": true,
   "version": 0,
   "properties": {
     "ref": {

@@ -1,11 +1,13 @@
-import {RemoteConfig} from './remote-config'
+import { RemoteConfig } from './remote-config'
 
-export interface Profile {
-    alias?: string
-    name?: string
-    key?: string
-    createdAt?: string
-    remote?: RemoteConfig
-    modules?: any
-    params?: any
+declare interface IProfile {
+  alias?: string
+  name?: string
+  key?: string
+  createdAt?: string
+  remote?: RemoteConfig
+  modules?: any
+  params?: any
 }
+
+export type Profile = IProfile
