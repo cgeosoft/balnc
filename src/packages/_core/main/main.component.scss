@@ -1,5 +1,5 @@
-@import "components/bootstrap";
 @import "themes/variables";
+@import "components/bootstrap";
 :host {
   @extend .d-flex;
   @extend .flex-column;
@@ -15,7 +15,7 @@
       text-align: center;
       width: 50px;
       z-index: 1000;
-      background: $body-bg;
+      background: $dark;
       transition: width .5s;
       overflow: hidden;
       .logo {
@@ -26,7 +26,6 @@
           font-size: 1rem;
           display: block;
           color: #FFF;
-          background: $primary;
           border-radius: 21px;
         }
       }
