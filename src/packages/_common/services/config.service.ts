@@ -39,6 +39,9 @@ export class ConfigService {
     }
 
     getMainMenu() {
+        if (!this.profile) {
+            return []
+        }
         const menu = this.modules
             .filter(m => {
                 return this.profile.modules &&
@@ -83,22 +86,23 @@ export class ConfigService {
         window.location.reload()
     }
 
+    createProfile(profile: Profile) {
+        let profiles = this.profiles
+        const unique = new Date
+        profile.alias = `${unique.getTime()}`
+        profile.createdAt = unique.toISOString()
+        profiles[profile.alias] = profile
+        this.profiles = profiles
+        return profile.alias
+    }
+
     saveProfile(profile: Profile): string {
         let profiles = this.profiles
-        if (!profile.alias) {
-            const unique = new Date
-            profile.alias = `${this.slugify(profile.name)}-${unique.getTime()}`
-            profile.createdAt = unique.toISOString()
-            profiles[profile.alias] = profile
-        } else {
-            profiles[profile.alias] = Object.assign(profiles[profile.alias], profile)
-        }
+        profiles[profile.alias] = Object.assign(profiles[profile.alias], profile)
         this.profiles = profiles
-
-        if(this.selected === profile.alias){
+        if (this.selected === profile.alias) {
             window.location.reload()
         }
-
         return profile.alias
     }
 
@@ -109,14 +113,5 @@ export class ConfigService {
 
     deleteProfile(alias: string) {
         delete this.profiles[alias]
-    }
-
-    private slugify(text) {
-        return text.toString().toLowerCase()
-            .replace(/\s+/g, '-')           // Replace spaces with -
-            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-            .replace(/^-+/, '')             // Trim - from start of text
-            .replace(/-+$/, '')            // Trim - from end of text
     }
 }

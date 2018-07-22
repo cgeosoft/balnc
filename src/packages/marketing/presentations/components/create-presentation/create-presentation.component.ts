@@ -4,7 +4,7 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { PresentationsService } from '../../services/presentations.service'
 
 @Component({
-    selector: 'marketing-presentations-create-presentation',
+    selector: 'presentations-create-presentation',
     templateUrl: './create-presentation.component.html'
 })
 export class CreatePresentationComponent implements OnInit {

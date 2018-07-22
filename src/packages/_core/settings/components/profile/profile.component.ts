@@ -1,5 +1,5 @@
 import { Router, ActivatedRoute } from '@angular/router'
-import { Component,  OnInit, ElementRef, ViewChild } from '@angular/core'
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 
 import { BalncModule, DatabaseService, ConfigService, Profile } from '@balnc/common'
@@ -14,11 +14,11 @@ export class ProfileComponent implements OnInit {
     @ViewChild("name") name: ElementRef
     @ViewChild("alias") alias: ElementRef
 
-    profileName:string
-profileAlias:string
+    profileName: string
+    profileAlias: string
 
     modules: BalncModule[]
-    activeModules: any = {}
+    activeModules: { [key: string]: boolean } = {}
     profile: Profile
     profileEdit: Profile
     form: FormGroup
@@ -35,31 +35,29 @@ profileAlias:string
     async ngOnInit() {
         this.modules = this.configService.modules
 
-        this.setup()
-
         this.route.params.subscribe(params => {
             this.setup(params['alias'])
         })
     }
 
     setup(alias: string = null) {
-        if (alias) {
-            this.profile = this.configService.getProfile(alias)
-            this.profileName=this.profile.name
-            this.profileAlias=this.profile.alias
-            this.profileEdit = { ...this.profile }
-            this.profileEdit.remote = this.profileEdit.remote || {}
-            this.activeModules = Object.keys(this.profile.modules).reduce((x, i) => {
+        this.profile = this.configService.getProfile(alias)
+
+        if (!this.profile) {
+            this.router.navigate(["/settings"])
+        }
+
+        this.profileName = this.profile.name
+        this.profileAlias = this.profile.alias
+        this.profileEdit = { ...this.profile }
+        this.profileEdit.remote = this.profileEdit.remote || {}
+        this.profileEdit.modules = this.profileEdit.modules || {}
+
+        if (this.profile.modules) {
+            this.activeModules = Object.keys(this.profileEdit.modules).reduce((x, i) => {
                 x[i] = this.profile.modules[i].enabled
                 return x
             }, {})
-        } else {
-            this.profileEdit = {
-                name: "New Profile",
-                alias: null,
-                remote: {},
-                modules: [],
-            }
         }
     }
 
@@ -84,10 +82,8 @@ profileAlias:string
         this.router.navigate(['/profiles'])
     }
 
-    activate(alias: string) {
-        this.configService.selectProfile(alias)
-        //   this.selectedProfile = this.configService.getCurrent()
-        //   this.router.navigate(['dashboard'])
+    activate() {
+        this.configService.selectProfile(this.profile.alias)
     }
 
 }

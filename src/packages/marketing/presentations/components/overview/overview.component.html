@@ -14,7 +14,6 @@
         </button>
       </div>
     </div>
-
     <ng-container *ngIf="presentations; else loader">
       <ng-container *ngIf="presentations.length; else noItems">
 
@@ -54,7 +53,7 @@
                 </div>
               </td>
               <td class="text-center" style="width:100px">
-                <a [routerLink]="['/marketing/presentations',presentation._id]" class="btn btn-sm btn-outline-primary">Open</a>
+                <a [routerLink]="['/presentations',presentation._id]" class="btn btn-sm btn-outline-primary">Open</a>
               </td>
             </tr>
           </tbody>

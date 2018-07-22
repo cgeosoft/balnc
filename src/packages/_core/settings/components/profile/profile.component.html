@@ -57,7 +57,7 @@
                   <em>
                     <small class="text-muted">{{module.id}}</small>
                   </em>
-                  <small class="badge badge-success" *ngIf="activeModules[module.id]">ACTIVE</small>
+                  <small class="badge badge-success ml-2" *ngIf="activeModules[module.id]">ACTIVE</small>
                   <br>
                   <small class="text-muted" *ngIf="module.description">{{module.description}}</small>
                 </div>
@@ -117,6 +117,9 @@
         </fieldset>
       </div>
       <div class="col-lg-4">
+        <div class="list-group">
+          <button type="button" (click)="activate()" class="list-group-item list-group-item-action">Activate Profile</button>
+        </div>
         <div class="card bg-info text-white">
           <div class="card-body">
             <h4 class="card-title">Title</h4>

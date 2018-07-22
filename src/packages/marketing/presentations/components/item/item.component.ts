@@ -8,12 +8,12 @@ import { Observable } from 'rxjs'
 import * as _ from "lodash"
 import * as moment from "moment"
 
-import { RxPresentationDocument } from '../../models/presentation'
+import { Presentation } from '../../models/presentation'
 import { PresentationsService } from '../../services/presentations.service'
 import { AddPageComponent } from "../add-page/add-page.component"
 
 @Component({
-  selector: 'marketing-presentations-item',
+  selector: 'presentations-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss']
 })
@@ -21,7 +21,7 @@ export class ItemComponent implements OnInit, OnDestroy {
 
   activePageIndex: Number = 0
   imageData: string
-  presentation: RxPresentationDocument
+  presentation: Presentation
 
   tabsMenu = {
     active: "overview",

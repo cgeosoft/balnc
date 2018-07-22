@@ -11,7 +11,7 @@ import ENV from '../environments/environment';
 
 import { CommonModule, DatabaseService, ConfigService, ConfigGuard } from '@balnc/common'
 import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRoutes } from '@balnc/core'
-import { PresentationsModule, PresentationsRoutes } from '@balnc/marketing'
+import { PresentationsModule, PresentationsRoutes,PresentationEntities } from '@balnc/marketing'
 
 @NgModule({
   imports: [
@@ -54,10 +54,13 @@ import { PresentationsModule, PresentationsRoutes } from '@balnc/marketing'
     ConfigService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (configService: ConfigService) => async () => {
-        configService.setup(ENV)
+      useFactory: (configService: ConfigService, databaseService: DatabaseService) => async () => {
+       configService.setup(ENV)
+       await   databaseService.setup([
+          ...PresentationEntities
+        ])
       },
-      deps: [ConfigService],
+      deps: [ConfigService,DatabaseService],
       multi: true,
     }
   ],

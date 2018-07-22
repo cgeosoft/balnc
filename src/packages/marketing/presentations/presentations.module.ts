@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot, Routes } from '@angular/router'
+import { RouterModule } from '@angular/router'
 
 import { CommonModule } from '@balnc/common'
 

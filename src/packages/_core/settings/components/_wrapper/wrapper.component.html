@@ -4,7 +4,7 @@
       <h4>Settings</h4>
     </div>
     <div class="items">
-      <button>
+        <button (click)="createProfile()">
         <fa-layers class="fa-fw item-icon">
           <fa-icon [icon]="['fas','plus-circle']"></fa-icon>
         </fa-layers> <span>New Profile</span></button>
@@ -28,7 +28,7 @@
         <ng-container *ngIf="profiles.length; else empty">
           <button *ngFor="let profile of profiles" [routerLink]="['/settings',profile.alias]" routerLinkActive="active">
             <span>{{profile.name}}</span>
-            <fa-layers class="fa-fw text-white ml-auto" *ngIf="profile.alias==selected.alias">
+            <fa-layers class="fa-fw text-white ml-auto" *ngIf="profile.alias==selected">
               <fa-icon [icon]="['fas','check-circle']"></fa-icon>
             </fa-layers>
           </button>

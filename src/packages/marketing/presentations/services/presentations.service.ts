@@ -1,56 +1,40 @@
 import { Injectable } from "@angular/core"
-import { ActivatedRouteSnapshot, Resolve } from "@angular/router"
-import { Subject ,  Observable, } from "rxjs"
-import { RxCollection, RxReplicationState, RxDocumentBase } from "rxdb"
+import { RxCollection } from "rxdb"
 
-import * as _ from 'lodash'
-import * as moment from 'moment'
-
-import { Entity,DatabaseService } from "@balnc/common";
-
-import { PresentationSchema, RxPresentationDocument } from "../models/presentation"
-
-const entities: Entity[] = [{
-  name: 'presentation',
-  schema: PresentationSchema,
-  sync: true,
-}]
+import { DatabaseService } from "@balnc/common";
+import { Presentation } from "../models/presentation"
 
 @Injectable()
-export class PresentationsService implements Resolve<any> {
+export class PresentationsService {
 
-  presentations: RxCollection<RxPresentationDocument>
+  presentations: RxCollection<Presentation>
 
   constructor(
     private dbService: DatabaseService,
   ) {
-  }
-
-  resolve(route: ActivatedRouteSnapshot): Promise<any> | boolean {
-    return this.setup()
+    this.setup()
   }
 
   async setup() {
-    await this.dbService.load(entities)
-    this.presentations = await this.dbService.get<RxPresentationDocument>("presentation")
+    this.presentations = await this.dbService.get<Presentation>("presentation")
   }
 
   async getPresentations(params?: any) {
-    console.log("presentations")
-    const presentations = await this.presentations.find().exec()
-    const images$ = presentations
+    params = params || {}
+    let _presentations = await this.presentations.find(params).exec()
+    const images$ = _presentations
       .map(async (presentation) => {
         return await this.getThumb(presentation)
       })
     const images = await Promise.all(images$)
 
-    const stats$ = presentations
+    const stats$ = _presentations
       .map(async (presentation) => {
         return await this.getStats(presentation)
       })
     const stats = await Promise.all(stats$)
 
-    const presentations2 = presentations
+    const presentations2 = _presentations
       .map((presentation, index) => {
         const p: any = presentation
         p.thumb = images[index]
@@ -60,8 +44,8 @@ export class PresentationsService implements Resolve<any> {
     return presentations2
   }
 
-  async getPresentation(presentationId): Promise<RxPresentationDocument & any> {
-    const presentation: RxPresentationDocument & any = await this.presentations.findOne(presentationId).exec()
+  async getPresentation(presentationId): Promise<Presentation & any> {
+    const presentation: Presentation & any = await this.presentations.findOne(presentationId).exec()
     presentation.pages = presentation.pages || []
     presentation.stats = await this.getStats(presentation)
     return presentation
@@ -78,7 +62,7 @@ export class PresentationsService implements Resolve<any> {
     return result
   }
 
-  async getThumb(presentation: RxPresentationDocument): Promise<any> {
+  async getThumb(presentation: Presentation): Promise<any> {
 
     if (!presentation.pages || presentation.pages.length === 0) {
       return
@@ -88,7 +72,7 @@ export class PresentationsService implements Resolve<any> {
 
   }
 
-  async getImage(presentation: RxPresentationDocument, contentImage: string): Promise<any> {
+  async getImage(presentation: Presentation, contentImage: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const attachment = await presentation.getAttachment(contentImage)
       const blobBuffer = await attachment.getData()
@@ -106,7 +90,7 @@ export class PresentationsService implements Resolve<any> {
     })
   }
 
-  async getStats(presentation: RxPresentationDocument) {
+  async getStats(presentation: Presentation) {
     if (!presentation.get("_attachments")) {
       return {
         filecount: 0,

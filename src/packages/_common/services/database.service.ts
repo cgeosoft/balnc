@@ -57,17 +57,34 @@ export class DatabaseService {
         private configService: ConfigService,
     ) { }
 
-    async load(entities: Entity[]) {
-        console.log("[DatabaseService]", "setup entities", entities, this.configService.profile.alias, "loadedEntities", this.entities)
+    async setup(entities: Entity[]) {
+
+        console.log("[DatabaseService]", "Initializing DB...")
+        this.adapter = await this.getAdapter()
+        this.db = await RxDB.create({
+            name: "db",
+            adapter: this.adapter,
+        })
+
+        if(!this.configService.profile) {
+            return
+        }
+
+        console.log("[DatabaseService]", "Set entities for", entities, this.configService.profile.alias, "loadedEntities", this.entities)
+
+        let sets = []
         for (const entity of entities) {
-            if (this.entityLoaded(entity.name)) { return }
-            await this.db.collection({
+            let set = await this.db.collection({
                 name: `${this.configService.profile.alias}/${entity.name}`,
                 schema: entity.schema,
                 migrationStrategies: entity.migrationStrategies || {}
             })
             this.entities[`${this.configService.profile.alias}/${entity.name}`] = entity
+            sets.push(set)
         }
+
+        await Promise.all(sets)
+        
         this.sync()
     }
 
@@ -100,27 +117,6 @@ export class DatabaseService {
         return this.db[`${this.configService.profile.alias}/${name}`]
     }
 
-    private entityLoaded(name) {
-        const entity = Object.keys(this.entities).findIndex((e) => {
-            return e === `${this.configService.profile.alias}/${name}`
-        })
-        return entity !== -1
-    }
-
-    async setup() {
-        console.log("[DatabaseService]", "initializing...")
-
-        if (!this.db) {
-            this.adapter = await this.getAdapter()
-            this.db = await RxDB.create({
-                name: "db",
-                adapter: this.adapter,
-            })
-        }
-
-        console.log("[DatabaseService]", "Initialized")
-    }
-
     async authenticate(username: string, password: string) {
         const resp = await this.http.post(`${this.configService.profile.remote.host}/_session`, {
             name: username,
@@ -141,12 +137,13 @@ export class DatabaseService {
     }
 
     private async getAdapter() {
-        if (await RxDB.checkAdapter('idb')) {
-            return "idb"
-        }
-        if (await RxDB.checkAdapter('websql')) {
-            return "websql"
-        }
+        // if (await RxDB.checkAdapter('idb')) {
+        //     return "idb"
+        // }
+        // if (await RxDB.checkAdapter('websql')) {
+        //     return "websql"
+        // }
+        return "idb"
     }
 
     async backup() {

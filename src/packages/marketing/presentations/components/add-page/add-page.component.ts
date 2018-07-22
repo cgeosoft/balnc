@@ -4,15 +4,15 @@ import * as _ from "lodash"
 import * as moment from "moment"
 
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { RxPresentationDocument } from '../../models/presentation'
+import { Presentation } from '../../models/presentation'
 
 @Component({
-    selector: 'marketing-presentation-add-page',
+    selector: 'presentations-add-page',
     templateUrl: './add-page.component.html'
 })
 export class AddPageComponent {
 
-    @Input() presentation: RxPresentationDocument
+    @Input() presentation: Presentation
 
     page: any = {
         title: null,

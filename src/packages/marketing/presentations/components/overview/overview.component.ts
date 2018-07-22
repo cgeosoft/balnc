@@ -5,12 +5,12 @@ import * as _ from 'lodash'
 import * as moment from 'moment'
 
 import { PresentationsService } from '../../services/presentations.service'
-import { RxPresentationDocument } from '../../models/presentation'
+import { Presentation } from '../../models/presentation'
 
 import { CreatePresentationComponent } from "../create-presentation/create-presentation.component"
 
 @Component({
-  selector: 'marketing-presentations-overview',
+  selector: 'presentations-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })
@@ -28,7 +28,7 @@ export class OverviewComponent implements OnInit {
   }
 
   async load() {
-    // this.presentations = await this.presentationsService.getPresentations()
+    this.presentations = await this.presentationsService.getPresentations()
   }
 
   refresh() {
@@ -40,7 +40,7 @@ export class OverviewComponent implements OnInit {
     this.load()
   }
 
-  getLastEdit(presentation: RxPresentationDocument) {
+  getLastEdit(presentation: Presentation) {
     return moment(presentation.dateUpdated).fromNow()
   }
 

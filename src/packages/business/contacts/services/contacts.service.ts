@@ -32,7 +32,6 @@ export class ContactsService implements Resolve<any> {
     }
 
     async setup() {
-        await this.dbService.load(entities)
         this.contacts = await this.dbService.get<RxContactDocument>("contact")
     }
 

@@ -1,7 +1,7 @@
 import * as schema from './presentation.json'
 import { RxDocument } from 'rxdb';
 
-declare interface RxPresentationDocumentType {
+declare interface IPresentation {
   title: string
   description: string
   image: string
@@ -14,5 +14,5 @@ declare interface RxPresentationDocumentType {
   comment: any
 }
 
-export type RxPresentationDocument = RxDocument<RxPresentationDocumentType> & RxPresentationDocumentType
+export type Presentation = RxDocument<IPresentation> & IPresentation
 export const PresentationSchema = schema
