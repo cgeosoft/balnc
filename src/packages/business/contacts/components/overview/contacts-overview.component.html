@@ -1,4 +1,4 @@
-<app-sidebar>
+<common-sidebar>
   <div class="menu">
     <div class="header">Contacts</div>
     <div>
@@ -49,10 +49,10 @@
       </a>
     </div>
   </div>
-</app-sidebar>
-<app-content>
-  <app-content-header title="Contacts Overview" icon="users"></app-content-header>
-  <app-content-body>
+</common-sidebar>
+<common-content>
+  <common-content-header title="Contacts Overview" icon="users"></common-content-header>
+  <common-content-body>
     <div class="card">
       <div class="card-body">
         <input class="form-control" [(ngModel)]="searchTerm" [ngbTypeahead]="search" [resultTemplate]="rt">
@@ -85,10 +85,10 @@
               </ng-container>
             </ng-container>
             <ng-template #noItems>
-              <app-empty message="You don't have any contacts yet" submessage="Click create to add your first one" icon="cubes"></app-empty>
+              <common-empty message="You don't have any contacts yet" submessage="Click create to add your first one" icon="cubes"></common-empty>
             </ng-template>
             <ng-template #loader>
-              <app-loader></app-loader>
+              <common-loader></common-loader>
             </ng-template>
           </div>
         </div>
@@ -136,5 +136,5 @@
         </div>
       </div>
     </div>
-  </app-content-body>
-</app-content>
+  </common-content-body>
+</common-content>

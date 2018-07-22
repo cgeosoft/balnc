@@ -63,24 +63,24 @@
     <ng-template #error>
       <ng-container [ngSwitch]="err">
         <ng-container *ngSwitchCase="'SERVER_UNAVAILABLE'">
-          <app-empty message="Server is Unavailable" icon="exclamation-triangle"></app-empty>
+          <common-empty message="Server is Unavailable" icon="exclamation-triangle"></common-empty>
         </ng-container>
         <ng-container *ngSwitchCase="'TOO_MANY_DATA'">
-          <app-empty message="There are too many data." submessage="Use filters to get less result" icon="exclamation-triangle"></app-empty>
+          <common-empty message="There are too many data." submessage="Use filters to get less result" icon="exclamation-triangle"></common-empty>
         </ng-container>
         <ng-container *ngSwitchDefault>
-          <app-debug [data]="err" [isError]="true"></app-debug>
+          <common-debug [data]="err" [isError]="true"></common-debug>
         </ng-container>
       </ng-container>
     </ng-template>
     <ng-template #noResults>
-      <app-empty message="No data were found" icon="exclamation-triangle"></app-empty>
+      <common-empty message="No data were found" icon="exclamation-triangle"></common-empty>
     </ng-template>
     <ng-template #noReport>
-      <app-empty message="Select some filters and hit Execute" icon="info-circle"></app-empty>
+      <common-empty message="Select some filters and hit Execute" icon="info-circle"></common-empty>
     </ng-template>
     <ng-template #loader>
-      <app-loader animation="sk-cube" label="Building Report..."></app-loader>
+      <common-loader animation="sk-cube" label="Building Report..."></common-loader>
     </ng-template>
   </div>
   <div class="d-flex flex-column p-4 bg-secondary h-100 w-100" *ngIf="showQuery">

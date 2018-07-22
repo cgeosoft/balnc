@@ -1,4 +1,4 @@
-<app-sidebar>
+<common-sidebar>
   <div class="menu">
     <div class="header d-flex">
       <h4>Reports</h4>
@@ -19,10 +19,10 @@
         </ng-container>
       </ng-container>
       <ng-template #empty>
-        <app-empty message="No reports were found" icon="file-alt:regular" size='small'></app-empty>
+        <common-empty message="No reports were found" icon="file-alt:regular" size='small'></common-empty>
       </ng-template>
       <ng-template #loader>
-        <app-loader animation="sk-cube" label="Loading Reports"></app-loader>
+        <common-loader animation="sk-cube" label="Loading Reports"></common-loader>
       </ng-template>
     </div>
   </div>
@@ -36,5 +36,5 @@
       </button>
     </div>
   </div>
-</app-sidebar>
+</common-sidebar>
 <router-outlet></router-outlet>

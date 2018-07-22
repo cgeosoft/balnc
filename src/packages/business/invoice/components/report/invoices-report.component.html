@@ -1,6 +1,6 @@
-<app-content>
-  <app-content-header title="Invoices Report" icon="copy:regular"></app-content-header>
-  <app-content-body>
+<common-content>
+  <common-content-header title="Invoices Report" icon="copy:regular"></common-content-header>
+  <common-content-body>
     <div *ngIf="invoices" class="hero-list-component">
       <div *ngFor="let invoice of invoices" class="listHero">
         {{invoice.dateCreated}}
@@ -373,5 +373,5 @@
         </div>
       </div>
     </div>
-  </app-content-body>
-</app-content>
+  </common-content-body>
+</common-content>
