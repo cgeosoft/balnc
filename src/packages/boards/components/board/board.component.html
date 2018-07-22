@@ -1,6 +1,6 @@
-<app-content>
-  <app-content-header [title]="board" icon="comments:regular"></app-content-header>
-  <app-content-body class="h-100">
+<common-content>
+  <common-content-header [title]="board" icon="comments:regular"></common-content-header>
+  <common-content-body class="h-100">
     <div class="card d-flex h-100 w-100">
       <div #messageList class="card-body h-100">
         <ng-container *ngIf="messages; else loader">
@@ -50,12 +50,12 @@
         </div>
       </div>
     </div>
-  </app-content-body>
-</app-content>
+  </common-content-body>
+</common-content>
 
 <ng-template #empty>
-  <app-empty message="No messages" icon="file-alt:regular"></app-empty>
+  <common-empty message="No messages" icon="file-alt:regular"></common-empty>
 </ng-template>
 <ng-template #loader>
-  <app-loader animation="sk-cube" label="Loading messages"></app-loader>
+  <common-loader animation="sk-cube" label="Loading messages"></common-loader>
 </ng-template>

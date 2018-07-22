@@ -2,11 +2,11 @@ import { Observable ,  Subscription } from 'rxjs';
 import { Component, NgZone, OnInit, ElementRef, ViewChild, Pipe, PipeTransform } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 
-import { Message } from '@balnc/teams/boards/models/message'
-import { BoardService } from '@balnc/teams/boards/services/board.service';
+import { Message } from '../../models/message'
+import { BoardService } from '../../services/board.service';
 
 @Component({
-  selector: 'app-teams-boards-board',
+  selector: 'teams-boards-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })

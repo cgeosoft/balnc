@@ -9,6 +9,7 @@ import { ItemComponent } from './components/item/item.component'
 import { CreatePresentationComponent } from './components/create-presentation/create-presentation.component'
 import { AddPageComponent } from './components/add-page/add-page.component'
 import { OverviewComponent } from './components/overview/overview.component'
+import { PresentationsRoutes } from './presentations.routes'
 
 @NgModule({
   imports: [

@@ -1,4 +1,4 @@
-<app-side-bar>
+<common-sidebar>
   <div class="menu mb-4">
     <div class="header d-flex">
       <h4>Persona</h4>
@@ -29,7 +29,7 @@
       <ng-container *ngIf="boards; else loader">
         <ng-container *ngIf="boards.length; else empty">
           <ng-template ngFor let-board [ngForOf]="boards">
-            <a class="d-flex  align-items-center" [routerLink]="['/teams','boards',board.name]" routerLinkActive="active">
+            <a class="d-flex  align-items-center" [routerLink]="['/boards',board.name]" routerLinkActive="active">
               <img class="my-1 mr-2 rounded" style="min-width:30px;height:30px;" src="https://api.adorable.io/avatars/48/{{board.name}}.png">
               <span class="mr-2" style="overflow: hidden; line-height: 1.2rem;">
                 {{board.name}}
@@ -42,12 +42,12 @@
         </ng-container>
       </ng-container>
       <ng-template #empty>
-        <app-empty board="No boards were found" icon="file-alt:regular" size='small'></app-empty>
+        <common-empty board="No boards were found" icon="file-alt:regular" size='small'></common-empty>
       </ng-template>
       <ng-template #loader>
-        <app-loader animation="sk-cube" label="Loading boards"></app-loader>
+        <common-loader animation="sk-cube" label="Loading boards"></common-loader>
       </ng-template>
     </div>
   </div>
-</app-side-bar>
+</common-sidebar>
 <router-outlet></router-outlet>

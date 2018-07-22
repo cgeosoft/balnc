@@ -1,57 +1,51 @@
-import { Injectable, Injector } from "@angular/core"
-import { HttpClient } from "@angular/common/http"
-import { BehaviorSubject ,  Observable ,  Subject } from "rxjs"
+import { Injectable,NgZone } from "@angular/core"
 import { RxCollection } from 'rxdb'
 
-import * as moment from 'moment'
+import { ConfigService, DatabaseService } from "@balnc/common"
 
-import { BaseService, ConfigService } from "@balnc/common"
-
-import { RxMessageDoc, MessageSchema, Message } from "@balnc/teams/boards/models/message"
-import { RxBoardDoc, BoardSchema, Board } from "@balnc/teams/boards/models/board"
+import { RxMessageDoc, Message } from "../models/message"
+import { RxBoardDoc, Board } from "../models/board"
+import { Subject, Observable } from "rxjs";
 
 @Injectable()
-export class BoardService extends BaseService {
+export class BoardService {
+
+    boardCol: RxCollection<RxBoardDoc>
+    messageCol: RxCollection<RxMessageDoc>
 
     nickname: string;
+
     boards: Board[]
+    boards$: Subject<Board[]>
     messages: any
 
     constructor(
-        private injector: Injector,
-        private http: HttpClient,
+        private ngZone: NgZone,
+        private dbService: DatabaseService,
+        private configService: ConfigService,
     ) {
-        super(injector)
-        this._module = "@balnc/teams"
-        this._entities = [{
-            name: 'board',
-            schema: BoardSchema,
-            sync: true,
-        }, {
-            name: 'message',
-            schema: MessageSchema,
-            sync: true,
-        }]
+        this.setup()
     }
 
     async setup() {
-        await super.setup()
 
         this.nickname = this.configService.username
 
-        const boardCol = this._data["board"] as RxCollection<RxBoardDoc>
-        this.boards = await boardCol.find().exec() as Board[]
-        boardCol.$.subscribe(async (dbItem) => {
-            this.boards = await boardCol.find().exec() as Board[]
+        this.boardCol = await this.dbService.get<RxBoardDoc>("board")
+        this.messageCol = await this.dbService.get<RxMessageDoc>("message")
+
+        this.boardCol.$.subscribe(async (dbItem) => {
+            console.log(dbItem)
+            await this.loadBoards()
         })
+        await this.loadBoards()
 
         const messageDefaultArray = {}
         this.boards.forEach(b => {
             messageDefaultArray[b.name] = []
         })
 
-        const messageCol = this._data["message"] as RxCollection<RxMessageDoc>
-        const messagesRaw = await messageCol.find().exec()
+        const messagesRaw = await this.messageCol.find().exec()
         const messages = messagesRaw
             .sort((a, b) => {
                 if (a.sendAt < b.sendAt) { return -1 }
@@ -68,14 +62,20 @@ export class BoardService extends BaseService {
 
         this.messages = Object.assign(messageDefaultArray, messages)
 
-        messageCol.$.subscribe(dbItem => {
+        this.messageCol.$.subscribe(dbItem => {
             const message = dbItem.data.v as Message
             if (!message) { return }
             this.messages[message.board].push(message)
             this.updateBoard(message.board, {
                 lastMessage: message
             })
-            // console.log("boards",this.boards)
+        })
+    }
+
+    async loadBoards(){
+        let boards = await this.boardCol.find().exec() as Board[]
+        this.ngZone.run(()=>{
+this.boards =boards
         })
     }
 
@@ -92,7 +92,8 @@ export class BoardService extends BaseService {
         this.boards.push(_board)
         this.messages[board.name] = []
         const _boardDoc: RxBoardDoc = Object.assign({}, _board)
-        await super.add<RxBoardDoc>("board", _boardDoc)
+
+        await this.boardCol.newDocument(_boardDoc).save()
     }
 
     async joinBoard(boardName: any) {
@@ -124,8 +125,7 @@ export class BoardService extends BaseService {
     }
 
     async updateBoard(boardName, newItem: Board) {
-        const boardCol = this._data["board"] as RxCollection<RxBoardDoc>
-        const existBoard = await boardCol.findOne().where('name').eq(boardName).exec()
+        const existBoard = await this.boardCol.findOne().where('name').eq(boardName).exec()
         Object.assign(existBoard, newItem)
         await existBoard.save()
     }
@@ -133,6 +133,6 @@ export class BoardService extends BaseService {
     async sendMessage(message: any) {
         const _message: RxMessageDoc = Object.assign({}, message)
         _message.sendAt = (new Date()).getTime()
-        await super.add<RxMessageDoc>("message", _message)
+        await this.messageCol.newDocument(_message).save()
     }
 }

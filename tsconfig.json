@@ -23,14 +23,14 @@
       "@balnc/core": [
         "src/packages/_core"
       ],
-      "@balnc/marketing": [
-        "src/packages/marketing"
+      "@balnc/presentations": [
+        "src/packages/presentations"
       ],
       "@balnc/business/*": [
         "src/packages/business/*"
       ],
-      "@balnc/teams/*": [
-        "src/packages/teams/*"
+      "@balnc/boards": [
+        "src/packages/boards"
       ],
       "@balnc/booking/*": [
         "src/packages/booking/*"

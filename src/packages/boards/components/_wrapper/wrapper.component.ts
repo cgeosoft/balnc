@@ -1,14 +1,14 @@
 import { Component, NgZone, OnInit, ElementRef, ViewChild, Pipe, PipeTransform } from '@angular/core'
 import { Router } from '@angular/router';
 
-import { BoardService } from '@balnc/teams/boards/services/board.service';
+import { BoardService } from '../../services/board.service';
 
 @Component({
-  selector: 'app-teams-boards-main',
-  templateUrl: './_main.component.html',
-  styleUrls: ['./_main.component.scss']
+  selector: 'teams-boards-wrapper',
+  templateUrl: './wrapper.component.html',
+  styleUrls: ['./wrapper.component.scss']
 })
-export class MainComponent implements OnInit {
+export class WrapperComponent implements OnInit {
 
   boards: any[]
   nickname: string
@@ -34,9 +34,8 @@ export class MainComponent implements OnInit {
     await this.boardService.createBoard({
       name: this.newBoard,
     })
-    this.router.navigate(["/teams/boards", this.newBoard])
+    this.router.navigate(["/boards", this.newBoard])
     this.newBoard = null
-    this.load()
   }
 
 }

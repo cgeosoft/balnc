@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
-import { NgxMdModule  } from 'ngx-md'
+import { NgxMdModule } from 'ngx-md'
 
 import { CommonModule } from '@balnc/common';
 
@@ -18,21 +18,14 @@ import { TaskComponent } from '@balnc/teams/projects/components/task/task.compon
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild([{
-      path: 'projects',
-      component: MainComponent,
-      resolve: {
-        db: ProjectsService,
-      },
-      children: [
-        { path: 'overview', component: OverviewComponent },
-        { path: 'manage', component: ProjectsComponent },
-        { path: ':id', component: ProjectComponent },
-        { path: 'tasks/:id', component: TaskComponent },
-        { path: '', redirectTo: "overview" },
-      ],
-    }]),
-    NgxMdModule ,
+    RouterModule.forChild([
+      { path: 'overview', component: OverviewComponent },
+      { path: 'manage', component: ProjectsComponent },
+      { path: ':id', component: ProjectComponent },
+      { path: 'tasks/:id', component: TaskComponent },
+      { path: '', redirectTo: "overview" },
+    ]),
+    NgxMdModule,
   ],
   declarations: [
     MainComponent,

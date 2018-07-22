@@ -2,7 +2,7 @@ import { NgModule, APP_INITIALIZER } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ServiceWorkerModule } from '@angular/service-worker'
-import { RouterModule, PreloadAllModules } from '@angular/router'
+import { RouterModule } from '@angular/router'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
@@ -11,14 +11,15 @@ import ENV from '../environments/environment';
 
 import { CommonModule, DatabaseService, ConfigService, ConfigGuard } from '@balnc/common'
 import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRoutes } from '@balnc/core'
-import { PresentationsModule, PresentationsRoutes,PresentationEntities } from '@balnc/marketing'
+import { PresentationsModule, PresentationsRoutes, PresentationEntities } from '@balnc/presentations'
+import { BoardsRoutes, BoardEntities, BoardsModule } from '@balnc/boards'
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule.forRoot(),
-    // ENV.isProd ? ServiceWorkerModule.register('ngsw-worker.js') : [],
+    ENV.isProd ? ServiceWorkerModule.register('ngsw-worker.js') : [],
     ToastrModule.forRoot({
       positionClass: "toast-bottom-center"
     }),
@@ -30,8 +31,9 @@ import { PresentationsModule, PresentationsRoutes,PresentationEntities } from '@
       ],
       children: [
         ...DashboardRoutes,
-        ...SettingsRoutes,
+        ...SettingsRoutes, 
         ...PresentationsRoutes,
+        ...BoardsRoutes,
       ],
     }, {
       path: 'setup',
@@ -46,6 +48,7 @@ import { PresentationsModule, PresentationsRoutes,PresentationEntities } from '@
     CommonModule,
     CoreModule,
     PresentationsModule,
+    BoardsModule,
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
@@ -55,12 +58,13 @@ import { PresentationsModule, PresentationsRoutes,PresentationEntities } from '@
     {
       provide: APP_INITIALIZER,
       useFactory: (configService: ConfigService, databaseService: DatabaseService) => async () => {
-       configService.setup(ENV)
-       await   databaseService.setup([
-          ...PresentationEntities
+        configService.setup(ENV)
+        await databaseService.setup([
+          ...PresentationEntities,
+          ...BoardEntities,
         ])
       },
-      deps: [ConfigService,DatabaseService],
+      deps: [ConfigService, DatabaseService],
       multi: true,
     }
   ],
