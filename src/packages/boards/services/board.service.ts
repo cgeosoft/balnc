@@ -45,7 +45,7 @@ export class BoardService {
       let board = this.boards$.value.find(b => b.name === message.board)
       if (board) {
         board.messages$.next(board.messages$.getValue().concat([message]))
-        // this.ngZone.run(() => { })
+        this.ngZone.run(() => {})
       }
     })
   }
