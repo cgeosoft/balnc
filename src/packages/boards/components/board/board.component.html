@@ -1,61 +1,83 @@
 <common-content>
-  <common-content-header [title]="board.name" icon="comments:regular"></common-content-header>
+  <common-content-header [title]="boardName" icon="comments:regular"></common-content-header>
   <common-content-body class="h-100">
-    <div class="card d-flex h-100 w-100">
-      <div #messageList class="card-body h-100">
-        <ng-container *ngIf="(board.messages$ | async) as messages; else loader">
-          <ng-container *ngIf="messages.length else empty">
-            <ng-template ngFor let-m [ngForOf]="messages">
-              <ng-container [ngSwitch]="m.type">
-                <ng-container *ngSwitchCase="'MESSAGE'">
-                  <div class="msg-item" [ngClass]="{'own':m.sender === nickname}">
-                    <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png" [ngbTooltip]="m.sender" placement="left">
-                    <div class="msg-body">
-                      {{m.text}}
-                    </div>
-                    <small class="text-secondary" [ngbTooltip]="m.sendAt | date:'medium'">{{m.sendAt | ago}}</small>
-                  </div>
-                </ng-container>
-                <ng-container *ngSwitchCase="'CMD-CREATE'">
-                  <div class="msg-command">
-                    <strong>{{m.data.user}}</strong> created
-                    <strong>{{m.board}}</strong> at
-                    <strong>{{m.sendAt|date:'medium'}}</strong>
-                  </div>
-                </ng-container>
-                <ng-container *ngSwitchDefault>
-                  <div class="msg-broke">
-                    Message can not be rendered
-                  </div>
-                </ng-container>
+    <div class="d-flex h-100">
+      <div class="card card-chat">
+        <div #messageList class="card-body">
+          <ng-container *ngIf="board as messages; else loader">
+            <ng-container *ngIf="(board.messages$ | async) as messages; else loader">
+              <ng-container *ngIf="messages.length else emptyMessages">
+                <ng-template ngFor let-m [ngForOf]="messages">
+                  <ng-container [ngSwitch]="m.type">
+                    <ng-container *ngSwitchCase="'MESSAGE'">
+                      <div class="msg-item" [ngClass]="{'own':m.sender === boardService.nickname}">
+                        <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png" [ngbTooltip]="m.sender" placement="left">
+                        <div class="msg-body">
+                          {{m.text}}
+                        </div>
+                        <small class="text-secondary" [ngbTooltip]="m.sendAt | date:'medium'">{{m.sendAt | ago}}</small>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'CMD-CREATE'">
+                      <div class="msg-command">
+                        <strong>{{m.data.user}}</strong> created
+                        <strong>{{m.board}}</strong> at
+                        <strong>{{m.sendAt|date:'medium'}}</strong>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngSwitchDefault>
+                      <div class="msg-broke">
+                        Message can not be rendered
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </ng-template>
               </ng-container>
-            </ng-template>
+            </ng-container>
           </ng-container>
-        </ng-container>
-      </div>
-      <div class="card-footer">
-        <input #messageInput class="form-control" placeholder="type message..." [(ngModel)]="inputMessage" (keydown.enter)="send()">
-        <div class="d-flex mt-2">
-          <div>
-            <button type="button" class="ml-auto btn btn-link">
-              <fa-icon [icon]="['fas','image']"></fa-icon>
-            </button>
-            <button type="button" class="ml-auto btn btn-link">
-              <fa-icon [icon]="['fas','paperclip']"></fa-icon>
+        </div>
+        <div class="card-footer">
+          <input #messageInput class="form-control" placeholder="type message..." [(ngModel)]="inputMessage" (keydown.enter)="send()">
+          <div class="d-flex mt-2">
+            <div>
+              <button type="button" class="ml-auto btn btn-link">
+                <fa-icon [icon]="['fas','image']"></fa-icon>
+              </button>
+              <button type="button" class="ml-auto btn btn-link">
+                <fa-icon [icon]="['fas','paperclip']"></fa-icon>
+              </button>
+            </div>
+            <button type="button" class="ml-auto btn btn-outline-primary" (click)="send()">
+              <fa-icon [icon]="['far','paper-plane']"></fa-icon> send
             </button>
           </div>
-          <button type="button" class="ml-auto btn btn-outline-primary" (click)="send()">
-            <fa-icon [icon]="['far','paper-plane']"></fa-icon> send
-          </button>
+        </div>
+      </div>
+      <div class="ml-4 d-flex flex-column" style="width:250px; min-width: 250px">
+        <div class="card bg-primary text-white w-100 mb-4">
+          <div class="card-body">
+            <h4 class="card-title">Info</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id optio molestiae minima quaerat? Officia facilis,
+              aperiam eligendi officiis laboriosam dolorem dolores, veniam quasi ducimus doloremque molestiae eos soluta
+              optio beatae.</p>
+          </div>
+        </div>
+        <div class="card w-100 h-100">
+          <div class="card-body">
+            <h4 class="card-title">Files</h4>
+            <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id optio molestiae minima quaerat? Officia facilis,
+              aperiam eligendi officiis laboriosam dolorem dolores, veniam quasi ducimus doloremque molestiae eos soluta
+              optio beatae.</p>
+          </div>
         </div>
       </div>
     </div>
   </common-content-body>
 </common-content>
 
-<ng-template #empty>
-  <common-empty message="No messages" icon="file-alt:regular"></common-empty>
+<ng-template #emptyMessages>
+  <common-empty message="No messages yet" icon="comments:regular"></common-empty>
 </ng-template>
 <ng-template #loader>
-  <common-loader animation="sk-cube" label="Loading messages"></common-loader>
+  <common-loader animation="sk-cube" label="Loading"></common-loader>
 </ng-template>

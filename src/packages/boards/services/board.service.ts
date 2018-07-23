@@ -17,7 +17,7 @@ export class BoardService {
 
   boards$: BehaviorSubject<BoardWithMessages[]> = new BehaviorSubject<BoardWithMessages[]>([])
 
-  constructor(
+  constructor (
     private ngZone: NgZone,
     private dbService: DatabaseService,
     private configService: ConfigService
@@ -25,7 +25,7 @@ export class BoardService {
     this.setup()
   }
 
-  async setup() {
+  async setup () {
     this.nickname = this.configService.profile.remote.username
     this.boardCol = await this.dbService.get<RxBoardDoc>('board')
     this.messageCol = await this.dbService.get<RxMessageDoc>('message')
@@ -34,50 +34,55 @@ export class BoardService {
     await this.loadSubscriptions()
   }
 
-  async loadSubscriptions() {
+  async loadSubscriptions () {
     this.boardCol.$.subscribe(async (ev) => {
       await this.loadBoards()
-      this.ngZone.run(() => { })
+      // this.ngZone.run(() => { })
     })
 
     this.messageCol.$.subscribe(async (ev) => {
-      let message: Message = ev.data.doc as Message
-      let board = this.boards$.value.find(b => b.name == message.board)
-      board.messages$.next(board.messages$.getValue().concat([message]));
-      this.ngZone.run(() => { })
+      let message: Message = ev.data.v as Message
+      let board = this.boards$.value.find(b => b.name === message.board)
+      if (board) {
+        board.messages$.next(board.messages$.getValue().concat([message]))
+        // this.ngZone.run(() => { })
+      }
     })
   }
 
-  async loadBoards() {
+  async loadBoards () {
     let boards = await this.boardCol.find().exec() as BoardWithMessages[]
-    boards.forEach(b => {
-      b.messages$ = new BehaviorSubject<Message[]>([])
+    boards.forEach(async b => {
+      const messages = await this.loadMessages(b.name)
+      b.messages$ = new BehaviorSubject<Message[]>(messages)
     })
-    this.ngZone.run(() => {
-      this.boards$.next(boards)
-    })
+    // this.ngZone.run(() => {
+    this.boards$.next(boards)
+    // })
   }
 
-  async loadMessages(boardName: String) {
-    let query = this.messageCol.find().where("board").eq(boardName)
+  async loadMessages (boardName: String) {
+    let query = this.messageCol.find().where('board').eq(boardName)
     const messagesRaw = await query.exec()
-    const messages = messagesRaw
+    const messages: Message[] = messagesRaw
       .sort((a, b) => {
         if (a.sendAt < b.sendAt) { return -1 }
         if (a.sendAt > b.sendAt) { return 1 }
         return 0
       })
-    let board = this.boards$.value.find(b => b.name == boardName)
-    board.messages$.next(board.messages$.getValue().concat(messages));
-    this.ngZone.run(() => { })
+    // let board = this.boards$.value.find(b => b.name === boardName)
+    // if (board) {
+    //   board.messages$.next(board.messages$.getValue().concat(messages))
+    // }
+    return messages
   }
 
-  getBoard(boardName: any) {
-    let board = this.boards$.value.find(b => b.name == boardName)
+  getBoard (boardName: any) {
+    let board = this.boards$.value.find(b => b.name === boardName)
     return board
   }
 
-  async createBoard(board: any) {
+  async createBoard (board: any) {
     const _board = Object.assign({
       created: (new Date()).getTime(),
       members: [{
@@ -91,8 +96,8 @@ export class BoardService {
     await this.boardCol.newDocument(_boardDoc).save()
   }
 
-  async joinBoard(boardName: any) {
-    let board = this.boards$.value.find(b => b.name == boardName)
+  async joinBoard (boardName: any) {
+    let board = this.boards$.value.find(b => b.name === boardName)
     const _member = board.members.find(m => {
       return m.name === this.nickname
     })
@@ -112,14 +117,14 @@ export class BoardService {
     })
   }
 
-  async updateBoard(boardName, newItem: Board) {
-    const existBoard = await this.boardCol.findOne().where('name').eq(boardName).exec()
-    Object.assign(existBoard, newItem)
+  async updateBoard (boardName, newItem: Board) {
+    let existBoard = await this.boardCol.findOne().where('name').eq(boardName).exec()
+    existBoard = Object.assign(existBoard, newItem)
     await existBoard.save()
   }
 
-  async sendMessage(message: any) {
-    const _message: RxMessageDoc = Object.assign({}, message)
+  async sendMessage (message: Message) {
+    const _message: RxMessageDoc = Object.assign({}, message as RxMessageDoc)
     _message.sendAt = (new Date()).getTime()
     await this.messageCol.newDocument(_message).save()
   }

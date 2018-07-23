@@ -1,23 +1,14 @@
 <common-sidebar>
   <div class="menu mb-4">
     <div class="header d-flex">
-      <h4>Persona</h4>
-    </div>
-    <div class="input-group input-group-sm">
-      <div class="input-group-prepend">
-        <img class="nickname-avatar" src="https://api.adorable.io/avatars/31/{{nickname}}.png">
-      </div>
-      <input class="form-control" placeholder="Nickname" [(ngModel)]="nickname">
-    </div>
-  </div>
-  <div class="menu mb-4">
-    <div class="header d-flex">
       <h4>Boards</h4>
     </div>
-    <div class="input-group input-group-sm mb-2">
+    <div class="input-group mb-2">
       <input class="form-control" placeholder="New board" [(ngModel)]="newBoard">
       <div class="input-group-append">
-        <button class="btn btn-secondary" type="button" (click)="addBoard()">Add</button>
+        <button class="btn btn-primary" type="button" (click)="addBoard()">
+            <fa-layers class="fa-fw"> <fa-icon [icon]="['fa','plus-circle']"></fa-icon></fa-layers>
+        </button>
       </div>
     </div>
     <div class="items">
@@ -26,12 +17,11 @@
           <ng-template ngFor let-board [ngForOf]="boards">
             <a class="d-flex  align-items-center" [routerLink]="['/boards',board.name]" routerLinkActive="active">
               <img class="my-1 mr-2 rounded" style="min-width:30px;height:30px;" src="https://api.adorable.io/avatars/48/{{board.name}}.png">
-              <span class="mr-2" style="overflow: hidden; line-height: 1.2rem;">
-                {{board.name}}
-                <br>
-                <small class="text-secondary" *ngIf="board.lastMessage">{{board.lastMessage.text}}</small>
+              <span class="d-flex flex-column mr-2" style="overflow: hidden; line-height: 1.2rem;">
+                <span>{{board.name}}</span>
+                <small *ngIf="board.messages$ && board.messages$.value.length">{{board.messages$.value.slice(-1)[0].text}}</small>
               </span>
-              <span class="ml-auto badge badge-secondary" *ngIf="unread[board.name]">{{unread[board.name]}}</span>
+              <span class="ml-auto badge badge-primary" *ngIf="unread[board.name]">{{unread[board.name]}}</span>
             </a>
           </ng-template>
         </ng-container>
@@ -42,6 +32,25 @@
       <ng-template #loader>
         <common-loader icon="file-alt:regular" label="Loading boards"></common-loader>
       </ng-template>
+    </div>
+  </div>
+  <div class="menu mt-auto">
+    <div class="header d-flex">
+      <h4>Persona</h4>
+    </div>
+    <div class="card">
+      <img class="card-img-top" src="https://api.adorable.io/avatars/200/{{boardService.nickname}}.png">
+      <span class="badge badge-primary badge-nickname">{{boardService.nickname}}</span>
+      <div class="card-footer p-0">
+        <div class="input-group">
+          <input class="form-control" placeholder="Nickname" [(ngModel)]="nickname">
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="button" (click)="changePersona()">
+                <fa-layers class="fa-fw"><fa-icon [icon]="['fa','check-circle']"></fa-icon></fa-layers>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </common-sidebar>

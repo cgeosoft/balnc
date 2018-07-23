@@ -1,14 +1,13 @@
 import { Message } from './message'
 import * as schema from './board.json'
 import { RxDocument } from 'rxdb'
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs'
 
 declare interface IBoard {
   ref?: string
   name?: string
   members?: any[]
   created?: number
-  lastMessage?: Message
   avatar?: string
 }
 

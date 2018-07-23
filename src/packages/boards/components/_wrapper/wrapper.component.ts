@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 
 import { BoardService } from '../../services/board.service'
-import { Subject,Subscription,Observable } from 'rxjs';
+import { Observable } from 'rxjs'
 
-import { Message } from '../../models/message'
 import { Board } from '../../models/board'
 
 @Component({
@@ -15,8 +14,7 @@ import { Board } from '../../models/board'
 export class WrapperComponent implements OnInit {
 
   boards$: Observable<Board[]>
-  messages$: Observable<Message[]>
-    
+
   nickname: string
   newBoard: string
   unread: { [key: string]: number } = {}
@@ -29,7 +27,6 @@ export class WrapperComponent implements OnInit {
   ngOnInit () {
     this.nickname = this.boardService.nickname
     this.boards$ = this.boardService.boards$
-    this.messages$ = this.boardService.messages$
   }
 
   async addBoard () {
@@ -39,5 +36,9 @@ export class WrapperComponent implements OnInit {
     })
     this.router.navigate(['/boards', this.newBoard])
     this.newBoard = null
+  }
+
+  changePersona () {
+    this.boardService.nickname = this.nickname
   }
 }

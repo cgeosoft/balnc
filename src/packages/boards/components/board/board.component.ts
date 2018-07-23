@@ -1,11 +1,8 @@
-import { Observable, Subscription } from 'rxjs'
-import { Component, NgZone, OnInit, ElementRef, ViewChild, Pipe, PipeTransform } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { Component, NgZone, OnInit, ElementRef, ViewChild } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
 
-import { Message } from '../../models/message'
 import { BoardService } from '../../services/board.service'
-import { Input } from '@angular/core';
-import { BoardWithMessages } from '../../models/board';
+import { BoardWithMessages } from '../../models/board'
 
 @Component({
   selector: 'teams-boards-board',
@@ -17,36 +14,49 @@ export class BoardComponent implements OnInit {
   @ViewChild('messageList') messageList: ElementRef
   @ViewChild('messageInput') messageInput: ElementRef
 
+  selected: string
+  boards: BoardWithMessages[]
   board: BoardWithMessages
-  
-  inputMessage: string
-  nickname: string
+  boardName: string
 
-  constructor(
+  inputMessage: string
+
+  constructor (
     private boardService: BoardService,
     private route: ActivatedRoute,
+    private router: Router,
     private zone: NgZone
   ) { }
 
-  ngOnInit() {
-    this.nickname = this.boardService.nickname
-    this.route.params.subscribe(params => {
-      this.board = this.boardService.getBoard(params['board'])
-      this.boardService.loadMessages(params['board'])
+  ngOnInit () {
+    this.boardService.boards$.subscribe((boards) => {
+      this.boards = boards
+      this.loadBoard()
     })
-    this.messageInput.nativeElement.focus()
+    this.route.params.subscribe(params => {
+      this.selected = params['board']
+      this.loadBoard()
+    })
   }
 
-  public async send() {
+  async loadBoard () {
+    if (!this.selected) { return }
+    if (!this.boards || !this.boards.length) { return }
+    this.board = this.boards.find(b => b.name === this.selected)
+    this.boardName = this.board.name
+    this.zone.run(() => {
+      this.scrollToBottom()
+      this.messageInput.nativeElement.focus()
+    })
+  }
 
+  async send () {
     if (!this.inputMessage) { return }
-
     const msgText = this.inputMessage
     this.inputMessage = null
-    
     await this.boardService.sendMessage({
       board: this.board.name,
-      sender: this.nickname,
+      sender: this.boardService.nickname,
       text: msgText,
       type: 'MESSAGE'
     })
@@ -57,13 +67,9 @@ export class BoardComponent implements OnInit {
     })
   }
 
-  scrollToBottom(): void {
-    try {
-      setTimeout(() => {
-        this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
-      }, 100)
-    } catch (err) {
-      console.error(err)
-    }
+  scrollToBottom (): void {
+    setTimeout(() => {
+      this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
+    }, 100)
   }
 }
