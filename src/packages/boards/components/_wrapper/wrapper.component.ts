@@ -20,7 +20,7 @@ export class WrapperComponent implements OnInit {
   unread: { [key: string]: number } = {}
 
   constructor (
-    private boardService: BoardService,
+    public boardService: BoardService,
     private router: Router
   ) { }
 

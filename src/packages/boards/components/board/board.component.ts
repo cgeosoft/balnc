@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit, ElementRef, ViewChild } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
 
 import { BoardService } from '../../services/board.service'
 import { BoardWithMessages } from '../../models/board'
@@ -22,9 +22,8 @@ export class BoardComponent implements OnInit {
   inputMessage: string
 
   constructor (
-    private boardService: BoardService,
+    public boardService: BoardService,
     private route: ActivatedRoute,
-    private router: Router,
     private zone: NgZone
   ) { }
 
