@@ -6,7 +6,7 @@ import { CommonModule } from '@balnc/common'
 import { BoardService } from './services/board.service'
 
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
-import { BoardComponent, FilterBoardPipe } from './components/board/board.component'
+import { BoardComponent } from './components/board/board.component'
 
 @NgModule({
   imports: [
@@ -16,8 +16,6 @@ import { BoardComponent, FilterBoardPipe } from './components/board/board.compon
   declarations: [
     WrapperComponent,
     BoardComponent,
-
-    FilterBoardPipe
   ],
   providers: [
     BoardService
