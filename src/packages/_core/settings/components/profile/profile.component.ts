@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
     ) { }
 
   async ngOnInit () {
-    this.modules = this.configService.modules
+    this.modules = this.configService.packages
 
     this.route.params.subscribe(params => {
       this.setup(params['alias'])

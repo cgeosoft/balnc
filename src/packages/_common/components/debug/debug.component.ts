@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-// import { ENV } from 'environments/environment.prod';
+import { environment } from 'environments/environment'
 
 @Component({
   selector: 'common-debug',
@@ -12,10 +12,8 @@ export class DebugComponent implements OnInit {
 
   show
 
-  constructor () { }
-
   ngOnInit () {
-    // this.show = !ENV.isProd
+    this.show = !environment.production
   }
 
 }

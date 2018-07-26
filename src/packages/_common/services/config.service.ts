@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { LocalStorage } from 'ngx-store'
 
+import { environment } from 'environments/environment'
+
 import { HelperService } from '../services/helper.service'
 import { BalncModule } from '../models/balnc-module'
 import { Profile } from '../models/profile'
@@ -8,9 +10,9 @@ import { Profile } from '../models/profile'
 @Injectable()
 export class ConfigService {
 
-  public version: any = null
-  public config: any = null
-  public modules: BalncModule[] = null
+  public version: string = environment.version
+  public config: any = environment
+  public packages: BalncModule[] = environment.packages
 
   @LocalStorage() roles: string[] = []
 
@@ -19,12 +21,8 @@ export class ConfigService {
 
   public profile: Profile
 
-  setup (env: any) {
-    this.config = env.configuration
-    this.modules = env.modules
-    this.version = env.version
-
-    console.log('[ConfigService]', 'Initializing with env:', env)
+  setup () {
+    console.log('[ConfigService]', 'Initializing with env:', environment)
     console.log('[ConfigService]', 'Profiles available:', Object.values(this.profiles))
 
     if (this.selected) {
@@ -41,7 +39,7 @@ export class ConfigService {
     if (!this.profile) {
       return []
     }
-    const menu = this.modules
+    const menu = this.packages
       .filter(m => {
         return this.profile.modules &&
           this.profile.modules[m.id] &&

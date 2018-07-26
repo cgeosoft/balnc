@@ -7,7 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
 import { AppComponent } from './app.component'
-import ENV from '../environments/environment'
+import environment from '../environments/environment'
 
 import { CommonModule, DatabaseService, ConfigService, ConfigGuard } from '@balnc/common'
 import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRoutes } from '@balnc/core'
@@ -20,7 +20,7 @@ import { ProjectsRoutes, ProjectsEntities, ProjectsModule } from '@balnc/project
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule.forRoot(),
-    ENV.isProd ? ServiceWorkerModule.register('ngsw-worker.js') : [],
+    environment.production ? ServiceWorkerModule.register('ngsw-worker.js') : [],
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-center'
     }),
@@ -61,7 +61,7 @@ import { ProjectsRoutes, ProjectsEntities, ProjectsModule } from '@balnc/project
     {
       provide: APP_INITIALIZER,
       useFactory: (configService: ConfigService, databaseService: DatabaseService) => async () => {
-        configService.setup(ENV)
+        configService.setup()
         await databaseService.setup([
           ...PresentationsEntities,
           ...ProjectsEntities,

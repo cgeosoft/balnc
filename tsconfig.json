@@ -42,7 +42,7 @@
         "src/packages/report/*"
       ],
       "environments/*": [
-        "environments/*"
+        "src/environments/*"
       ]
     }
   },

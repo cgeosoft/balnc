@@ -17,17 +17,17 @@ import * as AdapterIDB from 'pouchdb-adapter-idb'
 
 import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
 
-// import { ENV } from 'environments/environment'
+import { environment } from 'environments/environment'
 import { Entity } from '../models/entity'
 import { ConfigService } from './config.service'
 
 RxDB.QueryChangeDetector.enable()
 
-// if (!ENV.isProd) {
-//     console.log("[DatabaseService]", "In debug")
-//     RxDB.plugin(RxDBSchemaCheckModule)
-//     // RxDB.QueryChangeDetector.enableDebugging()
-// }
+if (!environment.production) {
+  console.log('[DatabaseService]', 'In debug')
+  RxDB.plugin(RxDBSchemaCheckModule)
+  RxDB.QueryChangeDetector.enableDebugging()
+}
 
 // RxDB.plugin(KeycompressionPlugin)
 RxDB.plugin(RxDBValidateModule)

@@ -1,5 +1,5 @@
 {
-  "modules": [{
+  "packages": [{
     "id": "@balnc/business",
     "title": "Business",
     "description": "In this namespace you will find business modules that will help you manage your customers, orders and profiles.",
