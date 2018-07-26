@@ -1,5 +1,10 @@
-import { environment } from './environment'
+import * as _packages from './packages.json'
+import * as _package from '../../package.json'
 
-environment.production = true
+export const environment = {
+  production: false,
+  packages: _packages['packages'],
+  version: _package['version']
+}
 
 export default environment

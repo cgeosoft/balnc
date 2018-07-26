@@ -1,7 +1,7 @@
 {
   "name": "blnc",
   "short_name": "blnc",
-  "description": "A software framework for develop business applications.",
+  "description": "An offline-first business application",
   "theme_color": "#3F51B5",
   "background_color": "#222222",
   "display": "standalone",

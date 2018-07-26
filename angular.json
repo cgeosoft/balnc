@@ -21,18 +21,10 @@
             "assets": [{
               "glob": "**/*.*",
               "input": "src/assets",
-              "output": "/assets"
-            }, {
-              "glob": "_redirects",
-              "input": "src/assets",
-              "output": "/"
-            }, {
-              "glob": "manifest.json",
-              "input": "src/assets/",
               "output": "/"
             }, {
               "glob": "favicon.ico",
-              "input": "src/assets/icons/",
+              "input": "src/assets/icons",
               "output": "/"
             }],
             "styles": [
