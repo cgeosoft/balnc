@@ -2,15 +2,9 @@ declare interface IBalncModule {
   id: string
   title: string
   description: string
-  menu?: BalncModuleMenu[]
-  config?: BalncModuleConfig
-}
-
-declare interface IBalncModuleMenu {
-  id: string
-  label: string
   icon: any
   path: string
+  config?: BalncModuleConfig
 }
 
 declare interface IBalncModuleConfig {
@@ -20,5 +14,4 @@ declare interface IBalncModuleConfig {
 }
 
 export type BalncModule = IBalncModule
-export type BalncModuleMenu = IBalncModuleMenu
 export type BalncModuleConfig = IBalncModuleConfig

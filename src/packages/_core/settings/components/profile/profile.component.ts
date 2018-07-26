@@ -25,14 +25,14 @@ export class ProfileComponent implements OnInit {
   deleteData = false
   deleteDataRemote = false
 
-  constructor (
-        private router: Router,
-        private route: ActivatedRoute,
-        private configService: ConfigService,
-        private databaseService: DatabaseService
-    ) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private configService: ConfigService,
+    private databaseService: DatabaseService
+  ) { }
 
-  async ngOnInit () {
+  async ngOnInit() {
     this.modules = this.configService.packages
 
     this.route.params.subscribe(params => {
@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  setup (alias: string = null) {
+  setup(alias: string = null) {
     this.profile = this.configService.getProfile(alias)
 
     if (!this.profile) {
@@ -61,11 +61,11 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  save () {
+  save() {
     this.configService.saveProfile(this.profileEdit)
   }
 
-  async backup () {
+  async backup() {
     const data = await this.databaseService.backup()
 
     const a = document.createElement('a')
@@ -75,14 +75,14 @@ export class ProfileComponent implements OnInit {
     a.click()
   }
 
-  restore () { }
+  restore() { }
 
-  delete () {
-        // this.configService.deleteProfile(this.profileEdit.alias)
+  delete() {
+    // this.configService.deleteProfile(this.profileEdit.alias)
     this.router.navigate(['/profiles'])
   }
 
-  activate () {
+  activate() {
     this.configService.selectProfile(this.profile.alias)
   }
 

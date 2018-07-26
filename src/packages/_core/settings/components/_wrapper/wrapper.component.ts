@@ -54,28 +54,19 @@ export class WrapperComponent implements OnInit {
         enableSync: false
       },
       modules: {
-        '@balnc/business': {
-          enabled: true,
-          menu: {
-            invoices: true
-          }
-        },
-        '@balnc/marketing': {
-          enabled: true,
-          menu: {
-            presentations: true
-          }
-        },
-        '@balnc/teams': {
-          enabled: true,
-          menu: {
-            projects: true,
-            boards: true
-          }
-        }
-      },
-      params: null
+        '@balnc/contacts': { enabled: true },
+        '@balnc/orders': { enabled: true },
+        '@balnc/invoices': { enabled: true },
+        '@balnc/presentations': { enabled: true },
+        '@balnc/analytics': { enabled: true },
+        '@balnc/polls': { enabled: true },
+        '@balnc/emails': { enabled: true },
+        '@balnc/projects': { enabled: true },
+        '@balnc/boards': { enabled: true },
+        '@balnc/reports': { enabled: true }
+      }
     })
+
     this.router.navigate(['/settings', alias])
     this.load()
   }
