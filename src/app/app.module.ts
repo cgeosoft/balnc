@@ -20,7 +20,7 @@ import { ProjectsRoutes, ProjectsEntities, ProjectsModule } from '@balnc/project
     BrowserModule,
     BrowserAnimationsModule,
     NgbModule.forRoot(),
-    ServiceWorkerModule.register('ngsw-worker.js'),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-center'
     }),
