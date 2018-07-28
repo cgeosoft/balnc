@@ -1,150 +1,152 @@
-<common-content>
-  <common-content-header [title]="profileName" [subtitle]="'Profile: '+profileAlias" icon="cog"></common-content-header>
-  <common-content-body>
-    <div *ngIf="selected!=profile.alias" class="card border-primary mb-4">
-      <div class="card-body d-flex">
-        <div class="flex-grow-1">
-          <h4 class="card-title">Profile Not Activated</h4>
-          <p class="card-text">This profile is not activated. Click here to use.</p>
-        </div>
-        <button (click)="activate()" style="min-width:200px;width:200px" class="btn btn-lg btn-primary btn-block">Activate</button>
-      </div>
-    </div>
-    <div *ngIf="selected==profile.alias" class="card bg-primary text-white mb-4">
-      <div class="card-body d-flex">
-        <div class="flex-grow-1">
-          <h4 class="card-title">Profile Activated</h4>
-          <p class="card-text">This profile is activated. You will need to refresh your browser for changes to apply.</p>
-        </div>
-        <button *ngIf="needReload" (click)="reload()" style="min-width:200px;width:200px" class="btn btn-lg btn-outline-light btn-block">Refresh</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="mb-4">
-          <h4>Profile details</h4>
-          <div class="form-group">
-            <label>Profile Name
-              <small class="text-muted">required</small>
-            </label>
-            <input autocomplete="false" [(ngModel)]="profile.name" (ngModelChange)="needReload=true" class="form-control">
+<ng-container *ngIf="profile; else loading">
+  <common-content>
+    <common-content-header [title]="profileName" [subtitle]="'Profile: '+profileAlias" icon="cog"></common-content-header>
+    <common-content-body>
+      <div *ngIf="selected!=profile.alias" class="card border-primary mb-4">
+        <div class="card-body d-flex">
+          <div class="flex-grow-1">
+            <h4 class="card-title">Profile Not Activated</h4>
+            <p class="card-text">This profile is not activated. Click here to use.</p>
           </div>
+          <button (click)="activate()" style="min-width:200px;width:200px" class="btn btn-lg btn-primary btn-block">Activate</button>
         </div>
-        <div class="mb-4">
-          <h4>Remote database</h4>
-          <div class="form-group">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" [(ngModel)]="profile.remoteSync"  (ngModelChange)="needReload=true">
-              <label class="form-check-label" for="defaultCheck1">
-                Enable real-time synchronization with remote.
+      </div>
+      <div *ngIf="selected==profile.alias" class="card bg-primary text-white mb-4">
+        <div class="card-body d-flex">
+          <div class="flex-grow-1">
+            <h4 class="card-title">Profile Activated</h4>
+            <p class="card-text">This profile is activated. You will need to refresh your browser for changes to apply.</p>
+          </div>
+          <button *ngIf="needReload" (click)="reload()" style="min-width:200px;width:200px" class="btn btn-lg btn-outline-light btn-block">Refresh</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="mb-4">
+            <h4>Profile details</h4>
+            <div class="form-group">
+              <label>Profile Name
+                <small class="text-muted">required</small>
               </label>
-            </div>
-            <small id="passwordHelpBlock" class="form-text text-muted">
-              Use this option for make real-time backup of your data and access the same data from multiple devices. Some packages may require
-              this option to work.
-            </small>
-          </div>
-          <div class="form-group row">
-            <label class="col-3 col-form-label text-right">Host</label>
-            <div class="col-9">
-              <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" (ngModelChange)="needReload=true" class="form-control">
+              <input autocomplete="false" [(ngModel)]="profile.name" (ngModelChange)="needReload=true" class="form-control">
             </div>
           </div>
-          <div class="form-group row">
-            <label class="col-3 col-form-label text-right">Prefix</label>
-            <div class="col-9">
-              <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePrefix"  (ngModelChange)="needReload=true" class="form-control">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-3 col-form-label text-right">Username</label>
-            <div class="col-9">
-              <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteUsername"  (ngModelChange)="needReload=true" class="form-control">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-3 col-form-label text-right">Password</label>
-            <div class="col-9">
-              <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePassword"  (ngModelChange)="needReload=true" class="form-control"
-                type="password">
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-4">
-          <h4>Backup / Restore</h4>
-          <p>You may export all profile data to json format as a backup or to move them to more clients.</p>
-          <div class="d-flex justify-content-center">
-            <button class="btn btn-outline-primary mr-2" (click)="backup()" disabled>
-              <fa-layers class="fa-fw">
-                <fa-icon [icon]="['fas','cloud-download-alt']"></fa-icon>
-              </fa-layers>
-              Backup
-            </button>
-            <button class="btn btn-outline-primary" (click)="restore()" disabled>
-              <fa-layers class="fa-fw">
-                <fa-icon [icon]="['fas','cloud-upload-alt']"></fa-icon>
-              </fa-layers>
-              Restore
-            </button>
-          </div>
-        </div>
-
-        <div class="card border-danger text-danger mb-4">
-          <div class="card-body">
-            <h4>Danger Zone</h4>
-            <p>By deleting your profile, you immediately remove all local data(at your client). If you would like also to delete
-              the remote data please check the option below. If you do not delete remote data, all data will be synced once
-              this profile is recreated.</p>
-            <div class="d-flex">
-              <div class="d-flex flex-column">
-                <div class="form-group form-check m-0">
-                  <input type="checkbox" class="form-check-input" id="deleteData" [(ngModel)]="deleteData">
-                  <label class="form-check-label" for="deleteData">Ι understand that this is not reversable</label>
-                </div>
-                <div class="form-group form-check m-0">
-                  <input type="checkbox" class="form-check-input" id="deleteDataRemote" [(ngModel)]="deleteDataRemote">
-                  <label class="form-check-label" for="deleteDataRemote">Also delete remote data</label>
-                </div>
+          <div class="mb-4">
+            <h4>Remote database</h4>
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="profile.remoteSync" (ngModelChange)="needReload=true">
+                <label class="form-check-label" for="defaultCheck1">
+                  Enable real-time synchronization with remote.
+                </label>
               </div>
-              <div class="ml-auto d-flex align-items-center">
-                <button class="btn btn-danger" [disabled]="!deleteData" (click)="delete()">
+              <small id="passwordHelpBlock" class="form-text text-muted">
+                Use this option for make real-time backup of your data and access the same data from multiple devices. Some packages may
+                require this option to work.
+              </small>
+            </div>
+            <div class="form-group row">
+              <label class="col-3 col-form-label text-right">Host</label>
+              <div class="col-9">
+                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" (ngModelChange)="needReload=true"
+                  class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-3 col-form-label text-right">Prefix</label>
+              <div class="col-9">
+                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePrefix" (ngModelChange)="needReload=true"
+                  class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-3 col-form-label text-right">Username</label>
+              <div class="col-9">
+                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteUsername" (ngModelChange)="needReload=true"
+                  class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-3 col-form-label text-right">Password</label>
+              <div class="col-9">
+                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePassword" (ngModelChange)="needReload=true"
+                  class="form-control" type="password">
+              </div>
+            </div>
+          </div>
+
+          <div class="card border-primary mb-4">
+            <div class="card-body">
+              <h4>Export Data</h4>
+              <p> You may export all profile data to json format as a backup or to move to another client.</p>
+              <div class="d-flex">
+                <button class="btn btn-outline-primary mr-2 ml-auto" (click)="export()">
+                  <fa-layers class="fa-fw">
+                    <fa-icon [icon]="['fas','cloud-download-alt']"></fa-icon>
+                  </fa-layers>
+                  Export
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card border-danger text-danger mb-4">
+            <div class="card-body">
+              <h4>Danger Zone</h4>
+              <p> By deleting your profile, you immediately remove all local data(at your client). If you would like also to
+                delete the remote data please check the option below. If you do not delete remote data, all data will be
+                synced once this profile is recreated.</p>
+              <div class="form-group form-check m-0">
+                <input type="checkbox" class="form-check-input" id="deleteData" [(ngModel)]="deleteData">
+                <label class="form-check-label" for="deleteData">Ι understand that this is not reversable</label>
+              </div>
+              <div class="form-group form-check m-0">
+                <input type="checkbox" class="form-check-input" id="deleteDataRemote" [(ngModel)]="deleteDataRemote">
+                <label class="form-check-label" for="deleteDataRemote">Also delete remote data</label>
+              </div>
+              <div class="d-flex">
+                <button class="btn btn-danger ml-auto" [disabled]="!deleteData" (click)="delete()">
                   <fa-layers class="fa-fw">
                     <fa-icon [icon]="['fas','trash-alt']"></fa-icon>
                   </fa-layers>
-                  Delete</button>
+                  Remove</button>
               </div>
             </div>
           </div>
+
+        </div>
+
+        <div class="col-lg-6">
+          <h4>Μodules</h4>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex align-items-center px-0 py-1" *ngFor="let package of packages">
+              <fa-layers class="fa-fw fa-3x mr-2 text-muted" style="width:75px;min-width:75px">
+                <fa-icon [icon]="package.icon"></fa-icon>
+              </fa-layers>
+              <div class="flex-grow-1">
+                <h5 class="mb-0">
+                  <fa-layers class="fa-fw text-success" *ngIf="profile.packages[package.id].enabled">
+                    <fa-icon [icon]="['fas','check']"></fa-icon>
+                  </fa-layers> {{package.title}}
+                  <small class="text-muted">{{package.id}}</small>
+                </h5>
+                <small class="text-muted">{{package.description}}</small>
+              </div>
+              <button *ngIf="!profile.packages[package.id].enabled" type="button" class="btn btn-outline-primary btn-sm" style="min-width:100px;"
+                (click)="profile.packages[package.id].enabled=true;needReload=true">
+                Activate
+              </button>
+              <button *ngIf="profile.packages[package.id].enabled" type="button" class="btn btn-outline-danger btn-sm" style="min-width:100px;"
+                (click)="profile.packages[package.id].enabled=false;needReload=true">
+                Deactivate
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="col-lg-6">
-        <h4>Μodules</h4>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item d-flex align-items-center px-0 py-1" *ngFor="let package of packages">
-            <fa-layers class="fa-fw fa-3x mr-2 text-muted" style="width:75px;min-width:75px">
-              <fa-icon [icon]="package.icon"></fa-icon>
-            </fa-layers>
-            <div class="flex-grow-1">
-              <h5 class="mb-0">
-                <fa-layers class="fa-fw text-success" *ngIf="profile.packages[package.id].enabled">
-                  <fa-icon [icon]="['fas','check']"></fa-icon>
-                </fa-layers> {{package.title}}
-                <small class="text-muted">{{package.id}}</small>
-              </h5>
-              <small class="text-muted">{{package.description}}</small>
-            </div>
-            <button *ngIf="!profile.packages[package.id].enabled" type="button" class="btn btn-outline-primary btn-sm" style="min-width:100px;"
-              (click)="profile.packages[package.id].enabled=true;needReload=true">
-              Activate
-            </button>
-            <button *ngIf="profile.packages[package.id].enabled" type="button" class="btn btn-outline-danger btn-sm" style="min-width:100px;"
-              (click)="profile.packages[package.id].enabled=false;needReload=true">
-              Deactivate
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </common-content-body>
-</common-content>
+    </common-content-body>
+  </common-content>
+</ng-container>
+<ng-template #loading>
+  <common-loader animation="sk-cube"></common-loader>
+</ng-template>

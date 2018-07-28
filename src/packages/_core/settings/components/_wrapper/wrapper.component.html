@@ -2,11 +2,6 @@
   <div class="menu">
     <div class="header">
       <h4>Profiles</h4>
-      <button (click)="createProfile()">
-        <fa-layers class="fa-fw item-icon">
-          <fa-icon [icon]="['fas','plus-circle']"></fa-icon>
-        </fa-layers>
-      </button>
     </div>
     <div class="items">
       <ng-container *ngIf="profiles; else empty">
@@ -38,12 +33,16 @@
         </fa-layers>
         <span>Generate Demo</span>
       </button>
-      <!-- <button ngxFilePicker>Import File</button> -->
+      <button ngxFilePicker>
+          <fa-layers class="fa-fw item-icon">
+            <fa-icon [icon]="['fas','cloud-upload-alt']"></fa-icon>
+          </fa-layers>
+          <span>Import Profile</span></button>
       <button (click)="clear()">
         <fa-layers class="fa-fw item-icon">
           <fa-icon [icon]="['fas','trash-alt']"></fa-icon>
         </fa-layers>
-        <span>Crear All</span>
+        <span>Remove all Profiles</span>
       </button>
     </div>
   </div>

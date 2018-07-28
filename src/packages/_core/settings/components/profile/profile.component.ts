@@ -19,13 +19,11 @@ export class ProfileComponent implements OnInit {
 
   packages: Package[]
 
-  profile: Profile = {
-    packages: {}
-  }
+  selected: string
+  profile: Profile
 
   deleteData = false
   deleteDataRemote = false
-  selected: string
   needReload = false
 
   constructor (
@@ -36,21 +34,21 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   async ngOnInit () {
+
+    this.selected = this.configService.selected
     this.packages = this.configService.packages.map(m => {
       const v = { ...m }
       v.icon = HelperService.getIcon(m.icon)
       return v
     })
 
-    this.packages.forEach(p => {
-      if (!this.profile.packages[p.id]) {
-        this.profile.packages[p.id] = {
-          enabled: false
-        }
-      }
-    })
-
-    this.selected = this.configService.selected
+    // this.packages.forEach(p => {
+    //   if (!this.profile.packages[p.id]) {
+    //     this.profile.packages[p.id] = {
+    //       enabled: false
+    //     }
+    //   }
+    // })
 
     this.route.params.subscribe(params => {
       this.setup(params['alias'])
@@ -58,26 +56,21 @@ export class ProfileComponent implements OnInit {
   }
 
   setup (alias: string) {
-    console.log(alias)
     this.needReload = false
     let _profile = this.configService.getProfile(alias)
-
-    if (!this.profile) {
+    if (!_profile) {
       this.router.navigate(['/settings'])
     }
-
-    this.profileName = this.profile.name
-    this.profileAlias = this.profile.alias
-
+    this.profileName = _profile.name
+    this.profileAlias = _profile.alias
     this.packages.forEach(p => {
-      if (!this.profile.packages[p.id]) {
-        this.profile.packages[p.id] = {
+      if (!_profile.packages[p.id]) {
+        _profile.packages[p.id] = {
           enabled: false
         }
       }
     })
     this.profile = _profile
-    console.log(this.profile)
   }
 
   // save () {
@@ -91,18 +84,18 @@ export class ProfileComponent implements OnInit {
     window.location.reload()
   }
 
-  async backup () {
-    const data = await this.databaseService.backup()
+  async export () {
 
+    const data = await this.databaseService.export()
+    const backup = {
+      profile: this.profile,
+      data: data
+    }
     const a = document.createElement('a')
-    const file = new Blob([JSON.stringify(data)], { type: 'application/json' })
+    const file = new Blob([JSON.stringify(backup)], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
-    a.download = `data-${(new Date()).getTime()}.json`
+    a.download = `balnc.${this.profile.alias}.${(new Date()).getTime()}.json`
     a.click()
-  }
-
-  restore () {
-
   }
 
   delete () {

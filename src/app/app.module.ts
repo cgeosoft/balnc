@@ -35,15 +35,14 @@ import { ProjectsRoutes, ProjectsEntities, ProjectsModule } from '@balnc/project
         ...SettingsRoutes,
         ...PresentationsRoutes,
         ...ProjectsRoutes,
-        ...BoardsRoutes
-      ]
+        ...BoardsRoutes, {
+          path: '',
+          pathMatch: 'full',
+          redirectTo: '/dashboard'
+        }]
     }, {
       path: 'setup',
       component: SetupComponent
-    }, {
-      path: '',
-      pathMatch: 'full',
-      redirectTo: '/dashboard'
     }], {
         // enableTracing: true,
     }),

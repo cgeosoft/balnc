@@ -144,8 +144,8 @@ export class DatabaseService {
     return 'idb'
   }
 
-  async backup () {
-    await this.db.destroy()
+  async export () {
+    // await this.db.destroy()
     return this.db.dump()
   }
 
