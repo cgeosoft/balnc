@@ -4,14 +4,14 @@
         <h4>Settings</h4>
     </div>
     <div class="items">
-      <ng-container *ngIf="profiles; else empty">
-        <ng-container *ngIf="profiles.length; else empty">
-          <a *ngFor="let profile of profiles" [routerLink]="['/settings',profile.alias]" routerLinkActive="active">
+      <ng-container *ngIf="configService.profiles; else empty">
+        <ng-container *ngIf="configService.profiles.length; else empty">
+          <a *ngFor="let profile of configService.profiles" [routerLink]="['/settings',profile.alias]" routerLinkActive="active">
             <fa-layers class="fa-fw item-icon">
               <fa-icon [icon]="['fas','cog']"></fa-icon>
             </fa-layers>
             <span>{{profile.name}}</span>
-            <fa-layers class="fa-fw item-icon iconbadge" *ngIf="profile.alias==selected">
+            <fa-layers class="fa-fw item-icon iconbadge" *ngIf="profile.alias==configService.selected">
               <fa-icon [icon]="['fas','check-circle']"></fa-icon>
             </fa-layers>
           </a>

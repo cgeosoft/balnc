@@ -14,19 +14,21 @@ export class ConfigService {
   public config: any = environment
   public packages: Package[] = environment.packages
 
+  @LocalStorage() sidebarClosed: boolean = false
+
   @LocalStorage() roles: string[] = []
 
   @LocalStorage() selected: string = ''
-  @LocalStorage() profiles: { [key: string]: Profile } = {}
+  @LocalStorage() profiles: Profile[] = []
 
   public profile: Profile
 
   setup () {
     console.log('[ConfigService]', 'Initializing with env:', environment)
-    console.log('[ConfigService]', 'Profiles available:', Object.values(this.profiles))
+    console.log('[ConfigService]', 'Profiles available:', this.profiles)
 
     if (this.selected) {
-      this.profile = this.profiles[this.selected]
+      this.profile = this.profiles.find(p => p.alias === this.selected)
       console.log('[ConfigService]', `Profile ${this.selected} laoded`)
     }
   }
@@ -54,7 +56,7 @@ export class ConfigService {
 
   clearAllProfiles () {
     this.selected = null
-    this.profiles = {}
+    this.profiles = []
     window.location.reload()
   }
 
@@ -63,29 +65,30 @@ export class ConfigService {
     window.location.reload()
   }
 
-  createProfile (profile: Profile) {
-    let profiles = this.profiles
-    const unique = new Date()
-    profile.alias = `${unique.getTime()}`
-    profile.createdAt = unique.toISOString()
-    profiles[profile.alias] = profile
-    this.profiles = profiles
-    return profile.alias
-  }
-
   saveProfile (profile: Profile): string {
-    let profiles = this.profiles
-    profiles[profile.alias] = Object.assign(profiles[profile.alias], profile)
+    const unique = new Date()
+    profile.alias = profile.alias || `${unique.getTime()}`
+    profile.createdAt = profile.createdAt || unique.toISOString()
+    let profiles = [...this.profiles]
+    let index = this.profiles.findIndex(p => p.alias === profile.alias)
+    if (index !== -1) {
+      profiles.splice(index, 1)
+    }
+    profiles.push(profile)
     this.profiles = profiles
     return profile.alias
   }
 
   getProfile (alias: string = null): Profile {
     alias = alias || this.selected
-    return this.profiles[alias]
+    let index = this.profiles.findIndex(p => p.alias === alias)
+    return this.profiles[index]
   }
 
   deleteProfile (alias: string) {
-    delete this.profiles[alias]
+    let profiles = [...this.profiles]
+    let index = this.profiles.findIndex(p => p.alias === alias)
+    profiles.splice(index, 1)
+    this.profiles = profiles
   }
 }

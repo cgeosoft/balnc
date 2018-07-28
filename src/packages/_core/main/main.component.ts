@@ -13,7 +13,6 @@ import { ConfigService, Profile } from '@balnc/common'
 export class MainComponent implements OnInit {
 
   profile: Profile
-  smClosed: boolean
 
   profileName: string
   username: string
@@ -25,9 +24,9 @@ export class MainComponent implements OnInit {
 
   pageLoading = false
 
-  constructor (
+  constructor(
+    public configService: ConfigService,
     private router: Router,
-    private configService: ConfigService,
     private toastr: ToastrService
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
@@ -37,7 +36,7 @@ export class MainComponent implements OnInit {
 
   menu: any[] = []
 
-  ngOnInit () {
+  ngOnInit() {
 
     this.version = this.configService.version
 
@@ -46,8 +45,6 @@ export class MainComponent implements OnInit {
     if (this.profile) {
       this.menu = this.configService.getMainMenu()
     }
-
-    this.smClosed = localStorage.getItem('smClosed') === 'true'
 
     if (this.profile) {
       this.profileName = this.profile.name
@@ -69,16 +66,15 @@ export class MainComponent implements OnInit {
     this.setStatus()
   }
 
-  setStatus () {
+  setStatus() {
     this.isOnline = this.networkStatus && this.databaseStatus
   }
 
-  toggleSidemenu () {
-    this.smClosed = !this.smClosed
-    localStorage.setItem('smClosed', `${this.smClosed}`)
+  toggleSidemenu() {
+    this.configService.sidebarClosed = !this.configService.sidebarClosed
   }
 
-  private _navigationInterceptor (event: RouterEvent): void {
+  private _navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.pageLoading = true
     }
@@ -94,7 +90,7 @@ export class MainComponent implements OnInit {
     }
   }
 
-  private _hideSpinner (): void {
+  private _hideSpinner(): void {
     this.pageLoading = false
   }
 }

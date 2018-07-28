@@ -12,13 +12,19 @@
       @extend .flex-column;
       @extend .justify-content-start;
       text-align: center;
+      min-width: 50px;
       width: 50px;
       z-index: 1000;
       background: $dark;
-      transition: width .5s;
+      transition: all .5s;
       overflow: hidden;
       .logo {
-        margin: .7rem .5rem;
+        @extend .d-flex;
+        @extend .justify-content-center;
+        @extend .align-items-center;
+        min-width: 50px;
+        width: 50px;
+        height: 50px;
         .fa {
           text-shadow: none;
           line-height: 2rem;
@@ -33,6 +39,8 @@
         @extend .flex-column;
         @extend .justify-content-start;
         overflow-y: auto;
+        min-width: 50px;
+        width: 50px;
         height: 100%;
         &::-webkit-scrollbar-track {
           background-color: none;
@@ -89,6 +97,7 @@
       }
       &.closed {
         width: 0;
+        min-width: 0;
       }
     }
     .page-loader {
@@ -114,6 +123,7 @@
       height: 40px;
       text-align: center;
       line-height: 40px;
+      z-index: 1;
     }
   }
   .statusbar {

@@ -13,22 +13,15 @@ export class WrapperComponent implements OnInit {
 
   @ViewChild(FilePickerDirective)
 
-  selected: string
-  profiles: Profile[]
   error: string
 
   constructor (
-    private configService: ConfigService,
+    public configService: ConfigService,
     private router: Router
   ) { }
 
   ngOnInit () {
-    this.load()
-  }
 
-  load () {
-    this.profiles = Object.values(this.configService.profiles)
-    this.selected = this.configService.selected
   }
 
   clear () {
@@ -36,16 +29,15 @@ export class WrapperComponent implements OnInit {
   }
 
   createProfile () {
-    const alias = this.configService.createProfile({
+    const alias = this.configService.saveProfile({
       name: this.generateName(),
       packages: {}
     })
     this.router.navigate(['/settings', alias])
-    this.load()
   }
 
   createDemo () {
-    const alias = this.configService.createProfile({
+    const alias = this.configService.saveProfile({
       name: this.generateName(),
       remotePrefix: 'demo',
       remoteHost: 'https://s1.cgeosoft.com/couchdb',
@@ -67,7 +59,6 @@ export class WrapperComponent implements OnInit {
     })
 
     this.router.navigate(['/settings', alias])
-    this.load()
   }
 
   onFilePicked (file: ReadFile) {

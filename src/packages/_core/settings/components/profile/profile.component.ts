@@ -82,8 +82,8 @@ export class ProfileComponent implements OnInit {
   }
 
   delete () {
-    // this.configService.deleteProfile(this.profileEdit.alias)
-    this.router.navigate(['/profiles'])
+    this.configService.deleteProfile(this.profile.alias)
+    this.router.navigate(['/settings'])
   }
 
   activate () {
