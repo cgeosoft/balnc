@@ -1,4 +1,4 @@
-import { ReportService } from './../../services/report.service';
+import { ReportService } from '@balnc/report/services/report.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'

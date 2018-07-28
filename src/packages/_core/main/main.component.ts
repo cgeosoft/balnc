@@ -51,7 +51,7 @@ export class MainComponent implements OnInit {
 
     if (this.profile) {
       this.profileName = this.profile.name
-      this.username = this.configService.profile.remote.username
+      this.username = this.configService.profile.remoteUsername
     }
 
     observableFromEvent(window, 'online')

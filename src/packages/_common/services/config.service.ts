@@ -3,8 +3,8 @@ import { LocalStorage } from 'ngx-store'
 
 import { environment } from 'environments/environment'
 
-import { HelperService } from '../services/helper.service'
-import { BalncModule } from '../models/balnc-module'
+import { HelperService } from './helper.service'
+import { Package } from '../models/package'
 import { Profile } from '../models/profile'
 
 @Injectable()
@@ -12,7 +12,7 @@ export class ConfigService {
 
   public version: string = environment.version
   public config: any = environment
-  public packages: BalncModule[] = environment.packages
+  public packages: Package[] = environment.packages
 
   @LocalStorage() roles: string[] = []
 
@@ -31,8 +31,8 @@ export class ConfigService {
     }
   }
 
-  getModuleConfig (moduleId: string) {
-    return this.profile.modules[moduleId]
+  getPackageConfig (id: string) {
+    return this.profile.packages[id]
   }
 
   getMainMenu () {
@@ -41,9 +41,9 @@ export class ConfigService {
     }
     const menu = this.packages
       .filter(m => {
-        return this.profile.modules &&
-          this.profile.modules[m.id] &&
-          this.profile.modules[m.id].enabled
+        return this.profile.packages &&
+          this.profile.packages[m.id] &&
+          this.profile.packages[m.id].enabled
       })
       .map(m => {
         const v = { ...m }
@@ -78,9 +78,6 @@ export class ConfigService {
     let profiles = this.profiles
     profiles[profile.alias] = Object.assign(profiles[profile.alias], profile)
     this.profiles = profiles
-    if (this.selected === profile.alias) {
-      window.location.reload()
-    }
     return profile.alias
   }
 

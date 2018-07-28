@@ -1,12 +1,14 @@
-import { RemoteConfig } from './remote-config'
-
 declare interface IProfile {
   alias?: string
   name?: string
   key?: string
   createdAt?: string
-  remote?: RemoteConfig
-  modules?: any
+  remotePrefix?: string
+  remoteHost?: string
+  remoteUsername?: string
+  remotePassword?: string
+  remoteSync?: boolean
+  packages?: any
   params?: any
 }
 

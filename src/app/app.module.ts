@@ -7,7 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrModule } from 'ngx-toastr'
 
 import { AppComponent } from './app.component'
-import environment from '../environments/environment'
+import environment from 'environments/environment'
 
 import { CommonModule, DatabaseService, ConfigService, ConfigGuard } from '@balnc/common'
 import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRoutes } from '@balnc/core'

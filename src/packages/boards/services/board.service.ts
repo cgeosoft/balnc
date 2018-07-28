@@ -26,7 +26,7 @@ export class BoardService {
   }
 
   async setup () {
-    this.nickname = this.configService.profile.remote.username
+    this.nickname = this.configService.profile.remoteUsername
     this.boardCol = await this.dbService.get<RxBoardDoc>('board')
     this.messageCol = await this.dbService.get<RxMessageDoc>('message')
 

@@ -43,9 +43,11 @@ $color-sidebar-font: #FFF;
   color: #aaa;
   .header {
     @extend .mb-2;
+    @extend .d-flex;
     h4 {
       @extend .m-0;
       @extend .p-0;
+      @extend .flex-grow-1;
       font-weight: 300;
       color: #aaa;
       .fa {
@@ -55,10 +57,9 @@ $color-sidebar-font: #FFF;
     button {
       @extend .btn;
       @extend .btn-sm;
-      @extend .btn-link;
+      @extend .btn-outline-light;
       padding: .3rem .2rem;
       font-size: .8rem;
-      color: #aaa;
     }
   }
   .items {
@@ -81,6 +82,10 @@ $color-sidebar-font: #FFF;
       border: none;
       width: 100%;
       text-align: left;
+      span{
+        @extend .flex-grow-1;
+        @extend .text-truncate;
+      }
       .item-icon {
         @extend .mr-1;
       }
@@ -89,7 +94,9 @@ $color-sidebar-font: #FFF;
         color: #999;
       }
       .badge {
-        margin: .2rem 0;
+        @extend .ml-auto;
+        min-width: 15px;
+        width: 15px;
       }
       &.active {
         background: lighten($color-sidebar-background, 10%);

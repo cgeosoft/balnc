@@ -81,7 +81,7 @@ export class DatabaseService {
 
     await Promise.all(sets)
 
-    if (this.configService.profile.remote.enableSync && this.configService.profile.remote && this.configService.profile.remote.host) {
+    if (this.configService.profile.remoteSync && this.configService.profile.remoteHost) {
       this.sync()
     }
   }
@@ -93,7 +93,7 @@ export class DatabaseService {
       if (entity.sync) {
         const ent: RxCollection<any> = this.db[key]
         this.replicationStates[key] = ent.sync({
-          remote: `${this.configService.profile.remote.host}/${this.configService.profile.remote.prefix}-${entity.name}/`,
+          remote: `${this.configService.profile.remoteHost}/${this.configService.profile.remotePrefix}-${entity.name}/`,
           options: {
             live: true,
             retry: true
@@ -116,7 +116,7 @@ export class DatabaseService {
   }
 
   async authenticate (username: string, password: string) {
-    const resp = await this.http.post(`${this.configService.profile.remote.host}/_session`, {
+    const resp = await this.http.post(`${this.configService.profile.remoteHost}/_session`, {
       name: username,
       password: password
     }, { withCredentials: true })

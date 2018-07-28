@@ -7,7 +7,7 @@ import * as faker from "faker"
 import * as moment from 'moment'
 import * as _ from 'lodash'
 
-import { RxContactDocument, ContactSchema } from "../data/contact"
+import { RxContactDocument, ContactSchema } from "@balnc/business/contacts/data/contact"
 
 import { Entity, DatabaseService } from "@balnc/common";
 

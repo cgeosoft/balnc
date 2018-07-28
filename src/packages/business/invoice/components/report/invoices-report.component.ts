@@ -1,7 +1,7 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core'
 
 
-import { Invoice } from '../../data/invoice'
+import { Invoice } from '@balnc/business/invoice/data/invoice'
 
 @Component({
   selector: 'app-invoices-report',

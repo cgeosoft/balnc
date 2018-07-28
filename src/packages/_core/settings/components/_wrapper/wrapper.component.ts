@@ -45,15 +45,13 @@ export class WrapperComponent implements OnInit {
 
   createDemo () {
     const alias = this.configService.createProfile({
-      name: 'Demo Company',
-      remote: {
-        prefix: 'demo',
-        host: 'https://s1.cgeosoft.com/couchdb',
-        username: 'demo',
-        password: 'demo',
-        enableSync: false
-      },
-      modules: {
+      name: this.generateName(),
+      remotePrefix: 'demo',
+      remoteHost: 'https://s1.cgeosoft.com/couchdb',
+      remoteUsername: 'demo',
+      remotePassword: 'demo',
+      remoteSync: false,
+      packages: {
         '@balnc/contacts': { enabled: true },
         '@balnc/orders': { enabled: true },
         '@balnc/invoices': { enabled: true },

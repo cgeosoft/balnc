@@ -2,7 +2,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 
-import { BalncModule, DatabaseService, ConfigService, Profile } from '@balnc/common'
+import { Package, DatabaseService, ConfigService, Profile, HelperService } from '@balnc/common'
 
 @Component({
   selector: 'core-settings-profile',
@@ -17,31 +17,50 @@ export class ProfileComponent implements OnInit {
   profileName: string
   profileAlias: string
 
-  modules: BalncModule[]
-  activeModules: { [key: string]: boolean } = {}
-  profile: Profile
-  profileEdit: Profile
-  form: FormGroup
+  packages: Package[]
+
+  profile: Profile = {
+    packages: {}
+  }
+
   deleteData = false
   deleteDataRemote = false
+  selected: string
+  needReload = false
 
-  constructor(
+  constructor (
     private router: Router,
     private route: ActivatedRoute,
     private configService: ConfigService,
     private databaseService: DatabaseService
   ) { }
 
-  async ngOnInit() {
-    this.modules = this.configService.packages
+  async ngOnInit () {
+    this.packages = this.configService.packages.map(m => {
+      const v = { ...m }
+      v.icon = HelperService.getIcon(m.icon)
+      return v
+    })
+
+    this.packages.forEach(p => {
+      if (!this.profile.packages[p.id]) {
+        this.profile.packages[p.id] = {
+          enabled: false
+        }
+      }
+    })
+
+    this.selected = this.configService.selected
 
     this.route.params.subscribe(params => {
       this.setup(params['alias'])
     })
   }
 
-  setup(alias: string = null) {
-    this.profile = this.configService.getProfile(alias)
+  setup (alias: string) {
+    console.log(alias)
+    this.needReload = false
+    let _profile = this.configService.getProfile(alias)
 
     if (!this.profile) {
       this.router.navigate(['/settings'])
@@ -49,41 +68,49 @@ export class ProfileComponent implements OnInit {
 
     this.profileName = this.profile.name
     this.profileAlias = this.profile.alias
-    this.profileEdit = { ...this.profile }
-    this.profileEdit.remote = this.profileEdit.remote || {}
-    this.profileEdit.modules = this.profileEdit.modules || {}
 
-    if (this.profile.modules) {
-      this.activeModules = Object.keys(this.profileEdit.modules).reduce((x, i) => {
-        x[i] = this.profile.modules[i].enabled
-        return x
-      }, {})
-    }
+    this.packages.forEach(p => {
+      if (!this.profile.packages[p.id]) {
+        this.profile.packages[p.id] = {
+          enabled: false
+        }
+      }
+    })
+    this.profile = _profile
+    console.log(this.profile)
   }
 
-  save() {
-    this.configService.saveProfile(this.profileEdit)
+  // save () {
+  //   this.configService.saveProfile(this.profileEdit)
+  //   if (this.selected === this.profileEdit.alias) {
+  //     this.needReload = true
+  //   }
+  // }
+
+  reload () {
+    window.location.reload()
   }
 
-  async backup() {
+  async backup () {
     const data = await this.databaseService.backup()
 
     const a = document.createElement('a')
     const file = new Blob([JSON.stringify(data)], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
-    a.download = `data-${(new Date).getTime()}.json`
+    a.download = `data-${(new Date()).getTime()}.json`
     a.click()
   }
 
-  restore() { }
+  restore () {
 
-  delete() {
+  }
+
+  delete () {
     // this.configService.deleteProfile(this.profileEdit.alias)
     this.router.navigate(['/profiles'])
   }
 
-  activate() {
+  activate () {
     this.configService.selectProfile(this.profile.alias)
   }
-
 }
