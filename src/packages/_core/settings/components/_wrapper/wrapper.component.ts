@@ -37,7 +37,8 @@ export class WrapperComponent implements OnInit {
 
   createProfile () {
     const alias = this.configService.createProfile({
-      name: this.generateName()
+      name: this.generateName(),
+      packages: {}
     })
     this.router.navigate(['/settings', alias])
     this.load()
@@ -52,16 +53,16 @@ export class WrapperComponent implements OnInit {
       remotePassword: 'demo',
       remoteSync: false,
       packages: {
-        '@balnc/contacts': { enabled: true },
-        '@balnc/orders': { enabled: true },
-        '@balnc/invoices': { enabled: true },
-        '@balnc/presentations': { enabled: true },
-        '@balnc/analytics': { enabled: true },
-        '@balnc/polls': { enabled: true },
-        '@balnc/emails': { enabled: true },
-        '@balnc/projects': { enabled: true },
-        '@balnc/boards': { enabled: true },
-        '@balnc/reports': { enabled: true }
+        '@balnc/contacts': true,
+        '@balnc/orders': true,
+        '@balnc/invoices': true,
+        '@balnc/presentations': true,
+        '@balnc/analytics': true,
+        '@balnc/polls': true,
+        '@balnc/emails': true,
+        '@balnc/projects': true,
+        '@balnc/boards': true,
+        '@balnc/reports': true
       }
     })
 

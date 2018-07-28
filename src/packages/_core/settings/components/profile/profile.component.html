@@ -28,14 +28,14 @@
               <label>Profile Name
                 <small class="text-muted">required</small>
               </label>
-              <input autocomplete="false" [(ngModel)]="profile.name" (ngModelChange)="needReload=true" class="form-control">
+              <input autocomplete="false" [(ngModel)]="profile.name" (ngModelChange)="save();" class="form-control">
             </div>
           </div>
           <div class="mb-4">
             <h4>Remote database</h4>
             <div class="form-group">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" [(ngModel)]="profile.remoteSync" (ngModelChange)="needReload=true">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="profile.remoteSync" (ngModelChange)="save();">
                 <label class="form-check-label" for="defaultCheck1">
                   Enable real-time synchronization with remote.
                 </label>
@@ -48,28 +48,28 @@
             <div class="form-group row">
               <label class="col-3 col-form-label text-right">Host</label>
               <div class="col-9">
-                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" (ngModelChange)="needReload=true"
+                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" (ngModelChange)="save();"
                   class="form-control">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-3 col-form-label text-right">Prefix</label>
               <div class="col-9">
-                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePrefix" (ngModelChange)="needReload=true"
+                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePrefix" (ngModelChange)="save();"
                   class="form-control">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-3 col-form-label text-right">Username</label>
               <div class="col-9">
-                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteUsername" (ngModelChange)="needReload=true"
+                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteUsername" (ngModelChange)="save();"
                   class="form-control">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-3 col-form-label text-right">Password</label>
               <div class="col-9">
-                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePassword" (ngModelChange)="needReload=true"
+                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePassword" (ngModelChange)="save();"
                   class="form-control" type="password">
               </div>
             </div>
@@ -125,19 +125,19 @@
               </fa-layers>
               <div class="flex-grow-1">
                 <h5 class="mb-0">
-                  <fa-layers class="fa-fw text-success" *ngIf="profile.packages[package.id].enabled">
+                  <fa-layers class="fa-fw text-success" *ngIf="profile.packages[package.id]">
                     <fa-icon [icon]="['fas','check']"></fa-icon>
                   </fa-layers> {{package.title}}
                   <small class="text-muted">{{package.id}}</small>
                 </h5>
                 <small class="text-muted">{{package.description}}</small>
               </div>
-              <button *ngIf="!profile.packages[package.id].enabled" type="button" class="btn btn-outline-primary btn-sm" style="min-width:100px;"
-                (click)="profile.packages[package.id].enabled=true;needReload=true">
+              <button *ngIf="!profile.packages[package.id]" type="button" class="btn btn-outline-primary btn-sm" style="min-width:100px;"
+                (click)="profile.packages[package.id]=true;save();">
                 Activate
               </button>
-              <button *ngIf="profile.packages[package.id].enabled" type="button" class="btn btn-outline-danger btn-sm" style="min-width:100px;"
-                (click)="profile.packages[package.id].enabled=false;needReload=true">
+              <button *ngIf="profile.packages[package.id]" type="button" class="btn btn-outline-danger btn-sm" style="min-width:100px;"
+                (click)="profile.packages[package.id]=false;save();">
                 Deactivate
               </button>
             </li>

@@ -8,7 +8,7 @@ declare interface IProfile {
   remoteUsername?: string
   remotePassword?: string
   remoteSync?: boolean
-  packages?: any
+  packages?: { [key: string]: boolean }
   params?: any
 }
 

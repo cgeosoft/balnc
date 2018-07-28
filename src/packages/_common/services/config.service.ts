@@ -42,8 +42,7 @@ export class ConfigService {
     const menu = this.packages
       .filter(m => {
         return this.profile.packages &&
-          this.profile.packages[m.id] &&
-          this.profile.packages[m.id].enabled
+          this.profile.packages[m.id]
       })
       .map(m => {
         const v = { ...m }

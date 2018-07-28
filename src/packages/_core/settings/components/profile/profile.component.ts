@@ -42,14 +42,6 @@ export class ProfileComponent implements OnInit {
       return v
     })
 
-    // this.packages.forEach(p => {
-    //   if (!this.profile.packages[p.id]) {
-    //     this.profile.packages[p.id] = {
-    //       enabled: false
-    //     }
-    //   }
-    // })
-
     this.route.params.subscribe(params => {
       this.setup(params['alias'])
     })
@@ -63,22 +55,13 @@ export class ProfileComponent implements OnInit {
     }
     this.profileName = _profile.name
     this.profileAlias = _profile.alias
-    this.packages.forEach(p => {
-      if (!_profile.packages[p.id]) {
-        _profile.packages[p.id] = {
-          enabled: false
-        }
-      }
-    })
     this.profile = _profile
   }
 
-  // save () {
-  //   this.configService.saveProfile(this.profileEdit)
-  //   if (this.selected === this.profileEdit.alias) {
-  //     this.needReload = true
-  //   }
-  // }
+  save () {
+    this.configService.saveProfile(this.profile)
+    this.needReload = true
+  }
 
   reload () {
     window.location.reload()
