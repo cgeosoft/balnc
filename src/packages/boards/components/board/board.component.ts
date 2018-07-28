@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit, ElementRef, ViewChild } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 
 import { BoardService } from '../../services/board.service'
 import { BoardWithMessages } from '../../models/board'
@@ -27,14 +27,15 @@ export class BoardComponent implements OnInit {
       id: 'messages',
       label: 'Messages',
       icon: 'comments:regular'
-    },{
+    }, {
       id: 'files',
       label: 'Files',
       icon: 'copy'
-    },{
+    }, {
       id: 'manage',
       label: 'Manage',
-      icon: 'cog'
+      icon: 'cog',
+      right: true
     }],
     select: (tabId) => {
       this.tabsMenu.active = tabId
@@ -44,6 +45,7 @@ export class BoardComponent implements OnInit {
   constructor (
     public boardService: BoardService,
     private route: ActivatedRoute,
+    private router: Router,
     private zone: NgZone
   ) { }
 
@@ -84,6 +86,11 @@ export class BoardComponent implements OnInit {
       this.scrollToBottom()
       this.messageInput.nativeElement.focus()
     })
+  }
+
+  async delete () {
+    await this.boardService.deleteBoard(this.board.name)
+    this.router.navigate(['/boards'])
   }
 
   scrollToBottom (): void {

@@ -45,7 +45,7 @@ export class BoardService {
       let board = this.boards$.value.find(b => b.name === message.board)
       if (board) {
         board.messages$.next(board.messages$.getValue().concat([message]))
-        this.ngZone.run(() => {})
+        this.ngZone.run(() => { })
       }
     })
   }
@@ -128,4 +128,17 @@ export class BoardService {
     _message.sendAt = (new Date()).getTime()
     await this.messageCol.newDocument(_message).save()
   }
+
+  async deleteBoard (boardName) {
+    let existBoard = await this.boardCol.findOne().where('name').eq(boardName).exec()
+    existBoard.remove()
+
+    let messages = await this.messageCol.find().where('board').eq(boardName).exec()
+    if (messages.length) {
+      messages.forEach(m => {
+        m.remove()
+      })
+    }
+  }
+
 }
