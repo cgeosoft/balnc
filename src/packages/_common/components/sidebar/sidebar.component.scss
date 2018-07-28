@@ -1,4 +1,3 @@
-
 @import "components/bootstrap";
 $color-sidebar-background: lighten($dark, 5);
 $color-sidebar-font: #FFF;
@@ -82,21 +81,18 @@ $color-sidebar-font: #FFF;
       border: none;
       width: 100%;
       text-align: left;
-      span{
+      span {
         @extend .flex-grow-1;
         @extend .text-truncate;
       }
       .item-icon {
         @extend .mr-1;
-      }
-      .fa {
-        font-size: .7rem;
-        color: #999;
-      }
-      .badge {
-        @extend .ml-auto;
-        min-width: 15px;
-        width: 15px;
+        min-width: 20px;
+        font-size: .8rem;
+        .icon-badge {
+          @extend .mr-0;
+          @extend .ml-auto;
+        }
       }
       &.active {
         background: lighten($color-sidebar-background, 10%);
@@ -104,19 +100,12 @@ $color-sidebar-font: #FFF;
       }
       &:hover {
         background: lighten($color-sidebar-background, 5%);
-        cursor: pointer;
-        color: #FFF;
-        .fa {
-          color: #AAA;
-        }
+        color: #eee;
       }
       &:disabled {
         cursor: not-allowed;
         color: #666;
         background: $color-sidebar-background;
-        .fa {
-          color: #666;
-        }
       }
       &.media {
         .img-thumbnail {
