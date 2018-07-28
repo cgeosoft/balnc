@@ -13,7 +13,21 @@ export class ContentHeaderComponent implements OnInit {
   @Input() subtitle = null
   @Input() details: any[] = []
   @Input() settingsMenu: any[] = []
+
+  // tabsMenu = {
+  //   active: "1",
+  //   tabs: [{
+  //     id: "1",
+  //     label: "1",
+  //     icon: "1",
+  //   }],
+  //   select: (tabId) => {
+  //     this.tabsMenu.active = tabId
+  //   }
+  // }
+
   @Input() tabsMenu: any = {}
+
   @Input() fullWidth = false
   @Input() route = null
 
@@ -23,5 +37,11 @@ export class ContentHeaderComponent implements OnInit {
 
   ngOnInit () {
     this._icon = HelperService.getIcon(this.icon)
+
+    if (this.tabsMenu.tabs) {
+      this.tabsMenu.tabs.forEach(tab => {
+        tab.icon = HelperService.getIcon(tab.icon)
+      })
+    }
   }
 }

@@ -21,6 +21,26 @@ export class BoardComponent implements OnInit {
 
   inputMessage: string
 
+  tabsMenu = {
+    active: 'messages',
+    tabs: [{
+      id: 'messages',
+      label: 'Messages',
+      icon: 'comments:regular'
+    },{
+      id: 'files',
+      label: 'Files',
+      icon: 'copy'
+    },{
+      id: 'manage',
+      label: 'Manage',
+      icon: 'cog'
+    }],
+    select: (tabId) => {
+      this.tabsMenu.active = tabId
+    }
+  }
+
   constructor (
     public boardService: BoardService,
     private route: ActivatedRoute,
