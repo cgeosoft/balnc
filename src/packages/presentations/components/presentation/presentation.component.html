@@ -1,24 +1,40 @@
-<common-content>
-  <common-content-header [title]="presentation?.title" subtitle="Presentation" icon="angle-left" route="/presentations"
-    [tabsMenu]="tabsMenu"></common-content-header>
-  <common-content-body *ngIf="tabsMenu.active === 'overview'">
-    <ng-container *ngIf="presentation; else loader">
+<ng-container *ngIf="presentation; else loading">
+  <common-content>
+
+    <common-content-header [title]="presentation.title" subtitle="Presentation" icon="angle-left" route="/presentations" [tabsMenu]="tabsMenu"></common-content-header>
+
+    <common-content-body *ngIf="tabsMenu.active === 'overview'">
+      <button class="btn btn-outline-primary" (click)="startPresentation()">Start Presentation</button>
+    </common-content-body>
+
+    <common-content-body *ngIf="tabsMenu.active === 'slides'">
       <div class="row">
         <div class="col-md-4">
-          <div class="card mb-2">
+          <div class="card">
             <div class="card-body">
+              <div class="toolbar">
+                <button class="btn btn-outline-primary" (click)="addPage()">
+                  <span class="fa fa-plus fa-fw"></span> Add Slide
+                </button>
+              </div>
+            </div>
+            <ng-container *ngIf="presentation.pages; else emptyPages">
+              <div class="list-group list-group-flush">
+                <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item p-2"
+                  *ngFor="let page of presentation.pages; let i = index;">
+                  {{page.title}}
+                  <small class="pull-right">#{{i+1}}</small>
+                </a>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="card bg-primary text-white m4-2">
+            <div class="card-body">
+              <h4>Details</h4>
               <dl>
-                <dt>Description
-                  <a href="javascript:void(0)" class="descCollToggle" (click)="descOpen = !descOpen">
-                    <span *ngIf="descOpen">
-                      <span class="fa fa-angle-double-up"></span> LESS
-                    </span>
-                    <span *ngIf="!descOpen">
-                      <span class="fa fa-angle-double-down"></span> MORE
-                    </span>
-                  </a>
-                </dt>
-                <dd class="descColl" [ngClass]="{'open':descOpen}">
+                <dt>Description</dt>
+                <dd>
                   {{presentation.description}}
                 </dd>
                 <dt>Statistics</dt>
@@ -38,26 +54,6 @@
                   </ul>
                 </dd>
               </dl>
-            </div>
-          </div>
-          <div class="card card-primary">
-            <div class="card-header">
-              Pages
-              <div class="card-header-buttons">
-                <button class="btn btn-outline-primary" (click)="addPage()">
-                  <span class="fa fa-plus fa-fw"></span> Add
-                </button>
-              </div>
-            </div>
-
-            <common-empty class="m-0" *ngIf="!presentation.pages.length" message="No pages were found"></common-empty>
-
-            <div class="list-group list-group-flush" style="height: 230px;overflow-y:scroll" *ngIf="presentation.pages.length">
-              <a href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" class="list-group-item p-2"
-                *ngFor="let page of presentation.pages; let i = index;">
-                {{page.title}}
-                <small class="pull-right">#{{i+1}}</small>
-              </a>
             </div>
           </div>
         </div>
@@ -113,21 +109,29 @@
           </div>
         </div>
       </div>
-    </ng-container>
-  </common-content-body>
+    </common-content-body>
 
-  <common-content-body *ngIf="tabsMenu.active === 'slides'">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, ex. Asperiores aperiam iure soluta maiores! Doloremque, incidunt.
-    Repellendus laborum ex perferendis, voluptas illo labore vel ducimus, ipsa voluptate blanditiis esse.
-  </common-content-body>
+    <common-content-body *ngIf="tabsMenu.active === 'manage'">
+      <common-debug [data]="presentation"></common-debug>
+    </common-content-body>
 
-  <common-content-body *ngIf="tabsMenu.active === 'settings'"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, ex. Asperiores aperiam iure soluta maiores! Doloremque,
-    incidunt. Repellendus laborum ex perferendis, voluptas illo labore vel ducimus, ipsa voluptate blanditiis esse.
+  </common-content>
+</ng-container>
 
-  </common-content-body>
+<div #presentElem class="present">
+  <div *ngIf="presenting">
+    <swiper>
+      <div *ngFor="let img of pages" class="d-flex align-items-center justify-content-center">
+        <img [src]="img" class="img-fluid">
+      </div>
+    </swiper>
+  </div>
+</div>
 
-  <ng-template #loader>
-    <common-loader></common-loader>
-  </ng-template>
-  <common-debug [data]="presentation"></common-debug>
-</common-content>
+<ng-template #emptyPages>
+  <common-empty message="No pages were found"></common-empty>
+</ng-template>
+
+<ng-template #loading>
+  <common-loader></common-loader>
+</ng-template>

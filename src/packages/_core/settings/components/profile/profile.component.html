@@ -8,7 +8,7 @@
             <h4 class="card-title">Profile Not Activated</h4>
             <p class="card-text">This profile is not activated. Click here to use.</p>
           </div>
-          <button (click)="activate()" style="min-width:200px;width:200px" class="btn btn-lg btn-primary btn-block">Activate</button>
+          <button (click)="activate()" style="min-width:120px;width:120px" class="btn btn-lg btn-primary btn-block align-self-center ml-2">Activate</button>
         </div>
       </div>
       <div *ngIf="selected==profile.alias" class="card bg-primary text-white mb-4">
@@ -17,7 +17,7 @@
             <h4 class="card-title">Profile Activated</h4>
             <p class="card-text">This profile is activated. You will need to refresh your browser for changes to apply.</p>
           </div>
-          <button *ngIf="needReload" (click)="reload()" style="min-width:200px;width:200px" class="btn btn-lg btn-outline-light btn-block">Refresh</button>
+          <button *ngIf="needReload" (click)="reload()" style="min-width:120px;width:120px" class="btn btn-lg btn-outline-light btn-block align-self-center ml-2">Refresh</button>
         </div>
       </div>
       <div class="row">

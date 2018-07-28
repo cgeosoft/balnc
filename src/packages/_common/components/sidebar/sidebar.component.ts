@@ -1,4 +1,4 @@
-import { ConfigService } from './../../services/config.service'
+import { ConfigService } from '../../services/config.service'
 import { Component, Input, OnInit } from '@angular/core'
 
 @Component({

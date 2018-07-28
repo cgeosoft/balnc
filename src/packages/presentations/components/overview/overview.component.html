@@ -9,14 +9,16 @@
           <span class="fa fa-plus-circle fa-fw"></span> Create</button>
       </div>
       <div class="btn-group ml-auto">
-        <button type="button" class="btn btn-light" (click)="refresh()">
-          <span class="fa fa-sync fa-fw"></span>
+        <button type="button" class="btn btn-light" (click)="load()">
+          <fa-layers class="fa-fw">
+            <fa-icon [icon]="['fas','sync']"></fa-icon>
+          </fa-layers>
         </button>
       </div>
     </div>
+
     <ng-container *ngIf="presentations; else loader">
       <ng-container *ngIf="presentations.length; else noItems">
-
         <table class="table table-max">
           <thead>
             <tr>
@@ -53,12 +55,11 @@
                 </div>
               </td>
               <td class="text-center" style="width:100px">
-                <a [routerLink]="['/presentations',presentation._id]" class="btn btn-sm btn-outline-primary">Open</a>
+                <a [routerLink]="['/presentations',presentation._id]" class="btn btn-sm btn-primary">Open</a>
               </td>
             </tr>
           </tbody>
         </table>
-        
       </ng-container>
     </ng-container>
 

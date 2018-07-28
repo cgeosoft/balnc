@@ -1,0 +1,35 @@
+<ng-container *ngIf="presentation; else loading">
+  <common-content>
+
+    <common-content-header [title]="presentation.title" subtitle="Presentation" icon="angle-left" 
+    route="/presentations"></common-content-header>
+   
+    <div class="container">
+
+      <div class="btn-toolbar" style="min-height:50px;">
+        <div class="btn-group mr-2">
+          <button class="btn btn-primary" (click)="toggleFullscreen()">
+            <fa-icon [icon]="['far','arrows-alt']"></fa-icon> Fullscreen</button>
+          </div>
+        </div>
+      </div>
+
+    <div class="h-100" #present>
+
+      <swiper>
+        <div *ngFor="let img of pages" class="d-flex align-items-center justify-content-center">
+          <img [src]="img" class="img-fluid">
+        </div>
+      </swiper>
+      
+    </div>
+  </common-content>
+</ng-container>
+
+<ng-template #emptyPages>
+  <common-empty message="No pages were found"></common-empty>
+</ng-template>
+
+<ng-template #loading>
+  <common-loader></common-loader>
+</ng-template>

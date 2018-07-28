@@ -132,6 +132,7 @@
     height: 20px;
     font-size: .6rem;
     color: #eee;
+    z-index: 100;
     .statusbar-item {
       @extend .align-self-end;
       .fab,

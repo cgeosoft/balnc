@@ -7,7 +7,7 @@ import * as moment from 'moment'
 import { PresentationsService } from '../../services/presentations.service'
 import { Presentation } from '../../models/presentation'
 
-import { CreatePresentationComponent } from "../create-presentation/create-presentation.component"
+import { CreatePresentationComponent } from '../create-presentation/create-presentation.component'
 
 @Component({
   selector: 'presentations-overview',
@@ -18,29 +18,25 @@ export class OverviewComponent implements OnInit {
 
   presentations: any[] = null
 
-  constructor(
+  constructor (
     private modal: NgbModal,
-    private presentationsService: PresentationsService,
+    private presentationsService: PresentationsService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.load()
   }
 
-  async load() {
+  async load () {
     this.presentations = await this.presentationsService.getPresentations()
   }
 
-  refresh() {
-    this.load()
-  }
-
-  async create() {
+  async create () {
     await this.modal.open(CreatePresentationComponent).result
     this.load()
   }
 
-  getLastEdit(presentation: Presentation) {
+  getLastEdit (presentation: Presentation) {
     return moment(presentation.dateUpdated).fromNow()
   }
 
