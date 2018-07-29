@@ -5,15 +5,21 @@
     </div>
     <div class="items">
       <a routerLinkActive="active" [routerLink]="['overview']">
-        <span class="fa fa-desktop fa-fw"></span> Overview</a>
+        <fa-icon [icon]="['fas','desktop']" class="icon"></fa-icon>
+        <span>Overview</span>
+      </a>
       <a routerLinkActive="active" [routerLink]="['manage']">
-        <span class="fa fa-th-list fa-fw"></span> Manage</a>
+        <fa-icon [icon]="['fas','th-list']" class="icon"></fa-icon>
+        <span>Manage</span>
+      </a>
       <button (click)="createTask()">
-        <span class="fa fa-plus-circle fa-fw"></span> New Task</button>
+        <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
+        <span>New Task</span>
+      </button>
       <div class="divider"></div>
       <button (click)="generateDump()">
-        <strong>
-          <span class="fa fa-plus-circle fa-fw"></span> Generate Data</strong>
+        <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
+        <span>Generate Data</span>
       </button>
     </div>
   </div>
@@ -23,20 +29,21 @@
     </div>
     <div class="items">
       <ng-container *ngIf="tasks.length; else noItems">
-        <a routerLinkActive="active" [routerLink]="['/tasks',task._id]" class="media" *ngFor="let task of tasks | slice:0:5;">
-          <span class="media-body">{{task.title || '[Without title]'}}
-            <!-- {{task._project.name}} -->
-            <strong>{{task.insertedAt | amTimeAgo}}</strong>
-          </span>
+        <a routerLinkActive="active" [routerLink]="['/tasks',task._id]" *ngFor="let task of tasks | slice:0:5;">
+          <div class="d-flex flex-column">
+            <span>{{task.title || '[Without title]'}}</span>
+            <small class="text-muted">{{task.insertedAt | amTimeAgo}}</small>
+          </div>
         </a>
       </ng-container>
-      <ng-template #noItems>
-        You don't have any tasks yet
-      </ng-template>
-      <ng-template #loader>
-        <common-loader></common-loader>
-      </ng-template>
     </div>
   </div>
 </common-sidebar>
 <router-outlet></router-outlet>
+
+<ng-template #noItems>
+  You don't have any tasks yet
+</ng-template>
+<ng-template #loader>
+  <common-loader></common-loader>
+</ng-template>

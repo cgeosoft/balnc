@@ -1,19 +1,15 @@
 <common-sidebar>
   <div class="menu">
     <div class="header">
-        <h4>Settings</h4>
+      <h4>Settings</h4>
     </div>
     <div class="items">
       <ng-container *ngIf="configService.profiles; else empty">
         <ng-container *ngIf="configService.profiles.length; else empty">
           <a *ngFor="let profile of configService.profiles" [routerLink]="['/settings',profile.alias]" routerLinkActive="active">
-            <fa-layers class="fa-fw item-icon">
-              <fa-icon [icon]="['fas','cog']"></fa-icon>
-            </fa-layers>
+            <fa-icon [icon]="['fas','cog']" class="icon"></fa-icon>
             <span>{{profile.name}}</span>
-            <fa-layers class="fa-fw item-icon iconbadge" *ngIf="profile.alias==configService.selected">
-              <fa-icon [icon]="['fas','check-circle']"></fa-icon>
-            </fa-layers>
+            <fa-icon [icon]="['fas','check-circle']" class="icon icon-badge" *ngIf="profile.alias==configService.selected"></fa-icon>
           </a>
         </ng-container>
       </ng-container>
@@ -22,27 +18,19 @@
   <div class="menu mt-auto">
     <div class="items">
       <button (click)="createProfile()">
-        <fa-layers class="fa-fw item-icon">
-          <fa-icon [icon]="['fas','plus-circle']"></fa-icon>
-        </fa-layers>
+        <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
         <span>New Profile</span>
       </button>
       <button (click)="createDemo()">
-        <fa-layers class="fa-fw item-icon">
-          <fa-icon [icon]="['fas','random']"></fa-icon>
-        </fa-layers>
+        <fa-icon [icon]="['fas','random']" class="icon"></fa-icon>
         <span>Generate Demo</span>
       </button>
       <button ngxFilePicker disabled>
-        <fa-layers class="fa-fw item-icon">
-          <fa-icon [icon]="['fas','cloud-upload-alt']"></fa-icon>
-        </fa-layers>
+        <fa-icon [icon]="['fas','cloud-upload-alt']" class="icon"></fa-icon>
         <span>Import Profile</span>
       </button>
       <button (click)="clear()" class="text-danger">
-        <fa-layers class="fa-fw item-icon">
-          <fa-icon [icon]="['fas','trash-alt']"></fa-icon>
-        </fa-layers>
+        <fa-icon [icon]="['fas','trash-alt']" class="icon"></fa-icon>
         <span>Remove All</span>
       </button>
     </div>

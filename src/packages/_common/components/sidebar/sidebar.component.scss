@@ -93,8 +93,10 @@ $color-sidebar-font: #FFF;
         @extend .flex-grow-1;
         @extend .text-truncate;
       }
-      .item-icon {
+      .icon {
         @extend .mr-1;
+        text-align: center;
+        width: 1.25em;
         min-width: 20px;
         font-size: .8rem;
         .icon-badge {
