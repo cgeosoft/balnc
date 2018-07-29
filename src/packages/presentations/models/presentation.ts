@@ -1,5 +1,5 @@
 import * as schema from './presentation.json'
-import { RxDocument } from 'rxdb';
+import { RxDocument } from 'rxdb'
 
 declare interface IPresentation {
   title: string

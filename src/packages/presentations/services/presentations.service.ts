@@ -1,36 +1,36 @@
-import { Injectable } from "@angular/core"
-import { RxCollection } from "rxdb"
+import { Injectable } from '@angular/core'
+import { RxCollection } from 'rxdb'
 
-import { DatabaseService } from "@balnc/common";
-import { Presentation } from "../models/presentation"
+import { DatabaseService } from '@balnc/common'
+import { Presentation } from '../models/presentation'
 
 @Injectable()
 export class PresentationsService {
 
   presentations: RxCollection<Presentation>
 
-  constructor(
-    private dbService: DatabaseService,
+  constructor (
+    private dbService: DatabaseService
   ) {
     this.setup()
   }
 
-  async setup() {
-    this.presentations = await this.dbService.get<Presentation>("presentation")
+  async setup () {
+    this.presentations = await this.dbService.get<Presentation>('presentation')
   }
 
-  async getPresentations(params?: any) {
+  async getPresentations (params?: any) {
     params = params || {}
     let _presentations = await this.presentations.find(params).exec()
     const images$ = _presentations
       .map(async (presentation) => {
-        return await this.getThumb(presentation)
+        return this.getThumb(presentation)
       })
     const images = await Promise.all(images$)
 
     const stats$ = _presentations
       .map(async (presentation) => {
-        return await this.getStats(presentation)
+        return this.getStats(presentation)
       })
     const stats = await Promise.all(stats$)
 
@@ -44,14 +44,14 @@ export class PresentationsService {
     return presentations2
   }
 
-  async getPresentation(presentationId): Promise<Presentation & any> {
+  async getPresentation (presentationId): Promise<Presentation & any> {
     const presentation: Presentation & any = await this.presentations.findOne(presentationId).exec()
     presentation.pages = presentation.pages || []
     presentation.stats = await this.getStats(presentation)
     return presentation
   }
 
-  async addPresentation(title: string, description?: string) {
+  async addPresentation (title: string, description?: string) {
     const result = await this.presentations
       .newDocument({
         title: title,
@@ -62,17 +62,17 @@ export class PresentationsService {
     return result
   }
 
-  async getThumb(presentation: Presentation): Promise<any> {
+  async getThumb (presentation: Presentation): Promise<any> {
 
     if (!presentation.pages || presentation.pages.length === 0) {
       return
     }
     const image = presentation.pages[0].params.image
-    return await this.getImage(presentation, image)
+    return this.getImage(presentation, image)
 
   }
 
-  async getImage(presentation: Presentation, contentImage: string): Promise<any> {
+  async getImage (presentation: Presentation, contentImage: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const attachment = await presentation.getAttachment(contentImage)
       const blobBuffer = await attachment.getData()
@@ -90,11 +90,11 @@ export class PresentationsService {
     })
   }
 
-  async getStats(presentation: Presentation) {
-    if (!presentation.get("_attachments")) {
+  async getStats (presentation: Presentation) {
+    if (!presentation.get('_attachments')) {
       return {
         filecount: 0,
-        filesize: 0,
+        filesize: 0
       }
     }
     const attachments = await presentation.allAttachments()
@@ -104,7 +104,7 @@ export class PresentationsService {
 
     return {
       filecount: attachments.length,
-      filesize: filesize,
+      filesize: filesize
     }
   }
 }

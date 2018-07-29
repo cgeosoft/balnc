@@ -10,7 +10,6 @@ import { PresentationComponent } from './components/presentation/presentation.co
 import { CreatePresentationComponent } from './components/create-presentation/create-presentation.component'
 import { AddPageComponent } from './components/add-page/add-page.component'
 import { OverviewComponent } from './components/overview/overview.component'
-import { PresentComponent } from './components/present/present.component'
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -29,8 +28,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     OverviewComponent,
     PresentationComponent,
     CreatePresentationComponent,
-    AddPageComponent,
-    PresentComponent
+    AddPageComponent
   ],
   providers: [
     PresentationsService,
