@@ -1,6 +1,6 @@
 @import "components/bootstrap";
 $color-sidebar-background: lighten($dark, 5);
-$color-sidebar-font: #FFF;
+$color-sidebar-font: #aaa;
 :host {
   height: 100%;
   .sidebar {
@@ -44,29 +44,34 @@ $color-sidebar-font: #FFF;
 :host /deep/ .menu {
   @extend .p-0;
   overflow-y: auto;
-  color: #aaa;
+  color: $color-sidebar-font;
   margin: 0 10px;
   min-width: 180px;
   width: 180px;
   .header {
     @extend .mb-2;
     @extend .d-flex;
+    @extend .align-items-center;
+    padding: .2rem .4rem;
     h4 {
       @extend .m-0;
       @extend .p-0;
-      @extend .flex-grow-1;
       font-weight: 300;
-      color: #aaa;
+      color: darken($color-sidebar-font, 5);
       .fa {
         font-size: .8rem;
       }
     }
     button {
       @extend .btn;
-      @extend .btn-sm;
-      @extend .btn-outline-light;
-      padding: .3rem .2rem;
-      font-size: .8rem;
+      @extend .ml-auto;
+      border: none;
+      background: none;
+      color: darken($color-sidebar-font, 5);
+      padding: 0 .5rem;
+      &:hover {
+        background: lighten($color-sidebar-background, 10);
+      }
     }
   }
   .items {
@@ -75,20 +80,15 @@ $color-sidebar-font: #FFF;
       @extend .d-flex;
       @extend .flex-row;
       @extend .align-items-center;
-      outline: none;
+      @extend .mb-1;
+      @extend .w-100;
+      @extend .btn;
       background: none;
-      border-radius: 3px;
-      display: block;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      text-decoration: none;
-      padding: .1rem .3rem;
-      color: #aaa;
-      margin: 0 0 .1rem;
+      padding: .2rem .4rem;
       border: none;
-      width: 100%;
+      color: $color-sidebar-font;
       text-align: left;
+      outline: none;
       span {
         @extend .flex-grow-1;
         @extend .text-truncate;
@@ -103,6 +103,18 @@ $color-sidebar-font: #FFF;
           @extend .mr-0;
           @extend .ml-auto;
         }
+      }
+      &.primary{
+        @extend .btn-primary;
+        border-width: 1px;
+      }
+      &.success{
+        @extend .btn-success;
+        border-width: 1px;
+      }
+      &.danger{
+        @extend .btn-danger;
+        border-width: 1px;
       }
       &.active {
         background: lighten($color-sidebar-background, 10%);
@@ -134,12 +146,17 @@ $color-sidebar-font: #FFF;
         small {
           display: block;
           font-size: .7rem;
-          color: rgba(255, 255, 225, 0.33);
+          color: darken($color-sidebar-font, 10);
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
         }
       }
+    }
+    .divider {
+      @extend .m-2;
+      background: lighten($color-sidebar-background, 10);
+      height: 1px;
     }
   }
 }

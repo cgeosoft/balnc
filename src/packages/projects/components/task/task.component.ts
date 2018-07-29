@@ -15,6 +15,7 @@ import { ProjectsService } from '../../services/projects.service'
 export class TaskComponent implements OnInit {
 
   commentPreview: boolean
+  projectId: string
   taskId: string
   comment: string = null
 
@@ -35,7 +36,8 @@ export class TaskComponent implements OnInit {
     this.route
       .params
       .subscribe(params => {
-        this.taskId = params['id']
+        this.projectId = params['projectId']
+        this.taskId = params['taskId']
         this.form = this.formBuilder.group({
           comment: ['', [Validators.required]]
         })

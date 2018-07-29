@@ -28,6 +28,10 @@ export class WrapperComponent implements OnInit {
     this.configService.clearAllProfiles()
   }
 
+  create () {
+
+  }
+
   createProfile () {
     const alias = this.configService.saveProfile({
       name: this.generateName(),

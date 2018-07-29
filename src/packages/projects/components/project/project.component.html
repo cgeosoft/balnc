@@ -1,5 +1,5 @@
 <common-content>
-  <common-content-header [title]="project.name" subtitle="Project" icon="cube" [tabsMenu]="tabsMenu"></common-content-header>
+  <common-content-header [title]="project.name" subtitle="Project" icon="tasks" [tabsMenu]="tabsMenu"></common-content-header>
   <common-content-body>
     <div *ngIf="tabsMenu.active==='tasks'">
       <div class="btn-toolbar">
@@ -29,7 +29,7 @@
                   </div>
                 </td>
                 <td>
-                  <a [routerLink]="['/teams/projects/tasks',task._id]" class="task-title">{{task.title}}</a>
+                  <a [routerLink]="['/projects',project._id,'tasks',task._id]" class="task-title">{{task.title}}</a>
                 </td>
                 <td>
                   opened

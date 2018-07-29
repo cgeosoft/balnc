@@ -1,13 +1,7 @@
-<common-content>
-  <common-content-header [title]="project.name" subtitle="Project" icon="tasks"></common-content-header>
-  <common-content-body>
-    <ng-container *ngIf="task">
-      <div class="btn-toolbar">
-        <a [routerLink]="['/projects',project._id]" class="btn btn-link">
-          <span class="fa fa-chevron-left fa-fw"></span>
-        </a>
-        <h4>{{task.title}}&nbsp;</h4>
-      </div>
+<ng-container *ngIf="task">
+  <common-content>
+    <common-content-header [title]="task.title" [subtitle]="'Task: '+task._id" [route]="'/projects/'+project._id" icon="caret-left"></common-content-header>
+    <common-content-body>
       <div class="row">
         <div class="col-md-8">
 
@@ -94,12 +88,13 @@
           <pre>{{project|json:2}}</pre>
         </div>
       </div>
-    </ng-container>
-    <ng-template #noItems>
-      <common-empty message="You don't have any tasks yet" submessage="Click create to add your first one" icon="cube"></common-empty>
-    </ng-template>
-    <ng-template #loader>
-      <common-loader></common-loader>
-    </ng-template>
-  </common-content-body>
-</common-content>
+    </common-content-body>
+  </common-content>
+</ng-container>
+
+<ng-template #noItems>
+  <common-empty message="You don't have any tasks yet" submessage="Click create to add your first one" icon="cube"></common-empty>
+</ng-template>
+<ng-template #loader>
+  <common-loader></common-loader>
+</ng-template>

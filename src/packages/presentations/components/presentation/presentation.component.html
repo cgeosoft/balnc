@@ -1,7 +1,7 @@
 <ng-container *ngIf="presentation; else loading">
   <common-content>
 
-    <common-content-header [title]="presentation.title" subtitle="Presentation" icon="angle-left" route="/presentations" [tabsMenu]="tabsMenu"></common-content-header>
+    <common-content-header [title]="presentation.title" [subtitle]="'Presentation: '+presentation._id" icon="caret-left" route="/presentations" [tabsMenu]="tabsMenu"></common-content-header>
 
     <common-content-body *ngIf="tabsMenu.active === 'overview'">
 
