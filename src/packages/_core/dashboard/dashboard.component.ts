@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 
 import { ConfigService } from '@balnc/common'
 
@@ -7,21 +8,22 @@ import { ConfigService } from '@balnc/common'
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, OnDestroy {
-
+export class DashboardComponent implements OnInit {
   menu: any
   profile: any
   config: any
   constructor (
-    private configService: ConfigService
+    private configService: ConfigService,
+    private router: Router
   ) { }
 
   ngOnInit () {
     this.config = this.configService.config
     this.profile = this.configService.getProfile()
     this.menu = this.configService.getMainMenu()
-  }
 
-  ngOnDestroy () {
+    if (!this.configService.profiles) {
+      this.router.navigate(['/setup'])
+    }
   }
 }

@@ -8,63 +8,47 @@ import { ConfigService, Profile } from '@balnc/common'
   templateUrl: './setup.component.html',
   styleUrls: ['./setup.component.scss']
 })
-export class SetupComponent implements OnInit, OnDestroy {
+export class SetupComponent implements OnInit {
 
+  steps = [
+    { label: 'Intro', hideBreadcrump: true },
+    { label: 'Profile' },
+    { label: 'Remote' },
+    { label: 'Modules' },
+    { label: 'Finish' }
+  ]
+  stepIndex = 1
   accepted: boolean
 
+  profile: Profile = {}
+
   constructor (
-    private configService: ConfigService,
+    public configService: ConfigService,
     private router: Router
   ) { }
 
-  Ok () {
-    localStorage.setItem('welcomeShown', 'OK')
-    this.router.navigate(['profiles'])
-  }
-
   ngOnInit () {
+    // emtpy
   }
 
-  ngOnDestroy () {
+  back () {
+    this.stepIndex--
   }
 
-  addDemoProfile () {
-
-    const demoProfile = {
-      'name': 'Demo Company',
-      'key': 'demo',
-      'remote': {
-        'prefix': 'demo',
-        'host': 'https://s2.cgeosoft.com'
-      },
-      'modules': {
-        '@balnc/business': {
-          'enabled': true,
-          'menu': {
-            'invoices': true
-          }
-        },
-        '@balnc/marketing': {
-          'enabled': true,
-          'menu': {
-            'presentations': true
-          }
-        },
-        '@balnc/teams': {
-          'enabled': true,
-          'menu': {
-            'projects': true,
-            'boards': true
-          }
-        }
-      },
-      'params': null
-    }
-
-    const newProfile: Profile = Object.assign({}, demoProfile) as Profile
-    const alias = this.configService.saveProfile(newProfile)
-
-    this.configService.selectProfile(alias)
-    this.router.navigate(['dashboard'])
+  next () {
+    this.stepIndex++
   }
+
+  addDemo () {
+    this.profile = this.configService.DEMO_PROFILE
+    this.stepIndex = this.steps.length - 1
+  }
+
+  // addDemoProfile () {
+  //   const newProfile: Profile = Object.assign({}, demoProfile) as Profile
+  //   const alias = this.configService.saveProfile(newProfile)
+
+  //   this.configService.selectProfile(alias)
+  //   this.router.navigate(['dashboard'])
+  // }
 }

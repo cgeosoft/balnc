@@ -1,12 +1,10 @@
-import { RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router'
 import { NgModule } from '@angular/core'
 
 import { CommonModule } from '@balnc/common'
 
 import { SetupComponent } from './setup/setup.component'
-
 import { MainComponent } from './main/main.component'
-
 import { DashboardModule } from './dashboard/dashboard.module'
 import { SettingsModule } from './settings/settings.module'
 
@@ -16,18 +14,18 @@ import { SettingsModule } from './settings/settings.module'
     RouterModule.forChild([]),
 
     DashboardModule,
-    SettingsModule,
+    SettingsModule
   ],
   declarations: [
     SetupComponent,
-    MainComponent,
+    MainComponent
   ],
   exports: [
     SetupComponent,
     MainComponent,
 
     DashboardModule,
-    SettingsModule,
+    SettingsModule
   ]
 })
 export class CoreModule { }

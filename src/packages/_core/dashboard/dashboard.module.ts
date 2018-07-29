@@ -8,10 +8,10 @@ import { DashboardComponent } from './dashboard.component'
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule,
+    RouterModule
   ],
   declarations: [
-    DashboardComponent,
+    DashboardComponent
   ],
   providers: []
 })

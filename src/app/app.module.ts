@@ -10,7 +10,7 @@ import { AppComponent } from './app.component'
 import environment from 'environments/environment'
 
 import { CommonModule, DatabaseService, ConfigService, ConfigGuard } from '@balnc/common'
-import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRoutes } from '@balnc/core'
+import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRoutes, SetupRoutes } from '@balnc/core'
 import { PresentationsModule, PresentationsRoutes, PresentationsEntities } from '@balnc/presentations'
 import { BoardsRoutes, BoardsEntities, BoardsModule } from '@balnc/boards'
 import { ProjectsRoutes, ProjectsEntities, ProjectsModule } from '@balnc/projects'
@@ -40,10 +40,9 @@ import { ProjectsRoutes, ProjectsEntities, ProjectsModule } from '@balnc/project
           pathMatch: 'full',
           redirectTo: '/dashboard'
         }]
-    }, {
-      path: 'setup',
-      component: SetupComponent
-    }], {
+    },
+      ...SetupRoutes
+    ], {
         // enableTracing: true,
     }),
     CommonModule,

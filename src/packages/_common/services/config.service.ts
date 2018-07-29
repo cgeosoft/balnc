@@ -10,6 +10,27 @@ import { Profile } from '../models/profile'
 @Injectable()
 export class ConfigService {
 
+  public DEMO_PROFILE = {
+    name: HelperService.generateName(),
+    remotePrefix: 'demo',
+    remoteHost: 'https://s1.cgeosoft.com/couchdb',
+    remoteUsername: 'demo',
+    remotePassword: 'demo',
+    remoteSync: false,
+    packages: {
+      '@balnc/contacts': true,
+      '@balnc/orders': true,
+      '@balnc/invoices': true,
+      '@balnc/presentations': true,
+      '@balnc/analytics': true,
+      '@balnc/polls': true,
+      '@balnc/emails': true,
+      '@balnc/projects': true,
+      '@balnc/boards': true,
+      '@balnc/reports': true
+    }
+  }
+
   public version: string = environment.version
   public config: any = environment
   public packages: Package[] = environment.packages

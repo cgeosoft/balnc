@@ -1,5 +1,5 @@
 <div *ngIf="show">
-  <div class="card text-white mt-4 mb-4" [ngClass]="{'bg-secondary':!isError,'bg-danger':isError}">
+  <div class="card text-white mb-4" [ngClass]="{'bg-secondary':!isError,'bg-danger':isError}">
     <div class="card-header">{{ isError ? 'ERROR': 'DEBUG'}}</div>
     <div class="card-body">
       <pre class="text-white">{{data|json}}</pre>
