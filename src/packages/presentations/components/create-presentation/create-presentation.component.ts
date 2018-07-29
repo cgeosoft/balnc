@@ -20,11 +20,8 @@ export class CreatePresentationComponent implements OnInit {
 
   }
 
-  onSubmit () {
-    this.presentationsService
-      .addPresentation(this.presentationTitle)
-      .then(() => {
-        this.activeModal.close()
-      })
+  async onSubmit () {
+    await this.presentationsService.addPresentation(this.presentationTitle)
+    this.activeModal.close()
   }
 }

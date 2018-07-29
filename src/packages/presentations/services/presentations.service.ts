@@ -52,14 +52,14 @@ export class PresentationsService {
   }
 
   async addPresentation (title: string, description?: string) {
-    const result = await this.presentations
+    const presentation = this.presentations
       .newDocument({
         title: title,
         description: description,
         pages: []
       })
-      .save()
-    return result
+
+    await presentation.save()
   }
 
   async getThumb (presentation: Presentation): Promise<any> {
