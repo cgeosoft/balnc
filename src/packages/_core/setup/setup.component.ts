@@ -28,7 +28,9 @@ export class SetupComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    // emtpy
+    if (this.configService.selected) {
+      this.router.navigate(['/dashboard'])
+    }
   }
 
   back () {
@@ -39,16 +41,13 @@ export class SetupComponent implements OnInit {
     this.stepIndex++
   }
 
+  async finish () {
+    const alias = await this.configService.saveProfile(this.profile)
+    await this.configService.selectProfile(alias)
+  }
+
   addDemo () {
     this.profile = this.configService.DEMO_PROFILE
     this.stepIndex = this.steps.length - 1
   }
-
-  // addDemoProfile () {
-  //   const newProfile: Profile = Object.assign({}, demoProfile) as Profile
-  //   const alias = this.configService.saveProfile(newProfile)
-
-  //   this.configService.selectProfile(alias)
-  //   this.router.navigate(['dashboard'])
-  // }
 }

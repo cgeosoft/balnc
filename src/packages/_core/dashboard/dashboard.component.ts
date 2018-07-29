@@ -21,9 +21,5 @@ export class DashboardComponent implements OnInit {
     this.config = this.configService.config
     this.profile = this.configService.getProfile()
     this.menu = this.configService.getMainMenu()
-
-    if (!this.configService.profiles) {
-      this.router.navigate(['/setup'])
-    }
   }
 }

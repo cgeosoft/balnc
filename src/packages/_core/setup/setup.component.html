@@ -55,9 +55,13 @@
           <fa-icon [icon]="['fas','angle-left']"></fa-icon>
           Back
         </button>
-        <button class="btn btn-primary float-right" (click)="next()">
+        <button class="btn btn-primary float-right" (click)="next()" *ngIf="stepIndex !== steps.length - 1">
           Next
           <fa-icon [icon]="['fas','angle-right']"></fa-icon>
+        </button>
+        <button class="btn btn-primary float-right" (click)="finish()" *ngIf="stepIndex === steps.length - 1">
+          Finish
+          <fa-icon [icon]="['fas','check-circle']"></fa-icon>
         </button>
       </div>
 
