@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 import { SwiperModule, SWIPER_CONFIG, SwiperConfigInterface } from 'ngx-swiper-wrapper'
+import { ChartModule } from 'angular2-chartjs';
 
 import { CommonModule } from '@balnc/common'
 
@@ -22,7 +23,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CommonModule,
     FormsModule,
     RouterModule,
-    SwiperModule
+    SwiperModule,
+    ChartModule 
   ],
   declarations: [
     OverviewComponent,

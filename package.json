@@ -22,7 +22,9 @@
     "build-core": "nodemon --watch ./projects/_core/src -e ts,html,scss,css --exec ng build core",
     "build-libs": "run-p build-common build-core"
   },
-  "dependencies": {},
+  "dependencies": {
+    "angular2-chartjs": "^0.5.1"
+  },
   "devDependencies": {
     "@angular/pwa": "^0.7.1",
     "ngx-swiper-wrapper": "^6.3.0",

@@ -11,15 +11,18 @@
     .header-bar-title {
       @extend .d-flex;
       @extend .flex-row;
-      @extend .align-items-start;
+      @extend .align-items-center;
       @extend .w-100;
       margin-top: 5px;
       height: 46px;
       .header-icon {
-        border-right: solid 1px darken($body-bg, 20%);
-        padding-right: .75rem;
-        margin-right: 1rem;
         font-size: 30px;
+      }
+      .header-bar-title-divider {
+        @extend .mx-2;
+        height: 30px;
+        width: 1px;
+        background: darken($body-bg, 20%);
       }
       .header-body {
         @extend .d-flex;
@@ -55,6 +58,7 @@
       .nav-tabs {
         border-bottom: none;
         .nav-item {
+          @extend .mr-1;
           .nav-link {
             @extend .text-muted;
             &.active {
@@ -64,7 +68,7 @@
         }
       }
     }
-    &.has-tabs{
+    &.has-tabs {
       height: 94px;
       min-height: 94px;
     }

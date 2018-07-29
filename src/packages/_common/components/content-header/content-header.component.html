@@ -1,17 +1,16 @@
 <div class="header-bar" [ngClass]="{'has-tabs':tabsMenu.tabs,'container':!fullWidth}">
   <div class="header-bar-title">
-    <ng-container>
-      <a *ngIf="route != null" [routerLink]="route" class="header-icon">
-        <fa-layers class="fa-fw">
-          <fa-icon [icon]="_icon"></fa-icon>
-        </fa-layers>
-      </a>
-      <div *ngIf="route == null" class="header-icon">
-        <fa-layers class="fa-fw">
-          <fa-icon [icon]="_icon"></fa-icon>
-        </fa-layers>
-      </div>
-    </ng-container>
+    <a *ngIf="route != null" [routerLink]="route" class="header-icon">
+      <fa-layers class="fa-fw">
+        <fa-icon [icon]="_icon"></fa-icon>
+      </fa-layers>
+    </a>
+    <div *ngIf="route == null" class="header-icon">
+      <fa-layers class="fa-fw">
+        <fa-icon [icon]="_icon"></fa-icon>
+      </fa-layers>
+    </div>
+    <div class="header-bar-title-divider"></div>
     <div class="header-body">
       <h1>{{title}}</h1>
       <ul class="list-inline" *ngIf="subtitle || details.length">
