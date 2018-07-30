@@ -9,7 +9,7 @@ import RxDBReplicationModule from 'rxdb/plugins/replication'
 // import KeycompressionPlugin from 'rxdb/plugins/key-compression'
 import AttachmentsPlugin from 'rxdb/plugins/attachments'
 import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages'
-import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
+// import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
 import JsonDumpPlugin from 'rxdb/plugins/json-dump'
 
 import * as AdapterHttp from 'pouchdb-adapter-http'
@@ -35,7 +35,7 @@ RxDB.plugin(RxDBLeaderElectionModule)
 RxDB.plugin(RxDBReplicationModule)
 RxDB.plugin(AttachmentsPlugin)
 RxDB.plugin(RxDBErrorMessagesModule)
-RxDB.plugin(AdapterCheckPlugin)
+// RxDB.plugin(AdapterCheckPlugin)
 RxDB.plugin(JsonDumpPlugin)
 RxDB.plugin(AdapterHttp)
 RxDB.plugin(AdapterIDB)

@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 
-import { ConfigService, Profile } from '@balnc/common'
+import { ConfigService, Profile, HelperService, Package } from '@balnc/common'
+import { ReadFile } from 'ngx-file-helpers'
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'core-setup',
@@ -11,26 +13,38 @@ import { ConfigService, Profile } from '@balnc/common'
 export class SetupComponent implements OnInit {
 
   steps = [
-    { label: 'Intro', hideBreadcrump: true },
+    { label: 'Intro' },
     { label: 'Profile' },
     { label: 'Remote' },
     { label: 'Modules' },
     { label: 'Finish' }
   ]
-  stepIndex = 1
-  accepted: boolean
+  stepIndex = 0
 
-  profile: Profile = {}
+  accepted: false
+
+  profile: Profile = {
+    packages: {}
+  }
+
+  packages: Package[]
 
   constructor (
     public configService: ConfigService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit () {
-    if (this.configService.selected) {
+    if (this.configService.profiles.length) {
       this.router.navigate(['/dashboard'])
     }
+
+    this.packages = this.configService.packages.map(m => {
+      const v = { ...m }
+      v.icon = HelperService.getIcon(m.icon)
+      return v
+    })
   }
 
   back () {
@@ -42,12 +56,23 @@ export class SetupComponent implements OnInit {
   }
 
   async finish () {
+    this.profile.name = this.profile.name || HelperService.generateName()
     const alias = await this.configService.saveProfile(this.profile)
     await this.configService.selectProfile(alias)
   }
 
   addDemo () {
     this.profile = this.configService.DEMO_PROFILE
+    this.stepIndex = this.steps.length - 1
+  }
+
+  importFile (file: ReadFile) {
+    let profile = this.configService.importFile(file)
+    if (profile === -1) {
+      this.toastr.error('Import failed')
+      return
+    }
+    this.profile = profile as Profile
     this.stepIndex = this.steps.length - 1
   }
 }

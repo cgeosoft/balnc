@@ -9,7 +9,7 @@ declare interface IProfile {
   remotePassword?: string
   remoteSync?: boolean
   packages?: { [key: string]: boolean }
-  params?: any
+  config?: any
 }
 
 export type Profile = IProfile

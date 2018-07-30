@@ -11,9 +11,10 @@
     @extend .w-100;
     @extend .h-100;
     .setup {
-      height: 500px;
-      width: 600px;
-      min-width: 600px;
+      max-height: 650px;
+      max-width: 700px;
+      height: 100%;
+      width: 100%;
       .card {
         height: 100%;
         width: 100%;
@@ -25,6 +26,12 @@
       .breadcrumb {
         @extend .m-2;
         min-height: 50px;
+        .breadcrumb-item {
+          &.active {
+            color: $primary;
+            font-weight: bold;
+          }
+        }
       }
     }
     &:before {

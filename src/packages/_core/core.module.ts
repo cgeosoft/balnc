@@ -14,7 +14,7 @@ import { SettingsModule } from './settings/settings.module'
     RouterModule.forChild([]),
 
     DashboardModule,
-    SettingsModule
+    SettingsModule,
   ],
   declarations: [
     SetupComponent,

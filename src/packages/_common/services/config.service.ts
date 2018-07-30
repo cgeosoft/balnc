@@ -6,6 +6,7 @@ import { environment } from 'environments/environment'
 import { HelperService } from './helper.service'
 import { Package } from '../models/package'
 import { Profile } from '../models/profile'
+import { ReadFile } from 'ngx-file-helpers'
 
 @Injectable()
 export class ConfigService {
@@ -112,4 +113,17 @@ export class ConfigService {
     profiles.splice(index, 1)
     this.profiles = profiles
   }
+
+  importFile (file: ReadFile) {
+    try {
+      const data = file.content.split(',')[1]
+      const profileStr = atob(data)
+      const profile: Profile = JSON.parse(profileStr)
+      return profile
+    } catch (error) {
+      console.log('[ProfileComponent]', 'Error' + error)
+      return -1
+    }
+  }
+
 }
