@@ -63,12 +63,23 @@ export class BoardComponent implements OnInit {
   async loadBoard () {
     if (!this.selected) { return }
     if (!this.boards || !this.boards.length) { return }
-    this.board = this.boards.find(b => b.name === this.selected)
+    this.board = this.boards.find(b => b.name === this.selected) as BoardWithMessages
+
+    if (!this.board) {
+      this.router.navigate(['/boards'])
+      return
+    }
+
     this.boardName = this.board.name
-    this.zone.run(() => {
+
+    this.board.messages$.subscribe(() => {
       this.scrollToBottom()
-      this.messageInput.nativeElement.focus()
     })
+
+    setTimeout(() => {
+      this.scrollToBottom()
+      this.focusInput()
+    }, 100)
   }
 
   async send () {
@@ -82,10 +93,8 @@ export class BoardComponent implements OnInit {
       type: 'MESSAGE'
     })
 
-    this.zone.run(() => {
-      this.scrollToBottom()
-      this.messageInput.nativeElement.focus()
-    })
+    this.scrollToBottom()
+    this.focusInput()
   }
 
   async delete () {
@@ -94,8 +103,15 @@ export class BoardComponent implements OnInit {
   }
 
   scrollToBottom (): void {
-    setTimeout(() => {
+    if (this.messageList) {
       this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
-    }, 100)
+    }
   }
+
+  focusInput (): void {
+    if (this.messageInput) {
+      this.messageInput.nativeElement.focus()
+    }
+  }
+
 }

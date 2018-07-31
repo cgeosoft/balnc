@@ -6,6 +6,7 @@ import { ConfigService, DatabaseService } from '@balnc/common'
 import { RxMessageDoc, Message } from '../models/message'
 import { RxBoardDoc, Board, BoardWithMessages } from '../models/board'
 import { BehaviorSubject } from 'rxjs'
+import { LocalStorage } from 'ngx-store'
 
 @Injectable()
 export class BoardService {
@@ -13,7 +14,7 @@ export class BoardService {
   boardCol: RxCollection<RxBoardDoc>
   messageCol: RxCollection<RxMessageDoc>
 
-  nickname: string
+  @LocalStorage() nickname: string = ''
 
   boards$: BehaviorSubject<BoardWithMessages[]> = new BehaviorSubject<BoardWithMessages[]>([])
 
@@ -37,7 +38,6 @@ export class BoardService {
   async loadSubscriptions () {
     this.boardCol.$.subscribe(async (ev) => {
       await this.loadBoards()
-      // this.ngZone.run(() => { })
     })
 
     this.messageCol.$.subscribe(async (ev) => {
@@ -52,13 +52,18 @@ export class BoardService {
 
   async loadBoards () {
     let boards = await this.boardCol.find().exec() as BoardWithMessages[]
-    boards.forEach(async b => {
-      const messages = await this.loadMessages(b.name)
-      b.messages$ = new BehaviorSubject<Message[]>(messages)
+
+    let sets = []
+    boards.forEach(b => {
+      const set = this.loadMessages(b.name).then(messages => {
+        b.messages$ = new BehaviorSubject<Message[]>(messages)
+      })
+      sets.push(set)
     })
-    // this.ngZone.run(() => {
+    await Promise.all(sets)
+
     this.boards$.next(boards)
-    // })
+    this.ngZone.run(() => { })
   }
 
   async loadMessages (boardName: String) {
