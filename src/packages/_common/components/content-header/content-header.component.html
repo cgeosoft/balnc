@@ -49,7 +49,7 @@
   <div class="header-bar-tabs" *ngIf="tabsMenu.tabs" [ngClass]="{'container':!fullWidth}">
     <ul class="nav nav-tabs">
       <li class="nav-item" *ngFor="let tab of tabsMenu.tabs" [ngClass]="{'ml-auto':tab.right}">
-        <a class="nav-link" [ngClass]="{active:tabsMenu.active == tab.id}" href="javascript:void(0);" (click)="tabsMenu.select(tab.id)">
+        <a class="nav-link" [ngClass]="{active:(tabsMenu.selected == tab.id)}" href="javascript:void(0);" (click)="tabsMenu.selected == tab.id">
           <fa-layers class="fa-fw" *ngIf="tab.icon">
             <fa-icon [icon]="tab.icon"></fa-icon>
           </fa-layers>

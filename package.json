@@ -23,7 +23,8 @@
     "build-libs": "run-p build-common build-core"
   },
   "dependencies": {
-    "angular2-chartjs": "^0.5.1"
+    "angular2-chartjs": "^0.5.1",
+    "mustache": "^2.3.0"
   },
   "devDependencies": {
     "@angular/pwa": "^0.7.1",

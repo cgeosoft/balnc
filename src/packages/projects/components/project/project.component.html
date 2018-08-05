@@ -1,7 +1,7 @@
 <common-content>
   <common-content-header [title]="project.name" subtitle="Project" icon="tasks" [tabsMenu]="tabsMenu"></common-content-header>
   <common-content-body>
-    <div *ngIf="tabsMenu.active==='tasks'">
+    <div *ngIf="tabsMenu.selecte ==='tasks'">
       <div class="btn-toolbar">
         <div class="btn-group mr-2">
           <button type="button" class="btn btn-primary" (click)="createTask()">
@@ -42,7 +42,7 @@
         </ng-container>
       </ng-container>
     </div>
-    <div *ngIf="tabsMenu.active==='settings'">
+    <div *ngIf="tabsMenu.selecte ==='settings'">
       <div class="row">
         <div class="col-md-8 offset-md-2">
           <h4 class="lead mb-4">Project Settings</h4>

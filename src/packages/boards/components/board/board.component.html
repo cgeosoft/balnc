@@ -1,6 +1,6 @@
 <common-content>
   <common-content-header [title]="boardName" icon="comments:regular" [tabsMenu]="tabsMenu"></common-content-header>
-  <common-content-body *ngIf="tabsMenu.active === 'messages'" class="h-100">
+  <common-content-body *ngIf="tabsMenu.selected === 'messages'" class="h-100">
     <div class="card card-chat d-flex h-100">
       <div #messageList class="card-body">
         <ng-container *ngIf="board as messages; else loader">
@@ -54,13 +54,13 @@
     </div>
   </common-content-body>
 
-  <common-content-body *ngIf="tabsMenu.active === 'files'">
+  <common-content-body *ngIf="tabsMenu.selected === 'files'">
     <h4>Files</h4>
     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni, quas quis. Velit ipsum amet quibusdam similique ad asperiores
     dolores. Deleniti libero ex harum accusamus consectetur ipsa ipsam nihil, sed eaque!
   </common-content-body>
 
-  <common-content-body *ngIf="tabsMenu.active === 'manage'">
+  <common-content-body *ngIf="tabsMenu.selected === 'manage'">
     <div class="mx-auto" style="max-width: 600px;">
       <h4>Manage Board</h4>
       <ul class="list-group list-group-flush">

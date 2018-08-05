@@ -28,7 +28,6 @@ export class ProjectComponent implements OnInit {
   ngOnInit () {
 
     this.tabsMenu = {
-      active: 'tasks',
       tabs: [{
         id: 'tasks',
         label: 'Tasks',
@@ -37,10 +36,7 @@ export class ProjectComponent implements OnInit {
         id: 'settings',
         icon: 'cog',
         right: true
-      }],
-      select: (tabId) => {
-        this.tabsMenu.active = tabId
-      }
+      }]
     }
 
     this.route.params.subscribe(params => {

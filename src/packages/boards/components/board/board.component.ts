@@ -22,7 +22,6 @@ export class BoardComponent implements OnInit {
   inputMessage: string
 
   tabsMenu = {
-    active: 'messages',
     tabs: [{
       id: 'messages',
       label: 'Messages',
@@ -36,10 +35,7 @@ export class BoardComponent implements OnInit {
       label: 'Manage',
       icon: 'cog',
       right: true
-    }],
-    select: (tabId) => {
-      this.tabsMenu.active = tabId
-    }
+    }]
   }
 
   constructor (

@@ -3,7 +3,7 @@
 
     <common-content-header [title]="presentation.title" [subtitle]="'Presentation: '+presentation._id" icon="caret-left" route="/presentations" [tabsMenu]="tabsMenu"></common-content-header>
 
-    <common-content-body *ngIf="tabsMenu.active === 'overview'">
+    <common-content-body *ngIf="tabsMenu.selected === 'overview'">
 
       <div class="row">
         <div class="col-lg-3">
@@ -117,7 +117,7 @@
 
     </common-content-body>
 
-    <common-content-body *ngIf="tabsMenu.active === 'slides'">
+    <common-content-body *ngIf="tabsMenu.selected === 'slides'">
 
       <div class="btn-toolbar">
         <div class="btn-group mr-2">
@@ -217,7 +217,7 @@
 
     </common-content-body>
 
-    <common-content-body *ngIf="tabsMenu.active === 'manage'">
+    <common-content-body *ngIf="tabsMenu.selected === 'manage'">
       <common-debug [data]="presentation"></common-debug>
     </common-content-body>
 

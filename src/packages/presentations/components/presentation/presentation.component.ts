@@ -27,7 +27,6 @@ export class PresentationComponent implements OnInit {
   presenting = false
 
   tabsMenu = {
-    active: 'overview',
     tabs: [{
       id: 'overview',
       label: 'Overview',
@@ -41,10 +40,7 @@ export class PresentationComponent implements OnInit {
       label: '',
       icon: 'cog',
       right: true
-    }],
-    select: (tabId) => {
-      this.tabsMenu.active = tabId
-    }
+    }]
   }
 
   chart = {
