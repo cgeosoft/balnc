@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "company": {
+      "type": "string"
+    },
+    "person": {
+      "type": "string"
+    },
+    "dateTime": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

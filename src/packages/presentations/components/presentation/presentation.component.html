@@ -1,7 +1,8 @@
-<ng-container *ngIf="presentation; else loading">
+<ng-container *ngIf="presentation; else emptyPresentation">
   <common-content>
 
-    <common-content-header [title]="presentation.title" [subtitle]="'Presentation: '+presentation._id" icon="caret-left" route="/presentations" [tabsMenu]="tabsMenu"></common-content-header>
+    <common-content-header [title]="presentation.title" [subtitle]="'Presentation: '+presentation._id" icon="caret-left" route="/presentations"
+      [tabsMenu]="tabsMenu"></common-content-header>
 
     <common-content-body *ngIf="tabsMenu.selected === 'overview'">
 
@@ -233,6 +234,10 @@
     </swiper>
   </div>
 </div>
+
+<ng-template #emptyPresentation>
+  <common-empty message="Select a presentation or create a new one" icon="desktop"></common-empty>
+</ng-template>
 
 <ng-template #emptyPages>
   <common-empty message="No pages were found"></common-empty>

@@ -15,12 +15,14 @@
       <ng-container *ngIf="(boards$ | async) as boards; else loader">
         <ng-container *ngIf="boards.length; else empty">
           <ng-template ngFor let-board [ngForOf]="boards">
-            <a class="d-flex  align-items-center" [routerLink]="['/boards',board.name]" routerLinkActive="active">
-              <img class="my-1 mr-2 rounded" style="min-width:30px;height:30px;" src="https://api.adorable.io/avatars/48/{{board.name}}.png">
-              <span class="d-flex flex-column mr-2" style="overflow: hidden; line-height: 1.2rem;">
+            <a [routerLink]="['/boards',board.name]" routerLinkActive="active">
+              <div class="thumb">
+                <img src="https://api.adorable.io/avatars/48/{{board.name}}.png">
+              </div>
+              <div class="content">
                 <span>{{board.name}}</span>
                 <small *ngIf="board.messages$ && board.messages$.value.length">{{board.messages$.value.slice(-1)[0].text}}</small>
-              </span>
+              </div>
               <span class="ml-auto badge badge-primary" *ngIf="unread[board.name]">{{unread[board.name]}}</span>
             </a>
           </ng-template>

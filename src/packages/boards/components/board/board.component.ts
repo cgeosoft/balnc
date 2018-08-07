@@ -1,11 +1,11 @@
 import { Component, NgZone, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 
-import { BoardService } from '../../services/board.service'
+import { BoardService } from '../../board.service'
 import { BoardWithMessages } from '../../models/board'
 
 @Component({
-  selector: 'teams-boards-board',
+  selector: 'boards-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })

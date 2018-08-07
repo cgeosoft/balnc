@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router'
 
 import { CommonModule } from '@balnc/common'
 
-import { BoardService } from './services/board.service'
+import { BoardService } from './board.service'
 
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
 import { BoardComponent } from './components/board/board.component'
@@ -15,7 +15,7 @@ import { BoardComponent } from './components/board/board.component'
   ],
   declarations: [
     WrapperComponent,
-    BoardComponent,
+    BoardComponent
   ],
   providers: [
     BoardService

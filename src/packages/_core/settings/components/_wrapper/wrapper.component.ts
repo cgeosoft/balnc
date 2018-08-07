@@ -1,4 +1,4 @@
-import { HelperService } from './../../../../_common/services/helper.service'
+import { HelperService } from '../../../../_common/services/helper.service'
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { FilePickerDirective, ReadFile } from 'ngx-file-helpers'
 import { Router } from '@angular/router'

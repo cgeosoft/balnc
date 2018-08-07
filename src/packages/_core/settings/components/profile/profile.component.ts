@@ -26,23 +26,23 @@ export class ProfileComponent implements OnInit {
   deleteDataRemote = false
   needReload = false
 
-  tabMenu = {
-    tabs: [{
-      id: 'Profile',
-      label: 'Profile',
-      icon: 'cog'
-    }, {
-      id: 'Profile',
-      label: 'Profile',
-      icon: 'cog',
-      right: true
-    }, {
-      id: 'doc',
-      label: 'Doc',
-      icon: 'code',
-      right: true
-    }]
-  }
+  // tabMenu = {
+  //   tabs: [{
+  //     id: 'Profile',
+  //     label: 'Profile',
+  //     icon: 'cog'
+  //   }, {
+  //     id: 'Profile',
+  //     label: 'Profile',
+  //     icon: 'cog',
+  //     right: true
+  //   }, {
+  //     id: 'doc',
+  //     label: 'Doc',
+  //     icon: 'code',
+  //     right: true
+  //   }]
+  // }
 
   constructor (
     private router: Router,

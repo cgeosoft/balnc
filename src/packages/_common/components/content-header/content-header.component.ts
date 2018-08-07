@@ -15,8 +15,7 @@ export class ContentHeaderComponent implements OnInit {
   @Input() details: any[] = []
   @Input() settingsMenu: any[] = []
 
-  @Input() tabsMenu: TabsMenu = {}
-
+  @Input() tabsMenu: TabsMenu
   @Input() fullWidth = false
   @Input() route = null
 
@@ -25,14 +24,17 @@ export class ContentHeaderComponent implements OnInit {
   ngOnInit () {
     this._icon = HelperService.getIcon(this.icon)
 
-    if (!this.tabsMenu.selected) {
-      this.tabsMenu.selected = this.tabsMenu.tabs[0].id
-    }
+    if (this.tabsMenu) {
 
-    if (this.tabsMenu.tabs) {
-      this.tabsMenu.tabs.forEach(tab => {
-        tab.icon = HelperService.getIcon(tab.icon)
-      })
+      if (!this.tabsMenu.selected) {
+        this.tabsMenu.selected = this.tabsMenu.tabs[0].id
+      }
+
+      if (this.tabsMenu.tabs) {
+        this.tabsMenu.tabs.forEach(tab => {
+          tab.icon = HelperService.getIcon(tab.icon)
+        })
+      }
     }
   }
 }

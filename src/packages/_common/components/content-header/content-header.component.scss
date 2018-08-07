@@ -65,6 +65,9 @@
             &.active {
               color: lighten($body-color, 5%);
             }
+            &:hover{
+              border-bottom: none;
+            }
           }
         }
       }

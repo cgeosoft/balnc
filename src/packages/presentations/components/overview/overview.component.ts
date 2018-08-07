@@ -4,10 +4,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
-import { PresentationsService } from '../../services/presentations.service'
+import { PresentationsService } from '../../presentations.service'
 import { Presentation } from '../../models/presentation'
-
-import { CreatePresentationComponent } from '../create-presentation/create-presentation.component'
 
 @Component({
   selector: 'presentations-overview',
@@ -32,7 +30,7 @@ export class OverviewComponent implements OnInit {
   }
 
   async create () {
-    await this.modal.open(CreatePresentationComponent).result
+    // await this.modal.open(CreatePresentationComponent).result
     this.load()
   }
 

@@ -9,7 +9,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { ToastrModule } from 'ngx-toastr'
-import { WebStorageModule } from 'ngx-store';
+import { WebStorageModule } from 'ngx-store'
 
 import { NgPipesModule } from 'ngx-pipes'
 import { MomentModule } from 'ngx-moment'
@@ -47,7 +47,7 @@ library.add(fas, far)
     ReactiveFormsModule,
     RouterModule.forChild([]),
     ToastrModule,
-    WebStorageModule,
+    WebStorageModule
   ],
   declarations: [
     AgoPipe,
@@ -61,10 +61,10 @@ library.add(fas, far)
     FooterComponent,
     LoaderComponent,
     PageNotFoundComponent,
-    SidebarComponent,
+    SidebarComponent
   ],
   providers: [
-    HelperService,
+    HelperService
   ],
   exports: [
     AgoPipe,
@@ -87,7 +87,7 @@ library.add(fas, far)
     NgPipesModule,
     ReactiveFormsModule,
     SidebarComponent,
-    ToastrModule,
-  ],
+    ToastrModule
+  ]
 })
 export class CommonModule { }

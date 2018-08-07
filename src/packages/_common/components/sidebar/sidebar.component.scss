@@ -84,14 +84,45 @@ $color-sidebar-font: #aaa;
       @extend .w-100;
       @extend .btn;
       background: none;
-      padding: .2rem .4rem;
+      padding: .2rem;
       border: none;
       color: $color-sidebar-font;
       text-align: left;
       outline: none;
-      span {
-        @extend .flex-grow-1;
-        @extend .text-truncate;
+      .thumb {
+        @extend .bg-dark;
+        @extend .rounded;
+        @extend .mr-2;
+        @extend .d-flex;
+        @extend .justify-content-center;
+        @extend .align-items-center;
+        height: 34px;
+        width: 34px;
+        min-width: 34px;
+        overflow: hidden;
+        img {
+          @extend .img-fluid;
+          height: 34px;
+          width: 34px;
+        }
+        .thumb-img {
+          @extend .h-100;
+          @extend .w-100;
+          background-size: cover;
+          background-position: center;
+        }
+        // .thumb-empty {
+        //   position: relative;
+        //   height: 100%;
+        //   span {
+        //     font-size: 1.5rem;
+        //     color: #aaa;
+        //     position: absolute;
+        //     left: 50%;
+        //     top: 50%;
+        //     margin: -12px 0 0 -12px;
+        //   }
+        // }
       }
       .icon {
         @extend .mr-1;
@@ -104,15 +135,34 @@ $color-sidebar-font: #aaa;
           @extend .ml-auto;
         }
       }
-      &.primary{
+      .content {
+        @extend .d-flex;
+        @extend .flex-column;
+        @extend .flex-grow-1;
+        @extend .text-truncate;
+        line-height: 1rem;
+        span {
+          @extend .d-block;
+          @extend .text-truncate;
+        }
+        small {
+          @extend .d-block;
+          @extend .text-truncate;
+          font-size: .7rem;
+          line-height: .7rem;
+          margin-top: .2rem;
+          color: $color-sidebar-font;
+        }
+      }
+      &.primary {
         @extend .btn-primary;
         border-width: 1px;
       }
-      &.success{
+      &.success {
         @extend .btn-success;
         border-width: 1px;
       }
-      &.danger{
+      &.danger {
         @extend .btn-danger;
         border-width: 1px;
       }

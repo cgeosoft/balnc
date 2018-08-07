@@ -9,11 +9,14 @@ import { ToastrModule } from 'ngx-toastr'
 import { AppComponent } from './app.component'
 import environment from 'environments/environment'
 
-import { CommonModule, DatabaseService, ConfigService, ConfigGuard } from '@balnc/common'
-import { MainComponent, CoreModule, SetupComponent, DashboardRoutes, SettingsRoutes, SetupRoutes } from '@balnc/core'
+import { CommonModule, DatabaseService, ConfigService } from '@balnc/common'
+import { MainComponent, CoreModule, DashboardRoutes, SettingsRoutes, SetupRoutes } from '@balnc/core'
 import { PresentationsModule, PresentationsRoutes, PresentationsEntities } from '@balnc/presentations'
 import { BoardsRoutes, BoardsEntities, BoardsModule } from '@balnc/boards'
 import { ProjectsRoutes, ProjectsEntities, ProjectsModule } from '@balnc/projects'
+import { ContactsRoutes, ContactsEntities, ContactsModule } from '@balnc/contacts'
+import { InvoicesRoutes, InvoicesEntities, InvoicesModule } from '@balnc/invoices'
+// import { OrdersRoutes, OrdersEntities, OrdersModule } from '@balnc/orders'
 
 @NgModule({
   imports: [
@@ -35,7 +38,11 @@ import { ProjectsRoutes, ProjectsEntities, ProjectsModule } from '@balnc/project
         ...SettingsRoutes,
         ...PresentationsRoutes,
         ...ProjectsRoutes,
-        ...BoardsRoutes, {
+        ...BoardsRoutes,
+        ...ContactsRoutes,
+        ...InvoicesRoutes,
+        // ...OrdersRoutes,
+        {
           path: '',
           pathMatch: 'full',
           redirectTo: '/dashboard'
@@ -49,7 +56,10 @@ import { ProjectsRoutes, ProjectsEntities, ProjectsModule } from '@balnc/project
     CoreModule,
     ProjectsModule,
     PresentationsModule,
-    BoardsModule
+    BoardsModule,
+    ContactsModule,
+    InvoicesModule
+    // OrdersModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
@@ -63,7 +73,10 @@ import { ProjectsRoutes, ProjectsEntities, ProjectsModule } from '@balnc/project
         await databaseService.setup([
           ...PresentationsEntities,
           ...ProjectsEntities,
-          ...BoardsEntities
+          ...BoardsEntities,
+          ...ContactsEntities,
+          ...InvoicesEntities
+          // ...OrdersEntities
         ])
       },
       deps: [ConfigService, DatabaseService],

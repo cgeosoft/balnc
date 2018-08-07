@@ -1,14 +1,12 @@
-import { Entity } from '@balnc/common'
-
 import { BoardSchema } from './models/board'
 import { MessageSchema } from './models/message'
 
-export const BoardsEntities: Entity[] = [{
-  name: 'board',
+export const BoardsEntities = [{
+  name: 'boards',
   schema: BoardSchema,
   sync: true
-},{
-  name: 'message',
+}, {
+  name: 'messages',
   schema: MessageSchema,
   sync: true
 }]

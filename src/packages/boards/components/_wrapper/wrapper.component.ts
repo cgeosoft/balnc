@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 
-import { BoardService } from '../../services/board.service'
+import { BoardService } from '../../board.service'
 import { Observable } from 'rxjs'
 
 import { Board } from '../../models/board'
 
 @Component({
-  selector: 'teams-boards-wrapper',
+  selector: 'boards-wrapper',
   templateUrl: './wrapper.component.html',
   styleUrls: ['./wrapper.component.scss']
 })

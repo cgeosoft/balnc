@@ -7,7 +7,7 @@ import * as _ from 'lodash'
 import * as moment from 'moment'
 
 import { Presentation } from '../../models/presentation'
-import { PresentationsService } from '../../services/presentations.service'
+import { PresentationsService } from '../../presentations.service'
 import { AddPageComponent } from '../add-page/add-page.component'
 
 @Component({

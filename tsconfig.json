@@ -26,8 +26,14 @@
       "@balnc/presentations": [
         "src/packages/presentations"
       ],
-      "@balnc/business/*": [
-        "src/packages/business/*"
+      "@balnc/contacts": [
+        "src/packages/contacts"
+      ],
+      "@balnc/invoices": [
+        "src/packages/invoices"
+      ],
+      "@balnc/orders": [
+        "src/packages/orders"
       ],
       "@balnc/boards": [
         "src/packages/boards"

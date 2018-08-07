@@ -1,4 +1,4 @@
-<div class="header-bar" [ngClass]="{'has-tabs':tabsMenu.tabs,'container':!fullWidth}">
+<div class="header-bar" [ngClass]="{'has-tabs':tabsMenu,'container':!fullWidth}">
   <div class="header-bar-title">
     <a *ngIf="route != null" [routerLink]="route" class="header-icon">
       <fa-layers class="fa-fw">
@@ -46,7 +46,7 @@
       </div>
     </div>
   </div>
-  <div class="header-bar-tabs" *ngIf="tabsMenu.tabs" [ngClass]="{'container':!fullWidth}">
+  <div class="header-bar-tabs" *ngIf="tabsMenu" [ngClass]="{'container':!fullWidth}">
     <ul class="nav nav-tabs">
       <li class="nav-item" *ngFor="let tab of tabsMenu.tabs" [ngClass]="{'ml-auto':tab.right}">
         <a class="nav-link" [ngClass]="{active:(tabsMenu.selected == tab.id)}" href="javascript:void(0);" (click)="tabsMenu.selected == tab.id">

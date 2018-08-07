@@ -1,0 +1,70 @@
+{
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "string"
+    },
+    "socials": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "taxDetails": {
+      "type": "object",
+      "properties": {
+        "vatNumber": {
+          "type": "string"
+        },
+        "taxOffice": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "offices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "persons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
