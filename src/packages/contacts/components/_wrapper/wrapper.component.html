@@ -8,19 +8,44 @@
         <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
         <div class="content">New Contact</div>
       </button>
+      <button (click)="generate()">
+        <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
+        <div class="content">Generate</div>
+      </button>
       <div class="divider"></div>
-      <ng-container *ngIf="contacts.length; else empty">
-        <a *ngFor="let contact of contacts" [routerLink]="['/contacts',contact._id]" routerLinkActive="active">
+    </div>
+    <div class="items">
+      <div class="header">
+        <h4>Companies</h4>
+      </div>
+      <ng-container *ngIf="companies.length; else empty">
+        <a *ngFor="let company of companies" [routerLink]="['/contacts/company',company._id]" routerLinkActive="active">
           <div class="thumb">
-            <ng-container *ngIf="contact.thumb; else noThumb">
-              <div class="thumb-img" [ngStyle]="{'background-image': 'url('+contact.thumb+')'}"></div>
+            <ng-container *ngIf="company.logo; else noThumb">
+              <div class="thumb-img" [ngStyle]="{'background-image': 'url('+company.logo+')'}"></div>
             </ng-container>
           </div>
           <div class="content">
-            <span>{{contact.title}}</span>
-            <ng-container *ngIf="contact.stats.filecount">
-              <small>files: {{contact.stats.filecount}} | Size: {{contact.stats.filesize | bytes:0}}</small>
+            <span>{{company.name}}</span>
+            <small>Persons: {{company.persons.length}}</small>
+          </div>
+        </a>
+      </ng-container>
+    </div>
+    <div class="items">
+      <div class="header">
+        <h4>Persons</h4>
+      </div>
+      <ng-container *ngIf="persons.length; else empty">
+        <a *ngFor="let person of persons" [routerLink]="['/contacts/person',person._id]" routerLinkActive="active">
+          <div class="thumb">
+            <ng-container *ngIf="person.avatar; else noThumb">
+              <div class="thumb-img" [ngStyle]="{'background-image': 'url('+person.avatar+')'}"></div>
             </ng-container>
+          </div>
+          <div class="content">
+            <span>{{person.name}}</span>
+            <small>{{person.emails[0]}}</small>
           </div>
         </a>
       </ng-container>

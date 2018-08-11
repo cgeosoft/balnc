@@ -3,6 +3,6 @@
   @extend .d-flex;
   @extend .flex-column;
   @extend .justify-content-start;
-  height: 100%;
-  width: 100%;
+  @extend .w-100;
+  @extend .h-100;
 }

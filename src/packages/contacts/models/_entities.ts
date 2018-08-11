@@ -1,6 +1,6 @@
-import { PersonSchema } from './models/person'
-import { CompanySchema } from './models/company'
-import { ContactEventSchema } from './models/contact-event'
+import PersonSchema from './person.json'
+import CompanySchema from './company.json'
+import ContactEventSchema from './contact-event.json'
 
 export const ContactsEntities = [{
   name: 'persons',

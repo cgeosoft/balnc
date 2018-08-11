@@ -22,26 +22,21 @@ export class OverviewComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged(),
       // .do(() => this.searching = true)
-      switchMap(term => this.contactsService.getContacts({
+      switchMap(term => this.contactsService.getCompanies({
         name: {
           $eq: term
         }
       })))
 
   ngOnInit () {
-    this.setup()
+    this.load()
   }
 
-  private async setup () {
+  private async load () {
     await this.loadLatestContacts()
   }
 
   async loadLatestContacts () {
-    this.contacts = await this.contactsService.getContacts()
-  }
-
-  async generateMockData () {
-    // await this.contactsService.generateMock()
-    await this.loadLatestContacts()
+    this.contacts = await this.contactsService.getCompanies()
   }
 }

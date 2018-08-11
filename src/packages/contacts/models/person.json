@@ -1,9 +1,18 @@
 {
+  "title": "Person",
   "type": "object",
   "version": 0,
+  "disableKeyCompression": true,
   "properties": {
     "name": {
       "type": "string"
+    },
+    "insertedAt": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string",
+      "index": true 
     },
     "avatar": {
       "type": "string"

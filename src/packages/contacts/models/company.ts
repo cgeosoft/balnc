@@ -1,7 +1,5 @@
 import { RxDocument } from 'rxdb'
 
-import * as _CompanySchema from './company.json'
-
 export interface Company {
   name: string
   logo?: string
@@ -9,6 +7,8 @@ export interface Company {
   offices?: Office[]
   persons?: string[]
   taxDetails?: TaxDetails
+  insertedAt: string
+  updatedAt: string
 }
 export interface Office {
   address: string
@@ -24,4 +24,3 @@ export interface TaxDetails {
   description: string
 }
 export type RxCompanyDocument = RxDocument<Company> & Company
-export const CompanySchema = _CompanySchema

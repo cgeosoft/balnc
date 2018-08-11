@@ -1,3 +1,3 @@
 export * from './presentations.module'
 export * from './presentations.routes'
-export * from './presentations.entities'
+export * from './models/_entities'

@@ -9,7 +9,7 @@ export const ContactsRoutes = [{
   children: [
     { path: 'overview', component: OverviewComponent },
     { path: 'person/:id', component: PersonViewComponent },
-    { path: 'company/:id', component: CompanyViewComponent }
+    { path: 'company/:id', component: CompanyViewComponent },
     { path: '', redirectTo: 'overview', pathMatch: 'full' }
   ]
 }]

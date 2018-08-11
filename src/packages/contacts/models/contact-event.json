@@ -1,6 +1,8 @@
 {
+  "title": "ContactEvent",
   "type": "object",
   "version": 0,
+  "disableKeyCompression": true,
   "properties": {
     "company": {
       "type": "string"
@@ -8,8 +10,9 @@
     "person": {
       "type": "string"
     },
-    "dateTime": {
-      "type": "string"
+    "insertedAt": {
+      "type": "string",
+      "index": true 
     },
     "type": {
       "type": "string"

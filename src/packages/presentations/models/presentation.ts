@@ -1,4 +1,3 @@
-import * as schema from './presentation.json'
 import { RxDocument } from 'rxdb'
 
 declare interface IPresentation {
@@ -15,4 +14,3 @@ declare interface IPresentation {
 }
 
 export type Presentation = RxDocument<IPresentation> & IPresentation
-export const PresentationSchema = schema

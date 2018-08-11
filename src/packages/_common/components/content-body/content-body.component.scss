@@ -1,6 +1,6 @@
 @import "components/bootstrap";
 :host {
-  padding: 1rem;
-  width: 100%;
+  @extend .w-100;
+  @extend .p-1;
   overflow-y: auto;
 }

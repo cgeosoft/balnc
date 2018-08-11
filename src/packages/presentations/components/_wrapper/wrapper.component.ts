@@ -7,7 +7,7 @@ import { CreateComponent } from '../create/create.component'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
-  selector: 'presentations-settings-wrapper',
+  selector: 'presentations-wrapper',
   templateUrl: './wrapper.component.html',
   styleUrls: ['./wrapper.component.scss']
 })

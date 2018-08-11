@@ -68,14 +68,6 @@ a {
   }
 }
 
-.wrapper {
-  >:last-child {
-    @extend .d-flex;
-    @extend .flex-row;
-    width: 100%;
-  }
-}
-
 .card-header-buttons {
   float: right;
   >button,

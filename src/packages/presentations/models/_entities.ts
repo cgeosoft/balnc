@@ -1,4 +1,4 @@
-import { PresentationSchema } from './models/presentation'
+import PresentationSchema from './presentation.json'
 
 export const PresentationsEntities = [{
   name: 'presentations',
