@@ -22,6 +22,7 @@ export class BoardComponent implements OnInit {
   inputMessage: string
 
   tabsMenu = {
+    selected: 'messages',
     tabs: [{
       id: 'messages',
       label: 'Messages',

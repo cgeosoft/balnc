@@ -12,7 +12,7 @@ export class WrapperComponent implements OnInit {
 
   companies = []
   persons = []
-  
+
   constructor (
     private contactsService: ContactsService
   ) { }
@@ -31,4 +31,7 @@ export class WrapperComponent implements OnInit {
     await this.load()
   }
 
+  async create () {
+
+  }
 }
