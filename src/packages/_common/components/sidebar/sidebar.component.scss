@@ -198,4 +198,18 @@ $color-sidebar-font: #aaa;
       height: 1px;
     }
   }
+  
+  .empty {
+    @extend .p-4;
+    color: darken($color-sidebar-font, 15) !important;
+    fa-icon {
+      font-size: 2rem !important;
+    }
+    .message {
+      font-size: 1rem !important;
+    }
+    .submessage {
+      font-size: .8rem !important;
+    }
+  }
 }

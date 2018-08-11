@@ -18,12 +18,6 @@
           </ng-template>
         </ng-container>
       </ng-container>
-      <ng-template #empty>
-        <common-empty message="No reports were found" icon="file-alt:regular" size='small'></common-empty>
-      </ng-template>
-      <ng-template #loader>
-        <common-loader animation="sk-cube" label="Loading Reports"></common-loader>
-      </ng-template>
     </div>
   </div>
   <div class="menu mt-auto" *ngIf="idReportAdmin">
@@ -38,3 +32,10 @@
   </div>
 </common-sidebar>
 <router-outlet></router-outlet>
+
+<ng-template #empty>
+  <common-empty></common-empty>
+</ng-template>
+<ng-template #loader>
+  <common-loader animation="sk-cube" label="Loading Reports"></common-loader>
+</ng-template>

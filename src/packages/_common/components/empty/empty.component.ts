@@ -8,14 +8,11 @@ import { HelperService } from '../../services/helper.service'
 })
 export class EmptyComponent implements OnInit {
 
-  @Input() message = 'Nothing where found'
+  @Input() message = 'no items'
   @Input() submessage = null
-  @Input() icon = 'folder-open-o'
-  @Input() size = 'normal'
+  @Input() icon = 'expand'
 
   _icon: string[]
-
-  constructor () { }
 
   ngOnInit () {
     this._icon = HelperService.getIcon(this.icon)

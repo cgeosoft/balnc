@@ -7,7 +7,9 @@
       <input class="form-control" placeholder="New board" [(ngModel)]="newBoard">
       <div class="input-group-append">
         <button class="btn btn-primary" type="button" (click)="addBoard()">
-            <fa-layers class="fa-fw"> <fa-icon [icon]="['fa','plus-circle']"></fa-icon></fa-layers>
+          <fa-layers class="fa-fw">
+            <fa-icon [icon]="['fa','plus-circle']"></fa-icon>
+          </fa-layers>
         </button>
       </div>
     </div>
@@ -28,12 +30,6 @@
           </ng-template>
         </ng-container>
       </ng-container>
-      <ng-template #empty>
-        <common-empty board="No boards were found" icon="file-alt:regular" size='small'></common-empty>
-      </ng-template>
-      <ng-template #loader>
-        <common-loader icon="file-alt:regular" label="Loading boards"></common-loader>
-      </ng-template>
     </div>
   </div>
   <div class="menu mt-auto">
@@ -48,7 +44,9 @@
           <input class="form-control" placeholder="Nickname" [(ngModel)]="nickname">
           <div class="input-group-append">
             <button class="btn btn-primary" type="button" (click)="changePersona()">
-                <fa-layers class="fa-fw"><fa-icon [icon]="['fa','check-circle']"></fa-icon></fa-layers>
+              <fa-layers class="fa-fw">
+                <fa-icon [icon]="['fa','check-circle']"></fa-icon>
+              </fa-layers>
             </button>
           </div>
         </div>
@@ -57,3 +55,10 @@
   </div>
 </common-sidebar>
 <router-outlet></router-outlet>
+
+<ng-template #empty>
+  <common-empty></common-empty>
+</ng-template>
+<ng-template #loader>
+  <common-loader icon="file-alt:regular" label="Loading boards"></common-loader>
+</ng-template>
