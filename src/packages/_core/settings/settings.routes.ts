@@ -6,8 +6,6 @@ import { ProfileComponent } from './components/profile/profile.component'
 export const SettingsRoutes: Routes = [{
   path: 'settings',
   component: WrapperComponent,
-  children: [{
-    path: ':alias',
-    component: ProfileComponent
-  }]
+  children: [
+    { path: ':alias', component: ProfileComponent }]
 }]

@@ -86,6 +86,7 @@ export class ConfigService {
 
   getProfile (alias: string = null): Profile {
     alias = alias || this.selected
+    alias = alias || this.profiles[0].alias
     let index = this.profiles.findIndex(p => p.alias === alias)
     return this.profiles[index]
   }

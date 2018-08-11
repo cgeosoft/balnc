@@ -11,12 +11,10 @@ import environment from 'environments/environment'
 
 import { CommonModule, DatabaseService, ConfigService } from '@balnc/common'
 import { MainComponent, CoreModule, DashboardRoutes, SettingsRoutes, SetupRoutes } from '@balnc/core'
+
+import { ContactsRoutes, ContactsEntities, ContactsModule, InvoicesRoutes, InvoicesEntities, InvoicesModule, OrdersRoutes, OrdersModule, OrdersEntities } from '@balnc/business'
+import { ProjectsRoutes, ProjectsEntities, ProjectsModule, BoardsRoutes, BoardsEntities, BoardsModule } from '@balnc/teams'
 import { PresentationsModule, PresentationsRoutes, PresentationsEntities } from '@balnc/presentations'
-import { BoardsRoutes, BoardsEntities, BoardsModule } from '@balnc/boards'
-import { ProjectsRoutes, ProjectsEntities, ProjectsModule } from '@balnc/projects'
-import { ContactsRoutes, ContactsEntities, ContactsModule } from '@balnc/contacts'
-import { InvoicesRoutes, InvoicesEntities, InvoicesModule } from '@balnc/invoices'
-// import { OrdersRoutes, OrdersEntities, OrdersModule } from '@balnc/orders'
 
 @NgModule({
   imports: [
@@ -41,7 +39,7 @@ import { InvoicesRoutes, InvoicesEntities, InvoicesModule } from '@balnc/invoice
         ...BoardsRoutes,
         ...ContactsRoutes,
         ...InvoicesRoutes,
-        // ...OrdersRoutes,
+        ...OrdersRoutes,
         {
           path: '',
           pathMatch: 'full',
@@ -58,8 +56,8 @@ import { InvoicesRoutes, InvoicesEntities, InvoicesModule } from '@balnc/invoice
     PresentationsModule,
     BoardsModule,
     ContactsModule,
-    InvoicesModule
-    // OrdersModule
+    InvoicesModule,
+    OrdersModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
@@ -75,8 +73,8 @@ import { InvoicesRoutes, InvoicesEntities, InvoicesModule } from '@balnc/invoice
           ...ProjectsEntities,
           ...BoardsEntities,
           ...ContactsEntities,
-          ...InvoicesEntities
-          // ...OrdersEntities
+          ...InvoicesEntities,
+          ...OrdersEntities
         ])
       },
       deps: [ConfigService, DatabaseService],

@@ -1,4 +1,4 @@
-import { InvoiceSchema } from './models/invoice'
+import InvoiceSchema from './invoice.json'
 
 export const InvoicesEntities = [{
   name: 'invoices',

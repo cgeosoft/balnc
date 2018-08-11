@@ -2,28 +2,25 @@
   "title": "Order",
   "type": "object",
   "version": 0,
+  "disableKeyCompression": true,
   "properties": {
     "serial": {
-      "type": "string",
-      "faker": "random.uuid"
+      "type": "string"
     },
     "customer": {
-      "$ref": "http://localhost:8080/business/orders/customer.json#"
+      "type": "string"
     },
     "dateExecute": {
-      "type": "string",
-      "faker": "date.past"
+      "type": "string"
     },
     "crontab": {
-      "type": "string",
-      "description": "used for recurring order"
+      "type": "string"
     },
     "status": {
-      "enum": ["started", "processing", "processed"]
+      "type": "string"
     },
     "currency": {
-      "type": "string",
-      "faker": "finance.currencyCode"
+      "type": "string"
     },
     "comment": {
       "type": "string"
@@ -31,19 +28,19 @@
     "transformations": {
       "type": "array",
       "items": {
-        "$ref": "http://localhost:8080/business/orders/order.json#/definitions/transformation"
+        "type": "string"
       }
     },
     "items": {
       "type": "array",
       "items": {
-        "$ref": "http://localhost:8080/business/orders/order.json#/definitions/orderItem"
+        "type": "string"
       }
     },
     "activity": {
       "type": "array",
       "items": {
-        "$ref": "http://localhost:8080/business/orders/order.json#/definitions/orderActivity"
+        "type": "string"
       }
     }
   },
@@ -56,8 +53,7 @@
           "faker": "lorem.sentence"
         },
         "method": {
-          "enum": ["percent", "exact"],
-          "default": "percent"
+          "enum": ["percent", "exact"]
         },
         "amount": {
           "type": "number",
@@ -74,7 +70,7 @@
         "transformations": {
           "type": "array",
           "items": {
-            "$ref": "http://localhost:8080/business/orders/order.json#/definitions/transformation"
+            "$ref": "#/definitions/transformation"
           }
         },
         "count": {
@@ -112,6 +108,5 @@
       },
       "required": ["date"]
     }
-  },
-  "required": ["serial", "customer", "dateExecute", "status", "date", "currency", "items"]
+  }
 }

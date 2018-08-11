@@ -1,5 +1,5 @@
-import { BoardSchema } from './models/board'
-import { MessageSchema } from './models/message'
+import BoardSchema from './board.json'
+import MessageSchema from './message.json'
 
 export const BoardsEntities = [{
   name: 'boards',
