@@ -8,10 +8,6 @@
         <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
         <div class="content">New Contact</div>
       </button>
-      <button (click)="generate()">
-        <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
-        <div class="content">Generate</div>
-      </button>
       <div class="divider"></div>
     </div>
     <div class="items">
@@ -49,6 +45,14 @@
           </div>
         </a>
       </ng-container>
+    </div>
+  </div>
+  <div class="menu mt-auto">
+    <div class="items ">
+      <button (click)="generate()">
+        <fa-icon [icon]="['fas','random']" class="icon"></fa-icon>
+        <div class="content">Gen. Random Data</div>
+      </button>
     </div>
   </div>
 </common-sidebar>

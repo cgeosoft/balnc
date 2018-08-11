@@ -1,3 +1,12 @@
-<p>
-  person-view
-</p>
+<ng-container *ngIf="person; else empty">
+  <common-content>
+    <common-content-header [title]="person.name" icon="user" [subtitle]="'Person: '+person._id"></common-content-header>
+    <common-content-body>
+      <pre>{{person|json:2}}</pre>
+    </common-content-body>
+  </common-content>
+</ng-container>
+
+<ng-template #empty>
+  <common-empty message="Select a contact or create a new one" icon="desktop"></common-empty>
+</ng-template>

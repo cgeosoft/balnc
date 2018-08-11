@@ -88,7 +88,8 @@ $color-sidebar-font: #aaa;
       border: none;
       color: $color-sidebar-font;
       text-align: left;
-      outline: none;
+      outline: none !important;
+      box-shadow: none !important;
       .thumb {
         @extend .bg-dark;
         @extend .rounded;
@@ -111,18 +112,6 @@ $color-sidebar-font: #aaa;
           background-size: cover;
           background-position: center;
         }
-        // .thumb-empty {
-        //   position: relative;
-        //   height: 100%;
-        //   span {
-        //     font-size: 1.5rem;
-        //     color: #aaa;
-        //     position: absolute;
-        //     left: 50%;
-        //     top: 50%;
-        //     margin: -12px 0 0 -12px;
-        //   }
-        // }
       }
       .icon {
         @extend .mr-1;

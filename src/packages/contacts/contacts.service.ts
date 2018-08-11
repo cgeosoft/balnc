@@ -16,7 +16,7 @@ export class ContactsService {
   companies: RxCollection<RxCompanyDocument>
   contactEvents: RxCollection<RxContactEventDocument>
 
-  constructor (
+  constructor(
     private dbService: DatabaseService
   ) {
     this.dbService.get<RxPersonDocument>('persons').then(persons => { this.persons = persons })
@@ -24,32 +24,36 @@ export class ContactsService {
     this.dbService.get<RxContactEventDocument>('contactEvents').then(contactEvents => { this.contactEvents = contactEvents })
   }
 
-  async getLatestCompanies () {
+  async getLatestCompanies() {
     const companies = await this.companies.find().sort('updatedAt').exec()
     return companies.slice(Math.max(companies.length - 5, 1))
   }
 
-  async getLatestPersons () {
+  async getLatestPersons() {
     const persons = await this.persons.find().sort('updatedAt').exec()
     return persons.slice(Math.max(persons.length - 5, 1))
   }
 
-  async getCompanies (params?: any, limit: number = 10) {
+  async getCompanies(params?: any, limit: number = 10) {
     return this.companies.find(params).limit(limit).exec()
   }
 
-  async getCompany (contactId): Promise<Company> {
-    return this.companies.findOne(contactId).exec()
+  async getCompany(id): Promise<Company> {
+    return this.companies.findOne(id).exec()
   }
 
-  async addCompany (contact: Company) {
+  async getPerson(id): Promise<Company> {
+    return this.persons.findOne(id).exec()
+  }
+
+  async addCompany(contact: Company) {
     const result = await this.companies
       .newDocument(contact)
       .save()
     return result
   }
 
-  async generate () {
+  async generate() {
     for (let c = 0; c < 10; c++) {
       const personIds = []
       for (let p = 0; p < 5; p++) {
