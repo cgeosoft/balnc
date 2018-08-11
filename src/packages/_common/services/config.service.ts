@@ -59,23 +59,6 @@ export class ConfigService {
     return this.profile.packages[id]
   }
 
-  getMainMenu () {
-    if (!this.profile) {
-      return []
-    }
-    const menu = this.packages
-      .filter(m => {
-        return this.profile.packages &&
-          this.profile.packages[m.id]
-      })
-      .map(m => {
-        const v = { ...m }
-        v.icon = HelperService.getIcon(m.icon)
-        return v
-      })
-    return menu
-  }
-
   clearAllProfiles () {
     this.selected = null
     this.profiles = []

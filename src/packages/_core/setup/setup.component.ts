@@ -40,11 +40,7 @@ export class SetupComponent implements OnInit {
       this.router.navigate(['/dashboard'])
     }
 
-    this.packages = this.configService.packages.map(m => {
-      const v = { ...m }
-      v.icon = HelperService.getIcon(m.icon)
-      return v
-    })
+    this.packages = this.configService.packages
   }
 
   back () {

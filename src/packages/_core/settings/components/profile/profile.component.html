@@ -48,8 +48,7 @@
             <div class="form-group row">
               <label class="col-3 col-form-label text-right">Host</label>
               <div class="col-9">
-                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" (ngModelChange)="save();"
-                  class="form-control">
+                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" (ngModelChange)="save();" class="form-control">
               </div>
             </div>
             <div class="form-group row">
@@ -120,14 +119,12 @@
           <h4>Μodules</h4>
           <ul class="list-group list-group-flush">
             <li class="list-group-item d-flex align-items-center px-0 py-1" *ngFor="let package of packages">
-              <fa-layers class="fa-fw fa-3x mr-2 text-muted" style="width:75px;min-width:75px">
-                <fa-icon [icon]="package.icon"></fa-icon>
-              </fa-layers>
               <div class="flex-grow-1">
                 <h5 class="mb-0">
+                  {{package.title}}
                   <fa-layers class="fa-fw text-success" *ngIf="profile.packages[package.id]">
                     <fa-icon [icon]="['fas','check']"></fa-icon>
-                  </fa-layers> {{package.title}}
+                  </fa-layers>
                   <small class="text-muted">{{package.id}}</small>
                 </h5>
                 <small class="text-muted">{{package.description}}</small>

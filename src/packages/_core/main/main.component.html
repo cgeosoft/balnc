@@ -16,14 +16,17 @@
           </fa-layers>
         </a>
       </div>
-      <ng-template ngFor let-item [ngForOf]="menu" *ngIf="menu.length">
-        <div class="item menu" ngbTooltip="{{item.title}}" placement="right" routerLinkActive="active">
-          <a [routerLink]="item.path">
-            <fa-layers class="fa-fw">
-              <fa-icon [icon]="item.icon"></fa-icon>
-            </fa-layers>
-          </a>
-        </div>
+      <ng-template ngFor let-package [ngForOf]="packages" *ngIf="packages.length">
+        <div class="divider"></div>
+        <ng-template ngFor let-item [ngForOf]="package.menu" *ngIf="package.menu">
+          <div class="item menu" ngbTooltip="{{item.label}}" placement="right" routerLinkActive="active">
+            <a [routerLink]="item.path">
+              <fa-layers class="fa-fw">
+                <fa-icon [icon]="item.icon"></fa-icon>
+              </fa-layers>
+            </a>
+          </div>
+        </ng-template>
       </ng-template>
       <div class="item menu mt-auto">
         <a routerLink="/settings">
@@ -37,6 +40,7 @@
           </fa-layers>
         </a>
       </div>
+      <!-- {{packages|json}} -->
     </div>
   </div>
   <div *ngIf="pageLoading" class="page-loader">

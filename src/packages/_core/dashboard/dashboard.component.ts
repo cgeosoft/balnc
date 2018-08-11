@@ -20,6 +20,5 @@ export class DashboardComponent implements OnInit {
   ngOnInit () {
     this.config = this.configService.config
     this.profile = this.configService.getProfile()
-    this.menu = this.configService.getMainMenu()
   }
 }

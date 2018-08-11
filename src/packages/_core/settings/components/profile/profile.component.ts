@@ -54,11 +54,7 @@ export class ProfileComponent implements OnInit {
   async ngOnInit () {
 
     this.selected = this.configService.selected
-    this.packages = this.configService.packages.map(m => {
-      const v = { ...m }
-      v.icon = HelperService.getIcon(m.icon)
-      return v
-    })
+    this.packages = this.configService.packages
 
     this.route.params.subscribe(params => {
       this.setup(params['alias'])

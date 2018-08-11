@@ -3,7 +3,7 @@ import { fromEvent as observableFromEvent } from 'rxjs'
 import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 
-import { ConfigService, Profile } from '@balnc/common'
+import { ConfigService, Profile, HelperService, Package } from '@balnc/common'
 
 @Component({
   selector: 'core-main',
@@ -23,6 +23,8 @@ export class MainComponent implements OnInit {
   isOnline = false
 
   pageLoading = false
+
+  packages: Package[]
 
   constructor (
     public configService: ConfigService,
@@ -48,10 +50,6 @@ export class MainComponent implements OnInit {
     this.profile = this.configService.getProfile()
 
     if (this.profile) {
-      this.menu = this.configService.getMainMenu()
-    }
-
-    if (this.profile) {
       this.profileName = this.profile.name
       this.username = this.configService.profile.remoteUsername
     }
@@ -69,6 +67,24 @@ export class MainComponent implements OnInit {
       })
 
     this.setStatus()
+
+    this.loadMenu()
+  }
+
+  loadMenu () {
+    this.packages = this.configService.packages
+      .filter(m => {
+        return this.profile.packages &&
+          this.profile.packages[m.id]
+      })
+      .map(p => {
+        const v = { ...p }
+        v.menu = v.menu.map(m => {
+          m.icon = HelperService.getIcon(m.icon)
+          return m
+        })
+        return v
+      })
   }
 
   setStatus () {

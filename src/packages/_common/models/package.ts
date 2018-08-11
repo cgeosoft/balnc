@@ -1,9 +1,13 @@
-declare interface IPackage {
+export interface Package {
   id: string
   title: string
   description: string
-  icon: any
-  menu: string
+  menu: Menu[]
   config?: any
 }
-export type Package = IPackage
+
+export interface Menu {
+  lable: string
+  icon: any
+  path: string
+}

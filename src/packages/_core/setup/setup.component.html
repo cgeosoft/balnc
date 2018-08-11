@@ -84,14 +84,9 @@
           <div class="list-group-item" *ngFor="let package of packages">
             <div class="row">
               <div class="col-sm-9 d-flex align-items-center">
-                <fa-layers class="fa-fw fa-3x mr-2 text-muted d-none d-sm-block" style="width:75px;min-width:75px">
-                  <fa-icon [icon]="package.icon"></fa-icon>
-                </fa-layers>
                 <div class="flex-grow-1">
                   <h5 class="mb-0">
-                    <fa-layers class="fa-fw text-success" *ngIf="profile.packages[package.id]">
-                      <fa-icon [icon]="['fas','check']"></fa-icon>
-                    </fa-layers> {{package.title}}
+                    {{package.title}}
                     <small class="text-muted">{{package.id}}</small>
                   </h5>
                   <small class="text-muted">{{package.description}}</small>
