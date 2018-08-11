@@ -97,6 +97,8 @@ $color-sidebar-font: #aaa;
         @extend .d-flex;
         @extend .justify-content-center;
         @extend .align-items-center;
+        @extend .border;
+        @extend .border-light;
         height: 34px;
         width: 34px;
         min-width: 34px;
