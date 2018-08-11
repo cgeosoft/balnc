@@ -2,6 +2,7 @@
   "title": "report",
   "type": "object",
   "version": 0,
+  "disableKeyCompression": true,
   "properties": {
     "alias": {
       "type": "string"

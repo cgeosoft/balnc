@@ -19,7 +19,7 @@ export class PresentationComponent implements OnInit {
 
   @ViewChild('presentElem') presentElem: ElementRef
 
-  activePageIndex: Number = 0
+  activePageIndex: number = 0
   imageData: string
   pages: any[] = []
   presentation: Presentation
@@ -27,6 +27,7 @@ export class PresentationComponent implements OnInit {
   presenting = false
 
   tabsMenu = {
+    selected: 'overview',
     tabs: [{
       id: 'overview',
       label: 'Overview',
@@ -114,7 +115,7 @@ export class PresentationComponent implements OnInit {
     this.router.navigateByUrl('/presentations')
   }
 
-  async addPage () {
+  async addImage () {
     const modalRef = this.modal.open(AddPageComponent)
     modalRef.componentInstance.presentation = this.presentation
     await modalRef.result
@@ -145,14 +146,14 @@ export class PresentationComponent implements OnInit {
     }
   }
 
-  async setPageIndex (index) {
+  async setPageIndex (index: number) {
 
     this.activePageIndex = index
     if (this.presentation.pages.length === 0) {
       return
     }
     const contentImage = this.presentation.pages[index].params.image
-    this.imageData = await this.presentationsService.getImage(this.presentation, this.presentation.pages[index].params.image)
+    this.imageData = await this.presentationsService.getImage(this.presentation, contentImage)
   }
 
   async startPresentation () {
@@ -170,4 +171,23 @@ export class PresentationComponent implements OnInit {
       screenfull.toggle(this.presentElem.nativeElement)
     }
   }
+
+  goToFirst () {
+    this.setPageIndex(0)
+  }
+
+  goToPrevious () {
+    if (this.activePageIndex <= 0) { return }
+    this.setPageIndex(this.activePageIndex - 1)
+  }
+
+  goToNext () {
+    if (this.activePageIndex >= this.presentation.pages.length - 1) { return }
+    this.setPageIndex(this.activePageIndex + 1)
+  }
+
+  goToLast () {
+    this.setPageIndex(this.presentation.pages.length - 1)
+  }
+
 }

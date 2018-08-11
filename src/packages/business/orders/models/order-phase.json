@@ -2,6 +2,7 @@
   "title": "Order Phase",
   "type": "object",
   "version": 0,
+  "disableKeyCompression": true,
   "properties": {
     "label": {
       "type": "string"

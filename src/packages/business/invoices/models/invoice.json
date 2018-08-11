@@ -2,6 +2,7 @@
   "title": "Invoice",
   "type": "object",
   "version": 0,
+  "disableKeyCompression": true,
   "properties": {
     "from": {
       "type": "object"

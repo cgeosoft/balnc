@@ -1,8 +1,8 @@
 {
   "title": "board",
   "type": "object",
-  "disableKeyCompression": true,
   "version": 0,
+  "disableKeyCompression": true,
   "properties": {
     "ref": {
       "type": "string"
