@@ -45,7 +45,7 @@ export class ConfigService {
 
   public profile: Profile
 
-  setup () {
+  constructor () {
     console.log('[ConfigService]', 'Initializing with env:', environment)
     console.log('[ConfigService]', 'Profiles available:', this.profiles)
 

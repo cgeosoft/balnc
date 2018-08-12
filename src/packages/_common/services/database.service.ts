@@ -54,7 +54,6 @@ export class DatabaseService {
   ) { }
 
   async setup (entities: Entity[]) {
-
     console.log('[DatabaseService]', 'Initializing DB...')
     this.adapter = await this.getAdapter()
     this.db = await RxDB.create({

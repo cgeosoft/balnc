@@ -10,7 +10,8 @@ import { AppComponent } from './app.component'
 import environment from 'environments/environment'
 
 import { CommonModule, DatabaseService, ConfigService } from '@balnc/common'
-import { MainComponent, CoreModule, DashboardRoutes, SettingsRoutes, SetupRoutes } from '@balnc/core'
+
+import { MainComponent, CoreModule, DashboardRoutes, SettingsRoutes, SetupRoutes, BoxComponent, ErrorRoutes } from '@balnc/core'
 
 import { ContactsRoutes, ContactsEntities, ContactsModule, InvoicesRoutes, InvoicesEntities, InvoicesModule, OrdersRoutes, OrdersModule, OrdersEntities } from '@balnc/business'
 import { ProjectsRoutes, ProjectsEntities, ProjectsModule, BoardsRoutes, BoardsEntities, BoardsModule } from '@balnc/teams'
@@ -28,9 +29,6 @@ import { PresentationsModule, PresentationsRoutes, PresentationsEntities } from 
     RouterModule.forRoot([{
       path: '',
       component: MainComponent,
-      canActivate: [
-        // ConfigGuard,
-      ],
       children: [
         ...DashboardRoutes,
         ...SettingsRoutes,
@@ -45,9 +43,14 @@ import { PresentationsModule, PresentationsRoutes, PresentationsEntities } from 
           pathMatch: 'full',
           redirectTo: '/dashboard'
         }]
-    },
-      ...SetupRoutes
-    ], {
+    }, {
+      path: '',
+      component: BoxComponent,
+      children: [
+        ...SetupRoutes,
+        ...ErrorRoutes
+      ]
+    }], {
         // enableTracing: true,
     }),
     CommonModule,
@@ -62,12 +65,13 @@ import { PresentationsModule, PresentationsRoutes, PresentationsEntities } from 
   declarations: [AppComponent],
   bootstrap: [AppComponent],
   providers: [
-    DatabaseService,
     ConfigService,
+    DatabaseService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (configService: ConfigService, databaseService: DatabaseService) => async () => {
-        configService.setup()
+      deps: [DatabaseService],
+      multi: true,
+      useFactory: (databaseService: DatabaseService) => async () => {
         await databaseService.setup([
           ...PresentationsEntities,
           ...ProjectsEntities,
@@ -75,10 +79,13 @@ import { PresentationsModule, PresentationsRoutes, PresentationsEntities } from 
           ...ContactsEntities,
           ...InvoicesEntities,
           ...OrdersEntities
-        ])
-      },
-      deps: [ConfigService, DatabaseService],
-      multi: true
+        ]).catch(err => {
+          sessionStorage.setItem('ngx_error',err.stack)
+          if (window.location.href.indexOf('/error') === -1) {
+            window.location.href = '/error'
+          }
+        })
+      }
     }
   ]
 })
