@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { ConfigService } from '@balnc/common'
 
 @Component({
   selector: 'core-box',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core'
   styleUrls: ['./box.component.scss']
 })
 export class BoxComponent {
+
+  constructor (private configService: ConfigService) { }
 
 }
