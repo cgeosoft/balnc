@@ -8,6 +8,6 @@ import { ConfigService } from '@balnc/common'
 })
 export class BoxComponent {
 
-  constructor (private configService: ConfigService) { }
+  constructor (public configService: ConfigService) { }
 
 }
