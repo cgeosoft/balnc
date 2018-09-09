@@ -45,7 +45,7 @@ library.add(fas, far)
     NgbModule,
     NgPipesModule,
     ReactiveFormsModule,
-    RouterModule.forChild([]),
+    RouterModule,
     ToastrModule,
     WebStorageModule
   ],

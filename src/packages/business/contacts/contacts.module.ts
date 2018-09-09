@@ -8,11 +8,12 @@ import { CompanyViewComponent } from './components/company-view/company-view.com
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
 
 import { ContactsService } from './contacts.service'
+import { ContactsRoutes } from './contacts.routes'
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule.forChild(ContactsRoutes)
   ],
   declarations: [
     WrapperComponent,
