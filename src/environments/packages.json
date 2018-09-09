@@ -6,33 +6,38 @@
     "menu": [{
       "label": "Contacts",
       "icon": "building",
-      "path": "/contacts"
+      "path": "/business/contacts"
     }, {
       "label": "Orders",
       "icon": "shopping-cart",
-      "path": "/orders"
+      "path": "/business/orders"
     }, {
       "label": "Invoices",
       "icon": "file-invoice",
-      "path": "/invoice"
+      "path": "/business/invoices"
     }, {
       "label": "Contracts",
       "icon": "file-signature",
-      "path": "/contracts"
+      "path": "/business/contracts"
     }, {
       "label": "Inventory",
       "icon": "warehouse",
-      "path": "/inventory"
+      "path": "/business/inventory"
     }]
   }, {
-    "id": "@balnc/teams",
-    "title": "Teams",
+    "id": "@balnc/projects",
+    "title": "Projects",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
     "menu": [{
       "label": "Projects",
       "icon": "tasks",
       "path": "/projects"
-    }, {
+    }]
+  }, {
+    "id": "@balnc/boards",
+    "title": "Boards",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "menu": [{
       "label": "Boards",
       "icon": "comments:regular",
       "path": "/boards"

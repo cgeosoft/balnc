@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title">Create Project</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="modal-body">
+    <div class="form-group">
+      <label>Name
+        <small class="text-muted">required</small>
+      </label>
+      <input #name tabindex="1" formControlName="name" class="form-control form-control-lg" [ngClass]="{'is-invalid':form.get('name').invalid && (form.get('name').dirty || form.get('name').touched)}">
+      <ng-container *ngIf="form.get('name').invalid && (form.get('name').dirty || form.get('name').touched)">
+        <div *ngIf="form.get('name').errors.required" class="invalid-feedback">
+          Name is required.
+        </div>
+        <div *ngIf="form.get('name').errors.maxlength" class="invalid-feedback">
+          Name must be less than 100 characters long.
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="activeModal.dismiss()">Close</button>
+    <button type="button" class="btn btn-success" type="submit">Create</button>
+  </div>
+</form>

@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core'
+import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ServiceWorkerModule } from '@angular/service-worker'
@@ -9,13 +9,14 @@ import { ToastrModule } from 'ngx-toastr'
 import { AppComponent } from './app.component'
 import environment from 'environments/environment'
 
-import { CommonModule, DatabaseService, ConfigService } from '@balnc/common'
+import { CommonModule, ConfigService } from '@balnc/common'
 
 import { MainComponent, CoreModule, DashboardRoutes, SettingsRoutes, SetupRoutes, BoxComponent, ErrorRoutes } from '@balnc/core'
 
-import { ContactsRoutes, ContactsEntities, ContactsModule, InvoicesRoutes, InvoicesEntities, InvoicesModule, OrdersRoutes, OrdersModule, OrdersEntities } from '@balnc/business'
-import { ProjectsRoutes, ProjectsEntities, ProjectsModule, BoardsRoutes, BoardsEntities, BoardsModule } from '@balnc/teams'
-import { PresentationsModule, PresentationsRoutes, PresentationsEntities } from '@balnc/presentations'
+import { BusinessModule, BusinessRoutes } from '@balnc/business'
+import { ProjectsModule, ProjectsRoutes } from '@balnc/projects'
+import { BoardsModule, BoardsRoutes } from '@balnc/boards'
+import { PresentationsModule, PresentationsRoutes } from '@balnc/presentations'
 
 @NgModule({
   imports: [
@@ -30,14 +31,15 @@ import { PresentationsModule, PresentationsRoutes, PresentationsEntities } from 
       path: '',
       component: MainComponent,
       children: [
+
         ...DashboardRoutes,
         ...SettingsRoutes,
+
+        ...BusinessRoutes,
         ...PresentationsRoutes,
         ...ProjectsRoutes,
         ...BoardsRoutes,
-        ...ContactsRoutes,
-        ...InvoicesRoutes,
-        ...OrdersRoutes,
+
         {
           path: '',
           pathMatch: 'full',
@@ -54,39 +56,16 @@ import { PresentationsModule, PresentationsRoutes, PresentationsEntities } from 
         // enableTracing: true,
     }),
     CommonModule,
+
     CoreModule,
+
+    BusinessModule,
     ProjectsModule,
-    PresentationsModule,
     BoardsModule,
-    ContactsModule,
-    InvoicesModule,
-    OrdersModule
+    PresentationsModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  providers: [
-    ConfigService,
-    DatabaseService,
-    {
-      provide: APP_INITIALIZER,
-      deps: [DatabaseService],
-      multi: true,
-      useFactory: (databaseService: DatabaseService) => async () => {
-        await databaseService.setup([
-          ...PresentationsEntities,
-          ...ProjectsEntities,
-          ...BoardsEntities,
-          ...ContactsEntities,
-          ...InvoicesEntities,
-          ...OrdersEntities
-        ]).catch(err => {
-          sessionStorage.setItem('ngx_error',err.stack)
-          if (window.location.href.indexOf('/error') === -1) {
-            window.location.href = '/error'
-          }
-        })
-      }
-    }
-  ]
+  providers: [ConfigService]
 })
 export class AppModule { }

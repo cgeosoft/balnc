@@ -4,12 +4,12 @@ import { ActivatedRouteSnapshot, Resolve } from '@angular/router'
 
 import { Entity } from '../models/entity'
 import { ConfigService } from './config.service'
-import { DatabaseService } from './database.service'
+import { PouchDBService } from './pouchdb.service'
 
 export abstract class BaseService implements Resolve<any> {
 
   public configService: ConfigService
-  public dbService: DatabaseService
+  public dbService: PouchDBService
 
   public _module: string
   public _entities: Entity[]
@@ -20,7 +20,7 @@ export abstract class BaseService implements Resolve<any> {
 
   constructor (injector: Injector) {
     this.configService = injector.get(ConfigService)
-    this.dbService = injector.get(DatabaseService)
+    this.dbService = injector.get(PouchDBService)
   }
 
   public async resolve (route: ActivatedRouteSnapshot): Promise<boolean> {

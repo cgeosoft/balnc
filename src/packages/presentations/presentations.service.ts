@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { RxCollection } from 'rxdb'
 
-import { DatabaseService } from '@balnc/common'
+import { PouchDBService } from '@balnc/common'
 import { Presentation } from './models/presentation'
 
 @Injectable()
@@ -10,7 +10,7 @@ export class PresentationsService {
   presentations: RxCollection<Presentation>
 
   constructor (
-    private dbService: DatabaseService
+    private dbService: PouchDBService
   ) {
     this.setup()
   }

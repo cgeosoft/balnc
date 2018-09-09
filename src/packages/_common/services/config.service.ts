@@ -14,20 +14,16 @@ export class ConfigService {
   public DEMO_PROFILE = {
     name: HelperService.generateName(),
     remotePrefix: 'demo',
-    remoteHost: 'https://s1.cgeosoft.com/couchdb',
+    remoteHost: 'https://balncdb.cgeo.host',
     remoteUsername: 'demo',
     remotePassword: 'demo',
     remoteSync: false,
     packages: {
-      '@balnc/contacts': true,
-      '@balnc/orders': true,
-      '@balnc/invoices': true,
-      '@balnc/presentations': true,
-      '@balnc/analytics': true,
-      '@balnc/polls': true,
-      '@balnc/emails': true,
+      '@balnc/business': true,
       '@balnc/projects': true,
       '@balnc/boards': true,
+      '@balnc/presentations': true,
+      '@balnc/analytics': true,
       '@balnc/reports': true
     }
   }

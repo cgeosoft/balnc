@@ -91,11 +91,11 @@
           </div>
           <div class="col-sm-3 d-flex align-items-center">
             <button *ngIf="!profile.packages[package.id]" type="button" class="btn btn-outline-primary btn-sm ml-auto mt-2" style="min-width:100px;"
-              (click)="profile.packages[package.id]=true;save();">
+              (click)="profile.packages[package.id]=true;">
               Activate
             </button>
             <button *ngIf="profile.packages[package.id]" type="button" class="btn btn-outline-danger btn-sm ml-auto mt-2" style="min-width:100px;"
-              (click)="profile.packages[package.id]=false;save();">
+              (click)="profile.packages[package.id]=false;">
               Deactivate
             </button>
           </div>

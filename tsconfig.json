@@ -23,20 +23,26 @@
       "@balnc/core": [
         "src/packages/_core"
       ],
+      "@balnc/boards": [
+        "src/packages/boards"
+      ],
+      "@balnc/projects": [
+        "src/packages/projects"
+      ],
       "@balnc/presentations": [
         "src/packages/presentations"
       ],
       "@balnc/business": [
         "src/packages/business"
       ],
-      "@balnc/teams": [
-        "src/packages/teams"
+      "@balnc/restaurants/*": [
+        "src/packages/restaurants/*"
       ],
       "@balnc/booking/*": [
         "src/packages/booking/*"
       ],
-      "@balnc/report/*": [
-        "src/packages/report/*"
+      "@balnc/reports/*": [
+        "src/packages/reports/*"
       ],
       "environments/*": [
         "src/environments/*"

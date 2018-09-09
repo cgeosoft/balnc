@@ -2,7 +2,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 
-import { Package, DatabaseService, ConfigService, Profile, HelperService } from '@balnc/common'
+import { Package, PouchDBService, ConfigService, Profile, HelperService } from '@balnc/common'
 
 @Component({
   selector: 'core-settings-profile',
@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private configService: ConfigService,
-    private databaseService: DatabaseService
+    private databaseService: PouchDBService
   ) { }
 
   async ngOnInit () {

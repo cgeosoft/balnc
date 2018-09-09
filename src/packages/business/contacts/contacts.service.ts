@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 
 import * as faker from 'faker'
 
-import { DatabaseService } from '@balnc/common'
+import { PouchDBService } from '@balnc/common'
 
 import { RxPersonDocument } from './models/person'
 import { RxCompanyDocument, Company, TaxDetails } from './models/company'
@@ -17,7 +17,7 @@ export class ContactsService {
   contactEvents: RxCollection<RxContactEventDocument>
 
   constructor(
-    private dbService: DatabaseService
+    private dbService: PouchDBService
   ) {
     this.dbService.get<RxPersonDocument>('persons').then(persons => { this.persons = persons })
     this.dbService.get<RxCompanyDocument>('companies').then(companies => { this.companies = companies })
