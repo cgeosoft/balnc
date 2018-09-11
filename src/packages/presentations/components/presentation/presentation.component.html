@@ -189,7 +189,7 @@
         </div>
       </div>
 
-      <div class="card mb-2">
+      <div class="card mb-2" *ngIf="!presentation.pages">
         <div class="card-header">
           {{presentation.pages[activePageIndex].title}}
           <small class="text-secondary">#{{activePageIndex+1}}</small>
