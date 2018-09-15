@@ -1,3 +1,4 @@
+
 import { Router, ActivatedRoute } from '@angular/router'
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { FormGroup } from '@angular/forms'
@@ -5,11 +6,11 @@ import { FormGroup } from '@angular/forms'
 import { Package, PouchDBService, ConfigService, Profile, HelperService } from '@balnc/common'
 
 @Component({
-  selector: 'core-settings-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'core-settings-manage',
+  templateUrl: './manage.component.html',
+  styleUrls: ['./manage.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ManageComponent implements OnInit {
 
   @ViewChild('name') name: ElementRef
   @ViewChild('alias') alias: ElementRef
@@ -25,24 +26,6 @@ export class ProfileComponent implements OnInit {
   deleteData = false
   deleteDataRemote = false
   needReload = false
-
-  // tabMenu = {
-  //   tabs: [{
-  //     id: 'Profile',
-  //     label: 'Profile',
-  //     icon: 'cog'
-  //   }, {
-  //     id: 'Profile',
-  //     label: 'Profile',
-  //     icon: 'cog',
-  //     right: true
-  //   }, {
-  //     id: 'doc',
-  //     label: 'Doc',
-  //     icon: 'code',
-  //     right: true
-  //   }]
-  // }
 
   constructor (
     private router: Router,
@@ -100,7 +83,7 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/settings'])
   }
 
-  activate () {
-    this.configService.selectProfile(this.profile.alias)
+  activate (alias) {
+    this.configService.selectProfile(alias)
   }
 }

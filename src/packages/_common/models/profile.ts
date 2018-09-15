@@ -1,4 +1,4 @@
-declare interface IProfile {
+export type Profile = {
   alias?: string
   name?: string
   key?: string
@@ -11,5 +11,3 @@ declare interface IProfile {
   packages?: { [key: string]: boolean }
   config?: any
 }
-
-export type Profile = IProfile

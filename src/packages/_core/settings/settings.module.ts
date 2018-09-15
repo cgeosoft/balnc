@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-
-import { FileHelpersModule } from 'ngx-file-helpers'
-
 import { CommonModule } from '@balnc/common'
 
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
-import { ProfileComponent } from './components/profile/profile.component'
+import { GeneralComponent } from './components/general/general.component'
+import { PackageComponent } from './components/package/package.component'
+import { ManageComponent } from './components/manage/manage.component'
 
 @NgModule({
   imports: [
@@ -15,7 +14,9 @@ import { ProfileComponent } from './components/profile/profile.component'
   ],
   declarations: [
     WrapperComponent,
-    ProfileComponent
+    GeneralComponent,
+    PackageComponent,
+    ManageComponent
   ],
   providers: [],
   entryComponents: []

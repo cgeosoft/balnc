@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core'
 import { FilePickerDirective, ReadFile } from 'ngx-file-helpers'
 import { Router } from '@angular/router'
 
-import { ConfigService, Profile } from '@balnc/common'
+import { ConfigService, Profile, Package } from '@balnc/common'
 
 @Component({
   selector: 'core-settings-wrapper',
@@ -15,6 +15,8 @@ export class WrapperComponent implements OnInit {
   @ViewChild(FilePickerDirective)
 
   error: string
+  profile: Profile
+  packages: Package[]
 
   constructor (
     public configService: ConfigService,
@@ -22,7 +24,8 @@ export class WrapperComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    // empty
+    this.profile = this.configService.getProfile()
+    this.packages = this.configService.packages
   }
 
   clear () {

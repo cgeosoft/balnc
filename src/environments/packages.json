@@ -1,8 +1,9 @@
 {
   "packages": [{
-    "id": "@balnc/business",
+    "id": "business",
     "title": "Business",
     "description": "A basic contact management database. Include company and persons, custom fields and analytics.",
+    "icon": "building",
     "menu": [{
       "label": "Contacts",
       "icon": "building",
@@ -25,45 +26,50 @@
       "path": "/business/inventory"
     }]
   }, {
-    "id": "@balnc/projects",
+    "id": "projects",
     "title": "Projects",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "tasks",
     "menu": [{
       "label": "Projects",
       "icon": "tasks",
       "path": "/projects"
     }]
   }, {
-    "id": "@balnc/boards",
+    "id": "boards",
     "title": "Boards",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "comments:regular",
     "menu": [{
       "label": "Boards",
       "icon": "comments:regular",
       "path": "/boards"
     }]
   }, {
-    "id": "@balnc/presentations",
+    "id": "presentations",
     "title": "Presentations",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "desktop",
     "menu": [{
       "label": "Presentations",
       "icon": "desktop",
       "path": "/presentations"
     }]
   }, {
-    "id": "@balnc/analytics",
+    "id": "analytics",
     "title": "Analytics",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "chart-pie",
     "menu": [{
       "label": "Analytics",
       "icon": "chart-pie",
       "path": "/analytics"
     }]
   }, {
-    "id": "@balnc/reports",
+    "id": "reports",
     "title": "Reports",
     "description": "A simple but full-feature team chat with customizable rooms",
+    "icon": "file-alt:regular",
     "menu": [{
       "label": "Reports",
       "icon": "file-alt:regular",

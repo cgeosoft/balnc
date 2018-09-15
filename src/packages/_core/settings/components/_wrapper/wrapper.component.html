@@ -1,37 +1,36 @@
 <common-sidebar>
   <div class="menu">
     <div class="header">
-      <h4>Settings</h4>
+      <h4>Settings</h4><span>{{profile.name}}</span>
     </div>
     <div class="items">
-      <button (click)="createProfile()" class="primary">
-        <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
-        <span>New Profile</span>
-      </button>
-      <button (click)="createDemo()">
-        <fa-icon [icon]="['fas','random']" class="icon"></fa-icon>
-        <span>Generate Demo</span>
-      </button>
-      <button ngxFilePicker disabled>
-        <fa-icon [icon]="['fas','cloud-upload-alt']" class="icon"></fa-icon>
-        <span>Import Profile</span>
-      </button>
-      <button (click)="clear()" class="text-danger">
-        <fa-icon [icon]="['fas','trash-alt']" class="icon"></fa-icon>
-        <span>Remove All</span>
-      </button>
-      <div class="divider"></div>
-      <ng-container *ngIf="configService.profiles; else empty">
-        <ng-container *ngIf="configService.profiles.length; else empty">
-          <a *ngFor="let profile of configService.profiles" [routerLink]="['/settings',profile.alias]" routerLinkActive="active">
-            <fa-icon [icon]="['fas','cog']" class="icon"></fa-icon>
-            <span>{{profile.name}}</span>
-            <fa-icon [icon]="['fas','check-circle']" class="icon icon-badge" *ngIf="profile.alias==configService.selected"></fa-icon>
-          </a>
-        </ng-container>
-      </ng-container>
+      <a [routerLink]="['/settings']" routerLinkActive="active">
+        <fa-icon [icon]="['fas','cog']" class="icon"></fa-icon>
+        <span>General</span>
+      </a>
     </div>
   </div>
+  <div class="menu">
+    <div class="header">
+      <h5>Packages</h5>
+    </div>
+    <div class="items">
+      <a [routerLink]="['/settings','package',package.id]" routerLinkActive="active" *ngFor="let package of packages">
+        <fa-icon class="icon" [icon]="package.icon"></fa-icon>
+        <span>{{package.title}}</span>
+        <fa-icon [icon]="['fas','check-circle']" class="icon icon-badge" *ngIf="profile.packages[package.id]"></fa-icon>
+      </a>
+    </div>
+  </div>
+  <div class="menu mt-auto">
+    <div class="items">
+      <a [routerLink]="['/settings','manage']" routerLinkActive="active">
+        <fa-icon [icon]="['fas','swatchbook']" class="icon"></fa-icon>
+        <span>Manage Profiles</span>
+      </a>
+    </div>
+  </div>
+
 </common-sidebar>
 <router-outlet></router-outlet>
 <ng-template #empty>
