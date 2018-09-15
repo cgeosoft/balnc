@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add Image Page</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-5">
+      <common-empty *ngIf="!imagePreview" icon="image:regular" message="image"></common-empty>
+      <div *ngIf="imagePreview">
+        <img class="img-thumbnail img-fluid" [src]="imagePreview">
+        <div class="row">
+          <div class="col-4 text-right">Size:</div>
+          <div class="col-8">
+            <strong>{{imageInfo.size | bytes:0}}</strong>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-4 text-right">Width:</div>
+          <div class="col-8">
+            <strong>{{imageInfo.width}}px</strong>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-4 text-right">Height:</div>
+          <div class="col-8">
+            <strong>{{imageInfo.height}}px</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-7">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" class="form-control" [(ngModel)]="page.title">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-control" rows="2" [(ngModel)]="page.description"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Image</label>
+        <input type="file" accept="image/*" (change)="loadFile($event)">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" (click)="activeModal.dismiss()">Close</button>
+  <button type="button" class="btn btn-success" (click)="onSubmit()">Add</button>
+</div>

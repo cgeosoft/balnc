@@ -1,0 +1,154 @@
+html,
+body,
+.wrapper {
+  height: 100%;
+  font-size: 1rem;
+}
+
+a {
+  color: darken($primary, 5);
+}
+
+.col-fx-90 {
+  width: 90px;
+}
+
+.col-fx-120 {
+  width: 120px;
+}
+
+.table-double {
+  td {
+    vertical-align: middle;
+    span.info {
+      display: block;
+      color: #CCC;
+      font-size: .8rem;
+    }
+  }
+}
+
+.wrapper {
+  // min-width: 920px;
+  &.wrapper-dark {
+    &:before {
+      content: "";
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: $dark;
+      z-index: -1;
+    }
+  }
+}
+
+.card-title {
+  font-weight: 400;
+}
+
+.text-lg {
+  font-size: 1.2rem;
+}
+
+.text-xl {
+  font-size: 1.5rem;
+}
+
+.copyright {
+  color: lighten($dark, 10);
+  text-align: center;
+  font-size: .8rem;
+  margin-bottom: 3rem;
+  a {
+    color: lighten($dark, 15);
+    text-decoration: none;
+    &:hover {
+      color: lighten($dark, 25);
+    }
+  }
+}
+
+.card-header-buttons {
+  float: right;
+  >button,
+  >.dropdown>button {
+    font-size: .8em;
+    padding: 0rem .5rem;
+  }
+}
+
+.dropdown-toggle-hidden {
+  &::after {
+    display: none
+  }
+}
+
+.module-content {
+  display: flex;
+  width: 100%;
+  height: 100%
+}
+
+// .card-header {
+//   .btn,
+//   .form-control {
+//     height: 24px !important;
+//     padding: 0 5px !important;
+//     margin: 0 0 0 .7rem;
+//   }
+// }
+thead {
+  th {
+    .btn {
+      background: none;
+      padding: 0;
+      .fa {
+        margin-left: 10px !important;
+        padding: 3px;
+      }
+    }
+  }
+}
+
+.card {
+  >ngb-tabset {
+    .nav-tabs {
+      padding: 0 19px;
+      .nav-item {
+        margin: 0 1px -1px !important;
+      }
+    }
+  }
+}
+
+.modal-content {
+  border-color: #FFF;
+  .modal-header {
+    background: $primary;
+    padding: .5rem 1rem;
+    .modal-title {
+      color: #FFF;
+      font-weight: 300;
+      font-size: 1.2rem;
+    }
+    .close {
+      span {
+        color: #FFF;
+      }
+    }
+  }
+  .modal-body {}
+  .modal-footer {
+    padding: .5rem 1rem;
+    background: #EEE;
+  }
+}
+
+.btn-toolbar {
+  background: #fafafa;
+  border: solid 1px #EEE;
+  padding: 7.5px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  border-width: 0 1px 1px 0;
+}

@@ -1,0 +1,39 @@
+<common-sidebar>
+  <div class="menu">
+    <div class="header">
+      <h4>Settings</h4>
+    </div>
+    <div class="items">
+      <button (click)="createProfile()" class="primary">
+        <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
+        <span>New Profile</span>
+      </button>
+      <button (click)="createDemo()">
+        <fa-icon [icon]="['fas','random']" class="icon"></fa-icon>
+        <span>Generate Demo</span>
+      </button>
+      <button ngxFilePicker disabled>
+        <fa-icon [icon]="['fas','cloud-upload-alt']" class="icon"></fa-icon>
+        <span>Import Profile</span>
+      </button>
+      <button (click)="clear()" class="text-danger">
+        <fa-icon [icon]="['fas','trash-alt']" class="icon"></fa-icon>
+        <span>Remove All</span>
+      </button>
+      <div class="divider"></div>
+      <ng-container *ngIf="configService.profiles; else empty">
+        <ng-container *ngIf="configService.profiles.length; else empty">
+          <a *ngFor="let profile of configService.profiles" [routerLink]="['/settings',profile.alias]" routerLinkActive="active">
+            <fa-icon [icon]="['fas','cog']" class="icon"></fa-icon>
+            <span>{{profile.name}}</span>
+            <fa-icon [icon]="['fas','check-circle']" class="icon icon-badge" *ngIf="profile.alias==configService.selected"></fa-icon>
+          </a>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</common-sidebar>
+<router-outlet></router-outlet>
+<ng-template #empty>
+  <common-empty></common-empty>
+</ng-template>

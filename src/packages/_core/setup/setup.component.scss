@@ -1,0 +1,13 @@
+@import "components/bootstrap";
+:host {
+  .breadcrumb {
+    @extend .m-2;
+    min-height: 50px;
+    .breadcrumb-item {
+      &.active {
+        color: $primary;
+        font-weight: bold;
+      }
+    }
+  }
+}

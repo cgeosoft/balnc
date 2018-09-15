@@ -1,0 +1,131 @@
+<div class="card">
+  <div class="breadcrumb" style="overflow-x:auto;" *ngIf="stepIndex != 0">
+    <div style="min-width: 350px;">
+      <span class="breadcrumb-item" *ngFor="let step of steps; let i = index;" [ngClass]="{active: stepIndex === i }">{{step.label}}</span>
+    </div>
+  </div>
+
+  <div class="card-body" *ngIf="steps[stepIndex].label=='Intro'">
+    <h1 class="display-4">Welcome to Balnc!</h1>
+    <p>Balnc (balance) is an open source offline-first business application that may run easily at freelancers' laptops or at
+      companies' premises.</p>
+    <p>It has a modular architecture for robustness and extensibility using web-only technologies. With Balnc software developers
+      may quickly bootstrap applications with premade modules and create their own custom logic on top of them.</p>
+    <div class="alert alert-warning mb-0">
+      <h4>Warning</h4>
+      This application is under development and it
+      <strong>SHOULD NOT</strong> be used in production enviroment.
+      <div class="form-group form-check m-0">
+        <input type="checkbox" class="form-check-input" id="acceptedCheck" [(ngModel)]="accepted">
+        <label class="form-check-label" for="acceptedCheck">Ι will not use this software for production</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body" *ngIf="steps[stepIndex].label=='Profile'">
+    <div class="alert alert-primary mb-4">
+      <strong>What is this?</strong>
+      <br> Profile is a group of settings and data. Every profile is like another setup of its own modules and configuration.
+      Profiles are not sync over device. You sould keep updated backups.
+    </div>
+    <div class="row">
+      <div class="col-sm-10 offset-sm-1">
+        <div class="form-group">
+          <label>Profile Name</label>
+          <input autocomplete="false" [(ngModel)]="profile.name" class="form-control form-control-lg" placeholder="Enter a friendly name...">
+        </div>
+      </div>
+    </div>
+    <ul class="list-unstyled text-center">
+      <li>
+        <a href="javascript:" ngxFilePicker accept="application/json" (filePick)="importFile($event)">Import</a> a file backup</li>
+      <li>
+        <a href="javascript:" (click)="addDemo()">Start</a> with a demo profile</li>
+    </ul>
+  </div>
+
+  <div class="card-body" *ngIf="steps[stepIndex].label=='Remote'">
+    <div class="alert alert-primary mb-4">
+      <strong>What is this?</strong>
+      <br> Use this option for make real-time backup of your data and access the same data from multiple devices. Some packages
+      may require this option to work.
+    </div>
+    <div class="form-group">
+      <div class="form-check">
+        <input #remoteSync class="form-check-input" type="checkbox" [(ngModel)]="profile.remoteSync">
+        <label class="form-check-label" for="remoteSync">
+          Enable real-time synchronization
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Host</label>
+      <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Prefix</label>
+      <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePrefix" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Username</label>
+      <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteUsername" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePassword" class="form-control" type="password">
+    </div>
+  </div>
+
+  <div class="card-body p-0" *ngIf="steps[stepIndex].label=='Modules'">
+    <div class="list-group list-group-flush">
+      <div class="list-group-item" *ngFor="let package of packages">
+        <div class="row">
+          <div class="col-sm-9 d-flex align-items-center">
+            <div class="flex-grow-1">
+              <h5 class="mb-0">
+                {{package.title}}
+                <small class="text-muted">{{package.id}}</small>
+              </h5>
+              <small class="text-muted">{{package.description}}</small>
+            </div>
+          </div>
+          <div class="col-sm-3 d-flex align-items-center">
+            <button *ngIf="!profile.packages[package.id]" type="button" class="btn btn-outline-primary btn-sm ml-auto mt-2" style="min-width:100px;"
+              (click)="profile.packages[package.id]=true;">
+              Activate
+            </button>
+            <button *ngIf="profile.packages[package.id]" type="button" class="btn btn-outline-danger btn-sm ml-auto mt-2" style="min-width:100px;"
+              (click)="profile.packages[package.id]=false;">
+              Deactivate
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body" *ngIf="steps[stepIndex].label=='Finish'">
+    <h4>Profile</h4>
+    <div class="alert alert-light">
+      <pre>{{profile|json:2}}</pre>
+    </div>
+  </div>
+  <div class="card-footer p-2">
+    <button class="btn btn-light" (click)="back()" *ngIf="stepIndex != 0">
+      <fa-icon [icon]="['fas','angle-left']"></fa-icon>
+      Back
+    </button>
+    <button class="btn btn-primary float-right" (click)="next()" *ngIf="stepIndex !== steps.length - 1 && stepIndex !== 0">
+      Next
+      <fa-icon [icon]="['fas','angle-right']"></fa-icon>
+    </button>
+    <button class="btn btn-primary float-right" (click)="finish()" *ngIf="stepIndex === steps.length - 1">
+      Finish
+      <fa-icon [icon]="['fas','check-circle']"></fa-icon>
+    </button>
+    <button class="btn btn-primary float-right" (click)="next()" *ngIf="stepIndex === 0" [disabled]="!accepted">
+      Start
+      <fa-icon [icon]="['fas','angle-right']"></fa-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+.td-double {
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .align-items-start;
+  .description {
+    font-size: small;
+    @extend .text-muted;
+  }
+}
+
+.td-large {
+  font-size: large;
+}
+
+.table {
+  &.table-max {
+    td,
+    th {
+      vertical-align: middle !important;
+    }
+  }
+}

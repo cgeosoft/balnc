@@ -1,0 +1,15 @@
+{
+  "title": "Customer",
+  "type": "object",
+  "version": 0,
+  "disableKeyCompression": true,
+  "properties": {
+    "person": {
+      "$ref": "http://localhost:8080/business/contacts/person.json"
+    },
+    "company": {
+      "$ref": "http://localhost:8080/business/contacts/company.json"
+    }
+  },
+  "required": ["person"]
+}

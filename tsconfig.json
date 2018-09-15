@@ -1,66 +1,55 @@
 {
   "compileOnSave": false,
-  "buildOnSave": false,
   "compilerOptions": {
-    "noStrictGenericChecks": true,
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
     "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false,
-    "types": [
-      "core-js",
-      "requirejs"
+    "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
     ],
     "lib": [
-      "dom",
-      "es2015",
-      "es5",
-      "es6"
+      "es2017",
+      "dom"
     ],
-    "baseUrl": "./src",
     "paths": {
-      "@balnc/common/*": [
-        "modules/_common/*"
+      "@balnc/common": [
+        "src/packages/_common"
       ],
-      "@balnc/core/*": [
-        "modules/_core/*"
+      "@balnc/core": [
+        "src/packages/_core"
       ],
-      "@balnc/business/*": [
-        "modules/business/*"
+      "@balnc/boards": [
+        "src/packages/boards"
       ],
-      "@balnc/marketing/*": [
-        "modules/marketing/*"
+      "@balnc/projects": [
+        "src/packages/projects"
       ],
-      "@balnc/teams/*": [
-        "modules/teams/*"
+      "@balnc/presentations": [
+        "src/packages/presentations"
+      ],
+      "@balnc/business": [
+        "src/packages/business"
+      ],
+      "@balnc/restaurants/*": [
+        "src/packages/restaurants/*"
       ],
       "@balnc/booking/*": [
-        "modules/booking/*"
+        "src/packages/booking/*"
       ],
-      "@balnc/report/*": [
-        "modules/report/*"
+      "@balnc/reports/*": [
+        "src/packages/reports/*"
       ],
       "environments/*": [
-        "environments/*"
+        "src/environments/*"
       ]
     }
   },
   "exclude": [
-    "./node_modules",
-    "./log.txt",
-    "./config.json"
-  ],
-  "include": [
-    "./src/**/*.ts",
-    "./schemas/**/*.json",
-  ],
-  "filesGlob": [
-    "**/*.ts",
-    "./schemas/**/*.json",
-    "!node_modules/**"
+    "node_modules"
   ]
 }

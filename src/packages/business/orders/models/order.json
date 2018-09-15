@@ -1,0 +1,112 @@
+{
+  "title": "Order",
+  "type": "object",
+  "version": 0,
+  "disableKeyCompression": true,
+  "properties": {
+    "serial": {
+      "type": "string"
+    },
+    "customer": {
+      "type": "string"
+    },
+    "dateExecute": {
+      "type": "string"
+    },
+    "crontab": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "transformations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "activity": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "definitions": {
+    "transformation": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "faker": "lorem.sentence"
+        },
+        "method": {
+          "enum": ["percent", "exact"]
+        },
+        "amount": {
+          "type": "number",
+          "faker": {
+            "finance.amount": [10, 50, 0]
+          }
+        }
+      },
+      "required": ["description", "method", "amount"]
+    },
+    "orderItem": {
+      "type": "object",
+      "properties": {
+        "transformations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/transformation"
+          }
+        },
+        "count": {
+          "type": "number",
+          "faker": {
+            "finance.amount": [1, 10, 0]
+          }
+        },
+        "amount": {
+          "type": "number",
+          "faker": {
+            "finance.amount": [100, 10000, 2]
+          }
+        },
+        "description": {
+          "type": "string",
+          "faker": "lorem.sentence"
+        },
+        "comment": {
+          "type": "string",
+          "faker": "lorem.sentence"
+        }
+      },
+      "required": ["description", "price", "amount"]
+    },
+    "orderActivity": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": ["date"]
+    }
+  }
+}

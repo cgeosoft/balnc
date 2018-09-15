@@ -1,0 +1,30 @@
+@import "components/bootstrap";
+:host {
+  @extend .h-100;
+  @extend .w-100;
+  @extend .d-flex;
+  @extend .align-items-center;
+  @extend .justify-content-center;
+  color: #999;
+  .empty {
+    max-width: 300px;
+    @extend .text-center;
+    fa-icon {
+      font-size: 3rem;
+      width: 40px;
+      height: 40px;
+      margin: 0 auto;
+    }
+    .message {
+      font-size: 1.5rem;
+      font-weight: 300;
+      padding: 0;
+      margin: 0;
+    }
+    .submessage {
+      font-size: 1rem;
+      font-weight: 300;
+      padding: 0;
+    }
+  }
+}

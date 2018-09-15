@@ -1,0 +1,83 @@
+{
+  "packages": [{
+    "id": "@balnc/business",
+    "title": "Business",
+    "description": "A basic contact management database. Include company and persons, custom fields and analytics.",
+    "menu": [{
+      "label": "Contacts",
+      "icon": "building",
+      "path": "/business/contacts"
+    }, {
+      "label": "Orders",
+      "icon": "shopping-cart",
+      "path": "/business/orders"
+    }, {
+      "label": "Invoices",
+      "icon": "file-invoice",
+      "path": "/business/invoices"
+    }, {
+      "label": "Contracts",
+      "icon": "file-signature",
+      "path": "/business/contracts"
+    }, {
+      "label": "Inventory",
+      "icon": "warehouse",
+      "path": "/business/inventory"
+    }]
+  }, {
+    "id": "@balnc/projects",
+    "title": "Projects",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "menu": [{
+      "label": "Projects",
+      "icon": "tasks",
+      "path": "/projects"
+    }]
+  }, {
+    "id": "@balnc/boards",
+    "title": "Boards",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "menu": [{
+      "label": "Boards",
+      "icon": "comments:regular",
+      "path": "/boards"
+    }]
+  }, {
+    "id": "@balnc/presentations",
+    "title": "Presentations",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "menu": [{
+      "label": "Presentations",
+      "icon": "desktop",
+      "path": "/presentations"
+    }]
+  }, {
+    "id": "@balnc/analytics",
+    "title": "Analytics",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "menu": [{
+      "label": "Analytics",
+      "icon": "chart-pie",
+      "path": "/analytics"
+    }]
+  }, {
+    "id": "@balnc/reports",
+    "title": "Reports",
+    "description": "A simple but full-feature team chat with customizable rooms",
+    "menu": [{
+      "label": "Reports",
+      "icon": "file-alt:regular",
+      "path": "/reports"
+    }],
+    "config": {
+      "server": {
+        "requireUser": {
+          "type": "boolean"
+        },
+        "host": {
+          "type": "string"
+        }
+      }
+    }
+  }]
+}

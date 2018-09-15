@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "version": 0,
+  "disableKeyCompression": true,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "features": {
+      "type": "object"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "isStarred": {
+      "type": "boolean"
+    },
+    "isArchived": {
+      "type": "boolean"
+    }
+  }
+}

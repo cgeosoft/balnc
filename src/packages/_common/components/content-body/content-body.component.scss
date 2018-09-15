@@ -1,0 +1,6 @@
+@import "components/bootstrap";
+:host {
+  @extend .w-100;
+  @extend .p-2;
+  overflow-y: auto;
+}
