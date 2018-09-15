@@ -18,9 +18,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-common": "nodemon --watch ./projects/_common/src -e ts,html,scss,css --exec ng build common",
-    "build-core": "nodemon --watch ./projects/_core/src -e ts,html,scss,css --exec ng build core",
-    "build-libs": "run-p build-common build-core"
+    "build-release": "ng build --prod --output-path release"
   },
   "dependencies": {
     "faker": "^4.1.0"
