@@ -68,7 +68,7 @@ export class GeneralComponent implements OnInit {
       this.router.navigate(['/settings'])
     }
     this.profileName = _profile.name
-    this.profileAlias = _profile.alias
+    this.profileAlias = _profile.id
     this.profile = _profile
   }
 
@@ -91,16 +91,16 @@ export class GeneralComponent implements OnInit {
     const a = document.createElement('a')
     const file = new Blob([JSON.stringify(backup)], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
-    a.download = `balnc.${this.profile.alias}.${(new Date()).getTime()}.json`
+    a.download = `balnc.${this.profile.id}.${(new Date()).getTime()}.json`
     a.click()
   }
 
   delete () {
-    this.configService.deleteProfile(this.profile.alias)
+    this.configService.deleteProfile(this.profile.id)
     this.router.navigate(['/settings'])
   }
 
   activate () {
-    this.configService.selectProfile(this.profile.alias)
+    this.configService.selectProfile(this.profile.id)
   }
 }

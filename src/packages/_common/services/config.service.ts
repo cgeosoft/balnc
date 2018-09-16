@@ -13,7 +13,6 @@ export class ConfigService {
 
   public DEMO_PROFILE = {
     name: HelperService.generateName(),
-    remotePrefix: 'demo',
     remoteHost: 'https://balncdb.cgeo.host',
     remoteUsername: 'demo',
     remotePassword: 'demo',
@@ -46,8 +45,8 @@ export class ConfigService {
     console.log('[ConfigService]', 'Profiles available:', this.profiles)
 
     if (this.selected) {
-      this.profile = this.profiles.find(p => p.alias === this.selected)
-      console.log('[ConfigService]', `Profile ${this.selected} laoded`)
+      this.profile = this.profiles.find(p => p.id === this.selected)
+      console.log('[ConfigService]', `Profile ${this.selected} loaded`)
     }
   }
 
@@ -68,28 +67,28 @@ export class ConfigService {
 
   saveProfile (profile: Profile): string {
     const unique = new Date()
-    profile.alias = profile.alias || `${unique.getTime()}`
+    profile.id = profile.id || `${unique.getTime()}`
     profile.createdAt = profile.createdAt || unique.toISOString()
     let profiles = [...this.profiles]
-    let index = this.profiles.findIndex(p => p.alias === profile.alias)
+    let index = this.profiles.findIndex(p => p.id === profile.id)
     if (index !== -1) {
       profiles.splice(index, 1)
     }
     profiles.push(profile)
     this.profiles = profiles
-    return profile.alias
+    return profile.id
   }
 
   getProfile (alias: string = null): Profile {
     alias = alias || this.selected
-    alias = alias || this.profiles[0].alias
-    let index = this.profiles.findIndex(p => p.alias === alias)
+    alias = alias || this.profiles[0].id
+    let index = this.profiles.findIndex(p => p.id === alias)
     return this.profiles[index]
   }
 
   deleteProfile (alias: string) {
     let profiles = [...this.profiles]
-    let index = this.profiles.findIndex(p => p.alias === alias)
+    let index = this.profiles.findIndex(p => p.id === alias)
     profiles.splice(index, 1)
     this.profiles = profiles
   }

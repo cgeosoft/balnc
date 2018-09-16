@@ -1,9 +1,7 @@
 export type Profile = {
-  alias?: string
+  id?: string
   name?: string
-  key?: string
   createdAt?: string
-  remotePrefix?: string
   remoteHost?: string
   remoteUsername?: string
   remotePassword?: string

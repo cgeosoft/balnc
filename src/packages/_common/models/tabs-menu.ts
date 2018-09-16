@@ -1,9 +1,9 @@
-export interface TabsMenu {
+export type TabsMenu = {
   selected?: string
   tabs?: TabsMenuItem[]
 }
 
-export interface TabsMenuItem {
+export type TabsMenuItem = {
   id?: string
   label?: string
   icon?: string | string[]

@@ -81,7 +81,7 @@ export class PouchDBService {
   async setEntities (entities: Entity[]) {
     let sets = []
     for (const entity of entities) {
-      const _localName = `${this.configService.profile.alias}/${entity.name}`
+      const _localName = `${this.configService.profile.id}/${entity.name}`
       let set = await this.db.collection({
         name: _localName,
         schema: entity.schema,
@@ -113,7 +113,7 @@ export class PouchDBService {
         }
 
         this.replicationStates[key] = ent.sync({
-          remote: `${this.configService.profile.remoteHost}/${this.configService.profile.remotePrefix}-${entity.name}/`,
+          remote: `${this.configService.profile.remoteHost}/${this.configService.profile.id}-${entity.name}/`,
           options: {
             live: true,
             retry: true
@@ -128,7 +128,7 @@ export class PouchDBService {
   }
 
   async get<T> (name: string): Promise<RxCollection<T>> {
-    return this.db[`${this.configService.profile.alias}/${name}`]
+    return this.db[`${this.configService.profile.id}/${name}`]
   }
 
   async authenticate (username: string, password: string) {

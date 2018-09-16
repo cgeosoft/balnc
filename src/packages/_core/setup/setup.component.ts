@@ -15,7 +15,7 @@ export class SetupComponent implements OnInit {
   steps = [
     { label: 'Intro' },
     { label: 'Profile' },
-    { label: 'Remote' },
+    { label: 'Sync' },
     { label: 'Modules' },
     { label: 'Finish' }
   ]
