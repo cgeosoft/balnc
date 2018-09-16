@@ -21,10 +21,10 @@ import { PresentationsEntities } from './models/_entities'
     FormsModule,
     RouterModule,
     SwiperModule,
-    ChartModule
-    // RxDBModule.forChild([
-    //   ...PresentationsEntities
-    // ])
+    ChartModule,
+    RxDBModule.forChild([
+      ...PresentationsEntities
+    ])
   ],
   declarations: [
     WrapperComponent,
@@ -47,9 +47,6 @@ import { PresentationsEntities } from './models/_entities'
   entryComponents: [
     CreateComponent,
     AddPageComponent
-  ],
-  exports: [
-    // RxDBModule
   ]
 })
 export class PresentationsModule { }

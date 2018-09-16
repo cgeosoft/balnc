@@ -47,7 +47,7 @@ RxDB.plugin(AdapterIDB)
 export class RxDBService {
 
   private db: RxDatabase
-  private entities: { [key: string]: Entity } = {}
+  public entities: Entity[] = []
   private replicationStates: { [key: string]: RxReplicationState } = {}
 
   constructor (
@@ -69,19 +69,20 @@ export class RxDBService {
       name: this.configService.profile.id,
       adapter: _adapter
     })
+    await this.setup()
   }
 
-  async setup (entities: Entity[]) {
-    console.log('[DatabaseService]', `Setup entities`, entities)
+  async setup () {// entities: Entity[]) {
+    console.log('[DatabaseService]', `Setup entities`, this.entities)
     let sets = []
-    for (const entity of entities) {
+    for (const entity of this.entities) {
       console.log(`Load entity ${entity.name} in ${this.configService.profile.id}`)
       let set = this.db.collection({
         name: entity.name,
         schema: entity.schema,
         migrationStrategies: entity.migrationStrategies || {}
       })
-      this.entities[entity.name] = entity
+      // this.entities[entity.name] = entity
       sets.push(set)
     }
     await Promise.all(sets)

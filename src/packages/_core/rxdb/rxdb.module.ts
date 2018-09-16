@@ -14,37 +14,39 @@ import { RxDBService } from './rxdb.service'
 })
 export class RxDBModule {
   public static forRoot (): ModuleWithProviders {
-    return {
-      ngModule: RxDBModule,
-      providers: [
-        RxDBService,
-        {
-          provide: APP_INITIALIZER,
-          deps: [RxDBService],
-          multi: true,
-          useFactory: (srv: RxDBService) => {
-            return async () => {
-              console.log('Setup RxDBService forRoot')
-              await srv.init()
-              return srv
-            }
-          }
-        }
-      ]
-    }
-  }
-  public static forChild (entities: any): any {
+    console.log('Setup RxDBService forRoot')
     return {
       ngModule: RxDBModule,
       providers: [
         {
           provide: RxDBService,
           deps: [RxDBService],
-          useFactory: async (srv: RxDBService) => {
+          useFactory: (srv: RxDBService) => {
             return async () => {
+              console.log('Setup RxDBService forRoot')
+              await srv.init()
+            }
+          }
+        }
+      ]
+    }
+  }
+  public static forChild (entities: any): ModuleWithProviders {
+    console.log('Setup RxDBService forChild entities', entities)
+    return {
+      ngModule: RxDBModule,
+      providers: [
+        {
+          provide: RxDBService,
+          deps: [RxDBService],
+          useFactory: (srv: RxDBService) => {
+            return () => {
               console.log('Setup RxDBService forChild')
-              await srv.setup(entities)
-              return srv
+
+              for (const entity of entities) {
+                srv.entities.push(entity)
+              }
+
             }
           }
         }
