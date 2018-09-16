@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 
 import * as faker from 'faker'
 
-import { PouchDBService } from '@balnc/common'
+import { RxDBService } from '@balnc/core'
 
 import { RxPersonDocument } from './models/person'
 import { RxCompanyDocument, Company, TaxDetails } from './models/company'
@@ -16,44 +16,44 @@ export class ContactsService {
   companies: RxCollection<RxCompanyDocument>
   contactEvents: RxCollection<RxContactEventDocument>
 
-  constructor(
-    private dbService: PouchDBService
+  constructor (
+    private dbService: RxDBService
   ) {
     this.dbService.get<RxPersonDocument>('persons').then(persons => { this.persons = persons })
     this.dbService.get<RxCompanyDocument>('companies').then(companies => { this.companies = companies })
     this.dbService.get<RxContactEventDocument>('contactEvents').then(contactEvents => { this.contactEvents = contactEvents })
   }
 
-  async getLatestCompanies() {
+  async getLatestCompanies () {
     const companies = await this.companies.find().sort('updatedAt').exec()
     return companies.slice(Math.max(companies.length - 5, 1))
   }
 
-  async getLatestPersons() {
+  async getLatestPersons () {
     const persons = await this.persons.find().sort('updatedAt').exec()
     return persons.slice(Math.max(persons.length - 5, 1))
   }
 
-  async getCompanies(params?: any, limit: number = 10) {
+  async getCompanies (params?: any, limit: number = 10) {
     return this.companies.find(params).limit(limit).exec()
   }
 
-  async getCompany(id): Promise<Company> {
+  async getCompany (id): Promise<Company> {
     return this.companies.findOne(id).exec()
   }
 
-  async getPerson(id): Promise<Company> {
+  async getPerson (id): Promise<Company> {
     return this.persons.findOne(id).exec()
   }
 
-  async addCompany(contact: Company) {
+  async addCompany (contact: Company) {
     const result = await this.companies
       .newDocument(contact)
       .save()
     return result
   }
 
-  async generate() {
+  async generate () {
     for (let c = 0; c < 10; c++) {
       const personIds = []
       for (let p = 0; p < 5; p++) {

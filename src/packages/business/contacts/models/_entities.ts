@@ -11,7 +11,7 @@ export const ContactsEntities = [{
   schema: CompanySchema,
   sync: true
 }, {
-  name: 'contactEvents',
+  name: 'contact_events',
   schema: ContactEventSchema,
   sync: true
 }]

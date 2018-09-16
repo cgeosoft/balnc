@@ -1,9 +1,12 @@
 <common-content>
   <common-content-header [title]="package.title" [subtitle]="package.description" [icon]="package.icon"></common-content-header>
   <common-content-body>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero numquam aliquid, quasi, illum necessitatibus minus fuga rerum magnam id iste repudiandae consequuntur voluptatum beatae impedit eligendi. Dicta, officia! Iusto, modi.
+    <div class="p-5" *ngIf="config; else noConfig">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus inventore ut eligendi hic expedita nobis, odit
+      quae nihil suscipit placeat repellendus autem adipisci animi quam libero non assumenda aut laborum?
+    </div>
   </common-content-body>
 </common-content>
-<ng-template #loading>
-  <common-loader animation="sk-cube"></common-loader>
+<ng-template #noConfig>
+  <common-empty icon="cog" message="No configuration is available"></common-empty>
 </ng-template>

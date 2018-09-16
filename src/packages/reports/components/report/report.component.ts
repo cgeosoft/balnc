@@ -1,66 +1,61 @@
-import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { Subscription ,  Observable } from 'rxjs'
-import { RxCollection, RxDocumentBase } from 'rxdb'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import * as pdfMake from 'pdfmake/build/pdfmake'
+import * as pdfFonts from 'pdfmake/build/vfs_fonts'
 
-import * as _ from 'lodash'
-import * as moment from 'moment'
-import { ReportService } from '@balnc/reports/services/report.service'
-import { RxReportDoc, Report } from '@balnc/reports/data/report'
-import { DomSanitizer } from '@angular/platform-browser';
+import { ReportService } from '../../report.service'
+import { Report } from '../../models/report'
+import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-reports-report',
   templateUrl: 'report.component.html',
-  styleUrls: ['./report.component.scss'],
+  styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit {
 
-  timeExec: number;
-  query: any;
-  report: Report;
-  err: any;
+  timeExec: number
+  query: any
+  report: Report
+  err: any
   commons: any
   filters: any = {}
   pagination: any = {}
   reportData: any
   loading = false
   maxPage: number
-  pdfData: any =null
+  pdfData: any = null
 
-  constructor(
+  constructor (
     private reportService: ReportService,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer,
+    private sanitizer: DomSanitizer
   ) {
-    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+    pdfMake.vfs = pdfFonts.pdfMake.vfs
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route.params.subscribe(async params => {
       await this.loadReport(params['id'])
       // await this.execReport()
     })
   }
 
-  async loadReport(id) {
+  async loadReport (id) {
     this.report = await this.reportService.one(id)
     this.resetFilters()
   }
 
-  decideClosure(event, datepicker) {
+  decideClosure (event, datepicker) {
     const path = event.path.map(p => p.localName)
     if (!path.includes('ngb-datepicker')) {
       datepicker.close()
     }
   }
 
-  async execReport() {
-    const _time = (new Date).getTime()
+  async execReport () {
+    const _time = (new Date()).getTime()
     this.err = null
     this.pdfData = null
     this.reportData = null
@@ -69,7 +64,7 @@ export class ReportComponent implements OnInit {
     this.reportData = await this.reportService.execute(this.query)
       .catch((err) => {
         if (err.status === 0) {
-          this.err = "SERVER_UNAVAILABLE"
+          this.err = 'SERVER_UNAVAILABLE'
         } else {
           this.err = err
         }
@@ -81,7 +76,7 @@ export class ReportComponent implements OnInit {
     }
 
     if (this.reportData.rows.length > 1000) {
-      this.err = "TOO_MANY_DATA"
+      this.err = 'TOO_MANY_DATA'
       this.loading = false
       return
     }
@@ -96,19 +91,17 @@ export class ReportComponent implements OnInit {
       return
     }
 
-    const doc = pdfMake.createPdf(pdf);
+    const doc = pdfMake.createPdf(pdf)
 
     doc.getDataUrl((data) => {
       this.pdfData = this.sanitizer.bypassSecurityTrustResourceUrl(data)
-      this.timeExec = ((new Date).getTime() - _time) / 1000
-    }, doc);
+      this.timeExec = ((new Date()).getTime() - _time) / 1000
+    }, doc)
 
     this.loading = false
   }
 
-
-
-  resetFilters() {
+  resetFilters () {
     this.filters = this.report.filters
       .map(filter => {
         return {

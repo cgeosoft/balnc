@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { ReportService } from '@balnc/reports/services/report.service'
 
 @Component({
   selector: 'app-reports-overview',
@@ -11,7 +10,9 @@ export class OverviewComponent implements OnInit {
   config: any
 
   constructor (
-  ) { }
+  ) {
+    // empty
+  }
 
   ngOnInit () {
     this.config = {}

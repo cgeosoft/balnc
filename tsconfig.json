@@ -35,14 +35,14 @@
       "@balnc/business": [
         "src/packages/business"
       ],
-      "@balnc/restaurants/*": [
-        "src/packages/restaurants/*"
+      "@balnc/restaurants": [
+        "src/packages/restaurants"
       ],
-      "@balnc/booking/*": [
-        "src/packages/booking/*"
+      "@balnc/booking": [
+        "src/packages/booking"
       ],
-      "@balnc/reports/*": [
-        "src/packages/reports/*"
+      "@balnc/reports": [
+        "src/packages/reports"
       ],
       "environments/*": [
         "src/environments/*"

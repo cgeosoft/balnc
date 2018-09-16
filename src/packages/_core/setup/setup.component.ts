@@ -63,12 +63,11 @@ export class SetupComponent implements OnInit {
   }
 
   importFile (file: ReadFile) {
-    let profile = this.configService.importFile(file)
-    if (profile === -1) {
+    const profile: Profile = this.configService.importFile(file)
+    if (!profile) {
       this.toastr.error('Import failed')
       return
     }
-    this.profile = profile as Profile
     this.stepIndex = this.steps.length - 1
   }
 }

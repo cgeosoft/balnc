@@ -1,8 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router'
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core'
-import { FormGroup } from '@angular/forms'
-
-import { Package, PouchDBService, ConfigService, Profile, HelperService } from '@balnc/common'
+import { Package, ConfigService, Profile } from '@balnc/common'
 
 @Component({
   selector: 'core-settings-general',
@@ -26,29 +24,10 @@ export class GeneralComponent implements OnInit {
   deleteDataRemote = false
   needReload = false
 
-  // tabMenu = {
-  //   tabs: [{
-  //     id: 'Profile',
-  //     label: 'Profile',
-  //     icon: 'cog'
-  //   }, {
-  //     id: 'Profile',
-  //     label: 'Profile',
-  //     icon: 'cog',
-  //     right: true
-  //   }, {
-  //     id: 'doc',
-  //     label: 'Doc',
-  //     icon: 'code',
-  //     right: true
-  //   }]
-  // }
-
   constructor (
     private router: Router,
     private route: ActivatedRoute,
-    private configService: ConfigService,
-    private databaseService: PouchDBService
+    private configService: ConfigService
   ) { }
 
   async ngOnInit () {
@@ -79,20 +58,6 @@ export class GeneralComponent implements OnInit {
 
   reload () {
     window.location.reload()
-  }
-
-  async export () {
-
-    const data = await this.databaseService.export()
-    const backup = {
-      profile: this.profile,
-      data: data
-    }
-    const a = document.createElement('a')
-    const file = new Blob([JSON.stringify(backup)], { type: 'application/json' })
-    a.href = URL.createObjectURL(file)
-    a.download = `balnc.${this.profile.id}.${(new Date()).getTime()}.json`
-    a.click()
   }
 
   delete () {

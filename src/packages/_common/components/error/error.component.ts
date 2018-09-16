@@ -3,7 +3,7 @@ import { SessionStorage } from 'ngx-store'
 import { Router } from '@angular/router'
 
 @Component({
-  selector: 'core-error',
+  selector: 'common-error',
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss']
 })

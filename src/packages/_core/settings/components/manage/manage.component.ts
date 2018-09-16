@@ -1,9 +1,8 @@
+import { Component, OnInit } from '@angular/core'
 
-import { Router, ActivatedRoute } from '@angular/router'
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core'
-import { FormGroup } from '@angular/forms'
-
-import { Package, PouchDBService, ConfigService, Profile, HelperService } from '@balnc/common'
+import { ConfigService, Profile, HelperService } from '@balnc/common'
+import { ToastrService } from 'ngx-toastr'
+import { ReadFile } from 'ngx-file-helpers'
 
 @Component({
   selector: 'core-settings-manage',
@@ -12,78 +11,33 @@ import { Package, PouchDBService, ConfigService, Profile, HelperService } from '
 })
 export class ManageComponent implements OnInit {
 
-  @ViewChild('name') name: ElementRef
-  @ViewChild('alias') alias: ElementRef
-
-  profileName: string
-  profileAlias: string
-
-  packages: Package[]
-
-  selected: string
-  profile: Profile
-
-  deleteData = false
-  deleteDataRemote = false
-  needReload = false
-
   constructor (
-    private router: Router,
-    private route: ActivatedRoute,
     private configService: ConfigService,
-    private databaseService: PouchDBService
+    private toastr: ToastrService
   ) { }
 
   async ngOnInit () {
-
-    this.selected = this.configService.selected
-    this.packages = this.configService.packages
-
-    this.route.params.subscribe(params => {
-      this.setup(params['alias'])
-    })
-  }
-
-  setup (alias: string) {
-    this.needReload = false
-    let _profile = this.configService.getProfile(alias)
-    if (!_profile) {
-      this.router.navigate(['/settings'])
-    }
-    this.profileName = _profile.name
-    this.profileAlias = _profile.id
-    this.profile = _profile
-  }
-
-  save () {
-    this.configService.saveProfile(this.profile)
-    this.needReload = true
-  }
-
-  reload () {
-    window.location.reload()
-  }
-
-  async export () {
-
-    const data = await this.databaseService.export()
-    const backup = {
-      profile: this.profile,
-      data: data
-    }
-    const a = document.createElement('a')
-    const file = new Blob([JSON.stringify(backup)], { type: 'application/json' })
-    a.href = URL.createObjectURL(file)
-    a.download = `balnc.${this.profile.id}.${(new Date()).getTime()}.json`
-    a.click()
-  }
-
-  delete () {
-    this.configService.deleteProfile(this.profile.id)
-    this.router.navigate(['/settings'])
+    // empty
   }
 
   activate (alias) {
+    this.configService.selectProfile(alias)
+  }
+
+  async create () {
+    const alias = await this.configService.saveProfile({
+      name: HelperService.generateName()
+    })
+    this.configService.selectProfile(alias)
+  }
+
+  async import (file: ReadFile) {
+    const profile: Profile = this.configService.importFile(file)
+    if (!profile) {
+      this.toastr.error('Import failed')
+      return
+    }
+    const alias = await this.configService.saveProfile(profile)
     this.configService.selectProfile(alias)
   }
 }

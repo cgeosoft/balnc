@@ -1,13 +1,16 @@
 import { Component } from '@angular/core'
-import { ConfigService } from '@balnc/common'
+
+import { ConfigService } from '../../services/config.service'
 
 @Component({
-  selector: 'core-box',
+  selector: 'common-box',
   templateUrl: './box.component.html',
   styleUrls: ['./box.component.scss']
 })
 export class BoxComponent {
 
-  constructor (public configService: ConfigService) { }
+  constructor (
+    public configService: ConfigService
+    ) { }
 
 }

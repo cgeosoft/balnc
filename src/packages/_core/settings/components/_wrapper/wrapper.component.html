@@ -4,9 +4,13 @@
       <h4>Settings</h4><span>{{profile.name}}</span>
     </div>
     <div class="items">
-      <a [routerLink]="['/settings']" routerLinkActive="active">
+      <a [routerLink]="['/settings','general']" routerLinkActive="active">
         <fa-icon [icon]="['fas','cog']" class="icon"></fa-icon>
         <span>General</span>
+      </a>
+      <a [routerLink]="['/settings','data']" routerLinkActive="active">
+        <fa-icon [icon]="['fas','database']" class="icon"></fa-icon>
+        <span>Data</span>
       </a>
     </div>
   </div>
@@ -15,14 +19,14 @@
       <h5>Packages</h5>
     </div>
     <div class="items">
-      <a [routerLink]="['/settings','package',package.id]" routerLinkActive="active" *ngFor="let package of packages">
-        <fa-icon class="icon" [icon]="package.icon"></fa-icon>
+      <a [routerLink]="['/settings','packages',package.id]" routerLinkActive="active" *ngFor="let package of packages">
+        <fa-icon class="icon" [icon]="package.picon"></fa-icon>
         <span>{{package.title}}</span>
         <fa-icon [icon]="['fas','check-circle']" class="icon icon-badge" *ngIf="profile.packages[package.id]"></fa-icon>
       </a>
     </div>
   </div>
-  <div class="menu mt-auto">
+  <div class="menu mt-auto mb-0">
     <div class="items">
       <a [routerLink]="['/settings','manage']" routerLinkActive="active">
         <fa-icon [icon]="['fas','swatchbook']" class="icon"></fa-icon>

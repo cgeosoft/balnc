@@ -20,8 +20,9 @@ import * as AdapterIDB from 'pouchdb-adapter-idb'
 import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
 
 import { environment } from 'environments/environment'
-import { Entity } from '../models/entity'
-import { ConfigService } from './config.service'
+import { Entity } from './entity'
+import { ConfigService } from '@balnc/common'
+import { ToastrService } from 'ngx-toastr'
 
 RxDB.QueryChangeDetector.enable()
 
@@ -43,10 +44,9 @@ RxDB.plugin(AdapterHttp)
 RxDB.plugin(AdapterIDB)
 
 @Injectable()
-export class PouchDBService {
+export class RxDBService {
 
-  private name: string
-  private db: RxDatabase = null
+  private db: RxDatabase
   private entities: { [key: string]: Entity } = {}
   private replicationStates: { [key: string]: RxReplicationState } = {}
 
@@ -54,49 +54,44 @@ export class PouchDBService {
     private http: HttpClient,
     private configService: ConfigService
     // private toastr: ToastrService
-  ) { }
+  ) {
+  }
 
-  async setup (name: string, entities: Entity[]) {
-
+  async init () {
     if (!this.configService.profile) {
       console.log('[DatabaseService]', `Can not initialize DB with a valid profile`)
       return
     }
 
-    console.log('[DatabaseService]', `Initializing DB: ${name} with entities`, entities)
-    this.name = name
-    await this.createDB(name)
-    await this.setEntities(entities)
-    await this.sync()
-  }
-
-  async createDB (name: string) {
+    console.log('[DatabaseService]', `Initializing DB: ${this.configService.profile.id}`)
     const _adapter = await this.getAdapter()
     this.db = await RxDB.create({
-      name: name,
+      name: this.configService.profile.id,
       adapter: _adapter
     })
   }
 
-  async setEntities (entities: Entity[]) {
+  async setup (entities: Entity[]) {
+    console.log('[DatabaseService]', `Setup entities`, entities)
     let sets = []
     for (const entity of entities) {
-      const _localName = `${this.configService.profile.id}/${entity.name}`
-      let set = await this.db.collection({
-        name: _localName,
+      console.log(`Load entity ${entity.name} in ${this.configService.profile.id}`)
+      let set = this.db.collection({
+        name: entity.name,
         schema: entity.schema,
         migrationStrategies: entity.migrationStrategies || {}
       })
-      this.entities[_localName] = entity
+      this.entities[entity.name] = entity
       sets.push(set)
     }
     await Promise.all(sets)
+    await this.sync()
   }
 
   async sync () {
 
     if (!this.configService.profile.remoteSync) {
-      console.log('[DatabaseService]', `Sync is disabled for ${this.name}`)
+      console.log('[DatabaseService]', `Sync is disabled for ${this.configService.profile.id}`)
       return
     }
 
@@ -109,11 +104,11 @@ export class PouchDBService {
         const ent: RxCollection<any> = this.db[key]
 
         if (!ent) {
-          console.log('[DatabaseService]', `Entity ${entity.name} for ${this.name} not found`)
+          console.log('[DatabaseService]', `Entity ${entity.name} for ${this.configService.profile.id} not found`)
         }
 
         this.replicationStates[key] = ent.sync({
-          remote: `${this.configService.profile.remoteHost}/${this.configService.profile.id}-${entity.name}/`,
+          remote: `${this.configService.profile.remoteHost}/${this.configService.profile.id}_${entity.name}/`,
           options: {
             live: true,
             retry: true
@@ -128,7 +123,7 @@ export class PouchDBService {
   }
 
   async get<T> (name: string): Promise<RxCollection<T>> {
-    return this.db[`${this.configService.profile.id}/${name}`]
+    return this.db[name]
   }
 
   async authenticate (username: string, password: string) {
@@ -153,9 +148,13 @@ export class PouchDBService {
     return 'idb'
   }
 
-  async export () {
-    // await this.db.destroy()
+  async export (alias: string) {
+    console.log(this.entities)
     return this.db.dump()
+    // const data = await this.db.dump()
+    // return data.map(d => {
+    //   return d
+    // })
   }
 
 }

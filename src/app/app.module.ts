@@ -9,14 +9,45 @@ import { ToastrModule } from 'ngx-toastr'
 import { AppComponent } from './app.component'
 import environment from 'environments/environment'
 
-import { CommonModule, ConfigService } from '@balnc/common'
+import { CommonModule, ConfigService, ErrorComponent, MainComponent, BoxComponent } from '@balnc/common'
 
-import { MainComponent, CoreModule, DashboardRoutes, SettingsRoutes, SetupRoutes, BoxComponent, ErrorRoutes } from '@balnc/core'
+import { DashboardRoutes, SettingsRoutes, SetupRoutes, DashboardModule, SettingsModule, SetupModule, RxDBModule } from '@balnc/core'
 
 import { BusinessModule, BusinessRoutes } from '@balnc/business'
 import { ProjectsModule, ProjectsRoutes } from '@balnc/projects'
 import { BoardsModule, BoardsRoutes } from '@balnc/boards'
 import { PresentationsModule, PresentationsRoutes } from '@balnc/presentations'
+import { ReportsModule, ReportsRoutes } from '@balnc/reports'
+
+const routes = [{
+  path: '',
+  component: MainComponent,
+  children: [
+
+    ...DashboardRoutes,
+    ...SettingsRoutes,
+
+    // ...BusinessRoutes,
+    ...PresentationsRoutes,
+    // ...ProjectsRoutes,
+    // ...BoardsRoutes,
+    // ...ReportsRoutes,
+    {
+      path: '',
+      pathMatch: 'full',
+      redirectTo: '/dashboard'
+    }]
+}, {
+  path: '',
+  component: BoxComponent,
+  children: [
+    ...SetupRoutes,
+    {
+      path: 'error',
+      component: ErrorComponent
+    }
+  ]
+}]
 
 @NgModule({
   imports: [
@@ -27,42 +58,20 @@ import { PresentationsModule, PresentationsRoutes } from '@balnc/presentations'
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-center'
     }),
-    RouterModule.forRoot([{
-      path: '',
-      component: MainComponent,
-      children: [
-
-        ...DashboardRoutes,
-        ...SettingsRoutes,
-
-        ...BusinessRoutes,
-        ...PresentationsRoutes,
-        ...ProjectsRoutes,
-        ...BoardsRoutes,
-
-        {
-          path: '',
-          pathMatch: 'full',
-          redirectTo: '/dashboard'
-        }]
-    }, {
-      path: '',
-      component: BoxComponent,
-      children: [
-        ...SetupRoutes,
-        ...ErrorRoutes
-      ]
-    }], {
+    RxDBModule.forRoot(),
+    RouterModule.forRoot(routes, {
         // enableTracing: true,
     }),
     CommonModule,
 
-    CoreModule,
-
+    DashboardModule,
+    SettingsModule,
+    SetupModule,
     BusinessModule,
     ProjectsModule,
     BoardsModule,
     PresentationsModule
+    // ReportsModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

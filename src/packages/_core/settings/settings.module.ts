@@ -6,6 +6,7 @@ import { WrapperComponent } from './components/_wrapper/wrapper.component'
 import { GeneralComponent } from './components/general/general.component'
 import { PackageComponent } from './components/package/package.component'
 import { ManageComponent } from './components/manage/manage.component'
+import { DataComponent } from './components/data/data.component'
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ManageComponent } from './components/manage/manage.component'
     WrapperComponent,
     GeneralComponent,
     PackageComponent,
-    ManageComponent
+    ManageComponent,
+    DataComponent
   ],
   providers: [],
   entryComponents: []

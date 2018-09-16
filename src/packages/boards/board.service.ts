@@ -1,12 +1,14 @@
 import { Injectable, NgZone } from '@angular/core'
 import { RxCollection } from 'rxdb'
+import { BehaviorSubject } from 'rxjs'
+import { LocalStorage } from 'ngx-store'
 
-import { ConfigService, PouchDBService } from '@balnc/common'
+import { RxDBService } from '@balnc/core'
+
+import { ConfigService } from '@balnc/common'
 
 import { RxMessageDoc, Message } from './models/message'
 import { RxBoardDoc, Board, BoardWithMessages } from './models/board'
-import { BehaviorSubject } from 'rxjs'
-import { LocalStorage } from 'ngx-store'
 
 @Injectable()
 export class BoardService {
@@ -20,7 +22,7 @@ export class BoardService {
 
   constructor (
     private ngZone: NgZone,
-    private dbService: PouchDBService,
+    private dbService: RxDBService,
     private configService: ConfigService
   ) {
     this.setup()

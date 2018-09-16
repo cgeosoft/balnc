@@ -12,7 +12,8 @@ import { ReadFile } from 'ngx-file-helpers'
 export class ConfigService {
 
   public DEMO_PROFILE = {
-    name: HelperService.generateName(),
+    id: 'demo',
+    name: 'demo',
     remoteHost: 'https://balncdb.cgeo.host',
     remoteUsername: 'demo',
     remotePassword: 'demo',
@@ -44,10 +45,24 @@ export class ConfigService {
     console.log('[ConfigService]', 'Initializing with env:', environment)
     console.log('[ConfigService]', 'Profiles available:', this.profiles)
 
+    this.parsePackages()
+
     if (this.selected) {
       this.profile = this.profiles.find(p => p.id === this.selected)
       console.log('[ConfigService]', `Profile ${this.selected} loaded`)
     }
+  }
+
+  parsePackages () {
+    this.packages = this.packages.map(p => {
+      const v = { ...p }
+      v.picon = HelperService.getIcon(v.icon)
+      v.menu = v.menu.map(m => {
+        m.icon = HelperService.getIcon(m.icon)
+        return m
+      })
+      return v
+    })
   }
 
   getPackageConfig (id: string) {
@@ -101,7 +116,7 @@ export class ConfigService {
       return profile
     } catch (error) {
       console.log('[ProfileComponent]', 'Error' + error)
-      return -1
+      return null
     }
   }
 

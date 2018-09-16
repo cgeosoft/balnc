@@ -3,9 +3,10 @@ import { RxCollection } from 'rxdb'
 
 import * as moment from 'moment'
 
+import { RxDBService } from '@balnc/core'
+
 import { RxProjectDoc } from '../models/project'
 import { RxPLogDoc } from '../models/plog'
-import { PouchDBService } from '@balnc/common'
 
 @Injectable()
 export class ProjectsService {
@@ -14,7 +15,7 @@ export class ProjectsService {
   projects: RxCollection<RxProjectDoc>
 
   constructor (
-    private dbService: PouchDBService
+    private dbService: RxDBService
   ) {
     this.setup()
   }

@@ -69,7 +69,7 @@
           <common-empty message="There are too many data." submessage="Use filters to get less result" icon="exclamation-triangle"></common-empty>
         </ng-container>
         <ng-container *ngSwitchDefault>
-          <common-debug [data]="err" [isError]="true"></common-debug>
+          <common-debug [data]="err" type="error"></common-debug>
         </ng-container>
       </ng-container>
     </ng-template>

@@ -3,10 +3,12 @@ import { fromEvent as observableFromEvent } from 'rxjs'
 import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 
-import { ConfigService, Profile, HelperService, Package } from '@balnc/common'
+import { ConfigService } from '../../services/config.service'
+import { Package } from '../../models/package'
+import { Profile } from '../../models/profile'
 
 @Component({
-  selector: 'core-main',
+  selector: 'common-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
@@ -76,14 +78,6 @@ export class MainComponent implements OnInit {
       .filter(m => {
         return this.profile.packages &&
           this.profile.packages[m.id]
-      })
-      .map(p => {
-        const v = { ...p }
-        v.menu = v.menu.map(m => {
-          m.icon = HelperService.getIcon(m.icon)
-          return m
-        })
-        return v
       })
   }
 

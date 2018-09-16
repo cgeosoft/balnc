@@ -1,9 +1,9 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core'
+import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
 import { NgxMdModule } from 'ngx-md'
 
-import { CommonModule, PouchDBService } from '@balnc/common'
+import { CommonModule } from '@balnc/common'
 
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
 import { OverviewComponent } from './components/overview/overview.component'
@@ -13,12 +13,16 @@ import { ProjectComponent } from './components/project/project.component'
 import { ProjectsService } from './services/projects.service'
 import { TaskComponent } from './components/task/task.component'
 import { ProjectsEntities } from './models/_entities'
+import { RxDBModule } from '@balnc/core'
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    NgxMdModule
+    NgxMdModule,
+    RxDBModule.forChild([
+      ...ProjectsEntities
+    ])
   ],
   declarations: [
     WrapperComponent,
@@ -29,23 +33,7 @@ import { ProjectsEntities } from './models/_entities'
     CreateProjectComponent
   ],
   providers: [
-    ProjectsService,
-    PouchDBService,
-    {
-      provide: APP_INITIALIZER,
-      deps: [PouchDBService],
-      multi: true,
-      useFactory: (db: PouchDBService) => async () => {
-        await db.setup('projects', [
-          ...ProjectsEntities
-        ]).catch(err => {
-          sessionStorage.setItem('ngx_error', err.stack)
-          if (window.location.href.indexOf('/error') === -1) {
-            window.location.href = '/error'
-          }
-        })
-      }
-    }
+    ProjectsService
   ],
   entryComponents: [
     CreateTaskComponent,

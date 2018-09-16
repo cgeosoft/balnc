@@ -30,6 +30,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { SidebarComponent } from './components/sidebar/sidebar.component'
 
 import { HelperService } from './services/helper.service'
+import { MainComponent } from './components/main/main.component'
+import { BoxComponent } from './components/box/box.component'
+import { ErrorComponent } from './components/error/error.component'
 
 // Add an icon to the library for convenient access in other components
 library.add(fas, far)
@@ -51,6 +54,7 @@ library.add(fas, far)
   ],
   declarations: [
     AgoPipe,
+    BoxComponent,
     ContentBodyComponent,
     ContentComponent,
     ContentHeaderComponent,
@@ -58,8 +62,10 @@ library.add(fas, far)
     DocVersionPipe,
     EllipsisPipe,
     EmptyComponent,
+    ErrorComponent,
     FooterComponent,
     LoaderComponent,
+    MainComponent,
     PageNotFoundComponent,
     SidebarComponent
   ],
@@ -69,6 +75,7 @@ library.add(fas, far)
   exports: [
     AgoPipe,
     AngularCommonModule,
+    BoxComponent,
     ContentBodyComponent,
     ContentComponent,
     ContentHeaderComponent,
@@ -76,6 +83,7 @@ library.add(fas, far)
     DocVersionPipe,
     EllipsisPipe,
     EmptyComponent,
+    ErrorComponent,
     FileHelpersModule,
     FontAwesomeModule,
     FooterComponent,

@@ -3,6 +3,7 @@ export type Package = {
   title: string
   description: string
   icon: string
+  picon: string[]
   menu: Menu[]
   config?: any
 }
