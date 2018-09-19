@@ -3,6 +3,7 @@ import { RxCollection } from 'rxdb'
 
 import { RxDBService } from '@balnc/core'
 import { Presentation } from './models/presentation'
+import { PresentationsEntities } from './models/_entities'
 
 @Injectable()
 export class PresentationsService {
@@ -12,10 +13,10 @@ export class PresentationsService {
   constructor (
     private dbService: RxDBService
   ) {
-    this.setup()
   }
 
   async setup () {
+    await this.dbService.setup(PresentationsEntities)
     this.presentations = await this.dbService.get<Presentation>('presentations')
   }
 

@@ -6,25 +6,21 @@ import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
 import RxDBValidateModule from 'rxdb/plugins/validate'
 import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
 import RxDBReplicationModule from 'rxdb/plugins/replication'
-// import KeycompressionPlugin from 'rxdb/plugins/key-compression'
 import AttachmentsPlugin from 'rxdb/plugins/attachments'
 import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages'
-// import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
+import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
 import JsonDumpPlugin from 'rxdb/plugins/json-dump'
 
-// import { ToastrService } from 'ngx-toastr'
+import { ToastrService } from 'ngx-toastr'
 
 import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterIDB from 'pouchdb-adapter-idb'
 
 import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
 
+import { ConfigService } from '@balnc/common'
 import { environment } from 'environments/environment'
 import { Entity } from './entity'
-import { ConfigService } from '@balnc/common'
-import { ToastrService } from 'ngx-toastr'
-
-RxDB.QueryChangeDetector.enable()
 
 if (!environment.production) {
   console.log('[DatabaseService]', 'In debug')
@@ -32,71 +28,83 @@ if (!environment.production) {
   RxDB.QueryChangeDetector.enableDebugging()
 }
 
-// RxDB.plugin(KeycompressionPlugin)
 RxDB.plugin(RxDBValidateModule)
 RxDB.plugin(RxDBLeaderElectionModule)
 RxDB.plugin(RxDBReplicationModule)
 RxDB.plugin(AttachmentsPlugin)
 RxDB.plugin(RxDBErrorMessagesModule)
-// RxDB.plugin(AdapterCheckPlugin)
+RxDB.plugin(AdapterCheckPlugin)
 RxDB.plugin(JsonDumpPlugin)
 RxDB.plugin(AdapterHttp)
 RxDB.plugin(AdapterIDB)
 
+export interface Config {
+  sync: boolean
+  prefix: string
+  host: string
+  username: string
+  password: string
+}
+
 @Injectable()
 export class RxDBService {
 
+  private config: Config
   private db: RxDatabase
   public entities: Entity[] = []
   private replicationStates: { [key: string]: RxReplicationState } = {}
 
   constructor (
     private http: HttpClient,
-    private configService: ConfigService
-    // private toastr: ToastrService
+    private configService: ConfigService,
+    private toastr: ToastrService
   ) {
+    this.config = {
+      sync: configService.profile.remoteSync,
+      prefix: configService.profile.id,
+      host: configService.profile.remoteHost,
+      username: configService.profile.remoteUsername,
+      password: configService.profile.remotePassword
+    }
   }
 
-  async init () {
+  async setup (entities: Entity[]) {
     if (!this.configService.profile) {
       console.log('[DatabaseService]', `Can not initialize DB with a valid profile`)
       return
     }
 
-    console.log('[DatabaseService]', `Initializing DB: ${this.configService.profile.id}`)
+    console.log('[DatabaseService]', `Initializing DB: ${this.config.prefix}`)
     const _adapter = await this.getAdapter()
     this.db = await RxDB.create({
-      name: this.configService.profile.id,
+      name: this.config.prefix,
       adapter: _adapter
     })
-    await this.setup()
-  }
 
-  async setup () {// entities: Entity[]) {
-    console.log('[DatabaseService]', `Setup entities`, this.entities)
+    console.log('[DatabaseService]', `Setup entities`, entities)
     let sets = []
-    for (const entity of this.entities) {
-      console.log(`Load entity ${entity.name} in ${this.configService.profile.id}`)
+    for (const entity of entities) {
+      console.log(`Load entity ${entity.name} in ${this.config.prefix}`)
       let set = this.db.collection({
         name: entity.name,
         schema: entity.schema,
         migrationStrategies: entity.migrationStrategies || {}
       })
-      // this.entities[entity.name] = entity
+      this.entities[entity.name] = entity
       sets.push(set)
     }
     await Promise.all(sets)
+
+    await this.authenticate(this.config.username, this.config.password)
     await this.sync()
   }
 
   async sync () {
 
-    if (!this.configService.profile.remoteSync) {
-      console.log('[DatabaseService]', `Sync is disabled for ${this.configService.profile.id}`)
+    if (!this.config.sync) {
+      console.log('[DatabaseService]', `Sync is disabled for ${this.config.prefix}`)
       return
     }
-
-    await this.authenticate(this.configService.profile.remoteUsername, this.configService.profile.remotePassword)
 
     Object.keys(this.entities).forEach((key) => {
       const entity = this.entities[key]
@@ -105,11 +113,11 @@ export class RxDBService {
         const ent: RxCollection<any> = this.db[key]
 
         if (!ent) {
-          console.log('[DatabaseService]', `Entity ${entity.name} for ${this.configService.profile.id} not found`)
+          console.log('[DatabaseService]', `Entity ${entity.name} for ${this.config.prefix} not found`)
         }
 
         this.replicationStates[key] = ent.sync({
-          remote: `${this.configService.profile.remoteHost}/${this.configService.profile.id}_${entity.name}/`,
+          remote: `${this.config.host}/${this.config.prefix}_${entity.name}/`,
           options: {
             live: true,
             retry: true
@@ -117,7 +125,7 @@ export class RxDBService {
         })
 
         this.replicationStates[key].error$.subscribe((err) => {
-          console.log('[DatabaseService]', 'Sync Error', err)
+          this.toastr.error(err, '[Database] Sync Error')
         })
       }
     })
@@ -128,25 +136,23 @@ export class RxDBService {
   }
 
   async authenticate (username: string, password: string) {
-    return this.http.post(`${this.configService.profile.remoteHost}/_session`, {
+    return this.http.post(`${this.config.host}/_session`, {
       name: username,
       password: password
     }, { withCredentials: true })
       .toPromise()
       .catch((res) => {
-        // this.toastr.error('Could not auto-login with db server. Check your internet connection', 'Load Failed')
-        console.log('[DatabaseService]', 'Failed to login to remote')
+        this.toastr.error('Could not auto-login with db server. Check your internet connection.', '[Database] Load Failed')
       })
   }
 
   private async getAdapter () {
-    // if (await RxDB.checkAdapter('idb')) {
-    //     return "idb"
-    // }
-    // if (await RxDB.checkAdapter('websql')) {
-    //     return "websql"
-    // }
-    return 'idb'
+    if (await RxDB.checkAdapter('idb')) {
+      return 'idb'
+    }
+    if (await RxDB.checkAdapter('websql')) {
+      return 'websql'
+    }
   }
 
   async export (alias: string) {
@@ -157,5 +163,4 @@ export class RxDBService {
     //   return d
     // })
   }
-
 }

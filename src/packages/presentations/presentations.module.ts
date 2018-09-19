@@ -22,9 +22,7 @@ import { PresentationsEntities } from './models/_entities'
     RouterModule,
     SwiperModule,
     ChartModule,
-    RxDBModule.forChild([
-      ...PresentationsEntities
-    ])
+    RxDBModule
   ],
   declarations: [
     WrapperComponent,

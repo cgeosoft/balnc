@@ -14,9 +14,7 @@ import { RxDBModule } from '@balnc/core'
   imports: [
     CommonModule,
     RouterModule,
-    RxDBModule.forChild([
-      ...BoardsEntities
-    ])
+    RxDBModule
   ],
   declarations: [
     WrapperComponent,

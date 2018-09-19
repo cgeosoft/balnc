@@ -22,6 +22,7 @@ export class WrapperComponent implements OnInit {
   ) { }
 
   async ngOnInit () {
+    await this.presentationsService.setup()
     this.presentations = await this.presentationsService.getPresentations()
   }
 

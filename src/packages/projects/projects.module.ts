@@ -20,9 +20,7 @@ import { RxDBModule } from '@balnc/core'
     CommonModule,
     RouterModule,
     NgxMdModule,
-    RxDBModule.forChild([
-      ...ProjectsEntities
-    ])
+    RxDBModule
   ],
   declarations: [
     WrapperComponent,

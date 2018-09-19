@@ -58,7 +58,6 @@ const routes = [{
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-center'
     }),
-    RxDBModule.forRoot(),
     RouterModule.forRoot(routes, {
         // enableTracing: true,
     }),

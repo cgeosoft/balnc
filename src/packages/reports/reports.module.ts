@@ -17,9 +17,7 @@ import { ReportsEntities } from './models/_entities'
   imports: [
     CommonModule,
     RouterModule,
-    RxDBModule.forChild([
-      ...ReportsEntities
-    ])
+    RxDBModule
   ],
   declarations: [
     WrapperComponent,

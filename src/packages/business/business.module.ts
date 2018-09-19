@@ -15,11 +15,7 @@ import { RxDBModule } from '@balnc/core'
     InvoicesModule,
     OrdersModule,
     RouterModule,
-    RxDBModule.forChild([
-      ...ContactsEntities,
-      ...InvoicesEntities,
-      ...OrdersEntities
-    ])
+    RxDBModule
   ],
   declarations: [],
   providers: [],
