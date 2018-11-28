@@ -1,7 +1,5 @@
-# Bookings Modules
+# Booking `@balnc/booking`
 
-## Price Groups | `@balnc/bookings-pricegroups`
-
-## Price Tables | `@balnc/bookings-pricetables`
-
-## Reservations | `@balnc/bookings-reservations`
+- Price Groups
+- Price Tables
+- Reservations

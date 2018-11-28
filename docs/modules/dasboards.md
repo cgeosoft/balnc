@@ -1,6 +1,8 @@
-# Widgets
+# Dashboards - `@balnc/dashboards`
 
-USE: https://tiberiuzuld.github.io/angular-gridster2/angular/
+https://tiberiuzuld.github.io/angular-gridster2/angular/
+
+## Widgets
 
 ```` yaml
 - name: RSS Feeder

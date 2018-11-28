@@ -1,5 +1,7 @@
-# Sports Modules
+# Sports - `@balnc/sports`
 
-## Teams | `@balnc/sports-teams`
+Manage:
 
-## Leagues | `@balnc/sports-leagues`
+- Players
+- Teams
+- Leagues
