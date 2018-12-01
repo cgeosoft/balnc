@@ -11,6 +11,9 @@ export const AppRoutes: Routes = [{
     path: 'settings',
     loadChildren: '../packages/settings/settings.module#SettingsModule'
   }, {
+    path: 'business',
+    loadChildren: '../packages/business/business.module#BusinessModule'
+  }, {
     path: '',
     pathMatch: 'full',
     redirectTo: '/dashboard'

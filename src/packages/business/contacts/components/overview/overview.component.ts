@@ -13,7 +13,7 @@ export class OverviewComponent implements OnInit {
   searchTerm: string
   contacts: any[]
 
-  constructor (
+  constructor(
     private contactsService: ContactsService
   ) { }
 
@@ -28,15 +28,15 @@ export class OverviewComponent implements OnInit {
         }
       })))
 
-  ngOnInit () {
+  ngOnInit() {
     this.load()
   }
 
-  private async load () {
+  private async load() {
     await this.loadLatestContacts()
   }
 
-  async loadLatestContacts () {
+  async loadLatestContacts() {
     this.contacts = await this.contactsService.getCompanies()
   }
 }

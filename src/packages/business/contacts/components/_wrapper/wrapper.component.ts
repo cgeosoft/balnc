@@ -13,25 +13,27 @@ export class WrapperComponent implements OnInit {
   companies = []
   persons = []
 
-  constructor (
+  constructor(
     private contactsService: ContactsService
   ) { }
 
-  async ngOnInit () {
+  async ngOnInit() {
+    // await this.contactsService.setup()
     await this.load()
   }
 
-  async load () {
+  async load() {
+    console.log("load wrapper items")
     this.companies = await this.contactsService.getLatestCompanies()
     this.persons = await this.contactsService.getLatestPersons()
   }
 
-  async generate () {
+  async generate() {
     await this.contactsService.generate()
     await this.load()
   }
 
-  async create () {
+  async create() {
 
   }
 }

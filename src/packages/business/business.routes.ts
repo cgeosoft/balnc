@@ -3,7 +3,7 @@ import { InvoicesRoutes } from './invoices'
 import { OrdersRoutes } from './orders'
 
 export const BusinessRoutes = [{
-  path: 'business',
+  path: '',
   children: [
     ...ContactsRoutes,
     ...InvoicesRoutes,

@@ -33,8 +33,8 @@ import { HelperService } from './services/helper.service'
 import { MainComponent } from './components/main/main.component'
 import { BoxComponent } from './components/box/box.component'
 import { ErrorComponent } from './components/error/error.component'
+import { RxDBModule } from './rxdb/rxdb.module';
 
-// Add an icon to the library for convenient access in other components
 library.add(fas, far)
 
 @NgModule({
@@ -50,7 +50,8 @@ library.add(fas, far)
     ReactiveFormsModule,
     RouterModule,
     ToastrModule,
-    WebStorageModule
+    WebStorageModule,
+    RxDBModule
   ],
   declarations: [
     AgoPipe,
@@ -95,7 +96,7 @@ library.add(fas, far)
     NgPipesModule,
     ReactiveFormsModule,
     SidebarComponent,
-    ToastrModule
+    ToastrModule,
   ]
 })
 export class CommonModule { }

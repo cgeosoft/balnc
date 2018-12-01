@@ -3,7 +3,7 @@
     <common-content-header [title]="profileName" [subtitle]="'Profile: '+profileAlias" icon="cog"></common-content-header>
     <common-content-body>
       <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-8 offset-md-2">
           <h4>Details</h4>
           <div class="form-group">
             <label>Profile Name
@@ -21,30 +21,24 @@
               </label>
             </div>
             <small id="passwordHelpBlock" class="form-text text-muted">
-              Use this option for make real-time backup of your data and access the same data from multiple devices.
-              Some
-              packages may
-              require this option to work.
+              Use this option for make real-time backup of your data and access the same data from multiple devices. Some packages may require this option to work.
             </small>
           </div>
           <div class="form-group">
             <label class="form-label">Host</label>
-            <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost"
-              (ngModelChange)="save();" class="form-control">
+            <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" (ngModelChange)="save();" class="form-control">
           </div>
           <div class="row">
             <div class="col-6">
               <div class="form-group">
                 <label class="form-label">Username</label>
-                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteUsername"
-                  (ngModelChange)="save();" class="form-control">
+                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteUsername" (ngModelChange)="save();" class="form-control">
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <label class="form-label">Password</label>
-                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePassword"
-                  (ngModelChange)="save();" class="form-control" type="password">
+                <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePassword" (ngModelChange)="save();" class="form-control" type="password">
               </div>
             </div>
           </div>
@@ -59,12 +53,10 @@
                 </h5>
                 <small class="text-muted">{{package.description}}</small>
               </div>
-              <button *ngIf="!profile.packages[package.id]" type="button" class="btn btn-outline-primary btn-sm" style="min-width:100px;"
-                (click)="profile.packages[package.id]=true;save();">
+              <button *ngIf="!profile.packages[package.id]" type="button" class="btn btn-outline-primary btn-sm" style="min-width:100px;" (click)="profile.packages[package.id]=true;save();">
                 Activate
               </button>
-              <button *ngIf="profile.packages[package.id]" type="button" class="btn btn-outline-danger btn-sm" style="min-width:100px;"
-                (click)="profile.packages[package.id]=false;save();">
+              <button *ngIf="profile.packages[package.id]" type="button" class="btn btn-outline-danger btn-sm" style="min-width:100px;" (click)="profile.packages[package.id]=false;save();">
                 Deactivate
               </button>
             </li>

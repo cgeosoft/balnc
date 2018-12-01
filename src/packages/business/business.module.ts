@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-
 import { CommonModule } from '@balnc/common'
 
-import { ContactsModule, ContactsEntities } from './contacts'
-import { InvoicesModule, InvoicesEntities } from './invoices'
-import { OrdersModule, OrdersEntities } from './orders'
+import { InvoicesModule } from './invoices'
+import { OrdersModule } from './orders'
+import { ContactsModule } from './contacts/contacts.module';
 
 @NgModule({
   imports: [
@@ -13,7 +12,7 @@ import { OrdersModule, OrdersEntities } from './orders'
     ContactsModule,
     InvoicesModule,
     OrdersModule,
-    RouterModule,
+    RouterModule
   ],
   declarations: [],
   providers: [],
