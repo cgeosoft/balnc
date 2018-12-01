@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 
 import * as faker from 'faker'
 
-import { RxDBService } from '@balnc/core'
+import { RxDBService } from '@balnc/common';
 
 import { RxPersonDocument } from './models/person'
 import { RxCompanyDocument, Company, TaxDetails } from './models/company'

@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core'
-import { CommonModule } from '@balnc/common'
 import { RxDBService } from './rxdb.service'
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [],
   declarations: [],
   providers: [RxDBService],
   entryComponents: []

@@ -3,10 +3,10 @@ import { RxCollection } from 'rxdb'
 
 import * as moment from 'moment'
 
-import { RxDBService } from '@balnc/core'
 
 import { RxProjectDoc } from '../models/project'
 import { RxPLogDoc } from '../models/plog'
+import { RxDBService } from '@balnc/common';
 
 @Injectable()
 export class ProjectsService {

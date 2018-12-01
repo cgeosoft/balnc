@@ -5,7 +5,7 @@ import { PackageComponent } from './components/package/package.component'
 import { DataComponent } from './components/data/data.component'
 
 export const SettingsRoutes = [{
-  path: 'settings',
+  path: '',
   component: WrapperComponent,
   children: [
     { path: 'general', component: GeneralComponent },

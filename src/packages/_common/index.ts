@@ -14,7 +14,6 @@ export * from './components/page-not-found/page-not-found.component'
 export * from './components/sidebar/sidebar.component'
 
 export * from './models/package'
-export * from '../_core/rxdb/entity'
 export * from './models/profile'
 
 export * from './pipes/ago.pipe'
@@ -25,3 +24,6 @@ export * from './services/config.service'
 export * from './services/helper.service'
 
 export * from './guards/config.guard'
+
+export * from './rxdb/rxdb.module'
+export * from './rxdb/rxdb.service'

@@ -13,14 +13,11 @@ import { ProjectComponent } from './components/project/project.component'
 import { ProjectsService } from './services/projects.service'
 import { TaskComponent } from './components/task/task.component'
 import { ProjectsEntities } from './models/_entities'
-import { RxDBModule } from '@balnc/core'
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    NgxMdModule,
-    RxDBModule
   ],
   declarations: [
     WrapperComponent,

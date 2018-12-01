@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core'
 import { RxCollection } from 'rxdb'
 
-import { RxDBService } from '@balnc/core'
 import { Presentation } from './models/presentation'
 import { PresentationsEntities } from './models/_entities'
+import { RxDBService } from '@balnc/common'
 
 @Injectable()
 export class PresentationsService {

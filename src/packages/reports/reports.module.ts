@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router'
 
 import { CommonModule } from '@balnc/common'
 
-import { RxDBModule } from '@balnc/core'
 
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
 import { OverviewComponent } from './components/overview/overview.component'
@@ -17,7 +16,6 @@ import { ReportsEntities } from './models/_entities'
   imports: [
     CommonModule,
     RouterModule,
-    RxDBModule
   ],
   declarations: [
     WrapperComponent,

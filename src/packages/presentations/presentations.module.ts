@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router'
 import { SwiperModule, SWIPER_CONFIG } from 'ngx-swiper-wrapper'
 import { ChartModule } from 'angular2-chartjs'
 
-import { RxDBModule } from '@balnc/core'
 import { CommonModule } from '@balnc/common'
 
 import { PresentationsService } from './presentations.service'
@@ -22,7 +21,6 @@ import { PresentationsEntities } from './models/_entities'
     RouterModule,
     SwiperModule,
     ChartModule,
-    RxDBModule
   ],
   declarations: [
     WrapperComponent,

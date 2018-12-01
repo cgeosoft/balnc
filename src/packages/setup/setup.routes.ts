@@ -1,6 +1,6 @@
 import { SetupComponent } from './setup.component'
 
 export const SetupRoutes = [{
-  path: 'setup',
+  path: '',
   component: SetupComponent
 }]

@@ -18,9 +18,9 @@ import * as AdapterIDB from 'pouchdb-adapter-idb'
 
 import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
 
-import { ConfigService } from '@balnc/common'
 import { environment } from 'environments/environment'
 import { Entity } from './entity'
+import { ConfigService } from '../services/config.service'
 
 if (!environment.production) {
   console.log('[DatabaseService]', 'In debug')

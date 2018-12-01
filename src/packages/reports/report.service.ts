@@ -8,7 +8,7 @@ import * as moment from 'moment'
 
 import { RxReportDoc, Report } from './models/report'
 import { ReportSettings } from './models/module-settings'
-import { RxDBService } from '@balnc/core'
+import { RxDBService } from '@balnc/common';
 
 @Injectable()
 export class ReportService {

@@ -21,7 +21,7 @@
         "src/packages/_common"
       ],
       "@balnc/core": [
-        "src/packages/_core"
+        "src/packages/main"
       ],
       "@balnc/boards": [
         "src/packages/boards"

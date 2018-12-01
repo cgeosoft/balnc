@@ -6,7 +6,6 @@ import { CommonModule } from '@balnc/common'
 import { ContactsModule, ContactsEntities } from './contacts'
 import { InvoicesModule, InvoicesEntities } from './invoices'
 import { OrdersModule, OrdersEntities } from './orders'
-import { RxDBModule } from '@balnc/core'
 
 @NgModule({
   imports: [
@@ -15,7 +14,6 @@ import { RxDBModule } from '@balnc/core'
     InvoicesModule,
     OrdersModule,
     RouterModule,
-    RxDBModule
   ],
   declarations: [],
   providers: [],

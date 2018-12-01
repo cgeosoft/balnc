@@ -7,11 +7,12 @@ import { GeneralComponent } from './components/general/general.component'
 import { PackageComponent } from './components/package/package.component'
 import { ManageComponent } from './components/manage/manage.component'
 import { DataComponent } from './components/data/data.component'
+import { SettingsRoutes } from './settings.routes';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule.forChild(SettingsRoutes)
   ],
   declarations: [
     WrapperComponent,
