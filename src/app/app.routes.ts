@@ -29,9 +29,3 @@ export const AppRoutes: Routes = [{
     component: ErrorComponent
   }]
 }]
-
-  // ...BusinessRoutes,
-  // ...PresentationsRoutes,
-  // ...ProjectsRoutes,
-  // ...BoardsRoutes,
-  // ...ReportsRoutes,

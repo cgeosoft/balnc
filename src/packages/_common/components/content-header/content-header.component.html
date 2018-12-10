@@ -2,12 +2,12 @@
   <div class="header-bar-title">
     <a *ngIf="route != null" [routerLink]="route" class="header-icon">
       <fa-layers class="fa-fw">
-        <fa-icon [icon]="_icon"></fa-icon>
+        <fa-icon [icon]="helperService.getIcon(icon)"></fa-icon>
       </fa-layers>
     </a>
     <div *ngIf="route == null" class="header-icon">
       <fa-layers class="fa-fw">
-        <fa-icon [icon]="_icon"></fa-icon>
+        <fa-icon [icon]="helperService.getIcon(icon)"></fa-icon>
       </fa-layers>
     </div>
     <div class="header-bar-title-divider"></div>
@@ -37,7 +37,7 @@
             <div *ngIf="item.isDivider" class="dropdown-divider"></div>
             <button *ngIf="!item.isDivider" class="dropdown-item {{item.cssClass}}" (click)="item.callback()">
               <fa-layers class="fa-fw" *ngIf="item.icon">
-                <fa-icon [icon]="item.icon"></fa-icon>
+                <fa-icon [icon]="helperService.getIcon(item.icon)"></fa-icon>
               </fa-layers>
               {{item.label}}
             </button>
@@ -51,7 +51,7 @@
       <li class="nav-item" *ngFor="let tab of tabsMenu.tabs" [ngClass]="{'ml-auto':tab.right}">
         <a class="nav-link" [ngClass]="{active:(tabsMenu.selected == tab.id)}" href="javascript:void(0);" (click)="tabsMenu.selected = tab.id">
           <fa-layers class="fa-fw" *ngIf="tab.icon">
-            <fa-icon [icon]="tab.icon"></fa-icon>
+            <fa-icon [icon]="helperService.getIcon(tab.icon)"></fa-icon>
           </fa-layers>
           {{tab.label}}</a>
       </li>

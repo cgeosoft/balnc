@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { RouterModule } from '@angular/router'
 import { ServiceWorkerModule } from '@angular/service-worker'
-import { CommonModule, ConfigService } from '@balnc/common'
+import { CommonModule, ConfigService, HelperService } from '@balnc/common'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import environment from 'environments/environment'
 import { ToastrModule } from 'ngx-toastr'
@@ -27,6 +27,8 @@ import { AppRoutes } from './app.routes'
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  providers: [ConfigService]
+  providers: [
+    ConfigService,
+  ]
 })
 export class AppModule { }

@@ -12,6 +12,7 @@ import { ReadFile } from 'ngx-file-helpers'
 export class ManageComponent implements OnInit {
 
   constructor (
+    private helperService: HelperService,
     private configService: ConfigService,
     private toastr: ToastrService
   ) { }
@@ -26,7 +27,7 @@ export class ManageComponent implements OnInit {
 
   async create () {
     const alias = await this.configService.saveProfile({
-      name: HelperService.generateName()
+      name: this.helperService.generateName()
     })
     this.configService.selectProfile(alias)
   }

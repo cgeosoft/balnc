@@ -19,6 +19,7 @@ export class WrapperComponent implements OnInit {
   packages: Package[]
 
   constructor (
+    public helperService: HelperService,
     public configService: ConfigService,
     private router: Router
   ) { }
@@ -38,7 +39,7 @@ export class WrapperComponent implements OnInit {
 
   createProfile () {
     const alias = this.configService.saveProfile({
-      name: HelperService.generateName(),
+      name: this.helperService.generateName(),
       packages: {}
     })
     this.router.navigate(['/settings', alias])

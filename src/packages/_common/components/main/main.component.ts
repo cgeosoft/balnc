@@ -26,7 +26,7 @@ export class MainComponent implements OnInit {
 
   pageLoading = false
 
-  packages: Package[]
+  packages: Package[] = []
 
   constructor (
     public configService: ConfigService,

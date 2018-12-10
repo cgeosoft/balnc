@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core'
-import { ContactsService } from '../../contacts.service'
 
-import * as _ from 'lodash'
+import { ContactsService } from '../../contacts.service'
+import { Contact } from '../../models/contact'
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'contacts-wrapper',
@@ -10,30 +11,19 @@ import * as _ from 'lodash'
 })
 export class WrapperComponent implements OnInit {
 
-  companies = []
-  persons = []
+  lastAccessed$: Observable<Contact[]>
 
-  constructor(
+  constructor (
     private contactsService: ContactsService
   ) { }
 
-  async ngOnInit() {
-    // await this.contactsService.setup()
-    await this.load()
+  async ngOnInit () {
+    this.lastAccessed$ = this.contactsService.lastAccessed$
   }
 
-  async load() {
-    console.log("load wrapper items")
-    this.companies = await this.contactsService.getLatestCompanies()
-    this.persons = await this.contactsService.getLatestPersons()
-  }
-
-  async generate() {
+  async generate () {
     await this.contactsService.generate()
-    await this.load()
   }
 
-  async create() {
-
-  }
+  async create () { }
 }

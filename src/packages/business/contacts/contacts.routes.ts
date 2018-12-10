@@ -1,8 +1,7 @@
-import { OverviewComponent } from './components/overview/overview.component'
+import { ContactsService } from './contacts.service'
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
-import { PersonViewComponent } from './components/person-view/person-view.component'
-import { CompanyViewComponent } from './components/company-view/company-view.component'
-import { ContactsService } from './contacts.service';
+import { OverviewComponent } from './components/overview/overview.component'
+import { ContactComponent } from './components/contact/contact.component'
 
 export const ContactsRoutes = [{
   path: 'contacts',
@@ -12,8 +11,7 @@ export const ContactsRoutes = [{
   component: WrapperComponent,
   children: [
     { path: 'overview', component: OverviewComponent },
-    { path: 'person/:id', component: PersonViewComponent },
-    { path: 'company/:id', component: CompanyViewComponent },
+    { path: 'contact/:id', component: ContactComponent },
     { path: '', redirectTo: 'overview', pathMatch: 'full' }
   ]
 }]

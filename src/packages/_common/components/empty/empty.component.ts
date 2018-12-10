@@ -12,10 +12,11 @@ export class EmptyComponent implements OnInit {
   @Input() submessage = null
   @Input() icon = 'expand'
 
-  _icon: string[]
+  constructor (
+    public helperService: HelperService
+  ) {}
 
-  ngOnInit () {
-    this._icon = HelperService.getIcon(this.icon)
+  ngOnInit (): void {
+
   }
-
 }

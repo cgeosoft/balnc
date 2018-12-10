@@ -40,7 +40,9 @@ export class ConfigService {
 
   public profile: Profile
 
-  constructor() {
+  constructor (
+    public helperService: HelperService
+  ) {
     console.log('[ConfigService]', 'Initializing with env:', environment)
     console.log('[ConfigService]', 'Profiles available:', this.profiles)
 
@@ -52,34 +54,34 @@ export class ConfigService {
     }
   }
 
-  parsePackages() {
+  parsePackages () {
     this.packages = this.packages.map(p => {
       const v = { ...p }
-      v.picon = HelperService.getIcon(v.icon)
+      v.picon = this.helperService.getIcon(v.icon)
       v.menu = v.menu.map(m => {
-        m.icon = HelperService.getIcon(m.icon)
+        m.icon = this.helperService.getIcon(m.icon)
         return m
       })
       return v
     })
   }
 
-  getPackageConfig(id: string) {
+  getPackageConfig (id: string) {
     return this.profile.packages[id]
   }
 
-  clearAllProfiles() {
+  clearAllProfiles () {
     this.selected = null
-    this.profiles = []
+    // this.profiles = []
     window.location.reload()
   }
 
-  selectProfile(alias: string) {
+  selectProfile (alias: string) {
     this.selected = alias
     window.location.reload()
   }
 
-  saveProfile(profile: Profile): string {
+  saveProfile (profile: Profile): string {
     const unique = new Date()
     profile.id = profile.id || `${unique.getTime()}`
     profile.createdAt = profile.createdAt || unique.toISOString()
@@ -93,21 +95,21 @@ export class ConfigService {
     return profile.id
   }
 
-  getProfile(alias: string = null): Profile {
+  getProfile (alias: string = null): Profile {
     alias = alias || this.selected
     alias = alias || this.profiles[0].id
     let index = this.profiles.findIndex(p => p.id === alias)
     return this.profiles[index]
   }
 
-  deleteProfile(alias: string) {
+  deleteProfile (alias: string) {
     let profiles = [...this.profiles]
     let index = this.profiles.findIndex(p => p.id === alias)
     profiles.splice(index, 1)
     this.profiles = profiles
   }
 
-  importFile(file: ReadFile) {
+  importFile (file: ReadFile) {
     try {
       const data = file.content.split(',')[1]
       const profileStr = atob(data)

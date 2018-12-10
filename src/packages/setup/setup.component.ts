@@ -30,6 +30,7 @@ export class SetupComponent implements OnInit {
   packages: Package[]
 
   constructor (
+    public helperService: HelperService,
     public configService: ConfigService,
     private router: Router,
     private toastr: ToastrService
@@ -52,7 +53,7 @@ export class SetupComponent implements OnInit {
   }
 
   async finish () {
-    this.profile.name = this.profile.name || HelperService.generateName()
+    this.profile.name = this.profile.name || this.helperService.generateName()
     const alias = await this.configService.saveProfile(this.profile)
     await this.configService.selectProfile(alias)
   }

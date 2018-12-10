@@ -1,0 +1,13 @@
+<ng-container *ngIf="contact; else empty">
+  <common-content>
+    <common-content-header [title]="contact.name" [icon]="contactType==='company'?'building':'user'" [subtitle]="contact._id"></common-content-header>
+    <common-content-body>
+      <pre>{{contactType}}</pre>
+      <pre>{{contact|json:2}}</pre>
+    </common-content-body>
+  </common-content>
+</ng-container>
+
+<ng-template #empty>
+  <common-empty message="Select a contact or create a new one" icon="desktop"></common-empty>
+</ng-template>

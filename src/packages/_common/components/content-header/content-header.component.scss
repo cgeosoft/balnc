@@ -17,6 +17,8 @@
       height: 46px;
       .header-icon {
         font-size: 30px;
+        width: 48px;
+        text-align: center;
       }
       .header-bar-title-divider {
         @extend .mx-2;

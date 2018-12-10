@@ -19,21 +19,14 @@ export class ContentHeaderComponent implements OnInit {
   @Input() fullWidth = false
   @Input() route = null
 
-  _icon: string[]
+  constructor (
+    public helperService: HelperService
+  ) {}
 
   ngOnInit () {
-    this._icon = HelperService.getIcon(this.icon)
-
     if (this.tabsMenu) {
-
       if (!this.tabsMenu.selected) {
         this.tabsMenu.selected = this.tabsMenu.tabs[0].id
-      }
-
-      if (this.tabsMenu.tabs) {
-        this.tabsMenu.tabs.forEach(tab => {
-          tab.icon = HelperService.getIcon(tab.icon)
-        })
       }
     }
   }

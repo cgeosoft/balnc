@@ -50,7 +50,7 @@ export interface Config {
 export class RxDBService {
 
   private config: Config
-  private db: RxDatabase
+  // private db: RxDatabase
   public entities: Entity[] = []
   private replicationStates: { [key: string]: RxReplicationState } = {}
 
@@ -76,7 +76,7 @@ export class RxDBService {
 
     console.log('[DatabaseService]', `Initializing DB: ${this.config.prefix}`)
     const _adapter = await this.getAdapter()
-    this.db = await RxDB.create({
+    const db = await RxDB.create({
       name: this.config.prefix,
       adapter: _adapter
     })
@@ -85,7 +85,7 @@ export class RxDBService {
     let sets = []
     for (const entity of entities) {
       console.log(`Load entity ${entity.name} in ${this.config.prefix}`)
-      let set = this.db.collection({
+      let set = db.collection({
         name: entity.name,
         schema: entity.schema,
         migrationStrategies: entity.migrationStrategies || {}
@@ -94,23 +94,27 @@ export class RxDBService {
       sets.push(set)
     }
     await Promise.all(sets)
+    await this.sync(db)
 
-    await this.authenticate(this.config.username, this.config.password)
-    await this.sync()
+    return db
   }
 
-  async sync () {
+  async sync (db) {
 
     if (!this.config.sync) {
       console.log('[DatabaseService]', `Sync is disabled for ${this.config.prefix}`)
       return
     }
 
+    if (this.config.username) {
+      await this.authenticate(this.config.username, this.config.password)
+    }
+
     Object.keys(this.entities).forEach((key) => {
       const entity = this.entities[key]
 
       if (entity.sync) {
-        const ent: RxCollection<any> = this.db[key]
+        const ent: RxCollection<any> = db[key]
 
         if (!ent) {
           console.log('[DatabaseService]', `Entity ${entity.name} for ${this.config.prefix} not found`)
@@ -131,9 +135,9 @@ export class RxDBService {
     })
   }
 
-  async get<T> (name: string): Promise<RxCollection<T>> {
-    return this.db[name]
-  }
+  // async get<T> (db, name: string): Promise<RxCollection<T>> {
+  //   return this.db[name]
+  // }
 
   async authenticate (username: string, password: string) {
     return this.http.post(`${this.config.host}/_session`, {
@@ -155,12 +159,12 @@ export class RxDBService {
     }
   }
 
-  async export (alias: string) {
-    console.log(this.entities)
-    return this.db.dump()
-    // const data = await this.db.dump()
-    // return data.map(d => {
-    //   return d
-    // })
-  }
+  // async export (alias: string) {
+  //   console.log(this.entities)
+  //   return this.db.dump()
+  //   // const data = await this.db.dump()
+  //   // return data.map(d => {
+  //   //   return d
+  //   // })
+  // }
 }

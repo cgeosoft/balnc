@@ -1,7 +1,9 @@
-import { switchMap, distinctUntilChanged, debounceTime } from 'rxjs/operators'
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
+
 import { ContactsService } from '../../contacts.service'
+import { Contact } from '../../models/contact'
 
 @Component({
   selector: 'app-contacts-overview',
@@ -12,8 +14,9 @@ export class OverviewComponent implements OnInit {
 
   searchTerm: string
   contacts: any[]
+  contacts$: Observable<Contact[]>
 
-  constructor(
+  constructor (
     private contactsService: ContactsService
   ) { }
 
@@ -22,21 +25,13 @@ export class OverviewComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged(),
       // .do(() => this.searching = true)
-      switchMap(term => this.contactsService.getCompanies({
+      switchMap(term => this.contactsService.getContacts({
         name: {
           $eq: term
         }
       })))
 
-  ngOnInit() {
-    this.load()
-  }
-
-  private async load() {
-    await this.loadLatestContacts()
-  }
-
-  async loadLatestContacts() {
-    this.contacts = await this.contactsService.getCompanies()
+  ngOnInit () {
+    this.contacts$ = this.contactsService.contacts$
   }
 }
