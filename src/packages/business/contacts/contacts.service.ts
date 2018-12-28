@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Resolve } from '@angular/router'
-import { RxDBService } from '@balnc/common'
+import { CommonService, RxDBService } from '@balnc/common'
 import * as faker from 'faker'
 import { RxDatabase } from 'rxdb'
 import { Observable, Subject } from 'rxjs'
@@ -9,44 +8,24 @@ import { ContactsEntities } from './models/_entities'
 import { Contact, ContactLogType, RxContactDocument } from './models/contact'
 
 @Injectable()
-export class ContactsService implements Resolve<any> {
+export class ContactsService extends CommonService {
 
   db: RxDatabase
 
   public contacts$: Observable<Contact[]>
   public lastAccessed$: Subject<Contact[]> = new Subject<Contact[]>()
 
-  constructor (
-    private dbService: RxDBService
-  ) {
-  }
-
-  async resolve () {
-    if (!this.db) {
-      console.log('Setup contacts db')
-      this.db = await this.dbService.setup(ContactsEntities)
-      this.contacts$ = this.db['contacts'].find().$
-      console.log('...Setuped contacts db')
-    }
-
-    this.contacts$
-      .subscribe(contacts => {
-        contacts
-        .sort((ca, cb) => {
-          const caLastUpdate = new Date(ca.logs[ca.logs.length - 1].date)
-          const cbLastUpdate = new Date(cb.logs[cb.logs.length - 1].date)
-          return cbLastUpdate.getTime() - caLastUpdate.getTime()
-        })
-        this.lastAccessed$.next(contacts.slice(0, 10))
-      })
+  constructor (dbService: RxDBService) {
+    super(dbService)
+    super.setup('Contacts', ContactsEntities)
   }
 
   async getContacts (params): Promise<Contact[]> {
-    return this.db['contacts'].find(params).exec()
+    return super.getAll<Contact>('contacts', params)
   }
 
   async getContact (id): Promise<Contact> {
-    const contact = await this.db['contacts'].findOne(id).exec()
+    const contact = await super.getOne<Contact>('contacts', id)
     if (!contact) return null
 
     contact.atomicUpdate(c => {
@@ -63,10 +42,7 @@ export class ContactsService implements Resolve<any> {
   }
 
   async addContacts (contact: Contact) {
-    const result = await this.db['contacts']
-      .newDocument(contact)
-      .save()
-    return result
+    return super.addOne('contacts', contact)
   }
 
   async generate () {

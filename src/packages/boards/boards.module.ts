@@ -3,23 +3,24 @@ import { RouterModule } from '@angular/router'
 
 import { CommonModule } from '@balnc/common'
 
-import { BoardService } from './board.service'
+import { BoardsService } from './boards.service'
 
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
 import { BoardComponent } from './components/board/board.component'
 import { BoardsEntities } from './models/_entities'
+import { BoardsRoutes } from '.';
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule,
+    RouterModule.forChild(BoardsRoutes)
   ],
   declarations: [
     WrapperComponent,
     BoardComponent
   ],
   providers: [
-    BoardService
+    BoardsService
   ]
 })
 export class BoardsModule { }

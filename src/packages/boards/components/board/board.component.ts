@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit, ElementRef, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 
-import { BoardService } from '../../board.service'
+import { BoardsService } from '../../boards.service'
 import { BoardWithMessages } from '../../models/board'
 
 @Component({
@@ -40,7 +40,7 @@ export class BoardComponent implements OnInit {
   }
 
   constructor (
-    public boardService: BoardService,
+    public boardService: BoardsService,
     private route: ActivatedRoute,
     private router: Router,
     private zone: NgZone

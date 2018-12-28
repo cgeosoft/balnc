@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 
-import { BoardService } from '../../board.service'
+import { BoardsService } from '../../boards.service'
 import { Observable } from 'rxjs'
 
 import { Board } from '../../models/board'
@@ -20,7 +20,7 @@ export class WrapperComponent implements OnInit {
   unread: { [key: string]: number } = {}
 
   constructor (
-    public boardService: BoardService,
+    public boardService: BoardsService,
     private router: Router
   ) { }
 

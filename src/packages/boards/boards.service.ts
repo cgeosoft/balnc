@@ -9,7 +9,7 @@ import { RxMessageDoc, Message } from './models/message'
 import { RxBoardDoc, Board, BoardWithMessages } from './models/board'
 
 @Injectable()
-export class BoardService {
+export class BoardsService {
 
   boardCol: RxCollection<RxBoardDoc>
   messageCol: RxCollection<RxMessageDoc>
@@ -18,7 +18,7 @@ export class BoardService {
 
   boards$: BehaviorSubject<BoardWithMessages[]> = new BehaviorSubject<BoardWithMessages[]>([])
 
-  constructor(
+  constructor (
     private ngZone: NgZone,
     private dbService: RxDBService,
     private configService: ConfigService
@@ -26,7 +26,7 @@ export class BoardService {
     this.setup()
   }
 
-  async setup() {
+  async setup () {
     this.nickname = this.configService.profile.remoteUsername
     this.boardCol = await this.dbService.get<RxBoardDoc>('boards')
     this.messageCol = await this.dbService.get<RxMessageDoc>('messages')
@@ -35,7 +35,7 @@ export class BoardService {
     await this.loadSubscriptions()
   }
 
-  async loadSubscriptions() {
+  async loadSubscriptions () {
     this.boardCol.$.subscribe(async (ev) => {
       await this.loadBoards()
     })
@@ -52,7 +52,7 @@ export class BoardService {
     })
   }
 
-  async loadBoards() {
+  async loadBoards () {
     let boards = await this.boardCol.find().exec() as BoardWithMessages[]
 
     let sets = []
@@ -70,7 +70,7 @@ export class BoardService {
     })
   }
 
-  async loadMessages(boardName: String) {
+  async loadMessages (boardName: String) {
     let query = this.messageCol.find().where('board').eq(boardName)
     const messagesRaw = await query.exec()
     const messages: Message[] = messagesRaw
@@ -86,12 +86,12 @@ export class BoardService {
     return messages
   }
 
-  getBoard(boardName: any) {
+  getBoard (boardName: any) {
     let board = this.boards$.value.find(b => b.name === boardName)
     return board
   }
 
-  async createBoard(board: any) {
+  async createBoard (board: any) {
     const _board = Object.assign({
       created: (new Date()).getTime(),
       members: [{
@@ -105,7 +105,7 @@ export class BoardService {
     await this.boardCol.newDocument(_boardDoc).save()
   }
 
-  async joinBoard(boardName: any) {
+  async joinBoard (boardName: any) {
     let board = this.boards$.value.find(b => b.name === boardName)
     const _member = board.members.find(m => {
       return m.name === this.nickname
@@ -126,19 +126,19 @@ export class BoardService {
     })
   }
 
-  async updateBoard(boardName, newItem: Board) {
+  async updateBoard (boardName, newItem: Board) {
     let existBoard = await this.boardCol.findOne().where('name').eq(boardName).exec()
     existBoard = Object.assign(existBoard, newItem)
     await existBoard.save()
   }
 
-  async sendMessage(message: Message) {
+  async sendMessage (message: Message) {
     const _message: RxMessageDoc = Object.assign({}, message as RxMessageDoc)
     _message.sendAt = (new Date()).getTime()
     await this.messageCol.newDocument(_message).save()
   }
 
-  async deleteBoard(boardName) {
+  async deleteBoard (boardName) {
     let existBoard = await this.boardCol.findOne().where('name').eq(boardName).exec()
     existBoard.remove()
 

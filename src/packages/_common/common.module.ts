@@ -31,6 +31,7 @@ import { DocVersionPipe } from './pipes/doc-version.pipe'
 import { EllipsisPipe } from './pipes/ellipsis.pipe'
 import { RxDBService } from './rxdb/rxdb.service'
 import { HelperService } from './services/helper.service'
+import { CommonService } from './services/common.service'
 
 library.add(fas, far)
 
@@ -68,7 +69,8 @@ library.add(fas, far)
   ],
   providers: [
     HelperService,
-    RxDBService
+    RxDBService,
+    CommonService
   ],
   exports: [
     AngularCommonModule,

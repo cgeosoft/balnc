@@ -23,5 +23,6 @@ export * from './pipes/ellipsis.pipe'
 export * from './services/config.service'
 export * from './services/helper.service'
 export * from './rxdb/rxdb.service'
+export * from './services/common.service'
 
 export * from './guards/config.guard'
