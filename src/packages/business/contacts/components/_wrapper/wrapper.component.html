@@ -31,9 +31,16 @@
               <ng-container *ngIf="contact.details.avatar; else noThumb">
                 <div class="thumb-img" [ngStyle]="{'background-image': 'url('+contact.details.avatar+')'}"></div>
               </ng-container>
+              <div class="indicator" *ngIf="contact.tags[0] === 'company'" style="background-color: #8E24AA">
+                <fa-icon icon="building"></fa-icon>
+              </div>
+              <div class="indicator" *ngIf="contact.tags[0] === 'person'" style="background-color: #4A148C">
+                <fa-icon icon="user"></fa-icon>
+              </div>
             </div>
             <div class="content">
               <span>{{contact.name}}</span>
+              <small *ngIf="contact.logs">{{contact.logs[contact.logs.length-1].date | date:"short"}}</small>
             </div>
           </a>
         </ng-container>

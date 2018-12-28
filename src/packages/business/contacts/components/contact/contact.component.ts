@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 
 import { ContactsService } from '../../contacts.service'
-import { Contact } from '../../models/contact'
+import { Contact, ContactLogType } from '../../models/contact'
 
 @Component({
   selector: 'contacts-contact',
@@ -13,6 +13,7 @@ export class ContactComponent implements OnInit {
 
   contact: Contact
   contactType: string
+  ContactLogType = ContactLogType
 
   constructor (
     private route: ActivatedRoute,

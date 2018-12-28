@@ -22,7 +22,7 @@ import { AppRoutes } from './app.routes'
     }),
     CommonModule,
     RouterModule.forRoot(AppRoutes, {
-      // enableTracing: true,
+      // enableTracing: true
     })
   ],
   declarations: [AppComponent],

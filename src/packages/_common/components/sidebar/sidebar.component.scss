@@ -135,22 +135,41 @@ $color-sidebar-font: #aaa;
         @extend .align-items-center;
         @extend .border;
         @extend .border-light;
+        position: relative;
         height: 34px;
         width: 34px;
         min-width: 34px;
-        overflow: hidden;
 
-        img {
-          @extend .img-fluid;
-          height: 34px;
-          width: 34px;
-        }
 
         .thumb-img {
           @extend .h-100;
           @extend .w-100;
           background-size: cover;
           background-position: center;
+          overflow: hidden;
+
+          img {
+            @extend .img-fluid;
+            height: 34px;
+            width: 34px;
+          }
+        }
+
+        .indicator {
+          // @extend .border;
+          // @extend .border-light;
+          background: #222;
+          position: absolute;
+          bottom: -4px;
+          right: -4px;
+          height: 16px;
+          width: 16px;
+          line-height: 14px;
+          font-size: .6rem;
+          text-align: center;
+          border-radius: 8px;
+          color:#FFF;
+          box-shadow: 1px 1px 3px #222;
         }
       }
 

@@ -1,4 +1,4 @@
-export type Entity = {
+export interface Entity {
   name: string
   schema: any
   schemaPath?: string

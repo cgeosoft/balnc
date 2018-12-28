@@ -1,18 +1,22 @@
+import { Injectable } from '@angular/core'
 import { Resolve } from '@angular/router'
-import { RxDBService } from '@balnc/common'
-import * as faker from 'faker'
 import { RxDatabase, RxDocument } from 'rxdb'
-import { Observable, Subject } from 'rxjs'
-import { Entity } from '../rxdb/entity'
+import { Observable } from 'rxjs'
 
+import { Entity } from '../rxdb/entity'
+import { RxDBService } from '../rxdb/rxdb.service'
+
+@Injectable()
 export class CommonService implements Resolve<any> {
 
   alias: string
   entities: Entity[]
-  observables: Observable<any>[]
+  observables: { [key: string]: Observable<any>} = {}
   db: RxDatabase
 
-  constructor (private dbService: RxDBService) { }
+  constructor (
+    private dbService: RxDBService
+  ) { }
 
   setup (
     alias: string,
@@ -32,17 +36,17 @@ export class CommonService implements Resolve<any> {
       console.log(`...Setuped ${this.alias} `)
     }
 
-    this.entities.forEach(entity => {
-      this.observables[`${entity.name}$`]
-        .subscribe(o => {
-          // o.sort((ca, cb) => {
-          //   const caLastUpdate = new Date(ca.logs[ca.logs.length - 1].date)
-          //   const cbLastUpdate = new Date(cb.logs[cb.logs.length - 1].date)
-          //   return cbLastUpdate.getTime() - caLastUpdate.getTime()
-          // })
-          // this.lastAccessed$.next(o.slice(0, 10))
-        })
-    })
+    // this.entities.forEach(entity => {
+    //   this.observables[`${entity.name}$`]
+    //     .subscribe(o => {
+    //       // o.sort((ca, cb) => {
+    //       //   const caLastUpdate = new Date(ca.logs[ca.logs.length - 1].date)
+    //       //   const cbLastUpdate = new Date(cb.logs[cb.logs.length - 1].date)
+    //       //   return cbLastUpdate.getTime() - caLastUpdate.getTime()
+    //       // })
+    //       // this.lastAccessed$.next(o.slice(0, 10))
+    //     })
+    // })
   }
 
   async getAll<T> (entity: string, params): Promise<T[]> {
@@ -72,68 +76,4 @@ export class CommonService implements Resolve<any> {
       .save()
     return result
   }
-
-  // async generate () {
-  //   const cs: Contact[] = []
-
-  //   for (let p = 0; p < 5; p++) {
-  //     const person: Contact & any = {
-  //       name: `${faker.name.findName()}`,
-  //       tags: ['person'],
-  //       details: {
-  //         avatar: `${faker.image.avatar()}`,
-  //         phones: [faker.phone.phoneNumberFormat()],
-  //         emails: [faker.internet.email()]
-  //       },
-  //       conns: [{
-  //         reference: 'company1',
-  //         type: 'owner'
-  //       }],
-  //       logs: [{
-  //         date: new Date(),
-  //         type: ContactLogType.Create
-  //       }, {
-  //         date: new Date(),
-  //         type: ContactLogType.AddConnection,
-  //         reference: 'company1'
-  //       }]
-  //     }
-  //     cs.push(person)
-  //   }
-
-  //   for (let c = 0; c < 10; c++) {
-
-  //     const company: Contact & any = {
-  //       name: `${faker.company.companyName()}`,
-  //       tags: ['company'],
-  //       details: {
-  //         avatar: `${faker.image.avatar()}`,
-  //         taxDetails: {
-  //           vatNumber: `VAT${faker.random.number({ min: 1000000000, max: 9999999999 })}`,
-  //           taxOffice: faker.address.city(3),
-  //           address: faker.address.streetAddress(true),
-  //           legalName: '',
-  //           description: ''
-  //         }
-  //       },
-  //       conns: [{
-  //         reference: 'person1',
-  //         type: 'owner'
-  //       }],
-  //       logs: [{
-  //         date: new Date(),
-  //         type: ContactLogType.Create
-  //       }, {
-  //         date: new Date(),
-  //         type: ContactLogType.AddConnection,
-  //         reference: 'person1'
-  //       }]
-  //     }
-  //     cs.push(company)
-  //   }
-
-  //   cs.forEach((v: RxContactDocument) => {
-  //     this.db['contacts'].insert(v)
-  //   })
-  // }
 }

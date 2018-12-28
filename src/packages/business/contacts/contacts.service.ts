@@ -10,14 +10,27 @@ import { Contact, ContactLogType, RxContactDocument } from './models/contact'
 @Injectable()
 export class ContactsService extends CommonService {
 
-  db: RxDatabase
-
   public contacts$: Observable<Contact[]>
   public lastAccessed$: Subject<Contact[]> = new Subject<Contact[]>()
 
-  constructor (dbService: RxDBService) {
+  constructor (
+    dbService: RxDBService
+  ) {
     super(dbService)
-    super.setup('Contacts', ContactsEntities)
+    super.setup('contacts', ContactsEntities)
+  }
+
+  async resolve () {
+    await super.resolve()
+    this.db['contacts'].find().$.subscribe(contacts => {
+      contacts
+        .sort((ca, cb) => {
+          const caLastUpdate = new Date(ca.logs[ca.logs.length - 1].date)
+          const cbLastUpdate = new Date(cb.logs[cb.logs.length - 1].date)
+          return cbLastUpdate.getTime() - caLastUpdate.getTime()
+        })
+      this.lastAccessed$.next(contacts.slice(0, 10))
+    })
   }
 
   async getContacts (params): Promise<Contact[]> {

@@ -1,26 +1,23 @@
-import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-
-import RxDB from 'rxdb/plugins/core'
-import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
-import RxDBValidateModule from 'rxdb/plugins/validate'
-import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
-import RxDBReplicationModule from 'rxdb/plugins/replication'
-import AttachmentsPlugin from 'rxdb/plugins/attachments'
-import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages'
-import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
-import JsonDumpPlugin from 'rxdb/plugins/json-dump'
-
+import { Injectable } from '@angular/core'
+import { environment } from 'environments/environment'
 import { ToastrService } from 'ngx-toastr'
-
 import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterIDB from 'pouchdb-adapter-idb'
+import { RxCollection, RxReplicationState } from 'rxdb'
+import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
+import AttachmentsPlugin from 'rxdb/plugins/attachments'
+import RxDB from 'rxdb/plugins/core'
+import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages'
+import JsonDumpPlugin from 'rxdb/plugins/json-dump'
+import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
+import RxDBReplicationModule from 'rxdb/plugins/replication'
+import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
+import RxDBValidateModule from 'rxdb/plugins/validate'
 
-import { RxDatabase, RxCollection, RxReplicationState } from 'rxdb'
-
-import { environment } from 'environments/environment'
-import { Entity } from './entity'
 import { ConfigService } from '../services/config.service'
+import { Config } from './config'
+import { Entity } from './entity'
 
 if (!environment.production) {
   console.log('[DatabaseService]', 'In debug')
@@ -37,14 +34,6 @@ RxDB.plugin(AdapterCheckPlugin)
 RxDB.plugin(JsonDumpPlugin)
 RxDB.plugin(AdapterHttp)
 RxDB.plugin(AdapterIDB)
-
-export interface Config {
-  sync: boolean
-  prefix: string
-  host: string
-  username: string
-  password: string
-}
 
 @Injectable()
 export class RxDBService {

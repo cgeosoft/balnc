@@ -2,7 +2,48 @@
   <common-content>
     <common-content-header [title]="contact.name" [icon]="contactType==='company'?'building':'user'" [subtitle]="contact._id"></common-content-header>
     <common-content-body>
-      <pre>{{contactType}}</pre>
+      <div class="row">
+        <div class="col-3">
+          <div class="card">
+            <div class="card-header">Tax Details</div>
+            <div class="card-body">
+              <dl>
+                <dt>Vat Number</dt>
+                <dd class="text-monospace">{{contact.details.taxDetails.vatNumber}}</dd>
+                <dt>Tax Office</dt>
+                <dd>{{contact.details.taxDetails.taxOffice}}</dd>
+                <dt>Address</dt>
+                <dd>{{contact.details.taxDetails.address}}</dd>
+                <dt>Legal Name</dt>
+                <dd>{{contact.details.taxDetails.legalName}}</dd>
+                <dt>Description</dt>
+                <dd>{{contact.details.taxDetails.description}}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="card">
+            <div class="card-header">Events</div>
+            <table class="table table-sm mb-0">
+              <thead>
+                <th style="width:180px;">Date</th>
+                <th style="width:130px;">Type</th>
+                <th style="width:120px;">Reference</th>
+                <th>Comment</th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let log of contact.logs">
+                  <td>{{log.date|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+                  <td>{{ContactLogType[log.type]}}</td>
+                  <td>{{log.reference}}</td>
+                  <td>{{log.comment}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
       <pre>{{contact|json:2}}</pre>
     </common-content-body>
   </common-content>

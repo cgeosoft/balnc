@@ -1,59 +1,63 @@
 import { Injectable, NgZone } from '@angular/core'
-import { RxCollection } from 'rxdb'
+import { RxCollection, RxDatabase } from 'rxdb'
 import { BehaviorSubject } from 'rxjs'
 import { LocalStorage } from 'ngx-store'
 
-import { ConfigService, RxDBService } from '@balnc/common'
+import { ConfigService, RxDBService, CommonService } from '@balnc/common'
 
+import { BoardsEntities } from './models/_entities'
 import { RxMessageDoc, Message } from './models/message'
 import { RxBoardDoc, Board, BoardWithMessages } from './models/board'
 
 @Injectable()
-export class BoardsService {
+export class BoardsService extends CommonService {
 
-  boardCol: RxCollection<RxBoardDoc>
-  messageCol: RxCollection<RxMessageDoc>
+  db: RxDatabase
+
+  // boardCol: RxCollection<RxBoardDoc>
+  // messageCol: RxCollection<RxMessageDoc>
 
   @LocalStorage() nickname: string = ''
 
   boards$: BehaviorSubject<BoardWithMessages[]> = new BehaviorSubject<BoardWithMessages[]>([])
 
   constructor (
+    dbService: RxDBService,
     private ngZone: NgZone,
-    private dbService: RxDBService,
     private configService: ConfigService
   ) {
-    this.setup()
+    super(dbService)
+    super.setup('Contacts', BoardsEntities)
   }
 
   async setup () {
     this.nickname = this.configService.profile.remoteUsername
-    this.boardCol = await this.dbService.get<RxBoardDoc>('boards')
-    this.messageCol = await this.dbService.get<RxMessageDoc>('messages')
+    // this.boardCol = await this.dbService.get<RxBoardDoc>('boards')
+    // this.messageCol = await this.dbService.get<RxMessageDoc>('messages')
 
     await this.loadBoards()
-    await this.loadSubscriptions()
+    // await this.loadSubscriptions()
   }
 
-  async loadSubscriptions () {
-    this.boardCol.$.subscribe(async (ev) => {
-      await this.loadBoards()
-    })
+  // async loadSubscriptions() {
+  //   super.getAll().$.subscribe(async (ev) => {
+  //     await this.loadBoards()
+  //   })
 
-    this.messageCol.$.subscribe(async (ev) => {
-      let message: Message = ev.data.v as Message
-      let board = this.boards$.value.find(b => b.name === message.board)
-      if (board) {
-        board.messages$.next(board.messages$.getValue().concat([message]))
-        this.ngZone.run(() => {
-          // empty
-        })
-      }
-    })
-  }
+  //   this.messageCol.$.subscribe(async (ev) => {
+  //     let message: Message = ev.data.v as Message
+  //     let board = this.boards$.value.find(b => b.name === message.board)
+  //     if (board) {
+  //       board.messages$.next(board.messages$.getValue().concat([message]))
+  //       this.ngZone.run(() => {
+  //         // empty
+  //       })
+  //     }
+  //   })
+  // }
 
   async loadBoards () {
-    let boards = await this.boardCol.find().exec() as BoardWithMessages[]
+    let boards = await super.getAll<BoardWithMessages>('boards', {})
 
     let sets = []
     boards.forEach(b => {
