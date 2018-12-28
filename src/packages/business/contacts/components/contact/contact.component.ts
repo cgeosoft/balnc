@@ -13,7 +13,13 @@ export class ContactComponent implements OnInit {
 
   contact: Contact
   contactType: string
-  ContactLogType = ContactLogType
+  contactLogType = ContactLogType
+  settingsMenu = [{
+    label: 'Toggle DataView',
+    callback: () => this.showDataView = !this.showDataView
+  }]
+
+  showDataView = false
 
   constructor (
     private route: ActivatedRoute,
@@ -29,4 +35,5 @@ export class ContactComponent implements OnInit {
         this.contactType = this.contact.tags.includes('company') ? 'company' : 'person'
       })
   }
+
 }

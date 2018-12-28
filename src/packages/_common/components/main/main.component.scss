@@ -50,7 +50,7 @@
           background-color: none;
         }
         &::-webkit-scrollbar-thumb {
-          background-color: darken($body-bg, 5);
+          background-color: lighten($dark, 7);
         }
         .item {
           display: block;

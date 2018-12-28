@@ -32,7 +32,7 @@
             <fa-icon [icon]="['fas','cog']"></fa-icon>
           </fa-layers>
         </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <div ngbDropdownMenu>
           <ng-template ngFor let-item [ngForOf]="settingsMenu">
             <div *ngIf="item.isDivider" class="dropdown-divider"></div>
             <button *ngIf="!item.isDivider" class="dropdown-item {{item.cssClass}}" (click)="item.callback()">
