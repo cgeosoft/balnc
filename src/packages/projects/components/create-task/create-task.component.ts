@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { RxDocumentBase } from 'rxdb'
 import { Observable } from 'rxjs'
 
-import { ProjectsService } from '../../services/projects.service'
+import { ProjectsService } from '../../projects.service'
 import { RxProjectDoc } from '../../models/project'
 
 @Component({
@@ -23,14 +23,14 @@ export class CreateTaskComponent implements OnInit {
   form: FormGroup
 
   constructor (
-        public activeModal: NgbActiveModal,
-        private formBuilder: FormBuilder,
-        private projectsService: ProjectsService
-    ) { }
+    public activeModal: NgbActiveModal,
+    private formBuilder: FormBuilder,
+    private projectsService: ProjectsService
+  ) { }
 
   async ngOnInit () {
 
-        // this.projects$ = await this.projectsService.getProjects()
+    // this.projects$ = await this.projectsService.getProjects()
 
     if (this.projectId === null) {
       const projects = await this.projects$.toPromise()
@@ -50,11 +50,11 @@ export class CreateTaskComponent implements OnInit {
     const formModel = this.form.value
     const projectId = formModel.project
     this.projectsService
-            .addTask(formModel.title, formModel.project, formModel.description)
-            .then(() => {
-              this.form.reset()
-              this.form.get('project').setValue(projectId)
-              this.title.nativeElement.focus()
-            })
+      .createTask(formModel.title, formModel.project, formModel.description)
+      .then(() => {
+        this.form.reset()
+        this.form.get('project').setValue(projectId)
+        this.title.nativeElement.focus()
+      })
   }
 }

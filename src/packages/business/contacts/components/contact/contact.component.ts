@@ -21,12 +21,12 @@ export class ContactComponent implements OnInit {
 
   showDataView = false
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private contactsService: ContactsService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route
       .params
       .subscribe(async params => {

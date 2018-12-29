@@ -1,6 +1,6 @@
 import { RxDocument } from 'rxdb'
 
-declare interface IProject {
+export interface Project {
   name: string
   description: string
   features: { [key: string]: boolean }
@@ -9,5 +9,4 @@ declare interface IProject {
   isArchived: boolean
 }
 
-export type Project = IProject
-export type RxProjectDoc = RxDocument<IProject> & IProject
+export type RxProjectDoc = RxDocument<Project> & Project

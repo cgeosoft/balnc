@@ -52,4 +52,4 @@ export interface TaxDetails {
   description: string
 }
 
-export type RxContactDocument = RxDocument<Contact> & Contact
+export type RxContactDoc = RxDocument<Contact> & Contact

@@ -13,17 +13,19 @@ export class WrapperComponent implements OnInit {
 
   lastAccessed$: Observable<Contact[]>
 
-  constructor(
+  constructor (
     private contactsService: ContactsService
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.lastAccessed$ = this.contactsService.lastAccessed$
   }
 
-  async generate() {
+  async generate () {
     await this.contactsService.generate()
   }
 
-  async create() { }
+  async create () {
+    // todo
+  }
 }

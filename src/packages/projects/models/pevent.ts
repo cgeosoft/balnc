@@ -1,6 +1,6 @@
 import { RxDocument } from 'rxdb'
 
-declare interface IPLog {
+export interface PEvent {
   title?: string
   description?: string
 
@@ -16,5 +16,4 @@ declare interface IPLog {
   updatedFrom?: string
 }
 
-export type PLog = IPLog
-export type RxPLogDoc = RxDocument<IPLog> & IPLog
+export type RxPEventDoc = RxDocument<PEvent> & PEvent

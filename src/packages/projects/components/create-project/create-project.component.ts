@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { FormBuilder, Validators, FormGroup } from '@angular/forms'
 
-import { ProjectsService } from '../../services/projects.service'
+import { ProjectsService } from '../../projects.service'
 
 @Component({
   selector: 'projects-project-create',

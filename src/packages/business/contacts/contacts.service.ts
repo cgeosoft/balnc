@@ -5,7 +5,7 @@ import { RxDatabase } from 'rxdb'
 import { Observable, Subject } from 'rxjs'
 
 import { ContactsEntities } from './models/entities'
-import { Contact, ContactLogType, RxContactDocument } from './models/all.model'
+import { Contact, ContactLogType, RxContactDoc } from './models/all.model'
 
 @Injectable()
 export class ContactsService extends CommonService {
@@ -13,14 +13,14 @@ export class ContactsService extends CommonService {
   public contacts$: Observable<Contact[]>
   public lastAccessed$: Subject<Contact[]> = new Subject<Contact[]>()
 
-  constructor(
+  constructor (
     dbService: RxDBService
   ) {
     super(dbService)
     super.setup('contacts', ContactsEntities)
   }
 
-  async resolve() {
+  async resolve () {
     await super.resolve()
     this.db['contacts'].find().$.subscribe(contacts => {
       contacts
@@ -33,11 +33,11 @@ export class ContactsService extends CommonService {
     })
   }
 
-  async getContacts(params): Promise<Contact[]> {
+  async getContacts (params): Promise<Contact[]> {
     return super.getAll<Contact>('contacts', params)
   }
 
-  async getContact(id): Promise<Contact> {
+  async getContact (id): Promise<Contact> {
     const contact = await super.getOne<Contact>('contacts', id)
     if (!contact) return null
 
@@ -54,11 +54,11 @@ export class ContactsService extends CommonService {
     return contact
   }
 
-  async addContacts(contact: Contact) {
+  async addContacts (contact: Contact) {
     return super.addOne('contacts', contact)
   }
 
-  async generate() {
+  async generate () {
     const cs: Contact[] = []
 
     for (let p = 0; p < 5; p++) {
@@ -117,7 +117,7 @@ export class ContactsService extends CommonService {
       cs.push(company)
     }
 
-    cs.forEach((v: RxContactDocument) => {
+    cs.forEach((v: RxContactDoc) => {
       this.db['contacts'].insert(v)
     })
   }

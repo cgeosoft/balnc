@@ -1,51 +1,40 @@
 import { Injectable } from '@angular/core'
-import { RxCollection } from 'rxdb'
-
+import { CommonService, RxDBService } from '@balnc/common'
 import * as moment from 'moment'
+import { Observable } from 'rxjs'
 
-import { RxProjectDoc } from './models/project'
-import { RxPLogDoc } from './models/plog'
-import { RxDBService, CommonService } from '@balnc/common'
+import { ProjectsEntities } from './models/entities'
+import { PEvent, RxPEventDoc } from './models/pevent'
+import { RxProjectDoc, Project } from './models/project'
 
 @Injectable()
 export class ProjectsService extends CommonService {
 
-  public contacts$: Observable<Contact[]>
-  public lastAccessed$: Subject<Contact[]> = new Subject<Contact[]>()
+  public projects$: Observable<RxProjectDoc[]>
+  public events$: Observable<RxPEventDoc[]>
 
-
-  logs: RxCollection<RxPLogDoc>
-  projects: RxCollection<RxProjectDoc>
-
-  constructor(
+  constructor (
     dbService: RxDBService
   ) {
     super(dbService)
-    super.setup('contacts', ContactsEntities)
+    super.setup('projects', ProjectsEntities)
   }
 
-  async resolve() {
+  async resolve () {
     await super.resolve()
-    this.db['contacts'].find().$.subscribe(contacts => {
-      contacts
-        .sort((ca, cb) => {
-          const caLastUpdate = new Date(ca.logs[ca.logs.length - 1].date)
-          const cbLastUpdate = new Date(cb.logs[cb.logs.length - 1].date)
-          return cbLastUpdate.getTime() - caLastUpdate.getTime()
-        })
-      this.lastAccessed$.next(contacts.slice(0, 10))
-    })
+    // this.db['projects'].find().$.subscribe(projects => {
+    //   projects
+    //     // .sort((ca, cb) => {
+    //     //   const caLastUpdate = new Date(ca.logs[ca.logs.length - 1].date)
+    //     //   const cbLastUpdate = new Date(cb.logs[cb.logs.length - 1].date)
+    //     //   return cbLastUpdate.getTime() - caLastUpdate.getTime()
+    //     // })
+    // })
   }
 
-  async setup() {
-    this.projects = await this.dbService.get<RxProjectDoc>('projects')
-    this.logs = await this.dbService.get<RxPLogDoc>('plogs')
-  }
+  async getProjects (params?: any) {
+    const projects = await super.getAll('projects', params)
 
-  async getProjects(params?: any) {
-    const projects = await this.projects.find(params).exec()
-
-    console.log(projects)
     const tasks = await this.getTasks()
     const stats = {
       tasksCounter: {},
@@ -76,36 +65,34 @@ export class ProjectsService extends CommonService {
       })
   }
 
-  async getProject(projectId): Promise<RxProjectDoc> {
-    return this.projects.findOne(projectId).exec()
+  async getProject (projectId: any): Promise<Project> {
+    return super.getOne('projects', projectId)
   }
 
-  async createProject(name: string, description: string) {
-    const result = await this.projects
-      .newDocument({
-        name: name,
-        description: description
-      })
-      .save()
+  async createProject (name: string, description: string) {
+    const result = await super.addOne('project', {
+      name: name,
+      description: description
+    })
     return result
   }
 
-  async getTasks(params: any = {}) {
+  async getTasks (params: any = {}): Promise<PEvent[]> {
     Object.assign(params, { query: { type: { $eq: 'TASK' } } })
-    const tasks = await this.logs.find(params.query).exec()
+    const tasks = await super.getAll<PEvent>('events', params.query)
     return tasks
   }
 
-  async getLog(taskId): Promise<RxPLogDoc> {
-    return this.logs.findOne(taskId).exec()
+  async getEvent (taskId: string): Promise<PEvent> {
+    return super.getOne('events', taskId)
   }
 
-  async getLogs(taskId): Promise<RxPLogDoc[]> {
-    const logs = await this.logs.find({ parent: { $eq: taskId } }).exec()
-    return logs
+  async getEventsOfParent (taskId: string): Promise<PEvent[]> {
+    const events = await this.db['events'].find({ parent: { $eq: taskId } }).exec()
+    return events
   }
 
-  async addTask(title: string, projectId: string, description: string) {
+  async createTask (title: string, projectId: string, description: string) {
     const now = moment().toISOString()
     const user = 'anonymous'
 
@@ -120,11 +107,10 @@ export class ProjectsService extends CommonService {
       project: projectId
     }
 
-    const result = this.logs.newDocument(log).save()
-    return result
+    return super.addOne('events', log)
   }
 
-  async addComment(text: string, task: RxPLogDoc) {
+  async createComment (text: string, task: RxPEventDoc) {
     const now = moment().toISOString()
     const user = 'anonymous'
 
@@ -137,29 +123,25 @@ export class ProjectsService extends CommonService {
       parent: task.get('_id')
     }
 
-    const result = this.logs.newDocument(log).save()
-    return result
+    return super.addOne('events', log)
   }
 
-  async generateDump() {
-    // await this.projects.remove()
-    // await this.tasks.remove()
-
+  async generateDump () {
     const projects: RxProjectDoc[] = []
     for (let i = 0; i < 10; i++) {
-      const project = await this.projects.insert({
+      const project = {
         name: `Project ${i}`,
         description: 'lorem ipsum dolor',
         isArchived: Math.random() > .6,
         isStarred: Math.random() > .3,
         tags: ['lorem', 'ispun']
-      } as RxProjectDoc)
-      projects.push(project)
+      }
+      await super.addOne('projects', project)
     }
 
     for (let k = 0; k < 50; k++) {
       const pr = Math.floor(Math.random() * 9)
-      await this.addTask(`Task ${k}`, projects[pr].get('_id'), 'lorem ipsum dolor')
+      await this.createTask(`Task ${k}`, projects[pr].get('_id'), 'lorem ipsum dolor')
     }
   }
 }

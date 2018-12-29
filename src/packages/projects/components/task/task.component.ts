@@ -4,8 +4,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { FormBuilder, Validators, FormGroup } from '@angular/forms'
 
 import { RxProjectDoc } from '../../models/project'
-import { RxPLogDoc } from '../../models/plog'
-import { ProjectsService } from '../../services/projects.service'
+import { RxPEventDoc } from '../../models/pevent'
+import { ProjectsService } from '../../projects.service'
 
 @Component({
   selector: 'projects-task',
@@ -19,9 +19,9 @@ export class TaskComponent implements OnInit {
   taskId: string
   comment: string = null
 
-  task: RxPLogDoc
+  task: RxPEventDoc
   project: RxProjectDoc & any = {}
-  logs: RxPLogDoc[] = []
+  logs: RxPEventDoc[] = []
 
   form: FormGroup
 
@@ -47,12 +47,12 @@ export class TaskComponent implements OnInit {
   }
 
   private async setup () {
-    this.task = await this.projectsService.getLog(this.taskId)
+    this.task = await this.projectsService.getEvent(this.taskId)
     this.project = await this.projectsService.getProject(this.task.project)
   }
 
   private async getLogs () {
-    const logs = await this.projectsService.getLogs(this.taskId)
+    const logs = await this.projectsService.getEventsOfParent(this.taskId)
     this.logs = logs.sort((a, b) => {
       return a.insertedAt < b.insertedAt ? -1 : 1
     })
@@ -60,7 +60,7 @@ export class TaskComponent implements OnInit {
 
   async submitComment () {
     const formModel = this.form.value
-    await this.projectsService.addComment(formModel.comment, this.task)
+    await this.projectsService.createComment(formModel.comment, this.task)
     await this.getLogs()
     this.form.reset()
   }

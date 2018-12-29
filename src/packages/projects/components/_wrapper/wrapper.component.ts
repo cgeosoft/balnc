@@ -1,9 +1,9 @@
 import { Component, OnInit, NgZone } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import { RxPLogDoc } from '../../models/plog'
+import { RxPEventDoc } from '../../models/pevent'
 import { CreateTaskComponent } from '../create-task/create-task.component'
-import { ProjectsService } from '../../services/projects.service'
+import { ProjectsService } from '../../projects.service'
 import { CreateProjectComponent } from '../create-project/create-project.component'
 
 @Component({
@@ -13,7 +13,7 @@ import { CreateProjectComponent } from '../create-project/create-project.compone
 })
 export class WrapperComponent implements OnInit {
 
-  tasks: RxPLogDoc[] = []
+  tasks: RxPEventDoc[] = []
   projects: any[] = null
 
   typeFilterSelected = null

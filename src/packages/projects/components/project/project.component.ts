@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import { RxPLogDoc } from '../../models/plog'
+import { RxPEventDoc, PEvent } from '../../models/pevent'
 import { CreateTaskComponent } from '../create-task/create-task.component'
 import { Project } from '../../models/project'
-import { ProjectsService } from '../../services/projects.service'
+import { ProjectsService } from '../../projects.service'
 
 @Component({
   selector: 'projects-project',
@@ -15,7 +15,7 @@ import { ProjectsService } from '../../services/projects.service'
 export class ProjectComponent implements OnInit {
 
   tabsMenu: any
-  tasks: RxPLogDoc[]
+  tasks: PEvent[]
   project: Project & any = {}
   projectId: string
 

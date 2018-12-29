@@ -11,7 +11,7 @@ export class CommonService implements Resolve<any> {
 
   alias: string
   entities: Entity[]
-  observables: { [key: string]: Observable<any>} = {}
+  observables: { [key: string]: Observable<any> } = {}
   db: RxDatabase
 
   constructor (
