@@ -3,7 +3,7 @@ import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
 
 import { ContactsService } from '../../contacts.service'
-import { Contact } from '../../models/contact'
+import { Contact } from '../../models/all.model'
 
 @Component({
   selector: 'app-contacts-overview',
@@ -16,7 +16,7 @@ export class OverviewComponent implements OnInit {
   contacts: any[]
   contacts$: Observable<Contact[]>
 
-  constructor (
+  constructor(
     private contactsService: ContactsService
   ) { }
 
@@ -31,7 +31,7 @@ export class OverviewComponent implements OnInit {
         }
       })))
 
-  ngOnInit () {
+  ngOnInit() {
     this.contacts$ = this.contactsService.contacts$
   }
 }

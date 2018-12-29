@@ -3,29 +3,46 @@ import { RxCollection } from 'rxdb'
 
 import * as moment from 'moment'
 
-
-import { RxProjectDoc } from '../models/project'
-import { RxPLogDoc } from '../models/plog'
-import { RxDBService } from '@balnc/common';
+import { RxProjectDoc } from './models/project'
+import { RxPLogDoc } from './models/plog'
+import { RxDBService, CommonService } from '@balnc/common'
 
 @Injectable()
-export class ProjectsService {
+export class ProjectsService extends CommonService {
+
+  public contacts$: Observable<Contact[]>
+  public lastAccessed$: Subject<Contact[]> = new Subject<Contact[]>()
+
 
   logs: RxCollection<RxPLogDoc>
   projects: RxCollection<RxProjectDoc>
 
-  constructor (
-    private dbService: RxDBService
+  constructor(
+    dbService: RxDBService
   ) {
-    this.setup()
+    super(dbService)
+    super.setup('contacts', ContactsEntities)
   }
 
-  async setup () {
+  async resolve() {
+    await super.resolve()
+    this.db['contacts'].find().$.subscribe(contacts => {
+      contacts
+        .sort((ca, cb) => {
+          const caLastUpdate = new Date(ca.logs[ca.logs.length - 1].date)
+          const cbLastUpdate = new Date(cb.logs[cb.logs.length - 1].date)
+          return cbLastUpdate.getTime() - caLastUpdate.getTime()
+        })
+      this.lastAccessed$.next(contacts.slice(0, 10))
+    })
+  }
+
+  async setup() {
     this.projects = await this.dbService.get<RxProjectDoc>('projects')
     this.logs = await this.dbService.get<RxPLogDoc>('plogs')
   }
 
-  async getProjects (params?: any) {
+  async getProjects(params?: any) {
     const projects = await this.projects.find(params).exec()
 
     console.log(projects)
@@ -59,11 +76,11 @@ export class ProjectsService {
       })
   }
 
-  async getProject (projectId): Promise<RxProjectDoc> {
+  async getProject(projectId): Promise<RxProjectDoc> {
     return this.projects.findOne(projectId).exec()
   }
 
-  async createProject (name: string, description: string) {
+  async createProject(name: string, description: string) {
     const result = await this.projects
       .newDocument({
         name: name,
@@ -73,22 +90,22 @@ export class ProjectsService {
     return result
   }
 
-  async getTasks (params: any = {}) {
+  async getTasks(params: any = {}) {
     Object.assign(params, { query: { type: { $eq: 'TASK' } } })
     const tasks = await this.logs.find(params.query).exec()
     return tasks
   }
 
-  async getLog (taskId): Promise<RxPLogDoc> {
+  async getLog(taskId): Promise<RxPLogDoc> {
     return this.logs.findOne(taskId).exec()
   }
 
-  async getLogs (taskId): Promise<RxPLogDoc[]> {
+  async getLogs(taskId): Promise<RxPLogDoc[]> {
     const logs = await this.logs.find({ parent: { $eq: taskId } }).exec()
     return logs
   }
 
-  async addTask (title: string, projectId: string, description: string) {
+  async addTask(title: string, projectId: string, description: string) {
     const now = moment().toISOString()
     const user = 'anonymous'
 
@@ -107,7 +124,7 @@ export class ProjectsService {
     return result
   }
 
-  async addComment (text: string, task: RxPLogDoc) {
+  async addComment(text: string, task: RxPLogDoc) {
     const now = moment().toISOString()
     const user = 'anonymous'
 
@@ -124,7 +141,7 @@ export class ProjectsService {
     return result
   }
 
-  async generateDump () {
+  async generateDump() {
     // await this.projects.remove()
     // await this.tasks.remove()
 

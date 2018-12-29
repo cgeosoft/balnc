@@ -1,4 +1,3 @@
-import { Office, TaxDetails } from './company'
 import { RxDocument } from 'rxdb'
 
 export interface ContactDetails {
@@ -37,4 +36,20 @@ export interface Contact {
   conns?: ContactConn[]
   logs: ContactLog[]
 }
+
+export interface Office {
+  address: string
+  location?: string
+  phones?: string[]
+  emails?: string[]
+}
+
+export interface TaxDetails {
+  vatNumber: string
+  taxOffice: string
+  address: string
+  legalName: string
+  description: string
+}
+
 export type RxContactDocument = RxDocument<Contact> & Contact

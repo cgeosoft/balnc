@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 
 import { ContactsService } from '../../contacts.service'
-import { Contact, ContactLogType } from '../../models/contact'
+import { Contact, ContactLogType } from '../../models/all.model'
 
 @Component({
   selector: 'contacts-contact',
@@ -21,12 +21,12 @@ export class ContactComponent implements OnInit {
 
   showDataView = false
 
-  constructor (
+  constructor(
     private route: ActivatedRoute,
     private contactsService: ContactsService
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.route
       .params
       .subscribe(async params => {
