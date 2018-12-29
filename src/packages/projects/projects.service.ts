@@ -65,8 +65,8 @@ export class ProjectsService extends CommonService {
       })
   }
 
-  async getProject (projectId: any): Promise<Project> {
-    return super.getOne('projects', projectId)
+  async getProject (projectId: any) {
+    return super.getOne<Project>('projects', projectId)
   }
 
   async createProject (name: string, description: string) {
@@ -77,14 +77,14 @@ export class ProjectsService extends CommonService {
     return result
   }
 
-  async getTasks (params: any = {}): Promise<PEvent[]> {
+  async getTasks (params: any = {}) {
     Object.assign(params, { query: { type: { $eq: 'TASK' } } })
     const tasks = await super.getAll<PEvent>('events', params.query)
     return tasks
   }
 
-  async getEvent (taskId: string): Promise<PEvent> {
-    return super.getOne('events', taskId)
+  async getEvent (taskId: string) {
+    return super.getOne<PEvent>('events', taskId)
   }
 
   async getEventsOfParent (taskId: string): Promise<PEvent[]> {

@@ -5,7 +5,7 @@ import { TaskComponent } from './components/task/task.component'
 import { ProjectsService } from './projects.service'
 
 export const ProjectsRoutes = [{
-  path: 'projects',
+  path: '',
   component: WrapperComponent,
   resolve: {
     srv: ProjectsService

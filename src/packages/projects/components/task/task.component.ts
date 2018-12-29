@@ -1,10 +1,10 @@
-import { Component, NgZone, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { FormBuilder, Validators, FormGroup } from '@angular/forms'
 
-import { RxProjectDoc } from '../../models/project'
-import { RxPEventDoc } from '../../models/pevent'
+import { PEvent, RxPEventDoc } from '../../models/pevent'
+import { Project } from '../../models/project'
 import { ProjectsService } from '../../projects.service'
 
 @Component({
@@ -19,9 +19,9 @@ export class TaskComponent implements OnInit {
   taskId: string
   comment: string = null
 
-  task: RxPEventDoc
-  project: RxProjectDoc & any = {}
-  logs: RxPEventDoc[] = []
+  task: PEvent
+  project: Project = null
+  pEvents: PEvent[] = []
 
   form: FormGroup
 
@@ -42,7 +42,7 @@ export class TaskComponent implements OnInit {
           comment: ['', [Validators.required]]
         })
         this.setup()
-        this.getLogs()
+        this.getPEvents()
       })
   }
 
@@ -51,17 +51,17 @@ export class TaskComponent implements OnInit {
     this.project = await this.projectsService.getProject(this.task.project)
   }
 
-  private async getLogs () {
-    const logs = await this.projectsService.getEventsOfParent(this.taskId)
-    this.logs = logs.sort((a, b) => {
+  private async getPEvents () {
+    const pEvents = await this.projectsService.getEventsOfParent(this.taskId)
+    this.pEvents = pEvents.sort((a, b) => {
       return a.insertedAt < b.insertedAt ? -1 : 1
     })
   }
 
   async submitComment () {
     const formModel = this.form.value
-    await this.projectsService.createComment(formModel.comment, this.task)
-    await this.getLogs()
+    await this.projectsService.createComment(formModel.comment, this.task as RxPEventDoc)
+    await this.getPEvents()
     this.form.reset()
   }
 }
