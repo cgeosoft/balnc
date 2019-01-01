@@ -20,6 +20,10 @@ export class OverviewComponent implements OnInit {
     private contactsService: ContactsService
   ) { }
 
+  ngOnInit() {
+    this.contacts$ = this.contactsService.contacts$
+  }
+
   search = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(300),
@@ -30,8 +34,4 @@ export class OverviewComponent implements OnInit {
           $eq: term
         }
       })))
-
-  ngOnInit() {
-    this.contacts$ = this.contactsService.contacts$
-  }
 }

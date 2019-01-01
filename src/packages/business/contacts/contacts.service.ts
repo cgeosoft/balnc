@@ -31,6 +31,7 @@ export class ContactsService extends CommonService {
         })
       this.lastAccessed$.next(contacts.slice(0, 10))
     })
+    this.contacts$ = this.db['contacts'].find().$
   }
 
   async getContacts (params): Promise<Contact[]> {
