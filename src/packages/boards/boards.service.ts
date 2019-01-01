@@ -14,8 +14,8 @@ export class BoardsService extends CommonService {
 
   db: RxDatabase
 
-  // boardCol: RxCollection<RxBoardDoc>
-  // messageCol: RxCollection<RxMessageDoc>
+  boards: RxCollection<RxBoardDoc>
+  messages: RxCollection<RxMessageDoc>
 
   @LocalStorage() nickname: string = ''
 
@@ -75,7 +75,7 @@ export class BoardsService extends CommonService {
   }
 
   async loadMessages (boardName: String) {
-    let query = this.messageCol.find().where('board').eq(boardName)
+    let query = this.messages.find().where('board').eq(boardName)
     const messagesRaw = await query.exec()
     const messages: Message[] = messagesRaw
       .sort((a, b) => {
@@ -106,7 +106,7 @@ export class BoardsService extends CommonService {
       lastMessage: {}
     }, board)
     const _boardDoc: RxBoardDoc = Object.assign({}, _board)
-    await this.boardCol.newDocument(_boardDoc).save()
+    await this.boards.newDocument(_boardDoc).save()
   }
 
   async joinBoard (boardName: any) {
@@ -131,7 +131,7 @@ export class BoardsService extends CommonService {
   }
 
   async updateBoard (boardName, newItem: Board) {
-    let existBoard = await this.boardCol.findOne().where('name').eq(boardName).exec()
+    let existBoard = await this.boards.findOne().where('name').eq(boardName).exec()
     existBoard = Object.assign(existBoard, newItem)
     await existBoard.save()
   }
@@ -139,14 +139,14 @@ export class BoardsService extends CommonService {
   async sendMessage (message: Message) {
     const _message: RxMessageDoc = Object.assign({}, message as RxMessageDoc)
     _message.sendAt = (new Date()).getTime()
-    await this.messageCol.newDocument(_message).save()
+    await this.messages.newDocument(_message).save()
   }
 
   async deleteBoard (boardName) {
-    let existBoard = await this.boardCol.findOne().where('name').eq(boardName).exec()
+    let existBoard = await this.boards.findOne().where('name').eq(boardName).exec()
     existBoard.remove()
 
-    let messages = await this.messageCol.find().where('board').eq(boardName).exec()
+    let messages = await this.messages.find().where('board').eq(boardName).exec()
     if (messages.length) {
       messages.forEach(m => {
         m.remove()
