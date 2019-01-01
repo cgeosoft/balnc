@@ -71,12 +71,14 @@ export class AddPageComponent {
         this.imageInfo.width = img.width
         this.imageInfo.height = img.height
       }
-      img.src = reader.result
 
-      this.imagePreview = reader.result
-      const parts = reader.result.split(',')
+      const src = reader.result as string
+      img.src = src
+
+      this.imagePreview = src
+      const parts = src.split(',')
       const info = parts[0].split(';')
-            // this.page.blob = parts[1]
+      // this.page.blob = parts[1]
       this.page.fileType = info[0].replace('data:', '')
     }
     reader.readAsDataURL(this.page.file)
@@ -84,7 +86,7 @@ export class AddPageComponent {
 
   s4 () {
     return Math.floor((1 + Math.random()) * 0x10000)
-            .toString(16)
-            .substring(1)
+      .toString(16)
+      .substring(1)
   }
 }
