@@ -1,0 +1,107 @@
+{
+    "id": "order",
+    "title": "Order",
+    "type": "object",
+    "definitions": {
+        "transformation": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "faker": "lorem.sentence"
+                },
+                "method": {
+                    "enum": ["percent", "exact"],
+                    "default": "percent"
+                },
+                "amount": {
+                    "type": "number",
+                    "faker": "finance.amount"
+                }
+            },
+            "required": ["description", "method", "amount"]
+        },
+        "orderItem": {
+            "type": "object",
+            "properties": {
+                "transformations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/transformation"
+                    }
+                },
+                "count": {
+                    "type": "number",
+                    "faker": "random.number"
+                },
+                "amount": {
+                    "type": "number",
+                    "faker": "finance.amount"
+                },
+                "description": {
+                    "type": "string",
+                    "faker": "lorem.sentence"
+                },
+                "comment": {
+                    "type": "string"
+                }
+            },
+            "required": ["description", "price", "amount"]
+        },
+        "orderActivity": {
+            "type": "object",
+            "properties": {
+                "date": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "required": ["date"]
+        }
+    },
+    "properties": {
+        "transformations": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/transformation"
+            }
+        },
+        "dateExecute": {
+            "type": "string",
+            "faker": "date.past"
+        },
+        "crontab": {
+            "type": "string",
+            "description": "used for recurring order"
+        },
+        "status": {
+            "enum": ["started", "processing", "processed"]
+        },
+        "serial": {
+            "type": "string",
+            "faker": "random.uuid"
+        },
+        "currency": {
+            "type": "string",
+            "faker": "finance.currencyCode"
+        },
+        "comment": {
+            "type": "string"
+        },
+        "items": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/orderItem"
+            }
+        },
+        "activity": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/orderActivity"
+            }
+        }
+    },
+    "required": ["serial", "status", "date", "currency", "items"]
+}

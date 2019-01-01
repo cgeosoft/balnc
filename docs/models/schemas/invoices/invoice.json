@@ -1,0 +1,20 @@
+{
+    "id": "invoice",
+    "title": "Invoice",
+    "type": "object",
+    "properties": {
+        "order": {
+            "$ref": "order.json"
+        },
+        "date": {
+            "type": "string"
+        },
+        "file": {
+            "type": "string"
+        },
+        "comment": {
+            "type": "string"
+        }
+    },
+    "required": []
+}
