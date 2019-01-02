@@ -3,26 +3,17 @@ import { RxCollection } from 'rxdb'
 
 import { Presentation } from './models/presentation'
 import { PresentationsEntities } from './models/_entities'
-import { RxDBService } from '@balnc/common'
+import { RxDBService, CommonService } from '@balnc/common'
 
 @Injectable()
-export class PresentationsService {
+export class PresentationsService extends CommonService {
 
-  presentations: RxCollection<Presentation>
-
-  constructor (
-    private dbService: RxDBService
-  ) {
-  }
-
-  async setup () {
-    await this.dbService.setup(PresentationsEntities)
-    this.presentations = await this.dbService.get<Presentation>('presentations')
-  }
+  alias = 'presentations'
+  entities = PresentationsEntities
 
   async getPresentations (params?: any) {
     params = params || {}
-    let _presentations = await this.presentations.find(params).exec()
+    let _presentations = await super.getAll<Presentation>('presentations', params)
     const images$ = _presentations
       .map(async (presentation) => {
         return this.getThumb(presentation)
@@ -46,21 +37,18 @@ export class PresentationsService {
   }
 
   async getPresentation (presentationId): Promise<Presentation & any> {
-    const presentation: Presentation & any = await this.presentations.findOne(presentationId).exec()
+    const presentation: Presentation & any = await super.getOne<Presentation>('presentations', presentationId)
     presentation.pages = presentation.pages || []
     presentation.stats = await this.getStats(presentation)
     return presentation
   }
 
   async addPresentation (title: string, description?: string) {
-    const presentation = this.presentations
-      .newDocument({
-        title: title,
-        description: description,
-        pages: []
-      })
-
-    await presentation.save()
+    await super.addOne('presentations', {
+      title: title,
+      description: description,
+      pages: []
+    })
   }
 
   async getThumb (presentation: Presentation): Promise<any> {
@@ -80,7 +68,8 @@ export class PresentationsService {
       try {
         const reader = new FileReader()
         reader.onload = () => {
-          const base64 = reader.result.split(',')[1]
+          const result = reader.result as string
+          const base64 = result.split(',')[1]
           const src = 'data:' + attachment.type + ';base64,' + base64
           resolve(src)
         }

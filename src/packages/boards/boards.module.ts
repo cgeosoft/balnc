@@ -1,14 +1,11 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-
 import { CommonModule } from '@balnc/common'
 
 import { BoardsService } from './boards.service'
-
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
 import { BoardComponent } from './components/board/board.component'
-import { BoardsEntities } from './models/_entities'
-import { BoardsRoutes } from '.';
+import { BoardsRoutes } from './boards.routes'
 
 @NgModule({
   imports: [

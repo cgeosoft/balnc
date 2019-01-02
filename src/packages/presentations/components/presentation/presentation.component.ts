@@ -1,10 +1,7 @@
-import { Component, NgZone, OnInit, ViewChild, ElementRef } from '@angular/core'
-import { Router, ActivatedRoute } from '@angular/router'
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-
 import * as screenfull from 'screenfull'
-import * as _ from 'lodash'
-import * as moment from 'moment'
 
 import { Presentation } from '../../models/presentation'
 import { PresentationsService } from '../../presentations.service'
@@ -126,7 +123,7 @@ export class PresentationComponent implements OnInit {
     const _pages = this.presentation.pages
     _pages.splice(index, 1)
     this.presentation.pages = _pages
-    this.presentation.dateUpdated = moment().toISOString()
+    this.presentation.dateUpdated = new Date()
     await this.presentation.save()
     await this.cleanupFiles()
   }

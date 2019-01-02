@@ -1,26 +1,25 @@
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
-import { SwiperModule, SWIPER_CONFIG } from 'ngx-swiper-wrapper'
-import { ChartModule } from 'angular2-chartjs'
-
 import { CommonModule } from '@balnc/common'
+import { ChartModule } from 'angular2-chartjs'
+import { SWIPER_CONFIG, SwiperModule } from 'ngx-swiper-wrapper'
 
-import { PresentationsService } from './presentations.service'
-import { PresentationComponent } from './components/presentation/presentation.component'
-import { CreateComponent } from './components/create/create.component'
-import { AddPageComponent } from './components/add-page/add-page.component'
-import { OverviewComponent } from './components/overview/overview.component'
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
-import { PresentationsEntities } from './models/_entities'
+import { AddPageComponent } from './components/add-page/add-page.component'
+import { CreateComponent } from './components/create/create.component'
+import { OverviewComponent } from './components/overview/overview.component'
+import { PresentationComponent } from './components/presentation/presentation.component'
+import { PresentationsService } from './presentations.service'
+import { PresentationsRoutes } from './presentations.routes'
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
+    RouterModule.forChild(PresentationsRoutes),
     SwiperModule,
-    ChartModule,
+    ChartModule
   ],
   declarations: [
     WrapperComponent,

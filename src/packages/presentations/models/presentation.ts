@@ -6,8 +6,8 @@ declare interface IPresentation {
   image: string
   pages: any[]
   menu: any[]
-  dateCreated: string
-  dateUpdated: string
+  dateCreated: Date
+  dateUpdated: Date
   dateIssued: any
   status: any
   comment: any

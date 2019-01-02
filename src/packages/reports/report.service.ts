@@ -1,38 +1,34 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { BehaviorSubject } from 'rxjs'
-import { RxCollection } from 'rxdb'
-
+import { CommonService, RxDBService } from '@balnc/common'
 import * as _ from 'lodash'
-import * as moment from 'moment'
 
-import { RxReportDoc, Report } from './models/report'
+import { BehaviorSubject } from 'rxjs'
+
+import { ReportsEntities } from './models/_entities'
 import { ReportSettings } from './models/module-settings'
-import { RxDBService } from '@balnc/common';
+import { Report } from './models/report'
 
 @Injectable()
-export class ReportService {
+export class ReportService extends CommonService {
+
+  alias = 'reports'
+  entities = ReportsEntities
 
   reportAdminRole = 'report-admin'
   settings: ReportSettings
 
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
-  reports: RxCollection<RxReportDoc>
-
   constructor (
-    private dbService: RxDBService,
+    dbService: RxDBService,
     private http: HttpClient
   ) {
-    this.setup()
-  }
-
-  async setup () {
-    this.reports = await this.dbService.get<RxReportDoc>('reports')
+    super(dbService)
   }
 
   async all (params: any = {}) {
-    const data = await this.reports.find(params).exec()
+    const data = await super.getAll<Report>('reports', params)
     const reports = data
       .filter(report => {
         return report.roles
@@ -49,7 +45,7 @@ export class ReportService {
   }
 
   async one (id: string) {
-    const reportDoc = await this.reports.findOne(id).exec()
+    const reportDoc = await super.getOne<Report>('reports', id)
     const report = _.cloneDeep(reportDoc) as Report
 
     report.filters.forEach(async filter => {
@@ -61,9 +57,9 @@ export class ReportService {
           break
         case 'date':
           if (filter.default === null) {
-            filter.value = moment().format('YYYY-MM-DD')
+            filter.value = new Date() // moment().format('YYYY-MM-DD')
           } else {
-            filter.value = moment().add(filter.default.value, filter.default.type).format('YYYY-MM-DD')
+            filter.value = new Date() // moment().add(filter.default.value, filter.default.type).format('YYYY-MM-DD')
           }
           break
       }
@@ -85,7 +81,7 @@ export class ReportService {
   async generateQuery (report: Report, filters) {
     let query = ''
     try {
-      const r = await this.reports.findOne(report.alias).exec()
+      const r = await super.getOne<Report>('reports', report.alias)
       const attachment = await r.getAttachment('query.sql')
       query = await attachment.getStringData()
     } catch (err) {

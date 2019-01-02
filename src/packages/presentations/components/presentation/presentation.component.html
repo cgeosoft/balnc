@@ -1,7 +1,8 @@
 <ng-container *ngIf="presentation; else emptyPresentation">
   <common-content>
 
-    <common-content-header [title]="presentation.title" [subtitle]="'Presentation: '+presentation._id" icon="desktop" [tabsMenu]="tabsMenu"></common-content-header>
+    <common-content-header [title]="presentation.title" [subtitle]="'Presentation: '+presentation._id" icon="desktop"
+      [tabsMenu]="tabsMenu"></common-content-header>
 
     <common-content-body *ngIf="tabsMenu.selected === 'overview'">
 
@@ -11,12 +12,14 @@
           <button class="btn btn-primary btn-block btn-lg mb-2" (click)="startPresentation()">
             <fa-layers class="fa-fw">
               <fa-icon [icon]="['fas','play-circle']"></fa-icon>
-            </fa-layers> Start Presentation</button>
+            </fa-layers> Start Presentation
+          </button>
 
           <button class="btn btn-outline-primary btn-block mb-2">
             <fa-layers class="fa-fw">
               <fa-icon [icon]="['fas','share']"></fa-icon>
-            </fa-layers> Share</button>
+            </fa-layers> Share
+          </button>
 
           <div class="card border-primary mb-2">
             <div class="card-body">
@@ -30,7 +33,7 @@
                   <ul class="list-unstyled">
                     <li>Version
                       <strong>{{presentation | docVersion}}</strong> with last edit
-                      <strong>{{presentation.dateUpdated | amTimeAgo}}</strong>
+                      <strong>{{presentation.dateUpdated | dfnsDistanceInWordsToNow}}</strong>
                     </li>
                     <li>Total
                       <strong>{{presentation.pages.length}}</strong> pages with
@@ -167,7 +170,8 @@
               </button>
               <div ngbDropdownMenu>
                 <ng-container *ngIf="presentation.pages; else emptyPages">
-                  <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)" *ngFor="let page of presentation.pages; let i = index;">
+                  <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)"
+                    *ngFor="let page of presentation.pages; let i = index;">
                     {{page.title}}
                     <small class="pull-right">#{{i+1}}</small>
                   </a>

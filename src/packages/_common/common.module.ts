@@ -9,7 +9,6 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { FileHelpersModule } from 'ngx-file-helpers'
-import { MomentModule } from 'ngx-moment'
 import { NgPipesModule } from 'ngx-pipes'
 import { WebStorageModule } from 'ngx-store'
 import { ToastrModule } from 'ngx-toastr'
@@ -26,12 +25,12 @@ import { LoaderComponent } from './components/loader/loader.component'
 import { MainComponent } from './components/main/main.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 import { SidebarComponent } from './components/sidebar/sidebar.component'
-import { AgoPipe } from './pipes/ago.pipe'
 import { DocVersionPipe } from './pipes/doc-version.pipe'
 import { EllipsisPipe } from './pipes/ellipsis.pipe'
 import { RxDBService } from './rxdb/rxdb.service'
 import { HelperService } from './services/helper.service'
 import { CommonService } from './services/common.service'
+import { DateFnsModule } from 'ngx-date-fns'
 
 library.add(fas, far)
 
@@ -42,16 +41,15 @@ library.add(fas, far)
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
-    MomentModule,
     NgbModule,
     NgPipesModule,
     ReactiveFormsModule,
     RouterModule,
     ToastrModule,
-    WebStorageModule
+    WebStorageModule,
+    DateFnsModule
   ],
   declarations: [
-    AgoPipe,
     BoxComponent,
     ContentBodyComponent,
     ContentComponent,
@@ -78,13 +76,12 @@ library.add(fas, far)
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
-    MomentModule,
     NgbModule,
     NgPipesModule,
     ReactiveFormsModule,
     ToastrModule,
+    DateFnsModule,
 
-    AgoPipe,
     DocVersionPipe,
     EllipsisPipe,
 

@@ -12,7 +12,8 @@ import { RxBoardDoc, Board, BoardWithMessages } from './models/board'
 @Injectable()
 export class BoardsService extends CommonService {
 
-  db: RxDatabase
+  alias = 'boards'
+  entities = BoardsEntities
 
   boards: RxCollection<RxBoardDoc>
   messages: RxCollection<RxMessageDoc>
@@ -27,7 +28,6 @@ export class BoardsService extends CommonService {
     private configService: ConfigService
   ) {
     super(dbService)
-    super.setup('Contacts', BoardsEntities)
   }
 
   async setup () {

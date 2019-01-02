@@ -11,7 +11,7 @@
                 <span class="fa fa-tasks fa-fw"></span>
                 {{task.insertedFrom}} add task</div>
               <div class="ml-auto">
-                <small class="text-muted">{{task.insertedAt | amTimeAgo}}</small>
+                <small class="text-muted">{{task.insertedAt | dfnsDistanceInWordsToNow}}</small>
               </div>
             </div>
             <div class="card-body">
@@ -30,7 +30,7 @@
                     {{log.insertedFrom}} commented
                   </div>
                   <div class="ml-auto">
-                    <small class="text-muted">{{log.insertedAt | amTimeAgo}}</small>
+                    <small class="text-muted">{{log.insertedAt | dfnsDistanceInWordsToNow}}</small>
                   </div>
                 </div>
                 <div class="card-body">
@@ -43,7 +43,7 @@
             <ng-container *ngIf="log.type==='SYSTEM'">
               <div class="alert alert-info" role="alert">
                 <span class="fa fa-info-circle"></span> {{log.description}}
-                <small>from {{log.insertedFrom}} at {{log.insertedAt | amTimeAgo}}</small>
+                <small>from {{log.insertedFrom}} at {{log.insertedAt | dfnsDistanceInWordsToNow}}</small>
               </div>
             </ng-container>
           </ng-container>

@@ -10,15 +10,11 @@ import { Contact, ContactLogType, RxContactDoc } from './models/all.model'
 @Injectable()
 export class ContactsService extends CommonService {
 
+  alias = 'contacts'
+  entities = ContactsEntities
+
   public contacts$: Observable<Contact[]>
   public lastAccessed$: Subject<Contact[]> = new Subject<Contact[]>()
-
-  constructor (
-    dbService: RxDBService
-  ) {
-    super(dbService)
-    super.setup('contacts', ContactsEntities)
-  }
 
   async resolve () {
     await super.resolve()

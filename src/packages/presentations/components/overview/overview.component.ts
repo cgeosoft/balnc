@@ -1,11 +1,8 @@
-import { Component, NgZone, OnInit, OnDestroy } from '@angular/core'
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
+import { Component, OnInit } from '@angular/core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import * as _ from 'lodash'
-import * as moment from 'moment'
-
-import { PresentationsService } from '../../presentations.service'
 import { Presentation } from '../../models/presentation'
+import { PresentationsService } from '../../presentations.service'
 
 @Component({
   selector: 'presentations-overview',
@@ -33,9 +30,4 @@ export class OverviewComponent implements OnInit {
     // await this.modal.open(CreatePresentationComponent).result
     this.load()
   }
-
-  getLastEdit (presentation: Presentation) {
-    return moment(presentation.dateUpdated).fromNow()
-  }
-
 }

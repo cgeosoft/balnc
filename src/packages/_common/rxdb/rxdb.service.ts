@@ -57,23 +57,25 @@ export class RxDBService {
     }
   }
 
-  async setup (entities: Entity[]) {
+  async setup (alias, entities: Entity[]) {
     if (!this.configService.profile) {
       console.log('[DatabaseService]', `Can not initialize DB with a valid profile`)
       return
     }
 
-    console.log('[DatabaseService]', `Initializing DB: ${this.config.prefix}`)
+    const name = `${this.config.prefix}_${alias}`
+
+    console.log('[DatabaseService]', `Initializing DB: ${name}`)
     const _adapter = await this.getAdapter()
     const db = await RxDB.create({
-      name: this.config.prefix,
+      name: name,
       adapter: _adapter
     })
 
     console.log('[DatabaseService]', `Setup entities`, entities)
     let sets = []
     for (const entity of entities) {
-      console.log(`Load entity ${entity.name} in ${this.config.prefix}`)
+      console.log(`Load entity ${entity.name} in ${name}`)
       let set = db.collection({
         name: entity.name,
         schema: entity.schema,
@@ -83,15 +85,17 @@ export class RxDBService {
       sets.push(set)
     }
     await Promise.all(sets)
-    await this.sync(db)
+    await this.sync(alias, db)
 
     return db
   }
 
-  async sync (db) {
+  async sync (alias, db) {
+
+    const name = `${this.config.prefix}_${alias}`
 
     if (!this.config.sync) {
-      console.log('[DatabaseService]', `Sync is disabled for ${this.config.prefix}`)
+      console.log('[DatabaseService]', `Sync is disabled for ${name}`)
       return
     }
 
@@ -106,11 +110,11 @@ export class RxDBService {
         const ent: RxCollection<any> = db[key]
 
         if (!ent) {
-          console.log('[DatabaseService]', `Entity ${entity.name} for ${this.config.prefix} not found`)
+          console.log('[DatabaseService]', `Entity ${entity.name} for ${name} not found`)
         }
 
         this.replicationStates[key] = ent.sync({
-          remote: `${this.config.host}/${this.config.prefix}_${entity.name}/`,
+          remote: `${this.config.host}/${name}_${entity.name}/`,
           options: {
             live: true,
             retry: true

@@ -17,6 +17,9 @@ export const AppRoutes: Routes = [{
     path: 'projects',
     loadChildren: '../packages/projects/projects.module#ProjectsModule'
   }, {
+    path: 'presentations',
+    loadChildren: '../packages/presentations/presentations.module#PresentationsModule'
+  }, {
     path: '',
     pathMatch: 'full',
     redirectTo: '/dashboard'

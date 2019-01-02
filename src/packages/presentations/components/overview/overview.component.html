@@ -50,7 +50,7 @@
               </td>
               <td>
                 <div class="d-flex flex-column align-items-start">
-                  <span>{{getLastEdit(presentation)}}</span>
+                  <span>{{presentation.dateUpdated|dfnsDistanceInWordsToNow}}</span>
                   <small class="text-muted">{{presentation.dateUpdated | date:'medium'}}</small>
                 </div>
               </td>

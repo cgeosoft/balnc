@@ -16,7 +16,6 @@ export * from './components/sidebar/sidebar.component'
 export * from './models/package'
 export * from './models/profile'
 
-export * from './pipes/ago.pipe'
 export * from './pipes/doc-version.pipe'
 export * from './pipes/ellipsis.pipe'
 

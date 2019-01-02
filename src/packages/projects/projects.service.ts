@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { CommonService, RxDBService } from '@balnc/common'
-import * as moment from 'moment'
+
 import { Observable } from 'rxjs'
 
 import { ProjectsEntities } from './models/entities'
@@ -10,15 +10,11 @@ import { RxProjectDoc, Project } from './models/project'
 @Injectable()
 export class ProjectsService extends CommonService {
 
+  alias = 'projects'
+  entities = ProjectsEntities
+
   public projects$: Observable<RxProjectDoc[]>
   public events$: Observable<RxPEventDoc[]>
-
-  constructor (
-    dbService: RxDBService
-  ) {
-    super(dbService)
-    super.setup('projects', ProjectsEntities)
-  }
 
   async resolve () {
     await super.resolve()
@@ -93,7 +89,7 @@ export class ProjectsService extends CommonService {
   }
 
   async createTask (title: string, projectId: string, description: string) {
-    const now = moment().toISOString()
+    const now = new Date()
     const user = 'anonymous'
 
     const log = {
@@ -111,7 +107,7 @@ export class ProjectsService extends CommonService {
   }
 
   async createComment (text: string, task: RxPEventDoc) {
-    const now = moment().toISOString()
+    const now = new Date()
     const user = 'anonymous'
 
     const log = {

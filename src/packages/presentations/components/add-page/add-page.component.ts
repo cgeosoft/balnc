@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core'
 
 import * as _ from 'lodash'
-import * as moment from 'moment'
 
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { Presentation } from '../../models/presentation'
@@ -53,7 +52,7 @@ export class AddPageComponent {
     })
 
     this.presentation.pages = _pages
-    this.presentation.dateUpdated = moment().toISOString()
+    this.presentation.dateUpdated = new Date()
     this.presentation.save()
 
     this.activeModal.close(this.page)
