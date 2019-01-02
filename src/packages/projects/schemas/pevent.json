@@ -30,13 +30,13 @@
     },
 
     "insertedAt": {
-      "type": "string"
+      "type": "number"
     },
     "insertedFrom": {
       "type": "string"
     },
     "updatedAt": {
-      "type": "string"
+      "type": "number"
     },
     "updatedFrom": {
       "type": "string"

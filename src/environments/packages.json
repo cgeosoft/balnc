@@ -53,7 +53,7 @@
     "menu": [{
       "label": "Presentations",
       "icon": "desktop",
-      "path": "/presentations/overview"
+      "path": "/presentations"
     }]
   }, {
     "id": "analytics",

@@ -37,10 +37,9 @@ export class CommonService implements Resolve<any> {
     return obj
   }
 
-  async addOne<T> (entity: string, obj: T) {
-    const result = await this.db[entity]
-      .newDocument(obj)
-      .save()
-    return result
+  async addOne<T> (entity: string, obj: T): Promise<RxDocument<T> & T> {
+    let doc = this.db[entity].newDocument(obj)
+    await doc.save()
+    return doc
   }
 }

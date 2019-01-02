@@ -4,14 +4,14 @@
       <h4>Projects</h4>
     </div>
     <div class="items">
-      <div class="divider"></div>
       <button (click)="createProject()" class="primary">
         <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
         <span>New Project</span>
       </button>
-      <button (click)="generateDump()">
+      <button (click)="generateDemoData()">
         <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
         <span>Generate Data</span>
+        <fa-icon [icon]="['fas','cog']" [spin]="true" class="icon icon-badge" *ngIf="generating"></fa-icon>
       </button>
       <div class="divider"></div>
       <ng-container *ngIf="projects; else empty">

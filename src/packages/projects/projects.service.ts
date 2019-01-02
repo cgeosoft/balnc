@@ -16,19 +16,7 @@ export class ProjectsService extends CommonService {
   public projects$: Observable<RxProjectDoc[]>
   public events$: Observable<RxPEventDoc[]>
 
-  async resolve () {
-    await super.resolve()
-    // this.db['projects'].find().$.subscribe(projects => {
-    //   projects
-    //     // .sort((ca, cb) => {
-    //     //   const caLastUpdate = new Date(ca.logs[ca.logs.length - 1].date)
-    //     //   const cbLastUpdate = new Date(cb.logs[cb.logs.length - 1].date)
-    //     //   return cbLastUpdate.getTime() - caLastUpdate.getTime()
-    //     // })
-    // })
-  }
-
-  async getProjects (params?: any) {
+  async getProjects(params?: any) {
     const projects = await super.getAll('projects', params)
 
     const tasks = await this.getTasks()
@@ -61,11 +49,11 @@ export class ProjectsService extends CommonService {
       })
   }
 
-  async getProject (projectId: any) {
+  async getProject(projectId: any) {
     return super.getOne<Project>('projects', projectId)
   }
 
-  async createProject (name: string, description: string) {
+  async createProject(name: string, description: string) {
     const result = await super.addOne('project', {
       name: name,
       description: description
@@ -73,57 +61,51 @@ export class ProjectsService extends CommonService {
     return result
   }
 
-  async getTasks (params: any = {}) {
+  async getTasks(params: any = {}) {
     Object.assign(params, { query: { type: { $eq: 'TASK' } } })
-    const tasks = await super.getAll<PEvent>('events', params.query)
+    const tasks = await super.getAll<PEvent>('pevents', params.query)
     return tasks
   }
 
-  async getEvent (taskId: string) {
-    return super.getOne<PEvent>('events', taskId)
+  async getEvent(taskId: string) {
+    return super.getOne<PEvent>('pevents', taskId)
   }
 
-  async getEventsOfParent (taskId: string): Promise<PEvent[]> {
-    const events = await this.db['events'].find({ parent: { $eq: taskId } }).exec()
+  async getEventsOfParent(taskId: string): Promise<PEvent[]> {
+    const events = await this.db['pevents'].find({ parent: { $eq: taskId } }).exec()
     return events
   }
 
-  async createTask (title: string, projectId: string, description: string) {
-    const now = new Date()
-    const user = 'anonymous'
-
+  async createTask(title: string, projectId: string, description: string) {
     const log = {
       title: title,
       description: description,
-      insertedAt: now,
-      updatedAt: now,
-      insertedFrom: user,
+      insertedAt: Date.now(),
+      updatedAt: Date.now(),
+      insertedFrom: 'anon',
       type: 'TASK',
       status: 'PENDING',
       project: projectId
     }
 
-    return super.addOne('events', log)
+    return super.addOne('pevents', log)
   }
 
-  async createComment (text: string, task: RxPEventDoc) {
-    const now = new Date()
-    const user = 'anonymous'
-
+  async createComment(text: string, task: RxPEventDoc) {
     const log = {
       description: text,
-      insertedAt: now,
-      insertedFrom: user,
+      insertedAt: Date.now(),
+      insertedFrom: 'anon',
       type: 'COMMENT',
       project: task.project,
       parent: task.get('_id')
     }
 
-    return super.addOne('events', log)
+    return super.addOne('pevents', log)
   }
 
-  async generateDump () {
-    const projects: RxProjectDoc[] = []
+  async generateDemoData() {
+    const projects = []
     for (let i = 0; i < 10; i++) {
       const project = {
         name: `Project ${i}`,
@@ -132,12 +114,16 @@ export class ProjectsService extends CommonService {
         isStarred: Math.random() > .3,
         tags: ['lorem', 'ispun']
       }
-      await super.addOne('projects', project)
+      let p = await super.addOne('projects', project)
+      projects.push(p)
     }
 
     for (let k = 0; k < 50; k++) {
-      const pr = Math.floor(Math.random() * 9)
-      await this.createTask(`Task ${k}`, projects[pr].get('_id'), 'lorem ipsum dolor')
+      const pr = Math.floor(Math.random() * projects.length)
+      if (projects[pr]) {
+
+        await this.createTask(`Task ${k}`, projects[pr].get('_id'), 'lorem ipsum dolor')
+      }
     }
   }
 }

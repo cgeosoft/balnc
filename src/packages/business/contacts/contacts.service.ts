@@ -55,7 +55,7 @@ export class ContactsService extends CommonService {
     return super.addOne('contacts', contact)
   }
 
-  async generate () {
+  async generateDemoData () {
     const cs: Contact[] = []
 
     for (let p = 0; p < 5; p++) {

@@ -22,7 +22,7 @@ export class WrapperComponent implements OnInit {
   }
 
   async generate () {
-    await this.contactsService.generate()
+    await this.contactsService.generateDemoData()
   }
 
   async create () {

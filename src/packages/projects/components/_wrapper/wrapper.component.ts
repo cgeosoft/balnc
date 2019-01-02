@@ -26,6 +26,8 @@ export class WrapperComponent implements OnInit {
   filters: any
   showFilters = false
 
+  generating = false
+
   constructor (
     private projectsService: ProjectsService,
     private modal: NgbModal
@@ -68,8 +70,11 @@ export class WrapperComponent implements OnInit {
     this.load()
   }
 
-  async generateDump () {
-    await this.projectsService.generateDump()
+  async generateDemoData () {
+    this.generating = true
+    await this.projectsService.generateDemoData()
+    await this.load()
+    this.generating = false
   }
 
 }
