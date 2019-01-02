@@ -17,7 +17,7 @@
         </a>
       </div>
       <ng-template ngFor let-package [ngForOf]="packages" *ngIf="packages.length">
-        <div class="divider"></div>
+        <!-- <div class="divider"></div> -->
         <ng-template ngFor let-item [ngForOf]="package.menu" *ngIf="package.menu">
           <div class="item menu" ngbTooltip="{{item.label}}" placement="right" routerLinkActive="active">
             <a [routerLink]="item.path">

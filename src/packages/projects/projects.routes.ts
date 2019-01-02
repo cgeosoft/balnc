@@ -11,9 +11,8 @@ export const ProjectsRoutes = [{
     srv: ProjectsService
   },
   children: [
-    { path: 'overview', component: OverviewComponent },
-    { path: 'project/:projectId', component: ProjectComponent },
-    { path: 'project/:projectId/tasks/:taskId', component: TaskComponent },
-    { path: '', pathMatch: 'full', redirectTo: 'overview' }
+    { path: '', component: OverviewComponent },
+    { path: ':projectId', component: ProjectComponent },
+    { path: ':projectId/:taskId', component: TaskComponent }
   ]
 }]

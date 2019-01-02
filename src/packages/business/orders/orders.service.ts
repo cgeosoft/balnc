@@ -13,22 +13,15 @@ export class OrdersService extends CommonService {
   alias = 'Orders'
   entities = OrdersEntities
 
-  public orders$: Observable<Order[]>
-  public lastAccessed$: Subject<Order[]> = new Subject<Order[]>()
-
   async getOrders (params): Promise<Order[]> {
     return super.getAll<Order>('orders', params)
   }
 
-  async getOrder (id): Promise<Order> {
-    const order = await super.getOne<Order>('orders', id)
-    if (!order) return null
-
-    return order
+  async getOrder (orderId): Promise<Order> {
+    return super.getOne<Order>('orders', orderId)
   }
 
   async addOrders (order: Order) {
-    const result = await super.addOne<Order>('orders', order)
-    return result
+    return super.addOne<Order>('orders', order)
   }
 }

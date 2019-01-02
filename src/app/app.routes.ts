@@ -20,6 +20,9 @@ export const AppRoutes: Routes = [{
     path: 'presentations',
     loadChildren: '../packages/presentations/presentations.module#PresentationsModule'
   }, {
+    path: 'boards',
+    loadChildren: '../packages/boards/boards.module#BoardsModule'
+  }, {
     path: '',
     pathMatch: 'full',
     redirectTo: '/dashboard'

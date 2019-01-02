@@ -12,7 +12,7 @@ export const OrdersRoutes = [
     component: WrapperComponent,
     children: [
       { path: 'overview', component: OverviewComponent },
-      { path: 'view/:id', component: ViewComponent },
+      { path: 'order/:id', component: ViewComponent },
       { path: '', redirectTo: 'overview', pathMatch: 'full' }
     ]
   }]
