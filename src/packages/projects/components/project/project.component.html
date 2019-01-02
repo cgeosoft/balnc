@@ -1,7 +1,7 @@
 <common-content>
   <common-content-header [title]="project.name" subtitle="Project" icon="tasks" [tabsMenu]="tabsMenu"></common-content-header>
   <common-content-body>
-    <div *ngIf="tabsMenu.selecte ==='tasks'">
+    <div *ngIf="tabsMenu.selected ==='tasks'">
       <div class="btn-toolbar">
         <div class="btn-group mr-2">
           <button type="button" class="btn btn-primary" (click)="createTask()">
@@ -29,7 +29,7 @@
                   </div>
                 </td>
                 <td>
-                  <a [routerLink]="['/projects',project._id,'tasks',task._id]" class="task-title">{{task.title}}</a>
+                  <a [routerLink]="['/projects',project._id,task._id]" class="task-title">{{task.title}}</a>
                 </td>
                 <td>
                   opened
@@ -42,7 +42,7 @@
         </ng-container>
       </ng-container>
     </div>
-    <div *ngIf="tabsMenu.selecte ==='settings'">
+    <div *ngIf="tabsMenu.selected ==='settings'">
       <div class="row">
         <div class="col-md-8 offset-md-2">
           <h4 class="lead mb-4">Project Settings</h4>

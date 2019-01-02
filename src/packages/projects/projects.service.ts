@@ -16,7 +16,7 @@ export class ProjectsService extends CommonService {
   public projects$: Observable<RxProjectDoc[]>
   public events$: Observable<RxPEventDoc[]>
 
-  async getProjects(params?: any) {
+  async getProjects (params?: any) {
     const projects = await super.getAll('projects', params)
 
     const tasks = await this.getTasks()
@@ -49,11 +49,11 @@ export class ProjectsService extends CommonService {
       })
   }
 
-  async getProject(projectId: any) {
+  async getProject (projectId: any) {
     return super.getOne<Project>('projects', projectId)
   }
 
-  async createProject(name: string, description: string) {
+  async createProject (name: string, description: string) {
     const result = await super.addOne('project', {
       name: name,
       description: description
@@ -61,22 +61,22 @@ export class ProjectsService extends CommonService {
     return result
   }
 
-  async getTasks(params: any = {}) {
+  async getTasks (params: any = {}) {
     Object.assign(params, { query: { type: { $eq: 'TASK' } } })
     const tasks = await super.getAll<PEvent>('pevents', params.query)
     return tasks
   }
 
-  async getEvent(taskId: string) {
+  async getEvent (taskId: string): Promise<RxPEventDoc> {
     return super.getOne<PEvent>('pevents', taskId)
   }
 
-  async getEventsOfParent(taskId: string): Promise<PEvent[]> {
+  async getEventsOfParent (taskId: string): Promise<PEvent[]> {
     const events = await this.db['pevents'].find({ parent: { $eq: taskId } }).exec()
     return events
   }
 
-  async createTask(title: string, projectId: string, description: string) {
+  async createTask (title: string, projectId: string, description: string) {
     const log = {
       title: title,
       description: description,
@@ -91,7 +91,7 @@ export class ProjectsService extends CommonService {
     return super.addOne('pevents', log)
   }
 
-  async createComment(text: string, task: RxPEventDoc) {
+  async createComment (text: string, task: RxPEventDoc) {
     const log = {
       description: text,
       insertedAt: Date.now(),
@@ -104,7 +104,7 @@ export class ProjectsService extends CommonService {
     return super.addOne('pevents', log)
   }
 
-  async generateDemoData() {
+  async generateDemoData () {
     const projects = []
     for (let i = 0; i < 10; i++) {
       const project = {

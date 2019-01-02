@@ -40,8 +40,7 @@ export class ProjectComponent implements OnInit {
     }
 
     this.route.params.subscribe(params => {
-      this.projectId = params['prjectId']
-      this.projectId = params['prjectId']
+      this.projectId = params['pid']
       this.setup()
     })
   }

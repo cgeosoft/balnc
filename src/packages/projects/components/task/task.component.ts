@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { PEvent, RxPEventDoc } from '../../models/pevent'
-import { Project } from '../../models/project'
+import { Project, RxProjectDoc } from '../../models/project'
 import { ProjectsService } from '../../projects.service'
 
 @Component({
@@ -19,11 +19,13 @@ export class TaskComponent implements OnInit {
   taskId: string
   comment: string = null
 
-  task: PEvent
-  project: Project = null
-  pEvents: PEvent[] = []
+  task: RxPEventDoc
+  project: RxProjectDoc
+  pevents: PEvent[] = []
 
   form: FormGroup
+
+  postCommentLoading = false
 
   constructor (
     private route: ActivatedRoute,
@@ -36,8 +38,8 @@ export class TaskComponent implements OnInit {
     this.route
       .params
       .subscribe(params => {
-        this.projectId = params['projectId']
-        this.taskId = params['taskId']
+        this.projectId = params['pid']
+        this.taskId = params['tid']
         this.form = this.formBuilder.group({
           comment: ['', [Validators.required]]
         })
@@ -53,15 +55,18 @@ export class TaskComponent implements OnInit {
 
   private async getPEvents () {
     const pEvents = await this.projectsService.getEventsOfParent(this.taskId)
-    this.pEvents = pEvents.sort((a, b) => {
+    this.pevents = pEvents.sort((a, b) => {
       return a.insertedAt < b.insertedAt ? -1 : 1
     })
   }
 
   async submitComment () {
     const formModel = this.form.value
-    await this.projectsService.createComment(formModel.comment, this.task as RxPEventDoc)
+    if (!formModel.comment) return
+    this.postCommentLoading = true
+    await this.projectsService.createComment(formModel.comment, this.task)
     await this.getPEvents()
     this.form.reset()
+    this.postCommentLoading = false
   }
 }

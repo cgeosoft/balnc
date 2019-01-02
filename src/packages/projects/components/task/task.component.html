@@ -1,4 +1,4 @@
-<ng-container *ngIf="task">
+<ng-container *ngIf="task && project">
   <common-content>
     <common-content-header [title]="task.title" [subtitle]="'Task: '+task._id" [route]="'/projects/'+project._id" icon="caret-left"></common-content-header>
     <common-content-body>
@@ -15,35 +15,35 @@
               </div>
             </div>
             <div class="card-body">
-              <!-- <markdown>
+              <markdown ngPreserveWhitespaces>
                 {{task.description}}
-              </markdown> -->
+              </markdown>
             </div>
           </div>
 
-          <ng-container *ngFor="let log of logs">
-            <ng-container *ngIf="log.type==='COMMENT'">
-              <div class="card mb-4">
+          <ng-container *ngFor="let pevent of pevents">
+            <ng-container *ngIf="pevent.type==='COMMENT'">
+              <div class="card mb-2">
                 <div class="card-header d-flex">
                   <div>
                     <span class="far fa-comment-alt fa-fw"></span>
-                    {{log.insertedFrom}} commented
+                    {{pevent.insertedFrom}} commented
                   </div>
                   <div class="ml-auto">
-                    <small class="text-muted">{{log.insertedAt | dfnsDistanceInWordsToNow}}</small>
+                    <small class="text-muted">{{pevent.insertedAt | dfnsDistanceInWordsToNow}}</small>
                   </div>
                 </div>
                 <div class="card-body">
-                  <!-- <markdown>
-                    {{log.description}}
-                  </markdown> -->
+                  <markdown ngPreserveWhitespaces>
+                    {{pevent.description}}
+                  </markdown>
                 </div>
               </div>
             </ng-container>
-            <ng-container *ngIf="log.type==='SYSTEM'">
+            <ng-container *ngIf="pevent.type==='SYSTEM'">
               <div class="alert alert-info" role="alert">
-                <span class="fa fa-info-circle"></span> {{log.description}}
-                <small>from {{log.insertedFrom}} at {{log.insertedAt | dfnsDistanceInWordsToNow}}</small>
+                <span class="fa fa-info-circle"></span> {{pevent.description}}
+                <small>from {{pevent.insertedFrom}} at {{pevent.insertedAt | dfnsDistanceInWordsToNow}}</small>
               </div>
             </ng-container>
           </ng-container>
@@ -67,7 +67,7 @@
                   </div>
                 </ng-container>
                 <ng-container *ngIf="commentPreview">
-                  <!-- <markdown class="comment" [data]="form.get('comment').value"></markdown> -->
+                  <markdown ngPreserveWhitespaces class="comment" [data]="form.get('comment').value"></markdown>
                 </ng-container>
                 <div class="d-flex">
                   <div>
@@ -76,7 +76,9 @@
                     </p>
                   </div>
                   <div class="ml-auto">
-                    <button type="button" class="btn btn-success" type="submit">Submit</button>
+                    <button type="button" class="btn btn-success" type="submit">Submit
+                      <fa-icon [icon]="['fas','cog']" [spin]="true" *ngIf="postCommentLoading"></fa-icon>
+                    </button>
                   </div>
                 </div>
               </form>

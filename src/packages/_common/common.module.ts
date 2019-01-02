@@ -47,7 +47,7 @@ library.add(fas, far)
     RouterModule,
     ToastrModule,
     WebStorageModule,
-    DateFnsModule
+    DateFnsModule.forRoot()
   ],
   declarations: [
     BoxComponent,

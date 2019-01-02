@@ -12,7 +12,7 @@ export const ProjectsRoutes = [{
   },
   children: [
     { path: '', component: OverviewComponent },
-    { path: ':projectId', component: ProjectComponent },
-    { path: ':projectId/:taskId', component: TaskComponent }
+    { path: ':pid', component: ProjectComponent },
+    { path: ':pid/:tid', component: TaskComponent }
   ]
 }]
