@@ -23,7 +23,7 @@
       <h4>Last Access</h4>
     </div>
     <div class="items">
-      <ng-container *ngIf="(lastAccessed$ | async) as lastAccessed; else loading">
+      <ng-container *ngIf="(lastAccessed$ | async) as lastAccessed; else loader">
         <ng-container *ngIf="lastAccessed.length; else empty">
           <a *ngFor="let contact of lastAccessed" [routerLink]="['/business/contacts/contact',contact._id]"
             routerLinkActive="active">

@@ -2,6 +2,7 @@ import { ActivatedRoute } from '@angular/router'
 import { Component, OnInit } from '@angular/core'
 
 import { ConfigService, Package } from '@balnc/common'
+import { config } from 'rxjs';
 
 @Component({
   selector: 'core-settings-package',
@@ -11,13 +12,14 @@ import { ConfigService, Package } from '@balnc/common'
 export class PackageComponent implements OnInit {
 
   package: Package
+  config: any
 
-  constructor (
+  constructor(
     private route: ActivatedRoute,
     private configService: ConfigService
   ) { }
 
-  async ngOnInit () {
+  async ngOnInit() {
     this.route
       .params
       .subscribe(async params => {

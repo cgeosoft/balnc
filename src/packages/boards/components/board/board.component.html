@@ -10,11 +10,13 @@
                 <ng-container [ngSwitch]="m.type">
                   <ng-container *ngSwitchCase="'MESSAGE'">
                     <div class="msg-item" [ngClass]="{'own':m.sender === boardService.nickname}">
-                      <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png" [ngbTooltip]="m.sender" placement="bottom">
+                      <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png" [ngbTooltip]="m.sender"
+                        placement="bottom">
                       <div class="msg-body">
                         {{m.text}}
                       </div>
-                      <small class="text-secondary" [ngbTooltip]="m.sendAt | date:'medium'">{{m.sendAt | ago}}</small>
+                      <small class="text-secondary" [ngbTooltip]="m.sendAt | date:'medium'">{{m.sendAt |
+                        dfnsDistanceInWordsToNow}}</small>
                     </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="'CMD-CREATE'">
@@ -36,7 +38,8 @@
         </ng-container>
       </div>
       <div class="card-footer">
-        <input #messageInput class="form-control" placeholder="type message..." [(ngModel)]="inputMessage" (keydown.enter)="send()">
+        <input #messageInput class="form-control" placeholder="type message..." [(ngModel)]="inputMessage"
+          (keydown.enter)="send()">
         <div class="d-flex mt-2">
           <div>
             <button type="button" class="ml-auto btn btn-link">
@@ -56,7 +59,8 @@
 
   <common-content-body *ngIf="tabsMenu.selected === 'files'">
     <h4>Files</h4>
-    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni, quas quis. Velit ipsum amet quibusdam similique ad asperiores
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni, quas quis. Velit ipsum amet quibusdam similique ad
+    asperiores
     dolores. Deleniti libero ex harum accusamus consectetur ipsa ipsam nihil, sed eaque!
   </common-content-body>
 
