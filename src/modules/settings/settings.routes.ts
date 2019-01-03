@@ -1,7 +1,7 @@
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
 import { GeneralComponent } from './components/general/general.component'
 import { ManageComponent } from './components/manage/manage.component'
-import { PackageComponent } from './components/package/package.component'
+import { BModuleComponent } from './components/bmodule/bmodule.component'
 import { DataComponent } from './components/data/data.component'
 
 export const SettingsRoutes = [{
@@ -11,7 +11,7 @@ export const SettingsRoutes = [{
     { path: 'general', component: GeneralComponent },
     { path: 'manage', component: ManageComponent },
     { path: 'data', component: DataComponent },
-    { path: 'modules/:id', component: PackageComponent },
+    { path: 'modules/:id', component: BModuleComponent },
     {
       path: '',
       pathMatch: 'full',

@@ -1,13 +1,13 @@
-import { Router, ActivatedRoute } from '@angular/router'
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core'
-import { BModule, ConfigService, Profile } from '@balnc/common'
+import { Component, ElementRef, ViewChild } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { ConfigService, Profile } from '@balnc/common'
 
 @Component({
   selector: 'core-settings-general',
   templateUrl: './general.component.html',
   styleUrls: ['./general.component.scss']
 })
-export class GeneralComponent implements OnInit {
+export class GeneralComponent {
 
   @ViewChild('name') name: ElementRef
   @ViewChild('alias') alias: ElementRef
@@ -27,15 +27,6 @@ export class GeneralComponent implements OnInit {
     private route: ActivatedRoute,
     private configService: ConfigService
   ) { }
-
-  async ngOnInit () {
-
-    this.selected = this.configService.selected
-
-    this.route.params.subscribe(params => {
-      this.setup(params['alias'])
-    })
-  }
 
   setup (alias: string) {
     this.needReload = false

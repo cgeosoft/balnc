@@ -7,10 +7,12 @@
         <h5 class="mb-0">{{bmodule.title}}</h5>
         <small class="text-muted">{{bmodule.description}}</small>
       </div>
-      <button *ngIf="!bmodule." type="button" class="btn btn-outline-primary btn-sm" style="min-width:100px;" (click)="bmodule.=true;save();">
+      <button *ngIf="!profile.bmodules[bmodule.alias]" type="button" class="btn btn-outline-primary btn-sm" style="min-width:100px;"
+        (click)="profile.bmodules[bmodule.alias]=true;save();">
         Activate
       </button>
-      <button *ngIf="bmodule." type="button" class="btn btn-outline-danger btn-sm" style="min-width:100px;" (click)="bmodule.=false;save();">
+      <button *ngIf="profile.bmodules[bmodule.alias]" type="button" class="btn btn-outline-danger btn-sm" style="min-width:100px;"
+        (click)="profile.bmodules[bmodule.alias]=false;save();">
         Deactivate
       </button>
     </div>

@@ -6,22 +6,22 @@ export const AppRoutes: Routes = [{
   component: MainComponent,
   children: [{
     path: 'dashboard',
-    loadChildren: '../packages/dashboard/dashboard.module#DashboardModule'
+    loadChildren: '../modules/dashboard/dashboard.module#DashboardModule'
   }, {
     path: 'settings',
-    loadChildren: '../packages/settings/settings.module#SettingsModule'
+    loadChildren: '../modules/settings/settings.module#SettingsModule'
   }, {
     path: 'business',
-    loadChildren: '../packages/business/business.module#BusinessModule'
+    loadChildren: '../modules/business/business.module#BusinessModule'
   }, {
     path: 'projects',
-    loadChildren: '../packages/projects/projects.module#ProjectsModule'
+    loadChildren: '../modules/projects/projects.module#ProjectsModule'
   }, {
     path: 'presentations',
-    loadChildren: '../packages/presentations/presentations.module#PresentationsModule'
+    loadChildren: '../modules/presentations/presentations.module#PresentationsModule'
   }, {
     path: 'boards',
-    loadChildren: '../packages/boards/boards.module#BoardsModule'
+    loadChildren: '../modules/boards/boards.module#BoardsModule'
   }, {
     path: '',
     pathMatch: 'full',
@@ -32,7 +32,7 @@ export const AppRoutes: Routes = [{
   component: BoxComponent,
   children: [{
     path: 'setup',
-    loadChildren: '../packages/setup/setup.module#SetupModule'
+    loadChildren: '../modules/setup/setup.module#SetupModule'
   }, {
     path: 'error',
     component: ErrorComponent

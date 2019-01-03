@@ -15,7 +15,7 @@
       <h5>Modules</h5>
     </div>
     <div class="items">
-      <a [routerLink]="['/settings/module',module.id]" routerLinkActive="active" *ngFor="let module of modules">
+      <a [routerLink]="['/settings/module',module.id]" routerLinkActive="active" *ngFor="let module of bmodules">
         <fa-icon class="icon" [icon]="module.picon"></fa-icon>
         <span>{{module.title}}</span>
         <fa-icon [icon]="['fas','check-circle']" class="icon icon-badge" *ngIf="profile.modules[module.id]"></fa-icon>
