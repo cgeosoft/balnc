@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core'
-import { CommonService, RxDBService } from '@balnc/common'
+import { CommonService } from '@balnc/common'
 import * as faker from 'faker'
-import { RxDatabase } from 'rxdb'
 import { Observable, Subject } from 'rxjs'
 
-import { ContactsEntities } from './models/entities'
 import { Contact, ContactLogType, RxContactDoc } from './models/all.model'
+import { ContactsEntities } from './models/entities'
 
 @Injectable()
 export class ContactsService extends CommonService {

@@ -11,29 +11,29 @@ import { ReadFile } from 'ngx-file-helpers'
 })
 export class ManageComponent implements OnInit {
 
-  constructor(
+  constructor (
     private helperService: HelperService,
     public configService: ConfigService,
     private toastr: ToastrService
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     // empty
   }
 
-  activate(alias) {
+  activate (alias) {
     this.configService.selectProfile(alias)
   }
 
-  async create() {
+  async create () {
     const alias = await this.configService.saveProfile({
       name: this.helperService.generateName()
     })
     this.configService.selectProfile(alias)
   }
 
-  async import(file: ReadFile) {
-    const profile: Profile = this.configService.importFile(file)
+  async import (file: ReadFile) {
+    const profile = this.configService.importFile(file)
     if (!profile) {
       this.toastr.error('Import failed')
       return

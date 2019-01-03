@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core'
-import { CommonService, RxDBService } from '@balnc/common'
-
+import { CommonService } from '@balnc/common'
 import { Observable } from 'rxjs'
 
 import { ProjectsEntities } from './models/entities'
 import { PEvent, RxPEventDoc } from './models/pevent'
-import { RxProjectDoc, Project } from './models/project'
+import { Project, RxProjectDoc } from './models/project'
 
 @Injectable()
 export class ProjectsService extends CommonService {

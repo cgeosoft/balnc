@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-
-import { ConfigService, Profile, HelperService, Package } from '@balnc/common'
+import { ConfigService, HelperService, Package, Profile, DEMO_PROFILE } from '@balnc/common'
 import { ReadFile } from 'ngx-file-helpers'
 import { ToastrService } from 'ngx-toastr'
 
@@ -59,7 +58,7 @@ export class SetupComponent implements OnInit {
   }
 
   addDemo () {
-    this.profile = this.configService.DEMO_PROFILE
+    this.profile = DEMO_PROFILE
     this.stepIndex = this.steps.length - 1
   }
 

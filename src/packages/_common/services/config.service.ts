@@ -10,23 +10,6 @@ import { HelperService } from './helper.service'
 @Injectable()
 export class ConfigService {
 
-  public DEMO_PROFILE = {
-    id: 'demo',
-    name: 'demo',
-    remoteHost: 'https://db.cgeosoft.com',
-    remoteUsername: 'demo',
-    remotePassword: 'demo',
-    remoteSync: false,
-    packages: {
-      'business': true,
-      'projects': true,
-      'boards': true,
-      'presentations': true,
-      'analytics': true,
-      'reports': true
-    }
-  }
-
   public version: string = environment.version
   public config: any = environment
   public packages: Package[] = environment.packages

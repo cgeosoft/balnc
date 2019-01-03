@@ -1,9 +1,7 @@
-import { HelperService } from '../../../_common/services/helper.service'
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { FilePickerDirective, ReadFile } from 'ngx-file-helpers'
 import { Router } from '@angular/router'
-
-import { ConfigService, Profile, Package } from '@balnc/common'
+import { ConfigService, DEMO_PROFILE, Package, Profile, HelperService } from '@balnc/common'
+import { FilePickerDirective, ReadFile } from 'ngx-file-helpers'
 
 @Component({
   selector: 'core-settings-wrapper',
@@ -46,8 +44,7 @@ export class WrapperComponent implements OnInit {
   }
 
   createDemo () {
-    const alias = this.configService.saveProfile(this.configService.DEMO_PROFILE)
-
+    const alias = this.configService.saveProfile(DEMO_PROFILE)
     this.router.navigate(['/settings', alias])
   }
 
@@ -58,11 +55,10 @@ export class WrapperComponent implements OnInit {
       const profileStr = atob(data)
       const profile = JSON.parse(profileStr)
       const alias = this.configService.saveProfile(profile)
-      // this.configService.selectProfile(alias)
+      this.configService.selectProfile(alias)
     } catch (error) {
       this.error = 'File is corrupted'
       console.log('[ProfileComponent]', 'Error' + error)
     }
   }
-
 }
