@@ -18,31 +18,31 @@
     ],
     "paths": {
       "@balnc/common": [
-        "src/packages/_common"
+        "src/modules/_common"
       ],
       "@balnc/core": [
-        "src/packages/main"
+        "src/modules/main"
       ],
       "@balnc/boards": [
-        "src/packages/boards"
+        "src/modules/boards"
       ],
       "@balnc/projects": [
-        "src/packages/projects"
+        "src/modules/projects"
       ],
       "@balnc/presentations": [
-        "src/packages/presentations"
+        "src/modules/presentations"
       ],
       "@balnc/business": [
-        "src/packages/business"
+        "src/modules/business"
       ],
       "@balnc/restaurants": [
-        "src/packages/restaurants"
+        "src/modules/restaurants"
       ],
       "@balnc/booking": [
-        "src/packages/booking"
+        "src/modules/booking"
       ],
       "@balnc/reports": [
-        "src/packages/reports"
+        "src/modules/reports"
       ],
       "environments/*": [
         "src/environments/*"

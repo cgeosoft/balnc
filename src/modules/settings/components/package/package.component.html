@@ -1,0 +1,25 @@
+<common-content>
+  <common-content-header [title]="bmodule.title" [subtitle]="bmodule.description" [icon]="bmodule.icon"></common-content-header>
+  <common-content-body>
+    <div class="d-flex">
+
+      <div class="flex-grow-1">
+        <h5 class="mb-0">{{bmodule.title}}</h5>
+        <small class="text-muted">{{bmodule.description}}</small>
+      </div>
+      <button *ngIf="!bmodule." type="button" class="btn btn-outline-primary btn-sm" style="min-width:100px;" (click)="bmodule.=true;save();">
+        Activate
+      </button>
+      <button *ngIf="bmodule." type="button" class="btn btn-outline-danger btn-sm" style="min-width:100px;" (click)="bmodule.=false;save();">
+        Deactivate
+      </button>
+    </div>
+    <div class="p-5" *ngIf="config; else noConfig">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus inventore ut eligendi hic expedita nobis, odit
+      quae nihil suscipit placeat repellendus autem adipisci animi quam libero non assumenda aut laborum?
+    </div>
+  </common-content-body>
+</common-content>
+<ng-template #noConfig>
+  <common-empty icon="cog" message="No configuration is available"></common-empty>
+</ng-template>
