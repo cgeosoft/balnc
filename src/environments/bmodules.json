@@ -39,10 +39,10 @@
     "id": "boards",
     "title": "Boards",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
-    "icon": "comments:regular",
+    "icon": "comments",
     "menu": [{
       "label": "Boards",
-      "icon": "comments:regular",
+      "icon": "comments",
       "path": "/boards"
     }]
   }, {
@@ -69,10 +69,10 @@
     "id": "reports",
     "title": "Reports",
     "description": "A simple but full-feature team chat with customizable rooms",
-    "icon": "file-alt:regular",
+    "icon": "file-alt",
     "menu": [{
       "label": "Reports",
-      "icon": "file-alt:regular",
+      "icon": "file-alt",
       "path": "/reports"
     }],
     "config": {

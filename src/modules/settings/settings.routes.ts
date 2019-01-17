@@ -11,7 +11,7 @@ export const SettingsRoutes = [{
     { path: 'general', component: GeneralComponent },
     { path: 'manage', component: ManageComponent },
     { path: 'data', component: DataComponent },
-    { path: 'modules/:id', component: BModuleComponent },
+    { path: 'bmodules/:id', component: BModuleComponent },
     {
       path: '',
       pathMatch: 'full',

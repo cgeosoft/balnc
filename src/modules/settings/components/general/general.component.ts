@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core'
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ConfigService, Profile } from '@balnc/common'
 
@@ -7,7 +7,7 @@ import { ConfigService, Profile } from '@balnc/common'
   templateUrl: './general.component.html',
   styleUrls: ['./general.component.scss']
 })
-export class GeneralComponent {
+export class GeneralComponent implements OnInit {
 
   @ViewChild('name') name: ElementRef
   @ViewChild('alias') alias: ElementRef
@@ -24,19 +24,11 @@ export class GeneralComponent {
 
   constructor (
     private router: Router,
-    private route: ActivatedRoute,
     private configService: ConfigService
   ) { }
 
-  setup (alias: string) {
-    this.needReload = false
-    let _profile = this.configService.getProfile(alias)
-    if (!_profile) {
-      this.router.navigate(['/settings'])
-    }
-    this.profileName = _profile.name
-    this.profileAlias = _profile.id
-    this.profile = _profile
+  ngOnInit () {
+    this.profile = this.configService.getProfile()
   }
 
   save () {

@@ -8,17 +8,11 @@
         <fa-icon [icon]="['fas','cog']" class="icon"></fa-icon>
         <span>General</span>
       </a>
-    </div>
-  </div>
-  <div class="menu">
-    <div class="header">
-      <h5>Modules</h5>
-    </div>
-    <div class="items">
-      <a [routerLink]="['/settings/module',module.id]" routerLinkActive="active" *ngFor="let module of bmodules">
-        <fa-icon class="icon" [icon]="module.picon"></fa-icon>
+      <div class="divider"></div>
+      <a [routerLink]="['/settings/bmodules',module.id]" routerLinkActive="active" *ngFor="let module of bmodules">
+        <fa-icon class="icon" [icon]="module.icon"></fa-icon>
         <span>{{module.title}}</span>
-        <fa-icon [icon]="['fas','check-circle']" class="icon icon-badge" *ngIf="profile.modules[module.id]"></fa-icon>
+        <fa-icon [icon]="['fas','check-circle']" class="icon icon-badge" *ngIf="profile.bmodules[module.id]"></fa-icon>
       </a>
     </div>
   </div>
