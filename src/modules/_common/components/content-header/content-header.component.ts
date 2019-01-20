@@ -19,9 +19,7 @@ export class ContentHeaderComponent implements OnInit {
   @Input() fullWidth = false
   @Input() route = null
 
-  constructor (
-    public helperService: HelperService
-  ) {}
+  helperService = HelperService
 
   ngOnInit () {
     if (this.tabsMenu) {

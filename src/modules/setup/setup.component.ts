@@ -28,8 +28,9 @@ export class SetupComponent implements OnInit {
 
   bmodules: BModule[]
 
+  helperService = HelperService
+
   constructor (
-    public helperService: HelperService,
     public configService: ConfigService,
     private router: Router,
     private toastr: ToastrService

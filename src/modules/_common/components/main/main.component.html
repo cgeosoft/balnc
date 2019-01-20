@@ -16,7 +16,7 @@
           </fa-layers>
         </a>
       </div>
-      <ng-template ngFor let-bmodule [ngForOf]="bmodules" *ngIf="bmodules.length">
+      <ng-template ngFor let-bmodule [ngForOf]="configService.enabledBModules" *ngIf="configService.enabledBModules.length">
         <ng-template ngFor let-item [ngForOf]="bmodule.menu" *ngIf="bmodule.menu">
           <div class="item menu" ngbTooltip="{{item.label}}" placement="right" routerLinkActive="active">
             <a [routerLink]="item.path">

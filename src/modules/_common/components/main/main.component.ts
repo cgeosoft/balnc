@@ -69,16 +69,6 @@ export class MainComponent implements OnInit {
       })
 
     this.setStatus()
-
-    this.loadMenu()
-  }
-
-  loadMenu () {
-    this.bmodules = this.configService.bmodules
-      .filter(m => {
-        return this.profile.bmodules &&
-          this.profile.bmodules[m.id]
-      })
   }
 
   setStatus () {

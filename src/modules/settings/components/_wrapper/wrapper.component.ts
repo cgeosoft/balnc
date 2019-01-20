@@ -16,8 +16,9 @@ export class WrapperComponent implements OnInit {
   profile: Profile
   bmodules: BModule[] = []
 
+  helperService = HelperService
+
   constructor (
-    public helperService: HelperService,
     public configService: ConfigService,
     private router: Router
   ) { }

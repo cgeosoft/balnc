@@ -10,9 +10,10 @@ import { HelperService } from './helper.service'
 @Injectable()
 export class ConfigService {
 
-  public version: string = environment.version
-  public config: any = environment
-  public bmodules: BModule[] = environment.bmodules
+  version: string = environment.version
+  config: any = environment
+  bmodules: BModule[] = environment.bmodules
+  enabledBModules: BModule[] = []
 
   @LocalStorage() sidebarClosed: boolean = false
 
@@ -21,11 +22,11 @@ export class ConfigService {
   @LocalStorage() selected: string = ''
   @LocalStorage() profiles: Profile[] = []
 
-  public profile: Profile
+  profile: Profile = {}
 
-  constructor (
-    public helperService: HelperService
-  ) {
+  menu: any
+
+  constructor () {
     console.log('[ConfigService]', 'Initializing with env:', environment)
     console.log('[ConfigService]', 'Profiles available:', this.profiles)
 
@@ -35,18 +36,28 @@ export class ConfigService {
       this.profile = this.profiles.find(p => p.id === this.selected)
       console.log('[ConfigService]', `Profile ${this.selected} loaded`)
     }
+
+    this.setEnabledBModules()
   }
 
   parsePackages () {
     this.bmodules = this.bmodules.map(p => {
       const v = { ...p }
-      v.picon = this.helperService.getIcon(v.icon)
+      v.picon = HelperService.getIcon(v.icon)
       v.menu = v.menu.map(m => {
-        m.icon = this.helperService.getIcon(m.icon)
+        m.icon = HelperService.getIcon(m.icon)
         return m
       })
       return v
     })
+  }
+
+  setEnabledBModules () {
+    this.enabledBModules = this.bmodules
+      .filter(m => {
+        return this.profile.bmodules &&
+          this.profile.bmodules[m.id]
+      })
   }
 
   getPackageConfig (id: string) {
@@ -74,6 +85,7 @@ export class ConfigService {
     }
     profiles.push(profile)
     this.profiles = profiles
+    this.setEnabledBModules()
     return profile.id
   }
 
