@@ -1,7 +1,10 @@
-import { Injectable } from '@angular/core'
-
-@Injectable()
 export class HelperService {
+
+  static uid () {
+    return Math.floor((1 + Math.random()) * 0x100000000)
+      .toString(16)
+      .substring(1)
+  }
 
   capFirst (text) {
     return text.charAt(0).toUpperCase() + text.slice(1)

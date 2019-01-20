@@ -1,7 +1,7 @@
 export type Profile = {
   id?: string
   name?: string
-  createdAt?: string
+  createdAt?: number
   remoteHost?: string
   remoteUsername?: string
   remotePassword?: string

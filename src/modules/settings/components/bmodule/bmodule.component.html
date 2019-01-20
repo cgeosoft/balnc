@@ -1,20 +1,15 @@
 <common-content>
   <common-content-header [title]="bmodule.title" [subtitle]="bmodule.description" [icon]="bmodule.icon"></common-content-header>
   <common-content-body>
-    <div class="d-flex">
-
-      <div class="flex-grow-1">
-        <h5 class="mb-0">{{bmodule.title}}</h5>
-        <small class="text-muted">{{bmodule.description}}</small>
-      </div>
-      <button *ngIf="!profile.bmodules[bmodule.alias]" type="button" class="btn btn-outline-primary btn-sm" style="min-width:100px;"
-        (click)="profile.bmodules[bmodule.alias]=true;save();">
-        Activate
-      </button>
-      <button *ngIf="profile.bmodules[bmodule.alias]" type="button" class="btn btn-outline-danger btn-sm" style="min-width:100px;"
-        (click)="profile.bmodules[bmodule.alias]=false;save();">
-        Deactivate
-      </button>
+    <h5 class="mb-0">{{bmodule.title}}</h5>
+    <small class="text-muted">{{bmodule.description}}</small>
+    <hr>
+    <div class="form-group form-check">
+      <input id="enableModule" class="form-check-input" type="checkbox" [(ngModel)]="profile.bmodules[bmodule.id]"
+        (change)="save()">
+      <label class="form-check-label" for="enableModule">
+        Enable Module
+      </label>
     </div>
     <div class="p-5" *ngIf="config; else noConfig">
       Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus inventore ut eligendi hic expedita nobis, odit

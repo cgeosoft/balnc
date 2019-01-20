@@ -4,6 +4,7 @@ import * as _ from 'lodash'
 
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { PresentationDoc } from '../../models/presentation'
+import { HelperService } from '@balnc/common'
 
 @Component({
   selector: 'presentations-add-page',
@@ -31,7 +32,7 @@ export class AddPageComponent {
 
   async onSubmit () {
 
-    const pageKey = this.s4() + this.s4()
+    const pageKey = HelperService.uid()
 
     await this.presentation.putAttachment({
       id: `file-${pageKey}`,
@@ -41,7 +42,7 @@ export class AddPageComponent {
 
     await this.presentation.update({
       $push: {
-        pages: [{
+        pages: {
           key: pageKey,
           title: this.page.title || `Page ${pageKey}`,
           description: this.page.description,
@@ -49,10 +50,10 @@ export class AddPageComponent {
           params: {
             image: `file-${pageKey}`
           }
-        }]
+        }
       },
       $set: {
-        dateUpdated: new Date()
+        dateUpdated: Date.now()
       }
     })
 
@@ -82,11 +83,5 @@ export class AddPageComponent {
       this.page.fileType = info[0].replace('data:', '')
     }
     reader.readAsDataURL(this.page.file)
-  }
-
-  s4 () {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1)
   }
 }

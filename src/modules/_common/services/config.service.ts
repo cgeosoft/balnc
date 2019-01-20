@@ -65,9 +65,8 @@ export class ConfigService {
   }
 
   saveProfile (profile: Profile): string {
-    const unique = new Date()
-    profile.id = profile.id || `${unique.getTime()}`
-    profile.createdAt = profile.createdAt || unique.toISOString()
+    profile.id = profile.id || HelperService.uid()
+    profile.createdAt = profile.createdAt || Date.now()
     let profiles = [...this.profiles]
     let index = this.profiles.findIndex(p => p.id === profile.id)
     if (index !== -1) {

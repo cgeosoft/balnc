@@ -125,7 +125,7 @@ export class PresentationComponent implements OnInit {
     const _pages = this.presentation.pages
     _pages.splice(index, 1)
     this.presentation.pages = _pages
-    this.presentation.dateUpdated = new Date()
+    this.presentation.dateUpdated = Date.now()
     await this.presentation.save()
     await this.cleanupFiles()
   }

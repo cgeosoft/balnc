@@ -45,7 +45,7 @@ export class PresentationsService extends CommonService {
       title: title,
       description: description,
       pages: [],
-      dateCreated: new Date()
+      dateCreated: Date.now()
     })
   }
 

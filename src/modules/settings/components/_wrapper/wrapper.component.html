@@ -8,6 +8,10 @@
         <fa-icon [icon]="['fas','cog']" class="icon"></fa-icon>
         <span>General</span>
       </a>
+      <a routerLink="/settings/data" routerLinkActive="active">
+        <fa-icon [icon]="['fas','cog']" class="icon"></fa-icon>
+        <span>Data</span>
+      </a>
       <div class="divider"></div>
       <a [routerLink]="['/settings/bmodules', module.id]" routerLinkActive="active" *ngFor="let module of bmodules">
         <fa-icon class="icon" [icon]="module.icon"></fa-icon>

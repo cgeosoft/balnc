@@ -6,8 +6,8 @@ export interface Presentation {
   image?: string
   pages: any[]
   menu?: any[]
-  dateCreated: Date
-  dateUpdated?: Date
+  dateCreated: number
+  dateUpdated?: number
   comment?: any
 }
 

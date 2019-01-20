@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { BModule, ConfigService } from '@balnc/common'
+import { BModule, ConfigService, Profile } from '@balnc/common'
 
 @Component({
   selector: 'core-settings-bmodule',
@@ -9,7 +9,7 @@ import { BModule, ConfigService } from '@balnc/common'
 })
 export class BModuleComponent implements OnInit {
 
-  profile
+  profile: Profile
   bmodule: BModule
   config: any
 
@@ -25,5 +25,9 @@ export class BModuleComponent implements OnInit {
       .subscribe(async params => {
         this.bmodule = this.configService.bmodules.find(p => p.id === params['id'])
       })
+  }
+
+  save () {
+    this.configService.saveProfile(this.profile)
   }
 }
