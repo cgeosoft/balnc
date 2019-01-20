@@ -1,14 +1,14 @@
 <div class="card">
   <div class="breadcrumb" style="overflow-x:auto;" *ngIf="stepIndex != 0">
     <div style="min-width: 350px;">
-      <span class="breadcrumb-item" *ngFor="let step of steps; let i = index;" [ngClass]="{active: stepIndex === i }">{{step.label}}</span>
+      <span class="breadcrumb-item" *ngFor="let step of steps; let i = index;" [ngClass]="{active: stepIndex === i }">
+        {{step.label}}</span>
     </div>
   </div>
 
-  <div class="card-body" *ngIf="steps[stepIndex].label=='Intro'">
+  <div class="card-body" *ngIf="steps[stepIndex].label=='Setup'">
     <div class="text-center">
-      <img src="/assets/icons/android-icon-192x192.png" alt="logo">
-      <h1 class="display-4">Welcome to Balnc!</h1>
+      <h1 class="display-4 mt-4">Welcome to Balnc!</h1>
     </div>
     <div class=" p-4">
       <p>Balnc (balance) is an open source offline-first business application that may run easily at freelancers'
@@ -25,68 +25,85 @@
   </div>
 
   <div class="card-body" *ngIf="steps[stepIndex].label=='Profile'">
-    <div class="alert alert-primary">
-      <h4>What is this?</h4>
-      <p>
-        Profile is a group of settings and data. Every profile is like another setup of its own bmodules and
-        configuration. Your data are stored in the browser and are not by default synced to any server. You should keep
-        backups or enable sync mode with a backup server.
-      </p>
-    </div>
-    <div class="p-5">
-      <div class="form-group">
-        <label>Profile Name</label>
-        <input autocomplete="false" [(ngModel)]="profile.name" class="form-control form-control-lg" placeholder="Enter a friendly name...">
+    <div class="row">
+      <div class="col-7">
+        <h2>Profile</h2>
+        <div class="form-group">
+          <label>Profile Name</label>
+          <input autocomplete="false" [(ngModel)]="profile.name" class="form-control form-control-lg" placeholder="Enter a friendly name...">
+        </div>
+        <ul class="list-unstyled text-center">
+          <li>
+            <a href="javascript:" ngxFilePicker accept="application/json" (filePick)="importFile($event)">Import</a>
+            a
+            file
+            backup</li>
+          <li>
+            <a href="javascript:" (click)="addDemo()">Start</a> with a demo profile</li>
+        </ul>
       </div>
-      <ul class="list-unstyled text-center">
-        <li>
-          <a href="javascript:" ngxFilePicker accept="application/json" (filePick)="importFile($event)">Import</a> a
-          file
-          backup</li>
-        <li>
-          <a href="javascript:" (click)="addDemo()">Start</a> with a demo profile</li>
-      </ul>
+      <div class="col-5">
+        <div class="alert alert-primary">
+          <h4>What is this?</h4>
+          <p>
+            Profile is a group of settings and data. Every profile is like another setup of its own bmodules and
+            configuration. Your data are stored in the browser and are not by default synced to any server. You should
+            keep backups or enable sync mode with a backup server.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="card-body" *ngIf="steps[stepIndex].label=='Sync'">
-    <div class="alert alert-primary">
-      <h4>What is this?</h4>
-      <p>
-        If you enable this option local data will be sync over the internet with the remote database server. This will
-        allow you to real-time backup your data and have access from multiple devices. Some
-        bmodules may require this option to be enabled in order to work. <em>Currently only CouchDB is supported.</em>
-      </p>
-    </div>
-    <div class="form-group form-check">
-      <input id="remoteSync" class="form-check-input" type="checkbox" [(ngModel)]="profile.remoteSync">
-      <label class="form-check-label" for="remoteSync">
-        Enable real-time synchronization
-      </label>
-    </div>
-    <div class="form-group">
-      <label>Remote Host</label>
-      <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" class="form-control"
-        placeholder="https://db.myhost.com">
-    </div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-7">
+        <h2>Sync</h2>
+        <div class="form-group form-check">
+          <input id="remoteSync" class="form-check-input" type="checkbox" [(ngModel)]="profile.remoteSync">
+          <label class="form-check-label" for="remoteSync">
+            Enable real-time synchronization
+          </label>
+        </div>
         <div class="form-group">
-          <label>Username</label>
-          <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteUsername" class="form-control">
+          <label>Remote Host</label>
+          <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" class="form-control"
+            placeholder="https://db.myhost.com">
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label>Username</label>
+              <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteUsername" class="form-control">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label>Password</label>
+              <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePassword" class="form-control"
+                type="password">
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-6">
-        <div class="form-group">
-          <label>Password</label>
-          <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePassword" class="form-control"
-            type="password">
+      <div class="col-5">
+        <div class="alert alert-primary">
+          <h4>What is this?</h4>
+          <p>
+            If you enable this option local data will be sync over the internet with the remote database server. This
+            will allow you to real-time backup your data and have access from multiple devices.
+          </p>
+          <p>
+            <em>Currently only CouchDB is supported.</em>
+          </p>
         </div>
       </div>
     </div>
+
   </div>
 
   <div class="card-body p-0" *ngIf="steps[stepIndex].label=='Modules'">
+    <h3>Modules</h3>
     <div class="list-group list-group-flush">
       <div class="list-group-item" *ngFor="let bmodule of bmodules">
         <div class="row">

@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr'
 export class SetupComponent implements OnInit {
 
   steps = [
-    { label: 'Intro' },
+    { label: 'Setup' },
     { label: 'Profile' },
     { label: 'Sync' },
     { label: 'Modules' },
@@ -26,7 +26,7 @@ export class SetupComponent implements OnInit {
     bmodules: {}
   }
 
-  packages: BModule[]
+  bmodules: BModule[]
 
   constructor (
     public helperService: HelperService,
@@ -40,7 +40,7 @@ export class SetupComponent implements OnInit {
       this.router.navigate(['/dashboard'])
     }
 
-    this.packages = this.configService.bmodules
+    this.bmodules = this.configService.bmodules
   }
 
   back () {
