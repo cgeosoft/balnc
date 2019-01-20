@@ -27,7 +27,7 @@ export class ManageComponent implements OnInit {
 
   async create () {
     const alias = await this.configService.saveProfile({
-      name: this.helperService.generateName()
+      name: HelperService.generateName()
     })
     this.configService.selectProfile(alias)
   }
