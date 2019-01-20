@@ -9,7 +9,7 @@
         <span>General</span>
       </a>
       <div class="divider"></div>
-      <a [routerLink]="['/settings/bmodules',module.id]" routerLinkActive="active" *ngFor="let module of bmodules">
+      <a [routerLink]="['/settings/bmodules', module.id]" routerLinkActive="active" *ngFor="let module of bmodules">
         <fa-icon class="icon" [icon]="module.icon"></fa-icon>
         <span>{{module.title}}</span>
         <fa-icon [icon]="['fas','check-circle']" class="icon icon-badge" *ngIf="profile.bmodules[module.id]"></fa-icon>
@@ -18,8 +18,8 @@
   </div>
   <div class="menu mt-auto mb-0">
     <div class="items">
-      <a [routerLink]="['/settings','manage']" routerLinkActive="active">
-        <fa-icon [icon]="['fas','swatchbook']" class="icon"></fa-icon>
+      <a routerLink="/settings/manage" routerLinkActive="active">
+        <fa-icon icon="swatchbook" class="icon"></fa-icon>
         <span>Manage Profiles</span>
       </a>
     </div>

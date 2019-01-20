@@ -53,7 +53,7 @@ export class SetupComponent implements OnInit {
 
   async finish () {
     this.profile.name = this.profile.name || this.helperService.generateName()
-    const alias = await this.configService.saveBModule(this.profile)
+    const alias = await this.configService.saveProfile(this.profile)
     await this.configService.selectProfile(alias)
   }
 

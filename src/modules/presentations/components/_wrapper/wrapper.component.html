@@ -4,13 +4,18 @@
       <h4>Presentations</h4>
     </div>
     <div class="items">
-      <button (click)="create()" class="primary">
+      <a routerLink="/presentations/overview" routerLinkActive="active">
+        <fa-icon icon="users" class="icon"></fa-icon>
+        <div class="content">Overview</div>
+      </a>
+      <button (click)="create()">
         <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
-        <div class="content">New Presentation</div>
+        <div class="content">Quick Add</div>
       </button>
       <div class="divider"></div>
       <ng-container *ngIf="presentations.length; else empty">
-        <a *ngFor="let presentation of presentations" [routerLink]="['/presentations',presentation._id]" routerLinkActive="active">
+        <a *ngFor="let presentation of presentations" [routerLink]="['/presentations',presentation._id]"
+          routerLinkActive="active">
           <div class="thumb">
             <ng-container *ngIf="presentation.thumb; else noThumb">
               <div class="thumb-img" [ngStyle]="{'background-image': 'url('+presentation.thumb+')'}"></div>

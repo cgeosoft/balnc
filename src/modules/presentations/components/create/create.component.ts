@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { Component } from '@angular/core'
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 
 import { PresentationsService } from '../../presentations.service'
 
@@ -7,7 +7,7 @@ import { PresentationsService } from '../../presentations.service'
   selector: 'presentations-create',
   templateUrl: './create.component.html'
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent {
 
   presentationTitle: string
 
@@ -16,12 +16,9 @@ export class CreateComponent implements OnInit {
     private presentationsService: PresentationsService
   ) { }
 
-  async ngOnInit () {
-    // todo
-  }
-
   async onSubmit () {
-    await this.presentationsService.addPresentation(this.presentationTitle)
-    this.activeModal.close()
+    const presentation = await this.presentationsService
+      .addPresentation(this.presentationTitle)
+    this.activeModal.close(presentation)
   }
 }

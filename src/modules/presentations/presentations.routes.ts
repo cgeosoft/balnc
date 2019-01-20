@@ -11,6 +11,7 @@ export const PresentationsRoutes = [{
   },
   children: [
     { path: 'overview', component: OverviewComponent },
-    { path: 'presentation/:id', component: PresentationComponent }
+    { path: ':id', component: PresentationComponent },
+    { path: '', pathMatch: 'full', redirectTo: 'overview' }
   ]
 }]

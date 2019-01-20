@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core'
 import * as _ from 'lodash'
 
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { Presentation } from '../../models/presentation'
+import { PresentationDoc } from '../../models/presentation'
 
 @Component({
   selector: 'presentations-add-page',
@@ -11,7 +11,7 @@ import { Presentation } from '../../models/presentation'
 })
 export class AddPageComponent {
 
-  @Input() presentation: Presentation
+  @Input() presentation: PresentationDoc
 
   page: any = {
     title: null,
@@ -32,28 +32,29 @@ export class AddPageComponent {
   async onSubmit () {
 
     const pageKey = this.s4() + this.s4()
-    const _pages: any[] = this.presentation.pages
-    const _att = {
+
+    await this.presentation.putAttachment({
       id: `file-${pageKey}`,
       data: this.page.file,
       type: this.page.fileType
-    }
-
-    const att = await this.presentation.putAttachment(_att)
-
-    _pages.unshift({
-      key: pageKey,
-      title: this.page.title || `Page ${pageKey}`,
-      description: this.page.description,
-      type: 'BGIMG',
-      params: {
-        image: `file-${pageKey}`
-      }
     })
 
-    this.presentation.pages = _pages
-    this.presentation.dateUpdated = new Date()
-    this.presentation.save()
+    await this.presentation.update({
+      $push: {
+        pages: [{
+          key: pageKey,
+          title: this.page.title || `Page ${pageKey}`,
+          description: this.page.description,
+          type: 'BGIMG',
+          params: {
+            image: `file-${pageKey}`
+          }
+        }]
+      },
+      $set: {
+        dateUpdated: new Date()
+      }
+    })
 
     this.activeModal.close(this.page)
   }

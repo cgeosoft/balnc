@@ -26,20 +26,12 @@
       }
     },
     "dateCreated": {
-      "type": "string",
+      "type": "number",
       "faker": "date.past"
     },
     "dateUpdated": {
-      "type": "string",
+      "type": "number",
       "faker": "date.past"
-    },
-    "dateIssued": {
-      "type": "string",
-      "faker": "date.past"
-    },
-    "status": {
-      "type": "string",
-      "enum": ["pending", "issued"]
     },
     "comment": {
       "type": "string",

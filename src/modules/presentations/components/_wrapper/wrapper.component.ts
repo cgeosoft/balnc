@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-
-import { PresentationsService } from '../../presentations.service'
-import { Presentation } from '../../models/presentation'
-import { CreateComponent } from '../create/create.component'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+
+import { PresentationDoc } from '../../models/presentation'
+import { PresentationsService } from '../../presentations.service'
+import { CreateComponent } from '../create/create.component'
 
 @Component({
   selector: 'presentations-wrapper',
@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 })
 export class WrapperComponent implements OnInit {
 
-  presentations: Presentation[] = []
+  presentations: PresentationDoc[] = []
 
   constructor (
     private modal: NgbModal,
@@ -26,9 +26,14 @@ export class WrapperComponent implements OnInit {
   }
 
   async create () {
-    const presentation = await this.modal.open(CreateComponent).result
-    this.ngOnInit()
-    this.router.navigate(['/presentations', presentation._id])
+    this.modal.open(CreateComponent, {
+      size: 'sm'
+    }).result
+      .then((presentation: PresentationDoc) => {
+        this.ngOnInit()
+        this.router
+          .navigate(['/presentations', presentation.get('_id')])
+      })
   }
 
 }

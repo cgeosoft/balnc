@@ -32,7 +32,7 @@ export class GeneralComponent implements OnInit {
   }
 
   save () {
-    this.configService.saveBModule(this.profile)
+    this.configService.saveProfile(this.profile)
     this.needReload = true
   }
 

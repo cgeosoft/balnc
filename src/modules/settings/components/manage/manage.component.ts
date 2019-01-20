@@ -26,7 +26,7 @@ export class ManageComponent implements OnInit {
   }
 
   async create () {
-    const alias = await this.configService.saveBModule({
+    const alias = await this.configService.saveProfile({
       name: this.helperService.generateName()
     })
     this.configService.selectProfile(alias)
@@ -38,7 +38,7 @@ export class ManageComponent implements OnInit {
       this.toastr.error('Import failed')
       return
     }
-    const alias = await this.configService.saveBModule(profile)
+    const alias = await this.configService.saveProfile(profile)
     this.configService.selectProfile(alias)
   }
 }

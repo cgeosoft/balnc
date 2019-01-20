@@ -1,16 +1,19 @@
 import { RxDocument } from 'rxdb'
 
-declare interface IPresentation {
+export interface Presentation {
   title: string
-  description: string
-  image: string
+  description?: string
+  image?: string
   pages: any[]
-  menu: any[]
+  menu?: any[]
   dateCreated: Date
-  dateUpdated: Date
-  dateIssued: any
-  status: any
-  comment: any
+  dateUpdated?: Date
+  comment?: any
 }
 
-export type Presentation = RxDocument<IPresentation> & IPresentation
+export interface PresentationStats {
+  filecount: number
+  filesize: number
+}
+
+export type PresentationDoc = RxDocument<Presentation> & Presentation

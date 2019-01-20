@@ -14,6 +14,7 @@ import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
 import RxDBReplicationModule from 'rxdb/plugins/replication'
 import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
 import RxDBValidateModule from 'rxdb/plugins/validate'
+import RxDBUpdateModule from 'rxdb/plugins/update'
 
 import { ConfigService } from '../services/config.service'
 import { Config } from './config'
@@ -34,6 +35,7 @@ RxDB.plugin(AdapterCheckPlugin)
 RxDB.plugin(JsonDumpPlugin)
 RxDB.plugin(AdapterHttp)
 RxDB.plugin(AdapterIDB)
+RxDB.plugin(RxDBUpdateModule)
 
 @Injectable()
 export class RxDBService {

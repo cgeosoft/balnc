@@ -64,7 +64,7 @@ export class ConfigService {
     window.location.reload()
   }
 
-  saveBModule (profile: Profile): string {
+  saveProfile (profile: Profile): string {
     const unique = new Date()
     profile.id = profile.id || `${unique.getTime()}`
     profile.createdAt = profile.createdAt || unique.toISOString()
@@ -81,8 +81,9 @@ export class ConfigService {
   getProfile (alias: string = null): Profile {
     alias = alias || this.selected
     alias = alias || this.profiles[0].id
-    let index = this.profiles.findIndex(p => p.id === alias)
-    return this.profiles[index]
+    const profile = this.profiles.find(p => p.id === alias)
+    profile.bmodules = profile.bmodules || {}
+    return profile
   }
 
   deleteProfile (alias: string) {

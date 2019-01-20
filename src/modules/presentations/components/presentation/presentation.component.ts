@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import * as screenfull from 'screenfull'
 
-import { Presentation } from '../../models/presentation'
+import { PresentationDoc, PresentationStats } from '../../models/presentation'
 import { PresentationsService } from '../../presentations.service'
 import { AddPageComponent } from '../add-page/add-page.component'
 
@@ -19,7 +19,7 @@ export class PresentationComponent implements OnInit {
   activePageIndex: number = 0
   imageData: string
   pages: any[] = []
-  presentation: Presentation
+  presentation: PresentationDoc
 
   presenting = false
 
@@ -77,6 +77,7 @@ export class PresentationComponent implements OnInit {
     { type: 'PRESENT_START', time: 1532864791000, ref: 'b254190e-b24a-4a12-876c-a9c92e74ee86', user: 'demo' },
     { type: 'PRESENT_END', time: 1532864799000, ref: 'c0d47163-baca-448b-b204-baff43926395', user: 'demo' }
   ]
+  stats: PresentationStats
 
   constructor (
     private route: ActivatedRoute,
@@ -91,6 +92,7 @@ export class PresentationComponent implements OnInit {
       .params
       .subscribe(async params => {
         this.presentation = await this.presentationsService.getPresentation(params['id'])
+        this.stats = await this.presentationsService.getStats(this.presentation)
         this.setPageIndex(0)
       })
 

@@ -14,7 +14,7 @@ export class WrapperComponent implements OnInit {
 
   error: string
   profile: Profile
-  bmodules: BModule[]
+  bmodules: BModule[] = []
 
   constructor (
     public helperService: HelperService,
@@ -36,16 +36,14 @@ export class WrapperComponent implements OnInit {
   }
 
   createProfile () {
-    const alias = this.configService.saveBModule({
+    this.configService.saveProfile({
       name: this.helperService.generateName(),
       bmodules: {}
     })
-    this.router.navigate(['/settings', alias])
   }
 
   createDemo () {
-    const alias = this.configService.saveBModule(DEMO_PROFILE)
-    this.router.navigate(['/settings', alias])
+    this.configService.saveProfile(DEMO_PROFILE)
   }
 
   onFilePicked (file: ReadFile) {
@@ -54,7 +52,7 @@ export class WrapperComponent implements OnInit {
       const data = file.content.split(',')[1]
       const profileStr = atob(data)
       const profile = JSON.parse(profileStr)
-      const alias = this.configService.saveBModule(profile)
+      const alias = this.configService.saveProfile(profile)
       this.configService.selectProfile(alias)
     } catch (error) {
       this.error = 'File is corrupted'

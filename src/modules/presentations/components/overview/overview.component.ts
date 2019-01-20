@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 
-import { Presentation } from '../../models/presentation'
+import { PresentationDoc } from '../../models/presentation'
 import { PresentationsService } from '../../presentations.service'
 
 @Component({

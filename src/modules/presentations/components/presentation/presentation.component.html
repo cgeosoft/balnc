@@ -33,14 +33,14 @@
                   <ul class="list-unstyled">
                     <li>Version
                       <strong>{{presentation | docVersion}}</strong> with last edit
-                      <strong>{{presentation.dateUpdated | dfnsDistanceInWordsToNow}}</strong>
+                      <strong *ngIf="presentation.dateUpdated">{{presentation.dateUpdated | dfnsDistanceInWordsToNow}}</strong>
                     </li>
                     <li>Total
                       <strong>{{presentation.pages.length}}</strong> pages with
-                      <strong>{{presentation.stats.filecount}}</strong> files
+                      <strong>{{stats.filecount}}</strong> files
                     </li>
                     <li>Document is
-                      <strong>{{presentation.stats.filesize | bytes:0}}</strong> in size
+                      <strong>{{stats.filesize | bytes:0}}</strong> in size
                     </li>
                   </ul>
                 </dd>
