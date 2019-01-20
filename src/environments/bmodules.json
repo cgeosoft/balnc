@@ -1,0 +1,89 @@
+{
+  "bmodules": [{
+    "id": "business",
+    "title": "Business",
+    "description": "A basic contact management database. Include company and persons, custom fields and analytics.",
+    "icon": "building",
+    "menu": [{
+      "label": "Contacts",
+      "icon": "building",
+      "path": "/business/contacts"
+    }, {
+      "label": "Orders",
+      "icon": "shopping-cart",
+      "path": "/business/orders"
+    }, {
+      "label": "Invoices",
+      "icon": "file-invoice",
+      "path": "/business/invoices"
+    }, {
+      "label": "Contracts",
+      "icon": "file-signature",
+      "path": "/business/contracts"
+    }, {
+      "label": "Inventory",
+      "icon": "warehouse",
+      "path": "/business/inventory"
+    }]
+  }, {
+    "id": "projects",
+    "title": "Projects",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "tasks",
+    "menu": [{
+      "label": "Projects",
+      "icon": "tasks",
+      "path": "/projects"
+    }]
+  }, {
+    "id": "boards",
+    "title": "Boards",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "comments",
+    "menu": [{
+      "label": "Boards",
+      "icon": "comments",
+      "path": "/boards"
+    }]
+  }, {
+    "id": "presentations",
+    "title": "Presentations",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "desktop",
+    "menu": [{
+      "label": "Presentations",
+      "icon": "desktop",
+      "path": "/presentations"
+    }]
+  }, {
+    "id": "analytics",
+    "title": "Analytics",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "chart-pie",
+    "menu": [{
+      "label": "Analytics",
+      "icon": "chart-pie",
+      "path": "/analytics"
+    }]
+  }, {
+    "id": "reports",
+    "title": "Reports",
+    "description": "A simple but full-feature team chat with customizable rooms",
+    "icon": "file-alt",
+    "menu": [{
+      "label": "Reports",
+      "icon": "file-alt",
+      "path": "/reports"
+    }],
+    "config": {
+      "server": {
+        "requireUser": {
+          "type": "boolean"
+        },
+        "host": {
+          "type": "string"
+        }
+      }
+    }
+  }]
+}

@@ -1,0 +1,25 @@
+{
+    "id": "person",
+    "title": "Person",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "address": {
+            "type": "string"
+        },
+        "phone": {
+            "type": "string"
+        },
+        "taxDetails": {
+            "$ref": "tax-details.json"
+        },
+        "companies": {
+            "type": "array",
+            "items": {
+                "$ref": "company.json"
+            }
+        }
+    }
+}

@@ -1,0 +1,247 @@
+<ng-container *ngIf="presentation; else emptyPresentation">
+  <common-content>
+
+    <common-content-header [title]="presentation.title" [subtitle]="'Presentation: '+presentation._id" icon="desktop"
+      [tabsMenu]="tabsMenu"></common-content-header>
+
+    <common-content-body *ngIf="tabsMenu.selected === 'overview'">
+
+      <div class="row">
+        <div class="col-lg-3">
+
+          <button class="btn btn-primary btn-block btn-lg mb-2" (click)="startPresentation()">
+            <fa-layers class="fa-fw">
+              <fa-icon [icon]="['fas','play-circle']"></fa-icon>
+            </fa-layers> Start Presentation
+          </button>
+
+          <button class="btn btn-outline-primary btn-block mb-2">
+            <fa-layers class="fa-fw">
+              <fa-icon [icon]="['fas','share']"></fa-icon>
+            </fa-layers> Share
+          </button>
+
+          <div class="card border-primary mb-2">
+            <div class="card-body">
+              <dl>
+                <dt>Description</dt>
+                <dd>
+                  {{presentation.description}}
+                </dd>
+                <dt>Statistics</dt>
+                <dd>
+                  <ul class="list-unstyled">
+                    <li>Version
+                      <strong>{{presentation | docVersion}}</strong> with last edit
+                      <strong *ngIf="presentation.dateUpdated">{{presentation.dateUpdated | dfnsDistanceInWordsToNow}}</strong>
+                    </li>
+                    <li>Total
+                      <strong>{{presentation.pages.length}}</strong> pages with
+                      <strong>{{stats.filecount}}</strong> files
+                    </li>
+                    <li>Document is
+                      <strong>{{stats.filesize | bytes:0}}</strong> in size
+                    </li>
+                  </ul>
+                </dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9">
+          <div class="card bg-dark text-white mb-2">
+            <div class="card-body">
+              <chart [type]="chart.type" [data]="chart.data" [options]="chart.options" style="height:200px;"></chart>
+            </div>
+          </div>
+
+          <table class="table table-max">
+            <tbody>
+              <tr *ngFor="let event of events">
+                <td class="text-center" style="width:120px;font-weight: 300;">
+                  <div>
+                    {{event.time|date:'hh:mm:ss'}}
+                  </div>
+                  <div style="font-size:.8rem;">
+                    {{event.time|date:'dd/MM/yyyy'}}
+                  </div>
+                </td>
+                <td>
+                  <div class="d-flex flex-column">
+                    <div>
+                      <ng-container [ngSwitch]="event.type">
+                        <ng-container *ngSwitchCase="'CREATE'">
+                          <fa-layers class="fa-fw text-primary">
+                            <fa-icon [icon]="['fas','plus-square']"></fa-icon>
+                          </fa-layers>
+                          New presentation was created
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'CHANGE'">
+                          <fa-layers class="fa-fw text-primary">
+                            <fa-icon [icon]="['fas','edit']"></fa-icon>
+                          </fa-layers>
+                          Presentation changed
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'PRESENT_START'">
+                          <fa-layers class="fa-fw text-success">
+                            <fa-icon [icon]="['fas','play-circle']"></fa-icon>
+                          </fa-layers>
+                          Start presenting
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'PRESENT_END'">
+                          <fa-layers class="fa-fw text-warning">
+                            <fa-icon [icon]="['fas','flag-checkered']"></fa-icon>
+                          </fa-layers>
+                          Finish presenting
+                        </ng-container>
+                      </ng-container>
+                    </div>
+                    <ul class="list-inline text-muted m-0" style="font-size:.8rem;">
+                      <li class="list-inline-item">
+                        <fa-layers class="fa-fw">
+                          <fa-icon [icon]="['fas','user']"></fa-icon>
+                        </fa-layers>
+                        <span>{{event.user}}</span>
+                      </li>
+                      <li class="list-inline-item">
+                        <fa-layers class="fa-fw">
+                          <fa-icon [icon]="['fas','fingerprint']"></fa-icon>
+                        </fa-layers>
+                        <span>{{event.ref}}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+          </table>
+
+        </div>
+      </div>
+
+    </common-content-body>
+
+    <common-content-body *ngIf="tabsMenu.selected === 'slides'">
+
+      <div class="btn-toolbar">
+        <div class="btn-group mr-2">
+          <button class="btn btn-outline-primary" (click)="addImage()">
+            <fa-layers class="fa-fw">
+              <fa-icon [icon]="['far','file-image']"></fa-icon>
+            </fa-layers>
+            Add Image
+          </button>
+          <button class="btn btn-outline-secondary" (click)="addImage()">
+            <fa-layers class="fa-fw">
+              <fa-icon [icon]="['far','file-code']"></fa-icon>
+            </fa-layers>
+            Add Html
+          </button>
+        </div>
+        <div class="ml-auto">
+          <div class="btn-group">
+            <button type="button" class="btn btn-light" (click)="goToFirst()">
+              <fa-layers class="fa-fw">
+                <fa-icon [icon]="['fas','angle-double-left']"></fa-icon>
+              </fa-layers>
+            </button>
+            <button type="button" class="btn btn-light" (click)="goToPrevious()">
+              <fa-layers class="fa-fw">
+                <fa-icon [icon]="['fas','angle-left']"></fa-icon>
+              </fa-layers>
+            </button>
+            <button type="button" class="btn btn-light" (click)="goToNext()">
+              <fa-layers class="fa-fw">
+                <fa-icon [icon]="['fas','angle-right']"></fa-icon>
+              </fa-layers>
+            </button>
+            <button type="button" class="btn btn-light" (click)="goToLast()">
+              <fa-layers class="fa-fw">
+                <fa-icon [icon]="['fas','angle-double-right']"></fa-icon>
+              </fa-layers>
+            </button>
+          </div>
+
+          <div class="btn-group">
+            <div ngbDropdown placement="bottom-right" class="d-inline-block">
+              <button class="btn btn-link text-secondary dropdown-toggle-hidden" ngbDropdownToggle>
+                <fa-layers class="fa-fw">
+                  <fa-icon [icon]="['fas','th-list']"></fa-icon>
+                </fa-layers>
+              </button>
+              <div ngbDropdownMenu>
+                <ng-container *ngIf="presentation.pages; else emptyPages">
+                  <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}" (click)="setPageIndex(i)"
+                    *ngFor="let page of presentation.pages; let i = index;">
+                    {{page.title}}
+                    <small class="pull-right">#{{i+1}}</small>
+                  </a>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card text-truncate mb-2">
+        <common-empty *ngIf="!presentation.pages.length" message="No pages"></common-empty>
+        <div *ngIf="presentation.pages">
+          <div *ngIf="presentation.pages[activePageIndex]">
+            <div class="text-center bg-secondary" *ngIf="presentation.pages[activePageIndex].type=='BGIMG' && imageData">
+              <img class="img-fluid" [src]="imageData">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-2" *ngIf="!presentation.pages">
+        <div class="card-header">
+          {{presentation.pages[activePageIndex].title}}
+          <small class="text-secondary">#{{activePageIndex+1}}</small>
+          <div class="card-header-buttons">
+            <div ngbDropdown placement="bottom-right" class="d-inline-block">
+              <button class="btn btn-link text-secondary dropdown-toggle-hidden" ngbDropdownToggle>
+                <span class="fa fa-bars"></span>
+              </button>
+              <div ngbDropdownMenu>
+                <button class="dropdown-item text-danger" (click)="deletePage(activePageIndex)">
+                  <span class="fa fa-trash-o"></span> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body" *ngIf="presentation.pages[activePageIndex].description">
+          {{presentation.pages[activePageIndex].description}}
+        </div>
+      </div>
+
+    </common-content-body>
+
+    <common-content-body *ngIf="tabsMenu.selected === 'manage'">
+      <common-debug [data]="presentation"></common-debug>
+    </common-content-body>
+
+  </common-content>
+</ng-container>
+
+<div #presentElem class="present">
+  <div *ngIf="presenting">
+    <swiper>
+      <div *ngFor="let img of pages" class="d-flex align-items-center justify-content-center">
+        <img [src]="img" class="img-fluid">
+      </div>
+    </swiper>
+  </div>
+</div>
+
+<ng-template #emptyPresentation>
+  <common-empty message="Select a presentation or create a new one" icon="desktop"></common-empty>
+</ng-template>
+
+<ng-template #emptyPages>
+  <common-empty message="No pages were found"></common-empty>
+</ng-template>
+
+<ng-template #loading>
+  <common-loader></common-loader>
+</ng-template>

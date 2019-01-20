@@ -1,0 +1,62 @@
+<common-sidebar>
+  <div class="menu">
+    <div class="header">
+      <h4>Contacts</h4>
+    </div>
+    <div class="items">
+      <a routerLink="/business/contacts/overview" routerLinkActive="active">
+        <fa-icon icon="users" class="icon"></fa-icon>
+        <div class="content">Overview</div>
+      </a>
+      <button (click)="create()">
+        <fa-icon icon="plus-circle" class="icon"></fa-icon>
+        <div class="content">Quick Add</div>
+      </button>
+      <button (click)="generate()">
+        <fa-icon icon="random" class="icon"></fa-icon>
+        <div class="content">Generate Random</div>
+      </button>
+    </div>
+  </div>
+  <div class="menu mt-auto">
+    <div class="header">
+      <h4>Last Access</h4>
+    </div>
+    <div class="items">
+      <ng-container *ngIf="(lastAccessed$ | async) as lastAccessed; else loader">
+        <ng-container *ngIf="lastAccessed.length; else empty">
+          <a *ngFor="let contact of lastAccessed" [routerLink]="['/business/contacts/contact',contact._id]"
+            routerLinkActive="active">
+            <div class="thumb">
+              <ng-container *ngIf="contact.details.avatar; else noThumb">
+                <div class="thumb-img" [ngStyle]="{'background-image': 'url('+contact.details.avatar+')'}"></div>
+              </ng-container>
+              <div class="indicator" *ngIf="contact.tags[0] === 'company'" style="background-color: #8E24AA">
+                <fa-icon icon="building"></fa-icon>
+              </div>
+              <div class="indicator" *ngIf="contact.tags[0] === 'person'" style="background-color: #4A148C">
+                <fa-icon icon="user"></fa-icon>
+              </div>
+            </div>
+            <div class="content">
+              <span>{{contact.name}}</span>
+              <small *ngIf="contact.logs">{{contact.logs[contact.logs.length-1].date | date:"short"}}</small>
+            </div>
+          </a>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</common-sidebar>
+<router-outlet></router-outlet>
+<ng-template #loader>
+  <div class="text-center p4">
+    <fa-icon icon="sync" [spin]="true" size="lg"></fa-icon>
+  </div>
+</ng-template>
+<ng-template #empty>
+  <common-empty icon="desktop"></common-empty>
+</ng-template>
+<ng-template #noThumb>
+  <fa-icon [icon]="['fas','desktop']"></fa-icon>
+</ng-template>

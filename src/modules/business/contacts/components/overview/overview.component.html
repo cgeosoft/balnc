@@ -1,0 +1,47 @@
+<common-content>
+  <common-content-header title="Overview" icon="users"></common-content-header>
+  <common-content-body>
+    <ng-container *ngIf="(contacts$ | async) as contacts; else loader">
+      <ng-container *ngIf="contacts.length; else empty">
+        <table class="table table-sm mb-0">
+          <thead class="thead-light">
+            <tr>
+              <th>Name</th>
+              <th>Last Log</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let contact of contacts">
+              <td>
+                <div class="d-flex">
+                  <img [src]="contact.details.avatar" alt="avatar" class="rounded mr-2" style="width: 50px;height:50px">
+                  <div>
+                    <strong>{{contact.name}}</strong> <small class="badge badge-primary ml-2" *ngFor="let tag of contact.tags">{{tag}}</small>
+                  </div>
+                  <div *ngIf="contact.detail">{{contact.detail.phones[0]}} - {{contact.detail.phones[1]}}</div>
+                </div>
+              </td>
+              <td>
+                {{contact.logs[contact.logs.length-1].date | date:'short'}}
+              </td>
+              <td class="d-flex flex-column aling-items-center">
+                <a class="btn btn-sm btn-outline-dark" [routerLink]="['/business/contacts/contact',contact._id]">
+                  <fa-icon icon="external-link-square-alt"></fa-icon>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+  </common-content-body>
+</common-content>
+<ng-template #loader>
+  <div class="text-center p4">
+    <fa-icon icon="sync" [spin]="true" size="lg"></fa-icon>
+  </div>
+</ng-template>
+<ng-template #empty>
+  <common-empty message="No contacts" submessage="Insert or import a few" icon="exclamation-circle"></common-empty>
+</ng-template>

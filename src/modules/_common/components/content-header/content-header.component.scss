@@ -1,0 +1,88 @@
+@import "components/bootstrap";
+:host {
+  background: darken($body-bg, 1%);
+  border-bottom: solid 1px darken($body-bg, 5%);
+  .header-bar {
+    @extend .d-flex;
+    @extend .flex-column;
+    height: 55px;
+    min-height: 55px;
+    color: lighten($body-color, 15%);
+    .header-bar-title {
+      @extend .d-flex;
+      @extend .flex-row;
+      @extend .align-items-center;
+      @extend .w-100;
+      margin-top: 5px;
+      height: 46px;
+      .header-icon {
+        font-size: 30px;
+        width: 48px;
+        text-align: center;
+      }
+      .header-bar-title-divider {
+        @extend .mx-2;
+        height: 30px;
+        width: 1px;
+        background: darken($body-bg, 20%);
+      }
+      .header-body {
+        @extend .d-flex;
+        @extend .flex-column;
+        @extend .justify-content-center;
+        height: 100%;
+        h1 {
+          font-size: 1.3rem;
+          margin: 0;
+          font-weight: normal;
+        }
+        ul {
+          @extend .text-muted;
+          margin: 0;
+          font-size: .6rem;
+        }
+      }
+      .header-menu {
+        @extend .ml-auto;
+        .dropdown-toggle {
+          .fa {
+            @extend .text-muted;
+          }
+        }
+      }
+      &.has-tabs {
+        padding-bottom: 0;
+      }
+    }
+    .header-bar-tabs {
+      @extend .mt-auto;
+      @extend .p-0;
+      .nav-tabs {
+        border-bottom: none;
+        .nav-item {
+          @extend .mr-1;
+          .nav-link {
+            @extend .text-muted;
+            @extend .py-1;
+            &.active {
+              color: lighten($body-color, 5%);
+            }
+            &:hover{
+              border-bottom: none;
+            }
+          }
+        }
+      }
+    }
+    &.has-tabs {
+      height: 94px;
+      min-height: 94px;
+    }
+  }
+}
+
+.dropdown-toggle {
+  &::after {
+    display: none;
+  }
+}

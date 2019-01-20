@@ -1,0 +1,8 @@
+<div *ngIf="show">
+  <div class="card text-white mb-4" [ngClass]="color">
+    <div class="card-header" *ngIf="title">{{title}}</div>
+    <div class="card-body">
+      <pre class="text-white">{{data|json}}</pre>
+    </div>
+  </div>
+</div>

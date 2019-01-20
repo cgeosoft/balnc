@@ -1,12 +1,24 @@
 # Balnc
 
-**WARNING: This application is a currently MOCK-UP and is under heavy development. It SHOULD NOT be used for any other propose than showcase of the underline technologies and the implementation approach.**
+**WARNING: This application is under development. You SHOULD NOT use this for production.**
 
 ![screenshot](docs/assets/screenshot.png)
 
-Balnc (balance) is a software framework for develop business applications. It is a base system that on top are implemented collections of business modules which eventually create a tailor made application for small an medium size businesses.
+Balnc (balance) is a software framework for develop business applications. It is a base layer of core modules for manageing data and styles and on top are implemented collections of business spesific apps.
 
-With Balnc software developers may quickly bootstrap applications and use premade modules from Balnc Packages or create their own. This collection includes sales, marketing and accounting modules and it is both open source and free under the MIT license.
+Example:
+
+A small business app could use:
+
+- @balnc/core - libraries
+- @balnc/main - main views
+- @balnc/business - customers, orders, invoices
+- @balnc/payments - online payments
+- @balnc/email - email client
+- @balnc/boards - internal collaboration tool
+- @balnc/presentations - create presentations for clients
+- @balnc/projects - mnanage tasklists for the team
+- @balnc/webpages - mnanage company's landing page
 
 ## Main Features
 
