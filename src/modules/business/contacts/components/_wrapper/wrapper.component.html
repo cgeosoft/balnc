@@ -6,15 +6,15 @@
     <div class="items">
       <a routerLink="/business/contacts/overview" routerLinkActive="active">
         <fa-icon icon="users" class="icon"></fa-icon>
-        <div class="content">Overview</div>
+        <span>Overview</span>
       </a>
       <button (click)="create()">
         <fa-icon icon="plus-circle" class="icon"></fa-icon>
-        <div class="content">Quick Add</div>
+        <span>New Contact</span>
       </button>
       <button (click)="generate()">
         <fa-icon icon="random" class="icon"></fa-icon>
-        <div class="content">Generate Data</div>
+        <span>Generate Data</span>
         <fa-icon [icon]="['fas','cog']" [spin]="true" class="icon icon-badge" *ngIf="generating"></fa-icon>
       </button>
     </div>
