@@ -52,11 +52,15 @@ export class ProjectsService extends CommonService {
     return super.getOne<Project>('projects', projectId)
   }
 
-  async createProject (name: string, description: string) {
-    const result = await super.addOne('project', {
-      name: name,
-      description: description
-    })
+  async createProject (name: string) {
+    const project = {
+      name,
+      description: '',
+      isArchived: false,
+      isStarred: false,
+      tags: []
+    }
+    const result = await super.addOne('projects', project)
     return result
   }
 
@@ -75,18 +79,16 @@ export class ProjectsService extends CommonService {
     return events
   }
 
-  async createTask (title: string, projectId: string, description: string) {
-    const log = {
-      title: title,
-      description: description,
+  async createTask (task: PEvent) {
+    const d = {
       insertedAt: Date.now(),
       updatedAt: Date.now(),
       insertedFrom: 'anon',
       type: 'TASK',
-      status: 'PENDING',
-      project: projectId
+      status: 'PENDING'
     }
-
+    const log = { ...task, ...d }
+    console.log('adding task', log)
     return super.addOne('pevents', log)
   }
 
@@ -99,7 +101,6 @@ export class ProjectsService extends CommonService {
       project: task.project,
       parent: task.get('_id')
     }
-
     return super.addOne('pevents', log)
   }
 
@@ -120,8 +121,12 @@ export class ProjectsService extends CommonService {
     for (let k = 0; k < 50; k++) {
       const pr = Math.floor(Math.random() * projects.length)
       if (projects[pr]) {
-
-        await this.createTask(`Task ${k}`, projects[pr].get('_id'), 'lorem ipsum dolor')
+        const task: PEvent = {
+          title: `Task ${k}`,
+          description: 'lorem ipsum dolor',
+          project: projects[pr].get('_id')
+        }
+        await this.createTask(task)
       }
     }
   }

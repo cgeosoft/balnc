@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 
 import { ContactsService } from '../../contacts.service'
 import { Contact } from '../../models/all.model'
-import { Observable } from 'rxjs'
+import { Observable, generate } from 'rxjs'
 
 @Component({
   selector: 'contacts-wrapper',
@@ -12,6 +12,7 @@ import { Observable } from 'rxjs'
 export class WrapperComponent implements OnInit {
 
   lastAccessed$: Observable<Contact[]>
+  generating = false
 
   constructor (
     private contactsService: ContactsService
@@ -22,7 +23,11 @@ export class WrapperComponent implements OnInit {
   }
 
   async generate () {
-    await this.contactsService.generateDemoData()
+    this.generating = true
+    if (confirm('Are you sure?')) {
+      await this.contactsService.generateDemoData()
+    }
+    this.generating = false
   }
 
   async create () {

@@ -1,4 +1,4 @@
-import { MainComponent, ErrorComponent, BoxComponent } from '@balnc/common'
+import { MainComponent, ErrorComponent } from '@balnc/common'
 import { Routes } from '@angular/router'
 
 export const AppRoutes: Routes = [{
@@ -28,13 +28,9 @@ export const AppRoutes: Routes = [{
     redirectTo: '/dashboard'
   }]
 }, {
-  path: '',
-  component: BoxComponent,
-  children: [{
-    path: 'setup',
-    loadChildren: '../modules/setup/setup.module#SetupModule'
-  }, {
-    path: 'error',
-    component: ErrorComponent
-  }]
+  path: 'setup',
+  loadChildren: '../modules/setup/setup.module#SetupModule'
+}, {
+  path: 'error',
+  component: ErrorComponent
 }]

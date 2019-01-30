@@ -5,13 +5,13 @@ export interface PEvent {
   description?: string
 
   project: string
-  type: string
-  status: string
+  type?: string
+  status?: string
   parent?: string
   labels?: string[]
 
-  insertedAt: string
-  insertedFrom: string
+  insertedAt?: string
+  insertedFrom?: string
   updatedAt?: string
   updatedFrom?: string
 }

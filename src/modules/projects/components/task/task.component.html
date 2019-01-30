@@ -1,6 +1,7 @@
 <ng-container *ngIf="task && project">
   <common-content>
-    <common-content-header [title]="task.title" [subtitle]="'Task: '+task._id" [route]="'/projects/'+project._id" icon="caret-left"></common-content-header>
+    <common-content-header [title]="task.title" [subtitle]="'Task: '+task._id" [route]="'/projects/project/'+project._id"
+      icon="caret-left"></common-content-header>
     <common-content-body>
       <div class="row">
         <div class="col-md-8">

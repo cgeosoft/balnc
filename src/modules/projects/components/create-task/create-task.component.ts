@@ -6,6 +6,7 @@ import { Observable } from 'rxjs'
 
 import { ProjectsService } from '../../projects.service'
 import { RxProjectDoc } from '../../models/project'
+import { PEvent } from '../../models/pevent'
 
 @Component({
   selector: 'projects-task-create',
@@ -16,9 +17,7 @@ export class CreateTaskComponent implements OnInit {
 
   projects$: Observable<(RxDocumentBase<RxProjectDoc> & RxProjectDoc)[]>
 
-  @Input() projectId = ''
-
-  @ViewChild('title') title: ElementRef
+  @Input() projectId
 
   form: FormGroup
 
@@ -28,17 +27,7 @@ export class CreateTaskComponent implements OnInit {
     private projectsService: ProjectsService
   ) { }
 
-  async ngOnInit () {
-
-    // this.projects$ = await this.projectsService.getProjects()
-
-    if (this.projectId === null) {
-      const projects = await this.projects$.toPromise()
-      if (projects.length !== 0) {
-        this.projectId = projects[0].get('_id')
-      }
-    }
-
+  ngOnInit () {
     this.form = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(100)]],
       project: [this.projectId, [Validators.required]],
@@ -46,15 +35,14 @@ export class CreateTaskComponent implements OnInit {
     })
   }
 
-  onSubmit () {
+  async onSubmit () {
     const formModel = this.form.value
-    const projectId = formModel.project
-    this.projectsService
-      .createTask(formModel.title, formModel.project, formModel.description)
-      .then(() => {
-        this.form.reset()
-        this.form.get('project').setValue(projectId)
-        this.title.nativeElement.focus()
-      })
+    const task: PEvent = {
+      title: formModel.title,
+      description: formModel.description,
+      project: this.projectId
+    }
+    await this.projectsService.createTask(task)
+    this.activeModal.close()
   }
 }

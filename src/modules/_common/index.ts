@@ -1,6 +1,5 @@
 export * from './common.module'
 
-export * from './components/box/box.component'
 export * from './components/content-body/content-body.component'
 export * from './components/content-header/content-header.component'
 export * from './components/content/content.component'
