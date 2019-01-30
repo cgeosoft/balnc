@@ -19,7 +19,6 @@
       height: 100%;
       width: 100%;
 
-
       .card {
         height: 100%;
         width: 100%;
@@ -42,6 +41,22 @@
           }
         }
       }
+    }
+
+    .footer {
+      @extend .d-none;
+      @extend .d-sm-block;
+      @extend .d-flex;
+      @extend .justify-content-center;
+      @extend .py-2;
+    }
+
+    .preview {
+      @extend .p-2;
+      @extend .rounded;
+      @extend .bg-primary;
+      @extend .text-light;
+      font-size: .7rem;
     }
 
     &:before {

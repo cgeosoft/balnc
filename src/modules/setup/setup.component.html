@@ -137,8 +137,7 @@
       </div>
 
       <div class="card-body" *ngIf="steps[stepIndex].label=='Finish'">
-        <h4>Preview</h4>
-        <pre class="p-4 rounded bg-primary text-light">{{profile|json:2}}</pre>
+        <pre class="preview">{{profile|json:2}}</pre>
       </div>
       <div class="card-footer p-2">
         <button class="btn btn-light" (click)="back()" *ngIf="stepIndex != 0">
@@ -155,23 +154,20 @@
         </button>
       </div>
     </div>
-
   </div>
-  <div class="d-none d-sm-block">
-    <div class="text-white d-flex justify-content-center py-2">
-      <ul class="list-inline m-0">
-        <li class="list-inline-item">Balnc v{{configService.version}}</li>
-        <li class="list-inline-item">
-          <a href="https://github.com/christosgeorgiou/balnc" target="_blank" rel="noopener" class="text-muted">
-            source
-          </a>
-        </li>
-        <li class="list-inline-item">
-          <a href="https://github.com/christosgeorgiou/balnc/LICENSE" target="_blank" rel="noopener" class="text-muted">
-            license
-          </a>
-        </li>
-      </ul>
-    </div>
+  <div class="footer">
+    <ul class="list-inline m-0">
+      <li class="list-inline-item">Balnc v{{configService.version}}</li>
+      <li class="list-inline-item">
+        <a href="https://github.com/christosgeorgiou/balnc" target="_blank" rel="noopener" class="text-muted">
+          source
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a href="https://github.com/christosgeorgiou/balnc/LICENSE" target="_blank" rel="noopener" class="text-muted">
+          license
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
