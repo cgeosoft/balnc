@@ -13,7 +13,6 @@ import { NgPipesModule } from 'ngx-pipes'
 import { WebStorageModule } from 'ngx-store'
 import { ToastrModule } from 'ngx-toastr'
 
-import { BoxComponent } from './components/box/box.component'
 import { ContentBodyComponent } from './components/content-body/content-body.component'
 import { ContentHeaderComponent } from './components/content-header/content-header.component'
 import { ContentComponent } from './components/content/content.component'
@@ -50,7 +49,6 @@ library.add(fas, far)
     DateFnsModule.forRoot()
   ],
   declarations: [
-    BoxComponent,
     ContentBodyComponent,
     ContentComponent,
     ContentHeaderComponent,
@@ -85,7 +83,6 @@ library.add(fas, far)
     DocVersionPipe,
     EllipsisPipe,
 
-    BoxComponent,
     ContentBodyComponent,
     ContentComponent,
     ContentHeaderComponent,
