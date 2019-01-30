@@ -121,7 +121,12 @@ export class ProjectsService extends CommonService {
     for (let k = 0; k < 50; k++) {
       const pr = Math.floor(Math.random() * projects.length)
       if (projects[pr]) {
-        await this.createTask(`Task ${k}`, projects[pr].get('_id'), 'lorem ipsum dolor')
+        const task: PEvent = {
+          title: `Task ${k}`,
+          description: 'lorem ipsum dolor',
+          project: projects[pr].get('_id')
+        }
+        await this.createTask(task)
       }
     }
   }
