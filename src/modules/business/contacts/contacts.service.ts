@@ -24,7 +24,7 @@ export class ContactsService extends CommonService {
           const cbLastUpdate = new Date(cb.logs[cb.logs.length - 1].date)
           return cbLastUpdate.getTime() - caLastUpdate.getTime()
         })
-      this.lastAccessed$.next(contacts.slice(0, 10))
+      this.lastAccessed$.next(contacts.slice(0, 5))
     })
     this.contacts$ = this.db['contacts'].find().$
   }

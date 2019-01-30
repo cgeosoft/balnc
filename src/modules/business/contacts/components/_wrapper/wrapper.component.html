@@ -14,14 +14,12 @@
       </button>
       <button (click)="generate()">
         <fa-icon icon="random" class="icon"></fa-icon>
-        <div class="content">Generate Random</div>
+        <div class="content">Generate Data</div>
+        <fa-icon [icon]="['fas','cog']" [spin]="true" class="icon icon-badge" *ngIf="generating"></fa-icon>
       </button>
     </div>
   </div>
   <div class="menu mt-auto">
-    <div class="header">
-      <h4>Last Access</h4>
-    </div>
     <div class="items">
       <ng-container *ngIf="(lastAccessed$ | async) as lastAccessed; else loader">
         <ng-container *ngIf="lastAccessed.length; else empty">

@@ -8,27 +8,29 @@
             <tr>
               <th>Name</th>
               <th>Last Log</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let contact of contacts">
               <td>
                 <div class="d-flex">
-                  <img [src]="contact.details.avatar" alt="avatar" class="rounded mr-2" style="width: 50px;height:50px">
+                  <a [routerLink]="['/business/contacts/contact',contact._id]">
+                    <img [src]="contact.details.avatar" alt="avatar" class="rounded mr-2" style="width: 50px;height:50px">
+                  </a>
                   <div>
-                    <strong>{{contact.name}}</strong> <small class="badge badge-primary ml-2" *ngFor="let tag of contact.tags">{{tag}}</small>
+                    <a [routerLink]="['/business/contacts/contact',contact._id]">
+                      <strong>{{contact.name}}</strong></a><br>
+                    <small class="text-muted">
+                      <ul class="list-inline m-0">
+                        <li class="list-inline-item" *ngFor="let tag of contact.tags">{{tag}}</li>
+                      </ul>
+                    </small>
                   </div>
-                  <div *ngIf="contact.detail">{{contact.detail.phones[0]}} - {{contact.detail.phones[1]}}</div>
                 </div>
               </td>
               <td>
+                {{contact.logs[contact.logs.length-1].comment}}<br>
                 {{contact.logs[contact.logs.length-1].date | date:'short'}}
-              </td>
-              <td class="d-flex flex-column aling-items-center">
-                <a class="btn btn-sm btn-outline-dark" [routerLink]="['/business/contacts/contact',contact._id]">
-                  <fa-icon icon="external-link-square-alt"></fa-icon>
-                </a>
               </td>
             </tr>
           </tbody>

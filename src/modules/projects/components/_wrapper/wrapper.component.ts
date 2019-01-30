@@ -72,8 +72,10 @@ export class WrapperComponent implements OnInit {
 
   async generateDemoData () {
     this.generating = true
-    await this.projectsService.generateDemoData()
-    await this.load()
+    if (confirm('Are you sure?')) {
+      await this.projectsService.generateDemoData()
+      await this.load()
+    }
     this.generating = false
   }
 
