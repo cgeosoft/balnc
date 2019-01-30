@@ -48,7 +48,7 @@ export class WrapperComponent implements OnInit {
 
   async createProject () {
     await this.modal.open(CreateProjectComponent).result
-    this.load()
+    await this.load()
   }
 
   setFilter (filter) {

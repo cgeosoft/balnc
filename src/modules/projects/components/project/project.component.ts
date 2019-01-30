@@ -6,6 +6,7 @@ import { RxPEventDoc, PEvent } from '../../models/pevent'
 import { CreateTaskComponent } from '../create-task/create-task.component'
 import { Project } from '../../models/project'
 import { ProjectsService } from '../../projects.service'
+import { moduleDef } from '@angular/core/src/view'
 
 @Component({
   selector: 'projects-project',
@@ -41,19 +42,21 @@ export class ProjectComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.projectId = params['pid']
-      this.setup()
+      this.load()
     })
   }
 
-  private async setup () {
+  private async load () {
     this.project = await this.projectsService.getProject(this.projectId)
     this.tasks = await this.projectsService.getTasks({
       query: { project: { $eq: this.projectId } }
     })
   }
 
-  createTask () {
+  async createTask () {
     const modalRef = this.modal.open(CreateTaskComponent)
     modalRef.componentInstance.projectId = this.projectId
+    await modalRef.result
+    this.load()
   }
 }

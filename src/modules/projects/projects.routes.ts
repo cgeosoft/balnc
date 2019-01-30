@@ -11,8 +11,8 @@ export const ProjectsRoutes = [{
     srv: ProjectsService
   },
   children: [
-    { path: '', component: OverviewComponent },
-    { path: ':pid', component: ProjectComponent },
-    { path: ':pid/:tid', component: TaskComponent }
+    { path: 'overview', component: OverviewComponent },
+    { path: 'project/:pid', component: ProjectComponent },
+    { path: 'project/:pid/task/:tid', component: TaskComponent }
   ]
 }]
