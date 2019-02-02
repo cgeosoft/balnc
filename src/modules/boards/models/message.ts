@@ -1,17 +1,13 @@
-import * as schema from './message.json'
 import { RxDocument } from 'rxdb'
 
-declare interface IMessage {
-  ref?: string
+export interface Message {
+  timestamp: number
   text?: string
   data?: any
-  sender?: string
-  board?: string
-  sendAt?: number
-  status?: string
-  type?: string
+  sender: string
+  board: string
+  status: string
+  type: string
 }
 
-export type Message = IMessage
-export type RxMessageDoc = RxDocument<IMessage> & IMessage
-export const MessageSchema = schema
+export type RxMessageDoc = RxDocument<Message> & Message

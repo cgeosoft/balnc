@@ -31,6 +31,7 @@ export class WrapperComponent implements OnInit {
 
   async addBoard () {
     if (!this.newBoard) { return }
+
     await this.boardService.createBoard({
       name: this.newBoard
     })

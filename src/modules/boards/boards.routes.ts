@@ -3,12 +3,12 @@ import { BoardComponent } from './components/board/board.component'
 import { BoardsService } from './boards.service'
 
 export const BoardsRoutes = [{
-  path: 'boards',
+  path: '',
   resolve: {
     srv: BoardsService
   },
   component: WrapperComponent,
   children: [
-    { path: ':board', component: BoardComponent }
+    { path: ':id', component: BoardComponent }
   ]
 }]

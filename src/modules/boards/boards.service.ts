@@ -1,13 +1,12 @@
 import { Injectable, NgZone } from '@angular/core'
-import { RxCollection, RxDatabase } from 'rxdb'
-import { BehaviorSubject } from 'rxjs'
+import { CommonService, ConfigService, RxDBService } from '@balnc/common'
 import { LocalStorage } from 'ngx-store'
+import { BehaviorSubject, Observable } from 'rxjs'
 
-import { ConfigService, RxDBService, CommonService } from '@balnc/common'
-
-import { BoardsEntities } from './models/_entities'
-import { RxMessageDoc, Message } from './models/message'
-import { RxBoardDoc, Board, BoardWithMessages } from './models/board'
+import { Board } from './models/board'
+import { BoardsEntities } from './models/entities'
+import { Message, RxMessageDoc } from './models/message'
+import { tap } from 'rxjs/operators'
 
 @Injectable()
 export class BoardsService extends CommonService {
@@ -15,12 +14,10 @@ export class BoardsService extends CommonService {
   alias = 'boards'
   entities = BoardsEntities
 
-  boards: RxCollection<RxBoardDoc>
-  messages: RxCollection<RxMessageDoc>
-
   @LocalStorage() nickname: string = ''
 
-  boards$: BehaviorSubject<BoardWithMessages[]> = new BehaviorSubject<BoardWithMessages[]>([])
+  boards$: Observable<Board[]>
+  messages$: Observable<Message[]>
 
   constructor (
     dbService: RxDBService,
@@ -30,52 +27,20 @@ export class BoardsService extends CommonService {
     super(dbService)
   }
 
-  async setup () {
+  async resolve () {
+    await super.resolve()
     this.nickname = this.configService.profile.remoteUsername
-    // this.boardCol = await this.dbService.get<RxBoardDoc>('boards')
-    // this.messageCol = await this.dbService.get<RxMessageDoc>('messages')
-
-    await this.loadBoards()
-    // await this.loadSubscriptions()
-  }
-
-  // async loadSubscriptions() {
-  //   super.getAll().$.subscribe(async (ev) => {
-  //     await this.loadBoards()
-  //   })
-
-  //   this.messageCol.$.subscribe(async (ev) => {
-  //     let message: Message = ev.data.v as Message
-  //     let board = this.boards$.value.find(b => b.name === message.board)
-  //     if (board) {
-  //       board.messages$.next(board.messages$.getValue().concat([message]))
-  //       this.ngZone.run(() => {
-  //         // empty
-  //       })
-  //     }
-  //   })
-  // }
-
-  async loadBoards () {
-    let boards = await super.getAll<BoardWithMessages>('boards', {})
-
-    let sets = []
-    boards.forEach(b => {
-      const set = this.loadMessages(b.name).then(messages => {
-        b.messages$ = new BehaviorSubject<Message[]>(messages)
-      })
-      sets.push(set)
-    })
-    await Promise.all(sets)
-
-    this.boards$.next(boards)
-    this.ngZone.run(() => {
-      // empty
-    })
+    this.boards$ = this.db['boards'].find().$
+    this.messages$ = this.db['messages'].find().$
+      .pipe(
+        tap(messages => {
+          messages.sort((a, b) => a.timestamp - b.timestamp)
+        })
+      )
   }
 
   async loadMessages (boardName: String) {
-    let query = this.messages.find().where('board').eq(boardName)
+    let query = this.db['messages'].find().where('board').eq(boardName)
     const messagesRaw = await query.exec()
     const messages: Message[] = messagesRaw
       .sort((a, b) => {
@@ -90,68 +55,66 @@ export class BoardsService extends CommonService {
     return messages
   }
 
-  getBoard (boardName: any) {
-    let board = this.boards$.value.find(b => b.name === boardName)
+  getBoard (id: string) {
+    let board = super.getOne('boards', id)
     return board
   }
 
-  async createBoard (board: any) {
-    const _board = Object.assign({
-      created: (new Date()).getTime(),
+  async createBoard (data: Board) {
+    const now = new Date()
+    const board = Object.assign({
+      created: now.getTime(),
       members: [{
         name: this.nickname,
         type: 'ADMIN',
-        lastView: (new Date()).getTime()
+        lastView: now.getTime()
       }],
       lastMessage: {}
-    }, board)
-    const _boardDoc: RxBoardDoc = Object.assign({}, _board)
-    await this.boards.newDocument(_boardDoc).save()
+    }, data)
+
+    await super.addOne('boards', board)
   }
 
-  async joinBoard (boardName: any) {
-    let board = this.boards$.value.find(b => b.name === boardName)
-    const _member = board.members.find(m => {
-      return m.name === this.nickname
-    })
+  // async joinBoard (boardName: any) {
+  //   let board = this.db['boards'].find(b => b.name === boardName)
+  //   const _member = board.members.find(m => {
+  //     return m.name === this.nickname
+  //   })
 
-    if (!_member) {
-      board.members.push({
-        name: this.nickname,
-        type: 'MEMBER',
-        lastView: (new Date()).getTime()
-      })
-    } else {
-      _member.lastView = (new Date()).getTime()
-    }
+  //   if (!_member) {
+  //     board.members.push({
+  //       name: this.nickname,
+  //       type: 'MEMBER',
+  //       lastView: (new Date()).getTime()
+  //     })
+  //   } else {
+  //     _member.lastView = (new Date()).getTime()
+  //   }
 
-    await this.updateBoard(boardName, {
-      members: board.members
-    })
-  }
+  //   await this.updateBoard(boardName, {
+  //     members: board.members
+  //   })
+  // }
 
-  async updateBoard (boardName, newItem: Board) {
-    let existBoard = await this.boards.findOne().where('name').eq(boardName).exec()
-    existBoard = Object.assign(existBoard, newItem)
-    await existBoard.save()
-  }
+  // async updateBoard (boardName, newItem: Board) {
+  //   let existBoard = await this.boards.findOne().where('name').eq(boardName).exec()
+  //   existBoard = Object.assign(existBoard, newItem)
+  //   await existBoard.save()
+  // }
 
   async sendMessage (message: Message) {
-    const _message: RxMessageDoc = Object.assign({}, message as RxMessageDoc)
-    _message.sendAt = (new Date()).getTime()
-    await this.messages.newDocument(_message).save()
+    await super.addOne('messages', message)
   }
 
   async deleteBoard (boardName) {
-    let existBoard = await this.boards.findOne().where('name').eq(boardName).exec()
+    let existBoard = await this.db['boards'].findOne().where('name').eq(boardName).exec()
     existBoard.remove()
 
-    let messages = await this.messages.find().where('board').eq(boardName).exec()
+    let messages = await this.db['messages'].find().where('board').eq(boardName).exec()
     if (messages.length) {
       messages.forEach(m => {
         m.remove()
       })
     }
   }
-
 }

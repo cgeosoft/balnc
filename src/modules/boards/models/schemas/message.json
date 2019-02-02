@@ -4,8 +4,8 @@
   "version": 0,
   "disableKeyCompression": true,
   "properties": {
-    "ref": {
-      "type": "string"
+    "timestamp": {
+      "type": "number"
     },
     "text": {
       "type": "string"
@@ -18,9 +18,6 @@
     },
     "board": {
       "type": "string"
-    },
-    "sendAt": {
-      "type": "number"
     },
     "status": {
       "type": "string"

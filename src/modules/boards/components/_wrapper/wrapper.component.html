@@ -17,15 +17,15 @@
       <ng-container *ngIf="(boards$ | async) as boards; else loader">
         <ng-container *ngIf="boards.length; else empty">
           <ng-template ngFor let-board [ngForOf]="boards">
-            <a [routerLink]="['/boards',board.name]" routerLinkActive="active">
+            <a [routerLink]="['/boards',board.get('_id')]" routerLinkActive="active">
               <div class="thumb">
-                <img src="https://api.adorable.io/avatars/48/{{board.name}}.png">
+                <div class="thumb-img" [ngStyle]="{'background-image': 'url(https://api.adorable.io/avatars/48/'+board.name+'.png)'}"></div>
               </div>
               <div class="content">
                 <span>{{board.name}}</span>
-                <small *ngIf="board.messages$ && board.messages$.value.length">{{board.messages$.value.slice(-1)[0].text}}</small>
+                <!-- <small *ngIf="board.messages$ && board.messages$.value.length">{{board.messages$.value.slice(-1)[0].text}}</small> -->
               </div>
-              <span class="ml-auto badge badge-primary" *ngIf="unread[board.name]">{{unread[board.name]}}</span>
+              <span class="ml-auto badge badge-primary" *ngIf="unread[board.get('_id')]">{{unread[board.name]}}</span>
             </a>
           </ng-template>
         </ng-container>

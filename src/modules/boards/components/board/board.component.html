@@ -1,39 +1,37 @@
 <common-content>
-  <common-content-header [title]="boardName" icon="comments:regular" [tabsMenu]="tabsMenu"></common-content-header>
+  <common-content-header [title]="board.name" icon="comments:regular" [tabsMenu]="tabsMenu"></common-content-header>
   <common-content-body *ngIf="tabsMenu.selected === 'messages'" class="h-100">
     <div class="card card-chat d-flex h-100">
       <div #messageList class="card-body">
-        <ng-container *ngIf="board as messages; else loader">
-          <ng-container *ngIf="(board.messages$ | async) as messages; else loader">
-            <ng-container *ngIf="messages.length else emptyMessages">
-              <ng-template ngFor let-m [ngForOf]="messages">
-                <ng-container [ngSwitch]="m.type">
-                  <ng-container *ngSwitchCase="'MESSAGE'">
-                    <div class="msg-item" [ngClass]="{'own':m.sender === boardService.nickname}">
-                      <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png" [ngbTooltip]="m.sender"
-                        placement="bottom">
-                      <div class="msg-body">
-                        {{m.text}}
-                      </div>
-                      <small class="text-secondary" [ngbTooltip]="m.sendAt | date:'medium'">{{m.sendAt |
-                        dfnsDistanceInWordsToNow}}</small>
+        <ng-container *ngIf="(messages$ | async) as messages; else loader">
+          <ng-container *ngIf="messages.length else emptyMessages">
+            <ng-template ngFor let-m [ngForOf]="messages">
+              <ng-container [ngSwitch]="m.type">
+                <ng-container *ngSwitchCase="'MESSAGE'">
+                  <div class="msg-item" [ngClass]="{'own':m.sender === boardService.nickname}">
+                    <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png" [ngbTooltip]="m.sender"
+                      placement="bottom">
+                    <div class="msg-body">
+                      {{m.text}}
                     </div>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'CMD-CREATE'">
-                    <div class="msg-command">
-                      <strong>{{m.data.user}}</strong> created
-                      <strong>{{m.board}}</strong> at
-                      <strong>{{m.sendAt|date:'medium'}}</strong>
-                    </div>
-                  </ng-container>
-                  <ng-container *ngSwitchDefault>
-                    <div class="msg-broke">
-                      Message can not be rendered
-                    </div>
-                  </ng-container>
+                    <small class="msg-time text-secondary" [ngbTooltip]="m.timestamp | date:'medium'">
+                      {{m.timestamp | dfnsDistanceInWordsToNow}}</small>
+                  </div>
                 </ng-container>
-              </ng-template>
-            </ng-container>
+                <ng-container *ngSwitchCase="'CMD-CREATE'">
+                  <div class="msg-command">
+                    <strong>{{m.data.user}}</strong> created
+                    <strong>{{m.board}}</strong> at
+                    <strong>{{m.timestamp|date:'medium'}}</strong>
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  <div class="msg-broke">
+                    Message can not be rendered
+                  </div>
+                </ng-container>
+              </ng-container>
+            </ng-template>
           </ng-container>
         </ng-container>
       </div>

@@ -1,8 +1,11 @@
-import { Component, NgZone, OnInit, ElementRef, ViewChild } from '@angular/core'
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
+import { Observable, Subject } from 'rxjs'
+import { map, tap } from 'rxjs/operators'
 
 import { BoardsService } from '../../boards.service'
-import { BoardWithMessages } from '../../models/board'
+import { Board } from '../../models/board'
+import { Message } from '../../models/message'
 
 @Component({
   selector: 'boards-board',
@@ -15,11 +18,16 @@ export class BoardComponent implements OnInit {
   @ViewChild('messageInput') messageInput: ElementRef
 
   selected: string
-  boards: BoardWithMessages[]
-  board: BoardWithMessages
+  boards: Board[]
+  board: Board = {
+    name: null
+  }
   boardName: string
 
   inputMessage: string
+
+  messages$: Observable<Message[]>
+  filteredMessages$: Subject<Message[]>
 
   tabsMenu = {
     selected: 'messages',
@@ -49,46 +57,43 @@ export class BoardComponent implements OnInit {
   ngOnInit () {
     this.boardService.boards$.subscribe((boards) => {
       this.boards = boards
-      this.loadBoard()
     })
-    this.route.params.subscribe(params => {
-      this.selected = params['board']
-      this.loadBoard()
+
+    this.route.params.subscribe(async (params) => {
+      this.selected = params['id']
+      this.board = await this.boardService.getOne('boards', this.selected)
+      this.loadMessages()
     })
   }
 
-  async loadBoard () {
-    if (!this.selected) { return }
-    if (!this.boards || !this.boards.length) { return }
-    this.board = this.boards.find(b => b.name === this.selected) as BoardWithMessages
+  loadMessages () {
+    this.messages$ = this.boardService
+      .messages$
+      .pipe(
+        map(messages => messages.filter(message => message.board === this.selected))
+      )
 
-    if (!this.board) {
-      this.router.navigate(['/boards'])
-      return
-    }
-
-    this.boardName = this.board.name
-
-    this.board.messages$.subscribe(() => {
-      this.scrollToBottom()
+    this.messages$.subscribe(() => {
+      this.zone.run(() => {
+        this.scrollToBottom()
+        this.focusInput()
+      })
     })
-
-    setTimeout(() => {
-      this.scrollToBottom()
-      this.focusInput()
-    }, 100)
   }
 
   async send () {
     if (!this.inputMessage) { return }
-    const msgText = this.inputMessage
-    this.inputMessage = null
-    await this.boardService.sendMessage({
-      board: this.board.name,
+
+    const message: Message = {
+      timestamp: new Date().getTime(),
+      text: this.inputMessage,
       sender: this.boardService.nickname,
-      text: msgText,
+      board: this.selected,
+      status: 'SEND',
       type: 'MESSAGE'
-    })
+    }
+    await this.boardService.sendMessage(message)
+    this.inputMessage = null
 
     this.scrollToBottom()
     this.focusInput()
@@ -110,5 +115,4 @@ export class BoardComponent implements OnInit {
       this.messageInput.nativeElement.focus()
     }
   }
-
 }
