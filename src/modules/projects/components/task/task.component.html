@@ -1,7 +1,15 @@
 <ng-container *ngIf="task && project">
   <common-content>
-    <common-content-header [title]="task.title" [subtitle]="'Task: '+task._id" [route]="'/projects/project/'+project._id"
-      icon="caret-left"></common-content-header>
+    <!-- <common-content-header [title]="task.title" [subtitle]="'Task: '+task._id" [route]="'/projects/project/'+project._id" icon="caret-left"></common-content-header> -->
+    <div class="bg-light">
+      <div class="container">
+        <ol class="breadcrumb mb-0 bg-light">
+          <li class="breadcrumb-item"><a [routerLink]="['/projects']">Projects</a></li>
+          <li class="breadcrumb-item"><a [routerLink]="['/projects/project',project._id]">{{project.name}}</a></li>
+          <li class="breadcrumb-item active">{{task.title}}</li>
+        </ol>
+      </div>
+    </div>
     <common-content-body>
       <div class="row">
         <div class="col-md-8">

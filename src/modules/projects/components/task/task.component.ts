@@ -19,8 +19,8 @@ export class TaskComponent implements OnInit {
   taskId: string
   comment: string = null
 
-  task: RxPEventDoc
-  project: RxProjectDoc
+  task: PEvent
+  project: Project
   pevents: PEvent[] = []
 
   form: FormGroup
@@ -64,7 +64,7 @@ export class TaskComponent implements OnInit {
     const formModel = this.form.value
     if (!formModel.comment) return
     this.postCommentLoading = true
-    await this.projectsService.createComment(formModel.comment, this.task)
+    // await this.projectsService.createComment(formModel.comment, this.task)
     await this.getPEvents()
     this.form.reset()
     this.postCommentLoading = false

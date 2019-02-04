@@ -17,7 +17,7 @@ export class ProjectComponent implements OnInit {
 
   tabsMenu: any
   tasks: PEvent[]
-  project: Project & any = {}
+  project: Project
   projectId: string
 
   constructor (
@@ -29,6 +29,7 @@ export class ProjectComponent implements OnInit {
   ngOnInit () {
 
     this.tabsMenu = {
+      selected: 'tasks',
       tabs: [{
         id: 'tasks',
         label: 'Tasks',

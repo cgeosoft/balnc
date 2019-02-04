@@ -1,5 +1,13 @@
 <common-content>
-  <common-content-header [title]="project.name" subtitle="Project" icon="tasks" [tabsMenu]="tabsMenu"></common-content-header>
+  <!-- <common-content-header [title]="project.name" subtitle="Project" icon="tasks" [tabsMenu]="tabsMenu"></common-content-header> -->
+  <div class="bg-light">
+    <div class="container">
+      <ol class="breadcrumb mb-0 bg-light">
+        <li class="breadcrumb-item"><a [routerLink]="['/projects']">Projects</a></li>
+        <li class="breadcrumb-item active">{{project?.name}}</li>
+      </ol>
+    </div>
+  </div>
   <common-content-body>
     <div *ngIf="tabsMenu.selected ==='tasks'">
       <div class="btn-toolbar">
