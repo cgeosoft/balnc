@@ -86,7 +86,7 @@
     "label": "reports",
     "description": "A simple but full-feature team chat with customizable rooms",
     "icon": "file-alt",
-    "color": "#8D6E63",
+    "color": "#A1887F",
     "menu": [{
       "label": "Reports",
       "icon": "file-alt",
