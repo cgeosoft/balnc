@@ -1,5 +1,7 @@
 @import "components/bootstrap";
 
+$side-width:70px;
+
 :host {
   @extend .d-flex;
   @extend .flex-column;
@@ -15,8 +17,8 @@
       @extend .flex-column;
       @extend .justify-content-start;
       text-align: center;
-      min-width: 50px;
-      width: 50px;
+      min-width: $side-width;
+      width: $side-width;
       z-index: 1000;
       background: $dark;
       transition: all .5s;
@@ -26,9 +28,9 @@
         @extend .d-flex;
         @extend .justify-content-center;
         @extend .align-items-center;
-        min-width: 50px;
-        width: 50px;
-        height: 50px;
+        min-width: $side-width;
+        width: $side-width;
+        height: $side-width;
 
         .fa {
           text-shadow: none;
@@ -45,8 +47,8 @@
         @extend .flex-column;
         @extend .justify-content-start;
         overflow-y: auto;
-        min-width: 50px;
-        width: 50px;
+        min-width: $side-width;
+        width: $side-width;
         height: 100%;
 
         &::-webkit-scrollbar-track {
@@ -82,12 +84,17 @@
               display: block;
               transition: background-color .7s;
               text-decoration: none;
-              height: 40px;
+              // height: 40px;
               color: lighten($body-bg, 30);
               text-align: center;
-              line-height: 32px;
+              // line-height: 32px;
               border: solid 4px rgba($color: #000000, $alpha: 0);
               margin-bottom: 2px;
+
+              span{
+                font-size: .7rem;
+                display: block;
+              }
 
               &:hover {
                 color: #FFF;
@@ -96,7 +103,7 @@
 
             &.active {
               >a {
-                border-left-color: $primary;
+                border-left-color: #FFF;
                 color: #FFF;
               }
             }

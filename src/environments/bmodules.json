@@ -2,8 +2,10 @@
   "bmodules": [{
     "id": "business",
     "title": "Business",
+    "label": "business",
     "description": "A basic contact management database. Include company and persons, custom fields and analytics.",
     "icon": "building",
+    "color": "#2196F3",
     "menu": [{
       "label": "Contacts",
       "color": "#3F51B5",
@@ -33,55 +35,60 @@
   }, {
     "id": "projects",
     "title": "Projects",
+    "label": "projects",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
     "icon": "tasks",
+    "color": "#4CAF50",
     "menu": [{
       "label": "Projects",
-      "color": "#FF9800",
       "icon": "tasks",
       "path": "/projects"
     }]
   }, {
     "id": "boards",
     "title": "Boards",
+    "label": "boards",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
     "icon": "comments",
+    "color": "#FF9800",
     "menu": [{
       "label": "Boards",
-      "color": "#F44336",
       "icon": "comments",
       "path": "/boards"
     }]
   }, {
     "id": "presentations",
     "title": "Presentations",
+    "label": "present",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
     "icon": "desktop",
+    "color": "#FFC107",
     "menu": [{
       "label": "Presentations",
-      "color": "#FFC107",
       "icon": "desktop",
       "path": "/presentations"
     }]
   }, {
     "id": "analytics",
     "title": "Analytics",
+    "label": "analytics",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
     "icon": "chart-pie",
+    "color": "#E91E63",
     "menu": [{
       "label": "Analytics",
-      "color": "#795548",
       "icon": "chart-pie",
       "path": "/analytics"
     }]
   }, {
     "id": "reports",
     "title": "Reports",
+    "label": "reports",
     "description": "A simple but full-feature team chat with customizable rooms",
     "icon": "file-alt",
+    "color": "#8D6E63",
     "menu": [{
       "label": "Reports",
-      "color": "#607D8B",
       "icon": "file-alt",
       "path": "/reports"
     }],

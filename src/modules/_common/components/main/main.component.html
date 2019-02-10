@@ -11,26 +11,24 @@
     <div class="items">
       <div class="item menu" ngbTooltip="Dashboard" placement="right" routerLinkActive="active">
         <a routerLink="/dashboard" style="color:#9E9E9E">
-          <fa-layers class="fa-fw">
             <fa-icon [icon]="['fas','tachometer-alt']"></fa-icon>
-          </fa-layers>
+            <span>dashboard</span>
         </a>
       </div>
       <ng-template ngFor let-bmodule [ngForOf]="configService.enabledBModules" *ngIf="configService.enabledBModules.length">
-        <ng-template ngFor let-item [ngForOf]="bmodule.menu" *ngIf="bmodule.menu">
-          <div class="item menu" ngbTooltip="{{item.label}}" placement="right" routerLinkActive="active">
-            <a [routerLink]="item.path" [ngStyle]="{color:item.color}">
-              <fa-icon [icon]="item.icon"></fa-icon>
-              <span> {{item.label}}</span>
+        <!-- <ng-template ngFor let-item [ngForOf]="bmodule.menu" *ngIf="bmodule.menu"> -->
+          <div class="item menu" routerLinkActive="active">
+            <a [routerLink]="['/',bmodule.id]" [ngStyle]="{color:bmodule.color}">
+              <fa-icon [icon]="bmodule.icon"></fa-icon>
+              <span>{{bmodule.label}}</span>
             </a>
           </div>
-        </ng-template>
+        <!-- </ng-template> -->
       </ng-template>
       <div class="item menu mt-auto">
         <a routerLink="/settings">
-          <fa-layers class="fa-fw">
-            <fa-icon [icon]="['fas','cog']"></fa-icon>
-          </fa-layers>
+          <fa-icon [icon]="['fas','cog']"></fa-icon>
+          <span>settings</span>
         </a>
         <a href="javascript:void(0)" (click)="toggleSidemenu()">
           <fa-layers class="fa-fw">
