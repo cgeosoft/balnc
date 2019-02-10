@@ -48,10 +48,9 @@ export class ProjectComponent implements OnInit {
   }
 
   private async load () {
+    console.log('load project', this.projectId)
     this.project = await this.projectsService.getProject(this.projectId)
-    this.tasks = await this.projectsService.getTasks({
-      query: { project: { $eq: this.projectId } }
-    })
+    this.tasks = await this.projectsService.getTasks(this.projectId)
   }
 
   async createTask () {

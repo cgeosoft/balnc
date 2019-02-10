@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigService, Profile } from '@balnc/common'
 import { ActivatedRoute } from '@angular/router'
+import { ProjectsService } from 'src/modules/projects/projects.service'
 
 @Component({
   selector: 'core-settings-data',
@@ -13,7 +14,8 @@ export class DataComponent implements OnInit {
 
   constructor (
     private route: ActivatedRoute,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private projectService: ProjectsService
   ) { }
 
   async ngOnInit () {
@@ -37,6 +39,10 @@ export class DataComponent implements OnInit {
     a.href = URL.createObjectURL(file)
     a.download = `balnc.${this.profile.id}.${(new Date()).getTime()}.json`
     a.click()
+  }
+
+  async generate () {
+    this.projectService.generateDemoData()
   }
 
 }

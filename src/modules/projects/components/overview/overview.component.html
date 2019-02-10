@@ -8,8 +8,97 @@
     </div>
   </div>
   <common-content-body>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit in incidunt mollitia accusamus nulla quibusdam totam
-    quo natus expedita dolores? Repudiandae cumque maxime officiis vel, atque delectus dolores odit! Incidunt!
+
+    <div class="row">
+      <div class="col-8">
+        <ng-container *ngIf="pevents; else loader">
+          <ng-container *ngIf="pevents.length; else noPEvents">
+
+            <div class="list-group list-group-flush">
+              <div class="list-group-item" *ngFor="let pevent of pevents">
+
+                <ng-container *ngIf="pevent.type==='TASK'">
+                  <strong>{{pevent.insertedFrom}}</strong> created a task <a [routerLink]="['/projects/project',pevent.project,'task',pevent['_id']]">{{pevent.title}}</a>
+                </ng-container>
+
+                <ng-container *ngIf="pevent.type==='CHANGE_STATUS'">
+                  <strong>{{pevent.insertedFrom}}</strong> updated
+                  <a [routerLink]="['/projects/project',pevent.project,'task',pevent['_id']]">task</a>
+                  to {{pevent.description}}
+                </ng-container>
+                <div><small class="text-muted">{{pevent.insertedAt | dfnsDistanceInWordsToNow}} ago</small></div>
+                <!-- <pre>{{pevent|json:2}}</pre> -->
+              </div>
+            </div>
+
+            <table class="table">
+              <tbody>
+                <tr *ngFor="let pevent of pevents">
+                  <td>
+                    <div class="d-flex flex-column align-items-start">
+                      <ng-container [ngSwitch]="pevent.status">
+                        <span class="badge badge-primary" *ngSwitchCase="'PENDING'">PENDING</span>
+                        <span class="badge badge-success" *ngSwitchCase="'COMPLETE'">COMPLETE</span>
+                      </ng-container>
+                    </div>
+                  </td>
+                  <td>
+                    <a [routerLink]="['/projects/project',pevent.project,'pevent',pevent['_id']]" class="pevent-title">{{pevent.title}}</a>
+                  </td>
+                  <td>
+                    opened
+                    <strong>{{pevent.insertedAt | dfnsDistanceInWordsToNow}}</strong> ago by
+                    <strong>{{pevent.insertedFrom}}</strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="col-4">
+        <div class="card">
+          <div class="card-header">
+            Starred Projects
+            <button type="button" class="btn btn-sm btn-outline-primary float-right py-0" (click)="createProject()">
+              <fa-icon icon="plus-circle"></fa-icon>
+            </button>
+          </div>
+          <ng-container *ngIf="projects; else loader">
+            <ng-container *ngIf="projects.length; else noProjects">
+              <table class="table mb-0">
+                <tr *ngFor="let project of projects">
+                  <td>
+                    <a [routerLink]="['/projects/project',project['_id']]" routerLinkActive="active">
+                      <span>{{project.name}}</span>
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </ng-container>
+          </ng-container>
+          <div class="card-footer">
+            <a [routerLink]="['/projects/manage']">Show all</a>
+          </div>
+        </div>
+        <!-- <pre>{{projects|json:2}}</pre> -->
+        <hr>
+        <ul class="list-group">
+          <button class="list-group-item list-group-item-action" (click)="generate()">Generate Random Data</button>
+        </ul>
+      </div>
+    </div>
+
   </common-content-body>
 
 </common-content>
+
+<ng-template #noProjects>
+  <common-empty message="No projects" icon="file-alt:regular"></common-empty>
+</ng-template>
+<ng-template #noPEvents>
+  <common-empty message="You don't have any events yet" icon="file-alt:regular"></common-empty>
+</ng-template>
+<ng-template #loader>
+  <common-loader></common-loader>
+</ng-template>

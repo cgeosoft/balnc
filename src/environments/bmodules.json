@@ -5,93 +5,42 @@
     "label": "business",
     "description": "A basic contact management database. Include company and persons, custom fields and analytics.",
     "icon": "building",
-    "color": "#2196F3",
-    "menu": [{
-      "label": "Contacts",
-      "color": "#3F51B5",
-      "icon": "building",
-      "path": "/business/contacts"
-    }, {
-      "label": "Orders",
-      "color": "#2196F3",
-      "icon": "shopping-cart",
-      "path": "/business/orders"
-    }, {
-      "label": "Invoices",
-      "color": "#03A9F4",
-      "icon": "file-invoice",
-      "path": "/business/invoices"
-    }, {
-      "label": "Contracts",
-      "color": "#00BCD4",
-      "icon": "file-signature",
-      "path": "/business/contracts"
-    }, {
-      "label": "Inventory",
-      "color": "#009688",
-      "icon": "warehouse",
-      "path": "/business/inventory"
-    }]
+    "color": "#42A5F5"
   }, {
     "id": "projects",
     "title": "Projects",
     "label": "projects",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
     "icon": "tasks",
-    "color": "#4CAF50",
-    "menu": [{
-      "label": "Projects",
-      "icon": "tasks",
-      "path": "/projects"
-    }]
+    "color": "#26A69A"
   }, {
     "id": "boards",
     "title": "Boards",
     "label": "boards",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
     "icon": "comments",
-    "color": "#FF9800",
-    "menu": [{
-      "label": "Boards",
-      "icon": "comments",
-      "path": "/boards"
-    }]
+    "color": "#FF7043"
   }, {
     "id": "presentations",
     "title": "Presentations",
     "label": "present",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
     "icon": "desktop",
-    "color": "#FFC107",
-    "menu": [{
-      "label": "Presentations",
-      "icon": "desktop",
-      "path": "/presentations"
-    }]
+    "color": "#FFA726"
   }, {
     "id": "analytics",
     "title": "Analytics",
     "label": "analytics",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
     "icon": "chart-pie",
-    "color": "#E91E63",
-    "menu": [{
-      "label": "Analytics",
-      "icon": "chart-pie",
-      "path": "/analytics"
-    }]
+    "color": "#EC407A"
   }, {
     "id": "reports",
     "title": "Reports",
     "label": "reports",
     "description": "A simple but full-feature team chat with customizable rooms",
     "icon": "file-alt",
-    "color": "#A1887F",
-    "menu": [{
-      "label": "Reports",
-      "icon": "file-alt",
-      "path": "/reports"
-    }],
+    "color": "#AB47BC",
     "config": {
       "server": {
         "requireUser": {

@@ -15,37 +15,44 @@ export class ProjectsService extends CommonService {
   public projects$: Observable<RxProjectDoc[]>
   public events$: Observable<RxPEventDoc[]>
 
-  async getProjects (params?: any) {
-    const projects = await super.getAll('projects', params)
-
-    const tasks = await this.getTasks()
-    const stats = {
-      tasksCounter: {},
-      latestTask: {}
-    }
-
-    tasks.forEach((task) => {
-      if (!stats.tasksCounter[task.project]) { stats.tasksCounter[task.project] = 0 }
-      stats.tasksCounter[task.project]++
-
-      if (!stats.latestTask[task.project]) { stats.latestTask[task.project] = task }
-      if (stats.latestTask[task.project].insertedAt > task.insertedAt) {
-        stats.latestTask[task.project] = task
-      }
+  async getOverviewProjects () {
+    return super.getAll<Project>('projects', {
+      isArchived: false,
+      isStarred: true
     })
+  }
 
-    return projects
-      .map(project => {
-        const p: any = project
-        p.stats = {
-          tasksCounter: stats.tasksCounter[p._id] || 0,
-          latestTask: stats.latestTask[p._id] || {}
-        }
-        return p
-      })
-      .sort((a, b) => {
-        return b.isStarred - a.isStarred
-      })
+  async getProjects (params?: any) {
+    return super.getAll<Project>('projects', {})
+
+    // const tasks = await this.getLatestTasks()
+    // const stats = {
+    //   tasksCounter: {},
+    //   latestTask: {}
+    // }
+
+    // tasks.forEach((task) => {
+    //   if (!stats.tasksCounter[task.project]) { stats.tasksCounter[task.project] = 0 }
+    //   stats.tasksCounter[task.project]++
+
+    //   if (!stats.latestTask[task.project]) { stats.latestTask[task.project] = task }
+    //   if (stats.latestTask[task.project].insertedAt > task.insertedAt) {
+    //     stats.latestTask[task.project] = task
+    //   }
+    // })
+
+    // return projects
+    // .map(project => {
+    //   const p: any = project
+    //   p.stats = {
+    //     tasksCounter: stats.tasksCounter[p._id] || 0,
+    //     latestTask: stats.latestTask[p._id] || {}
+    //   }
+    //   return p
+    // })
+    // .sort((a, b) => {
+    //   return b.isStarred - a.isStarred
+    // })
   }
 
   async getProject (projectId: any) {
@@ -64,10 +71,19 @@ export class ProjectsService extends CommonService {
     return result
   }
 
-  async getTasks (params: any = {}) {
-    Object.assign(params, { query: { type: { $eq: 'TASK' } } })
-    const tasks = await super.getAll<PEvent>('pevents', params.query)
-    return tasks
+  async getTasks (projectId: string) {
+    return super.getAll<PEvent>('pevents', {
+      project: { $eq: projectId },
+      type: { $eq: 'TASK' }
+    })
+  }
+
+  async getLatestPEvents () {
+    return this.db['pevents']
+      .find()
+      .sort({ insertedAt: 'desc' })
+      .limit(50)
+      .exec()
   }
 
   async getEvent (taskId: string): Promise<RxPEventDoc> {
@@ -82,26 +98,45 @@ export class ProjectsService extends CommonService {
   async createTask (task: PEvent) {
     const d = {
       insertedAt: Date.now(),
-      updatedAt: Date.now(),
       insertedFrom: 'anon',
       type: 'TASK',
       status: 'PENDING'
     }
     const log = { ...task, ...d }
     console.log('adding task', log)
-    return super.addOne('pevents', log)
+    await super.addOne('pevents', log)
   }
 
-  async createComment (text: string, task: RxPEventDoc) {
+  async createComment (text: string, task: PEvent) {
     const log = {
       description: text,
       insertedAt: Date.now(),
       insertedFrom: 'anon',
       type: 'COMMENT',
       project: task.project,
-      parent: task.get('_id')
+      parent: task['_id']
     }
-    return super.addOne('pevents', log)
+    await super.addOne('pevents', log)
+  }
+
+  async changeStatus (status: string, task: PEvent) {
+    const log = {
+      description: status,
+      insertedAt: Date.now(),
+      insertedFrom: 'anon',
+      type: 'CHANGE_STATUS',
+      project: task.project,
+      parent: task['_id']
+    }
+    await super.addOne('pevents', log)
+
+    const currentTask = await super.getOne<RxPEventDoc>('pevents', task['_id'])
+    await currentTask.update({
+      $set: {
+        status: status
+      }
+    })
+
   }
 
   async generateDemoData () {

@@ -44,10 +44,6 @@ export class ConfigService {
     this.bmodules = this.bmodules.map(p => {
       const v = { ...p }
       v.picon = HelperService.getIcon(v.icon)
-      v.menu = v.menu.map(m => {
-        m.icon = HelperService.getIcon(m.icon)
-        return m
-      })
       return v
     })
   }

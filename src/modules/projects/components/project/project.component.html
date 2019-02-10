@@ -1,5 +1,4 @@
 <common-content>
-  <!-- <common-content-header [title]="project.name" subtitle="Project" icon="tasks" [tabsMenu]="tabsMenu"></common-content-header> -->
   <div class="bg-light">
     <div class="container">
       <ol class="breadcrumb mb-0 bg-light">
@@ -37,7 +36,7 @@
                   </div>
                 </td>
                 <td>
-                  <a [routerLink]="['/projects/project',project._id,'task',task._id]" class="task-title">{{task.title}}</a>
+                  <a [routerLink]="['/projects/project',project['_id'],'task',task['_id']]" class="task-title">{{task.title}}</a>
                 </td>
                 <td>
                   opened

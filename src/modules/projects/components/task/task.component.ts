@@ -64,9 +64,14 @@ export class TaskComponent implements OnInit {
     const formModel = this.form.value
     if (!formModel.comment) return
     this.postCommentLoading = true
-    // await this.projectsService.createComment(formModel.comment, this.task)
+    await this.projectsService.createComment(formModel.comment, this.task)
     await this.getPEvents()
     this.form.reset()
     this.postCommentLoading = false
+  }
+
+  async changeStatus (status: string) {
+    await this.projectsService.changeStatus(status, this.task)
+    await this.getPEvents()
   }
 }

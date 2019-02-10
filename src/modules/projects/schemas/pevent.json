@@ -30,7 +30,8 @@
     },
 
     "insertedAt": {
-      "type": "number"
+      "type": "number",
+      "index": true
     },
     "insertedFrom": {
       "type": "string"

@@ -34,8 +34,8 @@ export class WrapperComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    this.setFilter('Active')
-    this.load()
+    // this.setFilter('Active')
+    // this.load()
   }
 
   async load () {

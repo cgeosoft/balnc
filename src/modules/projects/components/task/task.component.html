@@ -5,12 +5,15 @@
       <div class="container">
         <ol class="breadcrumb mb-0 bg-light">
           <li class="breadcrumb-item"><a [routerLink]="['/projects']">Projects</a></li>
-          <li class="breadcrumb-item"><a [routerLink]="['/projects/project',project._id]">{{project.name}}</a></li>
+          <li class="breadcrumb-item"><a [routerLink]="['/projects/project',project['_id']]">{{project.name}}</a></li>
           <li class="breadcrumb-item active">{{task.title}}</li>
         </ol>
       </div>
     </div>
     <common-content-body>
+      <h2>
+        {{task.title}} <span class="badge badge-default">{{task.status}}</span>
+      </h2>
       <div class="row">
         <div class="col-md-8">
 
@@ -47,6 +50,12 @@
                     {{pevent.description}}
                   </markdown>
                 </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="pevent.type==='CHANGE_STATUS'">
+              <div class="alert alert-info" role="alert">
+                <span class="fa fa-info-circle"></span> {{pevent.description}}
+                <small>from {{pevent.insertedFrom}} at {{pevent.insertedAt | dfnsDistanceInWordsToNow}}</small>
               </div>
             </ng-container>
             <ng-container *ngIf="pevent.type==='SYSTEM'">
@@ -95,7 +104,19 @@
           </div>
         </div>
         <div class="col-md-4">
+          <ul class="list-group">
+            <button class="list-group-item list-group-item-action" (click)="changeStatus('PENDING')">
+              Pending
+            </button>
+            <button class="list-group-item list-group-item-action" (click)="changeStatus('PROGRESS')">
+              Progress
+            </button>
+            <button class="list-group-item list-group-item-action" (click)="changeStatus('COMPLETE')">
+              Complete
+            </button>
+          </ul>
           <pre>{{task|json:2}}</pre>
+          <pre>{{pevents|json:2}}</pre>
           <pre>{{project|json:2}}</pre>
         </div>
       </div>
