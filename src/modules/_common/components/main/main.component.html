@@ -10,7 +10,7 @@
     </div>
     <div class="items">
       <div class="item menu" ngbTooltip="Dashboard" placement="right" routerLinkActive="active">
-        <a routerLink="/dashboard">
+        <a routerLink="/dashboard" style="color:#9E9E9E">
           <fa-layers class="fa-fw">
             <fa-icon [icon]="['fas','tachometer-alt']"></fa-icon>
           </fa-layers>
@@ -19,10 +19,9 @@
       <ng-template ngFor let-bmodule [ngForOf]="configService.enabledBModules" *ngIf="configService.enabledBModules.length">
         <ng-template ngFor let-item [ngForOf]="bmodule.menu" *ngIf="bmodule.menu">
           <div class="item menu" ngbTooltip="{{item.label}}" placement="right" routerLinkActive="active">
-            <a [routerLink]="item.path">
-              <fa-layers class="fa-fw">
-                <fa-icon [icon]="item.icon"></fa-icon>
-              </fa-layers>
+            <a [routerLink]="item.path" [ngStyle]="{color:item.color}">
+              <fa-icon [icon]="item.icon"></fa-icon>
+              <span> {{item.label}}</span>
             </a>
           </div>
         </ng-template>

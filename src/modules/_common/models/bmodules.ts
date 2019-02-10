@@ -1,4 +1,4 @@
-export type BModule = {
+export interface BModule {
   id: string
   title: string
   description: string
@@ -8,8 +8,9 @@ export type BModule = {
   config?: any
 }
 
-export type Menu = {
+export interface Menu {
   lable: string
   icon: any
+  color: string
   path: string
 }

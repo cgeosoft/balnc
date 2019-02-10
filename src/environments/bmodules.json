@@ -6,22 +6,27 @@
     "icon": "building",
     "menu": [{
       "label": "Contacts",
+      "color": "#3F51B5",
       "icon": "building",
       "path": "/business/contacts"
     }, {
       "label": "Orders",
+      "color": "#2196F3",
       "icon": "shopping-cart",
       "path": "/business/orders"
     }, {
       "label": "Invoices",
+      "color": "#03A9F4",
       "icon": "file-invoice",
       "path": "/business/invoices"
     }, {
       "label": "Contracts",
+      "color": "#00BCD4",
       "icon": "file-signature",
       "path": "/business/contracts"
     }, {
       "label": "Inventory",
+      "color": "#009688",
       "icon": "warehouse",
       "path": "/business/inventory"
     }]
@@ -32,6 +37,7 @@
     "icon": "tasks",
     "menu": [{
       "label": "Projects",
+      "color": "#FF9800",
       "icon": "tasks",
       "path": "/projects"
     }]
@@ -42,6 +48,7 @@
     "icon": "comments",
     "menu": [{
       "label": "Boards",
+      "color": "#F44336",
       "icon": "comments",
       "path": "/boards"
     }]
@@ -52,6 +59,7 @@
     "icon": "desktop",
     "menu": [{
       "label": "Presentations",
+      "color": "#FFC107",
       "icon": "desktop",
       "path": "/presentations"
     }]
@@ -62,6 +70,7 @@
     "icon": "chart-pie",
     "menu": [{
       "label": "Analytics",
+      "color": "#795548",
       "icon": "chart-pie",
       "path": "/analytics"
     }]
@@ -72,6 +81,7 @@
     "icon": "file-alt",
     "menu": [{
       "label": "Reports",
+      "color": "#607D8B",
       "icon": "file-alt",
       "path": "/reports"
     }],
