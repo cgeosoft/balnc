@@ -17,36 +17,9 @@
       "dom"
     ],
     "paths": {
-      "@balnc/common": [
-        "src/modules/_common"
+      "@balnc/shared": [
+        "src/app/_shared"
       ],
-      "@balnc/core": [
-        "src/modules/main"
-      ],
-      "@balnc/boards": [
-        "src/modules/boards"
-      ],
-      "@balnc/projects": [
-        "src/modules/projects"
-      ],
-      "@balnc/presentations": [
-        "src/modules/presentations"
-      ],
-      "@balnc/business": [
-        "src/modules/business"
-      ],
-      "@balnc/restaurants": [
-        "src/modules/restaurants"
-      ],
-      "@balnc/booking": [
-        "src/modules/booking"
-      ],
-      "@balnc/reports": [
-        "src/modules/reports"
-      ],
-      "environments/*": [
-        "src/environments/*"
-      ]
     }
   },
   "exclude": [
