@@ -1,17 +1,16 @@
-import { NgModule } from '@angular/core'
-import { RouterModule } from '@angular/router'
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from '@balnc/shared';
 
-import { CommonModule } from '@balnc/shared'
-import { OverviewComponent } from './components/overview/overview.component'
-import { ContactComponent } from './components/contact/contact.component'
-import { WrapperComponent } from './components/_wrapper/wrapper.component'
-
-import { ContactsService } from './contacts.service'
-import { ContactsRoutes } from './contacts.routes'
+import { WrapperComponent } from './components/_wrapper/wrapper.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { OverviewComponent } from './components/overview/overview.component';
+import { ContactsRoutes } from './contacts.routes';
+import { ContactsService } from './contacts.service';
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     RouterModule.forChild(ContactsRoutes)
   ],
   declarations: [

@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core'
-import { Router, CanActivate } from '@angular/router'
-
-import { ConfigService } from '../services/config.service'
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { ConfigService } from '@balnc/core';
 
 @Injectable()
 export class ConfigGuard implements CanActivate {

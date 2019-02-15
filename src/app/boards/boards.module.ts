@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { CommonModule } from '@balnc/shared'
+import { SharedModule } from '@balnc/shared'
 
 import { BoardsService } from './boards.service'
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
@@ -9,7 +9,7 @@ import { BoardsRoutes } from './boards.routes'
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     RouterModule.forChild(BoardsRoutes)
   ],
   declarations: [

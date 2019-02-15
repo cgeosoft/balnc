@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core'
-import { CommonService, ConfigService, RxDBService } from '@balnc/shared'
+import { CommonService, ConfigService, RxDBService } from '@balnc/core'
 import { LocalStorage } from 'ngx-store'
 import { BehaviorSubject, Observable } from 'rxjs'
 

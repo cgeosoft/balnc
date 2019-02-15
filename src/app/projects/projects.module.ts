@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { CommonModule } from '@balnc/shared'
+import { SharedModule } from '@balnc/shared'
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
 
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
@@ -14,7 +14,7 @@ import { ProjectsService } from './projects.service'
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     MarkdownModule.forRoot({
       markedOptions: {
         provide: MarkedOptions,

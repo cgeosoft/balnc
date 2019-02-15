@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 
-import { ConfigService, Profile, HelperService } from '@balnc/shared'
+import { ConfigService, HelperService } from '@balnc/core'
 import { ToastrService } from 'ngx-toastr'
 import { ReadFile } from 'ngx-file-helpers'
 
@@ -11,28 +11,28 @@ import { ReadFile } from 'ngx-file-helpers'
 })
 export class ManageComponent implements OnInit {
 
-  constructor(
+  constructor (
     private helperService: HelperService,
     public configService: ConfigService,
     private toastr: ToastrService
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     // empty
   }
 
-  activate(alias) {
+  activate (alias) {
     this.configService.selectProfile(alias)
   }
 
-  async create() {
+  async create () {
     const alias = await this.configService.saveProfile({
       name: HelperService.generateName()
     })
     this.configService.selectProfile(alias)
   }
 
-  async import(file: ReadFile) {
+  async import (file: ReadFile) {
     const profile = this.configService.importFile(file)
     if (!profile) {
       this.toastr.error('Import failed')

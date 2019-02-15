@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { BModule, ConfigService, Profile } from '@balnc/shared'
+import { BModule, ConfigService, Profile } from '../../../_core'
 
 @Component({
   selector: 'core-settings-bmodule',

@@ -1,10 +1,8 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input } from '@angular/core';
+import { HelperService } from '@balnc/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import * as _ from 'lodash'
-
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { PresentationDoc } from '../../models/presentation'
-import { HelperService } from '@balnc/shared'
+import { PresentationDoc } from '../../models/presentation';
 
 @Component({
   selector: 'presentations-add-page',

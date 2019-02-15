@@ -1,11 +1,8 @@
-import { Component, OnInit } from '@angular/core'
-import { fromEvent as observableFromEvent } from 'rxjs'
-import { Router, RouterEvent, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router'
-import { ToastrService } from 'ngx-toastr'
-
-import { ConfigService } from '../../services/config.service'
-import { BModule } from '../../models/bmodules'
-import { Profile } from '../../models/profile'
+import { Component, OnInit } from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
+import { BModule, ConfigService, Profile } from '@balnc/core';
+import { ToastrService } from 'ngx-toastr';
+import { fromEvent as observableFromEvent } from 'rxjs';
 
 @Component({
   selector: 'common-main',
@@ -28,7 +25,7 @@ export class MainComponent implements OnInit {
 
   bmodules: BModule[] = []
 
-  constructor (
+  constructor(
     public configService: ConfigService,
     private router: Router,
     private toastr: ToastrService
@@ -40,7 +37,7 @@ export class MainComponent implements OnInit {
 
   menu: any[] = []
 
-  ngOnInit () {
+  ngOnInit() {
 
     if (!this.configService.profiles.length) {
       this.router.navigate(['/setup'])
@@ -71,15 +68,15 @@ export class MainComponent implements OnInit {
     this.setStatus()
   }
 
-  setStatus () {
+  setStatus() {
     this.isOnline = this.networkStatus && this.databaseStatus
   }
 
-  toggleSidemenu () {
+  toggleSidemenu() {
     this.configService.sidebarClosed = !this.configService.sidebarClosed
   }
 
-  private _navigationInterceptor (event: RouterEvent): void {
+  private _navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.pageLoading = true
     }
@@ -95,7 +92,7 @@ export class MainComponent implements OnInit {
     }
   }
 
-  private _hideSpinner (): void {
+  private _hideSpinner(): void {
     this.pageLoading = false
   }
 }

@@ -3,7 +3,7 @@ import { RxCollection } from 'rxdb'
 
 import { PresentationDoc, PresentationStats, Presentation } from './models/presentation'
 import { PresentationsEntities } from './models/_entities'
-import { RxDBService, CommonService } from '@balnc/shared'
+import { RxDBService, CommonService } from '@balnc/core'
 
 @Injectable()
 export class PresentationsService extends CommonService {

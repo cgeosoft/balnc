@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
-import { CommonModule } from '@balnc/shared'
+import { SharedModule } from '@balnc/shared'
 import { ChartModule } from 'angular2-chartjs'
 import { SWIPER_CONFIG, SwiperModule } from 'ngx-swiper-wrapper'
 
@@ -15,7 +15,7 @@ import { PresentationsRoutes } from './presentations.routes'
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     FormsModule,
     RouterModule.forChild(PresentationsRoutes),
     SwiperModule,

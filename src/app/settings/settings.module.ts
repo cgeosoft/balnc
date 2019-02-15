@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { CommonModule } from '@balnc/shared'
+import { SharedModule } from '@balnc/shared'
 
 import { WrapperComponent } from './components/_wrapper/wrapper.component'
 import { BModuleComponent } from './components/bmodule/bmodule.component'
@@ -11,7 +11,7 @@ import { SettingsRoutes } from './settings.routes'
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     RouterModule.forChild(SettingsRoutes)
   ],
   declarations: [

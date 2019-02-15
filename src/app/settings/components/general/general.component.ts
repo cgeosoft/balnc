@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ConfigService, Profile } from '@balnc/shared'
+import { ConfigService, Profile } from '@balnc/core'
 
 @Component({
   selector: 'core-settings-general',
@@ -22,30 +22,30 @@ export class GeneralComponent implements OnInit {
   deleteDataRemote = false
   needReload = false
 
-  constructor(
+  constructor (
     private router: Router,
     private configService: ConfigService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.profile = this.configService.getProfile()
   }
 
-  save() {
+  save () {
     this.configService.saveProfile(this.profile)
     this.needReload = true
   }
 
-  reload() {
+  reload () {
     window.location.reload()
   }
 
-  delete() {
+  delete () {
     this.configService.deleteProfile(this.profile.id)
     this.router.navigate(['/settings'])
   }
 
-  activate() {
+  activate () {
     this.configService.selectProfile(this.profile.id)
   }
 }

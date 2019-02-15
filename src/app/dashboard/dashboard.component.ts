@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
-
-import { ConfigService } from '@balnc/shared'
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ConfigService } from '@balnc/core';
 
 @Component({
   selector: 'core-dashboard',

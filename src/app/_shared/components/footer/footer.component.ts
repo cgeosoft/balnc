@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { ConfigService } from '../../services/config.service'
+import { ConfigService } from '@balnc/core'
 
 @Component({
   selector: 'common-footer',
@@ -10,11 +10,11 @@ export class FooterComponent implements OnInit {
 
   version: string
 
-  constructor (
+  constructor(
     private configService: ConfigService
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.version = this.configService.version
   }
 

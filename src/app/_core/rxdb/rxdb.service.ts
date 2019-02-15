@@ -1,24 +1,24 @@
-import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
-import { ToastrService } from 'ngx-toastr'
-import * as AdapterHttp from 'pouchdb-adapter-http'
-import * as AdapterIDB from 'pouchdb-adapter-idb'
-import { RxCollection, RxReplicationState } from 'rxdb'
-import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
-import AttachmentsPlugin from 'rxdb/plugins/attachments'
-import RxDB from 'rxdb/plugins/core'
-import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages'
-import JsonDumpPlugin from 'rxdb/plugins/json-dump'
-import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
-import RxDBReplicationModule from 'rxdb/plugins/replication'
-import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
-import RxDBUpdateModule from 'rxdb/plugins/update'
-import RxDBValidateModule from 'rxdb/plugins/validate'
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import * as AdapterHttp from 'pouchdb-adapter-http';
+import * as AdapterIDB from 'pouchdb-adapter-idb';
+import { RxCollection, RxReplicationState } from 'rxdb';
+import AdapterCheckPlugin from 'rxdb/plugins/adapter-check';
+import AttachmentsPlugin from 'rxdb/plugins/attachments';
+import RxDB from 'rxdb/plugins/core';
+import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages';
+import JsonDumpPlugin from 'rxdb/plugins/json-dump';
+import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election';
+import RxDBReplicationModule from 'rxdb/plugins/replication';
+import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check';
+import RxDBUpdateModule from 'rxdb/plugins/update';
+import RxDBValidateModule from 'rxdb/plugins/validate';
 
-import environment from '../../../environments/environment'
-import { ConfigService } from '../services/config.service'
-import { Config } from './config'
-import { Entity } from './entity'
+import environment from '../../../environments/environment';
+import { ConfigService } from '../services/config.service';
+import { Config } from './config';
+import { Entity } from './entity';
 
 if (!environment.production) {
   console.log('[DatabaseService]', 'In debug')
@@ -45,7 +45,7 @@ export class RxDBService {
   public entities: Entity[] = []
   private replicationStates: { [key: string]: RxReplicationState } = {}
 
-  constructor (
+  constructor(
     private http: HttpClient,
     private configService: ConfigService,
     private toastr: ToastrService
@@ -59,7 +59,7 @@ export class RxDBService {
     }
   }
 
-  async setup (alias, entities: Entity[]) {
+  async setup(alias, entities: Entity[]) {
     if (!this.configService.profile) {
       console.log('[DatabaseService]', `Can not initialize DB with a valid profile`)
       return
@@ -92,7 +92,7 @@ export class RxDBService {
     return db
   }
 
-  async sync (alias, db) {
+  async sync(alias, db) {
 
     const name = `${this.config.prefix}_${alias}`
 
@@ -134,7 +134,7 @@ export class RxDBService {
   //   return this.db[name]
   // }
 
-  async authenticate (username: string, password: string) {
+  async authenticate(username: string, password: string) {
     return this.http.post(`${this.config.host}/_session`, {
       name: username,
       password: password
@@ -145,7 +145,7 @@ export class RxDBService {
       })
   }
 
-  private async getAdapter () {
+  private async getAdapter() {
     if (await RxDB.checkAdapter('idb')) {
       return 'idb'
     }

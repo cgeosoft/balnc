@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { ConfigService, HelperService, BModule, Profile, DEMO_PROFILE } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { ToastrService } from 'ngx-toastr'
+import { BModule, HelperService, ConfigService, DEMO_PROFILE, Profile } from '../_core'
 
 @Component({
   selector: 'core-setup',

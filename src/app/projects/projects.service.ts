@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { CommonService } from '@balnc/shared'
+import { CommonService } from '@balnc/core'
 import { Observable } from 'rxjs'
 
 import { ProjectsEntities } from './models/entities'
@@ -15,14 +15,14 @@ export class ProjectsService extends CommonService {
   public projects$: Observable<RxProjectDoc[]>
   public events$: Observable<RxPEventDoc[]>
 
-  async getOverviewProjects() {
+  async getOverviewProjects () {
     return super.getAll<Project>('projects', {
       isArchived: false,
       isStarred: true
     })
   }
 
-  async getProjects(params?: any) {
+  async getProjects (params?: any) {
     return super.getAll<Project>('projects', {})
 
     // const tasks = await this.getLatestTasks()
@@ -55,11 +55,11 @@ export class ProjectsService extends CommonService {
     // })
   }
 
-  async getProject(projectId: any) {
+  async getProject (projectId: any) {
     return super.getOne<Project>('projects', projectId)
   }
 
-  async createProject(name: string) {
+  async createProject (name: string) {
     const project = {
       name,
       description: '',
@@ -71,14 +71,14 @@ export class ProjectsService extends CommonService {
     return result
   }
 
-  async getTasks(projectId: string) {
+  async getTasks (projectId: string) {
     return super.getAll<PEvent>('pevents', {
       project: { $eq: projectId },
       type: { $eq: 'TASK' }
     })
   }
 
-  async getLatestPEvents() {
+  async getLatestPEvents () {
     return this.db['pevents']
       .find()
       .sort({ insertedAt: 'desc' })
@@ -86,16 +86,16 @@ export class ProjectsService extends CommonService {
       .exec()
   }
 
-  async getEvent(taskId: string): Promise<RxPEventDoc> {
+  async getEvent (taskId: string): Promise<RxPEventDoc> {
     return super.getOne<PEvent>('pevents', taskId)
   }
 
-  async getEventsOfParent(taskId: string): Promise<PEvent[]> {
+  async getEventsOfParent (taskId: string): Promise<PEvent[]> {
     const events = await this.db['pevents'].find({ parent: { $eq: taskId } }).exec()
     return events
   }
 
-  async createTask(task: PEvent) {
+  async createTask (task: PEvent) {
     const d = {
       insertedAt: Date.now(),
       insertedFrom: 'anon',
@@ -107,7 +107,7 @@ export class ProjectsService extends CommonService {
     await super.addOne('pevents', log)
   }
 
-  async createComment(text: string, task: PEvent) {
+  async createComment (text: string, task: PEvent) {
     const log = {
       description: text,
       insertedAt: Date.now(),
@@ -119,7 +119,7 @@ export class ProjectsService extends CommonService {
     await super.addOne('pevents', log)
   }
 
-  async changeStatus(status: string, task: PEvent) {
+  async changeStatus (status: string, task: PEvent) {
     const log = {
       description: status,
       insertedAt: Date.now(),
@@ -139,7 +139,7 @@ export class ProjectsService extends CommonService {
 
   }
 
-  async generateDemoData() {
+  async generateDemoData () {
     const projects = []
     for (let i = 0; i < 10; i++) {
       const project = {

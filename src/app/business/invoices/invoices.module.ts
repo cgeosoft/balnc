@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 
-import { CommonModule } from '@balnc/shared'
+import { SharedModule } from '@balnc/shared'
 import { InvoicesWrapperComponent } from './components/_wrapper/invoices-wrapper.component'
 import { InvoicesOverviewComponent } from './components/overview/invoices-overview.component'
 import { InvoicesReportComponent } from './components/report/report.component'
@@ -11,7 +11,7 @@ import { InvoicesService } from './invoices.service'
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     RouterModule
   ],
   declarations: [

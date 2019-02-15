@@ -1,7 +1,6 @@
-import { NgModule, Component, OnInit } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
-
-import { CommonModule } from '@balnc/shared'
+import { Component, NgModule, OnInit } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from '@balnc/shared';
 
 @Component({
   selector: 'app-restaurants-client',
@@ -24,7 +23,7 @@ const routes: Routes = [{
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     RouterModule
   ],
   declarations: [

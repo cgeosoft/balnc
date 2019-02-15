@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core'
-import { CommonService } from '@balnc/shared'
+import { CommonService } from '@balnc/core'
 import * as faker from 'faker'
 import { Observable, Subject } from 'rxjs'
-
 import { Contact, ContactLogType, RxContactDoc } from './models/all.model'
 import { ContactsEntities } from './models/entities'
 

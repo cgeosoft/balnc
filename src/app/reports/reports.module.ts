@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { CommonModule } from '@balnc/shared'
+import { SharedModule } from '@balnc/shared'
 import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap'
 
 import { NgbDateNativeAdapter } from './adapters/datepicker.adapter'
@@ -12,7 +12,7 @@ import { ReportsRoutes } from './reports.routes'
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     RouterModule.forChild(ReportsRoutes)
   ],
   declarations: [

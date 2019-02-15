@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ConfigService, Profile } from '@balnc/shared';
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { ConfigService, Profile } from '@balnc/core'
 
-import { ProjectsService } from '../../../projects/projects.service';
+import { ProjectsService } from '../../../projects/projects.service'
 
 @Component({
   selector: 'core-settings-data',

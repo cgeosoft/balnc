@@ -17,6 +17,9 @@
       "dom"
     ],
     "paths": {
+      "@balnc/core": [
+        "src/app/_core"
+      ],
       "@balnc/shared": [
         "src/app/_shared"
       ],

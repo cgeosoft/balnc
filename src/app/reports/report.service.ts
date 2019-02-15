@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { CommonService, RxDBService } from '@balnc/shared'
+import { CommonService, RxDBService } from '@balnc/core'
 import * as _ from 'lodash'
 
 import { BehaviorSubject } from 'rxjs'

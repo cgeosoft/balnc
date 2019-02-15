@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { environment } from 'environments/environment'
+import { environment } from '../../../../environments/environment'
 
 @Component({
   selector: 'common-debug',
@@ -14,7 +14,7 @@ export class DebugComponent implements OnInit {
 
   show = true
 
-  ngOnInit () {
+  ngOnInit() {
 
     this.show = !environment.production || this.type !== 'debug'
 

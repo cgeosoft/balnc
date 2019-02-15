@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { CommonModule } from '@balnc/shared'
+import { SharedModule } from '@balnc/shared'
 
 import { SetupComponent } from './setup.component'
 import { SetupRoutes } from './setup.routes'
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     RouterModule.forChild(SetupRoutes)
   ],
   declarations: [

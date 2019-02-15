@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core'
-import { environment } from '../../../environments/environment'
-import { ReadFile } from 'ngx-file-helpers'
-import { LocalStorage } from 'ngx-store'
+import { Injectable } from '@angular/core';
+import { ReadFile } from 'ngx-file-helpers';
+import { LocalStorage } from 'ngx-store';
 
-import { BModule } from '../models/bmodules'
-import { Profile } from '../models/profile'
-import { HelperService } from './helper.service'
+import { environment } from '../../../environments/environment';
+import { BModule } from '../models/bmodules';
+import { Profile } from '../models/profile';
+import { HelperService } from './helper.service';
 
 @Injectable()
 export class ConfigService {

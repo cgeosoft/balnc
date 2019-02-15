@@ -1,5 +1,5 @@
-import { ConfigService } from '../../services/config.service'
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+import { ConfigService } from '@balnc/core'
 
 @Component({
   selector: 'common-sidebar',
@@ -8,11 +8,11 @@ import { Component, Input, OnInit } from '@angular/core'
 })
 export class SidebarComponent implements OnInit {
 
-  constructor (
+  constructor(
     public configService: ConfigService
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     // empty
   }
 

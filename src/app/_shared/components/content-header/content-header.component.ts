@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { HelperService } from '../../services/helper.service'
-import { TabsMenu } from '../../models/tabs-menu'
+import { Component, Input, OnInit } from '@angular/core';
+
+import { HelperService } from '../../../_core';
+import { TabsMenu } from '../../../_core/models/tabs-menu';
 
 @Component({
   selector: 'common-content-header',
@@ -21,7 +22,7 @@ export class ContentHeaderComponent implements OnInit {
 
   helperService = HelperService
 
-  ngOnInit () {
+  ngOnInit() {
     if (this.tabsMenu) {
       if (!this.tabsMenu.selected) {
         this.tabsMenu.selected = this.tabsMenu.tabs[0].id
