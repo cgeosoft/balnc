@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core'
-import { CommonService } from '@balnc/core'
-import * as faker from 'faker'
-import { Observable, Subject } from 'rxjs'
-import { Contact, ContactLogType, RxContactDoc } from './models/all.model'
-import { ContactsEntities } from './models/entities'
-import { tap } from 'rxjs/operators';
+import { Injectable, Injectable, Injectable, Injectable } from '@angular/core';
+import { CommonService, CommonService } from '@balnc/common';
+import { CommonService, CommonService } from '@balnc/core';
+import * as faker from 'faker';
+import { Observable, Subject } from 'rxjs';
+
+import { Contact, ContactLogType, RxContactDoc } from './models/all.model';
+import { ContactsEntities } from './models/entities';
 
 @Injectable()
 export class ContactsService extends CommonService {
@@ -51,17 +52,7 @@ export class ContactsService extends CommonService {
   }
 
   getContactObservable(id): Observable<Contact> {
-    return this.db['contacts'].findOne(id).$
-    // return super.getOne<Contact>('contacts', id).$
-    // if (!contact) return null
-
-    // contact.atomicUpdate(c => {
-    //   c.logs.push({
-    //     date: new Date(),
-    //     type: ContactLogType.Access
-    //   })
-    //   return c
-    // })
+    return this.db["contacts"].findOne(id).$
   }
 
   async addContacts(contact: Contact) {
