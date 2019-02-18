@@ -11,10 +11,11 @@
       <div class="form-group" *ngIf="filter.type === 'date'">
         <label>{{filter.name}}</label>
         <div class="input-group">
-          <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" [(ngModel)]="filters[filter.field]" ngbDatepicker #d="ngbDatepicker">
+          <input class="form-control form-control-sm" placeholder="yyyy-mm-dd" [(ngModel)]="filters[filter.field]"
+            ngbDatepicker #d="ngbDatepicker">
           <div class="input-group-append">
-            <button class="btn btn-outline-light btn-sm" (click)="d.toggle(); $event.stopPropagation()" (document:click)="decideClosure($event, d)"
-              type="button">
+            <button class="btn btn-outline-light btn-sm" (click)="d.toggle(); $event.stopPropagation()"
+              (document:click)="decideClosure($event, d)" type="button">
               <fa-layers class="fa-fw">
                 <fa-icon [icon]="['fas','calendar-alt']"></fa-icon>
               </fa-layers>
@@ -27,18 +28,21 @@
       <fa-layers class="fa-fw">
         <fa-icon [icon]="['fas','database']"></fa-icon>
       </fa-layers>
-      Execute</button>
+      Execute
+    </button>
     <button class="btn btn-secondary btn-block" (click)="resetFilters()" [disabled]="loading">
       <fa-layers class="fa-fw">
         <fa-icon [icon]="['fas','times']"></fa-icon>
       </fa-layers>
-      Reset</button>
+      Reset
+    </button>
     <hr>
     <button class="btn btn-outline-light btn-sm btn-block" (click)="execExport()">
       <fa-layers class="fa-fw">
         <fa-icon [icon]="['fas','file-excel']"></fa-icon>
       </fa-layers>
-      Export</button>
+      Export
+    </button>
     <div class="mt-auto">
       <h4>Options</h4>
       <button class="btn btn-outline-light btn-sm btn-block" (click)="showQuery = !showQuery">Toggle Query</button>
@@ -80,7 +84,7 @@
       <common-empty message="Select some filters and hit Execute" icon="info-circle"></common-empty>
     </ng-template>
     <ng-template #loader>
-      <common-loader animation="sk-cube" label="Building Report..."></common-loader>
+      <common-spinner label="Building Report..."></common-spinner>
     </ng-template>
   </div>
   <div class="d-flex flex-column p-4 bg-secondary h-100 w-100" *ngIf="showQuery">

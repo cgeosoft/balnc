@@ -1,74 +1,80 @@
-<ng-container *ngIf="contact; else empty">
-  <common-content>
-    <common-content-header [title]="contact.name" [icon]="contactType==='company'?'building':'user'" [subtitle]="contact._id"
-      [settingsMenu]="settingsMenu"></common-content-header>
-    <common-content-body *ngIf="!showDataView">
-      <div class="row">
-        <div class="col-3">
-          <div class="card mb-4">
-            <img class="card-img-top" [src]="contact.details.avatar">
-            <div class="card-body">
-              <dl class="mb-0">
-                <dt>Name</dt>
-                <dd>{{contact.name}}</dd>
-                <dt>Description</dt>
-                <dd>{{contact.details.description || '-'}}</dd>
-              </dl>
+<ng-container *ngIf="contact$ | async as contact; else loader">
+  <ng-container *ngIf="contact; else empty">
+    <common-content>
+      <common-content-header [title]="contact.name" [icon]="contactType==='company'?'building':'user'" [subtitle]="contact._id"
+        [settingsMenu]="settingsMenu"></common-content-header>
+      <common-content-body *ngIf="!showDataView">
+        <div class="row">
+          <div class="col-3">
+            <div class="card mb-4">
+              <img class="card-img-top" [src]="contact.details.avatar">
+              <div class="card-body">
+                <dl class="mb-0">
+                  <dt>Name</dt>
+                  <dd>{{contact.name}}</dd>
+                  <dt>Description</dt>
+                  <dd>{{contact.details.description || '-'}}</dd>
+                </dl>
+              </div>
+            </div>
+            <div class="card mb-4">
+              <div class="card-header">Connections</div>
+              <div class="list-group list-group-flush">
+                <a href="" class="list-group-item list-group-item-action" *ngFor="let conn of contact.conns">
+                  {{conn.reference}} <span class="badge badge-primary">{{conn.type}}</span>
+                </a>
+              </div>
+            </div>
+            <div class="card mb-4" *ngIf="contact.details.taxDetails">
+              <div class="card-header">Tax Details</div>
+              <div class="card-body">
+                <dl class="mb-0">
+                  <dt>Legal Name</dt>
+                  <dd>{{contact.details.taxDetails.legalName || '-'}}</dd>
+                  <dt>Address</dt>
+                  <dd>{{contact.details.taxDetails.address || '-'}}</dd>
+                  <dt>Vat Number</dt>
+                  <dd class="text-monospace">{{contact.details.taxDetails.vatNumber || '-'}}</dd>
+                  <dt>Tax Office</dt>
+                  <dd>{{contact.details.taxDetails.taxOffice || '-'}}</dd>
+                </dl>
+              </div>
             </div>
           </div>
-          <div class="card mb-4">
-            <div class="card-header">Connections</div>
-            <div class="list-group list-group-flush">
-              <a href="" class="list-group-item list-group-item-action" *ngFor="let conn of contact.conns">
-                {{conn.reference}} <span class="badge badge-primary">{{conn.type}}</span>
-              </a>
-            </div>
-          </div>
-          <div class="card mb-4" *ngIf="contact.details.taxDetails">
-            <div class="card-header">Tax Details</div>
-            <div class="card-body">
-              <dl class="mb-0">
-                <dt>Legal Name</dt>
-                <dd>{{contact.details.taxDetails.legalName || '-'}}</dd>
-                <dt>Address</dt>
-                <dd>{{contact.details.taxDetails.address || '-'}}</dd>
-                <dt>Vat Number</dt>
-                <dd class="text-monospace">{{contact.details.taxDetails.vatNumber || '-'}}</dd>
-                <dt>Tax Office</dt>
-                <dd>{{contact.details.taxDetails.taxOffice || '-'}}</dd>
-              </dl>
+          <div class="col-9">
+            <div class="card mb-4">
+              <div class="card-header">Events</div>
+              <table class="table mb-0">
+                <thead>
+                  <th style="width:180px;">Date</th>
+                  <th style="width:130px;">Type</th>
+                  <th style="width:120px;">Reference</th>
+                  <th>Comment</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let log of contact.logs">
+                    <td>{{log.date|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+                    <td>{{contactLogType[log.type]}}</td>
+                    <td>{{log.reference}}</td>
+                    <td>{{log.comment}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-        <div class="col-9">
-          <div class="card mb-4">
-            <div class="card-header">Events</div>
-            <table class="table mb-0">
-              <thead>
-                <th style="width:180px;">Date</th>
-                <th style="width:130px;">Type</th>
-                <th style="width:120px;">Reference</th>
-                <th>Comment</th>
-              </thead>
-              <tbody>
-                <tr *ngFor="let log of contact.logs">
-                  <td>{{log.date|date:"yyyy-MM-dd HH:mm:ss"}}</td>
-                  <td>{{contactLogType[log.type]}}</td>
-                  <td>{{log.reference}}</td>
-                  <td>{{log.comment}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </common-content-body>
-    <common-content-body *ngIf="showDataView">
-      <common-debug title="Contact Object" type="info" [data]="contact"></common-debug>
-    </common-content-body>
-  </common-content>
+      </common-content-body>
+      <common-content-body *ngIf="showDataView">
+        <common-debug title="Contact Object" type="info" [data]="contact"></common-debug>
+      </common-content-body>
+    </common-content>
+  </ng-container>
 </ng-container>
 
 <ng-template #empty>
   <common-empty message="Select a contact or create a new one" icon="desktop"></common-empty>
+</ng-template>
+
+<ng-template #loader>
+  <common-spinner></common-spinner>
 </ng-template>

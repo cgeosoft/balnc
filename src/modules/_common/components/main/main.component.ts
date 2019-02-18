@@ -28,7 +28,7 @@ export class MainComponent implements OnInit {
 
   bmodules: BModule[] = []
 
-  constructor (
+  constructor(
     public configService: ConfigService,
     private router: Router,
     private toastr: ToastrService
@@ -40,7 +40,7 @@ export class MainComponent implements OnInit {
 
   menu: any[] = []
 
-  ngOnInit () {
+  ngOnInit() {
 
     if (!this.configService.profiles.length) {
       this.router.navigate(['/setup'])
@@ -71,15 +71,16 @@ export class MainComponent implements OnInit {
     this.setStatus()
   }
 
-  setStatus () {
+  setStatus() {
     this.isOnline = this.networkStatus && this.databaseStatus
   }
 
-  toggleSidemenu () {
+  toggleSidemenu() {
     this.configService.sidebarClosed = !this.configService.sidebarClosed
   }
 
-  private _navigationInterceptor (event: RouterEvent): void {
+  private _navigationInterceptor(event: RouterEvent): void {
+    // console.log(event)
     if (event instanceof NavigationStart) {
       this.pageLoading = true
     }
@@ -95,7 +96,7 @@ export class MainComponent implements OnInit {
     }
   }
 
-  private _hideSpinner (): void {
+  private _hideSpinner(): void {
     this.pageLoading = false
   }
 }
