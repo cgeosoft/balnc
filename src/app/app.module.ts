@@ -1,15 +1,16 @@
-import { NgModule } from '@angular/core'
-import { BrowserModule } from '@angular/platform-browser'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { RouterModule } from '@angular/router'
-import { ServiceWorkerModule } from '@angular/service-worker'
-import { CommonModule, ConfigService } from '@balnc/common'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import environment from 'environments/environment'
-import { ToastrModule } from 'ngx-toastr'
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { CoreModule } from '@balnc/core';
+import { SharedModule } from '@balnc/shared';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
 
-import { AppComponent } from './app.component'
-import { AppRoutes } from './app.routes'
+import environment from '../environments/environment';
+import { AppComponent } from './_app/app.component';
+import { APP_ROUTES } from './_app/app.routes';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -20,15 +21,15 @@ import { AppRoutes } from './app.routes'
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-center'
     }),
-    CommonModule,
-    RouterModule.forRoot(AppRoutes, {
+    RouterModule.forRoot(APP_ROUTES, {
       // enableTracing: true
-    })
+    }),
+    CoreModule,
+    SharedModule
   ],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent],
-  providers: [
-    ConfigService
-  ]
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
