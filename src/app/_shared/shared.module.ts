@@ -14,25 +14,6 @@ import { NgPipesModule } from 'ngx-pipes';
 import { WebStorageModule } from 'ngx-store';
 import { ToastrModule } from 'ngx-toastr';
 
-<<<<<<< HEAD:src/modules/_common/common.module.ts
-import { ContentBodyComponent } from './components/content-body/content-body.component'
-import { ContentHeaderComponent } from './components/content-header/content-header.component'
-import { ContentComponent } from './components/content/content.component'
-import { DebugComponent } from './components/debug/debug.component'
-import { EmptyComponent } from './components/empty/empty.component'
-import { ErrorComponent } from './components/error/error.component'
-import { FooterComponent } from './components/footer/footer.component'
-import { SpinnerComponent } from './components/spinner/spinner.component'
-import { MainComponent } from './components/main/main.component'
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
-import { SidebarComponent } from './components/sidebar/sidebar.component'
-import { DocVersionPipe } from './pipes/doc-version.pipe'
-import { EllipsisPipe } from './pipes/ellipsis.pipe'
-import { RxDBService } from './rxdb/rxdb.service'
-import { HelperService } from './services/helper.service'
-import { CommonService } from './services/common.service'
-import { DateFnsModule } from 'ngx-date-fns'
-=======
 import { ContentBodyComponent } from './components/content-body/content-body.component';
 import { ContentHeaderComponent } from './components/content-header/content-header.component';
 import { ContentComponent } from './components/content/content.component';
@@ -46,7 +27,6 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DocVersionPipe } from './pipes/doc-version.pipe';
 import { EllipsisPipe } from './pipes/ellipsis.pipe';
->>>>>>> 691769442f885075ef7b2d4ff225f98d4258e0cd:src/app/_shared/shared.module.ts
 
 library.add(fas, far)
 
@@ -76,12 +56,7 @@ library.add(fas, far)
     EllipsisPipe,
     EmptyComponent,
     FooterComponent,
-<<<<<<< HEAD:src/modules/_common/common.module.ts
-    SpinnerComponent,
-    MainComponent,
-=======
     LoaderComponent,
->>>>>>> 691769442f885075ef7b2d4ff225f98d4258e0cd:src/app/_shared/shared.module.ts
     PageNotFoundComponent,
     SidebarComponent,
     MainComponent,
@@ -109,15 +84,10 @@ library.add(fas, far)
     DebugComponent,
     EmptyComponent,
     FooterComponent,
-<<<<<<< HEAD:src/modules/_common/common.module.ts
-    SpinnerComponent,
-    SidebarComponent
-=======
     LoaderComponent,
     SidebarComponent,
     MainComponent,
     ErrorComponent,
->>>>>>> 691769442f885075ef7b2d4ff225f98d4258e0cd:src/app/_shared/shared.module.ts
   ]
 })
 export class SharedModule { }

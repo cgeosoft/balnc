@@ -35,11 +35,13 @@ export class ContactComponent implements OnInit {
       .params
       .subscribe(async params => {
         // console.log(params['id'])
-        this.contact$ = this.contactsService.getContactObservable(params['id']).pipe(
-          tap((c) => console.log(c)),
-          tap((c) => this.zone.run(() => { })),
-          // tap((c) => console.log(c)),
-        )
+        this.contact$ = this.contactsService
+          .getContactObservable(params['id'])
+          .pipe(
+            tap((c) => console.log(c)),
+            tap((c) => this.zone.run(() => { })),
+            // tap((c) => console.log(c)),
+          )
         this.contactType = 'person'
         // this.contactType = this.contact.tags.includes('company') ? 'company' : 'person'
       })

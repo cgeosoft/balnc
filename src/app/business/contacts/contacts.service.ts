@@ -1,10 +1,5 @@
-<<<<<<< HEAD:src/modules/business/contacts/contacts.service.ts
-import { Injectable, NgZone } from '@angular/core'
-import { CommonService, RxDBService } from '@balnc/common'
-=======
 import { Injectable } from '@angular/core'
 import { CommonService } from '@balnc/core'
->>>>>>> 691769442f885075ef7b2d4ff225f98d4258e0cd:src/app/business/contacts/contacts.service.ts
 import * as faker from 'faker'
 import { Observable, Subject } from 'rxjs'
 import { Contact, ContactLogType, RxContactDoc } from './models/all.model'
@@ -54,8 +49,10 @@ export class ContactsService extends CommonService {
 
     return contact
   }
+
   getContactObservable(id): Observable<Contact> {
-    // const contact = await super.getOne<Contact>('contacts', id)
+    return this.db['contacts'].findOne(id).$
+    // return super.getOne<Contact>('contacts', id).$
     // if (!contact) return null
 
     // contact.atomicUpdate(c => {
@@ -65,14 +62,8 @@ export class ContactsService extends CommonService {
     //   })
     //   return c
     // })
-
-<<<<<<< HEAD:src/modules/business/contacts/contacts.service.ts
-    // await contact.save()
-
-    return this.db["contacts"].findOne(id).$
   }
-=======
->>>>>>> 691769442f885075ef7b2d4ff225f98d4258e0cd:src/app/business/contacts/contacts.service.ts
+
   async addContacts(contact: Contact) {
     return super.addOne('contacts', contact)
   }
@@ -136,8 +127,8 @@ export class ContactsService extends CommonService {
       cs.push(company)
     }
 
-    cs.forEach((v: RxContactDoc) => {
-      this.db['contacts'].insert(v)
+    cs.forEach(async (v: RxContactDoc) => {
+      await this.db['contacts'].insert(v)
     })
   }
 }

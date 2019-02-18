@@ -77,10 +77,6 @@ export class MainComponent implements OnInit {
   }
 
   private _navigationInterceptor(event: RouterEvent): void {
-<<<<<<< HEAD:src/modules/_common/components/main/main.component.ts
-    // console.log(event)
-=======
->>>>>>> 691769442f885075ef7b2d4ff225f98d4258e0cd:src/app/_shared/components/main/main.component.ts
     if (event instanceof NavigationStart) {
       this.pageLoading = true
     }

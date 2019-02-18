@@ -6,12 +6,7 @@ export * from './components/content/content.component'
 export * from './components/debug/debug.component'
 export * from './components/empty/empty.component'
 export * from './components/footer/footer.component'
-<<<<<<< HEAD:src/modules/_common/index.ts
-export * from './components/spinner/spinner.component'
 export * from './components/main/main.component'
-=======
-export * from './components/loader/loader.component'
->>>>>>> 691769442f885075ef7b2d4ff225f98d4258e0cd:src/app/_shared/index.ts
 export * from './components/page-not-found/page-not-found.component'
 export * from './components/sidebar/sidebar.component'
 export * from './components/main/main.component'
