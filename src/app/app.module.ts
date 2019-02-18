@@ -16,16 +16,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NgbModule.forRoot(),
+    NgbModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-center'
     }),
+    CoreModule,
+    SharedModule,
     RouterModule.forRoot(APP_ROUTES, {
       // enableTracing: true
     }),
-    CoreModule,
-    SharedModule
   ],
   declarations: [
     AppComponent

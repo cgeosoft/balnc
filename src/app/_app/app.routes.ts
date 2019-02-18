@@ -6,22 +6,22 @@ export const APP_ROUTES: Routes = [{
   component: MainComponent,
   children: [{
     path: 'dashboard',
-    loadChildren: '../dashboard/dashboard.module#DashboardModule'
+    loadChildren: './dashboard/dashboard.module#DashboardModule'
   }, {
     path: 'settings',
-    loadChildren: '../settings/settings.module#SettingsModule'
+    loadChildren: './settings/settings.module#SettingsModule'
   }, {
     path: 'business',
-    loadChildren: '../business/business.module#BusinessModule'
+    loadChildren: './business/business.module#BusinessModule'
   }, {
     path: 'projects',
-    loadChildren: '../projects/projects.module#ProjectsModule'
+    loadChildren: './projects/projects.module#ProjectsModule'
   }, {
     path: 'presentations',
-    loadChildren: '../presentations/presentations.module#PresentationsModule'
+    loadChildren: './presentations/presentations.module#PresentationsModule'
   }, {
     path: 'boards',
-    loadChildren: '../boards/boards.module#BoardsModule'
+    loadChildren: './boards/boards.module#BoardsModule'
   }, {
     path: '',
     pathMatch: 'full',
@@ -29,7 +29,7 @@ export const APP_ROUTES: Routes = [{
   }]
 }, {
   path: 'setup',
-  loadChildren: '../setup/setup.module#SetupModule'
+  loadChildren: './setup/setup.module#SetupModule'
 }, {
   path: 'error',
   component: ErrorComponent

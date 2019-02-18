@@ -4,12 +4,12 @@ import { RouterModule, Routes } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
 
 import { DashboardComponent } from './dashboard.component'
-import { DashboardRoutes } from './dashboard.routes'
+import { DASHBOARD_ROUTES } from './dashboard.routes'
 
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule.forChild(DashboardRoutes)
+    RouterModule.forChild(DASHBOARD_ROUTES)
   ],
   declarations: [
     DashboardComponent
