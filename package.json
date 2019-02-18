@@ -2,6 +2,7 @@
   "name": "balnc",
   "version": "0.3.1",
   "license": "MIT",
+  "main": "main.js",
   "author": {
     "name": "Christos Georgiou",
     "email": "georgiou.christos@outlook.com",
@@ -14,6 +15,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-electron": "electron .",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -92,5 +94,8 @@
     "tslint-config-standard": "^8.0.1",
     "typescript": "^3.2.4",
     "zone.js": "0.8.29"
+  },
+  "devDependencies": {
+    "electron": "^4.0.5"
   }
 }
