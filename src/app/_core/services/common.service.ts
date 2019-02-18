@@ -15,7 +15,8 @@ export class CommonService implements Resolve<any> {
 
   db: RxDatabase
 
-  constructor(private dbService: RxDBService,
+  constructor(
+    private dbService: RxDBService
   ) { }
 
   async resolve() {

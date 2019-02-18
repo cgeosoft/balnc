@@ -1,6 +1,5 @@
-import { Injectable, Injectable, Injectable, Injectable } from '@angular/core';
-import { CommonService, CommonService } from '@balnc/common';
-import { CommonService, CommonService } from '@balnc/core';
+import { Injectable } from '@angular/core';
+import { CommonService } from '@balnc/core';
 import * as faker from 'faker';
 import { Observable, Subject } from 'rxjs';
 

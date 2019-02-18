@@ -27,6 +27,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DocVersionPipe } from './pipes/doc-version.pipe';
 import { EllipsisPipe } from './pipes/ellipsis.pipe';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 library.add(fas, far)
 
@@ -61,6 +62,7 @@ library.add(fas, far)
     SidebarComponent,
     MainComponent,
     ErrorComponent,
+    SpinnerComponent,
   ],
   exports: [
     CommonModule,
@@ -88,6 +90,7 @@ library.add(fas, far)
     SidebarComponent,
     MainComponent,
     ErrorComponent,
+    SpinnerComponent,
   ]
 })
 export class SharedModule { }
