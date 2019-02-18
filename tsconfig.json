@@ -17,36 +17,12 @@
       "dom"
     ],
     "paths": {
-      "@balnc/common": [
-        "src/modules/_common"
-      ],
       "@balnc/core": [
-        "src/modules/main"
+        "src/app/_core"
       ],
-      "@balnc/boards": [
-        "src/modules/boards"
+      "@balnc/shared": [
+        "src/app/_shared"
       ],
-      "@balnc/projects": [
-        "src/modules/projects"
-      ],
-      "@balnc/presentations": [
-        "src/modules/presentations"
-      ],
-      "@balnc/business": [
-        "src/modules/business"
-      ],
-      "@balnc/restaurants": [
-        "src/modules/restaurants"
-      ],
-      "@balnc/booking": [
-        "src/modules/booking"
-      ],
-      "@balnc/reports": [
-        "src/modules/reports"
-      ],
-      "environments/*": [
-        "src/environments/*"
-      ]
     }
   },
   "exclude": [
