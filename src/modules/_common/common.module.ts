@@ -20,7 +20,7 @@ import { DebugComponent } from './components/debug/debug.component'
 import { EmptyComponent } from './components/empty/empty.component'
 import { ErrorComponent } from './components/error/error.component'
 import { FooterComponent } from './components/footer/footer.component'
-import { LoaderComponent } from './components/loader/loader.component'
+import { SpinnerComponent } from './components/spinner/spinner.component'
 import { MainComponent } from './components/main/main.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 import { SidebarComponent } from './components/sidebar/sidebar.component'
@@ -58,7 +58,7 @@ library.add(fas, far)
     EmptyComponent,
     ErrorComponent,
     FooterComponent,
-    LoaderComponent,
+    SpinnerComponent,
     MainComponent,
     PageNotFoundComponent,
     SidebarComponent
@@ -90,7 +90,7 @@ library.add(fas, far)
     EmptyComponent,
     ErrorComponent,
     FooterComponent,
-    LoaderComponent,
+    SpinnerComponent,
     SidebarComponent
   ]
 })
