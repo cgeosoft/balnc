@@ -1,17 +1,12 @@
-import { InvoicesWrapperComponent } from './components/_wrapper/invoices-wrapper.component'
-import { InvoicesOverviewComponent } from './components/overview/invoices-overview.component'
-import { InvoicesReportComponent } from './components/report/report.component'
-import { InvoicesItemComponent } from './components/view/invoices-item.component'
+import { InvoicesOverviewComponent } from './overview/invoices-overview.component'
+import { InvoicesItemComponent } from './view/invoices-item.component'
 
 export const InvoicesRoutes = [
   {
-    path: 'invoice',
-    component: InvoicesWrapperComponent,
+    path: 'invoices',
     children: [
       { path: 'overview', component: InvoicesOverviewComponent },
-      { path: 'report/:id', component: InvoicesReportComponent },
-      { path: 'report', component: InvoicesReportComponent },
-      { path: 'item/:id', component: InvoicesItemComponent },
+      { path: 'invoice/:id', component: InvoicesItemComponent },
       { path: '', redirectTo: 'overview', pathMatch: 'full' }
     ]
   }]

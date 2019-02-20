@@ -1,8 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 
-import { ContactsService } from '../../contacts.service'
-import { Contact, ContactLogType } from '../../models/all.model'
+import { ContactsService } from '../../_shared/services/contacts.service'
+import { Contact, ContactLogType } from '../../_shared/models/_all'
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 

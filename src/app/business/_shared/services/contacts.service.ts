@@ -3,8 +3,8 @@ import { CommonService } from '@balnc/core';
 import * as faker from 'faker';
 import { Observable, Subject } from 'rxjs';
 
-import { Contact, ContactLogType, RxContactDoc } from './models/all.model';
-import { ContactsEntities } from './models/entities';
+import { Contact, ContactLogType, RxContactDoc } from '../models/_all';
+import { ContactsEntities } from '../models/_entities';
 
 @Injectable()
 export class ContactsService extends CommonService {

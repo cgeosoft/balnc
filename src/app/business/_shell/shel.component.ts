@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core'
 
-import { ContactsService } from '../../contacts.service'
-import { Contact } from '../../models/all.model'
+import { ContactsService } from '../_shared/services/contacts.service'
+import { Contact } from '../_shared/models/_all'
 import { Observable, generate } from 'rxjs'
 
 @Component({
-  selector: 'contacts-wrapper',
-  templateUrl: './wrapper.component.html',
-  styleUrls: ['./wrapper.component.scss']
+  selector: 'business-shell',
+  templateUrl: './shell.component.html',
+  styleUrls: ['./shell.component.scss']
 })
-export class WrapperComponent implements OnInit {
+export class ShellComponent implements OnInit {
 
   lastAccessed$: Observable<Contact[]>
   generating = false
 
-  constructor (
+  constructor(
     private contactsService: ContactsService
   ) { }
 
-  async ngOnInit () {
+  async ngOnInit() {
     this.lastAccessed$ = this.contactsService.lastAccessed$
   }
 
-  async generate () {
+  async generate() {
     this.generating = true
     if (confirm('Are you sure?')) {
       await this.contactsService.generateDemoData()
@@ -30,7 +30,7 @@ export class WrapperComponent implements OnInit {
     this.generating = false
   }
 
-  async create () {
+  async create() {
     // todo
   }
 }

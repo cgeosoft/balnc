@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
 
-import { ContactsService } from '../../contacts.service'
-import { Contact } from '../../models/all.model'
+import { ContactsService } from '../../_shared/services/contacts.service'
+import { Contact } from '../../_shared/models/_all'
 
 @Component({
   selector: 'app-contacts-overview',

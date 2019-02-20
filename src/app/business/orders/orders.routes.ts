@@ -1,7 +1,6 @@
-import { WrapperComponent } from './components/_wrapper/wrapper.component'
-import { OverviewComponent } from './components/overview/overview.component'
-import { ViewComponent } from './components/view/view.component'
-import { OrdersService } from './orders.service'
+import { OverviewComponent } from './overview/overview.component'
+import { ViewComponent } from './view/view.component'
+import { OrdersService } from '../_shared/services/orders.service'
 
 export const OrdersRoutes = [
   {
@@ -9,7 +8,6 @@ export const OrdersRoutes = [
     resolve: {
       srv: OrdersService
     },
-    component: WrapperComponent,
     children: [
       { path: 'overview', component: OverviewComponent },
       { path: 'order/:id', component: ViewComponent },

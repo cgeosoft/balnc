@@ -3,9 +3,8 @@ import { RouterModule } from '@angular/router'
 
 import { SharedModule } from '@balnc/shared'
 
-import { WrapperComponent } from './components/_wrapper/wrapper.component'
-import { OverviewComponent } from './components/overview/overview.component'
-import { ViewComponent } from './components/view/view.component'
+import { OverviewComponent } from './overview/overview.component'
+import { ViewComponent } from './view/view.component'
 import { OrdersRoutes } from './orders.routes'
 
 @NgModule({
@@ -14,7 +13,6 @@ import { OrdersRoutes } from './orders.routes'
     RouterModule.forChild(OrdersRoutes)
   ],
   declarations: [
-    WrapperComponent,
     OverviewComponent,
     ViewComponent
   ],
