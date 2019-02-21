@@ -1,36 +1,52 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '../_shared';
-import { ContactsModule } from './contacts/contacts.module';
-import { ContactsRoutes } from './contacts/contacts.routes';
-import { InvoicesModule } from './invoices/invoices.module';
-import { InvoicesRoutes } from './invoices/invoices.routes';
-import { OrdersModule } from './orders/orders.module';
-import { OrdersRoutes } from './orders/orders.routes';
+import { SharedModule } from '@balnc/shared';
+import { ContactComponent } from './contact/contact.component';
+import { InvoiceComponent } from './invoice/invoice.component';
+import { OrderComponent } from './order/order.component';
+import { OverviewComponent } from './overview/overview.component';
+import { QuickSearchComponent } from './quick-search/quick-search.component';
+import { SearchComponent } from './search/search.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ContactsService } from './_shared/services/contacts.service';
+import { InvoicesService } from './_shared/services/invoices.service';
+import { OrdersService } from './_shared/services/orders.service';
 import { ShellComponent } from './_shell/shell.component';
 
 @NgModule({
   imports: [
     SharedModule,
-    ContactsModule,
-    InvoicesModule,
-    OrdersModule,
     RouterModule.forChild([{
       path: '',
       component: ShellComponent,
       children: [
-        ...ContactsRoutes,
-        ...InvoicesRoutes,
-        ...OrdersRoutes
+        { path: 'overview', component: OverviewComponent },
+        { path: 'contact/:id', component: ContactComponent },
+        { path: 'order/:id', component: OrderComponent },
+        { path: 'search', component: SearchComponent },
+        { path: 'invoice/:id', component: InvoiceComponent },
+        { path: 'settings', component: SettingsComponent },
+        { path: '', redirectTo: 'overview', pathMatch: 'full' }
       ]
-    },{
-      path: '', redirectTo: 'contacts', pathMatch: 'full' }
-    ])
+    }])
   ],
   declarations: [
-    ShellComponent
+    ShellComponent,
+    ContactComponent,
+    SettingsComponent,
+    QuickSearchComponent,
+    OrderComponent,
+    InvoiceComponent,
+    SearchComponent,
+    OverviewComponent
   ],
-  providers: [],
-  entryComponents: []
+  providers: [
+    ContactsService,
+    InvoicesService,
+    OrdersService
+  ],
+  entryComponents: [
+    QuickSearchComponent
+  ]
 })
 export class BusinessModule { }

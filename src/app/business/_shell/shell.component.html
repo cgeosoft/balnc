@@ -1,53 +1,21 @@
 <common-sidebar>
   <div class="menu">
     <div class="header">
-      <h4 class="background:#2196F3">Business</h4>
+      <h4>Business</h4>
     </div>
     <div class="items">
-      <a routerLink="/business/contacts" routerLinkActive="active">
-        <fa-icon icon="users" class="icon"></fa-icon>
-        <span>Contacts</span>
-      </a>
-      <a routerLink="/business/orders" routerLinkActive="active">
-        <fa-icon icon="users" class="icon"></fa-icon>
-        <span>Orders</span>
-      </a>
-      <a routerLink="/business/invoices" routerLinkActive="active">
-        <fa-icon icon="users" class="icon"></fa-icon>
-        <span>Invoices</span>
-      </a>
-      <a routerLink="/business/contracts" routerLinkActive="active">
-        <fa-icon icon="users" class="icon"></fa-icon>
-        <span>Contracts</span>
-      </a>
-      <a routerLink="/business/invetory" routerLinkActive="active">
-        <fa-icon icon="users" class="icon"></fa-icon>
-        <span>Invetory</span>
-      </a>
-    </div>
-  </div>
-  <div class="menu">
-    <div class="items">
-      <a routerLink="/business/contacts/overview" routerLinkActive="active">
-        <fa-icon icon="users" class="icon"></fa-icon>
+      <a routerLink="/business/overview" routerLinkActive="active">
+        <fa-icon icon="users"></fa-icon>
         <span>Overview</span>
       </a>
       <button (click)="create()">
-        <fa-icon icon="plus-circle" class="icon"></fa-icon>
+        <fa-icon icon="plus-circle"></fa-icon>
         <span>New Contact</span>
       </button>
-      <button (click)="generate()">
-        <fa-icon icon="random" class="icon"></fa-icon>
-        <span>Generate Data</span>
-        <fa-icon [icon]="['fas','cog']" [spin]="true" class="icon icon-badge" *ngIf="generating"></fa-icon>
-      </button>
     </div>
-  </div>
-  <div class="menu mt-auto">
     <div class="items">
-      <ng-container *ngIf="(lastAccessed$ | async) as lastAccessed; else loader">
-        <ng-container *ngIf="lastAccessed.length; else empty">
-          <a *ngFor="let contact of lastAccessed" [routerLink]="['/business/contacts/contact',contact._id]"
+        <ng-container *ngIf="opened?.length">
+          <a *ngFor="let contact of opened" [routerLink]="['/business/contact',contact._id]"
             routerLinkActive="active">
             <div class="thumb">
               <ng-container *ngIf="contact.details.avatar; else noThumb">
@@ -65,9 +33,16 @@
               <small *ngIf="contact.logs">{{contact.logs[contact.logs.length-1].date | date:"short"}}</small>
             </div>
           </a>
-        </ng-container>
       </ng-container>
     </div>
+  </div>
+  <div class="menu mt-auto">
+      <div class="items">
+    <a routerLink="/business/settings" routerLinkActive="active">
+      <fa-icon icon="cog"></fa-icon>
+      <span>Settings</span>
+    </a>
+  </div>
   </div>
 </common-sidebar>
 <router-outlet></router-outlet>

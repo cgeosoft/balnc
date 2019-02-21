@@ -1,10 +1,9 @@
-import { Component, OnInit, NgZone } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
-
-import { ContactsService } from '../../_shared/services/contacts.service'
-import { Contact, ContactLogType } from '../../_shared/models/_all'
+import { Component, NgZone, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Contact, ContactLogType } from '../_shared/models/_all';
+import { ContactsService } from '../_shared/services/contacts.service';
 
 @Component({
   selector: 'contacts-contact',
@@ -24,13 +23,13 @@ export class ContactComponent implements OnInit {
 
   showDataView = false
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private contactsService: ContactsService,
-    private zone: NgZone,
+    private zone: NgZone
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route
       .params
       .subscribe(async params => {
@@ -39,7 +38,7 @@ export class ContactComponent implements OnInit {
           .getContactObservable(params['id'])
           .pipe(
             tap((c) => console.log(c)),
-            tap((c) => this.zone.run(() => { })),
+            tap((c) => this.zone.run(() => { }))
             // tap((c) => console.log(c)),
           )
         this.contactType = 'person'

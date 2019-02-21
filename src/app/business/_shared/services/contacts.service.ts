@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { RxDBService } from '@balnc/core';
 import { CommonService } from '@balnc/shared';
 import * as faker from 'faker';
-import { Observable, Subject } from 'rxjs';
+import { LocalStorage } from 'ngx-store';
+import { Observable } from 'rxjs';
 import { Contact, ContactLogType, RxContactDoc } from '../models/_all';
 import { ContactsEntities } from '../models/_entities';
 
@@ -12,8 +13,9 @@ export class ContactsService extends CommonService {
   alias = 'contacts'
   entities = ContactsEntities
 
-  public contacts$: Observable<Contact[]>
-  public lastAccessed$: Subject<Contact[]> = new Subject<Contact[]>()
+  @LocalStorage() openedContacts: Contact[]
+
+  contacts$: Observable<Contact[]>
 
   constructor (
     _dbService: RxDBService
@@ -23,15 +25,6 @@ export class ContactsService extends CommonService {
 
   async setup () {
     await super.setup()
-    this.db['contacts'].find().$.subscribe(contacts => {
-      contacts
-        .sort((ca, cb) => {
-          const caLastUpdate = new Date(ca.logs[ca.logs.length - 1].date)
-          const cbLastUpdate = new Date(cb.logs[cb.logs.length - 1].date)
-          return cbLastUpdate.getTime() - caLastUpdate.getTime()
-        })
-      this.lastAccessed$.next(contacts.slice(0, 5))
-    })
     this.contacts$ = this.db['contacts'].find().$
   }
 
@@ -43,7 +36,7 @@ export class ContactsService extends CommonService {
     const contact = await super.getOne<Contact>('contacts', id)
     if (!contact) return null
 
-    contact.atomicUpdate(c => {
+    await contact.atomicUpdate(c => {
       c.logs.push({
         date: new Date(),
         type: ContactLogType.Access

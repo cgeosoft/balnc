@@ -10,8 +10,6 @@
         - input -> quick search
         - advanced search -> advanced search
       - create contact -> modal
-      - latest searches : list
-        - search -> view
       - pinned searches : list
         - search -> view
       - opened contacts : list
