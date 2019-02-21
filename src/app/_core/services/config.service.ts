@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ReadFile } from 'ngx-file-helpers';
 import { LocalStorage } from 'ngx-store';
-
 import { environment } from '../../../environments/environment';
-import { BModule } from '../models/bmodules';
+import { Plugin } from '../models/plugin';
 import { Profile } from '../models/profile';
 import { HelperService } from './helper.service';
 
@@ -11,9 +10,8 @@ import { HelperService } from './helper.service';
 export class ConfigService {
 
   version: string = environment.version
-  config: any = environment
-  bmodules: BModule[] = environment.bmodules
-  enabledBModules: BModule[] = []
+  plugins: Plugin[] = environment.plugins
+  enabledPlugins: Plugin[] = []
 
   @LocalStorage() sidebarClosed: boolean = false
 
@@ -26,7 +24,7 @@ export class ConfigService {
 
   menu: any
 
-  constructor() {
+  constructor () {
     console.log('[ConfigService]', 'Initializing with env:', environment)
     console.log('[ConfigService]', 'Profiles available:', this.profiles)
 
@@ -37,41 +35,50 @@ export class ConfigService {
       console.log('[ConfigService]', `Profile ${this.selected} loaded`)
     }
 
-    this.setEnabledBModules()
+    this.setEnabledPlugins()
   }
 
-  parsePackages() {
-    this.bmodules = this.bmodules.map(p => {
+  parsePackages () {
+    this.plugins = this.plugins.map(p => {
       const v = { ...p }
       v.picon = HelperService.getIcon(v.icon)
       return v
     })
   }
 
-  setEnabledBModules() {
-    this.enabledBModules = this.bmodules
+  setEnabledPlugins () {
+    this.enabledPlugins = this.plugins
       .filter(m => {
-        return this.profile.bmodules &&
-          this.profile.bmodules[m.id]
+        return this.profile.plugins &&
+          this.profile.plugins[m.id]
       })
   }
 
-  getPackageConfig(id: string) {
-    return this.profile.bmodules[id]
+  getPackageConfig (id: string) {
+    return this.profile.plugins[id]
   }
 
-  clearAllProfiles() {
+  clearAllProfiles () {
     this.selected = null
     // this.profiles = []
     window.location.reload()
   }
 
-  selectProfile(alias: string) {
+  selectProfile (alias: string) {
     this.selected = alias
     window.location.reload()
   }
 
-  saveProfile(profile: Profile): string {
+  removeProfile (profileId) {
+    let profiles = [...this.profiles]
+    let index = this.profiles.findIndex(p => p.id === profileId)
+    if (index !== -1) {
+      profiles.splice(index, 1)
+    }
+    this.profiles = profiles
+  }
+
+  saveProfile (profile: Profile): string {
     profile.id = profile.id || HelperService.uid()
     profile.createdAt = profile.createdAt || Date.now()
     let profiles = [...this.profiles]
@@ -81,26 +88,26 @@ export class ConfigService {
     }
     profiles.push(profile)
     this.profiles = profiles
-    this.setEnabledBModules()
+    this.setEnabledPlugins()
     return profile.id
   }
 
-  getProfile(alias: string = null): Profile {
+  getProfile (alias: string = null): Profile {
     alias = alias || this.selected
     alias = alias || this.profiles[0].id
     const profile = this.profiles.find(p => p.id === alias)
-    profile.bmodules = profile.bmodules || {}
+    profile.plugins = profile.plugins || {}
     return profile
   }
 
-  deleteProfile(alias: string) {
+  deleteProfile (alias: string) {
     let profiles = [...this.profiles]
     let index = this.profiles.findIndex(p => p.id === alias)
     profiles.splice(index, 1)
     this.profiles = profiles
   }
 
-  importFile(file: ReadFile) {
+  importFile (file: ReadFile) {
     try {
       const data = file.content.split(',')[1]
       const profileStr = atob(data)

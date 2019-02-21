@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core'
-import { CommonService } from '@balnc/core'
-import { Observable } from 'rxjs'
+import { Injectable } from '@angular/core';
+import { CommonService } from '@balnc/shared';
+import { Observable } from 'rxjs';
+import { ProjectsEntities } from './models/entities';
+import { PEvent, RxPEventDoc } from './models/pevent';
+import { Project, RxProjectDoc } from './models/project';
 
-import { ProjectsEntities } from './models/entities'
-import { PEvent, RxPEventDoc } from './models/pevent'
-import { Project, RxProjectDoc } from './models/project'
 
 @Injectable()
 export class ProjectsService extends CommonService {

@@ -1,36 +1,32 @@
-import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
-import { ConfigService, Profile } from '@balnc/core'
-
-import { ProjectsService } from '../../../projects/projects.service'
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ConfigService, Profile } from '@balnc/core';
 
 @Component({
-  selector: 'core-settings-data',
-  templateUrl: './data.component.html',
-  styleUrls: ['./data.component.scss']
+  selector: 'settings-data',
+  templateUrl: './data.component.html'
 })
 export class DataComponent implements OnInit {
   profile: Profile
   data: any
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
-    private configService: ConfigService,
-    private projectService: ProjectsService
+    private configService: ConfigService
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.route.params.subscribe(params => {
       this.setup(params['alias'])
     })
   }
 
-  async setup(alias) {
+  setup (alias) {
     this.profile = this.configService.getProfile(alias)
     this.data = null
   }
 
-  async export() {
+  async export () {
     const backup = {
       profile: this.profile,
       data: this.data
@@ -40,10 +36,6 @@ export class DataComponent implements OnInit {
     a.href = URL.createObjectURL(file)
     a.download = `balnc.${this.profile.id}.${(new Date()).getTime()}.json`
     a.click()
-  }
-
-  async generate() {
-    this.projectService.generateDemoData()
   }
 
 }

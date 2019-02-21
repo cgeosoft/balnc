@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CommonService } from '@balnc/core';
+import { CommonService } from '@balnc/shared';
 import * as faker from 'faker';
 import { Observable, Subject } from 'rxjs';
-
 import { Contact, ContactLogType, RxContactDoc } from '../models/_all';
 import { ContactsEntities } from '../models/_entities';
 
@@ -15,8 +14,8 @@ export class ContactsService extends CommonService {
   public contacts$: Observable<Contact[]>
   public lastAccessed$: Subject<Contact[]> = new Subject<Contact[]>()
 
-  async resolve() {
-    await super.resolve()
+  async setup () {
+    await super.setup()
     this.db['contacts'].find().$.subscribe(contacts => {
       contacts
         .sort((ca, cb) => {
@@ -29,11 +28,11 @@ export class ContactsService extends CommonService {
     this.contacts$ = this.db['contacts'].find().$
   }
 
-  async getContacts(params): Promise<Contact[]> {
+  async getContacts (params): Promise<Contact[]> {
     return super.getAll<Contact>('contacts', params)
   }
 
-  async getContact(id): Promise<Contact> {
+  async getContact (id): Promise<Contact> {
     const contact = await super.getOne<Contact>('contacts', id)
     if (!contact) return null
 
@@ -50,15 +49,15 @@ export class ContactsService extends CommonService {
     return contact
   }
 
-  getContactObservable(id): Observable<Contact> {
-    return this.db["contacts"].findOne(id).$
+  getContactObservable (id): Observable<Contact> {
+    return this.db['contacts'].findOne(id).$
   }
 
-  async addContacts(contact: Contact) {
+  async addContacts (contact: Contact) {
     return super.addOne('contacts', contact)
   }
 
-  async generateDemoData() {
+  async generateDemoData () {
     const cs: Contact[] = []
 
     for (let p = 0; p < 5; p++) {

@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <ng-container *ngIf="configService.profiles.length; else noItems">
+    <ng-container *ngIf="profiles.length; else noItems">
       <div class="table-responsive">
         <table class="table">
           <thead>
@@ -26,16 +26,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let profile of configService.profiles">
+            <tr *ngFor="let profile of profiles">
               <td>
                 <span>{{profile.name}}</span>
-                <span class="badge badge badge-dark ml-2" *ngIf="profile.id==configService.selected">selected</span>
+                <span class="badge badge badge-dark ml-2" *ngIf="profile.id==selected">selected</span>
               </td>
               <td>{{profile.createdAt|date}}</td>
               <td>
-                <button (click)="activate(profile.id)" class="btn btn-outline-primary btn-sm btn-block">
-                  Activate
-                </button>
+                  <button (click)="activate(profile.id)" class="btn btn-outline-primary btn-sm">
+                    Activate
+                  </button>
+                  <button (click)="remove(profile.id)" class="btn btn-outline-danger btn-sm ml-2">
+                    <fa-icon icon="trash"></fa-icon>
+                  </button>
               </td>
             </tr>
           </tbody>

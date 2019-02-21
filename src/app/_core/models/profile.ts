@@ -6,7 +6,7 @@ export type Profile = {
   remoteUsername?: string
   remotePassword?: string
   remoteSync?: boolean
-  bmodules?: { [key: string]: boolean }
+  plugins?: { [key: string]: boolean }
   config?: any
 }
 
@@ -17,7 +17,7 @@ export const DEMO_PROFILE = {
   remoteUsername: 'demo',
   remotePassword: 'demo',
   remoteSync: false,
-  bmodules: {
+  plugins: {
     business: true,
     projects: true,
     boards: true,

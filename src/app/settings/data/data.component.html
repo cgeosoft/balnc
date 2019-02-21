@@ -1,0 +1,71 @@
+<common-content>
+  <common-content-header title="Backup & Sync" icon="sync-alt"></common-content-header>
+  <common-content-body>
+    <div class="btn-toolbar">
+      <div class="btn-group mr-2">
+        <button type="button" class="btn btn-outline-dark" (click)="export()">
+          <fa-icon [icon]="['fas','file-export']"></fa-icon> Export
+        </button>
+        <button type="button" class="btn btn-outline-dark" (click)="import()">
+          <fa-icon [icon]="['fas','file-import']"></fa-icon> Import
+        </button>
+      </div>
+    </div>
+    <h4>Remote database</h4>
+    <div class="form-group">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="profile.remoteSync" (ngModelChange)="save();">
+        <label class="form-check-label" for="defaultCheck1">
+          Enable real-time synchronization with remote.
+        </label>
+      </div>
+      <small id="passwordHelpBlock" class="form-text text-muted">
+        Use this option for make real-time backup of your data and access the same data from multiple devices.
+        Some modules may require this option to work.
+      </small>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Host</label>
+      <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" (ngModelChange)="save();"
+        class="form-control">
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteUsername"
+            (ngModelChange)="save();" class="form-control">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePassword"
+            (ngModelChange)="save();" class="form-control" type="password">
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h4>Export Data</h4>
+    <p> You may export all profile data to json format as a backup or to move to another client.</p>
+    <div class="d-flex">
+      <button class="btn btn-outline-primary mr-2 ml-auto" (click)="export()">
+        <fa-layers class="fa-fw">
+          <fa-icon [icon]="['fas','cloud-download-alt']"></fa-icon>
+        </fa-layers>
+        Export
+      </button>
+    </div>
+    <hr>
+    <common-debug title="Profile" [data]="profile"></common-debug>
+    <common-debug title="Database" [data]="data"></common-debug>
+  </common-content-body>
+</common-content>
+
+<ng-template #loading>
+  <common-spinner></common-spinner>
+</ng-template>
+
+<ng-template #noItems>
+  <common-empty message="You don't have any configurations yet" submessage="Click create to add your first one" icon="cog"></common-empty>
+</ng-template>

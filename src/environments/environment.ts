@@ -1,9 +1,9 @@
-import * as _bmodules from './bmodules.json'
-import * as _package from '../../package.json'
+import * as _package from '../../package.json';
+import * as _plugins from './plugins.json';
 
 export const environment = {
   production: false,
-  bmodules: _bmodules['bmodules'],
+  plugins: _plugins['plugins'],
   version: _package['version']
 }
 

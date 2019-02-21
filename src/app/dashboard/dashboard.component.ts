@@ -10,14 +10,12 @@ import { ConfigService } from '@balnc/core';
 export class DashboardComponent implements OnInit {
   menu: any
   profile: any
-  config: any
-  constructor(
-    private configService: ConfigService,
+  constructor (
+    private  configService: ConfigService,
     private router: Router
   ) { }
 
-  ngOnInit() {
-    this.config = this.configService.config
-    this.profile = this.configService.getProfile()
+  ngOnInit () {
+    this. profile = this.configService.getProfile()
   }
 }

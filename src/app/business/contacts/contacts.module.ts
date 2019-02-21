@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@balnc/shared';
-
+import { ContactsService } from '../_shared/services/contacts.service';
 import { ContactComponent } from './contact/contact.component';
 import { OverviewComponent } from './overview/overview.component';
-import { ContactsRoutes } from './contacts.routes';
-import { ContactsService } from '../_shared/services/contacts.service';
+
 
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule.forChild(ContactsRoutes)
+    RouterModule.forChild([])
   ],
   declarations: [
     OverviewComponent,

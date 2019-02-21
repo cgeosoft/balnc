@@ -4,7 +4,7 @@
       <fa-icon [icon]="['fas','angle-right']"></fa-icon>
     </fa-layers>
   </a>
-  <div class="sidemenu" [ngClass]="{closed: configService.sidebarClosed }">
+  <div class="sidemenu" [ngClass]="{closed: sidebarClosed }">
     <div class="logo">
       <img src="/assets/icons/favicon-32x32.png" alt="logo">
     </div>
@@ -15,18 +15,18 @@
           <span>dashboard</span>
         </a>
       </div>
-      <ng-template ngFor let-bmodule [ngForOf]="configService.enabledBModules" *ngIf="configService.enabledBModules.length">
+      <ng-template ngFor let-plugin [ngForOf]="enabledPlugins">
         <div class="item menu" routerLinkActive="active">
-          <a [routerLink]="['/',bmodule.id]" [ngStyle]="{color:bmodule.color}">
-            <fa-icon [icon]="bmodule.icon"></fa-icon>
-            <span>{{bmodule.label}}</span>
+          <a [routerLink]="['/',plugin.id]" [ngStyle]="{color:plugin.color}">
+            <fa-icon [icon]="plugin.icon"></fa-icon>
+            <span>{{plugin.label}}</span>
           </a>
         </div>
       </ng-template>
-      <div class="item menu mt-auto">
+      <div class="item menu mt-auto mb-2">
         <a routerLink="/settings" routerLinkActive="active">
           <fa-icon [icon]="['fas','cog']"></fa-icon>
-          <span>settings</span>
+          <!-- <span>config</span> -->
         </a>
         <!-- <a href="javascript:void(0)" (click)="toggleSidemenu()" style="height:25px;">
           <fa-icon [icon]="['fas','angle-left']"></fa-icon>

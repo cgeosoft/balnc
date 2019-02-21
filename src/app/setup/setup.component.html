@@ -18,7 +18,7 @@
             companies' premises.</p>
           <p>It has a modular architecture for robustness and extensibility using web-only technologies. With Balnc
             software developers
-            may quickly bootstrap applications with premade modules and create their own custom logic on top of them.</p>
+            may quickly bootstrap applications with premade plugins and create their own custom logic on top of them.</p>
           <div class="alert alert-warning mb-0">
             <strong>WARNING:</strong> This application is under development and it
             <strong>SHOULD NOT</strong> be used in production enviroment.
@@ -48,7 +48,7 @@
             <div class="alert alert-primary">
               <h4>What is this?</h4>
               <p>
-                Profile is a group of settings and data. Every profile is like another setup of its own bmodules and
+                Profile is a group of settings and data. Every profile is like another setup of its own plugins and
                 configuration. Your data are stored in the browser and are not by default synced to any server. You
                 should
                 keep backups or enable sync mode with a backup server.
@@ -107,27 +107,27 @@
 
       </div>
 
-      <div class="card-body p-0" *ngIf="steps[stepIndex].label=='Modules'">
-        <h3>Modules</h3>
+      <div class="card-body p-0" *ngIf="steps[stepIndex].label=='Plugins'">
+        <h3>Plugins</h3>
         <div class="list-group list-group-flush">
-          <div class="list-group-item" *ngFor="let bmodule of bmodules">
+          <div class="list-group-item" *ngFor="let plugin of plugins">
             <div class="row">
               <div class="col-sm-9 d-flex align-items-center">
                 <div class="flex-grow-1">
                   <h5 class="mb-0">
-                    <fa-icon [icon]="bmodule.picon"></fa-icon>
-                    {{bmodule.title}}
+                    <fa-icon [icon]="plugin.picon"></fa-icon>
+                    {{plugin.title}}
                   </h5>
-                  <small class="text-muted">{{bmodule.description}}</small>
+                  <small class="text-muted">{{plugin.description}}</small>
                 </div>
               </div>
               <div class="col-sm-3 d-flex align-items-center">
-                <button *ngIf="!profile.bmodules[bmodule.id]" type="button" class="btn btn-outline-primary btn-sm ml-auto mt-2"
-                  style="min-width:100px;" (click)="profile.bmodules[bmodule.id]=true;">
+                <button *ngIf="!profile.plugins[plugin.id]" type="button" class="btn btn-outline-primary btn-sm ml-auto mt-2"
+                  style="min-width:100px;" (click)="profile.plugins[plugin.id]=true;">
                   Activate
                 </button>
-                <button *ngIf="profile.bmodules[bmodule.id]" type="button" class="btn btn-outline-danger btn-sm ml-auto mt-2"
-                  style="min-width:100px;" (click)="profile.bmodules[bmodule.id]=false;">
+                <button *ngIf="profile.plugins[plugin.id]" type="button" class="btn btn-outline-danger btn-sm ml-auto mt-2"
+                  style="min-width:100px;" (click)="profile.plugins[plugin.id]=false;">
                   Deactivate
                 </button>
               </div>

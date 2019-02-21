@@ -1,5 +1,5 @@
 {
-  "bmodules": [{
+  "plugins": [{
     "id": "business",
     "title": "Business",
     "label": "business",

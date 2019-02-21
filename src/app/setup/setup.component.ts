@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
-import { ReadFile } from 'ngx-file-helpers'
-import { ToastrService } from 'ngx-toastr'
-import { BModule, HelperService, ConfigService, DEMO_PROFILE, Profile } from '../_core'
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ReadFile } from 'ngx-file-helpers';
+import { ToastrService } from 'ngx-toastr';
+import { ConfigService, DEMO_PROFILE, HelperService, Plugin, Profile } from '../_core';
 
 @Component({
-  selector: 'core-setup',
+  selector: 'setup',
   templateUrl: './setup.component.html',
   styleUrls: ['./setup.component.scss']
 })
@@ -15,7 +15,7 @@ export class SetupComponent implements OnInit {
     { label: 'Setup' },
     { label: 'Profile' },
     { label: 'Sync' },
-    { label: 'Modules' },
+    { label: 'Plugins' },
     { label: 'Finish' }
   ]
   stepIndex = 0
@@ -23,47 +23,47 @@ export class SetupComponent implements OnInit {
   accepted: false
 
   profile: Profile = {
-    bmodules: {}
+    plugins: {}
   }
 
-  bmodules: BModule[]
+  plugins: Plugin[]
 
   helperService = HelperService
 
-  constructor(
+  constructor (
     public configService: ConfigService,
     private router: Router,
     private toastr: ToastrService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     if (this.configService.profiles.length) {
       this.router.navigate(['/dashboard'])
     }
 
-    this.bmodules = this.configService.bmodules
+    this.plugins = this.configService.plugins
   }
 
-  back() {
+  back () {
     this.stepIndex--
   }
 
-  next() {
+  next () {
     this.stepIndex++
   }
 
-  async finish() {
+  finish () {
     this.profile.name = this.profile.name || this.helperService.generateName()
-    const alias = await this.configService.saveProfile(this.profile)
-    await this.configService.selectProfile(alias)
+    const alias =  this.configService.saveProfile(this.profile)
+    this.configService.selectProfile(alias)
   }
 
-  addDemo() {
+  addDemo () {
     this.profile = DEMO_PROFILE
     this.stepIndex = this.steps.length - 1
   }
 
-  importFile(file: ReadFile) {
+  importFile (file: ReadFile) {
     const profile: Profile = this.configService.importFile(file)
     if (!profile) {
       this.toastr.error('Import failed')

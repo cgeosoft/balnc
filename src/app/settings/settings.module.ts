@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core'
-import { RouterModule } from '@angular/router'
-import { SharedModule } from '@balnc/shared'
-
-import { WrapperComponent } from './components/_wrapper/wrapper.component'
-import { BModuleComponent } from './components/bmodule/bmodule.component'
-import { DataComponent } from './components/data/data.component'
-import { GeneralComponent } from './components/general/general.component'
-import { ManageComponent } from './components/manage/manage.component'
-import { SettingsRoutes } from './settings.routes'
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from '@balnc/shared';
+import { AboutComponent } from './about/about.component';
+import { DataComponent } from './data/data.component';
+import { GeneralComponent } from './general/general.component';
+import { HelpComponent } from './help/help.component';
+import { PluginsComponent } from './plugins/plugins.component';
+import { ProfilesComponent } from './profiles/profiles.component';
+import { SettingsRoutes } from './settings.routes';
+import { ShellComponent } from './_shell/shell.component';
 
 @NgModule({
   imports: [
@@ -15,11 +16,13 @@ import { SettingsRoutes } from './settings.routes'
     RouterModule.forChild(SettingsRoutes)
   ],
   declarations: [
-    WrapperComponent,
+    ShellComponent,
     GeneralComponent,
-    BModuleComponent,
-    ManageComponent,
-    DataComponent
+    DataComponent,
+    PluginsComponent,
+    AboutComponent,
+    HelpComponent,
+    ProfilesComponent
   ],
   providers: [],
   entryComponents: []

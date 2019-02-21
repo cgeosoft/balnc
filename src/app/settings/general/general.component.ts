@@ -1,11 +1,10 @@
-import { Component, ElementRef, ViewChild, OnInit } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
-import { ConfigService, Profile } from '@balnc/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ConfigService, Profile } from '@balnc/core';
 
 @Component({
-  selector: 'core-settings-general',
-  templateUrl: './general.component.html',
-  styleUrls: ['./general.component.scss']
+  selector: 'settings-general',
+  templateUrl: './general.component.html'
 })
 export class GeneralComponent implements OnInit {
 

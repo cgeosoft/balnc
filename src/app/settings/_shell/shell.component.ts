@@ -1,22 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
-import { Router } from '@angular/router'
-import {
-  ConfigService, DEMO_PROFILE, BModule, Profile, HelperService
-} from '@balnc/core'
-import { FilePickerDirective, ReadFile } from 'ngx-file-helpers'
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { ConfigService, DEMO_PROFILE, HelperService, Plugin, Profile } from '@balnc/core';
+import { FilePickerDirective, ReadFile } from 'ngx-file-helpers';
 
 @Component({
-  selector: 'core-settings-wrapper',
-  templateUrl: './wrapper.component.html',
-  styleUrls: ['./wrapper.component.scss']
+  selector: 'settings-shell',
+  templateUrl: './shell.component.html'
 })
-export class WrapperComponent implements OnInit {
+export class ShellComponent implements OnInit {
 
   @ViewChild(FilePickerDirective)
 
   error: string
   profile: Profile
-  bmodules: BModule[] = []
+  plugins: Plugin[] = []
 
   helperService = HelperService
 
@@ -27,7 +24,7 @@ export class WrapperComponent implements OnInit {
 
   ngOnInit () {
     this.profile = this.configService.getProfile()
-    this.bmodules = this.configService.bmodules
+    this.plugins = this.configService.plugins
   }
 
   clear () {
@@ -41,7 +38,7 @@ export class WrapperComponent implements OnInit {
   createProfile () {
     this.configService.saveProfile({
       name: this.helperService.generateName(),
-      bmodules: {}
+      plugins: {}
     })
   }
 

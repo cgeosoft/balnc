@@ -1,4 +1,4 @@
-export interface BModule {
+export interface Plugin {
   id: string
   title: string
   label: string
