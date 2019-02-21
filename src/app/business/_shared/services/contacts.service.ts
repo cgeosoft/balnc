@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RxDBService } from '@balnc/core';
 import { CommonService } from '@balnc/shared';
 import * as faker from 'faker';
 import { Observable, Subject } from 'rxjs';
@@ -13,6 +14,12 @@ export class ContactsService extends CommonService {
 
   public contacts$: Observable<Contact[]>
   public lastAccessed$: Subject<Contact[]> = new Subject<Contact[]>()
+
+  constructor (
+    _dbService: RxDBService
+  ) {
+    super()
+  }
 
   async setup () {
     await super.setup()

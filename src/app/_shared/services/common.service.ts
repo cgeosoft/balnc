@@ -8,12 +8,9 @@ export class CommonService {
   alias: string
   entities: Entity[]
   observables: { [key: string]: Observable<any> } = {}
-
   db: RxDatabase
 
-  constructor (
-    private dbService: RxDBService
-  ) {  }
+  private dbService: RxDBService
 
   async setup () {
     if (!this.db) {
