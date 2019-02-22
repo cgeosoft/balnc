@@ -10,17 +10,16 @@ import { ContactsEntities } from '../models/_entities';
 @Injectable()
 export class ContactsService extends CommonService {
 
-  alias = 'contacts'
-  entities = ContactsEntities
-
   @LocalStorage() openedContacts: Contact[]
 
   contacts$: Observable<Contact[]>
 
   constructor (
-    _dbService: RxDBService
+    dbService: RxDBService
   ) {
-    super()
+    super(dbService)
+    this.alias = 'contacts'
+    this.entities = ContactsEntities
   }
 
   async setup () {

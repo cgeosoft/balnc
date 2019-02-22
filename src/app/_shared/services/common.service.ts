@@ -12,9 +12,13 @@ export class CommonService {
 
   private _dbService: RxDBService
 
+  constructor (dbService: RxDBService) {
+    this._dbService = dbService
+  }
+
   async setup () {
     if (!this.db) {
-      console.log(`Setup ${this.alias} db`)
+      console.log(`Setup ${this.alias} db`,this._dbService)
       this.db = await this._dbService.setup(this.alias, this.entities)
       this.entities.forEach(entity => {
         this.observables[`${entity.name}$`] = this.db[entity.name].find().$

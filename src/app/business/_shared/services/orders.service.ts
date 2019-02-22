@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RxDBService } from '@balnc/core';
 import { CommonService } from '@balnc/shared';
 import { Order } from '../models/order';
 import { OrdersEntities } from '../models/_entities';
@@ -8,6 +9,12 @@ export class OrdersService extends CommonService {
 
   alias = 'Orders'
   entities = OrdersEntities
+
+  constructor (
+    dbService: RxDBService
+  ) {
+    super(dbService)
+  }
 
   async getOrders (params): Promise<Order[]> {
     return super.getAll<Order>('orders', params)
