@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core'
+import { Injectable } from '@angular/core';
+import { CommonService } from '@balnc/shared';
 
 @Injectable()
-export class InvoicesService {
+export class InvoicesService extends CommonService {
 
 }

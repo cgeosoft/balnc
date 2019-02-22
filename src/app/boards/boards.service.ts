@@ -1,12 +1,12 @@
-import { Injectable, NgZone } from '@angular/core'
-import { CommonService, ConfigService, RxDBService } from '@balnc/core'
-import { LocalStorage } from 'ngx-store'
-import { BehaviorSubject, Observable } from 'rxjs'
-
-import { Board } from './models/board'
-import { BoardsEntities } from './models/entities'
-import { Message, RxMessageDoc } from './models/message'
-import { tap } from 'rxjs/operators'
+import { Injectable, NgZone } from '@angular/core';
+import { ConfigService, RxDBService } from '@balnc/core';
+import { CommonService } from '@balnc/shared';
+import { LocalStorage } from 'ngx-store';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Board } from './models/board';
+import { BoardsEntities } from './models/entities';
+import { Message } from './models/message';
 
 @Injectable()
 export class BoardsService extends CommonService {
@@ -19,16 +19,16 @@ export class BoardsService extends CommonService {
   boards$: Observable<Board[]>
   messages$: Observable<Message[]>
 
-  constructor(
-    dbService: RxDBService,
+  constructor (
+    _dbService: RxDBService,
     private ngZone: NgZone,
     private configService: ConfigService
   ) {
-    super(dbService)
+    super()
   }
 
-  async resolve() {
-    await super.resolve()
+  async setup () {
+    await super.setup()
     this.nickname = this.configService.profile.remoteUsername
     this.boards$ = this.db['boards'].find().$
     this.messages$ = this.db['messages'].find().$
@@ -39,7 +39,7 @@ export class BoardsService extends CommonService {
       )
   }
 
-  async loadMessages(boardName: String) {
+  async loadMessages (boardName: String) {
     let query = this.db['messages'].find().where('board').eq(boardName)
     const messagesRaw = await query.exec()
     const messages: Message[] = messagesRaw
@@ -55,12 +55,12 @@ export class BoardsService extends CommonService {
     return messages
   }
 
-  getBoard(id: string) {
+  getBoard (id: string) {
     let board = super.getOne('boards', id)
     return board
   }
 
-  async createBoard(data: Board) {
+  async createBoard (data: Board) {
     const now = new Date()
     const board = Object.assign({
       created: now.getTime(),
@@ -102,11 +102,11 @@ export class BoardsService extends CommonService {
   //   await existBoard.save()
   // }
 
-  async sendMessage(message: Message) {
+  async sendMessage (message: Message) {
     await super.addOne('messages', message)
   }
 
-  async deleteBoard(boardName) {
+  async deleteBoard (boardName) {
     let existBoard = await this.db['boards'].findOne().where('name').eq(boardName).exec()
     existBoard.remove()
 

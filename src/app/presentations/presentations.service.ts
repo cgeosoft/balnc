@@ -1,9 +1,7 @@
-import { Injectable } from '@angular/core'
-import { RxCollection } from 'rxdb'
-
-import { PresentationDoc, PresentationStats, Presentation } from './models/presentation'
-import { PresentationsEntities } from './models/_entities'
-import { RxDBService, CommonService } from '@balnc/core'
+import { Injectable } from '@angular/core';
+import { CommonService } from '@balnc/shared';
+import { Presentation, PresentationDoc, PresentationStats } from './models/presentation';
+import { PresentationsEntities } from './models/_entities';
 
 @Injectable()
 export class PresentationsService extends CommonService {
@@ -11,7 +9,7 @@ export class PresentationsService extends CommonService {
   alias = 'presentations'
   entities = PresentationsEntities
 
-  async getPresentations(params?: any) {
+  async getPresentations (params?: any) {
     params = params || {}
     let _presentations = await super.getAll<PresentationDoc>('presentations', params)
     const images$ = _presentations
@@ -36,11 +34,11 @@ export class PresentationsService extends CommonService {
     return presentations2
   }
 
-  async getPresentation(id): Promise<PresentationDoc> {
+  async getPresentation (id): Promise<PresentationDoc> {
     return super.getOne<PresentationDoc>('presentations', id)
   }
 
-  async addPresentation(title: string, description?: string) {
+  async addPresentation (title: string, description?: string) {
     return super.addOne<Presentation>('presentations', {
       title: title,
       description: description,
@@ -49,7 +47,7 @@ export class PresentationsService extends CommonService {
     })
   }
 
-  async getThumb(presentation: PresentationDoc): Promise<any> {
+  async getThumb (presentation: PresentationDoc): Promise<any> {
 
     if (!presentation.pages || presentation.pages.length === 0) {
       return
@@ -59,7 +57,7 @@ export class PresentationsService extends CommonService {
 
   }
 
-  async getImage(presentation: PresentationDoc, contentImage: string): Promise<any> {
+  async getImage (presentation: PresentationDoc, contentImage: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const attachment = await presentation.getAttachment(contentImage)
       const blobBuffer = await attachment.getData()
@@ -78,7 +76,7 @@ export class PresentationsService extends CommonService {
     })
   }
 
-  async getStats(presentation: PresentationDoc): Promise<PresentationStats> {
+  async getStats (presentation: PresentationDoc): Promise<PresentationStats> {
     if (!presentation.get('_attachments')) {
       return {
         filecount: 0,
