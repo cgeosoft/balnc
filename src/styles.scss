@@ -242,316 +242,27 @@ $color-sidebar-font: #aaa;
 
 common-sidebar {
 
-  @extend .py-2;
-  overflow: hidden;
-  height: 100%;
-  min-width: 200px;
-  width: 200px;
-  background: $color-sidebar-background;
-  transition: all .5s;
+  .sidebar {
+    overflow: hidden;
+    height: 100%;
+    min-width: 200px;
+    width: 200px;
+    background: $color-sidebar-background;
+    transition: all .5s;
 
-  .form-control-search {
-    background: none;
-    border: solid 1px lighten($color-sidebar-background, 20);
-    color: $color-sidebar-font;
-    transition: border .7s;
-    margin-bottom: 1rem;
-
-    &:focus {
-      border-color: $color-sidebar-font;
-    }
-
-    &::placeholder {
-      color: lighten($color-sidebar-font, 20);
-    }
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: none;
-  }
-
-  &::-webkit-scrollbar {
-    width: 3px;
-    background-color: none;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: darken($color-sidebar-background, 5);
-  }
-
-  &.closed {
-    min-width: 0;
-    width: 0;
-  }
-
-
-  .title {
-    color: #ccc;
-    font-weight: 300;
-    margin: 1rem;
-  }
-
-  .search {
-    margin: 0 10px 10px;
-    min-width: 180px;
-    width: 180px;
-
-    .form-control {
+    .form-control-search {
       background: none;
+      border: solid 1px lighten($color-sidebar-background, 20);
       color: $color-sidebar-font;
-      border: solid 1px darken($color-sidebar-font, 12)
-    }
+      transition: border .7s;
+      margin-bottom: 1rem;
 
-    a {
-      color: $color-sidebar-font;
-      font-size: .8rem;
-      padding: .2rem;
-      float: right;
-
-      &:hover {
-        text-decoration: none;
-      }
-    }
-  }
-
-  .menu {
-    @extend .p-0;
-    overflow-y: auto;
-    color: $color-sidebar-font;
-    margin: 0 10px 10px;
-    min-width: 180px;
-    width: 180px;
-
-    .header {
-      @extend .mb-2;
-      @extend .d-flex;
-      @extend .flex-column;
-      border-bottom: solid 1px darken($color-sidebar-font, 12);
-      padding: .4rem;
-
-      h4 {
-        @extend .m-0;
-        @extend .p-0;
-        font-weight: 300;
-        color: darken($color-sidebar-font, 5);
-
-        .fa {
-          font-size: .8rem;
-        }
+      &:focus {
+        border-color: $color-sidebar-font;
       }
 
-      h5 {
-        @extend .m-0;
-        @extend .p-0;
-        font-weight: 300;
-        font-size: 1.1rem;
-        color: darken($color-sidebar-font, 5);
-
-        .fa {
-          font-size: .8rem;
-        }
-      }
-
-      span {
-        font-size: .9rem;
-        padding: 0 0 .2rem;
-        color: darken($color-sidebar-font, 7);
-      }
-
-      button {
-        @extend .btn;
-        @extend .ml-auto;
-        border: none;
-        background: none;
-        color: darken($color-sidebar-font, 5);
-        padding: 0 .5rem;
-
-        &:hover {
-          background: lighten($color-sidebar-background, 10);
-        }
-      }
-    }
-
-    .items {
-
-      a,
-      button {
-        @extend .d-flex;
-        @extend .flex-row;
-        @extend .align-items-center;
-        @extend .mb-1;
-        @extend .w-100;
-        @extend .btn;
-        background: none;
-        padding: .2rem;
-        border: none;
-        color: $color-sidebar-font;
-        text-align: left;
-        outline: none !important;
-        box-shadow: none !important;
-
-        .thumb {
-          @extend .bg-dark;
-          @extend .rounded;
-          @extend .mr-2;
-          @extend .d-flex;
-          @extend .justify-content-center;
-          @extend .align-items-center;
-          @extend .border;
-          @extend .border-light;
-          position: relative;
-          height: 34px;
-          width: 34px;
-          min-width: 34px;
-
-
-          .thumb-img {
-            @extend .h-100;
-            @extend .w-100;
-            background-size: cover;
-            background-position: center;
-            overflow: hidden;
-
-            img {
-              @extend .img-fluid;
-              height: 34px;
-              width: 34px;
-            }
-          }
-
-          .indicator {
-            // @extend .border;
-            // @extend .border-light;
-            background: #222;
-            position: absolute;
-            bottom: -4px;
-            right: -4px;
-            height: 16px;
-            width: 16px;
-            line-height: 14px;
-            font-size: .6rem;
-            text-align: center;
-            border-radius: 8px;
-            color: #FFF;
-            box-shadow: 1px 1px 3px #222;
-          }
-        }
-
-        fa-icon:first-child,
-        .icon {
-          @extend .mr-1;
-          text-align: center;
-          width: 1.25em;
-          min-width: 20px;
-          font-size: .8rem;
-
-          &.icon-badge {
-            @extend .mr-0;
-            @extend .ml-auto;
-          }
-        }
-
-        .content {
-          @extend .d-flex;
-          @extend .flex-column;
-          @extend .flex-grow-1;
-          @extend .text-truncate;
-          line-height: 1rem;
-
-          span {
-            @extend .d-block;
-            @extend .text-truncate;
-          }
-
-          small {
-            @extend .d-block;
-            @extend .text-truncate;
-            font-size: .7rem;
-            line-height: .7rem;
-            margin-top: .2rem;
-            color: $color-sidebar-font;
-          }
-        }
-
-        &.primary {
-          @extend .btn-primary;
-          border-width: 1px;
-        }
-
-        &.success {
-          @extend .btn-success;
-          border-width: 1px;
-        }
-
-        &.danger {
-          @extend .btn-danger;
-          border-width: 1px;
-        }
-
-        &.active {
-          background: lighten($color-sidebar-background, 10%);
-          color: #FFF;
-        }
-
-        &:hover {
-          background: lighten($color-sidebar-background, 5%);
-          color: #eee;
-        }
-
-        &:disabled {
-          cursor: not-allowed;
-          color: #666;
-          background: $color-sidebar-background;
-        }
-
-        &.media {
-          .img-thumbnail {
-            float: left;
-            margin: .3rem .3rem .3rem 0;
-            background: none;
-            width: 2rem;
-            text-align: center;
-            padding: 0;
-            border-radius: 2rem;
-            line-height: 2rem;
-
-            .fa {
-              font-size: 1rem;
-            }
-          }
-
-          small {
-            display: block;
-            font-size: .7rem;
-            color: darken($color-sidebar-font, 10);
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-          }
-        }
-      }
-
-      .divider {
-        @extend .m-2;
-        background: lighten($color-sidebar-background, 10);
-        height: 1px;
-      }
-    }
-
-    .empty {
-      @extend .p-4;
-      color: darken($color-sidebar-font, 15) !important;
-
-      fa-icon {
-        font-size: 2rem !important;
-      }
-
-      .message {
-        font-size: 1rem !important;
-      }
-
-      .submessage {
-        font-size: .8rem !important;
+      &::placeholder {
+        color: lighten($color-sidebar-font, 20);
       }
     }
 
@@ -565,8 +276,298 @@ common-sidebar {
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: lighten($color-sidebar-background, 7);
+      background-color: darken($color-sidebar-background, 5);
     }
 
+    &.closed {
+      min-width: 0;
+      width: 0;
+    }
+
+
+    .title {
+      color: #ccc;
+      font-weight: 300;
+      margin: 1rem;
+    }
+
+    .search {
+      margin: 0 10px 10px;
+      min-width: 180px;
+      width: 180px;
+
+      .form-control {
+        background: none;
+        color: $color-sidebar-font;
+        border: solid 1px darken($color-sidebar-font, 12)
+      }
+
+      a {
+        color: $color-sidebar-font;
+        font-size: .8rem;
+        padding: .2rem;
+        float: right;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+
+    .menu {
+      @extend .p-0;
+      overflow-y: auto;
+      color: $color-sidebar-font;
+      margin: 0 10px 10px;
+      min-width: 180px;
+      width: 180px;
+
+      .header {
+        @extend .mb-2;
+        @extend .d-flex;
+        @extend .flex-column;
+        border-bottom: solid 1px darken($color-sidebar-font, 12);
+        padding: .4rem;
+
+        h4 {
+          @extend .m-0;
+          @extend .p-0;
+          font-weight: 300;
+          color: darken($color-sidebar-font, 5);
+
+          .fa {
+            font-size: .8rem;
+          }
+        }
+
+        h5 {
+          @extend .m-0;
+          @extend .p-0;
+          font-weight: 300;
+          font-size: 1.1rem;
+          color: darken($color-sidebar-font, 5);
+
+          .fa {
+            font-size: .8rem;
+          }
+        }
+
+        span {
+          font-size: .9rem;
+          padding: 0 0 .2rem;
+          color: darken($color-sidebar-font, 7);
+        }
+
+        button {
+          @extend .btn;
+          @extend .ml-auto;
+          border: none;
+          background: none;
+          color: darken($color-sidebar-font, 5);
+          padding: 0 .5rem;
+
+          &:hover {
+            background: lighten($color-sidebar-background, 10);
+          }
+        }
+      }
+
+      .items {
+
+        a,
+        button {
+          @extend .d-flex;
+          @extend .flex-row;
+          @extend .align-items-center;
+          @extend .mb-1;
+          @extend .w-100;
+          @extend .btn;
+          background: none;
+          padding: .2rem;
+          border: none;
+          color: $color-sidebar-font;
+          text-align: left;
+          outline: none !important;
+          box-shadow: none !important;
+
+          .thumb {
+            @extend .bg-dark;
+            @extend .rounded;
+            @extend .mr-2;
+            @extend .d-flex;
+            @extend .justify-content-center;
+            @extend .align-items-center;
+            @extend .border;
+            @extend .border-light;
+            position: relative;
+            height: 34px;
+            width: 34px;
+            min-width: 34px;
+
+
+            .thumb-img {
+              @extend .h-100;
+              @extend .w-100;
+              background-size: cover;
+              background-position: center;
+              overflow: hidden;
+
+              img {
+                @extend .img-fluid;
+                height: 34px;
+                width: 34px;
+              }
+            }
+
+            .indicator {
+              // @extend .border;
+              // @extend .border-light;
+              background: #222;
+              position: absolute;
+              bottom: -4px;
+              right: -4px;
+              height: 16px;
+              width: 16px;
+              line-height: 14px;
+              font-size: .6rem;
+              text-align: center;
+              border-radius: 8px;
+              color: #FFF;
+              box-shadow: 1px 1px 3px #222;
+            }
+          }
+
+          fa-icon:first-child,
+          .icon {
+            @extend .mr-1;
+            text-align: center;
+            width: 1.25em;
+            min-width: 20px;
+            font-size: .8rem;
+
+            &.icon-badge {
+              @extend .mr-0;
+              @extend .ml-auto;
+            }
+          }
+
+          .content {
+            @extend .d-flex;
+            @extend .flex-column;
+            @extend .flex-grow-1;
+            @extend .text-truncate;
+            line-height: 1rem;
+
+            span {
+              @extend .d-block;
+              @extend .text-truncate;
+            }
+
+            small {
+              @extend .d-block;
+              @extend .text-truncate;
+              font-size: .7rem;
+              line-height: .7rem;
+              margin-top: .2rem;
+              color: $color-sidebar-font;
+            }
+          }
+
+          &.primary {
+            @extend .btn-primary;
+            border-width: 1px;
+          }
+
+          &.success {
+            @extend .btn-success;
+            border-width: 1px;
+          }
+
+          &.danger {
+            @extend .btn-danger;
+            border-width: 1px;
+          }
+
+          &.active {
+            background: lighten($color-sidebar-background, 10%);
+            color: #FFF;
+          }
+
+          &:hover {
+            background: lighten($color-sidebar-background, 5%);
+            color: #eee;
+          }
+
+          &:disabled {
+            cursor: not-allowed;
+            color: #666;
+            background: $color-sidebar-background;
+          }
+
+          &.media {
+            .img-thumbnail {
+              float: left;
+              margin: .3rem .3rem .3rem 0;
+              background: none;
+              width: 2rem;
+              text-align: center;
+              padding: 0;
+              border-radius: 2rem;
+              line-height: 2rem;
+
+              .fa {
+                font-size: 1rem;
+              }
+            }
+
+            small {
+              display: block;
+              font-size: .7rem;
+              color: darken($color-sidebar-font, 10);
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+          }
+        }
+
+        .divider {
+          @extend .m-2;
+          background: lighten($color-sidebar-background, 10);
+          height: 1px;
+        }
+      }
+
+      .empty {
+        @extend .p-4;
+        color: darken($color-sidebar-font, 15) !important;
+
+        fa-icon {
+          font-size: 2rem !important;
+        }
+
+        .message {
+          font-size: 1rem !important;
+        }
+
+        .submessage {
+          font-size: .8rem !important;
+        }
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: none;
+      }
+
+      &::-webkit-scrollbar {
+        width: 3px;
+        background-color: none;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: lighten($color-sidebar-background, 7);
+      }
+
+    }
   }
 }
