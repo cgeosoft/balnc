@@ -1,33 +1,33 @@
-import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
-import { CommonService, RxDBService } from '@balnc/core'
-import * as _ from 'lodash'
-
-import { BehaviorSubject } from 'rxjs'
-
-import { ReportsEntities } from './models/_entities'
-import { ReportSettings } from './models/module-settings'
-import { Report } from './models/report'
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { RxDBService } from '@balnc/core';
+import { CommonService } from '@balnc/shared';
+import * as _ from 'lodash';
+import { BehaviorSubject } from 'rxjs';
+import { ReportSettings } from './models/module-settings';
+import { Report } from './models/report';
+import { ReportsEntities } from './models/_entities';
 
 @Injectable()
 export class ReportService extends CommonService {
-
-  alias = 'reports'
-  entities = ReportsEntities
 
   reportAdminRole = 'report-admin'
   settings: ReportSettings
 
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
-  constructor(
+  constructor (
     dbService: RxDBService,
     private http: HttpClient
   ) {
-    super(dbService)
+    super({
+      alias : 'reports',
+      entities : ReportsEntities,
+      dbService
+    })
   }
 
-  async all(params: any = {}) {
+  async all (params: any = {}) {
     const data = await super.getAll<Report>('reports', params)
     const reports = data
       .filter(report => {
@@ -44,7 +44,7 @@ export class ReportService extends CommonService {
     return reports
   }
 
-  async one(id: string) {
+  async one (id: string) {
     const reportDoc = await super.getOne<Report>('reports', id)
     const report = _.cloneDeep(reportDoc) as Report
 
@@ -68,7 +68,7 @@ export class ReportService extends CommonService {
     return report
   }
 
-  async getCommonData(query) {
+  async getCommonData (query) {
     const result = await this.execute(query)
     return result['rows'].map(r => {
       return {
@@ -78,7 +78,7 @@ export class ReportService extends CommonService {
     })
   }
 
-  async generateQuery(report: Report, filters) {
+  async generateQuery (report: Report, filters) {
     let query = ''
     try {
       const r = await super.getOne<Report>('reports', report.alias)
@@ -91,7 +91,7 @@ export class ReportService extends CommonService {
     return this.formatQuery(query, filters)
   }
 
-  async execute(query) {
+  async execute (query) {
     const url = `${this.settings.host}/execute`
     const headers = this.generateHeaders()
     const result = await this.http.post(url, {
@@ -100,7 +100,7 @@ export class ReportService extends CommonService {
     return result
   }
 
-  async generatePdfMake(report: Report, data: any) {
+  async generatePdfMake (report: Report, data: any) {
     const fields = _.cloneDeep(report.fields)
     const pdf = _.cloneDeep(report.pdf)
     const d = _.cloneDeep(data)
@@ -136,11 +136,11 @@ export class ReportService extends CommonService {
     return pdf
   }
 
-  idReportAdmin() {
+  idReportAdmin () {
     // return super.profileService.roles.indexOf(this.reportAdminRole) >= 0
   }
 
-  private generateHeaders() {
+  private generateHeaders () {
     return {
       headers: {
         Authorization: 'Basic ' + btoa('key:' + this.settings.key)
@@ -148,7 +148,7 @@ export class ReportService extends CommonService {
     }
   }
 
-  formatQuery(query, filters) {
+  formatQuery (query, filters) {
     for (const k in filters) {
       if (filters.hasOwnProperty(k)) {
         let value = ''

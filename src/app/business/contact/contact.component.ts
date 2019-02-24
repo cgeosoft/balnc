@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { mergeMap, tap } from 'rxjs/operators';
 import { Contact, ContactLogType } from '../_shared/models/_all';
 import { ContactsService } from '../_shared/services/contacts.service';
 
@@ -30,20 +30,19 @@ export class ContactComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    this.route
+    this.contact$ = this.route
       .params
-      .subscribe(async params => {
-        // console.log(params['id'])
-        this.contact$ = this.contactsService
-          .getContactObservable(params['id'])
-          .pipe(
-            tap((c) => console.log(c)),
-            tap((c) => this.zone.run(() => { }))
-            // tap((c) => console.log(c)),
-          )
-        this.contactType = 'person'
-        // this.contactType = this.contact.tags.includes('company') ? 'company' : 'person'
-      })
+      .pipe(
+        mergeMap(params => this.contactsService.getContactObservable(params['id'])),
+        tap((contact: Contact) => {
+          const contacts = [...this.contactsService.openedContacts || []]
+          contacts.unshift(contact)
+          this.contactsService.openedContacts = contacts.reduce((x, y) => x.includes(y) ? x : [...x, y], [])
+        }),
+        tap((contact) => this.zone.run(() => {
+          this.contactType = contact.tags['person'] ? 'person' : 'company'
+        }))
+      )
   }
-
 }
+

@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@balnc/shared';
+import { ContactCreateComponent } from './contact-create/contact-create.component';
 import { ContactComponent } from './contact/contact.component';
 import { InvoiceComponent } from './invoice/invoice.component';
+import { OrderCreateComponent } from './order-create/order-create.component';
 import { OrderComponent } from './order/order.component';
 import { OverviewComponent } from './overview/overview.component';
 import { QuickSearchComponent } from './quick-search/quick-search.component';
@@ -42,7 +44,9 @@ import { ShellComponent } from './_shell/shell.component';
     OrderComponent,
     InvoiceComponent,
     SearchComponent,
-    OverviewComponent
+    OverviewComponent,
+    ContactCreateComponent,
+    OrderCreateComponent
   ],
   providers: [
     BusinessResolver,
@@ -51,7 +55,9 @@ import { ShellComponent } from './_shell/shell.component';
     OrdersService
   ],
   entryComponents: [
-    QuickSearchComponent
+    QuickSearchComponent,
+    ContactCreateComponent,
+    OrderCreateComponent
   ]
 })
 export class BusinessModule { }

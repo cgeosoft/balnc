@@ -13,7 +13,11 @@ export class OrdersService extends CommonService {
   constructor (
     dbService: RxDBService
   ) {
-    super(dbService)
+    super({
+      alias: 'orders',
+      entities: [],
+      dbService
+    })
   }
 
   async getOrders (params): Promise<Order[]> {

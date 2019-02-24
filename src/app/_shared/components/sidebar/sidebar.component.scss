@@ -53,9 +53,30 @@ $color-sidebar-font: #aaa;
 :host /deep/ .title {
   color: #ccc;
   font-weight: 300;
-  margin: .7rem;
-  border-bottom: solid 1px #666;
-  padding-bottom: 1rem;
+  margin: 1rem;
+}
+
+:host /deep/ .search {
+  margin: 0 10px 10px;
+  min-width: 180px;
+  width: 180px;
+
+  .form-control {
+    background: none;
+    color: $color-sidebar-font;
+    border: solid 1px darken($color-sidebar-font, 12)
+  }
+
+  a {
+    color: $color-sidebar-font;
+    font-size: .8rem;
+    padding: .2rem;
+    float: right;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 :host /deep/ .menu {

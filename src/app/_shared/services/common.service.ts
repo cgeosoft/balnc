@@ -3,27 +3,30 @@ import { Observable } from 'rxjs';
 import { Entity } from '../../_core/rxdb/entity';
 import { RxDBService } from '../../_core/rxdb/rxdb.service';
 
-export class CommonService {
-
+export interface CommonConfig {
   alias: string
   entities: Entity[]
+  dbService: RxDBService
+}
+
+export class CommonService {
+
   observables: { [key: string]: Observable<any> } = {}
   db: RxDatabase
+  config: CommonConfig
 
-  private _dbService: RxDBService
-
-  constructor (dbService: RxDBService) {
-    this._dbService = dbService
+  constructor (config: CommonConfig) {
+    this.config = config
   }
 
   async setup () {
     if (!this.db) {
-      console.log(`Setup ${this.alias} db`,this._dbService)
-      this.db = await this._dbService.setup(this.alias, this.entities)
-      this.entities.forEach(entity => {
+      console.log(`Setup ${this.config.alias} db`,this.config.dbService)
+      this.db = await this.config.dbService.setup(this.config.alias, this.config.entities)
+      this.config.entities.forEach(entity => {
         this.observables[`${entity.name}$`] = this.db[entity.name].find().$
       })
-      console.log(`...Setuped ${this.alias} `)
+      console.log(`...Setuped ${this.config.alias} `)
     }
   }
 

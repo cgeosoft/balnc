@@ -8,6 +8,10 @@ export class InvoicesService extends CommonService {
   constructor (
         dbService: RxDBService
       ) {
-      super(dbService)
-    }
+    super({
+      alias: 'invoices',
+      entities: [],
+      dbService
+    })
+  }
 }

@@ -17,9 +17,11 @@ export class ContactsService extends CommonService {
   constructor (
     dbService: RxDBService
   ) {
-    super(dbService)
-    this.alias = 'contacts'
-    this.entities = ContactsEntities
+    super({
+      alias: 'contacts',
+      entities: ContactsEntities,
+      dbService: dbService
+    })
   }
 
   async setup () {
@@ -42,9 +44,6 @@ export class ContactsService extends CommonService {
       })
       return c
     })
-
-    // await contact.save()
-
     return contact
   }
 
@@ -52,7 +51,7 @@ export class ContactsService extends CommonService {
     return this.db['contacts'].findOne(id).$
   }
 
-  async addContacts (contact: Contact) {
+  async addContact (contact: Contact) {
     return super.addOne('contacts', contact)
   }
 

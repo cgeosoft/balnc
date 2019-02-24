@@ -1,4 +1,4 @@
-import { RxDocument } from 'rxdb'
+import { RxDocument } from 'rxdb';
 
 export interface ContactDetails {
   avatar?: string
@@ -32,7 +32,7 @@ export enum ContactLogType {
 export interface Contact {
   name: string
   tags: string[]
-  details?: ContactDetails
+  details: ContactDetails
   conns?: ContactConn[]
   logs: ContactLog[]
 }

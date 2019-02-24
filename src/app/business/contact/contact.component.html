@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-3">
             <div class="card mb-4">
-              <img class="card-img-top" [src]="contact.details.avatar">
+              <img class="card-img-top" [src]="contact.details.avatar" *ngIf="contact.details.avatar">
               <div class="card-body">
                 <dl class="mb-0">
                   <dt>Name</dt>

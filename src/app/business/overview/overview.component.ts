@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { ContactsService } from '../_shared/services/contacts.service';
 
 @Component({
   selector: 'app-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.css']
+  templateUrl: './overview.component.html'
 })
 export class OverviewComponent implements OnInit {
 
-  constructor() { }
+  constructor (
+    private contactsService: ContactsService
+  ) { }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
+  get contacts$ () {
+    return this.contactsService.contacts$
+  }
 }

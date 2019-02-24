@@ -11,20 +11,21 @@ import { Message } from './models/message';
 @Injectable()
 export class BoardsService extends CommonService {
 
-  alias = 'boards'
-  entities = BoardsEntities
-
   @LocalStorage() nickname: string = ''
 
   boards$: Observable<Board[]>
   messages$: Observable<Message[]>
 
   constructor (
-    _dbService: RxDBService,
+    dbService: RxDBService,
     private ngZone: NgZone,
     private configService: ConfigService
   ) {
-    super()
+    super({
+      alias: 'boards',
+      entities: BoardsEntities,
+      dbService
+    })
   }
 
   async setup () {
