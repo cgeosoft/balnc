@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core'
-import { ConfigService } from '@balnc/core'
+import { Component } from '@angular/core';
+import { ConfigService } from '@balnc/core';
 
 @Component({
   selector: 'common-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  templateUrl: './sidebar.component.html'
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
-  constructor(
+  constructor (
     public configService: ConfigService
   ) { }
 
-  ngOnInit() {
-    // empty
+  get closed () {
+    return this.configService.sidebarClosed
   }
 
 }

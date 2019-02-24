@@ -1,4 +1,3 @@
-
 export * from './core.module';
 export * from './models/plugin';
 export * from './models/profile';

@@ -1,9 +1,10 @@
-import { Routes } from '@angular/router'
-import { MainComponent, ErrorComponent } from '@balnc/shared';
+import { Routes } from '@angular/router';
+import { ErrorComponent } from '@balnc/shared';
+import { ShellComponent } from '../_shell/shell.component';
 
 export const APP_ROUTES: Routes = [{
   path: '',
-  component: MainComponent,
+  component: ShellComponent,
   children: [{
     path: 'dashboard',
     loadChildren: './dashboard/dashboard.module#DashboardModule'

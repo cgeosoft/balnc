@@ -10,7 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import environment from '../environments/environment';
 import { AppComponent } from './_app/app.component';
 import { APP_ROUTES } from './_app/app.routes';
-
+import { ShellComponent } from './_shell/shell.component';
 
 @NgModule({
   imports: [
@@ -25,10 +25,11 @@ import { APP_ROUTES } from './_app/app.routes';
     SharedModule,
     RouterModule.forRoot(APP_ROUTES, {
       // enableTracing: true
-    }),
+    })
   ],
   declarations: [
     AppComponent,
+    ShellComponent
   ],
   bootstrap: [AppComponent]
 })

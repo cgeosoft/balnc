@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
-import { ConfigService, Plugin, Profile } from '@balnc/core';
+import { ConfigService, Profile } from '@balnc/core';
 import { ToastrService } from 'ngx-toastr';
-import { fromEvent as observableFromEvent } from 'rxjs';
 
 @Component({
-  selector: 'common-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  selector: 'app-shell',
+  templateUrl: './shell.component.html',
+  styleUrls: ['./shell.component.scss']
 })
-export class MainComponent implements OnInit {
+export class ShellComponent implements OnInit {
 
   profile: Profile
 
@@ -61,17 +60,17 @@ export class MainComponent implements OnInit {
       this.username = this.configService.profile.remoteUsername
     }
 
-    observableFromEvent(window, 'online')
-      .subscribe(e => {
-        this.networkStatus = true
-        this.setStatus()
-      })
+    // observableFromEvent(window, 'online')
+    //   .subscribe(e => {
+    //     this.networkStatus = true
+    //     this.setStatus()
+    //   })
 
-    observableFromEvent(window, 'offline')
-      .subscribe(e => {
-        this.networkStatus = false
-        this.setStatus()
-      })
+    // observableFromEvent(window, 'offline')
+    //   .subscribe(e => {
+    //     this.networkStatus = false
+    //     this.setStatus()
+    //   })
 
     this.setStatus()
   }

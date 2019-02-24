@@ -5,7 +5,6 @@ export * from './components/debug/debug.component';
 export * from './components/empty/empty.component';
 export * from './components/error/error.component';
 export * from './components/footer/footer.component';
-export * from './components/main/main.component';
 export * from './components/page-not-found/page-not-found.component';
 export * from './components/sidebar/sidebar.component';
 export * from './components/statusbar/statusbar.component';
