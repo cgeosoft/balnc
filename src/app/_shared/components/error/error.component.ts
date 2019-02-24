@@ -1,11 +1,10 @@
-import { Component } from '@angular/core'
-import { SessionStorage } from 'ngx-store'
-import { Router } from '@angular/router'
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { SessionStorage } from 'ngx-store';
 
 @Component({
   selector: 'common-error',
-  templateUrl: './error.component.html',
-  styleUrls: ['./error.component.scss']
+  templateUrl: './error.component.html'
 })
 export class ErrorComponent {
 
@@ -13,13 +12,13 @@ export class ErrorComponent {
 
   constructor (private router: Router) { }
 
-  clear () {
+  async clear () {
     let keys = Object.keys(localStorage)
     let i = keys.length
     while (i--) {
       indexedDB.deleteDatabase(keys[i])
     }
     localStorage.clear()
-    this.router.navigate(['/setup'])
+    await this.router.navigate(['/setup'])
   }
 }

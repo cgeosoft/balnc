@@ -159,59 +159,6 @@ $side-width:70px;
       z-index: 1;
     }
   }
-
-  .statusbar {
-    @extend .d-flex;
-    background: $dark;
-    height: 20px;
-    font-size: .6rem;
-    color: #eee;
-    z-index: 100;
-
-    .statusbar-item {
-      @extend .align-self-end;
-
-      .fab,
-      .fa {
-        font-size: .5rem;
-      }
-
-      .statusbar-item-content {
-        padding: 0 7px;
-        line-height: 21px;
-      }
-
-      .btn {
-        font-size: .6rem;
-        padding: 0 7px;
-        height: 100%;
-        background: none;
-        border: none;
-        color: #eee;
-        border-radius: 0;
-        line-height: 21px;
-
-        &:hover {
-          background: darken($primary, 10%);
-        }
-      }
-
-      &.statusbar-item-divider {
-        &:after {
-          content: "";
-          height: 10px;
-          background: darken($primary, 5%);
-          display: block;
-          width: 1px;
-          margin-top: 5px;
-        }
-      }
-    }
-
-    .dropup .dropdown-toggle::after {
-      display: none;
-    }
-  }
 }
 
 

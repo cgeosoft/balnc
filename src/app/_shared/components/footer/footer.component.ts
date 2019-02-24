@@ -1,21 +1,16 @@
-import { Component, OnInit } from '@angular/core'
-import { ConfigService } from '@balnc/core'
+import { Component } from '@angular/core';
+import { ConfigService } from '@balnc/core';
 
 @Component({
   selector: 'common-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  templateUrl: './footer.component.html'
 })
-export class FooterComponent implements OnInit {
-
-  version: string
-
-  constructor(
+export class FooterComponent {
+  constructor (
     private configService: ConfigService
   ) { }
 
-  ngOnInit() {
-    this.version = this.configService.version
+  get version () {
+    return this.configService.version
   }
-
 }

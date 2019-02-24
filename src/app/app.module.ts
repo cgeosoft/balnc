@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { CoreModule } from '@balnc/core';
 import { SharedModule } from '@balnc/shared';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
-
 import environment from '../environments/environment';
 import { AppComponent } from './_app/app.component';
 import { APP_ROUTES } from './_app/app.routes';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   imports: [
@@ -28,7 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     }),
   ],
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   bootstrap: [AppComponent]
 })

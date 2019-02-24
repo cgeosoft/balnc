@@ -1,19 +1,9 @@
-import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core'
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'common-content-body',
-  templateUrl: './content-body.component.html',
-  styleUrls: ['./content-body.component.scss']
+  templateUrl: './content-body.component.html'
 })
-export class ContentBodyComponent implements OnInit {
-
+export class ContentBodyComponent {
   @Input() fullWidth = false
-  // @HostBinding('class.container') container = true;
-
-  constructor (private cdRef: ChangeDetectorRef) { }
-
-  ngOnInit () {
-    // this.container = !this.fullWidth;
-  }
-
 }

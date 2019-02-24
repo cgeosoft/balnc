@@ -7,3 +7,234 @@
 @import "components/chat";
 @import "components/table-max";
 @import "components/ngx-toastr";
+
+
+common-content {
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .justify-content-start;
+  @extend .w-100;
+  @extend .h-100;
+
+  common-content-header {
+    background: darken($body-bg, 1%);
+    border-bottom: solid 1px darken($body-bg, 5%);
+
+    .header-bar {
+      @extend .d-flex;
+      @extend .flex-column;
+      height: 55px;
+      min-height: 55px;
+      color: lighten($body-color, 15%);
+
+      .header-bar-title {
+        @extend .d-flex;
+        @extend .flex-row;
+        @extend .align-items-center;
+        @extend .w-100;
+        margin-top: 5px;
+        height: 46px;
+
+        .header-icon {
+          font-size: 30px;
+          width: 48px;
+          text-align: center;
+        }
+
+        .header-bar-title-divider {
+          @extend .mx-2;
+          height: 30px;
+          width: 1px;
+          background: darken($body-bg, 20%);
+        }
+
+        .header-body {
+          @extend .d-flex;
+          @extend .flex-column;
+          @extend .justify-content-center;
+          height: 100%;
+
+          h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            font-weight: normal;
+          }
+
+          ul {
+            @extend .text-muted;
+            margin: 0;
+            font-size: .6rem;
+          }
+        }
+
+        .header-menu {
+          @extend .ml-auto;
+
+          .dropdown-toggle {
+            .fa {
+              @extend .text-muted;
+            }
+          }
+        }
+
+        &.has-tabs {
+          padding-bottom: 0;
+        }
+      }
+
+      .header-bar-tabs {
+        @extend .mt-auto;
+        @extend .p-0;
+
+        .nav-tabs {
+          border-bottom: none;
+
+          .nav-item {
+            @extend .mr-1;
+
+            .nav-link {
+              @extend .text-muted;
+              @extend .py-1;
+
+              &.active {
+                color: lighten($body-color, 5%);
+              }
+
+              &:hover {
+                border-bottom: none;
+              }
+            }
+          }
+        }
+      }
+
+      &.has-tabs {
+        height: 94px;
+        min-height: 94px;
+      }
+    }
+
+    .dropdown-toggle {
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  common-content-body {
+    @extend .w-100;
+    @extend .h-100;
+    @extend .py-4;
+    overflow-y: auto;
+
+    >div {
+      @extend .h-100;
+    }
+  }
+}
+
+common-empty {
+  @extend .h-100;
+  @extend .w-100;
+  @extend .d-flex;
+  @extend .align-items-center;
+  @extend .justify-content-center;
+  color: #999;
+
+  .empty {
+    max-width: 300px;
+    @extend .text-center;
+
+    fa-icon {
+      font-size: 3rem;
+      width: 40px;
+      height: 40px;
+      margin: 0 auto;
+    }
+
+    .message {
+      font-size: 1.5rem;
+      font-weight: 300;
+      padding: 0;
+      margin: 0;
+    }
+
+    .submessage {
+      font-size: 1rem;
+      font-weight: 300;
+      padding: 0;
+    }
+  }
+}
+
+common-footer {
+  @extend .pt-2;
+  @extend .text-center;
+  width: 100%;
+  display: block;
+  font-size: .8rem;
+  color: lighten($dark, 15);
+
+  a {
+    color: lighten($dark, 20);
+  }
+}
+
+common-statusbar {
+
+  @extend .d-flex;
+  background: $primary;
+  height: 20px;
+  font-size: .5rem;
+  color: #eee;
+  z-index: 100;
+
+  .item {
+    @extend .align-self-end;
+    padding: 0 7px;
+    line-height: 20px;
+    height: 100%;
+
+    .fab,
+    .fa {
+      font-size: .4rem;
+    }
+  }
+
+  a.item {
+    background: none;
+    border: none;
+    color: #eee;
+    border-radius: 0;
+
+    &:hover {
+      background: darken($primary, 10%);
+      text-decoration: none;
+    }
+  }
+
+  .divider {
+    &:after {
+      content: "";
+      height: 10px;
+      background: darken($primary, 5%);
+      display: block;
+      width: 1px;
+      margin-top: 5px;
+    }
+  }
+
+  .dropup .dropdown-toggle::after {
+    display: none;
+  }
+
+}
+
+
+common-spinner {
+  display: block;
+  height: 60px;
+  padding: 2rem;
+  width: 100%;
+  position: relative;
+}

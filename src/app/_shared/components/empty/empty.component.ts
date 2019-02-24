@@ -3,8 +3,7 @@ import { HelperService } from '@balnc/core';
 
 @Component({
   selector: 'common-empty',
-  templateUrl: './empty.component.html',
-  styleUrls: ['./empty.component.scss']
+  templateUrl: './empty.component.html'
 })
 export class EmptyComponent {
 

@@ -1,12 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-
 import { HelperService } from '../../../_core';
 import { TabsMenu } from '../../../_core/models/tabs-menu';
 
 @Component({
   selector: 'common-content-header',
-  templateUrl: './content-header.component.html',
-  styleUrls: ['./content-header.component.scss']
+  templateUrl: './content-header.component.html'
 })
 export class ContentHeaderComponent implements OnInit {
 
@@ -22,7 +20,7 @@ export class ContentHeaderComponent implements OnInit {
 
   helperService = HelperService
 
-  ngOnInit() {
+  ngOnInit () {
     if (this.tabsMenu) {
       if (!this.tabsMenu.selected) {
         this.tabsMenu.selected = this.tabsMenu.tabs[0].id

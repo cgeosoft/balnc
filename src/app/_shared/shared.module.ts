@@ -13,7 +13,6 @@ import { FileHelpersModule } from 'ngx-file-helpers';
 import { NgPipesModule } from 'ngx-pipes';
 import { WebStorageModule } from 'ngx-store';
 import { ToastrModule } from 'ngx-toastr';
-
 import { ContentBodyComponent } from './components/content-body/content-body.component';
 import { ContentHeaderComponent } from './components/content-header/content-header.component';
 import { ContentComponent } from './components/content/content.component';
@@ -21,13 +20,13 @@ import { DebugComponent } from './components/debug/debug.component';
 import { EmptyComponent } from './components/empty/empty.component';
 import { ErrorComponent } from './components/error/error.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { LoaderComponent } from './components/loader/loader.component';
 import { MainComponent } from './components/main/main.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { StatusbarComponent } from './components/statusbar/statusbar.component';
 import { DocVersionPipe } from './pipes/doc-version.pipe';
 import { EllipsisPipe } from './pipes/ellipsis.pipe';
-import { SpinnerComponent } from './components/spinner/spinner.component';
 
 library.add(fas, far)
 
@@ -57,12 +56,12 @@ library.add(fas, far)
     EllipsisPipe,
     EmptyComponent,
     FooterComponent,
-    LoaderComponent,
     PageNotFoundComponent,
     SidebarComponent,
     MainComponent,
     ErrorComponent,
     SpinnerComponent,
+    StatusbarComponent
   ],
   exports: [
     CommonModule,
@@ -86,11 +85,11 @@ library.add(fas, far)
     DebugComponent,
     EmptyComponent,
     FooterComponent,
-    LoaderComponent,
+    StatusbarComponent,
     SidebarComponent,
     MainComponent,
     ErrorComponent,
-    SpinnerComponent,
+    SpinnerComponent
   ]
 })
 export class SharedModule { }
