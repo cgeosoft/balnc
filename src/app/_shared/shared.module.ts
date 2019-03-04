@@ -18,7 +18,6 @@ import { ContentHeaderComponent } from './components/content-header/content-head
 import { ContentComponent } from './components/content/content.component';
 import { DebugComponent } from './components/debug/debug.component';
 import { EmptyComponent } from './components/empty/empty.component';
-import { ErrorComponent } from './components/error/error.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -31,19 +30,16 @@ library.add(fas, far)
 
 @NgModule({
   imports: [
+    FontAwesomeModule,
     CommonModule,
     FileHelpersModule,
-    FontAwesomeModule,
     FormsModule,
     HttpClientModule,
     NgbModule,
     NgPipesModule,
     ReactiveFormsModule,
     RouterModule,
-    ToastrModule,
     WebStorageModule,
-    DateFnsModule.forRoot(),
-
     ToastrModule
   ],
   declarations: [
@@ -57,14 +53,14 @@ library.add(fas, far)
     FooterComponent,
     PageNotFoundComponent,
     SidebarComponent,
-    ErrorComponent,
     SpinnerComponent,
     StatusbarComponent
   ],
   exports: [
+    FontAwesomeModule,
+    RouterModule,
     CommonModule,
     FileHelpersModule,
-    FontAwesomeModule,
     FormsModule,
     HttpClientModule,
     NgbModule,
@@ -85,7 +81,6 @@ library.add(fas, far)
     FooterComponent,
     StatusbarComponent,
     SidebarComponent,
-    ErrorComponent,
     SpinnerComponent
   ]
 })

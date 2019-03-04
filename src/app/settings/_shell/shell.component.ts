@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfigService, DEMO_PROFILE, HelperService, Plugin, Profile } from '@balnc/core';
+import { ConfigService } from '@balnc/core';
+import { DEMO_PROFILE, Helpers, Plugin, Profile } from '@balnc/shared';
 import { FilePickerDirective, ReadFile } from 'ngx-file-helpers';
 
 @Component({
@@ -15,7 +16,7 @@ export class ShellComponent implements OnInit {
   profile: Profile
   plugins: Plugin[] = []
 
-  helperService = HelperService
+  helperService = Helpers
 
   constructor (
     public configService: ConfigService,

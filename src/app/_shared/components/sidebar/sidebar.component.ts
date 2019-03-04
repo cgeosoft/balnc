@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { ConfigService } from '@balnc/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'common-sidebar',
@@ -7,12 +6,5 @@ import { ConfigService } from '@balnc/core';
 })
 export class SidebarComponent {
 
-  constructor (
-    public configService: ConfigService
-  ) { }
-
-  get closed () {
-    return this.configService.sidebarClosed
-  }
-
+  @Input() closed
 }

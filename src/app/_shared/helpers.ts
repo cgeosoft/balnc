@@ -1,4 +1,4 @@
-export class HelperService {
+export class Helpers {
 
   static uid () {
     return Math.floor((1 + Math.random()) * 0x100000000)

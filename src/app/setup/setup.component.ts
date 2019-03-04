@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ConfigService } from '@balnc/core';
+import { DEMO_PROFILE, Helpers, Plugin, Profile } from '@balnc/shared';
 import { ReadFile } from 'ngx-file-helpers';
 import { ToastrService } from 'ngx-toastr';
-import { ConfigService, DEMO_PROFILE, HelperService, Plugin, Profile } from '../_core';
 
 @Component({
   selector: 'setup',
@@ -28,7 +29,7 @@ export class SetupComponent implements OnInit {
 
   plugins: Plugin[]
 
-  helperService = HelperService
+  helperService = Helpers
 
   constructor (
     public configService: ConfigService,
@@ -54,7 +55,7 @@ export class SetupComponent implements OnInit {
 
   finish () {
     this.profile.name = this.profile.name || this.helperService.generateName()
-    const alias =  this.configService.saveProfile(this.profile)
+    const alias = this.configService.saveProfile(this.profile)
     this.configService.selectProfile(alias)
   }
 

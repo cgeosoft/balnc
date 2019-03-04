@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
-import { ConfigService, Profile } from '@balnc/core';
 import { ToastrService } from 'ngx-toastr';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-shell',
@@ -10,11 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ShellComponent implements OnInit {
 
-  profile: Profile
-
   profileName: string
   username: string
-  version: string
 
   networkStatus = navigator.onLine
   databaseStatus = false
@@ -44,16 +41,20 @@ export class ShellComponent implements OnInit {
     return this.configService.sidebarClosed
   }
 
-  ngOnInit () {
+  get version () {
+    return this.configService.version
+  }
+
+  get profile () {
+    return this.configService.getProfile()
+  }
+
+  async ngOnInit () {
 
     if (!this.configService.profiles.length) {
-      this.router.navigate(['/setup'])
+      await this.router.navigate(['/setup'])
       return
     }
-
-    this.version = this.configService.version
-
-    this.profile = this.configService.getProfile()
 
     if (this.profile) {
       this.profileName = this.profile.name

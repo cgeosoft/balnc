@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Plugin, Profile } from '@balnc/shared';
 import { ReadFile } from 'ngx-file-helpers';
 import { LocalStorage } from 'ngx-store';
 import { environment } from '../../../environments/environment';
-import { Plugin } from '../models/plugin';
-import { Profile } from '../models/profile';
-import { HelperService } from './helper.service';
+import { Helpers } from '../../_shared/helpers';
 
 @Injectable()
 export class ConfigService {
@@ -41,7 +40,7 @@ export class ConfigService {
   parsePackages () {
     this.plugins = this.plugins.map(p => {
       const v = { ...p }
-      v.picon = HelperService.getIcon(v.icon)
+      v.picon = Helpers.getIcon(v.icon)
       return v
     })
   }
@@ -79,7 +78,7 @@ export class ConfigService {
   }
 
   saveProfile (profile: Profile): string {
-    profile.id = profile.id || HelperService.uid()
+    profile.id = profile.id || Helpers.uid()
     profile.createdAt = profile.createdAt || Date.now()
     let profiles = [...this.profiles]
     let index = this.profiles.findIndex(p => p.id === profile.id)

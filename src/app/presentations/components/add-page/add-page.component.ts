@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { HelperService } from '@balnc/core';
+import { Helpers } from '@balnc/shared';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { PresentationDoc } from '../../models/presentation';
+
 
 @Component({
   selector: 'presentations-add-page',
@@ -26,11 +26,11 @@ export class AddPageComponent {
     height: 0
   }
 
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor (public activeModal: NgbActiveModal) { }
 
-  async onSubmit() {
+  async onSubmit () {
 
-    const pageKey = HelperService.uid()
+    const pageKey = Helpers.uid()
 
     await this.presentation.putAttachment({
       id: `file-${pageKey}`,
@@ -58,7 +58,7 @@ export class AddPageComponent {
     this.activeModal.close(this.page)
   }
 
-  loadFile($event): void {
+  loadFile ($event): void {
     this.page.file = $event.target.files[0]
     const reader: FileReader = new FileReader()
 

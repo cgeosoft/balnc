@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfigService, Profile } from '@balnc/core';
+import { ConfigService } from '@balnc/core';
+import { Profile } from '@balnc/shared';
 
 @Component({
   selector: 'settings-general',

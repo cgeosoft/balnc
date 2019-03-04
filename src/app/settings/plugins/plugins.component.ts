@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService, Plugin, Profile } from '@balnc/core';
+import { ConfigService } from '@balnc/core';
+import { Plugin, Profile } from '@balnc/shared';
 
 @Component({
   selector: 'settings-plugins',

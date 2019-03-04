@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { HelperService } from '@balnc/core';
+import { Helpers } from '../../helpers';
 
 @Component({
   selector: 'common-empty',
@@ -11,5 +11,7 @@ export class EmptyComponent {
   @Input() submessage = null
   @Input() icon = 'expand'
 
-  helperService = HelperService
+  get getIcon () {
+    return Helpers.getIcon(this.icon)
+  }
 }

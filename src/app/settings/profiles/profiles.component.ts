@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ConfigService, HelperService } from '@balnc/core';
+import { ConfigService } from '@balnc/core';
+import { Helpers } from '@balnc/shared';
 import { ReadFile } from 'ngx-file-helpers';
 import { ToastrService } from 'ngx-toastr';
 
@@ -27,7 +28,7 @@ export class ProfilesComponent {
 
   create () {
     const alias = this.configService.saveProfile({
-      name: HelperService.generateName()
+      name: Helpers.generateName()
     })
     this.configService.selectProfile(alias)
   }

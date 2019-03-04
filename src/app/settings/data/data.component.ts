@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ConfigService, Profile } from '@balnc/core';
+import { ConfigService } from '@balnc/core';
+import { Profile } from '@balnc/shared';
 
 @Component({
   selector: 'settings-data',

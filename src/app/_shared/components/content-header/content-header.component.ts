@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { HelperService } from '../../../_core';
-import { TabsMenu } from '../../../_core/models/tabs-menu';
+import { Helpers } from '../../helpers';
+import { TabsMenu } from '../../models/tabs-menu';
 
 @Component({
   selector: 'common-content-header',
@@ -18,13 +18,15 @@ export class ContentHeaderComponent implements OnInit {
   @Input() fullWidth = false
   @Input() route = null
 
-  helperService = HelperService
-
   ngOnInit () {
     if (this.tabsMenu) {
       if (!this.tabsMenu.selected) {
         this.tabsMenu.selected = this.tabsMenu.tabs[0].id
       }
     }
+  }
+
+  getIcon (icon) {
+    return Helpers.getIcon(icon)
   }
 }
