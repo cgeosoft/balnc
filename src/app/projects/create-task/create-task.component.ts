@@ -1,12 +1,11 @@
-import { Component, Input, OnInit, ElementRef, ViewChild, NgZone } from '@angular/core'
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
-import { RxDocumentBase } from 'rxdb'
-import { Observable } from 'rxjs'
-
-import { ProjectsService } from '../../projects.service'
-import { RxProjectDoc } from '../../models/project'
-import { PEvent } from '../../models/pevent'
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { RxDocumentBase } from 'rxdb';
+import { Observable } from 'rxjs';
+import { PEvent } from '../_shared/models/pevent';
+import { RxProjectDoc } from '../_shared/models/project';
+import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
   selector: 'projects-task-create',

@@ -1,4 +1,4 @@
-@import "components/bootstrap";
+@import 'components/bootstrap';
 
 $side-width:70px;
 
@@ -50,18 +50,17 @@ $side-width:70px;
         min-width: $side-width;
         width: $side-width;
 
-        .item {
-          display: block;
-          transition: background-color .7s;
-          text-decoration: none;
-          // height: 40px;
-          color: lighten($body-bg, 30);
-          text-align: center;
-          // line-height: 32px;
+        a.item {
+          border-radius: .2rem;
           border: solid 2px rgba($color: #000000, $alpha: 0);
-          margin-bottom: 2px;
-          padding: .25rem 0;
+          color: lighten($body-bg, 30);
           display: block;
+          display: block;
+          margin: 0 6px 1px;
+          padding: .2rem;
+          text-align: center;
+          text-decoration: none;
+          transition: background-color .7s;
           transition: color .7s;
 
           .fa {
@@ -84,7 +83,7 @@ $side-width:70px;
           }
 
           &.active {
-            border-left-color: #FFF;
+            background: lighten($color: $dark, $amount: 10%);
             color: #FFF;
           }
 
@@ -119,6 +118,12 @@ $side-width:70px;
         &::-webkit-scrollbar-thumb {
           background-color: lighten($dark, 7);
         }
+      }
+
+      .version{
+        font-size: .5rem;
+        color:lighten($dark, 10);
+        padding: .5rem 0;
       }
 
       &.closed {

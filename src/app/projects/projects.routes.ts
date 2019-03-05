@@ -1,15 +1,11 @@
-import { WrapperComponent } from './components/_wrapper/wrapper.component'
-import { OverviewComponent } from './components/overview/overview.component'
-import { ProjectComponent } from './components/project/project.component'
-import { TaskComponent } from './components/task/task.component'
-import { ProjectsService } from './projects.service'
+import { OverviewComponent } from './overview/overview.component';
+import { ProjectComponent } from './project/project.component';
+import { TaskComponent } from './task/task.component';
+import { ShellComponent } from './_shell/shell.component';
 
 export const ProjectsRoutes = [{
   path: '',
-  component: WrapperComponent,
-  resolve: {
-    srv: ProjectsService
-  },
+  component: ShellComponent,
   children: [
     { path: '', component: OverviewComponent },
     { path: 'project/:pid', component: ProjectComponent },

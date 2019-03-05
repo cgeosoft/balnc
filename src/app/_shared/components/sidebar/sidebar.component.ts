@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'common-sidebar',
-  templateUrl: './sidebar.component.html'
+  template: '<ng-content></ng-content>'
 })
 export class SidebarComponent {
-
   @Input() closed
+  @HostBinding('class.closed') someField: boolean = false
 }

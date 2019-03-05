@@ -1,16 +1,15 @@
-import { NgModule } from '@angular/core'
-import { RouterModule } from '@angular/router'
-import { SharedModule } from '@balnc/shared'
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
-
-import { WrapperComponent } from './components/_wrapper/wrapper.component'
-import { CreateProjectComponent } from './components/create-project/create-project.component'
-import { CreateTaskComponent } from './components/create-task/create-task.component'
-import { OverviewComponent } from './components/overview/overview.component'
-import { ProjectComponent } from './components/project/project.component'
-import { TaskComponent } from './components/task/task.component'
-import { ProjectsRoutes } from './projects.routes'
-import { ProjectsService } from './projects.service'
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from '@balnc/shared';
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+import { CreateProjectComponent } from './create-project/create-project.component';
+import { CreateTaskComponent } from './create-task/create-task.component';
+import { OverviewComponent } from './overview/overview.component';
+import { ProjectComponent } from './project/project.component';
+import { ProjectsRoutes } from './projects.routes';
+import { TaskComponent } from './task/task.component';
+import { ProjectsService } from './_shared/projects.service';
+import { ShellComponent } from './_shell/shell.component';
 
 @NgModule({
   imports: [
@@ -32,7 +31,7 @@ import { ProjectsService } from './projects.service'
     RouterModule.forChild(ProjectsRoutes)
   ],
   declarations: [
-    WrapperComponent,
+    ShellComponent,
     OverviewComponent,
     ProjectComponent,
     TaskComponent,

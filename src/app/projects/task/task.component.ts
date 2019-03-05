@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-
-import { PEvent, RxPEventDoc } from '../../models/pevent'
-import { Project, RxProjectDoc } from '../../models/project'
-import { ProjectsService } from '../../projects.service'
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PEvent } from '../_shared/models/pevent';
+import { Project } from '../_shared/models/project';
+import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
   selector: 'projects-task',

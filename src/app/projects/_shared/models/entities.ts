@@ -1,5 +1,5 @@
-import ProjectSchema from '../schemas/project.json'
-import PEventSchema from '../schemas/pevent.json'
+import PEventSchema from '../schemas/pevent.json';
+import ProjectSchema from '../schemas/project.json';
 
 export const ProjectsEntities = [{
   name: 'projects',

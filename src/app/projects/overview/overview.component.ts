@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core'
-import { ProjectsService } from '../../projects.service'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { CreateProjectComponent } from '../create-project/create-project.component'
-import { PEvent } from '../../models/pevent'
-import { Project } from '../../models/project'
+import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateProjectComponent } from '../create-project/create-project.component';
+import { PEvent } from '../_shared/models/pevent';
+import { Project } from '../_shared/models/project';
+import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
   selector: 'projects-overview',

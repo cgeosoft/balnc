@@ -1,17 +1,14 @@
-import { Component, OnInit, NgZone } from '@angular/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-
-import { RxPEventDoc } from '../../models/pevent'
-import { CreateTaskComponent } from '../create-task/create-task.component'
-import { ProjectsService } from '../../projects.service'
-import { CreateProjectComponent } from '../create-project/create-project.component'
+import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateProjectComponent } from '../create-project/create-project.component';
+import { RxPEventDoc } from '../_shared/models/pevent';
+import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
-  selector: 'projects-wrapper',
-  templateUrl: './wrapper.component.html',
-  styleUrls: ['./wrapper.component.scss']
+  selector: 'projects-shell',
+  templateUrl: './shell.component.html'
 })
-export class WrapperComponent implements OnInit {
+export class ShellComponent implements OnInit {
 
   tasks: RxPEventDoc[] = []
   projects: any[] = null

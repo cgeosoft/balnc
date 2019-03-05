@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core'
-
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { FormBuilder, Validators, FormGroup } from '@angular/forms'
-
-import { ProjectsService } from '../../projects.service'
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
   selector: 'projects-project-create',

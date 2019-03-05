@@ -13,7 +13,7 @@
     <div class="menu">
       <a class="item" routerLinkActive="active" routerLink="/dashboard">
         <fa-icon [icon]="['fas','tachometer-alt']"></fa-icon>
-        <span>dashboard</span>
+        <span>board</span>
       </a>
       <ng-template ngFor let-plugin [ngForOf]="enabledPlugins">
         <a class="item" routerLinkActive="active" [routerLink]="['/',plugin.id]" [ngStyle]="{color:plugin.color}">
@@ -32,10 +32,11 @@
           <fa-icon [icon]="['fas','angle-left']"></fa-icon>
         </a> -->
     </div>
+    <div class="version">Balnc v{{version}}</div>
   </div>
   <div *ngIf="pageLoading" class="page-loader">
     <common-spinner></common-spinner>
   </div>
   <router-outlet></router-outlet>
 </div>
-<common-statusbar [version]="version" [profile]="profile"></common-statusbar>
+<!-- <common-statusbar [version]="version" [profile]="profile"></common-statusbar> -->

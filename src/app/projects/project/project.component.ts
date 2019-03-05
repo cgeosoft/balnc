@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-
-import { RxPEventDoc, PEvent } from '../../models/pevent'
-import { CreateTaskComponent } from '../create-task/create-task.component'
-import { Project } from '../../models/project'
-import { ProjectsService } from '../../projects.service'
-import { moduleDef } from '@angular/core/src/view'
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CreateTaskComponent } from '../create-task/create-task.component';
+import { PEvent } from '../_shared/models/pevent';
+import { Project } from '../_shared/models/project';
+import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
   selector: 'projects-project',
