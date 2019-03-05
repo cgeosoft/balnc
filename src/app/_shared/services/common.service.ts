@@ -21,12 +21,10 @@ export class CommonService {
 
   async setup () {
     if (!this.db) {
-      console.log(`Setup ${this.config.alias} db`,this.config.dbService)
       this.db = await this.config.dbService.setup(this.config.alias, this.config.entities)
       this.config.entities.forEach(entity => {
         this.observables[`${entity.name}$`] = this.db[entity.name].find().$
       })
-      console.log(`...Setuped ${this.config.alias} `)
     }
   }
 

@@ -30,7 +30,7 @@ $side-width:70px;
         @extend .align-items-center;
         min-width: $side-width;
         width: $side-width;
-        height: $side-width;
+        height: 55px;
 
         .fa {
           text-shadow: none;
@@ -99,13 +99,6 @@ $side-width:70px;
           }
         }
 
-        .divider {
-          @extend .mx-2;
-          @extend .my-1;
-          background: lighten($dark, 10);
-          height: 1px;
-        }
-
         &::-webkit-scrollbar-track {
           background-color: none;
         }
@@ -118,6 +111,13 @@ $side-width:70px;
         &::-webkit-scrollbar-thumb {
           background-color: lighten($dark, 7);
         }
+      }
+
+      .divider {
+        @extend .mx-2;
+        @extend .my-1;
+        background: lighten($dark, 10);
+        height: 1px;
       }
 
       .version{

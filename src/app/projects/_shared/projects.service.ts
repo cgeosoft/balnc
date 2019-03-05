@@ -1,19 +1,31 @@
 import { Injectable } from '@angular/core';
+import { RxDBService } from '@balnc/core';
 import { CommonService } from '@balnc/shared';
 import { Observable } from 'rxjs';
 import { ProjectsEntities } from './models/entities';
 import { PEvent, RxPEventDoc } from './models/pevent';
 import { Project, RxProjectDoc } from './models/project';
 
-
 @Injectable()
 export class ProjectsService extends CommonService {
 
-  alias = 'projects'
-  entities = ProjectsEntities
+  projects$: Observable<RxProjectDoc[]>
+  events$: Observable<RxPEventDoc[]>
 
-  public projects$: Observable<RxProjectDoc[]>
-  public events$: Observable<RxPEventDoc[]>
+  constructor (
+    dbService: RxDBService
+  ) {
+    super({
+      alias: 'projects',
+      entities: ProjectsEntities,
+      dbService: dbService
+    })
+  }
+
+  async setup () {
+    await super.setup()
+    this.projects$ = this.db['projects'].find().$
+  }
 
   async getOverviewProjects () {
     return super.getAll<Project>('projects', {

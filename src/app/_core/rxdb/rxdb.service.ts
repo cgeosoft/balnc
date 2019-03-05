@@ -14,7 +14,6 @@ import RxDBReplicationModule from 'rxdb/plugins/replication';
 import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check';
 import RxDBUpdateModule from 'rxdb/plugins/update';
 import RxDBValidateModule from 'rxdb/plugins/validate';
-
 import environment from '../../../environments/environment';
 import { ConfigService } from '../services/config.service';
 import { Config } from './config';
@@ -45,7 +44,7 @@ export class RxDBService {
   public entities: Entity[] = []
   private replicationStates: { [key: string]: RxReplicationState } = {}
 
-  constructor(
+  constructor (
     private http: HttpClient,
     private configService: ConfigService,
     private toastr: ToastrService
@@ -59,7 +58,7 @@ export class RxDBService {
     }
   }
 
-  async setup(alias, entities: Entity[]) {
+  async setup (alias, entities: Entity[]) {
     if (!this.configService.profile) {
       console.log('[DatabaseService]', `Can not initialize DB with a valid profile`)
       return
@@ -67,17 +66,15 @@ export class RxDBService {
 
     const name = `${this.config.prefix}_${alias}`
 
-    console.log('[DatabaseService]', `Initializing DB: ${name}`)
+    console.log('[DatabaseService]', `Initializing DB: ${name}`,entities)
     const _adapter = await this.getAdapter()
     const db = await RxDB.create({
       name: name,
       adapter: _adapter
     })
 
-    console.log('[DatabaseService]', `Setup entities`, entities)
     let sets = []
     for (const entity of entities) {
-      console.log(`Load entity ${entity.name} in ${name}`)
       let set = db.collection({
         name: entity.name,
         schema: entity.schema,
@@ -92,12 +89,11 @@ export class RxDBService {
     return db
   }
 
-  async sync(alias, db) {
+  async sync (alias, db) {
 
     const name = `${this.config.prefix}_${alias}`
 
     if (!this.config.sync) {
-      console.log('[DatabaseService]', `Sync is disabled for ${name}`)
       return
     }
 
@@ -134,7 +130,7 @@ export class RxDBService {
   //   return this.db[name]
   // }
 
-  async authenticate(username: string, password: string) {
+  async authenticate (username: string, password: string) {
     return this.http.post(`${this.config.host}/_session`, {
       name: username,
       password: password
@@ -145,7 +141,7 @@ export class RxDBService {
       })
   }
 
-  private async getAdapter() {
+  private async getAdapter () {
     if (await RxDB.checkAdapter('idb')) {
       return 'idb'
     }
