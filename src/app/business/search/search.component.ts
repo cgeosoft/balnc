@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ContactsService } from '../_shared/services/contacts.service';
 
 @Component({
   selector: 'app-search',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+  openedFilters = true
 
-  ngOnInit() {
+  constructor (
+    private contactsService: ContactsService
+  ) { }
+
+  ngOnInit () {
+  }
+
+  get contacts$ () {
+    return this.contactsService.contacts$
   }
 
 }
