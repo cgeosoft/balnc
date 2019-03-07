@@ -1,11 +1,10 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
-import { Observable, Subject } from 'rxjs'
-import { map, tap } from 'rxjs/operators'
-
-import { BoardsService } from '../../boards.service'
-import { Board } from '../../models/board'
-import { Message } from '../../models/message'
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { BoardsService } from '../../boards.service';
+import { Board } from '../../models/board';
+import { Message } from '../../models/message';
 
 @Component({
   selector: 'boards-board',
@@ -19,9 +18,7 @@ export class BoardComponent implements OnInit {
 
   selected: string
   boards: Board[]
-  board: Board = {
-    name: null
-  }
+  board: Board
   boardName: string
 
   inputMessage: string
@@ -61,7 +58,7 @@ export class BoardComponent implements OnInit {
 
     this.route.params.subscribe(async (params) => {
       this.selected = params['id']
-      this.board = await this.boardService.getOne('boards', this.selected)
+      this.board = await this.boardService.getOne<Board>('boards', this.selected)
       this.loadMessages()
     })
   }

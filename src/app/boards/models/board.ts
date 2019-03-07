@@ -1,7 +1,7 @@
-import { RxDocument } from 'rxdb'
+import { RxDocument } from 'rxdb';
 
 export interface Board {
-  name: string
+  name?: string
   members?: any[]
   created?: number
   avatar?: string
