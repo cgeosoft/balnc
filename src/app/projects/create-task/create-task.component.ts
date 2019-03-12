@@ -8,7 +8,7 @@ import { RxProjectDoc } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
-  selector: 'projects-task-create',
+  selector: 'app-projects-task-create',
   templateUrl: './create-task.component.html',
   styleUrls: ['./create-task.component.scss']
 })

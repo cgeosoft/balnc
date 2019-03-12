@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ContactLogType } from '../_shared/models/_all';
+import { ContactType } from '../_shared/models/contacts';
 import { ContactsService } from '../_shared/services/contacts.service';
 
 @Component({
@@ -28,12 +28,9 @@ export class ContactCreateComponent implements OnInit {
   async onSubmit () {
     const contact = await this.contactsService.addContact({
       name: this.form.value.name,
+      type: ContactType.person,
       details: {},
-      tags: ['person'],
-      logs: [{
-        date: new Date(),
-        type: ContactLogType.Create
-      }]
+      tags: []
     })
     this.activeModal.close(contact)
   }

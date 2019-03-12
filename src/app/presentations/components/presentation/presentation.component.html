@@ -1,10 +1,10 @@
 <ng-container *ngIf="presentation; else emptyPresentation">
-  <common-content>
+  <app-content>
 
-    <common-content-header [title]="presentation.title" [subtitle]="'Presentation: '+presentation._id" icon="desktop"
-      [tabsMenu]="tabsMenu"></common-content-header>
+    <app-content-header [title]="presentation.title" [subtitle]="'Presentation: '+presentation._id" icon="desktop"
+      [tabsMenu]="tabsMenu"></app-content-header>
 
-    <common-content-body *ngIf="tabsMenu.selected === 'overview'">
+    <app-content-body *ngIf="tabsMenu.selected === 'overview'">
 
       <div class="row">
         <div class="col-lg-3">
@@ -118,9 +118,9 @@
         </div>
       </div>
 
-    </common-content-body>
+    </app-content-body>
 
-    <common-content-body *ngIf="tabsMenu.selected === 'slides'">
+    <app-content-body *ngIf="tabsMenu.selected === 'slides'">
 
       <div class="btn-toolbar">
         <div class="btn-group mr-2">
@@ -183,7 +183,7 @@
       </div>
 
       <div class="card text-truncate mb-2">
-        <common-empty *ngIf="!presentation.pages.length" message="No pages"></common-empty>
+        <app-empty *ngIf="!presentation.pages.length" message="No pages"></app-empty>
         <div *ngIf="presentation.pages">
           <div *ngIf="presentation.pages[activePageIndex]">
             <div class="text-center bg-secondary" *ngIf="presentation.pages[activePageIndex].type=='BGIMG' && imageData">
@@ -215,13 +215,13 @@
         </div>
       </div>
 
-    </common-content-body>
+    </app-content-body>
 
-    <common-content-body *ngIf="tabsMenu.selected === 'manage'">
-      <common-debug [data]="presentation"></common-debug>
-    </common-content-body>
+    <app-content-body *ngIf="tabsMenu.selected === 'manage'">
+      <app-debug [data]="presentation"></app-debug>
+    </app-content-body>
 
-  </common-content>
+  </app-content>
 </ng-container>
 
 <div #presentElem class="present">
@@ -235,13 +235,13 @@
 </div>
 
 <ng-template #emptyPresentation>
-  <common-empty message="Select a presentation or create a new one" icon="desktop"></common-empty>
+  <app-empty message="Select a presentation or create a new one" icon="desktop"></app-empty>
 </ng-template>
 
 <ng-template #emptyPages>
-  <common-empty message="No pages were found"></common-empty>
+  <app-empty message="No pages were found"></app-empty>
 </ng-template>
 
 <ng-template #loading>
-  <common-spinner></common-spinner>
+  <app-spinner></app-spinner>
 </ng-template>

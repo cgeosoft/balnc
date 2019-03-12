@@ -1,7 +1,7 @@
 import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
-  selector: 'common-sidebar',
+  selector: 'app-sidebar',
   template: '<ng-content></ng-content>'
 })
 export class SidebarComponent {

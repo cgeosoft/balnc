@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PresentationDoc } from '../../models/presentation';
+import { PresentationsService } from '../../presentations.service';
+import { CreateComponent } from '../create/create.component';
 
-import { PresentationDoc } from '../../models/presentation'
-import { PresentationsService } from '../../presentations.service'
-import { CreateComponent } from '../create/create.component'
 
 @Component({
-  selector: 'presentations-wrapper',
+  selector: 'app-presentations-wrapper',
   templateUrl: './wrapper.component.html',
   styleUrls: ['./wrapper.component.scss']
 })

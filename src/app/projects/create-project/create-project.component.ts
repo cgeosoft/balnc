@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
-  selector: 'projects-project-create',
+  selector: 'app-projects-project-create',
   templateUrl: './create-project.component.html'
 })
 export class CreateProjectComponent implements OnInit {

@@ -5,7 +5,7 @@ import { RxPEventDoc } from '../_shared/models/pevent';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
-  selector: 'projects-shell',
+  selector: 'app-projects-shell',
   templateUrl: './shell.component.html'
 })
 export class ShellComponent implements OnInit {

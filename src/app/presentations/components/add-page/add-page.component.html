@@ -7,7 +7,7 @@
 <div class="modal-body">
   <div class="row">
     <div class="col-sm-5">
-      <common-empty *ngIf="!imagePreview" icon="image:regular" message="image"></common-empty>
+      <app-empty *ngIf="!imagePreview" icon="image:regular" message="image"></app-empty>
       <div *ngIf="imagePreview">
         <img class="img-thumbnail img-fluid" [src]="imagePreview">
         <div class="row">

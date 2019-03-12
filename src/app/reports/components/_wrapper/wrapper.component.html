@@ -1,4 +1,4 @@
-<common-sidebar>
+<app-sidebar>
   <div class="menu">
     <div class="header d-flex">
       <h4>Reports</h4>
@@ -30,12 +30,12 @@
       </button>
     </div>
   </div>
-</common-sidebar>
+</app-sidebar>
 <router-outlet></router-outlet>
 
 <ng-template #empty>
-  <common-empty></common-empty>
+  <app-empty></app-empty>
 </ng-template>
 <ng-template #loader>
-  <common-spinner label="Loading Reports"></common-spinner>
+  <app-spinner label="Loading Reports"></app-spinner>
 </ng-template>

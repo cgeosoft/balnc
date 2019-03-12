@@ -1,48 +1,41 @@
-<common-sidebar>
-  <div class="title">
+<app-sidebar>
+  <!-- <div class="title">
     <h4>Business</h4>
-  </div>
+  </div> -->
   <div class="search">
-    <input class="form-control" placeholder="search..." 
-    [ngbTypeahead]="search" [(ngModel)]="term" [resultFormatter]="formatter"
-     (selectItem)="select($event)">
+    <input class="form-control" placeholder="quick search..." [ngbTypeahead]="search" [(ngModel)]="term"
+      [resultFormatter]="formatter" (selectItem)="select($event)">
     <a routerLink="/business/search">advanced search</a>
   </div>
-  <div class="menu">
+  <div class="divider"></div>
+  <div class="menu mb-0">
     <div class="items">
-      <a routerLink="/business/overview" routerLinkActive="active">
-        <fa-icon icon="users"></fa-icon>
-        <span>Overview</span>
-      </a>
       <button (click)="create()">
         <fa-icon icon="plus-circle"></fa-icon>
         <span>New Contact</span>
       </button>
     </div>
   </div>
+  <div class="divider"></div>
   <div class="menu" *ngIf="opened">
     <div class="items">
-      <div class="header">
-        Opened 
-        <button class="btn" (click)="closeAll()">close all</button>
+      <div class="header d-flex">
+        <span>Opened</span>
+        <button class="btn btn-sm ml-auto" (click)="closeAll()"><small>close all</small></button>
       </div>
-      <div class="divider"></div>
-      <a *ngFor="let contact of opened" [routerLink]="['/business/contact',contact._id]" routerLinkActive="active">
-        <div class="thumb">
-          <ng-container *ngIf="contact.details.avatar; else noThumb">
-            <div class="thumb-img" [ngStyle]="{'background-image': 'url('+contact.details.avatar+')'}"></div>
-          </ng-container>
-          <div class="indicator" *ngIf="contact.tags[0] === 'company'" style="background-color: #8E24AA">
-            <fa-icon icon="building"></fa-icon>
-          </div>
-          <div class="indicator" *ngIf="contact.tags[0] === 'person'" style="background-color: #4A148C">
-            <fa-icon icon="user"></fa-icon>
-          </div>
-        </div>
+      <a *ngFor="let item of opened; let i = index" [routerLink]="item.route" routerLinkActive="active">
+        <ng-container [ngSwitch]="item.type">
+          <fa-icon *ngSwitchCase="'company'" icon="building"></fa-icon>
+          <fa-icon *ngSwitchCase="'person'" icon="user-tie"></fa-icon>
+          <fa-icon *ngSwitchCase="'order'" icon="shopping-basket"></fa-icon>
+        </ng-container>
         <div class="content">
-          <span>{{contact.name}}</span>
-          <!-- <small *ngIf="contact.logs">{{contact.logs[contact.logs.length-1].date | date:"short"}}</small> -->
+          <span>{{item.label}}</span>
+          <!-- <small *ngIf="item.sublabel">{{item.sublabel}}</small> -->
         </div>
+        <button (click)="close(i,$event)" class="btn btn-close py-0 px-1 text-center btn-outline-danger">
+          <fa-icon [icon]="['fas','times']"></fa-icon>
+        </button>
       </a>
     </div>
   </div>
@@ -54,7 +47,7 @@
       </a>
     </div>
   </div>
-</common-sidebar>
+</app-sidebar>
 <router-outlet></router-outlet>
 <ng-template #loader>
   <div class="text-center p-4">
@@ -62,7 +55,7 @@
   </div>
 </ng-template>
 <ng-template #empty>
-  <common-empty icon="desktop"></common-empty>
+  <app-empty icon="desktop"></app-empty>
 </ng-template>
 <ng-template #noThumb>
   <fa-icon [icon]="['fas','desktop']"></fa-icon>

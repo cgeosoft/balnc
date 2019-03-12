@@ -1,18 +1,22 @@
 import { Component } from '@angular/core';
-import { ConfigService } from '@balnc/core';
-import { Helpers } from '@balnc/shared';
+import { ConfigService, RxDBService } from '@balnc/core';
+import { ConfirmDialogComponent, Helpers } from '@balnc/shared';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReadFile } from 'ngx-file-helpers';
 import { ToastrService } from 'ngx-toastr';
+import { ContactsEntities, InvoicesEntities, OrdersEntities } from 'src/app/business/_shared/models/_entities';
 
 @Component({
-  selector: 'settings-profiles',
+  selector: 'app-settings-profiles',
   templateUrl: './profiles.component.html'
 })
 export class ProfilesComponent {
 
   constructor (
     private configService: ConfigService,
-    private toastr: ToastrService
+    private dbService: RxDBService,
+    private toastr: ToastrService,
+    private modal: NgbModal
   ) { }
 
   get profiles () {
@@ -33,8 +37,22 @@ export class ProfilesComponent {
     this.configService.selectProfile(alias)
   }
 
-  remove (profileId) {
-    this.configService.removeProfile(profileId)
+  async remove (profileId) {
+    const entities = [
+      ...ContactsEntities,
+      ...OrdersEntities,
+      ...InvoicesEntities
+    ]
+
+    await this.modal.open(ConfirmDialogComponent,{ size: "sm" })
+      .result
+      .then(async () => {
+        this.configService.removeProfile(profileId)
+        await this.dbService.removeProfile(profileId, entities)
+      })
+      .catch(() => {
+        console.log('dismised')
+      })
   }
 
   async import (file: ReadFile) {

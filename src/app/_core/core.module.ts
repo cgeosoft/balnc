@@ -5,10 +5,10 @@ import { SharedModule } from '@balnc/shared';
 import { DateFnsModule } from 'ngx-date-fns';
 import { ToastrModule } from 'ngx-toastr';
 import { APP_ROUTES } from './app.routes';
-import { ErrorComponent } from './components/error/error.component';
-import { ShellComponent } from './components/shell/shell.component';
+import { ErrorComponent } from './error/error.component';
 import { RxDBService } from './rxdb/rxdb.service';
 import { ConfigService } from './services/config.service';
+import { ShellComponent } from './shell/shell.component';
 
 @NgModule({
   imports: [

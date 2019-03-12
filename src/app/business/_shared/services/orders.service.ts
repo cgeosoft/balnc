@@ -7,16 +7,13 @@ import { OrdersEntities } from '../models/_entities';
 @Injectable()
 export class OrdersService extends CommonService {
 
-  alias = 'Orders'
-  entities = OrdersEntities
-
   constructor (
     dbService: RxDBService
   ) {
     super({
       alias: 'orders',
-      entities: [],
-      dbService
+      entities: OrdersEntities,
+      dbService: dbService
     })
   }
 
@@ -28,7 +25,7 @@ export class OrdersService extends CommonService {
     return super.getOne<Order>('orders', orderId)
   }
 
-  async addOrders (order: Order) {
+  async addOrder (order: Order) {
     return super.addOne<Order>('orders', order)
   }
 }

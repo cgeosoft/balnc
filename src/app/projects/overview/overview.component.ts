@@ -6,7 +6,7 @@ import { Project } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
-  selector: 'projects-overview',
+  selector: 'app-projects-overview',
   templateUrl: 'overview.component.html',
   styleUrls: ['./overview.component.scss']
 })

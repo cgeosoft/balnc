@@ -1,3 +1,4 @@
+export * from './components/confirm-dialog/confirm-dialog.component';
 export * from './components/content-body/content-body.component';
 export * from './components/content-header/content-header.component';
 export * from './components/content/content.component';

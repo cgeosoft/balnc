@@ -1,5 +1,4 @@
-import * as schema from './invoice.json'
-import { RxDocument } from 'rxdb'
+import { RxDocument } from 'rxdb';
 
 export interface Invoice {
   serial: string
@@ -35,5 +34,3 @@ export interface InvoiceTemplate {
 }
 
 export type RxInvoiceDoc = RxDocument<Invoice> & Invoice
-
-export const InvoiceSchema = schema

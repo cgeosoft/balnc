@@ -1,0 +1,23 @@
+{
+  "title": "CEvent",
+  "type": "object",
+  "version": 0,
+  "disableKeyCompression": true,
+  "properties": {
+    "contact": {
+      "type": "string"
+    },
+    "date": {
+      "type": "number"
+    },
+    "type": {
+      "type": "number"
+    },
+    "reference": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    }
+  }
+}

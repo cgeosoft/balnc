@@ -12,7 +12,7 @@ export class ConfigService {
   plugins: Plugin[] = environment.plugins
   enabledPlugins: Plugin[] = []
 
-  @LocalStorage() sidebarClosed: boolean = false
+  @LocalStorage() isSidebarClosed: boolean = false
 
   @LocalStorage() roles: string[] = []
 

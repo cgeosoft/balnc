@@ -13,6 +13,7 @@ import { FileHelpersModule } from 'ngx-file-helpers';
 import { NgPipesModule } from 'ngx-pipes';
 import { WebStorageModule } from 'ngx-store';
 import { ToastrModule } from 'ngx-toastr';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ContentBodyComponent } from './components/content-body/content-body.component';
 import { ContentHeaderComponent } from './components/content-header/content-header.component';
 import { ContentComponent } from './components/content/content.component';
@@ -44,6 +45,7 @@ library.add(fas, far)
   ],
   declarations: [
     ContentBodyComponent,
+    ConfirmDialogComponent,
     ContentComponent,
     ContentHeaderComponent,
     DebugComponent,
@@ -55,6 +57,9 @@ library.add(fas, far)
     SidebarComponent,
     SpinnerComponent,
     StatusbarComponent
+  ],
+  entryComponents: [
+    ConfirmDialogComponent
   ],
   exports: [
     FontAwesomeModule,
@@ -74,6 +79,7 @@ library.add(fas, far)
     EllipsisPipe,
 
     ContentBodyComponent,
+    ConfirmDialogComponent,
     ContentComponent,
     ContentHeaderComponent,
     DebugComponent,

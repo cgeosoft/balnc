@@ -6,7 +6,7 @@ import { ReadFile } from 'ngx-file-helpers';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'setup',
+  selector: 'app-setup',
   templateUrl: './setup.component.html',
   styleUrls: ['./setup.component.scss']
 })

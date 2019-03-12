@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { Report } from '../../models/report';
+import { ReportService } from '../../report.service';
 
-import * as pdfMake from 'pdfmake/build/pdfmake'
-import * as pdfFonts from 'pdfmake/build/vfs_fonts'
 
-import { ReportService } from '../../report.service'
-import { Report } from '../../models/report'
-import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-reports-report',

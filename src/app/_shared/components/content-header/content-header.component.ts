@@ -3,13 +3,13 @@ import { Helpers } from '../../helpers';
 import { TabsMenu } from '../../models/tabs-menu';
 
 @Component({
-  selector: 'common-content-header',
+  selector: 'app-content-header',
   templateUrl: './content-header.component.html'
 })
 export class ContentHeaderComponent implements OnInit {
 
-  @Input() icon = 'cubes'
-  @Input() title = 'Page'
+  @Input() icon
+  @Input() title
   @Input() subtitle = null
   @Input() details: any[] = []
   @Input() settingsMenu: any[] = []
@@ -18,7 +18,7 @@ export class ContentHeaderComponent implements OnInit {
   @Input() fullWidth = false
   @Input() route = null
 
-  ngOnInit () {
+  ngOnInit() {
     if (this.tabsMenu) {
       if (!this.tabsMenu.selected) {
         this.tabsMenu.selected = this.tabsMenu.tabs[0].id
@@ -26,7 +26,7 @@ export class ContentHeaderComponent implements OnInit {
     }
   }
 
-  getIcon (icon) {
+  getIcon(icon) {
     return Helpers.getIcon(icon)
   }
 }

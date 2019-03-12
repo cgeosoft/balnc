@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { environment } from '../../../../environments/environment'
+import { Component, Input, OnInit } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'common-debug',
+  selector: 'app-debug',
   templateUrl: './debug.component.html'
 })
 export class DebugComponent implements OnInit {

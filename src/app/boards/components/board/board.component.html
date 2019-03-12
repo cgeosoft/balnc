@@ -1,6 +1,6 @@
-<common-content>
-  <common-content-header [title]="board.name" icon="comments:regular" [tabsMenu]="tabsMenu"></common-content-header>
-  <common-content-body *ngIf="tabsMenu.selected === 'messages'" class="h-100">
+<app-content>
+  <app-content-header [title]="board.name" icon="comments:regular" [tabsMenu]="tabsMenu"></app-content-header>
+  <app-content-body *ngIf="tabsMenu.selected === 'messages'" class="h-100">
     <div class="card card-chat d-flex h-100">
       <div #messageList class="card-body">
         <ng-container *ngIf="(messages$ | async) as messages; else loader">
@@ -53,16 +53,16 @@
         </div>
       </div>
     </div>
-  </common-content-body>
+  </app-content-body>
 
-  <common-content-body *ngIf="tabsMenu.selected === 'files'">
+  <app-content-body *ngIf="tabsMenu.selected === 'files'">
     <h4>Files</h4>
     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni, quas quis. Velit ipsum amet quibusdam similique ad
     asperiores
     dolores. Deleniti libero ex harum accusamus consectetur ipsa ipsam nihil, sed eaque!
-  </common-content-body>
+  </app-content-body>
 
-  <common-content-body *ngIf="tabsMenu.selected === 'manage'">
+  <app-content-body *ngIf="tabsMenu.selected === 'manage'">
     <div class="mx-auto" style="max-width: 600px;">
       <h4>Manage Board</h4>
       <ul class="list-group list-group-flush">
@@ -79,12 +79,12 @@
         </li>
       </ul>
     </div>
-  </common-content-body>
-</common-content>
+  </app-content-body>
+</app-content>
 
 <ng-template #emptyMessages>
-  <common-empty message="No messages yet" icon="comments:regular"></common-empty>
+  <app-empty message="No messages yet" icon="comments:regular"></app-empty>
 </ng-template>
 <ng-template #loader>
-  <common-spinner label="Loading"></common-spinner>
+  <app-spinner label="Loading"></app-spinner>
 </ng-template>

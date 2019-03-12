@@ -7,7 +7,7 @@ import { Project } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
-  selector: 'projects-project',
+  selector: 'app-projects-project',
   templateUrl: 'project.component.html',
   styleUrls: ['./project.component.scss']
 })

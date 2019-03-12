@@ -6,14 +6,15 @@ import { ContactComponent } from './contact/contact.component';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { OrderCreateComponent } from './order-create/order-create.component';
 import { OrderComponent } from './order/order.component';
-import { OverviewComponent } from './overview/overview.component';
 import { QuickSearchComponent } from './quick-search/quick-search.component';
 import { SearchComponent } from './search/search.component';
 import { SettingsComponent } from './settings/settings.component';
+import { EmptyComponent } from './_empty/empty.component';
 import { BusinessResolver } from './_shared/resolver';
 import { ContactsService } from './_shared/services/contacts.service';
 import { InvoicesService } from './_shared/services/invoices.service';
 import { OrdersService } from './_shared/services/orders.service';
+import { StateService } from './_shared/services/state.service';
 import { ShellComponent } from './_shell/shell.component';
 
 @NgModule({
@@ -26,13 +27,13 @@ import { ShellComponent } from './_shell/shell.component';
         setup: BusinessResolver
       },
       children: [
-        { path: 'overview', component: OverviewComponent },
-        { path: 'contact/:id', component: ContactComponent },
-        { path: 'order/:id', component: OrderComponent },
+        { path: '', component: EmptyComponent },
+        { path: 'contacts/:id', component: ContactComponent },
+        { path: 'orders/:id', component: OrderComponent },
         { path: 'search', component: SearchComponent },
-        { path: 'invoice/:id', component: InvoiceComponent },
+        { path: 'invoices/:id', component: InvoiceComponent },
         { path: 'settings', component: SettingsComponent },
-        { path: '', redirectTo: 'overview', pathMatch: 'full' }
+        { path: '**', redirectTo: '', pathMatch: 'full' }
       ]
     }])
   ],
@@ -44,7 +45,7 @@ import { ShellComponent } from './_shell/shell.component';
     OrderComponent,
     InvoiceComponent,
     SearchComponent,
-    OverviewComponent,
+    EmptyComponent,
     ContactCreateComponent,
     OrderCreateComponent
   ],
@@ -52,7 +53,8 @@ import { ShellComponent } from './_shell/shell.component';
     BusinessResolver,
     ContactsService,
     InvoicesService,
-    OrdersService
+    OrdersService,
+    StateService
   ],
   entryComponents: [
     QuickSearchComponent,

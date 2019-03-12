@@ -1,8 +1,8 @@
-import { Router } from '@angular/router'
-import { Component, OnInit, NgZone } from '@angular/core'
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Report } from '../../models/report';
+import { ReportService } from '../../report.service';
 
-import { ReportService } from '../../report.service'
-import { Report } from '../../models/report'
 
 @Component({
   selector: 'app-reports-wrapper',

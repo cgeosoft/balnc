@@ -5,7 +5,7 @@ import { PresentationDoc } from '../../models/presentation';
 
 
 @Component({
-  selector: 'presentations-add-page',
+  selector: 'app-presentations-add-page',
   templateUrl: './add-page.component.html'
 })
 export class AddPageComponent {

@@ -14,27 +14,17 @@ export interface ContactConn {
   type: string
 }
 
-export interface ContactLog {
-  date: Date
-  type: ContactLogType
-  reference?: string
-  comment?: string
-}
-
-export enum ContactLogType {
-  Access,
-  Create,
-  Update,
-  AddConnection,
-  RemoveConnection
+export enum ContactType {
+  person,
+  company
 }
 
 export interface Contact {
   name: string
+  type: ContactType
   tags: string[]
   details: ContactDetails
   conns?: ContactConn[]
-  logs: ContactLog[]
 }
 
 export interface Office {
@@ -52,4 +42,26 @@ export interface TaxDetails {
   description: string
 }
 
+export interface CEvent {
+  contact: string
+  date: number
+  type: CEventType
+  reference?: string
+  comment?: string
+}
+
+export enum CEventType {
+  ContactAccessed,
+  ContactCreated,
+  ContactUpdated,
+  ConnectionCreated,
+  ConnectionRemoved,
+  OrderCreated,
+  OrderRemoved,
+  InvoiceCreated,
+  InvoiceRemoved
+}
+
 export type RxContactDoc = RxDocument<Contact> & Contact
+
+export type RxCEventDoc = RxDocument<CEvent> & CEvent

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ContactsService } from '../_shared/services/contacts.service';
 
 @Component({
-  selector: 'business-settings',
+  selector: 'app-business-settings',
   templateUrl: './settings.component.html'
 })
 export class SettingsComponent {

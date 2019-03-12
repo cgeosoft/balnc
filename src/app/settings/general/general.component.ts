@@ -4,7 +4,7 @@ import { ConfigService } from '@balnc/core';
 import { Profile } from '@balnc/shared';
 
 @Component({
-  selector: 'settings-general',
+  selector: 'app-settings-general',
   templateUrl: './general.component.html'
 })
 export class GeneralComponent implements OnInit {

@@ -106,7 +106,8 @@
   "main": "main.js",
   "build": {
     "appId": "com.cgeosoft.balnc",
-    "files": [{
+    "files": [
+      {
         "from": "./dist/app",
         "to": "./"
       },

@@ -1,6 +1,6 @@
-<common-content>
-  <common-content-header title="Backup & Sync" icon="sync-alt"></common-content-header>
-  <common-content-body>
+<app-content>
+  <app-content-header title="Backup & Sync" icon="sync-alt"></app-content-header>
+  <app-content-body>
     <div class="btn-toolbar">
       <div class="btn-group mr-2">
         <button type="button" class="btn btn-outline-dark" (click)="export()">
@@ -57,15 +57,15 @@
       </button>
     </div>
     <hr>
-    <common-debug title="Profile" [data]="profile"></common-debug>
-    <common-debug title="Database" [data]="data"></common-debug>
-  </common-content-body>
-</common-content>
+    <app-debug title="Profile" [data]="profile"></app-debug>
+    <app-debug title="Database" [data]="data"></app-debug>
+  </app-content-body>
+</app-content>
 
 <ng-template #loading>
-  <common-spinner></common-spinner>
+  <app-spinner></app-spinner>
 </ng-template>
 
 <ng-template #noItems>
-  <common-empty message="You don't have any configurations yet" submessage="Click create to add your first one" icon="cog"></common-empty>
+  <app-empty message="You don't have any configurations yet" submessage="Click create to add your first one" icon="cog"></app-empty>
 </ng-template>

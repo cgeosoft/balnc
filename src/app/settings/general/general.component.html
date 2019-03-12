@@ -1,7 +1,7 @@
 <ng-container *ngIf="profile; else loading">
-  <common-content>
-    <common-content-header title="General" [subtitle]="'Profile: '+profile.name" icon="cog"></common-content-header>
-    <common-content-body>
+  <app-content>
+    <app-content-header title="General" [subtitle]="'Profile: '+profile.name" icon="cog"></app-content-header>
+    <app-content-body>
       <h4>Details</h4>
       <div class="form-group">
         <label>Profile Name
@@ -32,9 +32,9 @@
           Remove
         </button>
       </div>
-    </common-content-body>
-  </common-content>
+    </app-content-body>
+  </app-content>
 </ng-container>
 <ng-template #loading>
-  <common-spinner></common-spinner>
+  <app-spinner></app-spinner>
 </ng-template>

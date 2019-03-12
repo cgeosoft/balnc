@@ -1,0 +1,17 @@
+:host {
+  .btn-close {
+    display: none;
+    padding: 3px 6px;
+    font-size: .8rem;
+    margin-left: 1rem;
+    border: none;
+  }
+
+  .items {
+    >a:hover {
+      .btn-close {
+        display: block;
+      }
+    }
+  }
+}

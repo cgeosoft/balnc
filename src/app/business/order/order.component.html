@@ -1,3 +1,41 @@
-<p>
-  order works!
-</p>
+<ng-container *ngIf="order$ | async as order; else loader">
+  <ng-container *ngIf="order; else empty">
+    <app-content>
+
+      <div class="bg-light">
+        <div class="container">
+          <ol class="breadcrumb mb-0 bg-light">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/business/contacts',order.customer]">{{contact.name}}</a></li>
+            <li class="breadcrumb-item active">Order #{{order.serial}}</li>
+          </ol>
+        </div>
+      </div>
+
+      <app-content-header [tabsMenu]="tabsMenu"></app-content-header>
+
+      <app-content-body *ngIf="tabsMenu.selected === 'overview'">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. At aliquam repellendus id vero pariatur quis velit,
+        non aliquid laboriosam iure, voluptas nostrum cumque dicta possimus tempore suscipit modi minus eum.
+
+      </app-content-body>
+
+      <app-content-body *ngIf="tabsMenu.selected === 'raw'">
+        <div class="card">
+          <div class="card-body">
+            <pre>{{order|json:2}}</pre>
+          </div>
+        </div>
+      </app-content-body>
+
+    </app-content>
+  </ng-container>
+</ng-container>
+
+<ng-template #empty>
+  <app-empty message="Select a order or create a new one" icon="desktop"></app-empty>
+</ng-template>
+
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

@@ -3,7 +3,7 @@ import { ConfigService } from '@balnc/core';
 import { Plugin, Profile } from '@balnc/shared';
 
 @Component({
-  selector: 'settings-plugins',
+  selector: 'app-settings-plugins',
   templateUrl: './plugins.component.html'
 })
 export class PluginsComponent implements OnInit {

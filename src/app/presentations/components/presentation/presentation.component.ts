@@ -1,14 +1,14 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import * as screenfull from 'screenfull'
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as screenfull from 'screenfull';
+import { PresentationDoc, PresentationStats } from '../../models/presentation';
+import { PresentationsService } from '../../presentations.service';
+import { AddPageComponent } from '../add-page/add-page.component';
 
-import { PresentationDoc, PresentationStats } from '../../models/presentation'
-import { PresentationsService } from '../../presentations.service'
-import { AddPageComponent } from '../add-page/add-page.component'
 
 @Component({
-  selector: 'presentations-presentation',
+  selector: 'app-presentations-presentation',
   templateUrl: './presentation.component.html',
   styleUrls: ['./presentation.component.scss']
 })

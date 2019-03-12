@@ -64,9 +64,9 @@ export class RxDBService {
       return
     }
 
-    const name = `${this.config.prefix}_${alias}`
+    const name = `db_${this.config.prefix}_${alias}`
 
-    console.log('[DatabaseService]', `Initializing DB: ${name}`,entities)
+    console.log('[DatabaseService]', `Initializing DB: ${name}`, entities)
     const _adapter = await this.getAdapter()
     const db = await RxDB.create({
       name: name,
@@ -139,6 +139,14 @@ export class RxDBService {
       .catch((res) => {
         this.toastr.error('Could not auto-login with db server. Check your internet connection.', '[Database] Load Failed')
       })
+  }
+
+  async removeProfile (profileId: string, entities: Entity[]) {
+    const adapter = await this.getAdapter()
+    entities.forEach(async (entity) => {
+      const name = `db_${profileId}_${entity.name}`
+      await RxDB.removeDatabase(name, adapter)
+    })
   }
 
   private async getAdapter () {

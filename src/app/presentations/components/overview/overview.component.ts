@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PresentationsService } from '../../presentations.service';
 
-import { PresentationDoc } from '../../models/presentation'
-import { PresentationsService } from '../../presentations.service'
 
 @Component({
-  selector: 'presentations-overview',
+  selector: 'app-presentations-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss']
 })

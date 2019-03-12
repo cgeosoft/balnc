@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Helpers } from '../../helpers';
 
 @Component({
-  selector: 'common-empty',
+  selector: 'app-empty',
   templateUrl: './empty.component.html'
 })
 export class EmptyComponent {

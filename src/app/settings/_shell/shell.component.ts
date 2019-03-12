@@ -5,7 +5,7 @@ import { DEMO_PROFILE, Helpers, Plugin, Profile } from '@balnc/shared';
 import { FilePickerDirective, ReadFile } from 'ngx-file-helpers';
 
 @Component({
-  selector: 'settings-shell',
+  selector: 'app-settings-shell',
   templateUrl: './shell.component.html'
 })
 export class ShellComponent implements OnInit {

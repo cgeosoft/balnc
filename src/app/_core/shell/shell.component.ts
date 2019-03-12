@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ConfigService } from '../../services/config.service';
+import { ConfigService } from '../services/config.service';
 
 @Component({
   selector: 'app-shell',
@@ -37,8 +37,8 @@ export class ShellComponent implements OnInit {
     return this.configService.enabledPlugins
   }
 
-  get sidebarClosed () {
-    return this.configService.sidebarClosed
+  get isClosed () {
+    return this.configService.isSidebarClosed
   }
 
   get version () {
@@ -80,8 +80,8 @@ export class ShellComponent implements OnInit {
     this.isOnline = this.networkStatus && this.databaseStatus
   }
 
-  toggleSidemenu () {
-    this.configService.sidebarClosed = !this.configService.sidebarClosed
+  toggleMenu () {
+    this.configService.isSidebarClosed = !this.configService.isSidebarClosed
   }
 
   private _navigationInterceptor (event: RouterEvent): void {

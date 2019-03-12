@@ -1,6 +1,6 @@
 <ng-container *ngIf="task && project">
-  <common-content>
-    <!-- <common-content-header [title]="task.title" [subtitle]="'Task: '+task._id" [route]="'/projects/project/'+project._id" icon="caret-left"></common-content-header> -->
+  <app-content>
+    <!-- <app-content-header [title]="task.title" [subtitle]="'Task: '+task._id" [route]="'/projects/project/'+project._id" icon="caret-left"></app-content-header> -->
     <div class="bg-light">
       <div class="container">
         <ol class="breadcrumb mb-0 bg-light">
@@ -10,7 +10,7 @@
         </ol>
       </div>
     </div>
-    <common-content-body>
+    <app-content-body>
       <h2>
         {{task.title}} <span class="badge badge-default">{{task.status}}</span>
       </h2>
@@ -120,13 +120,13 @@
           <pre>{{project|json:2}}</pre>
         </div>
       </div>
-    </common-content-body>
-  </common-content>
+    </app-content-body>
+  </app-content>
 </ng-container>
 
 <ng-template #noItems>
-  <common-empty message="You don't have any tasks yet" submessage="Click create to add your first one" icon="cube"></common-empty>
+  <app-empty message="You don't have any tasks yet" submessage="Click create to add your first one" icon="cube"></app-empty>
 </ng-template>
 <ng-template #loader>
-  <common-spinner></common-spinner>
+  <app-spinner></app-spinner>
 </ng-template>

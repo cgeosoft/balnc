@@ -4,7 +4,7 @@ import { ConfigService } from '@balnc/core';
 import { Profile } from '@balnc/shared';
 
 @Component({
-  selector: 'settings-data',
+  selector: 'app-settings-data',
   templateUrl: './data.component.html'
 })
 export class DataComponent implements OnInit {

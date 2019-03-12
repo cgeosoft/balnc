@@ -7,6 +7,9 @@
     "name": {
       "type": "string"
     },
+    "type": {
+      "type": "number"
+    },
     "tags": {
       "type": "array",
       "items": {
@@ -17,12 +20,6 @@
       "type": "any"
     },
     "conns": {
-      "type": "array",
-      "items": {
-        "type": "object"
-      }
-    },
-    "logs": {
       "type": "array",
       "items": {
         "type": "object"

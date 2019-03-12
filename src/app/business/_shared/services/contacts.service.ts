@@ -2,19 +2,16 @@ import { Injectable } from '@angular/core';
 import { RxDBService } from '@balnc/core';
 import { CommonService } from '@balnc/shared';
 import * as faker from 'faker';
-import { LocalStorage } from 'ngx-store';
 import { Observable } from 'rxjs';
-import { Contact, ContactLogType, RxContactDoc } from '../models/_all';
+import { CEvent, CEventType, Contact, ContactType } from '../models/contacts';
 import { ContactsEntities } from '../models/_entities';
 
 @Injectable()
 export class ContactsService extends CommonService {
 
-  @LocalStorage() openedContacts: Contact[]
-
   contacts$: Observable<Contact[]>
 
-  constructor (
+  constructor(
     dbService: RxDBService
   ) {
     super({
@@ -24,44 +21,47 @@ export class ContactsService extends CommonService {
     })
   }
 
-  async setup () {
+  async setup() {
     await super.setup()
     this.contacts$ = this.db['contacts'].find().$
   }
 
-  async getContacts (params): Promise<Contact[]> {
+  async getContacts(params): Promise<Contact[]> {
     return super.getAll<Contact>('contacts', params)
   }
 
-  async getContact (id): Promise<Contact> {
+  async getContact(id): Promise<Contact> {
     const contact = await super.getOne<Contact>('contacts', id)
     if (!contact) return null
 
-    await contact.atomicUpdate(c => {
-      c.logs.push({
-        date: new Date(),
-        type: ContactLogType.Access
-      })
-      return c
-    })
+    // await super.addOne<CEvent>('cevents', {
+    //   contact: id,
+    //   date: Date.now(),
+    //   type: CEventType.ContactAccessed
+    // })
     return contact
   }
 
-  getContactObservable (id): Observable<Contact> {
+  getContactObservable(id): Observable<Contact> {
     return this.db['contacts'].findOne(id).$
   }
 
-  async addContact (contact: Contact) {
-    return super.addOne('contacts', contact)
+  async addContact(contact: Contact) {
+    const c = await super.addOne<Contact>('contacts', contact)
+    await super.addOne<CEvent>('cevents', {
+      contact: c.get('_id'),
+      date: Date.now(),
+      type: CEventType.ContactCreated
+    })
+    return c
   }
 
-  async generateDemoData () {
-    const cs: Contact[] = []
-
+  async generateDemoData() {
     for (let p = 0; p < 5; p++) {
-      const person: Contact & any = {
+      await this.addContact({
         name: `${faker.name.findName()}`,
-        tags: ['person'],
+        type: ContactType.person,
+        tags: [],
         details: {
           avatar: `${faker.image.avatar()}`,
           phones: [faker.phone.phoneNumberFormat()],
@@ -70,24 +70,15 @@ export class ContactsService extends CommonService {
         conns: [{
           reference: 'company1',
           type: 'owner'
-        }],
-        logs: [{
-          date: new Date(),
-          type: ContactLogType.Create
-        }, {
-          date: new Date(),
-          type: ContactLogType.AddConnection,
-          reference: 'company1'
         }]
-      }
-      cs.push(person)
+      })
     }
 
     for (let c = 0; c < 10; c++) {
-
-      const company: Contact & any = {
+      await this.addContact({
         name: `${faker.company.companyName()}`,
-        tags: ['company'],
+        type: ContactType.company,
+        tags: [],
         details: {
           avatar: `${faker.image.avatar()}`,
           taxDetails: {
@@ -101,21 +92,8 @@ export class ContactsService extends CommonService {
         conns: [{
           reference: 'person1',
           type: 'owner'
-        }],
-        logs: [{
-          date: new Date(),
-          type: ContactLogType.Create
-        }, {
-          date: new Date(),
-          type: ContactLogType.AddConnection,
-          reference: 'person1'
         }]
-      }
-      cs.push(company)
+      })
     }
-
-    cs.forEach(async (v: RxContactDoc) => {
-      await this.db['contacts'].insert(v)
-    })
   }
 }

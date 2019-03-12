@@ -7,7 +7,7 @@ import { Board } from '../../models/board';
 import { Message } from '../../models/message';
 
 @Component({
-  selector: 'boards-board',
+  selector: 'app-boards-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })

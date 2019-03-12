@@ -67,24 +67,24 @@
     <ng-template #error>
       <ng-container [ngSwitch]="err">
         <ng-container *ngSwitchCase="'SERVER_UNAVAILABLE'">
-          <common-empty message="Server is Unavailable" icon="exclamation-triangle"></common-empty>
+          <app-empty message="Server is Unavailable" icon="exclamation-triangle"></app-empty>
         </ng-container>
         <ng-container *ngSwitchCase="'TOO_MANY_DATA'">
-          <common-empty message="There are too many data." submessage="Use filters to get less result" icon="exclamation-triangle"></common-empty>
+          <app-empty message="There are too many data." submessage="Use filters to get less result" icon="exclamation-triangle"></app-empty>
         </ng-container>
         <ng-container *ngSwitchDefault>
-          <common-debug [data]="err" type="error"></common-debug>
+          <app-debug [data]="err" type="error"></app-debug>
         </ng-container>
       </ng-container>
     </ng-template>
     <ng-template #noResults>
-      <common-empty message="No data were found" icon="exclamation-triangle"></common-empty>
+      <app-empty message="No data were found" icon="exclamation-triangle"></app-empty>
     </ng-template>
     <ng-template #noReport>
-      <common-empty message="Select some filters and hit Execute" icon="info-circle"></common-empty>
+      <app-empty message="Select some filters and hit Execute" icon="info-circle"></app-empty>
     </ng-template>
     <ng-template #loader>
-      <common-spinner label="Building Report..."></common-spinner>
+      <app-spinner label="Building Report..."></app-spinner>
     </ng-template>
   </div>
   <div class="d-flex flex-column p-4 bg-secondary h-100 w-100" *ngIf="showQuery">

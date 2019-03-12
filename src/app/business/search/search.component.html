@@ -1,6 +1,6 @@
-<common-content>
-  <common-content-header title="Advanced Search"></common-content-header>
-  <common-content-body>
+<app-content>
+  <app-content-header title="Search" icon="search"></app-content-header>
+  <app-content-body>
     <div class="d-flex">
       <div class=" flex-grow-1">
         <div class="d-flex mb-2">
@@ -17,7 +17,7 @@
         <ng-container *ngIf="(contacts$ | async) as contacts; loader">
           <ul class="list-group list-group-flush">
             <ng-container *ngFor="let contact of contacts">
-              <a class="list-group-item list-group-item-action" [routerLink]="['/business/contact',contact['_id']]">
+              <a class="list-group-item list-group-item-action" [routerLink]="['/business/contacts',contact['_id']]">
                 {{contact.name}}
               </a>
             </ng-container>
@@ -29,7 +29,8 @@
         <div class="card">
           <div class="card-body">
 
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate et omnis atque deleniti dignissimos? Iste,
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate et omnis atque deleniti dignissimos?
+            Iste,
             impedit deserunt. Vel, ad illum. Nisi fugiat praesentium perferendis corporis error, quisquam perspiciatis
             deserunt delectus.\
           </div>
@@ -37,8 +38,8 @@
 
       </div>
     </div>
-  </common-content-body>
-</common-content>
+  </app-content-body>
+</app-content>
 
 <ng-template #loader>loading...</ng-template>
 <ng-template #empty>empty</ng-template>
