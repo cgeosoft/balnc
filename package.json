@@ -83,7 +83,7 @@
     "pdfmake": "^0.1.41",
     "pouchdb-adapter-http": "7.0.0",
     "pouchdb-adapter-idb": "7.0.0",
-    "protractor": "5.4.2",
+    "protractor": "6.0.0",
     "rxdb": "^8.0.4",
     "rxjs": "6.4.0",
     "rxjs-compat": "^6.4.0",
