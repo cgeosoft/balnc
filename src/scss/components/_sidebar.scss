@@ -282,6 +282,10 @@ app-sidebar {
         font-size: .8rem !important;
       }
     }
+
+    &:last-child{
+      margin-bottom: 0;
+    }
   }
 
   .divider {

@@ -2,8 +2,13 @@
   <ng-container *ngIf="contact; else empty">
     <app-content>
 
-      <app-content-header [title]="contact.name" [icon]="contact.type == contactType.person ? 'user-tie' : 'building'"
-        [tabsMenu]="tabsMenu"></app-content-header>
+      <div class="bg-light">
+        <div class="container">
+          <ol class="breadcrumb mb-0 bg-light">
+            <li class="breadcrumb-item active">{{contact.name}}</li>
+          </ol>
+        </div>
+      </div>
 
       <app-content-body *ngIf="tabsMenu.selected === 'timeline'">
         <div class="btn-toolbar">
