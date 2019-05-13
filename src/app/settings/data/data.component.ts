@@ -11,23 +11,28 @@ export class DataComponent implements OnInit {
   profile: Profile
   data: any
 
-  constructor (
+  constructor(
     private route: ActivatedRoute,
     private configService: ConfigService
   ) { }
 
-  async ngOnInit () {
+  async ngOnInit() {
     this.route.params.subscribe(params => {
       this.setup(params['alias'])
     })
   }
 
-  setup (alias) {
-    this.profile = this.configService.getProfile(alias)
+  setup(alias) {
+    const profile = this.configService.getProfile(alias)
+    this.profile = Object.assign({}, profile)
     this.data = null
   }
 
-  async export () {
+  save() {
+    this.configService.saveProfile(this.profile)
+  }
+
+  async export() {
     const backup = {
       profile: this.profile,
       data: this.data

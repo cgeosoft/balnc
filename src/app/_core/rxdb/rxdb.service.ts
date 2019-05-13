@@ -44,7 +44,7 @@ export class RxDBService {
   public entities: Entity[] = []
   private replicationStates: { [key: string]: RxReplicationState } = {}
 
-  constructor (
+  constructor(
     private http: HttpClient,
     private configService: ConfigService,
     private toastr: ToastrService
@@ -58,7 +58,7 @@ export class RxDBService {
     }
   }
 
-  async setup (alias, entities: Entity[]) {
+  async setup(alias, entities: Entity[]) {
     if (!this.configService.profile) {
       console.log('[DatabaseService]', `Can not initialize DB with a valid profile`)
       return
@@ -89,7 +89,7 @@ export class RxDBService {
     return db
   }
 
-  async sync (alias, db) {
+  async sync(alias, db) {
 
     const name = `${this.config.prefix}_${alias}`
 
@@ -112,7 +112,7 @@ export class RxDBService {
         }
 
         this.replicationStates[key] = ent.sync({
-          remote: `${this.config.host}/${name}_${entity.name}/`,
+          remote: `${this.config.host}/balnc_${name}_${entity.name}/`,
           options: {
             live: true,
             retry: true
@@ -130,7 +130,7 @@ export class RxDBService {
   //   return this.db[name]
   // }
 
-  async authenticate (username: string, password: string) {
+  async authenticate(username: string, password: string) {
     return this.http.post(`${this.config.host}/_session`, {
       name: username,
       password: password
@@ -141,7 +141,7 @@ export class RxDBService {
       })
   }
 
-  async removeProfile (profileId: string, entities: Entity[]) {
+  async removeProfile(profileId: string, entities: Entity[]) {
     const adapter = await this.getAdapter()
     entities.forEach(async (entity) => {
       const name = `db_${profileId}_${entity.name}`
@@ -149,7 +149,7 @@ export class RxDBService {
     })
   }
 
-  private async getAdapter () {
+  private async getAdapter() {
     if (await RxDB.checkAdapter('idb')) {
       return 'idb'
     }

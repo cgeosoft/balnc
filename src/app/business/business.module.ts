@@ -10,7 +10,7 @@ import { QuickSearchComponent } from './quick-search/quick-search.component';
 import { SearchComponent } from './search/search.component';
 import { SettingsComponent } from './settings/settings.component';
 import { EmptyComponent } from './_empty/empty.component';
-import { BusinessResolver } from './_shared/resolver';
+import { Resolver } from './_shared/resolver';
 import { ContactsService } from './_shared/services/contacts.service';
 import { InvoicesService } from './_shared/services/invoices.service';
 import { OrdersService } from './_shared/services/orders.service';
@@ -24,7 +24,7 @@ import { ShellComponent } from './_shell/shell.component';
       path: '',
       component: ShellComponent,
       resolve: {
-        setup: BusinessResolver
+        setup: Resolver
       },
       children: [
         { path: '', component: EmptyComponent },
@@ -50,7 +50,7 @@ import { ShellComponent } from './_shell/shell.component';
     OrderCreateComponent
   ],
   providers: [
-    BusinessResolver,
+    Resolver,
     ContactsService,
     InvoicesService,
     OrdersService,

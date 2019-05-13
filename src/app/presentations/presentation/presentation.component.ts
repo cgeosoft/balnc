@@ -2,9 +2,9 @@ import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as screenfull from 'screenfull';
-import { PresentationDoc, PresentationStats } from '../../models/presentation';
-import { PresentationsService } from '../../presentations.service';
 import { AddPageComponent } from '../add-page/add-page.component';
+import { PresentationDoc, PresentationStats } from '../_shared/models/presentation';
+import { PresentationsService } from '../_shared/services/presentations.service';
 
 
 @Component({
@@ -79,7 +79,7 @@ export class PresentationComponent implements OnInit {
   ]
   stats: PresentationStats
 
-  constructor (
+  constructor(
     private route: ActivatedRoute,
     private zone: NgZone,
     private router: Router,
@@ -87,7 +87,7 @@ export class PresentationComponent implements OnInit {
     private presentationsService: PresentationsService
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.route
       .params
       .subscribe(async params => {
@@ -109,19 +109,19 @@ export class PresentationComponent implements OnInit {
       })
   }
 
-  deletePresentation () {
+  deletePresentation() {
     this.presentation.remove()
     this.router.navigateByUrl('/presentations')
   }
 
-  async addImage () {
+  async addImage() {
     const modalRef = this.modal.open(AddPageComponent)
     modalRef.componentInstance.presentation = this.presentation
     await modalRef.result
     this.setPageIndex(0)
   }
 
-  async deletePage (index) {
+  async deletePage(index) {
     const _pages = this.presentation.pages
     _pages.splice(index, 1)
     this.presentation.pages = _pages
@@ -130,7 +130,7 @@ export class PresentationComponent implements OnInit {
     await this.cleanupFiles()
   }
 
-  async cleanupFiles () {
+  async cleanupFiles() {
     const usedFiles = this.presentation.pages
       .map(page => {
         return page.params.image
@@ -145,7 +145,7 @@ export class PresentationComponent implements OnInit {
     }
   }
 
-  async setPageIndex (index: number) {
+  async setPageIndex(index: number) {
 
     this.activePageIndex = index
     if (this.presentation.pages.length === 0) {
@@ -155,7 +155,7 @@ export class PresentationComponent implements OnInit {
     this.imageData = await this.presentationsService.getImage(this.presentation, contentImage)
   }
 
-  async startPresentation () {
+  async startPresentation() {
     this.pages = []
     let proms = []
 
@@ -171,21 +171,21 @@ export class PresentationComponent implements OnInit {
     }
   }
 
-  goToFirst () {
+  goToFirst() {
     this.setPageIndex(0)
   }
 
-  goToPrevious () {
+  goToPrevious() {
     if (this.activePageIndex <= 0) { return }
     this.setPageIndex(this.activePageIndex - 1)
   }
 
-  goToNext () {
+  goToNext() {
     if (this.activePageIndex >= this.presentation.pages.length - 1) { return }
     this.setPageIndex(this.activePageIndex + 1)
   }
 
-  goToLast () {
+  goToLast() {
     this.setPageIndex(this.presentation.pages.length - 1)
   }
 

@@ -9,7 +9,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DateFnsModule } from 'ngx-date-fns';
-import { FileHelpersModule } from 'ngx-file-helpers';
+import { NgxFileHelpersModule } from 'ngx-file-helpers';
 import { NgPipesModule } from 'ngx-pipes';
 import { WebStorageModule } from 'ngx-store';
 import { ToastrModule } from 'ngx-toastr';
@@ -33,7 +33,7 @@ library.add(fas, far)
   imports: [
     FontAwesomeModule,
     CommonModule,
-    FileHelpersModule,
+    NgxFileHelpersModule,
     FormsModule,
     HttpClientModule,
     NgbModule,
@@ -65,7 +65,7 @@ library.add(fas, far)
     FontAwesomeModule,
     RouterModule,
     CommonModule,
-    FileHelpersModule,
+    NgxFileHelpersModule,
     FormsModule,
     HttpClientModule,
     NgbModule,

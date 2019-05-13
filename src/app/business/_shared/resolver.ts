@@ -5,14 +5,14 @@ import { InvoicesService } from './services/invoices.service';
 import { OrdersService } from './services/orders.service';
 
 @Injectable()
-export class BusinessResolver implements Resolve<void> {
-  constructor (
+export class Resolver implements Resolve<void> {
+  constructor(
     private contactsService: ContactsService,
     private invoicesService: InvoicesService,
     private ordersService: OrdersService
-  ) {}
+  ) { }
 
-  async resolve (
+  async resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) {

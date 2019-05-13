@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PresentationsService } from '../../presentations.service';
-
+import { Component, OnInit } from '@angular/core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { PresentationsService } from '../_shared/services/presentations.service'
 
 @Component({
   selector: 'app-presentations-overview',

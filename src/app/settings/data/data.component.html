@@ -11,41 +11,50 @@
         </button>
       </div>
     </div>
-    <h4>Remote database</h4>
-    <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" [(ngModel)]="profile.remoteSync" (ngModelChange)="save();">
-        <label class="form-check-label" for="defaultCheck1">
-          Enable real-time synchronization with remote.
-        </label>
-      </div>
-      <small id="passwordHelpBlock" class="form-text text-muted">
-        Use this option for make real-time backup of your data and access the same data from multiple devices.
-        Some modules may require this option to work.
-      </small>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Host</label>
-      <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" (ngModelChange)="save();"
-        class="form-control">
-    </div>
-    <div class="row">
-      <div class="col-6">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h4>Remote database</h4>
         <div class="form-group">
-          <label class="form-label">Username</label>
-          <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteUsername"
-            (ngModelChange)="save();" class="form-control">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="profile.remoteSync">
+            <label class="form-check-label" for="defaultCheck1">
+              Enable real-time synchronization with remote.
+            </label>
+          </div>
+          <small id="passwordHelpBlock" class="form-text text-muted">
+            Use this option for make real-time backup of your data and access the same data from multiple devices.
+            Some modules may require this option to work.
+          </small>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-label">Host</label>
+              <input name="balnc-db-host" autocomplete="off" [disabled]="!profile.remoteSync"
+                [(ngModel)]="profile.remoteHost" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="form-label">Username</label>
+              <input name="balnc-db-username" autocomplete="off" [disabled]="!profile.remoteSync"
+                [(ngModel)]="profile.remoteUsername" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input name="balnc-db-password" autocomplete="off" [disabled]="!profile.remoteSync"
+                [(ngModel)]="profile.remotePassword" class="form-control" type="password">
+            </div>
+          </div>
+        </div>
+        <div class="d-flex align-items-right">
+          <button class="btn btn-success" (click)="save()">Save</button>
         </div>
       </div>
-      <div class="col-6">
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remotePassword"
-            (ngModelChange)="save();" class="form-control" type="password">
-        </div>
-      </div>
     </div>
-    <hr>
+
     <h4>Export Data</h4>
     <p> You may export all profile data to json format as a backup or to move to another client.</p>
     <div class="d-flex">
@@ -67,5 +76,6 @@
 </ng-template>
 
 <ng-template #noItems>
-  <app-empty message="You don't have any configurations yet" submessage="Click create to add your first one" icon="cog"></app-empty>
+  <app-empty message="You don't have any configurations yet" submessage="Click create to add your first one" icon="cog">
+  </app-empty>
 </ng-template>

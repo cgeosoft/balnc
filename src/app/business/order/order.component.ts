@@ -1,11 +1,11 @@
-import { Component, NgZone, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { mergeMap } from 'rxjs/operators';
-import { Contact } from '../_shared/models/contacts';
-import { Order } from '../_shared/models/order';
-import { ContactsService } from '../_shared/services/contacts.service';
-import { OrdersService } from '../_shared/services/orders.service';
-import { StateService } from '../_shared/services/state.service';
+import { Component, NgZone, OnInit } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { mergeMap } from 'rxjs/operators'
+import { Contact } from '../_shared/models/contacts'
+import { Order } from '../_shared/models/order'
+import { ContactsService } from '../_shared/services/contacts.service'
+import { OrdersService } from '../_shared/services/orders.service'
+import { StateService } from '../_shared/services/state.service'
 
 @Component({
   selector: 'app-order',
@@ -30,7 +30,7 @@ export class OrderComponent implements OnInit {
 
   contact: Contact
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private stateService: StateService,
     private contactsService: ContactsService,
@@ -38,7 +38,7 @@ export class OrderComponent implements OnInit {
     private zone: NgZone
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.order$ = this.route
       .params
       .pipe(
