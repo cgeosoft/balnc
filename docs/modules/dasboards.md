@@ -2,6 +2,11 @@
 
 https://tiberiuzuld.github.io/angular-gridster2/angular/
 
+- Widgets
+  - [ ] make movable widgets
+- Fullscreen
+
+
 ## Widgets
 
 ```` yaml
