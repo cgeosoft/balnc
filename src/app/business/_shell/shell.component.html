@@ -1,7 +1,5 @@
 <app-sidebar>
-  <!-- <div class="title">
-    <h4>Business</h4>
-  </div> -->
+  <div class="title">Business</div>
   <div class="search">
     <input class="form-control" placeholder="quick search..." [ngbTypeahead]="search" [(ngModel)]="term"
       [resultFormatter]="formatter" (selectItem)="select($event)">

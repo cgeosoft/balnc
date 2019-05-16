@@ -1,8 +1,6 @@
-<!-- <app-sidebar>
+<app-sidebar>
+  <div class="title">Projects</div>
   <div class="menu">
-    <div class="header">
-      <h4>Projects</h4>
-    </div>
     <div class="items">
       <a routerLink="/projects" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
         <fa-icon icon="tasks" class="icon"></fa-icon>
@@ -20,14 +18,15 @@
       <div class="divider"></div>
       <ng-container *ngIf="projects; else empty">
         <ng-container *ngIf="projects.length; else empty">
-          <a *ngFor="let project of projects" [routerLink]="['/projects/project',project._id]" routerLinkActive="active">
+          <a *ngFor="let project of projects" [routerLink]="['/projects/project',project._id]"
+            routerLinkActive="active">
             <span>{{project.name}}</span>
           </a>
         </ng-container>
       </ng-container>
     </div>
   </div>
-</app-sidebar> -->
+</app-sidebar>
 <router-outlet></router-outlet>
 
 <ng-template #empty>

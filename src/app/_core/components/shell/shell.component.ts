@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ConfigService } from '../services/config.service';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'app-shell',
@@ -23,7 +23,7 @@ export class ShellComponent implements OnInit {
 
   menu: any[] = []
 
-  constructor (
+  constructor(
     private configService: ConfigService,
     private router: Router,
     private toastr: ToastrService
@@ -33,23 +33,23 @@ export class ShellComponent implements OnInit {
     })
   }
 
-  get enabledPlugins () {
+  get enabledPlugins() {
     return this.configService.enabledPlugins
   }
 
-  get isClosed () {
+  get isClosed() {
     return this.configService.isSidebarClosed
   }
 
-  get version () {
+  get version() {
     return this.configService.version
   }
 
-  get profile () {
+  get profile() {
     return this.configService.getProfile()
   }
 
-  async ngOnInit () {
+  async ngOnInit() {
 
     if (!this.configService.profiles.length) {
       await this.router.navigate(['/setup'])
@@ -76,15 +76,15 @@ export class ShellComponent implements OnInit {
     this.setStatus()
   }
 
-  setStatus () {
+  setStatus() {
     this.isOnline = this.networkStatus && this.databaseStatus
   }
 
-  toggleMenu () {
+  toggleMenu() {
     this.configService.isSidebarClosed = !this.configService.isSidebarClosed
   }
 
-  private _navigationInterceptor (event: RouterEvent): void {
+  private _navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.pageLoading = true
     }
@@ -100,7 +100,7 @@ export class ShellComponent implements OnInit {
     }
   }
 
-  private _hideSpinner (): void {
+  private _hideSpinner(): void {
     this.pageLoading = false
   }
 }

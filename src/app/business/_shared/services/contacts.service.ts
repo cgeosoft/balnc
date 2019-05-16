@@ -57,6 +57,7 @@ export class ContactsService extends CommonService {
   }
 
   async generateDemoData() {
+    console.log("generate random contacts")
     for (let p = 0; p < 5; p++) {
       await this.addContact({
         name: `${faker.name.findName()}`,

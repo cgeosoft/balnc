@@ -30,9 +30,11 @@ app-sidebar {
   }
 
   .title {
-    color: #ccc;
-    font-weight: 300;
-    margin-bottom: 1rem;
+    color: $sidebar-font;
+    margin-bottom: 0.7rem;
+    font-size: 1.6rem;
+    padding: .2rem 0;
+    border-bottom: solid 1px darken($sidebar-background, 5);
   }
 
   .search {
@@ -109,6 +111,13 @@ app-sidebar {
           background: lighten($sidebar-background, 10);
         }
       }
+    }
+
+    .info {
+      padding: .5rem;
+      border: solid 1px darken($sidebar-background, 5);
+      border-radius: 8px;
+      margin-bottom: .5rem;
     }
 
     .items {
@@ -283,7 +292,7 @@ app-sidebar {
       }
     }
 
-    &:last-child{
+    &:last-child {
       margin-bottom: 0;
     }
   }

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { ErrorComponent } from './error/error.component';
-import { ShellComponent } from './shell/shell.component';
+import { ErrorComponent } from './components/error/error.component';
+import { ShellComponent } from './components/shell/shell.component';
 
 export const APP_ROUTES: Routes = [{
   path: '',

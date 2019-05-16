@@ -5,10 +5,10 @@ import { SharedModule } from '@balnc/shared';
 import { DateFnsModule } from 'ngx-date-fns';
 import { ToastrModule } from 'ngx-toastr';
 import { APP_ROUTES } from './app.routes';
-import { ErrorComponent } from './error/error.component';
+import { ErrorComponent } from './components/error/error.component';
+import { ShellComponent } from './components/shell/shell.component';
 import { RxDBService } from './rxdb/rxdb.service';
 import { ConfigService } from './services/config.service';
-import { ShellComponent } from './shell/shell.component';
 
 @NgModule({
   imports: [
@@ -37,7 +37,7 @@ import { ShellComponent } from './shell/shell.component';
 })
 export class CoreModule {
   /* make sure CoreModule is imported only by one NgModule the AppModule */
-  constructor (
+  constructor(
     @Optional() @SkipSelf() parentModule: CoreModule
   ) {
     if (parentModule) {
