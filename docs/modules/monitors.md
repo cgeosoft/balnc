@@ -1,4 +1,4 @@
-# Monitor - `@balnc/monitor`
+# Monitors
 
 All monitors will store event-logs in db. Monitor package can display these log in a nice way with tables, charts etc
 
