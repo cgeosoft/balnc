@@ -1,11 +1,11 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import * as screenfull from 'screenfull';
+import * as screenfull from "screenfull";
+import { Screenfull } from "screenfull";
 import { AddPageComponent } from '../add-page/add-page.component';
 import { PresentationDoc, PresentationStats } from '../_shared/models/presentation';
 import { PresentationsService } from '../_shared/services/presentations.service';
-
 
 @Component({
   selector: 'app-presentations-presentation',
@@ -96,7 +96,8 @@ export class PresentationComponent implements OnInit {
         this.setPageIndex(0)
       })
 
-    screenfull.on('change', (ev) => {
+    let sf = <Screenfull>screenfull;
+    sf.on('change', (ev) => {
       console.log(ev)
       this.presenting = !this.presenting
     })
@@ -166,8 +167,9 @@ export class PresentationComponent implements OnInit {
       proms.push(prom)
     })
 
-    if (screenfull.enabled) {
-      screenfull.toggle(this.presentElem.nativeElement)
+    let sf = <Screenfull>screenfull;
+    if (sf.enabled) {
+      sf.toggle(this.presentElem.nativeElement)
     }
   }
 
