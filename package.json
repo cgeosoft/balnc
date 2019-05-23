@@ -80,7 +80,7 @@
     "ngx-store": "^2.1.0",
     "ngx-swiper-wrapper": "^7.2.1",
     "ngx-toastr": "^9.1.1",
-    "pdfmake": "^0.1.41",
+    "pdfmake": "^0.1.56",
     "pouchdb-adapter-http": "7.0.0",
     "pouchdb-adapter-idb": "7.0.0",
     "protractor": "6.0.0",
