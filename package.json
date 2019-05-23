@@ -86,7 +86,7 @@
     "protractor": "6.0.0",
     "rxdb": "^8.0.4",
     "rxjs": "6.4.0",
-    "rxjs-compat": "^6.4.0",
+    "rxjs-compat": "^6.5.2",
     "screenfull": "^4.0.0",
     "tslint": "5.12.1",
     "tslint-config-standard": "^8.0.1",
