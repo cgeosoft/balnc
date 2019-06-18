@@ -7,7 +7,7 @@ import { CreateTaskComponent } from './create-task/create-task.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ProjectComponent } from './project/project.component';
 import { ProjectsRoutes } from './projects.routes';
-import { TaskComponent } from './task/task.component';
+import { IssueComponent } from './task/task.component';
 import { ProjectsService } from './_shared/projects.service';
 import { ProjectsResolver } from './_shared/resolver';
 import { ShellComponent } from './_shell/shell.component';
@@ -35,7 +35,7 @@ import { ShellComponent } from './_shell/shell.component';
     ShellComponent,
     OverviewComponent,
     ProjectComponent,
-    TaskComponent,
+    IssueComponent,
     CreateTaskComponent,
     CreateProjectComponent
   ],

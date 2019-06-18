@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { RxDocumentBase } from 'rxdb';
 import { Observable } from 'rxjs';
-import { PEvent } from '../_shared/models/pevent';
-import { RxProjectDoc } from '../_shared/models/project';
+import { Issue, IssueType, RxProjectDoc } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
@@ -20,13 +19,13 @@ export class CreateTaskComponent implements OnInit {
 
   form: FormGroup
 
-  constructor (
+  constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private projectsService: ProjectsService
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.form = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(100)]],
       project: [this.projectId, [Validators.required]],
@@ -34,14 +33,17 @@ export class CreateTaskComponent implements OnInit {
     })
   }
 
-  async onSubmit () {
+  async onSubmit() {
     const formModel = this.form.value
-    const task: PEvent = {
+    const issue: Issue = {
       title: formModel.title,
       description: formModel.description,
-      project: this.projectId
+      projectId: this.projectId,
+      insertedFrom: "_system",
+      insertedAt: Date.now(),
+      type: IssueType.Task
     }
-    await this.projectsService.createTask(task)
+    await this.projectsService.createTask(issue)
     this.activeModal.close()
   }
 }

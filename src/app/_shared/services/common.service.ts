@@ -32,10 +32,18 @@ export class CommonService {
     return this.db[entity].find(params).exec()
   }
 
+  getAll$<T> (entity: string, params): Observable<(RxDocument<T> & T)[]> {
+    return this.db[entity].find(params).$
+  }
+
   async getOne<T> (entity: string, id): Promise<RxDocument<T> & T> {
     const obj = await this.db[entity].findOne(id).exec()
     if (!obj) return null
     return obj
+  }
+
+  getOne$<T> (entity: string, id): Observable<RxDocument<T> & T> {
+    return this.db[entity].findOne(id).$
   }
 
   async addOne<T> (entity: string, obj: T): Promise<RxDocument<T> & T> {

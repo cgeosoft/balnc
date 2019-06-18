@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateProjectComponent } from '../create-project/create-project.component';
-import { RxPEventDoc } from '../_shared/models/pevent';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { ProjectsService } from '../_shared/projects.service';
 })
 export class ShellComponent implements OnInit {
 
-  tasks: RxPEventDoc[] = []
+  issues: any[] = []
   projects: any[] = null
 
   typeFilterSelected = null
@@ -36,7 +35,7 @@ export class ShellComponent implements OnInit {
   }
 
   async load () {
-    this.projects = await this.projectsService.getProjects(this.filters)
+    // this.projects = await this.projectsService.getProjects(this.filters)
   }
 
   refresh () {

@@ -1,6 +1,6 @@
 import { OverviewComponent } from './overview/overview.component';
 import { ProjectComponent } from './project/project.component';
-import { TaskComponent } from './task/task.component';
+import { IssueComponent } from './task/task.component';
 import { ProjectsResolver } from './_shared/resolver';
 import { ShellComponent } from './_shell/shell.component';
 
@@ -13,6 +13,6 @@ export const ProjectsRoutes = [{
   children: [
     { path: '', component: OverviewComponent },
     { path: 'project/:pid', component: ProjectComponent },
-    { path: 'project/:pid/task/:tid', component: TaskComponent }
+    { path: 'project/:pid/issue/:tid', component: IssueComponent }
   ]
 }]

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CreateTaskComponent } from '../create-task/create-task.component';
-import { PEvent } from '../_shared/models/pevent';
-import { Project } from '../_shared/models/project';
+import { Observable } from 'rxjs';
+import { CreateTaskComponent as CreateIssueComponent } from '../create-task/create-task.component';
+import { Issue, IssueType, Project } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
@@ -14,24 +14,24 @@ import { ProjectsService } from '../_shared/projects.service';
 export class ProjectComponent implements OnInit {
 
   tabsMenu: any
-  tasks: PEvent[]
+  issues$: Observable<Issue[]>
   project: Project
   projectId: string
 
-  constructor (
+  constructor(
     private route: ActivatedRoute,
     private projectsService: ProjectsService,
     private modal: NgbModal
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
 
     this.tabsMenu = {
-      selected: 'tasks',
+      selected: 'issues',
       tabs: [{
-        id: 'tasks',
+        id: 'issues',
         label: 'Tasks',
-        icon: 'tasks'
+        icon: 'issues'
       }, {
         id: 'settings',
         icon: 'cog',
@@ -45,16 +45,18 @@ export class ProjectComponent implements OnInit {
     })
   }
 
-  private async load () {
-    console.log('load project', this.projectId)
-    this.project = await this.projectsService.getProject(this.projectId)
-    this.tasks = await this.projectsService.getTasks(this.projectId)
-  }
-
-  async createTask () {
-    const modalRef = this.modal.open(CreateTaskComponent)
+  async createTask() {
+    const modalRef = this.modal.open(CreateIssueComponent)
     modalRef.componentInstance.projectId = this.projectId
     await modalRef.result
     this.load()
+  }
+
+  private async load() {
+    this.project = await this.projectsService.getOne<Project>('projects', this.projectId)
+    this.issues$ = this.projectsService.getAll$<Issue>('issues', {
+      projectId: { $eq: this.projectId },
+      type: { $eq: IssueType.Task }
+    })
   }
 }

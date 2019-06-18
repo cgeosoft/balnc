@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreateProjectComponent } from '../create-project/create-project.component';
-import { PEvent } from '../_shared/models/pevent';
 import { Project } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
@@ -13,7 +12,7 @@ import { ProjectsService } from '../_shared/projects.service';
 export class OverviewComponent implements OnInit {
 
   projects: Project[]
-  pevents: PEvent[]
+  pevents: any[]
 
   constructor (
     private projectsService: ProjectsService,
@@ -22,7 +21,7 @@ export class OverviewComponent implements OnInit {
 
   async ngOnInit () {
     this.projects = await this.projectsService.getOverviewProjects()
-    this.pevents = await this.projectsService.getLatestPEvents()
+    this.pevents = []// await this.projectsService.getLatestPEvents()
   }
 
   async createProject () {

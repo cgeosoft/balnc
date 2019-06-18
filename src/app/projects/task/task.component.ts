@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PEvent } from '../_shared/models/pevent';
-import { Project } from '../_shared/models/project';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Issue, Log, Project } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
@@ -11,66 +12,69 @@ import { ProjectsService } from '../_shared/projects.service';
   templateUrl: 'task.component.html',
   styleUrls: ['./task.component.scss']
 })
-export class TaskComponent implements OnInit {
+export class IssueComponent implements OnInit {
 
   commentPreview: boolean
   projectId: string
-  taskId: string
+  issueId: string
   comment: string = null
 
-  task: PEvent
-  project: Project
-  pevents: PEvent[] = []
+  issue$: Observable<Issue>
+  project$: Observable<Project>
+  logs$: Observable<Log[]>
 
   form: FormGroup
 
   postCommentLoading = false
 
-  constructor (
+  constructor(
     private route: ActivatedRoute,
     private modal: NgbModal,
     private formBuilder: FormBuilder,
     private projectsService: ProjectsService
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.route
       .params
       .subscribe(params => {
         this.projectId = params['pid']
-        this.taskId = params['tid']
+        this.issueId = params['tid']
         this.form = this.formBuilder.group({
           comment: ['', [Validators.required]]
         })
         this.setup()
-        this.getPEvents()
       })
   }
 
-  private async setup () {
-    this.task = await this.projectsService.getEvent(this.taskId)
-    this.project = await this.projectsService.getProject(this.task.project)
-  }
+  private async setup() {
+    this.issue$ = this.projectsService.getOne$<Issue>('issues', this.issueId)
+    this.logs$ = this.projectsService
+      .getAll$<Log>('projects', {
+        taskId: { $eq: this.issueId }
+      })
+      .pipe(
+        tap((events) => {
+          events = events.sort((a, b) => {
+            return a.insertedAt < b.insertedAt ? -1 : 1
+          })
+        }))
 
-  private async getPEvents () {
-    const pEvents = await this.projectsService.getEventsOfParent(this.taskId)
-    this.pevents = pEvents.sort((a, b) => {
-      return a.insertedAt < b.insertedAt ? -1 : 1
+    this.issue$.subscribe((issue) => {
+      this.project$ = this.projectsService.getOne$<Project>('projects', issue.projectId)
     })
   }
 
-  async submitComment () {
+  async submitComment() {
     const formModel = this.form.value
     if (!formModel.comment) return
     this.postCommentLoading = true
-    await this.projectsService.createComment(formModel.comment, this.task)
-    await this.getPEvents()
+    await this.projectsService.createComment(formModel.comment, this.issueId)
     this.form.reset()
     this.postCommentLoading = false
   }
 
-  async changeStatus (status: string) {
-    await this.projectsService.changeStatus(status, this.task)
-    await this.getPEvents()
+  async changeStatus(status: string) {
+    await this.projectsService.changeStatus(status, this.issueId)
   }
 }

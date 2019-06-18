@@ -3,16 +3,16 @@ import { RxDBService } from '@balnc/core';
 import { CommonService } from '@balnc/shared';
 import { Observable } from 'rxjs';
 import { ProjectsEntities } from './models/entities';
-import { PEvent, RxPEventDoc } from './models/pevent';
-import { Project, RxProjectDoc } from './models/project';
+import { Issue, IssueType, Log, LogType, Project, RxIssueDoc, RxLogDoc, RxProjectDoc } from './models/project';
 
 @Injectable()
 export class ProjectsService extends CommonService {
 
   projects$: Observable<RxProjectDoc[]>
-  events$: Observable<RxPEventDoc[]>
+  issues$: Observable<RxIssueDoc[]>
+  logs$: Observable<RxLogDoc[]>
 
-  constructor (
+  constructor(
     dbService: RxDBService
   ) {
     super({
@@ -22,127 +22,76 @@ export class ProjectsService extends CommonService {
     })
   }
 
-  async setup () {
+  async setup() {
     await super.setup()
     this.projects$ = this.db['projects'].find().$
   }
 
-  async getOverviewProjects () {
+  async getOverviewProjects() {
     return super.getAll<Project>('projects', {
       isArchived: false,
       isStarred: true
     })
   }
 
-  async getProjects (params?: any) {
-    return super.getAll<Project>('projects', {})
-
-    // const tasks = await this.getLatestTasks()
-    // const stats = {
-    //   tasksCounter: {},
-    //   latestTask: {}
-    // }
-
-    // tasks.forEach((task) => {
-    //   if (!stats.tasksCounter[task.project]) { stats.tasksCounter[task.project] = 0 }
-    //   stats.tasksCounter[task.project]++
-
-    //   if (!stats.latestTask[task.project]) { stats.latestTask[task.project] = task }
-    //   if (stats.latestTask[task.project].insertedAt > task.insertedAt) {
-    //     stats.latestTask[task.project] = task
-    //   }
-    // })
-
-    // return projects
-    // .map(project => {
-    //   const p: any = project
-    //   p.stats = {
-    //     tasksCounter: stats.tasksCounter[p._id] || 0,
-    //     latestTask: stats.latestTask[p._id] || {}
-    //   }
-    //   return p
-    // })
-    // .sort((a, b) => {
-    //   return b.isStarred - a.isStarred
-    // })
-  }
-
-  async getProject (projectId: any) {
-    return super.getOne<Project>('projects', projectId)
-  }
-
-  async createProject (name: string) {
-    const project = {
-      name,
-      description: '',
-      isArchived: false,
-      isStarred: false,
-      tags: []
+  async createProject(name: string) {
+    const project: Project = {
+      name
     }
-    const result = await super.addOne('projects', project)
-    return result
+    return super.addOne('projects', project)
   }
 
-  async getTasks (projectId: string) {
-    return super.getAll<PEvent>('pevents', {
-      project: { $eq: projectId },
-      type: { $eq: 'TASK' }
-    })
-  }
-
-  async getLatestPEvents () {
-    return this.db['pevents']
+  async getLatestIssues() {
+    return this.db['issues']
       .find()
       .sort({ insertedAt: 'desc' })
       .limit(50)
       .exec()
   }
 
-  async getEvent (taskId: string): Promise<RxPEventDoc> {
-    return super.getOne<PEvent>('pevents', taskId)
+  async getIssue(id: string): Promise<RxIssueDoc> {
+    return super.getOne<Issue>('issues', id)
   }
 
-  async getEventsOfParent (taskId: string): Promise<PEvent[]> {
-    const events = await this.db['pevents'].find({ parent: { $eq: taskId } }).exec()
+  async getEventsOfParent(taskId: string): Promise<Issue[]> {
+    const events = await this.db['issues'].find({ parent: { $eq: taskId } }).exec()
     return events
   }
 
-  async createTask (task: PEvent) {
+  async createTask(task: Issue) {
     const d = {
       insertedAt: Date.now(),
-      insertedFrom: 'anon',
+      insertedFrom: '_system',
       type: 'TASK',
       status: 'PENDING'
     }
     const log = { ...task, ...d }
     console.log('adding task', log)
-    await super.addOne('pevents', log)
+    await super.addOne('issues', log)
   }
 
-  async createComment (text: string, task: PEvent) {
-    const log = {
-      description: text,
+  async createComment(text: string, issueId: string) {
+    const log: Log = {
+      text,
       insertedAt: Date.now(),
-      insertedFrom: 'anon',
-      type: 'COMMENT',
-      project: task.project,
-      parent: task['_id']
+      insertedFrom: '_system',
+      type: LogType.Comment,
+      taskId: issueId,
     }
-    await super.addOne('pevents', log)
+    await super.addOne('issues', log)
   }
 
-  async changeStatus (status: string, task: PEvent) {
-    const log = {
-      description: status,
+  async changeStatus(status: string, issueId: string) {
+    const log: Log = {
+      text: status,
       insertedAt: Date.now(),
-      insertedFrom: 'anon',
-      type: 'CHANGE_STATUS',
-      project: task.project,
-      parent: task['_id']
+      insertedFrom: '_system',
+      type: LogType.Activity,
+      taskId: issueId
     }
-    await super.addOne('pevents', log)
+    await super.addOne('issues', log)
 
-    const currentTask = await super.getOne<RxPEventDoc>('pevents', task['_id'])
+    const currentTask = await super.getOne<RxIssueDoc>('issues', issueId)
     await currentTask.update({
       $set: {
         status: status
@@ -151,15 +100,16 @@ export class ProjectsService extends CommonService {
 
   }
 
-  async generateDemoData () {
-    const projects = []
+  async generateDemoData() {
+    const projects: RxProjectDoc[] = []
     for (let i = 0; i < 10; i++) {
-      const project = {
+      const project: Project = {
         name: `Project ${i}`,
         description: 'lorem ipsum dolor',
         isArchived: Math.random() > .6,
         isStarred: Math.random() > .3,
-        tags: ['lorem', 'ispun']
+        tags: ['lorem', 'ispun'],
+        features: {}
       }
       let p = await super.addOne('projects', project)
       projects.push(p)
@@ -168,12 +118,15 @@ export class ProjectsService extends CommonService {
     for (let k = 0; k < 50; k++) {
       const pr = Math.floor(Math.random() * projects.length)
       if (projects[pr]) {
-        const task: PEvent = {
+        const issue: Issue = {
           title: `Task ${k}`,
           description: 'lorem ipsum dolor',
-          project: projects[pr].get('_id')
+          type: IssueType[IssueType[Math.floor(Math.random() * Object.keys(IssueType).length / 2)]],
+          projectId: projects[pr].get('_id'),
+          insertedAt: Date.now(),
+          insertedFrom: "_system"
         }
-        await this.createTask(task)
+        await this.createTask(issue)
       }
     }
   }

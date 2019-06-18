@@ -5,17 +5,18 @@
       <div class="list-group-item" *ngFor="let plugin of plugins">
         <div class="row">
           <div class="col-sm-9 d-flex align-items-center">
+            <fa-icon [icon]="plugin.picon" size="lg" [fixedWidth]="true" class="text-muted mr-4"></fa-icon>
             <div class="flex-grow-1">
-              <h5 class="mb-0">
-                <fa-icon [icon]="plugin.picon"></fa-icon>
-                {{plugin.title}}
-              </h5>
+              <div class="mb-0">
+                <strong>{{plugin.title}}</strong>
+              </div>
               <small class="text-muted">{{plugin.description}}</small>
             </div>
           </div>
           <div class="col-sm-3 d-flex align-items-center">
-            <button *ngIf="!profile.plugins[plugin.id]" type="button" class="btn btn-outline-primary btn-sm ml-auto mt-2"
-              style="min-width:100px;" (click)="setPluginStatus(plugin.id,true)">
+            <button *ngIf="!profile.plugins[plugin.id]" type="button"
+              class="btn btn-outline-primary btn-sm ml-auto mt-2" style="min-width:100px;"
+              (click)="setPluginStatus(plugin.id,true)">
               Activate
             </button>
             <button *ngIf="profile.plugins[plugin.id]" type="button" class="btn btn-outline-danger btn-sm ml-auto mt-2"

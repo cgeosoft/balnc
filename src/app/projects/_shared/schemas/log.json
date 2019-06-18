@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "version": 0,
+  "disableKeyCompression": true,
+  "properties": {
+    "insertedAt": {
+      "type": "number"
+    },
+    "insertedFrom": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "number"
+    },
+    "updatedFrom": {
+      "type": "string"
+    },
+    "taskId": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    }
+  }
+}

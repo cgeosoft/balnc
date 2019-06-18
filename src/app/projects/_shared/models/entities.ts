@@ -1,4 +1,5 @@
-import PEventSchema from '../schemas/pevent.json';
+import IssueSchema from '../schemas/issue.json';
+import LogSchema from '../schemas/log.json';
 import ProjectSchema from '../schemas/project.json';
 
 export const ProjectsEntities = [{
@@ -6,7 +7,11 @@ export const ProjectsEntities = [{
   schema: ProjectSchema,
   sync: true
 }, {
-  name: 'pevents',
-  schema: PEventSchema,
+  name: 'issues',
+  schema: IssueSchema,
+  sync: true
+}, {
+  name: 'logs',
+  schema: LogSchema,
   sync: true
 }]
