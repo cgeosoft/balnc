@@ -34,13 +34,13 @@ export interface Issue extends Meta {
 }
 
 export interface Log extends Meta {
-  taskId: string
+  issueId: string
   text?: string
   type: LogType
 }
 
 export enum IssueType {
-  Task = "TASK",
+  Issue = "TASK",
   Story = "STORY",
   Bug = "BUG",
   Support = "SUPPORT",
@@ -53,7 +53,7 @@ export enum LogType {
 }
 
 export const IssueTypeModel = [
-  { alias: "Task", color: "#f00" },
+  { alias: "Issue", color: "#f00" },
   { alias: "Story", color: "#f00" },
   { alias: "Bug", color: "#f00" },
   { alias: "Support", color: "#f00" }

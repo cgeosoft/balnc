@@ -15,7 +15,7 @@
     "updatedFrom": {
       "type": "string"
     },
-    "taskId": {
+    "issueId": {
       "type": "string"
     },
     "type": {

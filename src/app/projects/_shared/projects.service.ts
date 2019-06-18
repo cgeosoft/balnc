@@ -53,20 +53,20 @@ export class ProjectsService extends CommonService {
     return super.getOne<Issue>('issues', id)
   }
 
-  async getEventsOfParent(taskId: string): Promise<Issue[]> {
-    const events = await this.db['issues'].find({ parent: { $eq: taskId } }).exec()
+  async getEventsOfParent(issueId: string): Promise<Issue[]> {
+    const events = await this.db['issues'].find({ parent: { $eq: issueId } }).exec()
     return events
   }
 
-  async createTask(task: Issue) {
+  async createIssue(issue: Issue) {
     const d = {
       insertedAt: Date.now(),
       insertedFrom: '_system',
       type: 'TASK',
       status: 'PENDING'
     }
-    const log = { ...task, ...d }
-    console.log('adding task', log)
+    const log = { ...issue, ...d }
+    console.log('adding issue', log)
     await super.addOne('issues', log)
   }
 
@@ -76,7 +76,7 @@ export class ProjectsService extends CommonService {
       insertedAt: Date.now(),
       insertedFrom: '_system',
       type: LogType.Comment,
-      taskId: issueId,
+      issueId: issueId,
     }
     await super.addOne('issues', log)
   }
@@ -87,12 +87,12 @@ export class ProjectsService extends CommonService {
       insertedAt: Date.now(),
       insertedFrom: '_system',
       type: LogType.Activity,
-      taskId: issueId
+      issueId: issueId
     }
     await super.addOne('issues', log)
 
-    const currentTask = await super.getOne<RxIssueDoc>('issues', issueId)
-    await currentTask.update({
+    const currentIssue = await super.getOne<RxIssueDoc>('issues', issueId)
+    await currentIssue.update({
       $set: {
         status: status
       }
@@ -119,14 +119,14 @@ export class ProjectsService extends CommonService {
       const pr = Math.floor(Math.random() * projects.length)
       if (projects[pr]) {
         const issue: Issue = {
-          title: `Task ${k}`,
+          title: `Issue ${k}`,
           description: 'lorem ipsum dolor',
           type: IssueType[IssueType[Math.floor(Math.random() * Object.keys(IssueType).length / 2)]],
           projectId: projects[pr].get('_id'),
           insertedAt: Date.now(),
           insertedFrom: "_system"
         }
-        await this.createTask(issue)
+        await this.createIssue(issue)
       }
     }
   }

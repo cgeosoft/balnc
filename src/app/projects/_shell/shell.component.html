@@ -3,7 +3,7 @@
   <div class="menu">
     <div class="items">
       <a routerLink="/projects" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <fa-icon icon="tasks" class="icon"></fa-icon>
+        <fa-icon icon="issues" class="icon"></fa-icon>
         <span>All Projects</span>
       </a>
       <button (click)="createProject()">
@@ -33,7 +33,7 @@
   <app-empty message="No projects" icon="file-alt:regular"></app-empty>
 </ng-template>
 <ng-template #noItems>
-  You don't have any tasks yet
+  You don't have any issues yet
 </ng-template>
 <ng-template #loader>
   <app-spinner></app-spinner>

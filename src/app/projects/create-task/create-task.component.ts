@@ -7,11 +7,11 @@ import { Issue, IssueType, RxProjectDoc } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
-  selector: 'app-projects-task-create',
-  templateUrl: './create-task.component.html',
-  styleUrls: ['./create-task.component.scss']
+  selector: 'app-projects-issue-create',
+  templateUrl: './create-issue.component.html',
+  styleUrls: ['./create-issue.component.scss']
 })
-export class CreateTaskComponent implements OnInit {
+export class CreateIssueComponent implements OnInit {
 
   projects$: Observable<(RxDocumentBase<RxProjectDoc> & RxProjectDoc)[]>
 
@@ -41,9 +41,9 @@ export class CreateTaskComponent implements OnInit {
       projectId: this.projectId,
       insertedFrom: "_system",
       insertedAt: Date.now(),
-      type: IssueType.Task
+      type: IssueType.Issue
     }
-    await this.projectsService.createTask(issue)
+    await this.projectsService.createIssue(issue)
     this.activeModal.close()
   }
 }

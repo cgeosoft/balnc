@@ -8,9 +8,9 @@ import { Issue, Log, Project } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
-  selector: 'app-projects-task',
-  templateUrl: 'task.component.html',
-  styleUrls: ['./task.component.scss']
+  selector: 'app-projects-issue',
+  templateUrl: 'issue.component.html',
+  styleUrls: ['./issue.component.scss']
 })
 export class IssueComponent implements OnInit {
 
@@ -51,7 +51,7 @@ export class IssueComponent implements OnInit {
     this.issue$ = this.projectsService.getOne$<Issue>('issues', this.issueId)
     this.logs$ = this.projectsService
       .getAll$<Log>('projects', {
-        taskId: { $eq: this.issueId }
+        issueId: { $eq: this.issueId }
       })
       .pipe(
         tap((events) => {

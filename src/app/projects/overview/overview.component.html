@@ -1,5 +1,5 @@
 <app-content>
-  <!-- <app-content-header title="Projects Overview" icon="tasks"></app-content-header> -->
+  <!-- <app-content-header title="Projects Overview" icon="issues"></app-content-header> -->
   <div class="bg-light">
     <div class="container">
       <ol class="breadcrumb mb-0 bg-light">
@@ -18,12 +18,12 @@
               <div class="list-group-item" *ngFor="let pevent of pevents">
 
                 <ng-container *ngIf="pevent.type==='TASK'">
-                  <strong>{{pevent.insertedFrom}}</strong> created a task <a [routerLink]="['/projects/project',pevent.project,'task',pevent['_id']]">{{pevent.title}}</a>
+                  <strong>{{pevent.insertedFrom}}</strong> created a issue <a [routerLink]="['/projects/project',pevent.project,'issue',pevent['_id']]">{{pevent.title}}</a>
                 </ng-container>
 
                 <ng-container *ngIf="pevent.type==='CHANGE_STATUS'">
                   <strong>{{pevent.insertedFrom}}</strong> updated
-                  <a [routerLink]="['/projects/project',pevent.project,'task',pevent['_id']]">task</a>
+                  <a [routerLink]="['/projects/project',pevent.project,'issue',pevent['_id']]">issue</a>
                   to {{pevent.description}}
                 </ng-container>
                 <div><small class="text-muted">{{pevent.insertedAt | dfnsDistanceInWordsToNow}} ago</small></div>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
-import { CreateTaskComponent as CreateIssueComponent } from '../create-task/create-task.component';
+import { CreateIssueComponent as CreateIssueComponent } from '../create-issue/create-issue.component';
 import { Issue, IssueType, Project } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
@@ -30,7 +30,7 @@ export class ProjectComponent implements OnInit {
       selected: 'issues',
       tabs: [{
         id: 'issues',
-        label: 'Tasks',
+        label: 'Issues',
         icon: 'issues'
       }, {
         id: 'settings',
@@ -45,7 +45,7 @@ export class ProjectComponent implements OnInit {
     })
   }
 
-  async createTask() {
+  async createIssue() {
     const modalRef = this.modal.open(CreateIssueComponent)
     modalRef.componentInstance.projectId = this.projectId
     await modalRef.result
@@ -56,7 +56,7 @@ export class ProjectComponent implements OnInit {
     this.project = await this.projectsService.getOne<Project>('projects', this.projectId)
     this.issues$ = this.projectsService.getAll$<Issue>('issues', {
       projectId: { $eq: this.projectId },
-      type: { $eq: IssueType.Task }
+      type: { $eq: IssueType.Issue }
     })
   }
 }
