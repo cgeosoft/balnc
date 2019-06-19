@@ -75,7 +75,7 @@ export class ProjectsService extends CommonService {
       text,
       insertedAt: Date.now(),
       insertedFrom: '_system',
-      type: LogType.Comment,
+      type: LogType.comment,
       issueId: issueId,
     }
     await super.addOne('issues', log)
@@ -86,7 +86,7 @@ export class ProjectsService extends CommonService {
       text: status,
       insertedAt: Date.now(),
       insertedFrom: '_system',
-      type: LogType.Activity,
+      type: LogType.activity,
       issueId: issueId
     }
     await super.addOne('issues', log)

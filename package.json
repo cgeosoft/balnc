@@ -24,7 +24,9 @@
     "electron:pack": "electron-builder --dir",
     "electron:dist": "electron-builder"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@ng-stack/contenteditable": "^1.0.1"
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.9",
     "@angular-devkit/build-ng-packagr": "^0.13.9",

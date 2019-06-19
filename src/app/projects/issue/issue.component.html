@@ -1,68 +1,82 @@
-<ng-container *ngIf="(issue | async) as issue && project">
+<ng-container *ngIf="(issue$ | async) as issue">
   <app-content>
     <!-- <app-content-header [title]="issue.title" [subtitle]="'Issue: '+issue._id" [route]="'/projects/project/'+project._id" icon="caret-left"></app-content-header> -->
     <div class="bg-light">
       <div class="container">
         <ol class="breadcrumb mb-0 bg-light">
           <li class="breadcrumb-item"><a [routerLink]="['/projects']">Projects</a></li>
-          <li class="breadcrumb-item"><a [routerLink]="['/projects/project',project['_id']]">{{project.name}}</a></li>
+          <li class="breadcrumb-item"><a
+              [routerLink]="['/projects/project',issue.projectId]">{{(project$ | async)?.name}}</a></li>
           <li class="breadcrumb-item active">{{issue.title}}</li>
         </ol>
       </div>
     </div>
     <app-content-body>
-      <h2>
-        {{issue.title}} <span class="badge badge-default">{{issue.status}}</span>
-      </h2>
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-7">
 
-          <div class="card border-secondary mb-4">
-            <div class="card-header d-flex">
-              <div>
-                <span class="fa fa-issues fa-fw"></span>
-                {{issue.insertedFrom}} add issue</div>
-              <div class="ml-auto">
-                <small class="text-muted">{{issue.insertedAt | dfnsDistanceInWordsToNow}}</small>
+          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-3">
+              <button type="button" class="btn" [ngStyle]="status(issue.status).style"
+                (click)="saveDetails({status:nextStatus(issue.status).key})">
+                {{status(issue.status).label}}
+              </button>
+              <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                <button class="btn dropdown-toggle-split" [ngStyle]="status(issue.status).style"
+                  ngbDropdownToggle></button>
+                <div class="dropdown-menu" ngbDropdownMenu>
+                  <button ngbDropdownItem *ngFor="let s of issueStatusModel" (click)="saveDetails({status:s.key})">
+                    <fa-icon [icon]="['fas','circle']" [ngStyle]="{color:s.color}"></fa-icon> {{s.alias}}
+                  </button>
+                </div>
               </div>
-            </div>
-            <div class="card-body">
-              <markdown ngPreserveWhitespaces>
-                {{issue.description}}
-              </markdown>
             </div>
           </div>
 
-          <ng-container *ngFor="let pevent of pevents">
-            <ng-container *ngIf="pevent.type==='COMMENT'">
-              <div class="card mb-2">
-                <div class="card-header d-flex">
-                  <div>
-                    <span class="far fa-comment-alt fa-fw"></span>
-                    {{pevent.insertedFrom}} commented
+          <h2 #title contenteditable="true" (blur)="saveDetails({title:title.innerText})">{{issue.title}}</h2>
+          <hr>
+          <textarea #desc *ngIf="editDesc" class="form-control" style=
+          "padding:0;box-shadow:none" rows="10" placeholder="description..."
+            [value]="issue.description" (blur)="saveDetails({description:desc.value});editDesc=false"></textarea>
+
+          <markdown *ngIf="!editDesc" (click)="editDesc=true"
+            [data]="issue.description"></markdown>
+
+        </div>
+        <div class="col-5">
+
+          <ng-container *ngIf="(logs$ | async) as logs">
+            <ng-container *ngFor="let log of logs">
+              <ng-container *ngIf="log.type===logType.comment">
+                <div class="card mb-2">
+                  <div class="card-header d-flex">
+                    <div>
+                      <span class="far fa-comment-alt fa-fw"></span>
+                      {{log.insertedFrom}} commented
+                    </div>
+                    <div class="ml-auto">
+                      <small class="text-muted">{{log.insertedAt | dfnsDistanceInWordsToNow}}</small>
+                    </div>
                   </div>
-                  <div class="ml-auto">
-                    <small class="text-muted">{{pevent.insertedAt | dfnsDistanceInWordsToNow}}</small>
+                  <div class="card-body">
+                    <markdown ngPreserveWhitespaces>
+                      {{log.description}}
+                    </markdown>
                   </div>
                 </div>
-                <div class="card-body">
-                  <markdown ngPreserveWhitespaces>
-                    {{pevent.description}}
-                  </markdown>
+              </ng-container>
+              <ng-container *ngIf="log.type===logType.activity">
+                <div class="alert alert-info" role="alert">
+                  <span class="fa fa-info-circle"></span> {{log.description}}
+                  <small>from {{log.insertedFrom}} at {{log.insertedAt | dfnsDistanceInWordsToNow}}</small>
                 </div>
-              </div>
-            </ng-container>
-            <ng-container *ngIf="pevent.type==='CHANGE_STATUS'">
-              <div class="alert alert-info" role="alert">
-                <span class="fa fa-info-circle"></span> {{pevent.description}}
-                <small>from {{pevent.insertedFrom}} at {{pevent.insertedAt | dfnsDistanceInWordsToNow}}</small>
-              </div>
-            </ng-container>
-            <ng-container *ngIf="pevent.type==='SYSTEM'">
-              <div class="alert alert-info" role="alert">
-                <span class="fa fa-info-circle"></span> {{pevent.description}}
-                <small>from {{pevent.insertedFrom}} at {{pevent.insertedAt | dfnsDistanceInWordsToNow}}</small>
-              </div>
+              </ng-container>
+              <ng-container *ngIf="log.type===logType.work">
+                <div class="alert alert-info" role="alert">
+                  <span class="fa fa-info-circle"></span> {{log.description}}
+                  <small>from {{log.insertedFrom}} at {{log.insertedAt | dfnsDistanceInWordsToNow}}</small>
+                </div>
+              </ng-container>
             </ng-container>
           </ng-container>
 
@@ -81,7 +95,8 @@
               <form [formGroup]="form" (ngSubmit)="submitComment()">
                 <ng-container *ngIf="!commentPreview">
                   <div class="form-group mt-2">
-                    <textarea tabindex="3" formControlName="comment" class="form-control" rows="8" placeholder="write a comment..."></textarea>
+                    <textarea tabindex="3" formControlName="comment" class="form-control" rows="8"
+                      placeholder="write a comment..."></textarea>
                   </div>
                 </ng-container>
                 <ng-container *ngIf="commentPreview">
@@ -102,30 +117,17 @@
               </form>
             </div>
           </div>
-        </div>
-        <div class="col-md-4">
-          <ul class="list-group">
-            <button class="list-group-item list-group-item-action" (click)="changeStatus('PENDING')">
-              Pending
-            </button>
-            <button class="list-group-item list-group-item-action" (click)="changeStatus('PROGRESS')">
-              Progress
-            </button>
-            <button class="list-group-item list-group-item-action" (click)="changeStatus('COMPLETE')">
-              Complete
-            </button>
-          </ul>
-          <pre>{{issue|json:2}}</pre>
-          <pre>{{pevents|json:2}}</pre>
-          <pre>{{project|json:2}}</pre>
+
         </div>
       </div>
+
     </app-content-body>
   </app-content>
 </ng-container>
 
 <ng-template #noItems>
-  <app-empty message="You don't have any issues yet" submessage="Click create to add your first one" icon="cube"></app-empty>
+  <app-empty message="You don't have any issues yet" submessage="Click create to add your first one" icon="cube">
+  </app-empty>
 </ng-template>
 <ng-template #loader>
   <app-spinner></app-spinner>

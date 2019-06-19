@@ -56,7 +56,7 @@ export class ProjectComponent implements OnInit {
     this.project = await this.projectsService.getOne<Project>('projects', this.projectId)
     this.issues$ = this.projectsService.getAll$<Issue>('issues', {
       projectId: { $eq: this.projectId },
-      type: { $eq: IssueType.Issue }
+      type: { $eq: IssueType.issue }
     })
   }
 }

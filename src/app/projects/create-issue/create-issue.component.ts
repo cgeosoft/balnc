@@ -41,7 +41,7 @@ export class CreateIssueComponent implements OnInit {
       projectId: this.projectId,
       insertedFrom: "_system",
       insertedAt: Date.now(),
-      type: IssueType.Issue
+      type: IssueType.issue
     }
     await this.projectsService.createIssue(issue)
     this.activeModal.close()

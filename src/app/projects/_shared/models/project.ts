@@ -22,7 +22,7 @@ export interface Issue extends Meta {
   title: string
   description?: string
   parent?: string
-  status?: string
+  status?: IssueStatus
   assignee?: string
   reporter?: string
   branch?: string
@@ -40,23 +40,41 @@ export interface Log extends Meta {
 }
 
 export enum IssueType {
-  Issue = "TASK",
-  Story = "STORY",
-  Bug = "BUG",
-  Support = "SUPPORT",
+  issue = "TASK",
+  story = "STORY",
+  bug = "BUG",
+  support = "SUPPORT",
+}
+
+export enum IssueStatus {
+  open = "OPEN",
+  pending = "PENDING",
+  progress = "PROGRESS",
+  completed = "COMPLETED",
+  review = "REVIEW",
+  closed = "CLOSED",
 }
 
 export enum LogType {
-  Activity = "ACTIVITY",
-  Work = "WORK",
-  Comment = "COMMENT",
+  activity = "ACTIVITY",
+  work = "WORK",
+  comment = "COMMENT",
 }
 
 export const IssueTypeModel = [
-  { alias: "Issue", color: "#f00" },
-  { alias: "Story", color: "#f00" },
-  { alias: "Bug", color: "#f00" },
-  { alias: "Support", color: "#f00" }
+  { alias: "issue", color: "#f00" },
+  { alias: "story", color: "#f00" },
+  { alias: "bug", color: "#f00" },
+  { alias: "support", color: "#f00" }
+]
+
+export const IssueStatusModel = [
+  { key: IssueStatus.open, alias: "Open", color: "#9E9E9E" },
+  { key: IssueStatus.pending, alias: "Pending", color: "#607D8B" },
+  { key: IssueStatus.progress, alias: "Progress", color: "#FF5722" },
+  { key: IssueStatus.completed, alias: "Completed", color: "#2196F3" },
+  { key: IssueStatus.review, alias: "Review", color: "#9C27B0" },
+  { key: IssueStatus.closed, alias: "Closed", color: "#4CAF50" }
 ]
 
 export type RxProjectDoc = RxDocument<Project> & Project
