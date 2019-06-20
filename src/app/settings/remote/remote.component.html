@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <h4 class="modal-title">Remote</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form (ngSubmit)="save()">
+    <div class="modal-body">
+        <h4>Host</h4>
+        <div class="form-group">
+            <label class="form-label">Host</label>
+            <input name="balnc-db-host" autocomplete="off" [disabled]="!profile.remoteSync"
+                [(ngModel)]="profile.remoteHost" class="form-control">
+        </div>
+        <hr>
+        <h4>Account</h4>
+        <div class="form-group">
+            <label class="form-label">Username</label>
+            <input name="balnc-db-username" autocomplete="off" [disabled]="!profile.remoteSync"
+                [(ngModel)]="profile.remoteUsername" class="form-control">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Password</label>
+            <input name="balnc-db-password" autocomplete="off" [disabled]="!profile.remoteSync"
+                [(ngModel)]="profile.remotePassword" class="form-control" type="password">
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" type="submit">Enable Remote</button>
+    </div>
+</form>
+<ng-template #loader>
+    <app-spinner></app-spinner>
+</ng-template>

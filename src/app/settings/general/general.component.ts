@@ -2,10 +2,13 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfigService } from '@balnc/core';
 import { Profile } from '@balnc/shared';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RemoteComponent } from '../remote/remote.component';
 
 @Component({
   selector: 'app-settings-general',
-  templateUrl: './general.component.html'
+  templateUrl: './general.component.html',
+  styleUrls: ['./general.component.scss']
 })
 export class GeneralComponent implements OnInit {
 
@@ -22,30 +25,35 @@ export class GeneralComponent implements OnInit {
   deleteDataRemote = false
   needReload = false
 
-  constructor (
+  constructor(
     private router: Router,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private modal: NgbModal
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.profile = this.configService.getProfile()
   }
 
-  save () {
+  save() {
     this.configService.saveProfile(this.profile)
     this.needReload = true
   }
 
-  reload () {
+  reload() {
     window.location.reload()
   }
 
-  delete () {
+  delete() {
     this.configService.deleteProfile(this.profile.id)
     this.router.navigate(['/settings'])
   }
 
-  activate () {
+  activate() {
     this.configService.selectProfile(this.profile.id)
+  }
+
+  async remoteEnable(){
+    await this.modal.open(RemoteComponent).result
   }
 }

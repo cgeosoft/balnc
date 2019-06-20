@@ -1,0 +1,11 @@
+:host {
+  .title {
+    border-top: solid 1px #eee;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    &:first-child {
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+}

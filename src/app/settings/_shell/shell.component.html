@@ -1,27 +1,6 @@
 <app-sidebar>
   <div class="title">Settings</div>
   <div class="menu">
-    <div class="info">
-      Profile: {{profile.name}} <a class="float-right" routerLink="/settings/profiles">
-        <fa-icon icon='exchange-alt'></fa-icon>
-      </a>
-    </div>
-    <div class="items">
-      <a routerLink="/settings/general" routerLinkActive="active">
-        <fa-icon icon='cog'></fa-icon>
-        <span>General</span>
-      </a>
-      <a routerLink="/settings/data" routerLinkActive="active">
-        <fa-icon icon='sync-alt'></fa-icon>
-        <span>Backup & Sync</span>
-      </a>
-      <a routerLink="/settings/plugins" routerLinkActive="active">
-        <fa-icon icon='box'></fa-icon>
-        <span>Plugins</span>
-      </a>
-    </div>
-  </div>
-  <div class="menu mt-auto">
     <div class="items">
       <a routerLink="/settings/profiles" routerLinkActive="active">
         <fa-icon icon="swatchbook"></fa-icon>
@@ -34,6 +13,19 @@
       <a routerLink="/settings/about" routerLinkActive="active">
         <fa-icon icon="info-circle"></fa-icon>
         <span>About</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu">
+    <div class="title">{{profile.name}}</div>
+    <div class="items">
+      <a routerLink="/settings/general" routerLinkActive="active">
+        <fa-icon icon='cog'></fa-icon>
+        <span>Configure</span>
+      </a>
+      <a routerLink="/settings/plugins" routerLinkActive="active">
+        <fa-icon icon='box'></fa-icon>
+        <span>Plugins</span>
       </a>
     </div>
   </div>

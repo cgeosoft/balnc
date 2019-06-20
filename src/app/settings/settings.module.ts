@@ -7,6 +7,7 @@ import { GeneralComponent } from './general/general.component';
 import { HelpComponent } from './help/help.component';
 import { PluginsComponent } from './plugins/plugins.component';
 import { ProfilesComponent } from './profiles/profiles.component';
+import { RemoteComponent } from './remote/remote.component';
 import { SettingsRoutes } from './settings.routes';
 import { ShellComponent } from './_shell/shell.component';
 
@@ -22,9 +23,11 @@ import { ShellComponent } from './_shell/shell.component';
     PluginsComponent,
     AboutComponent,
     HelpComponent,
-    ProfilesComponent
+    ProfilesComponent,
+    RemoteComponent,
   ],
   providers: [],
-  entryComponents: []
-})
+  entryComponents: [
+    RemoteComponent,
+  ]})
 export class SettingsModule { }
