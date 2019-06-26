@@ -4,7 +4,7 @@
 
 ![screenshot](docs/assets/screenshot.png)
 
-Balnc (balance) is a software framework for develop business applications. It is a base layer of core modules for manageing data and styles and on top are implemented collections of business spesific apps.
+Balnc (balance) is a software framework for develop business applications. It is a base layer of core modules for managing data and styles and on top are implemented collections of business specific apps.
 
 Example:
 
@@ -26,6 +26,10 @@ A small business app could use:
 - [PWA](https://developers.google.com/web/progressive-web-apps/) and offline-first
 - Low cost and scalable db servers (couchdb, etc)
 - Every module can be extended and custom modules can be implemented (menus are extendable)
+
+## Donate
+
+[<img src="http://img.shields.io/liberapay/receives/cgeosoft.svg?logo=liberapay">](https://liberapay.com/cgeosoft/donate)
 
 ## License
 
