@@ -89,9 +89,11 @@ export class ShellComponent implements OnInit {
     m.componentInstance.projectId = projectId
   }
 
-  createIssue(projectId) {
+  async createIssue(projectId) {
     const m = this.modal.open(IssueCreateComponent)
     m.componentInstance.projectId = projectId
+    const issueId = await m.result
+    this.router.navigate(["/projects/project", projectId, "issue", issueId])
   }
 
   createProject() {

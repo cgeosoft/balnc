@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { RxDBService } from '@balnc/core';
 import { CommonService } from '@balnc/shared';
 import * as faker from 'faker';
@@ -12,17 +12,17 @@ export class ContactsService extends CommonService {
   contacts$: Observable<Contact[]>
 
   constructor(
-    dbService: RxDBService
+    zone: NgZone,
+    dbService: RxDBService,
   ) {
-    super({
-      alias: 'contacts',
-      entities: ContactsEntities,
-      dbService: dbService
-    })
+    super(zone, dbService)
   }
 
   async setup() {
-    await super.setup()
+    await super.setup({
+      alias: 'contacts',
+      entities: ContactsEntities,
+    })
     this.contacts$ = this.db['contacts'].find().$
   }
 

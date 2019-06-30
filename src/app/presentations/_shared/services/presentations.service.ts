@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { RxDBService } from '@balnc/core';
 import { CommonService } from '@balnc/shared';
 import { Presentation, PresentationDoc, PresentationStats } from '../models/presentation';
@@ -8,15 +8,18 @@ import { PresentationsEntities } from '../models/_entities';
 export class PresentationsService extends CommonService {
 
   constructor(
-    dbService: RxDBService
+    zone: NgZone,
+    dbService: RxDBService,
   ) {
-    super({
-      alias: 'presentations',
-      entities: PresentationsEntities,
-      dbService: dbService
-    })
+    super(zone, dbService)
   }
 
+  async setup() {
+    await super.setup({
+      alias: 'presentations',
+      entities: PresentationsEntities,
+    })
+  }
 
   async getPresentations(params?: any) {
     params = params || {}

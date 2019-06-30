@@ -4,9 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Report } from '../../models/report';
-import { ReportService } from '../../report.service';
-
-
+import { ReportsService } from '../../reports.service';
 
 @Component({
   selector: 'app-reports-report',
@@ -27,34 +25,34 @@ export class ReportComponent implements OnInit {
   maxPage: number
   pdfData: any = null
 
-  constructor (
-    private reportService: ReportService,
+  constructor(
+    private reportService: ReportsService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer
   ) {
     pdfMake.vfs = pdfFonts.pdfMake.vfs
   }
 
-  ngOnInit () {
+  ngOnInit() {
     this.route.params.subscribe(async params => {
       await this.loadReport(params['id'])
       // await this.execReport()
     })
   }
 
-  async loadReport (id) {
+  async loadReport(id) {
     this.report = await this.reportService.one(id)
     this.resetFilters()
   }
 
-  decideClosure (event, datepicker) {
+  decideClosure(event, datepicker) {
     const path = event.path.map(p => p.localName)
     if (!path.includes('ngb-datepicker')) {
       datepicker.close()
     }
   }
 
-  async execReport () {
+  async execReport() {
     const _time = (new Date()).getTime()
     this.err = null
     this.pdfData = null
@@ -101,7 +99,7 @@ export class ReportComponent implements OnInit {
     this.loading = false
   }
 
-  resetFilters () {
+  resetFilters() {
     this.filters = this.report.filters
       .map(filter => {
         return {

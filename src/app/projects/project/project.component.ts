@@ -87,9 +87,9 @@ export class ProjectComponent implements OnInit {
         tap((issues: Issue[]) => issues.sort((a, b) => a.insertedAt - b.insertedAt)),
         tap((issues: Issue[]) => issues.reverse()),
         tap((issues: Issue[]) => {
+          console.log(issues)
           this.issuesLength = issues.length
           this.calcPages()
-          this.zone.run(() => { })
         }),
       )
   }

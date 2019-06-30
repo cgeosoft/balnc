@@ -16,20 +16,19 @@ export class BoardsService extends CommonService {
   boards$: Observable<Board[]>
   messages$: Observable<Message[]>
 
-  constructor (
+  constructor(
+    zone: NgZone,
     dbService: RxDBService,
-    private ngZone: NgZone,
     private configService: ConfigService
   ) {
-    super({
-      alias: 'boards',
-      entities: BoardsEntities,
-      dbService
-    })
+    super(zone, dbService)
   }
 
-  async setup () {
-    await super.setup()
+  async setup() {
+    await super.setup({
+      alias: 'boards',
+      entities: BoardsEntities
+    })
     this.nickname = this.configService.profile.remoteUsername
     this.boards$ = this.db['boards'].find().$
     this.messages$ = this.db['messages'].find().$
@@ -40,7 +39,7 @@ export class BoardsService extends CommonService {
       )
   }
 
-  async loadMessages (boardName: String) {
+  async loadMessages(boardName: String) {
     let query = this.db['messages'].find().where('board').eq(boardName)
     const messagesRaw = await query.exec()
     const messages: Message[] = messagesRaw
@@ -56,12 +55,12 @@ export class BoardsService extends CommonService {
     return messages
   }
 
-  getBoard (id: string) {
+  getBoard(id: string) {
     let board = super.getOne('boards', id)
     return board
   }
 
-  async createBoard (data: Board) {
+  async createBoard(data: Board) {
     const now = new Date()
     const board = Object.assign({
       created: now.getTime(),
@@ -103,11 +102,11 @@ export class BoardsService extends CommonService {
   //   await existBoard.save()
   // }
 
-  async sendMessage (message: Message) {
+  async sendMessage(message: Message) {
     await super.addOne('messages', message)
   }
 
-  async deleteBoard (boardName) {
+  async deleteBoard(boardName) {
     let existBoard = await this.db['boards'].findOne().where('name').eq(boardName).exec()
     existBoard.remove()
 

@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core'
-import { RouterModule } from '@angular/router'
-import { SharedModule } from '@balnc/shared'
-import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap'
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from '@balnc/shared';
+import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateNativeAdapter } from './adapters/datepicker.adapter';
+import { OverviewComponent } from './components/overview/overview.component';
+import { ReportComponent } from './components/report/report.component';
+import { WrapperComponent } from './components/_wrapper/wrapper.component';
+import { ReportsRoutes } from './reports.routes';
+import { ReportsService } from './reports.service';
 
-import { NgbDateNativeAdapter } from './adapters/datepicker.adapter'
-import { WrapperComponent } from './components/_wrapper/wrapper.component'
-import { OverviewComponent } from './components/overview/overview.component'
-import { ReportComponent } from './components/report/report.component'
-import { ReportService } from './report.service'
-import { ReportsRoutes } from './reports.routes'
 
 @NgModule({
   imports: [
@@ -21,7 +21,7 @@ import { ReportsRoutes } from './reports.routes'
     ReportComponent
   ],
   providers: [
-    ReportService,
+    ReportsService,
     { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }
   ],
   entryComponents: []

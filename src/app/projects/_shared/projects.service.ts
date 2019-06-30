@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { RxDBService } from '@balnc/core';
 import { CommonService } from '@balnc/shared';
 import { Observable } from 'rxjs';
@@ -13,17 +13,17 @@ export class ProjectsService extends CommonService {
   logs$: Observable<RxLogDoc[]>
 
   constructor(
-    dbService: RxDBService
+    zone: NgZone,
+    dbService: RxDBService,
   ) {
-    super({
-      alias: 'projects',
-      entities: ProjectsEntities,
-      dbService: dbService
-    })
+    super(zone, dbService)
   }
 
   async setup() {
-    await super.setup()
+    await super.setup({
+      alias: 'projects',
+      entities: ProjectsEntities,
+    })
     this.projects$ = this.db['projects'].find().$
   }
 
@@ -52,7 +52,8 @@ export class ProjectsService extends CommonService {
     }
     const log = { ...issue, ...d }
     console.log('adding issue', log)
-    await super.addOne('issues', log)
+    const issueDoc = await super.addOne('issues', log)
+    return issueDoc["_id"]
   }
 
   async createComment(text: string, issueId: string) {
