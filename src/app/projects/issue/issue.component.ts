@@ -83,7 +83,7 @@ export class IssueComponent implements OnInit {
     await this.projectsService.addOne<Log>("logs", {
       issueId: this.issueId,
       type: LogType.activity,
-      text: `update ${this.issueId}, set ` + Object.keys(data).map(k => `${k} = ${data[k]}`).join(" "),
+      text: Object.keys(data).map(k => `${k} changed to ${data[k]}`).join(" "),
       insertedAt: Date.now(),
       insertedFrom: "_system"
     })
@@ -93,6 +93,7 @@ export class IssueComponent implements OnInit {
     const formModel = this.form.value
     if (!formModel.comment) return
     this.postCommentLoading = true
+    console.log(formModel.comment)
     await this.projectsService.createComment(formModel.comment, this.issueId)
     this.form.reset()
     this.postCommentLoading = false
@@ -105,7 +106,7 @@ export class IssueComponent implements OnInit {
   private async setup() {
     this.issue$ = this.projectsService.getOne$<Issue>('issues', this.issueId)
     this.logs$ = this.projectsService
-      .getAll$<Log>('projects', {
+      .getAll$<Log>('logs', {
         issueId: { $eq: this.issueId }
       })
       .pipe(
