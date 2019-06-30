@@ -37,7 +37,6 @@
 
     <ng-container *ngIf="(issues$ | async) as issues; else loader">
       <ng-container *ngIf="(issues | filterIssues:filters).length; else noissues">
-
         <table class="table table-sm">
           <thead>
             <tr>

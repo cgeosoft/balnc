@@ -67,50 +67,31 @@ app-sidebar {
     > .header {
       @extend .mb-2;
       @extend .d-flex;
-      @extend .flex-column;
+      @extend .align-items-center;
       border-bottom: solid 1px darken($sidebar-background, 5);
-      padding: 0.4rem;
-
-      h4 {
-        @extend .m-0;
-        @extend .p-0;
-        font-weight: 300;
-        color: darken($sidebar-font, 5);
-
-        .fa {
-          font-size: 0.8rem;
-        }
-      }
-
-      h5 {
-        @extend .m-0;
-        @extend .p-0;
-        font-weight: 300;
-        font-size: 1.1rem;
-        color: darken($sidebar-font, 5);
-
-        .fa {
-          font-size: 0.8rem;
-        }
-      }
-
-      span {
-        font-size: 0.9rem;
-        padding: 0 0 0.2rem;
-        color: darken($sidebar-font, 7);
-      }
+      padding: 0.4rem 0;
+      font-size: 1.2rem;
+      color: darken($sidebar-font, 7);
 
       button {
         @extend .btn;
-        @extend .ml-auto;
         border: none;
         background: none;
-        color: darken($sidebar-font, 5);
-        padding: 0 0.5rem;
+        padding: 0 0.3rem !important;
+        box-shadow: none !important;
 
         &:hover {
           background: lighten($sidebar-background, 10);
         }
+      }
+
+      span {
+        @extend .text-truncate;
+      }
+
+      button,
+      .dropdown {
+        @extend .ml-auto;
       }
     }
 

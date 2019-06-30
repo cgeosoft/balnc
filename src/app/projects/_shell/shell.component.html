@@ -9,7 +9,24 @@
     </div>
   </div>
   <div class="menu" *ngIf="(project$ | async) as project">
-    <div class="header">{{project.name}}</div>
+    <div class="header">
+      <span>{{project.name}}</span>
+      <div class="dropdown" ngbDropdown container="body">
+        <button ngbDropdownToggle></button>
+        <div ngbDropdownMenu>
+          <button ngbDropdownItem (click)="createProject()">Create project</button>
+          <div class="dropdown-divider"></div>
+          <ng-container *ngIf="(projects$|async)as projects">
+            <ng-container *ngIf="projects.length">
+              <h6 class="dropdown-header">Projects</h6>
+              <ng-container *ngFor="let p of projects">
+                <a ngbDropdownItem [routerLink]="['/projects/project',p['_id']]">{{p.name}}</a>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </div>
     <div class="items">
       <button (click)="editDetails(project['_id'])">
         <fa-icon icon="pencil-ruler" class="icon"></fa-icon>

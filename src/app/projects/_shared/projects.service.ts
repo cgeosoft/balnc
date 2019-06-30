@@ -31,7 +31,8 @@ export class ProjectsService extends CommonService {
     const project: Project = {
       name
     }
-    return super.addOne('projects', project)
+    const projectDoc = super.addOne('projects', project)
+    return projectDoc["_id"]
   }
 
   async getIssue(id: string): Promise<RxIssueDoc> {

@@ -16,7 +16,7 @@
           <div class="btn-toolbar">
             <div class="btn-group">
               <button type="button" class="btn btn-sm" [ngStyle]="status(issue.status).style"
-                (click)="saveDetails({status:nextStatus(issue.status).key})">
+                (click)="nextStatus(issue.status)">
                 {{status(issue.status).label}}
               </button>
               <div class="btn-group btn-group-sm" ngbDropdown role="group">

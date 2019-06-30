@@ -55,8 +55,8 @@ export class IssueComponent implements OnInit {
 
   nextStatus(status: IssueStatus) {
     const i = this.issueStatusModel.findIndex(x => x.key === status)
-    if (i === this.issueStatusModel.length - 1) return this.issueStatusModel.length - 1
-    return this.issueStatusModel[i + 1]
+    if (i === -1 || i === this.issueStatusModel.length - 1) return
+    this.saveDetails({ status: this.issueStatusModel[i + 1].key })
   }
 
   ngOnInit() {

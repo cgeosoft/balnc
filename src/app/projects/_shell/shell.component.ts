@@ -3,7 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorage } from 'ngx-store';
 import { Observable, of } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { CreateProjectComponent } from '../create-project/create-project.component';
 import { IssueCreateComponent } from '../issue-create/issue-create.component';
 import { ProjectManageComponent } from '../project-manage/project-manage.component';
@@ -43,6 +43,18 @@ export class ShellComponent implements OnInit {
 
   ngOnInit() {
     this.projects$ = this.projectsService.getAll$<Project>("projects")
+      .pipe(
+        tap((projects: Project[]) => projects.sort((a, b) => {
+          if (a.name < b.name) {
+            return -1;
+          }
+          if (a.name > b.name) {
+            return 1;
+          }
+          return 0;
+        }
+        ))
+      )
     this.route.firstChild.params.subscribe(params => this.loadProject(params["pid"]))
     this.router.events
       .pipe(
@@ -93,11 +105,17 @@ export class ShellComponent implements OnInit {
     const m = this.modal.open(IssueCreateComponent)
     m.componentInstance.projectId = projectId
     const issueId = await m.result
-    this.router.navigate(["/projects/project", projectId, "issue", issueId])
+    if (issueId) {
+      this.router.navigate(["/projects/project", projectId, "issue", issueId])
+    }
   }
 
-  createProject() {
-    this.modal.open(CreateProjectComponent)
+  async createProject() {
+    const m = this.modal.open(CreateProjectComponent)
+    const projectId = await m.result
+    if (projectId) {
+      this.router.navigate(["/projects/project", projectId])
+    }
   }
 
 }
