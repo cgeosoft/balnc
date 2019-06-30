@@ -38,6 +38,7 @@
             (blur)="saveDetails({description:desc.value});editDesc=false"></textarea>
 
           <markdown *ngIf="!editDesc" (click)="editDesc=true" [data]="issue.description"></markdown>
+
         </div>
         <div class="d-flex flex-column bg-light h-100 ml-4 p-2" style="min-width:450px;width:450px">
           <div class="flex-grow-1 overflow-auto">
