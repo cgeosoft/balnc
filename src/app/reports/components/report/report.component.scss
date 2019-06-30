@@ -1,18 +1,10 @@
-
-
 :host {
   width: 100%;
   overflow: hidden;
   .report-wrapper {
-    @extend .d-flex;
     height: 100%;
     width: 100%;
     .filters {
-      @extend .text-white;
-      @extend .p-2;
-      @extend .d-flex;
-      @extend .flex-column;
-      background: lighten( $dark, 12%);
       width: 200px;
       min-width: 200px;
       height: 100%;

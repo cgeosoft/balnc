@@ -12,8 +12,8 @@ import { RemoteComponent } from '../remote/remote.component';
 })
 export class GeneralComponent implements OnInit {
 
-  @ViewChild('name') name: ElementRef
-  @ViewChild('alias') alias: ElementRef
+  @ViewChild('name', { static: false }) name: ElementRef
+  @ViewChild('alias', { static: false }) alias: ElementRef
 
   profileName: string
   profileAlias: string
@@ -53,7 +53,7 @@ export class GeneralComponent implements OnInit {
     this.configService.selectProfile(this.profile.id)
   }
 
-  async remoteEnable(){
+  async remoteEnable() {
     await this.modal.open(RemoteComponent).result
   }
 }

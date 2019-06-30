@@ -44,4 +44,6 @@ export class DataComponent implements OnInit {
     a.click()
   }
 
+  import() { }
+
 }

@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfigService } from '@balnc/core';
 import { DEMO_PROFILE, Helpers, Plugin, Profile } from '@balnc/shared';
-import { FilePickerDirective, ReadFile } from 'ngx-file-helpers';
+import { ReadFile } from 'ngx-file-helpers';
 
 @Component({
   selector: 'app-settings-shell',
@@ -10,44 +10,42 @@ import { FilePickerDirective, ReadFile } from 'ngx-file-helpers';
 })
 export class ShellComponent implements OnInit {
 
-  @ViewChild(FilePickerDirective)
-
   error: string
   profile: Profile
   plugins: Plugin[] = []
 
   helperService = Helpers
 
-  constructor (
+  constructor(
     public configService: ConfigService,
     private router: Router
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.profile = this.configService.getProfile()
     this.plugins = this.configService.plugins
   }
 
-  clear () {
+  clear() {
     this.configService.clearAllProfiles()
   }
 
-  create () {
+  create() {
     // empty
   }
 
-  createProfile () {
+  createProfile() {
     this.configService.saveProfile({
       name: this.helperService.generateName(),
       plugins: {}
     })
   }
 
-  createDemo () {
+  createDemo() {
     this.configService.saveProfile(DEMO_PROFILE)
   }
 
-  onFilePicked (file: ReadFile) {
+  onFilePicked(file: ReadFile) {
     this.error = null
     try {
       const data = file.content.split(',')[1]

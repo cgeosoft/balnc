@@ -13,8 +13,8 @@ import { Message } from '../../models/message';
 })
 export class BoardComponent implements OnInit {
 
-  @ViewChild('messageList') messageList: ElementRef
-  @ViewChild('messageInput') messageInput: ElementRef
+  @ViewChild('messageList', { static: false }) messageList: ElementRef
+  @ViewChild('messageInput', { static: false }) messageInput: ElementRef
 
   selected: string
   boards: Board[]
@@ -44,14 +44,14 @@ export class BoardComponent implements OnInit {
     }]
   }
 
-  constructor (
+  constructor(
     public boardService: BoardsService,
     private route: ActivatedRoute,
     private router: Router,
     private zone: NgZone
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.boardService.boards$.subscribe((boards) => {
       this.boards = boards
     })
@@ -63,7 +63,7 @@ export class BoardComponent implements OnInit {
     })
   }
 
-  loadMessages () {
+  loadMessages() {
     this.messages$ = this.boardService
       .messages$
       .pipe(
@@ -78,7 +78,7 @@ export class BoardComponent implements OnInit {
     })
   }
 
-  async send () {
+  async send() {
     if (!this.inputMessage) { return }
 
     const message: Message = {
@@ -96,18 +96,18 @@ export class BoardComponent implements OnInit {
     this.focusInput()
   }
 
-  async delete () {
+  async delete() {
     await this.boardService.deleteBoard(this.board.name)
     this.router.navigate(['/boards'])
   }
 
-  scrollToBottom (): void {
+  scrollToBottom(): void {
     if (this.messageList) {
       this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
     }
   }
 
-  focusInput (): void {
+  focusInput(): void {
     if (this.messageInput) {
       this.messageInput.nativeElement.focus()
     }

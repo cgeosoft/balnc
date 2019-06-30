@@ -14,7 +14,7 @@ import { PresentationsService } from '../_shared/services/presentations.service'
 })
 export class PresentationComponent implements OnInit {
 
-  @ViewChild('presentElem') presentElem: ElementRef
+  @ViewChild('presentElem', { static: false }) presentElem: ElementRef
 
   activePageIndex: number = 0
   imageData: string
