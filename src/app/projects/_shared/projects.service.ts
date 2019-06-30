@@ -63,7 +63,7 @@ export class ProjectsService extends CommonService {
       type: LogType.comment,
       issueId: issueId,
     }
-    await super.addOne('issues', log)
+    await super.addOne('logs', log)
   }
 
   async changeStatus(status: string, issueId: string) {
