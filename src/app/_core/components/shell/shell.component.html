@@ -13,7 +13,7 @@
   <div class="menu">
     <a class="item" routerLinkActive="active" routerLink="/dashboard">
       <fa-icon [icon]="['fas','tachometer-alt']"></fa-icon>
-      <span>board</span>
+      <span>Dash</span>
     </a>
     <ng-template ngFor let-plugin [ngForOf]="enabledPlugins">
       <a class="item" routerLinkActive="active" [routerLink]="['/',plugin.id]" [ngStyle]="{color:plugin.color}">

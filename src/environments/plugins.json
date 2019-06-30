@@ -1,55 +1,62 @@
 {
-  "plugins": [{
-    "id": "business",
-    "title": "Business",
-    "label": "business",
-    "description": "A basic contact management database. Include company and persons, custom fields and analytics.",
-    "icon": "building",
-    "color": "#42A5F5"
-  }, {
-    "id": "projects",
-    "title": "Projects",
-    "label": "projects",
-    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
-    "icon": "tasks",
-    "color": "#26A69A"
-  }, {
-    "id": "boards",
-    "title": "Boards",
-    "label": "boards",
-    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
-    "icon": "comments",
-    "color": "#FF7043"
-  }, {
-    "id": "presentations",
-    "title": "Presentations",
-    "label": "present",
-    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
-    "icon": "desktop",
-    "color": "#FFA726"
-  }, {
-    "id": "analytics",
-    "title": "Analytics",
-    "label": "analytics",
-    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
-    "icon": "chart-pie",
-    "color": "#EC407A"
-  }, {
-    "id": "reports",
-    "title": "Reports",
-    "label": "reports",
-    "description": "A simple but full-feature team chat with customizable rooms",
-    "icon": "file-alt",
-    "color": "#AB47BC",
-    "config": {
-      "server": {
-        "requireUser": {
-          "type": "boolean"
-        },
-        "host": {
-          "type": "string"
+  "plugins": [
+    {
+      "id": "business",
+      "title": "Business",
+      "label": "Business",
+      "description": "A basic contact management database. Include company and persons, custom fields and analytics.",
+      "icon": "building",
+      "color": "#64B5F6"
+    },
+    {
+      "id": "projects",
+      "title": "Projects",
+      "label": "Projects",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+      "icon": "tasks",
+      "color": "#4DB6AC"
+    },
+    {
+      "id": "boards",
+      "title": "Boards",
+      "label": "Boards",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+      "icon": "comments",
+      "color": "#FF8A65"
+    },
+    {
+      "id": "presentations",
+      "title": "Presentations",
+      "label": "Present",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+      "icon": "desktop",
+      "color": "#FFF176"
+    },
+    {
+      "id": "analytics",
+      "title": "Analytics",
+      "label": "Analytics",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+      "icon": "chart-pie",
+      "color": "#F06292"
+    },
+    {
+      "id": "reports",
+      "title": "Reports",
+      "label": "Reports",
+      "description": "A simple but full-feature team chat with customizable rooms",
+      "icon": "file-alt",
+      "color": "#9575CD",
+      "config": {
+        "server": {
+          "requireUser": {
+            "type": "boolean"
+          },
+          "host": {
+            "type": "string"
+          }
         }
       }
     }
-  }]
+  ]
 }
