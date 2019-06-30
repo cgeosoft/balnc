@@ -1,7 +1,7 @@
 import { IssueComponent } from './issue/issue.component';
-import { ManageComponent } from './manage/manage.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ProjectComponent } from './project/project.component';
+import { SettingsComponent } from './settings/settings.component';
 import { ProjectsResolver } from './_shared/resolver';
 import { ShellComponent } from './_shell/shell.component';
 
@@ -14,8 +14,8 @@ export const ProjectsRoutes = [{
   children: [
     { path: '', redirectTo: 'overview', pathMatch: 'full' },
     { path: 'overview', component: OverviewComponent },
-    { path: 'manage', component: ManageComponent },
+    { path: 'settings', component: SettingsComponent },
     { path: 'project/:pid', component: ProjectComponent },
-    { path: 'project/:pid/issue/:tid', component: IssueComponent }
+    { path: 'project/:pid/issue/:iid', component: IssueComponent }
   ]
 }]

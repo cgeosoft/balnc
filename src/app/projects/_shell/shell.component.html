@@ -6,25 +6,31 @@
         <fa-icon icon="border-all" class="icon"></fa-icon>
         <span>Overview</span>
       </a>
-      <a routerLink="/projects/manage" routerLinkActive="active">
-        <fa-icon icon="tasks" class="icon"></fa-icon>
-        <span>Projects</span>
-      </a>
-      <hr>
-      <button (click)="generateDemoData()">
-        <fa-icon icon="random" class="icon"></fa-icon>
-        <span>Generate Data</span>
-        <fa-icon [icon]="['fas','cog']" [spin]="true" class="icon icon-badge" *ngIf="generating"></fa-icon>
+    </div>
+  </div>
+  <div class="menu" *ngIf="(project$ | async) as project">
+    <div class="header">{{project.name}}</div>
+    <div class="items">
+      <button (click)="editDetails(project['_id'])">
+        <fa-icon icon="pencil-ruler" class="icon"></fa-icon>
+        <span>Edit project details</span>
       </button>
-      <div class="divider"></div>
-      <ng-container *ngIf="projects; else empty">
-        <ng-container *ngIf="projects.length; else empty">
-          <a *ngFor="let project of projects" [routerLink]="['/projects/project',project._id]"
-            routerLinkActive="active">
-            <span>{{project.name}}</span>
-          </a>
-        </ng-container>
-      </ng-container>
+      <a [routerLink]="['/projects/project',project['_id']]" routerLinkActive="active">
+        <fa-icon icon="tasks" class="icon"></fa-icon>
+        <span>View all issues</span>
+      </a>
+      <button (click)="createIssue(project['_id'])">
+        <fa-icon icon="plus-circle" class="icon"></fa-icon>
+        <span>Create new issue</span>
+      </button>
+    </div>
+  </div>
+  <div class="menu mt-auto">
+    <div class="items">
+      <a routerLink="/projects/settings" routerLinkActive="active">
+        <fa-icon icon="cog"></fa-icon>
+        <span>Settings</span>
+      </a>
     </div>
   </div>
 </app-sidebar>

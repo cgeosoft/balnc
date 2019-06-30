@@ -2,12 +2,10 @@
   <div class="bg-light">
     <div class="container">
       <ol class="breadcrumb mb-0 bg-light">
-        <li class="breadcrumb-item"><a [routerLink]="['/projects/overview']">Overview</a></li>
         <li class="breadcrumb-item active">{{project?.name}}</li>
       </ol>
     </div>
   </div>
-
 
   <app-content-body>
     <div class="btn-toolbar">
@@ -45,7 +43,7 @@
             <tr>
               <th style="width:100px">Status</th>
               <th>Issue</th>
-              <th style="width:250px">Details</th>
+              <th style="width:350px">Details</th>
             </tr>
           </thead>
           <tbody>
@@ -55,7 +53,7 @@
                   [ngStyle]="{'background-color':getStatus(issue.status).color}">{{getStatus(issue.status).alias}}</span>
               </td>
               <td>
-                <a [routerLink]="['/projects/project',issue.project,'issue',issue['_id']]">{{issue.title}}</a>
+                <a [routerLink]="['/projects/project',issue.projectId,'issue',issue['_id']]">{{issue.title}}</a>
               </td>
               <td>
                 {{issue.insertedAt | dfnsDistanceInWordsToNow}} ago by

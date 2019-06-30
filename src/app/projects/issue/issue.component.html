@@ -4,7 +4,6 @@
     <div class="bg-light">
       <div class="container">
         <ol class="breadcrumb mb-0 bg-light">
-          <li class="breadcrumb-item"><a [routerLink]="['/projects/overview']">Overview</a></li>
           <li class="breadcrumb-item"><a
               [routerLink]="['/projects/project',issue.projectId]">{{(project$ | async)?.name}}</a></li>
           <li class="breadcrumb-item active">{{issue.title}}</li>
@@ -14,13 +13,13 @@
     <app-content-body>
       <div class="d-flex h-100">
         <div class="flex-grow-1">
-          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group mr-3">
-              <button type="button" class="btn" [ngStyle]="status(issue.status).style"
+          <div class="btn-toolbar">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm" [ngStyle]="status(issue.status).style"
                 (click)="saveDetails({status:nextStatus(issue.status).key})">
                 {{status(issue.status).label}}
               </button>
-              <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+              <div class="btn-group btn-group-sm" ngbDropdown role="group">
                 <button class="btn dropdown-toggle-split" [ngStyle]="status(issue.status).style"
                   ngbDropdownToggle></button>
                 <div class="dropdown-menu" ngbDropdownMenu>
@@ -36,9 +35,7 @@
           <textarea #desc *ngIf="editDesc" class="form-control" style="padding:0;box-shadow:none" rows="10"
             placeholder="description..." [value]="issue.description"
             (blur)="saveDetails({description:desc.value});editDesc=false"></textarea>
-
           <markdown *ngIf="!editDesc" (click)="editDesc=true" [data]="issue.description"></markdown>
-
         </div>
         <div class="d-flex flex-column bg-light h-100 ml-4 p-2" style="min-width:450px;width:450px">
           <div #timeline class="flex-grow-1 overflow-auto timeline">

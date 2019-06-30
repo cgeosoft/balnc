@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title">Manage Project</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body" *ngIf="project; else loader">
+  <div class="form-group">
+    <label>Name
+      <small class="text-muted">required</small>
+    </label>
+    <div class="d-flex">
+      <input class="form-control" [(ngModel)]="project.name">
+      <button type="button" class="btn btn-success ml-2" (click)="updateName()">Update</button>
+    </div>
+  </div>
+</div>
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

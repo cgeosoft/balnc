@@ -122,19 +122,11 @@ thead {
 }
 
 .modal-content {
-  border-color: #fff;
   .modal-header {
-    background: $primary;
     padding: 0.5rem 1rem;
     .modal-title {
-      color: #fff;
       font-weight: 300;
       font-size: 1.2rem;
-    }
-    .close {
-      span {
-        color: #fff;
-      }
     }
   }
   .modal-footer {

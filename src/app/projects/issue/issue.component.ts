@@ -64,7 +64,7 @@ export class IssueComponent implements OnInit {
       .params
       .subscribe(params => {
         this.projectId = params['pid']
-        this.issueId = params['tid']
+        this.issueId = params['iid']
         this.form = this.formBuilder.group({
           comment: ['', [Validators.required]]
         })

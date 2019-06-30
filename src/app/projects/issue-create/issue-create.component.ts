@@ -1,22 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { RxDocumentBase } from 'rxdb';
-import { Observable } from 'rxjs';
-import { Issue, IssueType, RxProjectDoc } from '../_shared/models/project';
+import { Issue, IssueType } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
   selector: 'app-projects-issue-create',
-  templateUrl: './create-issue.component.html',
-  styleUrls: ['./create-issue.component.scss']
+  templateUrl: './issue-create.component.html',
+  styleUrls: ['./issue-create.component.scss']
 })
-export class CreateIssueComponent implements OnInit {
-
-  projects$: Observable<(RxDocumentBase<RxProjectDoc> & RxProjectDoc)[]>
+export class IssueCreateComponent implements OnInit {
 
   @Input() projectId
-
   form: FormGroup
 
   constructor(

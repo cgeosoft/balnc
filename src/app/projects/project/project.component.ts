@@ -4,8 +4,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorage } from 'ngx-store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { CreateIssueComponent as CreateIssueComponent } from '../create-issue/create-issue.component';
-import { CreateProjectComponent } from '../create-project/create-project.component';
 import { Issue, IssueStatus, IssueStatuses, IssueType, Project } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
@@ -53,15 +51,6 @@ export class ProjectComponent implements OnInit {
     })
   }
 
-  async createProject() {
-    await this.modal.open(CreateProjectComponent).result
-    await this.ngOnInit()
-  }
-
-  async generate() {
-    this.projectsService.generateDemoData()
-  }
-
   getStatus(status: IssueStatus) {
     return IssueStatuses.find(s => s.key === status)
   }
@@ -85,13 +74,6 @@ export class ProjectComponent implements OnInit {
 
   changedFilters() {
     this.filters = this.filters
-  }
-
-  async createIssue() {
-    const modalRef = this.modal.open(CreateIssueComponent)
-    modalRef.componentInstance.projectId = this.projectId
-    await modalRef.result
-    this.load()
   }
 
   private async load() {
