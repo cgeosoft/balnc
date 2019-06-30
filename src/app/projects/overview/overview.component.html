@@ -1,102 +1,70 @@
 <app-content>
-  <!-- <app-content-header title="Projects Overview" icon="issues"></app-content-header> -->
   <div class="bg-light">
     <div class="container">
       <ol class="breadcrumb mb-0 bg-light">
-        <li class="breadcrumb-item active">Projects</li>
+        <li class="breadcrumb-item active">Overview</li>
       </ol>
     </div>
   </div>
   <app-content-body>
-
-    <div class="row">
-      <div class="col-8">
-        <ng-container *ngIf="pevents; else loader">
-          <ng-container *ngIf="pevents.length; else noPEvents">
-
-            <div class="list-group list-group-flush">
-              <div class="list-group-item" *ngFor="let pevent of pevents">
-
-                <ng-container *ngIf="pevent.type==='TASK'">
-                  <strong>{{pevent.insertedFrom}}</strong> created a issue <a [routerLink]="['/projects/project',pevent.project,'issue',pevent['_id']]">{{pevent.title}}</a>
-                </ng-container>
-
-                <ng-container *ngIf="pevent.type==='CHANGE_STATUS'">
-                  <strong>{{pevent.insertedFrom}}</strong> updated
-                  <a [routerLink]="['/projects/project',pevent.project,'issue',pevent['_id']]">issue</a>
-                  to {{pevent.description}}
-                </ng-container>
-                <div><small class="text-muted">{{pevent.insertedAt | dfnsDistanceInWordsToNow}} ago</small></div>
-                <!-- <pre>{{pevent|json:2}}</pre> -->
-              </div>
-            </div>
-
-            <table class="table">
-              <tbody>
-                <tr *ngFor="let pevent of pevents">
-                  <td>
-                    <div class="d-flex flex-column align-items-start">
-                      <ng-container [ngSwitch]="pevent.status">
-                        <span class="badge badge-primary" *ngSwitchCase="'PENDING'">PENDING</span>
-                        <span class="badge badge-success" *ngSwitchCase="'COMPLETE'">COMPLETE</span>
-                      </ng-container>
-                    </div>
-                  </td>
-                  <td>
-                    <a [routerLink]="['/projects/project',pevent.project,'pevent',pevent['_id']]" class="pevent-title">{{pevent.title}}</a>
-                  </td>
-                  <td>
-                    opened
-                    <strong>{{pevent.insertedAt | dfnsDistanceInWordsToNow}}</strong> ago by
-                    <strong>{{pevent.insertedFrom}}</strong>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </ng-container>
-        </ng-container>
-      </div>
-      <div class="col-4">
-        <div class="card">
-          <div class="card-header">
-            Starred Projects
-            <button type="button" class="btn btn-sm btn-outline-primary float-right py-0" (click)="createProject()">
-              <fa-icon icon="plus-circle"></fa-icon>
-            </button>
-          </div>
-          <ng-container *ngIf="projects; else loader">
-            <ng-container *ngIf="projects.length; else noProjects">
-              <table class="table mb-0">
-                <tr *ngFor="let project of projects">
-                  <td>
-                    <a [routerLink]="['/projects/project',project['_id']]" routerLinkActive="active">
-                      <span>{{project.name}}</span>
-                    </a>
-                  </td>
-                </tr>
-              </table>
-            </ng-container>
-          </ng-container>
-          <div class="card-footer">
-            <a [routerLink]="['/projects/manage']">Show all</a>
-          </div>
-        </div>
-        <!-- <pre>{{projects|json:2}}</pre> -->
-        <hr>
-        <ul class="list-group">
-          <button class="list-group-item list-group-item-action" (click)="generate()">Generate Random Data</button>
+    <div class="btn-toolbar">
+      <div>Show</div>
+      <select class="form-control form-control-sm mx-2" style="width: 60px" [(ngModel)]="pLength"
+        (change)="calcPages()">
+        <option *ngFor="let length of lengths" [ngValue]="length">{{length}}</option>
+      </select>
+      <div>issues</div>
+      <div class="ml-auto">
+        <ul class="pagination pagination-sm mb-0">
+          <li class="page-item">
+            <button class="page-link" (click)="goPrevious()">Previous</button>
+          </li>
+          <li class="page-item" [ngClass]="{active:p === page}" *ngFor="let p of pages">
+            <button class="page-link" (click)="page = p">{{p+1}}</button>
+          </li>
+          <li class="page-item">
+            <button class="page-link" (click)="goNext()">Next</button>
+          </li>
         </ul>
       </div>
     </div>
+
+    <ng-container *ngIf="(issues$ | async) as issues; else loader">
+      <ng-container *ngIf="issues.length; else noissues">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th style="width:100px">Status</th>
+              <th>Issue</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let issue of issues | slice:pStart:pEnd">
+              <td>
+                <span class="badge badge-dark w-100"
+                  [ngStyle]="{'background-color':getStatus(issue.status).color}">{{getStatus(issue.status).alias}}</span>
+              </td>
+              <td>
+                <a [routerLink]="['/projects/project',issue.project,'issue',issue['_id']]">{{issue.title}}</a>
+                <small> / <a
+                    [routerLink]="['/projects/project',issue.projectId]">{{getProject(issue.projectId).name}}</a></small>
+              </td>
+              <td>
+                {{issue.insertedAt | dfnsDistanceInWordsToNow}} ago by
+                {{issue.insertedFrom}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
 
   </app-content-body>
 
 </app-content>
 
-<ng-template #noProjects>
-  <app-empty message="No projects" icon="file-alt:regular"></app-empty>
-</ng-template>
-<ng-template #noPEvents>
+<ng-template #noissues>
   <app-empty message="You don't have any events yet" icon="file-alt:regular"></app-empty>
 </ng-template>
 <ng-template #loader>

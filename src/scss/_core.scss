@@ -1,5 +1,3 @@
-
-
 html,
 body,
 .wrapper {
@@ -24,8 +22,8 @@ a {
     vertical-align: middle;
     span.info {
       display: block;
-      color: #CCC;
-      font-size: .8rem;
+      color: #ccc;
+      font-size: 0.8rem;
     }
   }
 }
@@ -59,7 +57,7 @@ a {
 .copyright {
   color: lighten($dark, 10);
   text-align: center;
-  font-size: .8rem;
+  font-size: 0.8rem;
   margin-bottom: 3rem;
   a {
     color: lighten($dark, 15);
@@ -72,23 +70,23 @@ a {
 
 .card-header-buttons {
   float: right;
-  >button,
-  >.dropdown>button {
-    font-size: .8em;
-    padding: 0rem .5rem;
+  > button,
+  > .dropdown > button {
+    font-size: 0.8em;
+    padding: 0rem 0.5rem;
   }
 }
 
 .dropdown-toggle-hidden {
   &::after {
-    display: none
+    display: none;
   }
 }
 
 .module-content {
   display: flex;
   width: 100%;
-  height: 100%
+  height: 100%;
 }
 
 // .card-header {
@@ -113,7 +111,7 @@ thead {
 }
 
 .card {
-  >ngb-tabset {
+  > ngb-tabset {
     .nav-tabs {
       padding: 0 19px;
       .nav-item {
@@ -124,32 +122,34 @@ thead {
 }
 
 .modal-content {
-  border-color: #FFF;
+  border-color: #fff;
   .modal-header {
     background: $primary;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     .modal-title {
-      color: #FFF;
+      color: #fff;
       font-weight: 300;
       font-size: 1.2rem;
     }
     .close {
       span {
-        color: #FFF;
+        color: #fff;
       }
     }
   }
   .modal-footer {
-    padding: .5rem 1rem;
-    background: #EEE;
+    padding: 0.5rem 1rem;
+    background: #eee;
   }
 }
 
 .btn-toolbar {
   background: #fafafa;
-  border: solid 1px #EEE;
+  border: solid 1px #eee;
   padding: 7.5px;
   border-radius: 5px;
   margin-bottom: 15px;
   border-width: 0 1px 1px 0;
+  display: flex;
+  align-items: center;
 }

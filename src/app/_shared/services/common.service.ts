@@ -15,11 +15,11 @@ export class CommonService {
   db: RxDatabase
   config: CommonConfig
 
-  constructor (config: CommonConfig) {
+  constructor(config: CommonConfig) {
     this.config = config
   }
 
-  async setup () {
+  async setup() {
     if (!this.db) {
       this.db = await this.config.dbService.setup(this.config.alias, this.config.entities)
       this.config.entities.forEach(entity => {
@@ -28,25 +28,25 @@ export class CommonService {
     }
   }
 
-  async getAll<T> (entity: string, params): Promise<T[]> {
+  async getAll<T>(entity: string, params: any = {}): Promise<T[]> {
     return this.db[entity].find(params).exec()
   }
 
-  getAll$<T> (entity: string, params): Observable<(RxDocument<T> & T)[]> {
+  getAll$<T>(entity: string, params: any = {}): Observable<(RxDocument<T> & T)[]> {
     return this.db[entity].find(params).$
   }
 
-  async getOne<T> (entity: string, id): Promise<RxDocument<T> & T> {
+  async getOne<T>(entity: string, id): Promise<RxDocument<T> & T> {
     const obj = await this.db[entity].findOne(id).exec()
     if (!obj) return null
     return obj
   }
 
-  getOne$<T> (entity: string, id): Observable<RxDocument<T> & T> {
+  getOne$<T>(entity: string, id): Observable<RxDocument<T> & T> {
     return this.db[entity].findOne(id).$
   }
 
-  async addOne<T> (entity: string, obj: T): Promise<RxDocument<T> & T> {
+  async addOne<T>(entity: string, obj: T): Promise<RxDocument<T> & T> {
     let doc = this.db[entity].newDocument(obj)
     await doc.save()
     return doc

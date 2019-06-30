@@ -5,6 +5,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { CreateIssueComponent } from './create-issue/create-issue.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { IssueComponent } from './issue/issue.component';
+import { ManageComponent } from './manage/manage.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ProjectComponent } from './project/project.component';
 import { ProjectsRoutes } from './projects.routes';
@@ -37,7 +38,8 @@ import { ShellComponent } from './_shell/shell.component';
     ProjectComponent,
     IssueComponent,
     CreateIssueComponent,
-    CreateProjectComponent
+    CreateProjectComponent,
+    ManageComponent
   ],
   providers: [
     ProjectsResolver,

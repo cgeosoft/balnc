@@ -1,0 +1,31 @@
+<app-content>
+  <div class="bg-light">
+    <div class="container">
+      <ol class="breadcrumb mb-0 bg-light">
+        <li class="breadcrumb-item active">Projects</li>
+      </ol>
+    </div>
+  </div>
+  <app-content-body>
+    <ng-container *ngIf="(projects$ | async) as projects; else loader">
+      <ng-container *ngIf="projects.length; else noProjects">
+        <table class="table mb-0">
+          <tr *ngFor="let project of projects">
+            <td>
+              <a [routerLink]="['/projects/project',project['_id']]" routerLinkActive="active">
+                <span>{{project.name}}</span>
+              </a>
+            </td>
+          </tr>
+        </table>
+      </ng-container>
+    </ng-container>
+  </app-content-body>
+</app-content>
+
+<ng-template #noProjects>
+  <app-empty message="No projects" icon="file-alt:regular"></app-empty>
+</ng-template>
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

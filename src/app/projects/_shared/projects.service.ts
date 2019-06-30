@@ -27,26 +27,11 @@ export class ProjectsService extends CommonService {
     this.projects$ = this.db['projects'].find().$
   }
 
-  async getOverviewProjects() {
-    return super.getAll<Project>('projects', {
-      isArchived: false,
-      isStarred: true
-    })
-  }
-
   async createProject(name: string) {
     const project: Project = {
       name
     }
     return super.addOne('projects', project)
-  }
-
-  async getLatestIssues() {
-    return this.db['issues']
-      .find()
-      .sort({ insertedAt: 'desc' })
-      .limit(50)
-      .exec()
   }
 
   async getIssue(id: string): Promise<RxIssueDoc> {
