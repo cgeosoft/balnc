@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LocalStorage } from 'ngx-store';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { CreateIssueComponent as CreateIssueComponent } from '../create-issue/create-issue.component';
-import { Issue, IssueType, Project } from '../_shared/models/project';
+import { CreateProjectComponent } from '../create-project/create-project.component';
+import { Issue, IssueStatus, IssueStatuses, IssueType, Project } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
@@ -13,36 +16,75 @@ import { ProjectsService } from '../_shared/projects.service';
 })
 export class ProjectComponent implements OnInit {
 
-  tabsMenu: any
-  issues$: Observable<Issue[]>
-  project: Project
-  projectId: string
+  issues$: Observable<Issue[]>;
+  issuesLength = 0;
+  pages = [];
+  @LocalStorage("project_page") page = 0;
+  @LocalStorage("project_pLength") pLength = 10;
+
+  lengths = [5, 10, 25, 50]
+  projects: Project[];
+  projectId: any;
+  project: any;
+
+  issueStatuses = IssueStatuses
+  @LocalStorage("project_filters") filters = {
+    status: null
+  }
 
   constructor(
-    private route: ActivatedRoute,
     private projectsService: ProjectsService,
-    private modal: NgbModal
+    private modal: NgbModal,
+    private zone: NgZone,
+    private route: ActivatedRoute,
   ) { }
 
-  ngOnInit() {
+  get pStart() {
+    return this.page * this.pLength
+  }
+  get pEnd() {
+    return this.pStart + this.pLength
+  }
 
-    this.tabsMenu = {
-      selected: 'issues',
-      tabs: [{
-        id: 'issues',
-        label: 'Issues',
-        icon: 'issues'
-      }, {
-        id: 'settings',
-        icon: 'cog',
-        right: true
-      }]
-    }
-
+  async ngOnInit() {
     this.route.params.subscribe(params => {
       this.projectId = params['pid']
       this.load()
     })
+  }
+
+  async createProject() {
+    await this.modal.open(CreateProjectComponent).result
+    await this.ngOnInit()
+  }
+
+  async generate() {
+    this.projectsService.generateDemoData()
+  }
+
+  getStatus(status: IssueStatus) {
+    return IssueStatuses.find(s => s.key === status)
+  }
+
+  getProject(projectId) {
+    return this.projects.find(p => p["_id"] === projectId)
+  }
+
+  goPrevious() {
+    if (this.page > 0) this.page--
+  }
+
+  goNext() {
+    if (this.page < this.pages.length - 1) this.page++
+  }
+
+  calcPages() {
+    this.pages = Array.apply(null, { length: this.issuesLength / this.pLength }).map(Number.call, Number)
+    if (this.pages.length && this.issuesLength % this.pLength > 0) this.pages.push(this.pages[this.pages.length - 1] + 1)
+  }
+
+  changedFilters() {
+    this.filters = this.filters
   }
 
   async createIssue() {
@@ -54,9 +96,26 @@ export class ProjectComponent implements OnInit {
 
   private async load() {
     this.project = await this.projectsService.getOne<Project>('projects', this.projectId)
-    this.issues$ = this.projectsService.getAll$<Issue>('issues', {
-      projectId: { $eq: this.projectId },
-      type: { $eq: IssueType.issue }
-    })
+    this.issues$ = this.projectsService
+      .getAll$<Issue>('issues', {
+        projectId: { $eq: this.projectId },
+        type: { $eq: IssueType.issue },
+      })
+      .pipe(
+        tap((issues: Issue[]) => issues.sort((a, b) => a.insertedAt - b.insertedAt)),
+        tap((issues: Issue[]) => issues.reverse()),
+        tap((issues: Issue[]) => {
+          this.issuesLength = issues.length
+          this.calcPages()
+          this.zone.run(() => { })
+        }),
+      )
+  }
+}
+
+@Pipe({ name: 'filterIssues', pure: false })
+export class FilterIssuesPipe implements PipeTransform {
+  transform(issues: Issue[], filters?: any): Issue[] {
+    return issues.filter((i) => i.status === filters.status || filters.status === null)
   }
 }

@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CreateProjectComponent } from '../create-project/create-project.component';
-import { Issue, IssueStatus, IssueStatusModel, Project } from '../_shared/models/project';
+import { Log, Project } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
@@ -13,13 +13,7 @@ import { ProjectsService } from '../_shared/projects.service';
 })
 export class OverviewComponent implements OnInit {
 
-  issues$: Observable<Issue[]>;
-  issuesLength = 0;
-  pages = [];
-  page = 0;
-  pLength = 10;
-
-  lengths = [5, 10, 25, 50]
+  logs$: Observable<Log[]>;
   projects: Project[];
 
   constructor(
@@ -28,25 +22,16 @@ export class OverviewComponent implements OnInit {
     private zone: NgZone
   ) { }
 
-  get pStart() {
-    return this.page * this.pLength
-  }
-  get pEnd() {
-    return this.pStart + this.pLength
-  }
-
   async ngOnInit() {
     this.projects = await this.projectsService.getAll<Project>("projects")
-    this.issues$ = this.projectsService.db['issues']
-      .find().$.pipe(
-        tap((issues: Issue[]) => issues.sort((a, b) => a.insertedAt - b.insertedAt)),
-        tap((issues: Issue[]) => issues.reverse()),
-        tap((issues: Issue[]) => {
-          this.issuesLength = issues.length
-          this.calcPages()
-          this.zone.run(() => { })
-        }),
-      )
+    this.logs$ = this.projectsService.getAll$<Log>('logs').pipe(
+      tap((logs: Log[]) => logs.sort((a, b) => a.insertedAt - b.insertedAt)),
+      tap((logs: Log[]) => logs.reverse()),
+      tap(() => {
+        console.log("asd")
+        this.zone.run(() => { })
+      }),
+    )
   }
 
   async createProject() {
@@ -58,24 +43,8 @@ export class OverviewComponent implements OnInit {
     this.projectsService.generateDemoData()
   }
 
-  getStatus(status: IssueStatus) {
-    return IssueStatusModel.find(s => s.key === status)
-  }
-
   getProject(projectId) {
     return this.projects.find(p => p["_id"] === projectId)
-  }
-
-  goPrevious() {
-    if (this.page > 0) this.page--
-  }
-
-  goNext() {
-    if (this.page < this.pages.length - 1) this.page++
-  }
-
-  calcPages() {
-    this.pages = Array.apply(null, { length: this.issuesLength / this.pLength }).map(Number.call, Number)
   }
 
 }

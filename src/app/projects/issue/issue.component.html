@@ -4,7 +4,7 @@
     <div class="bg-light">
       <div class="container">
         <ol class="breadcrumb mb-0 bg-light">
-          <li class="breadcrumb-item"><a [routerLink]="['/projects']">Projects</a></li>
+          <li class="breadcrumb-item"><a [routerLink]="['/projects/overview']">Overview</a></li>
           <li class="breadcrumb-item"><a
               [routerLink]="['/projects/project',issue.projectId]">{{(project$ | async)?.name}}</a></li>
           <li class="breadcrumb-item active">{{issue.title}}</li>

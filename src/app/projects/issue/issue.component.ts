@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Issue, IssueStatus, IssueStatusModel, Log, LogType, Project } from '../_shared/models/project';
+import { Issue, IssueStatus, IssueStatuses, Log, LogType, Project } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class IssueComponent implements OnInit {
   editDesc = false
 
   statuses = IssueStatus
-  issueStatusModel = IssueStatusModel
+  issueStatusModel = IssueStatuses
 
   logType = LogType
 
@@ -83,7 +83,7 @@ export class IssueComponent implements OnInit {
     await this.projectsService.addOne<Log>("logs", {
       issueId: this.issueId,
       type: LogType.activity,
-      text: Object.keys(data).map(k => `${k} changed to ${data[k]}`).join(" "),
+      text: Object.keys(data).map(k => `${k}: ${data[k]}`).join(" "),
       insertedAt: Date.now(),
       insertedFrom: "_system"
     })

@@ -2,14 +2,15 @@
   <div class="title">Projects</div>
   <div class="menu">
     <div class="items">
-      <a routerLink="/projects" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <fa-icon icon="tasks" class="icon"></fa-icon>
-        <span>All Projects</span>
+      <a routerLink="/projects/overview" routerLinkActive="active">
+        <fa-icon icon="border-all" class="icon"></fa-icon>
+        <span>Overview</span>
       </a>
-      <button (click)="createProject()">
-        <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
-        <span>New Project</span>
-      </button>
+      <a routerLink="/projects/manage" routerLinkActive="active">
+        <fa-icon icon="tasks" class="icon"></fa-icon>
+        <span>Projects</span>
+      </a>
+      <hr>
       <button (click)="generateDemoData()">
         <fa-icon icon="random" class="icon"></fa-icon>
         <span>Generate Data</span>

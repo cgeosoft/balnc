@@ -68,7 +68,7 @@ export const IssueTypeModel = [
   { alias: "support", color: "#f00" }
 ]
 
-export const IssueStatusModel = [
+export const IssueStatuses = [
   { key: IssueStatus.open, alias: "Open", color: "#9E9E9E" },
   { key: IssueStatus.pending, alias: "Pending", color: "#607D8B" },
   { key: IssueStatus.progress, alias: "Progress", color: "#FF5722" },

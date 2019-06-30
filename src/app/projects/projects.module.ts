@@ -7,7 +7,7 @@ import { CreateProjectComponent } from './create-project/create-project.componen
 import { IssueComponent } from './issue/issue.component';
 import { ManageComponent } from './manage/manage.component';
 import { OverviewComponent } from './overview/overview.component';
-import { ProjectComponent } from './project/project.component';
+import { FilterIssuesPipe, ProjectComponent } from './project/project.component';
 import { ProjectsRoutes } from './projects.routes';
 import { ProjectsService } from './_shared/projects.service';
 import { ProjectsResolver } from './_shared/resolver';
@@ -39,7 +39,9 @@ import { ShellComponent } from './_shell/shell.component';
     IssueComponent,
     CreateIssueComponent,
     CreateProjectComponent,
-    ManageComponent
+    ManageComponent,
+
+    FilterIssuesPipe,
   ],
   providers: [
     ProjectsResolver,

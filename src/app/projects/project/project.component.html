@@ -2,84 +2,74 @@
   <div class="bg-light">
     <div class="container">
       <ol class="breadcrumb mb-0 bg-light">
-        <li class="breadcrumb-item"><a [routerLink]="['/projects']">Projects</a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/projects/overview']">Overview</a></li>
         <li class="breadcrumb-item active">{{project?.name}}</li>
       </ol>
     </div>
   </div>
+
+
   <app-content-body>
-    <div *ngIf="tabsMenu.selected ==='issues'">
-      <div class="btn-toolbar">
-        <div class="btn-group mr-2">
-          <button type="button" class="btn btn-sm btn-primary" (click)="createIssue()">
-            <span class="fa fa-plus-circle fa-fw"></span> New Issue</button>
-        </div>
+    <div class="btn-toolbar">
+      <div>Show</div>
+      <select class="form-control form-control-sm mx-2" style="width: 60px" [(ngModel)]="pLength"
+        (change)="calcPages()">
+        <option *ngFor="let length of lengths" [ngValue]="length">{{length}}</option>
+      </select>
+      <div>of <strong>{{issuesLength}}</strong> issues with status</div>
+      <select class="form-control form-control-sm mx-2" style="width: 100px" [(ngModel)]="filters.status"
+        (change)="calcPages();changedFilters()">
+        <option [ngValue]="null">Any</option>
+        <option *ngFor="let is of issueStatuses" [ngValue]="is.key">{{is.alias}}</option>
+      </select>
+      <div class="ml-auto">
+        <ul class="pagination pagination-sm mb-0" *ngIf="pages.length">
+          <li class="page-item">
+            <button class="page-link" (click)="goPrevious()">Previous</button>
+          </li>
+          <li class="page-item" [ngClass]="{active:p === page}" *ngFor="let p of pages">
+            <button class="page-link" (click)="page = p">{{p+1}}</button>
+          </li>
+          <li class="page-item">
+            <button class="page-link" (click)="goNext()">Next</button>
+          </li>
+        </ul>
       </div>
-      <ng-container *ngIf="(issues$ | async) as issues; else loader">
-        <ng-container *ngIf="issues.length; else empty">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Status</th>
-                <th>Details</th>
-                <th>Opened</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let issue of issues">
-                <td>
-                  <div class="d-flex flex-column align-items-start">
-                    <ng-container [ngSwitch]="issue.status">
-                      <span class="badge badge-primary" *ngSwitchCase="'PENDING'">PENDING</span>
-                      <span class="badge badge-success" *ngSwitchCase="'COMPLETE'">COMPLETE</span>
-                    </ng-container>
-                  </div>
-                </td>
-                <td>
-                  <a [routerLink]="['/projects/project',project['_id'],'issue',issue['_id']]" class="issue-title">{{issue.title}}</a>
-                </td>
-                <td>
-                  opened
-                  <strong>{{issue.insertedAt | dfnsDistanceInWordsToNow}}</strong> ago by
-                  <strong>{{issue.insertedFrom}}</strong>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </ng-container>
+    </div>
+
+    <ng-container *ngIf="(issues$ | async) as issues; else loader">
+      <ng-container *ngIf="(issues | filterIssues:filters).length; else noissues">
+
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th style="width:100px">Status</th>
+              <th>Issue</th>
+              <th style="width:250px">Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let issue of issues | filterIssues:filters | slice:pStart:pEnd">
+              <td>
+                <span class="badge badge-dark w-100"
+                  [ngStyle]="{'background-color':getStatus(issue.status).color}">{{getStatus(issue.status).alias}}</span>
+              </td>
+              <td>
+                <a [routerLink]="['/projects/project',issue.project,'issue',issue['_id']]">{{issue.title}}</a>
+              </td>
+              <td>
+                {{issue.insertedAt | dfnsDistanceInWordsToNow}} ago by
+                {{issue.insertedFrom}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </ng-container>
-    </div>
-    <div *ngIf="tabsMenu.selected ==='settings'">
-      <div class="row">
-        <div class="col-md-8 offset-md-2">
-          <h4 class="lead mb-4">Project Settings</h4>
-          <div class="card">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <button class="btn btn-outline-secondary float-right">Change</button>
-                <strong>Project details</strong>
-                <p class="text-light">Change name and description</p>
-              </li>
-              <li class="list-group-item">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat eligendi eius a praesentium beatae
-                commodi est adipisci doloremque ducimus esse in modi tempora molestias unde consequatur cupiditate sed,
-                rerum quidem.
-              </li>
-              <li class="list-group-item">
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                </div>
-              </li>
-              <li class="list-group-item">Porta ac consectetur ac</li>
-              <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+    </ng-container>
+
     <ng-template #empty>
-      <app-empty message="You don't have any issues yet" submessage="Click create to add your first one" icon="issues"></app-empty>
+      <app-empty message="You don't have any issues yet" submessage="Click create to add your first one" icon="issues">
+      </app-empty>
     </ng-template>
     <ng-template #loader>
       <app-spinner></app-spinner>
