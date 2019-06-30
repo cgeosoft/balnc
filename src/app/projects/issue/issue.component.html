@@ -41,26 +41,30 @@
 
         </div>
         <div class="d-flex flex-column bg-light h-100 ml-4 p-2" style="min-width:450px;width:450px">
-          <div class="flex-grow-1 overflow-auto">
+          <div #timeline class="flex-grow-1 overflow-auto timeline">
             <ng-container *ngIf="(logs$ | async) as logs">
               <ng-container *ngIf="logs.length; else emptyLogs">
                 <ng-container *ngFor="let log of logs">
                   <ng-container *ngIf="log.type===logType.comment">
-                    <div class="border-bottom pt-2">
-                      <div class="text-muted">
-                        <small>{{log.insertedFrom}} - {{log.insertedAt | dfnsDistanceInWordsToNow}}</small>
+                    <div class="timeline-item">
+                      <div class="timeline-item-content">
+                        <markdown ngPreserveWhitespaces>
+                          {{log.text}}
+                        </markdown>
                       </div>
-                      <markdown ngPreserveWhitespaces>
-                        {{log.text}}
-                      </markdown>
+                      <div class="timeline-item-footer">
+                        {{log.insertedFrom}} - {{log.insertedAt | dfnsDistanceInWordsToNow}}
+                      </div>
                     </div>
                   </ng-container>
                   <ng-container *ngIf="log.type===logType.activity">
-                    <div class="border-bottom py-2">
-                      <div class="text-muted">
-                        <small>{{log.insertedFrom}} - {{log.insertedAt | dfnsDistanceInWordsToNow}}</small>
+                    <div class="timeline-item">
+                      <div class="timeline-item-content">
+                        {{log.text}}
                       </div>
-                      {{log.text}}
+                      <div class="timeline-item-footer">
+                        {{log.insertedFrom}} - {{log.insertedAt | dfnsDistanceInWordsToNow}}
+                      </div>
                     </div>
                   </ng-container>
 

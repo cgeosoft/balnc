@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -13,7 +13,7 @@ import { ProjectsService } from '../_shared/projects.service';
   styleUrls: ['./issue.component.scss']
 })
 export class IssueComponent implements OnInit {
-
+  @ViewChild('timeline', { static: false }) private timeline: ElementRef;
   commentPreview: boolean
   projectId: string
   issueId: string
@@ -38,7 +38,8 @@ export class IssueComponent implements OnInit {
     private route: ActivatedRoute,
     private modal: NgbModal,
     private formBuilder: FormBuilder,
-    private projectsService: ProjectsService
+    private projectsService: ProjectsService,
+    private zone: NgZone
   ) { }
 
   status(status: IssueStatus) {
@@ -93,10 +94,15 @@ export class IssueComponent implements OnInit {
     const formModel = this.form.value
     if (!formModel.comment) return
     this.postCommentLoading = true
-    console.log(formModel.comment)
     await this.projectsService.createComment(formModel.comment, this.issueId)
     this.form.reset()
     this.postCommentLoading = false
+  }
+
+  scrollToBottom(): void {
+    setTimeout(() => {
+      this.timeline.nativeElement.scrollTop = this.timeline.nativeElement.scrollHeight
+    }, 100)
   }
 
   async changeStatus(status: string) {
@@ -110,11 +116,12 @@ export class IssueComponent implements OnInit {
         issueId: { $eq: this.issueId }
       })
       .pipe(
-        tap((events) => {
-          events = events.sort((a, b) => {
-            return a.insertedAt < b.insertedAt ? -1 : 1
-          })
-        }))
+        tap((logs: Log[]) => logs.sort((a, b) => a.insertedAt - b.insertedAt)),
+        tap((logs: Log[]) => {
+          this.zone.run(() => { })
+          this.scrollToBottom()
+        })
+      )
 
     this.issue$.subscribe((issue) => {
       this.project$ = this.projectsService.getOne$<Project>('projects', issue.projectId)

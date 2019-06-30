@@ -20,13 +20,13 @@ import { ShellComponent } from './_shell/shell.component';
       markedOptions: {
         provide: MarkedOptions,
         useValue: {
-          gfm: true,
-          tables: true,
-          breaks: true,
-          pedantic: true,
-          sanitize: true,
-          smartLists: true,
-          smartypants: true
+          gfm: false,
+          tables: false,
+          breaks: false,
+          pedantic: false,
+          sanitize: false,
+          smartLists: false,
+          smartypants: false
         }
       }
     }),
