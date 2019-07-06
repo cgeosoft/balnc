@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { RxDBService } from '@balnc/core';
 import { CommonService } from '@balnc/shared';
+import * as faker from 'faker';
 import { Observable } from 'rxjs';
 import { ProjectsEntities } from './models/entities';
 import { Issue, IssueType, Log, LogType, Project, RxIssueDoc, RxLogDoc, RxProjectDoc } from './models/project';
@@ -84,15 +85,14 @@ export class ProjectsService extends CommonService {
         status: status
       }
     })
-
   }
 
   async generateDemoData() {
     const projects: RxProjectDoc[] = []
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 3; i++) {
       const project: Project = {
-        name: `Project ${i}`,
-        description: 'lorem ipsum dolor',
+        name: faker.commerce.productName(),
+        description: faker.lorem.paragraph(),
         isArchived: Math.random() > .6,
         isStarred: Math.random() > .3,
         tags: ['lorem', 'ispun'],
@@ -102,12 +102,12 @@ export class ProjectsService extends CommonService {
       projects.push(p)
     }
 
-    for (let k = 0; k < 50; k++) {
+    for (let k = 0; k < 20; k++) {
       const pr = Math.floor(Math.random() * projects.length)
       if (projects[pr]) {
         const issue: Issue = {
-          title: `Issue ${k}`,
-          description: 'lorem ipsum dolor',
+          title: faker.hacker.phrase(),
+          description: faker.lorem.paragraphs(),
           type: IssueType[IssueType[Math.floor(Math.random() * Object.keys(IssueType).length / 2)]],
           projectId: projects[pr].get('_id'),
           insertedAt: Date.now(),

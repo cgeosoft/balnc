@@ -29,7 +29,7 @@ export class CommonService {
     }
   }
 
-  async getAll<T>(entity: string, params: any = {}): Promise<T[]> {
+  async getAll<T>(entity: string, params: any = {}): Promise<(RxDocument<T> & T)[]> {
     return this.db[entity].find(params).exec()
   }
 

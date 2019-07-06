@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Project, RxProjectDoc } from '../_shared/models/project';
+import { Project, RxIssueDoc, RxProjectDoc } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class ProjectManageComponent implements OnInit {
 
   constructor(
     private activeModal: NgbActiveModal,
-    private projectsService: ProjectsService
+    private projectsService: ProjectsService,
+    private router: Router
   ) { }
 
   get modal() {
@@ -23,13 +25,10 @@ export class ProjectManageComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.projectsService
-      .getOne$<Project>("projects", this.projectId)
-      .subscribe((project) => {
-        this.project = {
-          name: project.name
-        }
-      })
+    const p = await this.projectsService.getOne<Project>("projects", this.projectId)
+    this.project = {
+      name: p.name
+    }
   }
 
   async updateName() {
@@ -41,6 +40,21 @@ export class ProjectManageComponent implements OnInit {
         name: this.project.name
       }
     })
+    this.activeModal.close()
+  }
+
+  async deleteProject() {
+    const project = await this.projectsService.getOne<RxProjectDoc>("projects", this.projectId)
+    await project.remove();
+    const issues = await this.projectsService.getAll<RxIssueDoc[]>("issues", {
+      projectId: { $eq: this.projectId },
+    })
+    issues.forEach(i => i.remove());
+    const logs = await this.projectsService.getAll<RxIssueDoc[]>("logs", {
+      projectId: { $eq: this.projectId },
+    })
+    logs.forEach(i => i.remove());
+    this.router.navigate(['/projects/overview'])
     this.activeModal.close()
   }
 }
