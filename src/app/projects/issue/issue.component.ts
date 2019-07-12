@@ -14,6 +14,7 @@ import { ProjectsService } from '../_shared/projects.service';
 })
 export class IssueComponent implements OnInit {
   @ViewChild('timeline', { static: false }) private timeline: ElementRef;
+  @ViewChild('desc', { static: false }) private desc: ElementRef;
   commentPreview: boolean
   projectId: string
   issueId: string
@@ -72,19 +73,47 @@ export class IssueComponent implements OnInit {
       })
   }
 
-  async saveDetails(data) {
-    Object.keys(data).forEach(k => {
-      data[k] = data[k].trim()
-    });
+  async updateTitle(title) {
     const issue = await this.projectsService.getOne<Issue>("issues", this.issueId);
+    const _title = title.trim()
+    if (issue.title === _title) return
     await issue.update({
-      $set: data
+      $set: {
+        title: _title
+      }
     });
 
     await this.projectsService.addOne<Log>("logs", {
       issueId: this.issueId,
       type: LogType.activity,
-      text: Object.keys(data).map(k => `${k}: ${data[k]}`).join(" "),
+      text: "Issue title updated",
+      insertedAt: Date.now(),
+      insertedFrom: "_system"
+    })
+  }
+
+  enableEditDesc() {
+    this.editDesc = true
+    setTimeout(() => {
+      this.desc.nativeElement.focus()
+    })
+  }
+
+  async updateDesc(description) {
+    this.editDesc = false
+    const issue = await this.projectsService.getOne<Issue>("issues", this.issueId);
+    const _description = description.trim()
+    if (issue.description === _description) return
+    await issue.update({
+      $set: {
+        description: _description
+      }
+    });
+
+    await this.projectsService.addOne<Log>("logs", {
+      issueId: this.issueId,
+      type: LogType.activity,
+      text: "Issue description updated",
       insertedAt: Date.now(),
       insertedFrom: "_system"
     })
