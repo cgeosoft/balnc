@@ -4,7 +4,8 @@ import * as _plugins from './plugins.json';
 export const environment = {
   production: false,
   plugins: _plugins['plugins'],
-  version: _package['version']
+  version: _package['version'],
+  funcs: '/.netlify/functions'
 }
 
 export default environment
