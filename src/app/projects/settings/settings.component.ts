@@ -15,6 +15,7 @@ export class SettingsComponent implements OnInit {
   pevents: any[]
   projects$: Observable<Project[]>;
   generating: boolean;
+  generated: number;
 
   constructor(
     private projectsService: ProjectsService,
@@ -44,10 +45,8 @@ export class SettingsComponent implements OnInit {
   }
 
   async generateDemoData() {
-    this.generating = true
-    if (confirm('Are you sure?')) {
-      await this.projectsService.generateDemoData()
-    }
-    this.generating = false
+    if (!confirm('Are you sure?')) return
+    await this.projectsService.generateDemoData()
+    this.generated = Date.now()
   }
 }

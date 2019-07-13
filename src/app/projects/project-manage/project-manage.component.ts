@@ -44,6 +44,7 @@ export class ProjectManageComponent implements OnInit {
   }
 
   async deleteProject() {
+    if (!confirm('Are you sure?')) return
     const project = await this.projectsService.getOne<RxProjectDoc>("projects", this.projectId)
     await project.remove();
     const issues = await this.projectsService.getAll<RxIssueDoc[]>("issues", {
