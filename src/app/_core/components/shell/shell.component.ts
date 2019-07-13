@@ -10,7 +10,6 @@ import { ConfigService } from '../../services/config.service';
 })
 export class ShellComponent implements OnInit {
 
-  profileName: string
   username: string
 
   networkStatus = navigator.onLine
@@ -45,33 +44,12 @@ export class ShellComponent implements OnInit {
     return this.configService.version
   }
 
-  get profile() {
-    return this.configService.getProfile()
-  }
-
   async ngOnInit() {
 
     if (!this.configService.profiles.length) {
       await this.router.navigate(['/setup'])
       return
     }
-
-    if (this.profile) {
-      this.profileName = this.profile.name
-      this.username = this.configService.profile.remoteUsername
-    }
-
-    // observableFromEvent(window, 'online')
-    //   .subscribe(e => {
-    //     this.networkStatus = true
-    //     this.setStatus()
-    //   })
-
-    // observableFromEvent(window, 'offline')
-    //   .subscribe(e => {
-    //     this.networkStatus = false
-    //     this.setStatus()
-    //   })
 
     this.setStatus()
   }

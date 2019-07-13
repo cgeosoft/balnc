@@ -24,6 +24,9 @@ export class SetupComponent implements OnInit {
   accepted: false
 
   profile: Profile = {
+    remote: {
+      enabled: false
+    },
     plugins: {}
   }
 
@@ -31,13 +34,13 @@ export class SetupComponent implements OnInit {
 
   helperService = Helpers
 
-  constructor (
+  constructor(
     public configService: ConfigService,
     private router: Router,
     private toastr: ToastrService
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     if (this.configService.profiles.length) {
       this.router.navigate(['/dashboard'])
     }
@@ -45,26 +48,26 @@ export class SetupComponent implements OnInit {
     this.plugins = this.configService.plugins
   }
 
-  back () {
+  back() {
     this.stepIndex--
   }
 
-  next () {
+  next() {
     this.stepIndex++
   }
 
-  finish () {
+  finish() {
     this.profile.name = this.profile.name || this.helperService.generateName()
     const alias = this.configService.saveProfile(this.profile)
     this.configService.selectProfile(alias)
   }
 
-  addDemo () {
+  addDemo() {
     this.profile = DEMO_PROFILE
     this.stepIndex = this.steps.length - 1
   }
 
-  importFile (file: ReadFile) {
+  importFile(file: ReadFile) {
     const profile: Profile = this.configService.importFile(file)
     if (!profile) {
       this.toastr.error('Import failed')

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '@balnc/shared';
 import { DateFnsModule } from 'ngx-date-fns';
 import { ToastrModule } from 'ngx-toastr';
-import { APP_ROUTES } from './app.routes';
+import { APP_ROUTES, ProfileGuardService } from './app.routes';
 import { ErrorComponent } from './components/error/error.component';
 import { ShellComponent } from './components/shell/shell.component';
 import { RxDBService } from './rxdb/rxdb.service';
@@ -29,7 +29,8 @@ import { ConfigService } from './services/config.service';
   ],
   providers: [
     RxDBService,
-    ConfigService
+    ConfigService,
+    ProfileGuardService
   ],
   exports: [
     RouterModule

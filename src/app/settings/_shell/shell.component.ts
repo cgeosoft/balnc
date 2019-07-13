@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfigService } from '@balnc/core';
-import { DEMO_PROFILE, Helpers, Plugin, Profile } from '@balnc/shared';
+import { ConfigService, RxDBService } from '@balnc/core';
+import { ConfirmDialogComponent, DEMO_PROFILE, Helpers, Plugin, Profile } from '@balnc/shared';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReadFile } from 'ngx-file-helpers';
+import { ToastrService } from 'ngx-toastr';
+import { ContactsEntities, InvoicesEntities, OrdersEntities } from 'src/app/business/_shared/models/_entities';
 
 @Component({
   selector: 'app-settings-shell',
@@ -18,11 +21,22 @@ export class ShellComponent implements OnInit {
 
   constructor(
     public configService: ConfigService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
+    private modal: NgbModal,
+    private dbService: RxDBService,
   ) { }
 
+  get profiles() {
+    return this.configService.profiles
+  }
+
+  get selected() {
+    return this.configService.selected
+  }
+
   ngOnInit() {
-    this.profile = this.configService.getProfile()
+    this.profile = this.configService.profile
     this.plugins = this.configService.plugins
   }
 
@@ -31,18 +45,61 @@ export class ShellComponent implements OnInit {
   }
 
   create() {
-    // empty
+    const alias = this.configService.saveProfile({
+      name: Helpers.generateName(),
+      remote: {
+        enabled: false
+      },
+      plugins: {}
+    })
+    this.configService.selectProfile(alias)
+  }
+
+  async import(file: ReadFile) {
+    const profile = this.configService.importFile(file)
+    if (!profile) {
+      this.toastr.error('Import failed')
+      return
+    }
+    const alias = this.configService.saveProfile(profile)
+    this.configService.selectProfile(alias)
+  }
+
+  activate(profileId) {
+    this.configService.selectProfile(profileId)
+  }
+
+  async remove(profileId) {
+    const entities = [
+      ...ContactsEntities,
+      ...OrdersEntities,
+      ...InvoicesEntities
+    ]
+
+    await this.modal.open(ConfirmDialogComponent, { size: "sm" })
+      .result
+      .then(async () => {
+        this.configService.removeProfile(profileId)
+        await this.dbService.removeProfile(profileId, entities)
+      })
+      .catch(() => {
+        console.log('dismised')
+      })
   }
 
   createProfile() {
     this.configService.saveProfile({
       name: this.helperService.generateName(),
+      remote: {
+        enabled: false
+      },
       plugins: {}
     })
   }
 
   createDemo() {
-    this.configService.saveProfile(DEMO_PROFILE)
+    const demo = this.configService.saveProfile(DEMO_PROFILE)
+    this.activate(demo)
   }
 
   onFilePicked(file: ReadFile) {

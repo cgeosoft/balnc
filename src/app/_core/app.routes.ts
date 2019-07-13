@@ -1,10 +1,23 @@
-import { Routes } from '@angular/router';
+// src/app/auth/auth-guard.service.ts
+import { Injectable } from '@angular/core';
+import { CanActivate, Router, Routes } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
 import { ShellComponent } from './components/shell/shell.component';
+import { ConfigService } from './services/config.service';
+
+@Injectable()
+export class ProfileGuardService implements CanActivate {
+  constructor(public config: ConfigService, public router: Router) { }
+  async canActivate() {
+    this.config.setup()
+    return !!this.config.profile
+  }
+}
 
 export const APP_ROUTES: Routes = [{
   path: '',
   component: ShellComponent,
+  canActivate: [ProfileGuardService],
   children: [{
     path: 'dashboard',
     loadChildren: '../dashboard/dashboard.module#DashboardModule'

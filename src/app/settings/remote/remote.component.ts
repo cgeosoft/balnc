@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ConfigService } from '@balnc/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Profile } from '@balnc/shared';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,18 +8,19 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class RemoteComponent implements OnInit {
 
-  profile: Profile
+  @Input() profile: Profile
+  remote: { enabled: boolean; host?: string; username?: string; password?: string; };
 
   constructor(
-    private router: Router,
-    private configService: ConfigService,
     private activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit() {
+    this.remote = { ...this.profile.remote }
   }
 
   save() {
+    this.activeModal.close(this.remote)
   }
 
   dismiss() {

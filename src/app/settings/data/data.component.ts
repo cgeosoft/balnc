@@ -18,14 +18,10 @@ export class DataComponent implements OnInit {
 
   async ngOnInit() {
     this.route.params.subscribe(params => {
-      this.setup(params['alias'])
+      const profile = this.configService.profiles.find(p => p.id === params['id'])
+      this.profile = Object.assign({}, profile)
+      this.data = null
     })
-  }
-
-  setup(alias) {
-    const profile = this.configService.getProfile(alias)
-    this.profile = Object.assign({}, profile)
-    this.data = null
   }
 
   save() {

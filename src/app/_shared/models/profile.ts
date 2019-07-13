@@ -2,21 +2,25 @@ export type Profile = {
   id?: string
   name?: string
   createdAt?: number
-  remoteHost?: string
-  remoteUsername?: string
-  remotePassword?: string
-  remoteSync?: boolean
-  plugins?: { [key: string]: boolean }
+  remote: {
+    enabled: boolean
+    host?: string
+    username?: string
+    password?: string
+  }
+  plugins: { [key: string]: boolean }
   config?: any
 }
 
 export const DEMO_PROFILE = {
   id: 'demo',
-  name: 'demo',
-  remoteHost: 'https://db.cgeosoft.com',
-  remoteUsername: 'demo',
-  remotePassword: 'demo',
-  remoteSync: false,
+  name: 'Demo Profile',
+  remote: {
+    enabled: false,
+    host: 'https://db.cgeosoft.com',
+    username: 'demo',
+    password: 'demo',
+  },
   plugins: {
     business: true,
     projects: true,

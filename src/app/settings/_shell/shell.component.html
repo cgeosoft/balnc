@@ -1,23 +1,29 @@
 <app-sidebar>
   <div class="title">Settings</div>
   <div class="menu">
-    <div class="items">
-      <a routerLink="/settings/profiles" routerLinkActive="active">
-        <fa-icon icon="swatchbook"></fa-icon>
-        <span>Profiles</span>
-      </a>
-      <a routerLink="/settings/help" routerLinkActive="active">
-        <fa-icon icon="question-circle"></fa-icon>
-        <span>Help</span>
-      </a>
-      <a routerLink="/settings/about" routerLinkActive="active">
-        <fa-icon icon="info-circle"></fa-icon>
-        <span>About</span>
-      </a>
+    <div class="header dropdown" ngbDropdown container="body">
+      <button ngbDropdownToggle>
+        <span>{{profile.name}}</span></button>
+      <div ngbDropdownMenu>
+        <button ngbDropdownItem (click)="create()">
+          <fa-icon class="text-muted mr-1" icon="plus-circle"></fa-icon> Create & Open
+        </button>
+        <button ngbDropdownItem (click)="createDemo()">
+          <fa-icon class="text-muted mr-1" icon="plus-circle"></fa-icon> Create Demo
+        </button>
+        <a ngbDropdownItem href="javascript:" ngxFilePicker accept="application/json" (filePick)="import($event)">
+          <fa-icon class="text-muted mr-1" icon="file-import"></fa-icon> Import
+        </a>
+        <div class="dropdown-divider"></div>
+        <ng-container *ngIf="profiles.length">
+          <h6 class="dropdown-header">Profiles</h6>
+          <ng-container *ngFor="let p of profiles">
+            <a ngbDropdownItem href="javascript:" (click)="activate(p.id)">{{p.name}} <fa-icon icon="check-circle"
+                class="text-primary float-right ml-2" *ngIf="selected === p.id"></fa-icon></a>
+          </ng-container>
+        </ng-container>
+      </div>
     </div>
-  </div>
-  <div class="menu">
-    <div class="title">{{profile.name}}</div>
     <div class="items">
       <a routerLink="/settings/general" routerLinkActive="active">
         <fa-icon icon='cog'></fa-icon>
@@ -26,6 +32,14 @@
       <a routerLink="/settings/plugins" routerLinkActive="active">
         <fa-icon icon='box'></fa-icon>
         <span>Plugins</span>
+      </a>
+    </div>
+  </div>
+  <div class="menu mt-auto">
+    <div class="items">
+      <a routerLink="/settings/about" routerLinkActive="active">
+        <fa-icon icon="info-circle"></fa-icon>
+        <span>About</span>
       </a>
     </div>
   </div>

@@ -49,12 +49,16 @@ export class RxDBService {
     private configService: ConfigService,
     private toastr: ToastrService
   ) {
+    if (!configService.profile) return
+    const cr = configService.profile.remote || {
+      enabled: false
+    }
     this.config = {
-      sync: configService.profile.remoteSync,
+      sync: cr.enabled,
       prefix: configService.profile.id,
-      host: configService.profile.remoteHost,
-      username: configService.profile.remoteUsername,
-      password: configService.profile.remotePassword
+      host: cr.host,
+      username: cr.username,
+      password: cr.password
     }
   }
 

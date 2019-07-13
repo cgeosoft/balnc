@@ -8,7 +8,6 @@ import { RemoteComponent } from '../remote/remote.component';
 @Component({
   selector: 'app-settings-general',
   templateUrl: './general.component.html',
-  styleUrls: ['./general.component.scss']
 })
 export class GeneralComponent implements OnInit {
 
@@ -23,7 +22,7 @@ export class GeneralComponent implements OnInit {
 
   deleteData = false
   deleteDataRemote = false
-  needReload = false
+  editName = false
 
   constructor(
     private router: Router,
@@ -32,28 +31,38 @@ export class GeneralComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.profile = this.configService.getProfile()
+    this.profile = this.configService.profile
   }
 
-  save() {
+  rename(newName) {
+    if (!newName) return
+    this.profile.name = newName
     this.configService.saveProfile(this.profile)
-    this.needReload = true
-  }
-
-  reload() {
-    window.location.reload()
-  }
-
-  delete() {
-    this.configService.deleteProfile(this.profile.id)
-    this.router.navigate(['/settings'])
   }
 
   activate() {
     this.configService.selectProfile(this.profile.id)
   }
 
-  async remoteEnable() {
-    await this.modal.open(RemoteComponent).result
+  delete() {
+    if (!confirm('Are you sure?')) return
+    this.configService.deleteProfile(this.profile.id)
+    window.location.reload()
+  }
+
+  toggleRemote() {
+    if (!confirm('Are you sure?')) return
+    this.profile.remote.enabled = !this.profile.remote.enabled
+    this.configService.saveProfile(this.profile)
+    window.location.reload()
+  }
+
+  async remote() {
+    const m = this.modal.open(RemoteComponent)
+    m.componentInstance.profile = this.profile
+    const remote = await m.result
+    this.profile.remote = remote
+    this.configService.saveProfile(this.profile)
+    window.location.reload()
   }
 }

@@ -29,7 +29,7 @@ export class BoardsService extends CommonService {
       alias: 'boards',
       entities: BoardsEntities
     })
-    this.nickname = this.configService.profile.remoteUsername
+    this.nickname = this.configService.profile.remote.username || "anonymous"
     this.boards$ = this.db['boards'].find().$
     this.messages$ = this.db['messages'].find().$
       .pipe(

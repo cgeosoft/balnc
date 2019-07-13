@@ -11,15 +11,15 @@ export class PluginsComponent implements OnInit {
   plugins: Plugin[]
   profile: Profile
 
-  constructor (
+  constructor(
     private configService: ConfigService
   ) { }
 
-  ngOnInit () {
-    this.profile = this.configService.getProfile()
+  ngOnInit() {
+    this.profile = this.configService.profile
     this.plugins = this.configService.plugins
   }
-  setPluginStatus (pluginId: string,status: boolean) {
+  setPluginStatus(pluginId: string, status: boolean) {
     this.profile.plugins[pluginId] = status
     this.configService.saveProfile(this.profile)
   }
