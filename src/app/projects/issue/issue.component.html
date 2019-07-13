@@ -1,6 +1,5 @@
 <ng-container *ngIf="(issue$ | async) as issue">
   <app-content>
-    <!-- <app-content-header [title]="issue.title" [subtitle]="'Issue: '+issue._id" [route]="'/projects/project/'+project._id" icon="caret-left"></app-content-header> -->
     <div class="bg-light">
       <div class="container">
         <ol class="breadcrumb mb-0 bg-light">
@@ -30,7 +29,8 @@
               </div>
             </div>
           </div>
-          <h2 #title contenteditable="true" (blur)="updateTitle(title.innerText)" class="border-bottom">{{issue.title}}
+          <h2 #title contenteditable="true" (blur)="updateTitle(title.innerText)" class="pb-2 border-bottom">
+            {{issue.title}}
           </h2>
           <div class="flex-grow-1">
             <textarea #desc *ngIf="editDesc" class="form-control h-100"

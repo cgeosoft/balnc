@@ -1,9 +1,10 @@
 import { Component, NgZone, OnInit, Pipe, PipeTransform } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LocalStorage } from 'ngx-store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { IssueCreateComponent } from '../issue-create/issue-create.component';
 import { Issue, IssueStatus, IssueStatuses, IssueType, Project } from '../_shared/models/project';
 import { ProjectsService } from '../_shared/projects.service';
 
@@ -35,6 +36,7 @@ export class ProjectComponent implements OnInit {
     private modal: NgbModal,
     private zone: NgZone,
     private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   get pStart() {
@@ -75,6 +77,16 @@ export class ProjectComponent implements OnInit {
   changedFilters() {
     this.filters = this.filters
   }
+
+  async createIssue(projectId) {
+    const m = this.modal.open(IssueCreateComponent)
+    m.componentInstance.projectId = projectId
+    const issueId = await m.result
+    if (issueId) {
+      this.router.navigate(["/projects/project", projectId, "issue", issueId])
+    }
+  }
+
 
   private async load() {
     this.project = await this.projectsService.getOne<Project>('projects', this.projectId)

@@ -145,3 +145,16 @@ thead {
   display: flex;
   align-items: center;
 }
+
+.list-group-settings {
+  @extend .list-group;
+  @extend .list-group-flush;
+  @extend .mx-auto;
+  max-width: 600px;
+  .list-group-item {
+    .btn-action {
+      @extend .btn-sm;
+      @extend .float-right;
+    }
+  }
+}

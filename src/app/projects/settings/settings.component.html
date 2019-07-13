@@ -7,7 +7,14 @@
     </div>
   </div>
   <app-content-body>
-    <button class="btn btn-primary" (click)="generateDemoData()">Generate Random Data</button>
+    <div class="list-group-settings">
+      <div class="list-group-item">
+        <h5>Random Data</h5>
+        <p>You may generate some random data. A few projects will be created and some issues in each project. Keep in
+          mind that all data are permant. We suggest to generate random data in a non-production profile</p>
+        <button class="btn btn-action btn-primary" (click)="generateDemoData()">Generate Random Data</button>
+      </div>
+    </div>
   </app-content-body>
 </app-content>
 

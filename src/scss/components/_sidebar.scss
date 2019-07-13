@@ -73,7 +73,7 @@ app-sidebar {
       font-size: 1.2rem;
       color: darken($sidebar-font, 7);
 
-      button {
+      > button {
         @extend .btn;
         border: none;
         background: none;
@@ -85,13 +85,18 @@ app-sidebar {
         }
       }
 
-      span {
-        @extend .text-truncate;
-      }
-
-      button,
-      .dropdown {
-        @extend .ml-auto;
+      &.dropdown {
+        > button {
+          @extend .d-flex;
+          @extend .align-items-center;
+          width: 100%;
+          span {
+            @extend .text-truncate;
+          }
+          &:after {
+            @extend .ml-auto;
+          }
+        }
       }
     }
 

@@ -43,23 +43,6 @@ export class IssueComponent implements OnInit {
     private zone: NgZone
   ) { }
 
-  status(status: IssueStatus) {
-    const s = this.issueStatusModel.find(x => x.key === status)
-    return {
-      style: {
-        backgroundColor: s.color,
-        color: "#FFF"
-      },
-      label: s.alias
-    }
-  }
-
-  nextStatus(status: IssueStatus) {
-    const i = this.issueStatusModel.findIndex(x => x.key === status)
-    if (i === -1 || i === this.issueStatusModel.length - 1) return
-    this.saveDetails({ status: this.issueStatusModel[i + 1].key })
-  }
-
   ngOnInit() {
     this.route
       .params
@@ -73,30 +56,31 @@ export class IssueComponent implements OnInit {
       })
   }
 
+  status(status: IssueStatus) {
+    const s = this.issueStatusModel.find(x => x.key === status)
+    return {
+      style: {
+        backgroundColor: s.color,
+        color: "#FFF"
+      },
+      label: s.alias
+    }
+  }
+
+  async nextStatus(status: IssueStatus) {
+    const i = this.issueStatusModel.findIndex(x => x.key === status)
+    if (i === -1 || i === this.issueStatusModel.length - 1) return
+    const issue = await this.projectsService.getOne<Issue>("issues", this.issueId);
+    const newstatus = this.issueStatusModel[i + 1].key
+    await issue.update({ $set: { status: newstatus } });
+    await this.log(`status updated to ${newstatus}`);
+  }
+
   async updateTitle(title) {
     const issue = await this.projectsService.getOne<Issue>("issues", this.issueId);
     const _title = title.trim()
     if (issue.title === _title) return
-    await issue.update({
-      $set: {
-        title: _title
-      }
-    });
-
-    await this.projectsService.addOne<Log>("logs", {
-      issueId: this.issueId,
-      type: LogType.activity,
-      text: "Issue title updated",
-      insertedAt: Date.now(),
-      insertedFrom: "_system"
-    })
-  }
-
-  enableEditDesc() {
-    this.editDesc = true
-    setTimeout(() => {
-      this.desc.nativeElement.focus()
-    })
+    await issue.update({ $set: { title: _title } });
   }
 
   async updateDesc(description) {
@@ -109,14 +93,6 @@ export class IssueComponent implements OnInit {
         description: _description
       }
     });
-
-    await this.projectsService.addOne<Log>("logs", {
-      issueId: this.issueId,
-      type: LogType.activity,
-      text: "Issue description updated",
-      insertedAt: Date.now(),
-      insertedFrom: "_system"
-    })
   }
 
   async submitComment() {
@@ -128,14 +104,15 @@ export class IssueComponent implements OnInit {
     this.postCommentLoading = false
   }
 
-  scrollToBottom(): void {
-    setTimeout(() => {
-      this.timeline.nativeElement.scrollTop = this.timeline.nativeElement.scrollHeight
-    }, 100)
-  }
-
   async changeStatus(status: string) {
     await this.projectsService.changeStatus(status, this.issueId)
+  }
+
+  enableEditDesc() {
+    this.editDesc = true
+    setTimeout(() => {
+      this.desc.nativeElement.focus()
+    })
   }
 
   private async setup() {
@@ -148,7 +125,7 @@ export class IssueComponent implements OnInit {
         tap((logs: Log[]) => logs.sort((a, b) => a.insertedAt - b.insertedAt)),
         tap((logs: Log[]) => {
           this.zone.run(() => { })
-          this.scrollToBottom()
+          this.scroll()
         })
       )
 
@@ -156,4 +133,21 @@ export class IssueComponent implements OnInit {
       this.project$ = this.projectsService.getOne$<Project>('projects', issue.projectId)
     })
   }
+
+  private log(message: string) {
+    return this.projectsService.addOne<Log>("logs", {
+      issueId: this.issueId,
+      type: LogType.activity,
+      text: message,
+      insertedAt: Date.now(),
+      insertedFrom: "_system"
+    })
+  }
+
+  private scroll(): void {
+    setTimeout(() => {
+      this.timeline.nativeElement.scrollTop = this.timeline.nativeElement.scrollHeight
+    }, 100)
+  }
+
 }

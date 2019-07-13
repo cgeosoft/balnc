@@ -2,33 +2,31 @@
   <app-content>
     <app-content-header title="General" [subtitle]="'Profile: '+profile.name" icon="cog"></app-content-header>
     <app-content-body>
-
-      <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-          <h4>Details</h4>
+      <div class="list-group-settings">
+        <div class="list-group-item">
+          <h5>Profile Name <small class="text-muted">required</small></h5>
           <div class="form-group">
-            <label>Profile Name
-              <small class="text-muted">required</small>
-            </label>
             <div class="d-flex">
               <input autocomplete="false" [(ngModel)]="profile.name" (ngModelChange)="save();" class="form-control">
               <button class="btn btn-success ml-2">Rename</button>
             </div>
           </div>
-          <hr>
-          <h4>Remote</h4>
-          <div class="text-muted">
+        </div>
+        <div class="list-group-item">
+          <h5>Remote</h5>
+          <p>
             Use this option for make real-time backup of your data and access from multiple devices.
             Some modules may require this option for them to work.
-          </div>
-          <div class="d-flex justify-content-end">
-            <button class="btn btn-primary" (click)="remoteEnable()">Enable</button>
-          </div>
-          <hr>
-          <h4>Danger Zone</h4>
-          <p>By deleting your profile, you immediately remove all local data(at your client). If you would like also
-            to delete the remote data please check the option below. If you do not delete remote data, all data will be
-            synced once this profile is recreated.</p>
+          </p>
+          <button class="btn btn-action btn-primary" (click)="remoteEnable()">Enable Remote</button>
+        </div>
+        <div class="list-group-item">
+          <h5>Danger Zone</h5>
+          <p>
+            By deleting your profile, you immediately remove all local data(at your client). If you would like also
+            to delete the remote data please check the option below. If you do not delete remote data, all data will
+            be synced once this profile is recreated.
+          </p>
           <div class="form-group form-check m-0">
             <input type="checkbox" class="form-check-input" id="deleteData" [(ngModel)]="deleteData">
             <label class="form-check-label" for="deleteData">Ι understand that this is not reversable</label>
@@ -37,14 +35,9 @@
             <input type="checkbox" class="form-check-input" id="deleteDataRemote" [(ngModel)]="deleteDataRemote">
             <label class="form-check-label" for="deleteDataRemote">Also delete remote data</label>
           </div>
-          <div class="d-flex">
-            <button class="btn btn-danger ml-auto" [disabled]="!deleteData" (click)="delete()">
-              <fa-layers class="fa-fw">
-                <fa-icon [icon]="['fas','trash-alt']"></fa-icon>
-              </fa-layers>
-              Remove
-            </button>
-          </div>
+          <button class="btn btn-action btn-danger" [disabled]="!deleteData" (click)="delete()">
+            Remove Profile
+          </button>
         </div>
       </div>
     </app-content-body>

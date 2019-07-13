@@ -9,36 +9,34 @@
     </div>
   </div>
   <div class="menu">
-    <div class="header">
-      <span>{{(project$ | async)?.name || 'Select a project...'}}</span>
-      <div class="dropdown" ngbDropdown container="body">
-        <button ngbDropdownToggle></button>
-        <div ngbDropdownMenu>
-          <button ngbDropdownItem (click)="createProject()">Create project</button>
-          <div class="dropdown-divider"></div>
-          <ng-container *ngIf="(projects$ | async) as projects">
-            <ng-container *ngIf="projects.length">
-              <h6 class="dropdown-header">Projects</h6>
-              <ng-container *ngFor="let p of projects">
-                <a ngbDropdownItem [routerLink]="['/projects/project',p['_id']]">{{p.name}}</a>
-              </ng-container>
+    <div class="header dropdown" ngbDropdown container="body">
+      <button ngbDropdownToggle>
+        <span>{{(project$ | async)?.name || 'Select a project...'}}</span></button>
+      <div ngbDropdownMenu>
+        <button ngbDropdownItem (click)="createProject()">Create project</button>
+        <div class="dropdown-divider"></div>
+        <ng-container *ngIf="(projects$ | async) as projects">
+          <ng-container *ngIf="projects.length">
+            <h6 class="dropdown-header">Projects</h6>
+            <ng-container *ngFor="let p of projects">
+              <a ngbDropdownItem [routerLink]="['/projects/project',p['_id']]">{{p.name}}</a>
             </ng-container>
           </ng-container>
-        </div>
+        </ng-container>
       </div>
     </div>
     <div class="items" *ngIf="(project$ | async) as project">
       <button (click)="editDetails(project['_id'])">
         <fa-icon icon="pencil-ruler" class="icon"></fa-icon>
-        <span>Edit project details</span>
+        <span>Project details</span>
       </button>
       <a [routerLink]="['/projects/project',project['_id']]">
         <fa-icon icon="tasks" class="icon"></fa-icon>
-        <span>View all issues</span>
+        <span>All issues</span>
       </a>
       <button (click)="createIssue(project['_id'])">
         <fa-icon icon="plus-circle" class="icon"></fa-icon>
-        <span>Create new issue</span>
+        <span>New issue</span>
       </button>
     </div>
   </div>
