@@ -1,6 +1,6 @@
 @import "sidebar";
 
-$side-width:70px;
+$side-width: 70px;
 
 app-shell {
   @extend .d-flex;
@@ -24,7 +24,7 @@ app-shell {
     background: linear-gradient(to bottom, #414345, #232526);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-    transition: all .5s;
+    transition: all 0.5s;
     overflow: hidden;
 
     .profile {
@@ -40,7 +40,7 @@ app-shell {
         line-height: 2rem;
         font-size: 1rem;
         display: block;
-        color: #FFF;
+        color: #fff;
         border-radius: 21px;
       }
     }
@@ -54,17 +54,17 @@ app-shell {
       width: $side-width;
 
       a.item {
-        border-radius: .5rem;
+        border-radius: 0.5rem;
         border: solid 2px rgba($color: #000000, $alpha: 0);
         color: lighten($body-bg, 30);
         display: block;
         display: block;
         margin: 0 6px 1px;
-        padding: .2rem;
+        padding: 0.2rem;
         text-align: center;
         text-decoration: none;
-        transition: background-color .7s;
-        transition: color .7s;
+        transition: background-color 0.7s;
+        transition: color 0.7s;
 
         .fa {
           line-height: 1rem;
@@ -72,33 +72,32 @@ app-shell {
         }
 
         .label {
-          font-size: .8rem;
+          font-size: 0.8rem;
           display: none;
         }
 
         span {
-          font-size: .7rem;
+          font-size: 0.7rem;
           display: block;
         }
 
         &:hover {
-          color: #FFF;
+          color: #fff;
         }
 
         &.active {
           background: lighten($color: $dark, $amount: 10%);
-          color: #FFF;
+          color: #fff;
         }
 
         &.highlight {
-          >a {
-            color: #FFF;
+          > a {
+            color: #fff;
 
             span {
-              margin: 0
+              margin: 0;
             }
           }
-
         }
       }
 
@@ -124,9 +123,9 @@ app-shell {
     }
 
     .version {
-      font-size: .5rem;
+      font-size: 0.5rem;
       color: lighten($dark, 10);
-      padding: .5rem 0;
+      padding: 0.5rem 0;
     }
 
     &.closed {
@@ -137,7 +136,7 @@ app-shell {
 
   .page-loader {
     position: absolute;
-    opacity: .5;
+    opacity: 0.5;
     background: #fff;
     z-index: 100;
     width: 100%;
@@ -150,7 +149,7 @@ app-shell {
     background: $dark;
     bottom: 25px;
     left: 5px;
-    color: #FFF;
+    color: #fff;
     border-radius: 20px;
     width: 40px;
     height: 40px;
@@ -159,12 +158,12 @@ app-shell {
     z-index: 1;
   }
 
-  >:last-child {
+  > :last-child {
     @extend .d-flex;
     @extend .w-100;
     @extend .h-100;
 
-    >:last-child {
+    > :last-child {
       @extend .d-flex;
       @extend .w-100;
       @extend .h-100;
@@ -225,7 +224,7 @@ app-content {
           ul {
             @extend .text-muted;
             margin: 0;
-            font-size: .6rem;
+            font-size: 0.6rem;
           }
         }
 
@@ -290,7 +289,7 @@ app-content {
     padding-bottom: 15px;
     overflow-y: auto;
 
-    >div {
+    > div {
       @extend .h-100;
     }
   }
@@ -335,7 +334,7 @@ app-footer {
   @extend .text-center;
   width: 100%;
   display: block;
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: lighten($dark, 15);
 
   a {
@@ -344,11 +343,10 @@ app-footer {
 }
 
 app-statusbar {
-
   @extend .d-flex;
   background: $primary;
   height: 20px;
-  font-size: .5rem;
+  font-size: 0.5rem;
   color: #eee;
   z-index: 100;
 
@@ -360,7 +358,7 @@ app-statusbar {
 
     .fab,
     .fa {
-      font-size: .4rem;
+      font-size: 0.4rem;
     }
   }
 
@@ -457,7 +455,7 @@ app-setup {
       @extend .rounded;
       @extend .bg-primary;
       @extend .text-light;
-      font-size: .7rem;
+      font-size: 0.7rem;
     }
 
     &:before {
@@ -507,7 +505,7 @@ app-presentations-overview {
 app-presentations-presentation {
   .descCollToggle {
     float: right;
-    font-size: .7rem;
+    font-size: 0.7rem;
     text-decoration: none;
     font-weight: 300;
   }
@@ -523,12 +521,14 @@ app-presentations-presentation {
 
   .present {
     @extend .h-100;
-    background-color: #CCC;
-    background-image: linear-gradient(white 2px, transparent 2px), linear-gradient(90deg, white 2px, transparent 2px), linear-gradient(rgba(255, 255, 255, .3) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .3) 1px, transparent 1px);
+    background-color: #ccc;
+    background-image: linear-gradient(white 2px, transparent 2px), linear-gradient(90deg, white 2px, transparent 2px),
+      linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
     background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
     background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
 
-    >div {
+    > div {
       @extend .h-100;
     }
   }
@@ -564,7 +564,7 @@ app-boards-board {
       }
 
       .msg-command {
-        color: #CCC;
+        color: #ccc;
         text-align: center;
         padding: 2rem;
       }
@@ -572,13 +572,13 @@ app-boards-board {
       .msg-item {
         @extend .d-flex;
         @extend .justify-content-start;
-        @extend .align-items-center;
+        @extend .align-items-start;
         @extend .mb-2;
 
         .msg-avatar {
           @extend .mr-2;
           @extend .border;
-          @extend .rounded;
+          @extend .rounded-circle;
           width: 40px;
           height: 40px;
         }
@@ -589,7 +589,8 @@ app-boards-board {
           @extend .rounded;
           @extend .mr-2;
           background: #f6f6f6;
-          box-shadow: .1rem .1rem 0 #eee;
+          box-shadow: 0.1rem 0.1rem 0 #eee;
+          max-width: 80%;
         }
 
         .msg-time {
@@ -599,7 +600,7 @@ app-boards-board {
         &.own {
           .msg-body {
             background: $primary;
-            color: #FFF;
+            color: #fff;
           }
         }
 
@@ -620,13 +621,13 @@ app-boards-board {
     }
 
     .card-footer {
-      padding: .5rem;
+      padding: 0.5rem;
     }
 
     .card-footer {
       .form-control {
         // border-radius: 1rem;
-        padding: .5rem 1rem;
+        padding: 0.5rem 1rem;
       }
     }
   }

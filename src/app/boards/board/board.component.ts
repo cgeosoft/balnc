@@ -1,10 +1,10 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { BoardsService } from '../../boards.service';
-import { Board } from '../../models/board';
-import { Message } from '../../models/message';
+import { map, tap } from 'rxjs/operators';
+import { BoardsService } from '../_shared/boards.service';
+import { Board } from '../_shared/models/board';
+import { Message } from '../_shared/models/message';
 
 @Component({
   selector: 'app-boards-board',
@@ -17,7 +17,6 @@ export class BoardComponent implements OnInit {
   @ViewChild('messageInput', { static: false }) messageInput: ElementRef
 
   selected: string
-  boards: Board[]
   board: Board
   boardName: string
 
@@ -33,16 +32,17 @@ export class BoardComponent implements OnInit {
       label: 'Messages',
       icon: 'comments:regular'
     }, {
-      id: 'files',
-      label: 'Files',
-      icon: 'copy'
-    }, {
+      //   id: 'files',
+      //   label: 'Files',
+      //   icon: 'copy'
+      // }, {
       id: 'manage',
       label: 'Manage',
       icon: 'cog',
       right: true
     }]
   }
+  board$: Observable<Board>;
 
   constructor(
     public boardService: BoardsService,
@@ -52,52 +52,47 @@ export class BoardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.boardService.boards$.subscribe((boards) => {
-      this.boards = boards
-    })
-
     this.route.params.subscribe(async (params) => {
       this.selected = params['id']
-      this.board = await this.boardService.getOne<Board>('boards', this.selected)
-      this.loadMessages()
-    })
-  }
-
-  loadMessages() {
-    this.messages$ = this.boardService
-      .messages$
-      .pipe(
-        map(messages => messages.filter(message => message.board === this.selected))
+      if (!this.selected) return
+      this.boardService.selectBoard(this.selected)
+      this.board$ = await this.boardService.getOne$<Board>('boards', this.selected)
+      this.messages$ = this.boardService.getAll$<Message>("messages").pipe(
+        map(messages => messages.filter(message => message.board === this.selected)),
+        tap(messages => {
+          messages.sort((a, b) => a.timestamp - b.timestamp)
+        }),
+        tap(() => {
+          setTimeout(() => {
+            this.scrollToBottom()
+            this.focusInput()
+          }, 100)
+        })
       )
-
-    this.messages$.subscribe(() => {
-      this.zone.run(() => {
-        this.scrollToBottom()
-        this.focusInput()
-      })
     })
   }
 
   async send() {
     if (!this.inputMessage) { return }
 
+    const dt = Date.now()
     const message: Message = {
-      timestamp: new Date().getTime(),
+      timestamp: dt,
       text: this.inputMessage,
       sender: this.boardService.nickname,
       board: this.selected,
       status: 'SEND',
       type: 'MESSAGE'
     }
-    await this.boardService.sendMessage(message)
+    await this.boardService.addOne('messages', message)
     this.inputMessage = null
-
     this.scrollToBottom()
     this.focusInput()
   }
 
   async delete() {
-    await this.boardService.deleteBoard(this.board.name)
+    if (!confirm('Are you sure?')) return
+    await this.boardService.deleteBoard(this.selected)
     this.router.navigate(['/boards'])
   }
 

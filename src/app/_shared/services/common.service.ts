@@ -26,6 +26,8 @@ export class CommonService {
       config.entities.forEach(entity => {
         this.observables[`${entity.name}$`] = this.db[entity.name].find().$
       })
+    } else {
+      console.log("db dound", this.db)
     }
   }
 

@@ -1,14 +1,15 @@
-import { WrapperComponent } from './components/_wrapper/wrapper.component'
-import { BoardComponent } from './components/board/board.component'
-import { BoardsService } from './boards.service'
+import { BoardComponent } from './board/board.component';
+import { BoardsResolver } from './_shared/resolver';
+import { ShellComponent } from './_shell/shell.component';
 
 export const BoardsRoutes = [{
   path: '',
+  component: ShellComponent,
   resolve: {
-    srv: BoardsService
+    setup: BoardsResolver
   },
-  component: WrapperComponent,
   children: [
+    { path: '', component: BoardComponent },
     { path: ':id', component: BoardComponent }
   ]
 }]

@@ -28,7 +28,6 @@ export class OverviewComponent implements OnInit {
       tap((logs: Log[]) => logs.sort((a, b) => a.insertedAt - b.insertedAt)),
       tap((logs: Log[]) => logs.reverse()),
       tap(() => {
-        console.log("asd")
         this.zone.run(() => { })
       }),
     )

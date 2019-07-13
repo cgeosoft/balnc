@@ -87,7 +87,6 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-
   private async load() {
     this.project = await this.projectsService.getOne<Project>('projects', this.projectId)
     this.issues$ = this.projectsService

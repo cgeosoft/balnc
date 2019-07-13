@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core'
-import { RouterModule } from '@angular/router'
-import { SharedModule } from '@balnc/shared'
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from '@balnc/shared';
+import { BoardComponent } from './board/board.component';
+import { BoardsRoutes } from './boards.routes';
+import { BoardsService } from './_shared/boards.service';
+import { BoardsResolver } from './_shared/resolver';
+import { ShellComponent } from './_shell/shell.component';
 
-import { BoardsService } from './boards.service'
-import { WrapperComponent } from './components/_wrapper/wrapper.component'
-import { BoardComponent } from './components/board/board.component'
-import { BoardsRoutes } from './boards.routes'
 
 @NgModule({
   imports: [
@@ -13,11 +14,12 @@ import { BoardsRoutes } from './boards.routes'
     RouterModule.forChild(BoardsRoutes)
   ],
   declarations: [
-    WrapperComponent,
+    ShellComponent,
     BoardComponent
   ],
   providers: [
-    BoardsService
+    BoardsService,
+    BoardsResolver,
   ]
 })
 export class BoardsModule { }

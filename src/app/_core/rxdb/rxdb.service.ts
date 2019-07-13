@@ -40,8 +40,6 @@ RxDB.plugin(RxDBUpdateModule)
 export class RxDBService {
 
   private config: Config
-  // private db: RxDatabase
-  public entities: Entity[] = []
   private replicationStates: { [key: string]: RxReplicationState } = {}
 
   constructor(
@@ -64,7 +62,7 @@ export class RxDBService {
 
   async setup(alias, entities: Entity[]) {
     if (!this.configService.profile) {
-      console.log('[DatabaseService]', `Can not initialize DB with a valid profile`)
+      console.log('[DatabaseService]', `There is not a selected profile`)
       return
     }
 
@@ -84,16 +82,17 @@ export class RxDBService {
         schema: entity.schema,
         migrationStrategies: entity.migrationStrategies || {}
       })
-      this.entities[entity.name] = entity
       sets.push(set)
     }
     await Promise.all(sets)
-    await this.sync(alias, db)
+    await this.sync(alias, db, entities)
 
     return db
   }
 
-  async sync(alias, db) {
+  async sync(alias, db, entities) {
+
+    console.log('[DatabaseService]', `Sync entities`, entities)
 
     const name = `${this.config.prefix}_${alias}`
 
@@ -105,17 +104,15 @@ export class RxDBService {
       await this.authenticate(this.config.username, this.config.password)
     }
 
-    Object.keys(this.entities).forEach((key) => {
-      const entity = this.entities[key]
-
+    entities.forEach((entity) => {
       if (entity.sync) {
-        const ent: RxCollection<any> = db[key]
+        const ent: RxCollection<any> = db[entity.name]
 
         if (!ent) {
           console.log('[DatabaseService]', `Entity ${entity.name} for ${name} not found`)
         }
 
-        this.replicationStates[key] = ent.sync({
+        this.replicationStates[entity.name] = ent.sync({
           remote: `${this.config.host}/balnc_${name}_${entity.name}/`,
           options: {
             live: true,
@@ -123,16 +120,12 @@ export class RxDBService {
           }
         })
 
-        this.replicationStates[key].error$.subscribe((err) => {
+        this.replicationStates[entity.name].error$.subscribe((err) => {
           this.toastr.error(err, '[Database] Sync Error')
         })
       }
     })
   }
-
-  // async get<T> (db, name: string): Promise<RxCollection<T>> {
-  //   return this.db[name]
-  // }
 
   async authenticate(username: string, password: string) {
     return this.http.post(`${this.config.host}/_session`, {

@@ -1,0 +1,88 @@
+<app-content>
+  <ng-container *ngIf="(board$ | async) as board; else noboard">
+    <app-content-header [title]="board.name" icon="comments:regular" [tabsMenu]="tabsMenu"></app-content-header>
+    <app-content-body *ngIf="tabsMenu.selected === 'messages'" class="h-100">
+      <div class="card card-chat d-flex h-100">
+        <div #messageList class="card-body">
+          <ng-container *ngIf="(messages$ | async) as messages; else loader">
+            <ng-container *ngIf="messages.length else emptyMessages">
+              <ng-template ngFor let-m [ngForOf]="messages">
+                <ng-container [ngSwitch]="m.type">
+                  <ng-container *ngSwitchCase="'MESSAGE'">
+                    <div class="msg-item" [ngClass]="{'own':m.sender === boardService.nickname}">
+                      <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png"
+                        [ngbTooltip]="m.sender" placement="bottom">
+                      <div class="msg-body">
+                        {{m.text}}
+                      </div>
+                      <small class="msg-time text-secondary" [ngbTooltip]="m.timestamp | date:'medium'">
+                        {{m.timestamp | dfnsDistanceInWordsToNow}}</small>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'CMD-CREATE'">
+                    <div class="msg-command">
+                      <strong>{{m.data.user}}</strong> created
+                      <strong>{{m.board}}</strong> at
+                      <strong>{{m.timestamp|date:'medium'}}</strong>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
+                    <div class="msg-broke">
+                      Message can not be rendered
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </ng-template>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="card-footer">
+          <input #messageInput class="form-control" placeholder="type message..." [(ngModel)]="inputMessage"
+            (keydown.enter)="send()">
+          <div class="d-flex mt-2">
+            <div>
+              <button type="button" class="ml-auto btn btn-link">
+                <fa-icon [icon]="['fas','image']"></fa-icon>
+              </button>
+              <button type="button" class="ml-auto btn btn-link">
+                <fa-icon [icon]="['fas','paperclip']"></fa-icon>
+              </button>
+            </div>
+            <button type="button" class="ml-auto btn btn-outline-primary" (click)="send()">
+              <fa-icon [icon]="['far','paper-plane']"></fa-icon> send
+            </button>
+          </div>
+        </div>
+      </div>
+    </app-content-body>
+
+    <app-content-body *ngIf="tabsMenu.selected === 'files'">
+      <h4>Files</h4>
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni, quas quis. Velit ipsum amet quibusdam similique
+      ad
+      asperiores
+      dolores. Deleniti libero ex harum accusamus consectetur ipsa ipsam nihil, sed eaque!
+    </app-content-body>
+
+    <app-content-body *ngIf="tabsMenu.selected === 'manage'">
+      <div class="list-group-settings">
+        <div class="list-group-item">
+          <h5>Delete board</h5>
+          <p>This will remove this board and all messages and files. This is not reversable</p>
+          <button class="btn btn-action btn-danger" (click)="delete()"> Delete </button>
+        </div>
+      </div>
+    </app-content-body>
+  </ng-container>
+
+</app-content>
+
+<ng-template #noboard>
+  <app-empty message="No board selected" icon="comments:regular"></app-empty>
+</ng-template>
+<ng-template #emptyMessages>
+  <app-empty message="No messages yet" icon="comments:regular"></app-empty>
+</ng-template>
+<ng-template #loader>
+  <app-spinner label="Loading"></app-spinner>
+</ng-template>
