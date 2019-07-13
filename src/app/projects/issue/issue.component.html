@@ -32,7 +32,7 @@
           <h2 #title contenteditable="true" (blur)="updateTitle(title.innerText)" class="pb-2 border-bottom">
             {{issue.title}}
           </h2>
-          <div class="flex-grow-1">
+          <div class="flex-grow-1 overflow-auto">
             <textarea #desc *ngIf="editDesc" class="form-control h-100"
               style="padding:10px;box-shadow:none;background: #FAFAFA" placeholder="description..."
               [value]="issue.description" (blur)="updateDesc(desc.value)"></textarea>
@@ -41,7 +41,7 @@
             </div>
           </div>
         </div>
-        <div class="d-flex flex-column bg-light h-100 ml-4 p-2" style="min-width:450px;width:450px">
+        <div class="d-flex flex-column bg-light rounded h-100 ml-4 p-2" style="min-width:450px;width:450px">
           <div #timeline class="flex-grow-1 overflow-auto timeline">
             <ng-container *ngIf="(logs$ | async) as logs">
               <ng-container *ngIf="logs.length; else emptyLogs">
