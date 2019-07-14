@@ -42,4 +42,4 @@ Thumbs.db
 
 !.gitkeep
 .lambda
-.env
+.env*

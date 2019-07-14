@@ -1,29 +1,165 @@
 <div class="modal-header">
-  <h4 class="modal-title">Remote</h4>
-  <button type="button" class="close" aria-label="Close" (click)="dismiss()">
+  <h4 class="modal-title">Setup Remote</h4>
+  <button class="close" aria-label="Close" (click)="dismiss()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<form (ngSubmit)="save()">
-  <div class="modal-body">
-    <div class="form-group">
-      <label class="form-label">Host</label>
-      <input name="balnc-db-host" autocomplete="off" [(ngModel)]="remote.host" class="form-control">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Username</label>
-      <input name="balnc-db-username" autocomplete="off" [(ngModel)]="remote.username" class="form-control">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Password</label>
-      <input name="balnc-db-password" autocomplete="off" [(ngModel)]="remote.password" class="form-control"
-        type="password">
-    </div>
+<div class="modal-body">
+  <div class="breadcrumb">
+    <span class="breadcrumb-item" *ngFor="let step of wizard.steps" [ngClass]="{active: wizard.active === step.key }">
+      {{step.label}}</span>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-success" type="submit">Update</button>
-  </div>
-</form>
+  <ng-container *ngIf="wizard.active==='host'">
+    <p>
+      Remote host will store and sync your data betwing different clients.
+      For demonstration purposes you may select the <strong>demo</strong> host.
+    </p>
+    <p><strong> Please note that this host is NOT hardened and so your data are not guaranteed that will be
+        not visible to others.</strong>
+    </p>
+    <div class="text-right">
+      <button class="btn btn-primary" (click)="demo()">
+        Select demo
+      </button>
+    </div>
+    <ng-container *ngTemplateOutlet="seperator"></ng-container>
+    <p>
+      You may use your own host. Please follow <a
+        href="https://github.com/ChristosGeorgiou/balnc/tree/master/docs/host.md" target="_blank">this guide</a> for
+      more information
+    </p>
+    <div class="form-group">
+      <input #host [disabled]="loading.verifing" placeholder="https://db.mycompany.com:5984"
+        class="form-control form-control-lg" [value]="remote.host">
+    </div>
+    <div class="text-right">
+      <button [disabled]="loading.verifing" class="btn btn-primary" (click)="verify(host.value)">Verify
+        Remote</button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="wizard.active==='auth'">
+    <ng-container *ngIf="authView==='login'">
+      <dl class="row">
+        <dt class="col-sm-3 text-right">Demo:</dt>
+        <dd class="col-sm-9">{{isDemo}}&nbsp;</dd>
+        <dt class="col-sm-3 text-right">Host:</dt>
+        <dd class="col-sm-9">{{remote.host}}&nbsp;</dd>
+      </dl>
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input #username [disabled]="loading.auth" class="form-control" [value]="remote.username">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input #password [disabled]="loading.auth" class="form-control" type="password" [value]="remote.password">
+      </div>
+      <div class="text-right">
+        <button class="btn btn-light mr-2" (click)="wizard.active='host'">back</button>
+        <button class="btn btn-primary" [disabled]="loading.auth"
+          (click)="login(username.value,password.value)">login</button>
+      </div>
+      <ng-container *ngIf="isDemo">
+        <ng-container *ngTemplateOutlet="seperator"></ng-container>
+        <div class="text-center">
+          <a href="javascript:" (click)="authView='register'">Register</a> an new account
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="authView==='register'">
+      <p>Register a new account at <strong>{{remote.host}}</strong>. Make sure that the host provider allows anonymous
+        user registration. Otherwize maybe system administrator should create a new account for you.
+      </p>
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input #reg_username [disabled]="loading.auth" class="form-control">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input #reg_password [disabled]="loading.auth" class="form-control" type="password">
+      </div>
+      <div class="text-right">
+        <button class="btn btn-light mr-2" (click)="wizard.active='host'">back</button>
+        <button class="btn btn-primary" [disabled]="loading.auth"
+          (click)="register(reg_username.value,reg_password.value)">register</button>
+      </div>
+      <ng-container *ngTemplateOutlet="seperator"></ng-container>
+      <div class="text-center">
+        having already an account? <a href="javascript:" (click)="authView='login'">login</a> instead
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="wizard.active==='profile'">
+    <h5>Existing remote profiles</h5>
+    <div class="list-group list-group-flush mb-4">
+      <div class="list-group-item d-flex align-items-center px-0">
+        <div class="flex-grow-1">
+          <div>My Company</div>
+          <div class="text-muted">4cf71b34</div>
+        </div>
+        <button class="btn btn-primary">Link</button>
+      </div>
+      <div class="list-group-item d-flex align-items-center px-0">
+        <div class="flex-grow-1">
+          <div>My Second Company</div>
+          <div class="text-muted">854h4hj2</div>
+        </div>
+        <button class="btn btn-primary">Link</button>
+      </div>
+      <div class="list-group-item d-flex align-items-center px-0">
+        <div class="flex-grow-1">
+          <div>Another Company</div>
+          <div class="text-muted">97d8gf98g</div>
+        </div>
+        <button class="btn btn-primary">Link</button>
+      </div>
+    </div>
+    <h5>Create a new remote profile</h5>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio est praesentium officiis. Suscipit vero
+      nesciunt culpa sunt ea vel delectus, libero quasi adipisci eligendi aliquid unde accusantium neque tenetur eius?
+    </p>
+    <div class="text-right">
+      <button class="btn btn-primary">Create</button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="wizard.active==='finish'">
+    <p>Remote link completed</p>
+    <div class="d-flex">
+      <div>
+        <div><strong>Local:</strong></div>
+        <div>My Second Company</div>
+        <div class="text-muted">854h4hj2</div>
+      </div>
+      <div class="p-4">
+        <fa-icon icon="exchange-alt" size="lg"></fa-icon>
+      </div>
+      <div>
+        <div><strong>Remote:</strong></div>
+        <div>My Second Company</div>
+        <div class="text-muted">854h4hj2</div>
+      </div>
+    </div>
+    <div class="text-right">
+      <button class="btn btn-primary">Finish</button>
+    </div>
+  </ng-container>
+  <hr>
+  <app-debug [data]="remote"></app-debug>
+</div>
 <ng-template #loader>
   <app-spinner></app-spinner>
+</ng-template>
+
+<ng-template #seperator>
+  <div class="d-flex align-items-center">
+    <div class="flex-grow-1">
+      <hr />
+    </div>
+    <div class="px-4">OR</div>
+    <div class="flex-grow-1">
+      <hr />
+    </div>
+  </div>
 </ng-template>

@@ -32,6 +32,7 @@ export class GeneralComponent implements OnInit {
 
   ngOnInit() {
     this.profile = this.configService.profile
+    this.remote()
   }
 
   rename(newName) {

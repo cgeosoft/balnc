@@ -1,76 +1,20 @@
-const dotenv = require("dotenv")
-const request = require('request');
+const dotenv = require("dotenv");
+const { service } = require('./lib');
 
 dotenv.config();
 
-const dbs = [
-  "projects_projects",
-  "projects_issues",
-  "projects_logs",
-  "boards_messages",
-  "boards_boards",
-]
-
-function uid() {
-  return Math.floor((1 + Math.random()) * 0x100000000)
-    .toString(16)
-    .substring(1)
+if (process.env.DB_USER) {
+  service.auth = {
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASS,
+  }
 }
 
-function create(prefix, db, owner) {
-  return new Promise((resolve, reject) => {
-    console.log(`put ${prefix}_${db}`)
-    request.put({
-      url: `${process.env.DB_HOST}/${prefix}_${db}`,
-      auth: {
-        user: process.env.DB_USER,
-        pass: process.env.DB_PASS,
-      },
-      json: true
-    }, (error, response, body) => {
-      if (error) {
-        reject({ db, error })
-        return
-      }
-      security(`${prefix}_${db}`, owner, prefix)
-        .then(() => {
-          resolve()
-        })
-        .catch((err) => reject(err))
-    })
-  })
-}
-
-function security(name, owner, group) {
-  return new Promise((resolve, reject) => {
-    console.log(`put security ${name}`)
-    request.put({
-      url: `${process.env.DB_HOST}/${name}/_security`,
-      auth: {
-        user: process.env.DB_USER,
-        pass: process.env.DB_PASS,
-      },
-      json: true,
-      body: {
-        admins: { names: [owner] }, members: { roles: [group] }
-      }
-    }, (error, response, body) => {
-      if (error) {
-        reject({ name, error })
-        return
-      }
-      resolve()
-    })
-  })
-}
-
-
-
-exports.handler = function (event, context, callback) {
+export async function handler(event, context) {
 
   // event
   // {
-  //     "path": "Path parameter",
+  //     path: "Path parameter",
   //     "httpMethod": "Incoming request's method name"
   //     "headers": {Incoming request headers}
   //     "queryStringParameters": {query string parameters }
@@ -79,31 +23,59 @@ exports.handler = function (event, context, callback) {
   // }
 
   if (event.httpMethod === 'OPTIONS') {
-    callback(null, {
+    return service.cors(event)
+  }
+
+  const _data = JSON.parse(event.body)
+
+  const username = _data.username
+  const password = _data.password
+
+  const userResult = await service.getUser(username)
+  if (!userResult || userResult.error) {
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        error: "error",
+        reason: userResult.reason || "unknown error",
+      })
+    }
+  }
+
+  if (userResult.userId) {
+    return {
+      statusCode: 409,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        error: "user_exists",
+        reason: "Username is in use",
+        user: userResult.userId
+      })
+    }
+  }
+
+  const registerResult = await service.createUser(username, password)
+  if (!registerResult || registerResult.error) {
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        error: "error",
+        reason: registerResult.reason || "unknown error",
+      })
+    }
+  }
+
+  if (registerResult) {
+    return {
       statusCode: 200,
       headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST",
-        "Access-Control-Allow-Headers": "content-type"
+        "Content-Type": "application/json"
       },
-    });
-    return;
-  }
-  // console.log(event.body.user)
-  const _data = JSON.parse(event.body)
-  const owner = _data.user
-  const prefix = `b${uid()}`;
-  const prom = dbs.map(db => create(prefix, db, owner))
-  Promise.all(prom)
-    .then(() => {
-      callback(null, {
-        statusCode: 200,
-        body: JSON.stringify({
-          prefix: prefix
-        })
+      body: JSON.stringify({
+        userId: registerResult.userId
       })
-    })
-    .catch(error => {
-      callback(error.message)
-    })
+    }
+  }
 };
