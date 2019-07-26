@@ -2,19 +2,38 @@
   <div class="title">Business</div>
   <div class="search">
     <input class="form-control" placeholder="quick search..." [ngbTypeahead]="search" [(ngModel)]="term"
-      [resultFormatter]="formatter" (selectItem)="select($event)">
+    [resultFormatter]="formatter" (selectItem)="select($event)">
     <a routerLink="/business/search">advanced search</a>
   </div>
   <div class="divider"></div>
-  <div class="menu mb-0">
+  <div class="menu">
     <div class="items">
-      <button (click)="create()">
-        <fa-icon icon="plus-circle"></fa-icon>
-        <span>New Contact</span>
-      </button>
+      <a routerLink="/business/contacts" routerLinkActive="active">
+        <fa-icon icon="border-all" class="icon"></fa-icon>
+        <span>Contacts</span>
+      </a>
+      <a routerLink="/business/aggrements" routerLinkActive="active">
+        <fa-icon icon="border-all" class="icon"></fa-icon>
+        <span>Aggrements</span>
+      </a>
+      <a routerLink="/business/orders" routerLinkActive="active">
+        <fa-icon icon="border-all" class="icon"></fa-icon>
+        <span>Orders</span>
+      </a>
+      <a routerLink="/business/invoices" routerLinkActive="active">
+        <fa-icon icon="border-all" class="icon"></fa-icon>
+        <span>Invoices</span>
+      </a>
+      <a routerLink="/business/stock" routerLinkActive="active">
+        <fa-icon icon="border-all" class="icon"></fa-icon>
+        <span>Stock</span>
+      </a>
+      <a routerLink="/business/services" routerLinkActive="active">
+        <fa-icon icon="border-all" class="icon"></fa-icon>
+        <span>Services</span>
+      </a>
     </div>
   </div>
-  <div class="divider"></div>
   <div class="menu" *ngIf="opened">
     <div class="items">
       <div class="header d-flex">

@@ -43,3 +43,8 @@ Thumbs.db
 !.gitkeep
 .lambda
 .env*
+!.env.template
+
+log.txt
+
+pouch__all_dbs__/

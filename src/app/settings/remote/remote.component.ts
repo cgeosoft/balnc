@@ -21,13 +21,15 @@ export class RemoteComponent implements OnInit {
     password?: string;
   };
 
+  profiles: { key: string }[] = []
+
   wizard = {
     active: "host",
     steps: [
-      { key: "host", label: 'Host' },
-      { key: "auth", label: 'Auth' },
-      { key: "profile", label: 'Profile' },
-      { key: "finish", label: 'Finish' }
+      { key: "host", label: 'host' },
+      { key: "auth", label: 'authentication' },
+      { key: "profile", label: 'link profile' },
+      { key: "finish", label: 'finish' }
     ]
   }
   isDemo = false
@@ -75,11 +77,10 @@ export class RemoteComponent implements OnInit {
     const _host = host.trim().replace(/\/$/, "")
     if (_host === environment.db)
       this.isDemo = true
-    this.http
+    return this.http
       .get(_host)
       .toPromise()
       .then((result) => {
-        console.log("validated", result)
         this.remote.host = _host
         this.wizard.active = 'auth'
       })
@@ -95,14 +96,13 @@ export class RemoteComponent implements OnInit {
     this.loading.auth = true
     const _username = username.trim()
     const _password = password.trim()
-    this.http
+    return this.http
       .post(`${environment.funcs}/register`, {
         username: _username,
         password: _password,
       })
       .toPromise()
       .then(() => {
-        console.log(_username, _password)
         this.login(_username, _password)
       })
       .catch((response) => {
@@ -118,8 +118,7 @@ export class RemoteComponent implements OnInit {
     const _username = username.trim()
     const _password = password.trim()
 
-    console.log(_username, _password)
-    this.http
+    return this.http
       .post(`${this.remote.host}/_session`,
         `name=${_username}&password=${_password}`, {
           headers: {
@@ -127,7 +126,14 @@ export class RemoteComponent implements OnInit {
           }
         })
       .toPromise()
-      .then(() => {
+      .then((response: { roles: string[] }) => {
+        this.profiles = response.roles
+          .filter((r) => r.indexOf("members_") === 0)
+          .map(r => {
+            return {
+              key: r
+            }
+          })
         this.remote.username = _username
         this.remote.password = _password
         this.wizard.active = 'profile'
@@ -138,5 +144,5 @@ export class RemoteComponent implements OnInit {
       .finally(() => {
         this.loading.auth = false
       })
-  }
+    }
 }

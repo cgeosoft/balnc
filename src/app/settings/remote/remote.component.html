@@ -10,11 +10,8 @@
       {{step.label}}</span>
   </div>
   <ng-container *ngIf="wizard.active==='host'">
-    <p>
-      Remote host will store and sync your data betwing different clients.
-      For demonstration purposes you may select the <strong>demo</strong> host.
-    </p>
-    <p><strong> Please note that this host is NOT hardened and so your data are not guaranteed that will be
+    <p><strong> Use demo host for demonstration purposes only. Please note that this host is NOT hardened and so your
+        data are not guaranteed that will be
         not visible to others.</strong>
     </p>
     <div class="text-right">
@@ -26,7 +23,7 @@
     <p>
       You may use your own host. Please follow <a
         href="https://github.com/ChristosGeorgiou/balnc/tree/master/docs/host.md" target="_blank">this guide</a> for
-      more information
+      more information.
     </p>
     <div class="form-group">
       <input #host [disabled]="loading.verifing" placeholder="https://db.mycompany.com:5984"
@@ -68,7 +65,7 @@
     </ng-container>
     <ng-container *ngIf="authView==='register'">
       <p>Register a new account at <strong>{{remote.host}}</strong>. Make sure that the host provider allows anonymous
-        user registration. Otherwize maybe system administrator should create a new account for you.
+        user registration.
       </p>
       <div class="form-group">
         <label class="form-label">Username</label>
@@ -85,41 +82,33 @@
       </div>
       <ng-container *ngTemplateOutlet="seperator"></ng-container>
       <div class="text-center">
+          <button class="btn btn-light mr-2" (click)="wizard.active='host'">back</button>
         having already an account? <a href="javascript:" (click)="authView='login'">login</a> instead
       </div>
     </ng-container>
   </ng-container>
 
   <ng-container *ngIf="wizard.active==='profile'">
-    <h5>Existing remote profiles</h5>
-    <div class="list-group list-group-flush mb-4">
-      <div class="list-group-item d-flex align-items-center px-0">
-        <div class="flex-grow-1">
-          <div>My Company</div>
-          <div class="text-muted">4cf71b34</div>
-        </div>
-        <button class="btn btn-primary">Link</button>
+    <ng-container *ngIf="profiles.length">
+      <h5>Existing remote profiles</h5>
+      <div class="list-group list-group-flush mb-4">
+        <ng-container *ngFor="let p of profiles">
+          <div class="list-group-item d-flex align-items-center px-0">
+            <div class="flex-grow-1">
+              <div>{{p.key}}</div>
+              <div class="text-muted">{{p.key}}</div>
+            </div>
+            <button class="btn btn-primary">Link</button>
+          </div>
+        </ng-container>
       </div>
-      <div class="list-group-item d-flex align-items-center px-0">
-        <div class="flex-grow-1">
-          <div>My Second Company</div>
-          <div class="text-muted">854h4hj2</div>
-        </div>
-        <button class="btn btn-primary">Link</button>
-      </div>
-      <div class="list-group-item d-flex align-items-center px-0">
-        <div class="flex-grow-1">
-          <div>Another Company</div>
-          <div class="text-muted">97d8gf98g</div>
-        </div>
-        <button class="btn btn-primary">Link</button>
-      </div>
-    </div>
+    </ng-container>
     <h5>Create a new remote profile</h5>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio est praesentium officiis. Suscipit vero
       nesciunt culpa sunt ea vel delectus, libero quasi adipisci eligendi aliquid unde accusantium neque tenetur eius?
     </p>
     <div class="text-right">
+        <button class="btn btn-light mr-2" (click)="wizard.active='auth'">back</button>
       <button class="btn btn-primary">Create</button>
     </div>
   </ng-container>
