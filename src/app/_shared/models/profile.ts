@@ -1,13 +1,10 @@
+import { RemoteConfig } from "../../_core/rxdb/config";
+
 export type Profile = {
   id?: string
   name?: string
   createdAt?: number
-  remote: {
-    enabled: boolean
-    host?: string
-    username?: string
-    password?: string
-  }
+  remote: RemoteConfig
   plugins: { [key: string]: boolean }
   config?: any
 }

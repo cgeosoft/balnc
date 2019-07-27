@@ -1,7 +1,8 @@
-export interface Config {
-  sync: boolean
-  prefix: string
-  host: string
-  username: string
-  password: string
+export interface RemoteConfig {
+  enabled: boolean
+  key?: string
+  server?: string
+  db?: string
+  username?: string
+  password?: string
 }

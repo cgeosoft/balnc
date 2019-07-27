@@ -9,40 +9,57 @@
     <span class="breadcrumb-item" *ngFor="let step of wizard.steps" [ngClass]="{active: wizard.active === step.key }">
       {{step.label}}</span>
   </div>
-  <ng-container *ngIf="wizard.active==='host'">
-    <p><strong> Use demo host for demonstration purposes only. Please note that this host is NOT hardened and so your
-        data are not guaranteed that will be
-        not visible to others.</strong>
-    </p>
-    <div class="text-right">
-      <button class="btn btn-primary" (click)="demo()">
-        Select demo
-      </button>
+  <ng-container *ngIf="wizard.active==='server'">
+    <div>
+      Please follow <a href="https://github.com/ChristosGeorgiou/balnc/tree/master/docs/host.md" target="_blank">this
+        guide</a> for
+      more information about setup your own remote server.
     </div>
-    <ng-container *ngTemplateOutlet="seperator"></ng-container>
-    <p>
-      You may use your own host. Please follow <a
-        href="https://github.com/ChristosGeorgiou/balnc/tree/master/docs/host.md" target="_blank">this guide</a> for
-      more information.
-    </p>
     <div class="form-group">
-      <input #host [disabled]="loading.verifing" placeholder="https://db.mycompany.com:5984"
-        class="form-control form-control-lg" [value]="remote.host">
+      <div class="input-group">
+        <input #server [disabled]="loading.verifing" placeholder="https://balnc.mycompany.com"
+          class="form-control form-control-lg" [value]="remote.server">
+        <span ngbDropdown class="input-group-append" placement="bottom-right">
+          <button ngbDropdownToggle class="btn btn-outline-primary">
+          </button>
+          <div ngbDropdownMenu>
+            <ng-container *ngFor="let server of servers">
+              <a href="javascript:" ngbDropdownItem (click)="remote.server=server.url">{{server.label}} -
+                {{server.url}}</a>
+            </ng-container>
+          </div>
+        </span>
+      </div>
+    </div>
+    <div class="alert alert-warning" *ngIf="isDemo">
+      <strong>Warning</strong><br>
+      Use demo server for demonstration purposes only. Please note that this server is
+      NOT hardened and so your
+      data are not guaranteed that will be
+      not visible to others.
     </div>
     <div class="text-right">
-      <button [disabled]="loading.verifing" class="btn btn-primary" (click)="verify(host.value)">Verify
+      <button [disabled]="loading.verifing" class="btn btn-primary" (click)="verify(server.value)">Verify
         Remote</button>
     </div>
   </ng-container>
 
   <ng-container *ngIf="wizard.active==='auth'">
-    <ng-container *ngIf="authView==='login'">
-      <dl class="row">
-        <dt class="col-sm-3 text-right">Demo:</dt>
-        <dd class="col-sm-9">{{isDemo}}&nbsp;</dd>
-        <dt class="col-sm-3 text-right">Host:</dt>
-        <dd class="col-sm-9">{{remote.host}}&nbsp;</dd>
+    <div class="alert alert-info">
+      <dl class="row m-0">
+        <dt class="col-3 text-right">Demo:</dt>
+        <dd class="col-9 p-0 m-0">
+          <span *ngIf="isDemo" class="badge badge-danger">YES</span>
+          <span *ngIf="!isDemo" class="badge badge-success">NO</span>
+        </dd>
+        <dt class="col-3 text-right">Server:</dt>
+        <dd class="col-9 p-0 m-0">{{remote.server}}&nbsp;</dd>
+        <dt class="col-3 text-right">DB:</dt>
+        <dd class="col-9 p-0 m-0">{{remote.db}}&nbsp;</dd>
       </dl>
+    </div>
+    <ng-container *ngIf="authView==='login'">
+
       <div class="form-group">
         <label class="form-label">Username</label>
         <input #username [disabled]="loading.auth" class="form-control" [value]="remote.username">
@@ -52,7 +69,7 @@
         <input #password [disabled]="loading.auth" class="form-control" type="password" [value]="remote.password">
       </div>
       <div class="text-right">
-        <button class="btn btn-light mr-2" (click)="wizard.active='host'">back</button>
+        <button class="btn btn-light mr-2" (click)="wizard.active='server'">back</button>
         <button class="btn btn-primary" [disabled]="loading.auth"
           (click)="login(username.value,password.value)">login</button>
       </div>
@@ -64,7 +81,7 @@
       </ng-container>
     </ng-container>
     <ng-container *ngIf="authView==='register'">
-      <p>Register a new account at <strong>{{remote.host}}</strong>. Make sure that the host provider allows anonymous
+      <p>Register a new account at <strong>{{remote.db}}</strong>. Make sure that the host provider allows anonymous
         user registration.
       </p>
       <div class="form-group">
@@ -76,66 +93,74 @@
         <input #reg_password [disabled]="loading.auth" class="form-control" type="password">
       </div>
       <div class="text-right">
-        <button class="btn btn-light mr-2" (click)="wizard.active='host'">back</button>
+        <button class="btn btn-light mr-2" (click)="wizard.active='server'">back</button>
         <button class="btn btn-primary" [disabled]="loading.auth"
           (click)="register(reg_username.value,reg_password.value)">register</button>
       </div>
       <ng-container *ngTemplateOutlet="seperator"></ng-container>
       <div class="text-center">
-          <button class="btn btn-light mr-2" (click)="wizard.active='host'">back</button>
+        <button class="btn btn-light mr-2" (click)="wizard.active='server'">back</button>
         having already an account? <a href="javascript:" (click)="authView='login'">login</a> instead
       </div>
     </ng-container>
   </ng-container>
 
-  <ng-container *ngIf="wizard.active==='profile'">
+  <ng-container *ngIf="wizard.active==='link'">
+    <h5>Create a new remote profile</h5>
+    <p>This will create a new profile, generate all remote databases and set you as an owner</p>
+    <div class="form-group d-flex mb-4">
+      <input #newProfileName class="form-control" placeholder="Remote profile name" [value]="localProfile.name">
+      <button class="btn btn-primary ml-2" (click)="createProfile(newProfileName.value)">Create</button>
+    </div>
     <ng-container *ngIf="profiles.length">
       <h5>Existing remote profiles</h5>
       <div class="list-group list-group-flush mb-4">
         <ng-container *ngFor="let p of profiles">
           <div class="list-group-item d-flex align-items-center px-0">
             <div class="flex-grow-1">
-              <div>{{p.key}}</div>
-              <div class="text-muted">{{p.key}}</div>
+              <div>{{p.name || "no name"}} <small class="text-muted"> - #{{p.key}}</small>
+                <a href="javascript:" (click)="removeProfile(p)" class="mr-2" *ngIf="remote.username === p.owner">
+                  <fa-icon icon='trash-alt' class="text-danger"></fa-icon>
+                </a>
+              </div>
+              <div class="text-muted">created by {{p.owner}} at {{p.created|date:'short'}}</div>
             </div>
-            <button class="btn btn-primary">Link</button>
+            <button class="btn btn-sm btn-outline-primary" [ngClass]="{active:remote.key === p.key}"
+              (click)="remote.key = p.key">Link</button>
           </div>
         </ng-container>
       </div>
     </ng-container>
-    <h5>Create a new remote profile</h5>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio est praesentium officiis. Suscipit vero
-      nesciunt culpa sunt ea vel delectus, libero quasi adipisci eligendi aliquid unde accusantium neque tenetur eius?
-    </p>
     <div class="text-right">
-        <button class="btn btn-light mr-2" (click)="wizard.active='auth'">back</button>
-      <button class="btn btn-primary">Create</button>
+      <button class="btn btn-light mr-2" (click)="wizard.active='auth'">back</button>
+      <button class="btn btn-primary" [disabled]="!remote.key" (click)="wizard.active = 'finish'">Finish</button>
     </div>
   </ng-container>
 
   <ng-container *ngIf="wizard.active==='finish'">
     <p>Remote link completed</p>
     <div class="d-flex">
-      <div>
-        <div><strong>Local:</strong></div>
-        <div>My Second Company</div>
-        <div class="text-muted">854h4hj2</div>
+      <div class="flex-grow-1 text-right">
+        <div><strong>Local</strong></div>
+        <div>{{localProfile.name}}</div>
+        <div class="text-muted">{{localProfile.id}}</div>
       </div>
       <div class="p-4">
         <fa-icon icon="exchange-alt" size="lg"></fa-icon>
       </div>
-      <div>
-        <div><strong>Remote:</strong></div>
-        <div>My Second Company</div>
-        <div class="text-muted">854h4hj2</div>
+      <div class="flex-grow-1">
+        <div><strong>Remote</strong></div>
+        <div>{{remoteProfile.name}}</div>
+        <div class="text-muted">{{remoteProfile.key}}</div>
       </div>
     </div>
     <div class="text-right">
-      <button class="btn btn-primary">Finish</button>
+      <button class="btn btn-primary" (click)="finish()">Finish</button>
     </div>
   </ng-container>
-  <hr>
+  <!-- <hr>
   <app-debug [data]="remote"></app-debug>
+  <app-debug [data]="profiles"></app-debug> -->
 </div>
 <ng-template #loader>
   <app-spinner></app-spinner>

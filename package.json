@@ -23,13 +23,13 @@
     "electron:dist": "electron-builder",
     "start": "run-p start:**",
     "start:app": "ng serve --port 4200",
-    "start:lambda": "netlify-lambda serve server/app/handlers --port 4300",
+    "start:lambda": "netlify-lambda serve server/src/handlers --port 4300",
     "build": "run-p build:**",
     "build:app": "ng build",
     "build:lambda": "netlify-lambda build server/handlers",
     "build-prod": "run-p build-prod:**",
     "build-prod:app": "ng build --prod",
-    "build-prod:lambda": "netlify-lambda build server/handlers"
+    "build-prod:lambda": "netlify-lambda build server/src/handlers"
   },
   "dependencies": {
     "@angular-devkit/build-angular": "^0.800.6",

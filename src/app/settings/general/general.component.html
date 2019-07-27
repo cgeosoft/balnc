@@ -39,12 +39,12 @@
                   </ng-container>
                 </ng-container>
               </dd>
-              <dt class="col-sm-3 text-right">Host:</dt>
-              <dd class="col-sm-9">{{profile.remote.host || ' - '}}&nbsp;</dd>
+              <dt class="col-sm-3 text-right">Server:</dt>
+              <dd class="col-sm-9">{{profile.remote.server || ' - '}}&nbsp;</dd>
+              <dt class="col-sm-3 text-right">DB:</dt>
+              <dd class="col-sm-9">{{profile.remote.db || ' - '}}&nbsp;</dd>
               <dt class="col-sm-3 text-right">Username:</dt>
               <dd class="col-sm-9">{{profile.remote.username || ' - '}}&nbsp;</dd>
-              <dt class="col-sm-3 text-right">Password:</dt>
-              <dd class="col-sm-9">{{profile.remote.password?"********":' - '}}&nbsp;</dd>
             </dl>
           </ng-container>
           <button class="btn btn-action btn-primary" (click)="remote()">Edit Remote</button>

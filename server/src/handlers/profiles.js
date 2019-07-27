@@ -1,19 +1,27 @@
-import { cors, createDBs, getUser, removeDBs } from "../commons/service";
+import { authUser, cors, createDBs, removeDBs } from "../commons/service";
 
 export async function handler(event, context) {
-  if (event.httpMethod === 'OPTIONS') {
-    return cors(event)
-  }
 
-  const body = JSON.parse(event.body)
-  const user = await getUser(body.username, body.password)
+  const user = await authUser(event)
 
   switch (event.httpMethod) {
+    case "OPTIONS":
+      return cors(event)
+    case "GET":
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          user: user.name,
+          profiles: user.roles
+        })
+      }
     case "POST":
-      return await createDBs(user.name)
-      break;
+      const createBody = JSON.parse(event.body)
+      return await createDBs(user.name, createBody.name)
     case "DELETE":
-      return await removeDBs(user.name, body.prefix)
-      break;
+      if (!event.queryStringParameters.key) throw new Error("A profile key should be provided")
+      return await removeDBs(user.name, event.queryStringParameters.key)
+    default:
+      throw new Error(`method ${event.httpMethod} not handled`)
   }
 };

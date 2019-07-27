@@ -16,7 +16,7 @@ import RxDBUpdateModule from 'rxdb/plugins/update';
 import RxDBValidateModule from 'rxdb/plugins/validate';
 import environment from '../../../environments/environment';
 import { ConfigService } from '../services/config.service';
-import { Config } from './config';
+import { RemoteConfig } from './config';
 import { Entity } from './entity';
 
 if (!environment.production) {
@@ -39,7 +39,7 @@ RxDB.plugin(RxDBUpdateModule)
 @Injectable()
 export class RxDBService {
 
-  private config: Config
+  private config: RemoteConfig
   private replicationStates: { [key: string]: RxReplicationState } = {}
 
   constructor(
@@ -48,15 +48,8 @@ export class RxDBService {
     private toastr: ToastrService
   ) {
     if (!configService.profile) return
-    const cr = configService.profile.remote || {
+    this.config = configService.profile.remote || {
       enabled: false
-    }
-    this.config = {
-      sync: cr.enabled,
-      prefix: configService.profile.id,
-      host: cr.host,
-      username: cr.username,
-      password: cr.password
     }
   }
 
@@ -66,7 +59,7 @@ export class RxDBService {
       return
     }
 
-    const name = `db_${this.config.prefix}_${alias}`
+    const name = `db_${this.config.key}_${alias}`
 
     console.log('[DatabaseService]', `Initializing DB: ${name}`, entities)
     const _adapter = await this.getAdapter()
@@ -94,9 +87,9 @@ export class RxDBService {
 
     console.log('[DatabaseService]', `Sync entities`, entities)
 
-    const name = `${this.config.prefix}_${alias}`
+    const name = `b${this.config.key}_${alias}`
 
-    if (!this.config.sync) {
+    if (!this.config.enabled) {
       return
     }
 
@@ -113,7 +106,7 @@ export class RxDBService {
         }
 
         this.replicationStates[entity.name] = ent.sync({
-          remote: `${this.config.host}/balnc_${name}_${entity.name}/`,
+          remote: `${this.config.db}/${name}_${entity.name}/`,
           options: {
             live: true,
             retry: true
@@ -128,7 +121,7 @@ export class RxDBService {
   }
 
   async authenticate(username: string, password: string) {
-    return this.http.post(`${this.config.host}/_session`, {
+    return this.http.post(`${this.config.db}/_session`, {
       name: username,
       password: password
     }, { withCredentials: true })
@@ -141,7 +134,7 @@ export class RxDBService {
   async removeProfile(profileId: string, entities: Entity[]) {
     const adapter = await this.getAdapter()
     entities.forEach(async (entity) => {
-      const name = `db_${profileId}_${entity.name}`
+      const name = `${profileId}_${entity.name}`
       await RxDB.removeDatabase(name, adapter)
     })
   }

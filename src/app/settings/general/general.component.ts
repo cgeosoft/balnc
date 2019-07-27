@@ -32,7 +32,6 @@ export class GeneralComponent implements OnInit {
 
   ngOnInit() {
     this.profile = this.configService.profile
-    this.remote()
   }
 
   rename(newName) {
@@ -59,7 +58,7 @@ export class GeneralComponent implements OnInit {
   }
 
   async remote() {
-    const m = this.modal.open(RemoteComponent)
+    const m = this.modal.open(RemoteComponent, { backdrop: "static" })
     m.componentInstance.profile = this.profile
     const remote = await m.result
     this.profile.remote = remote

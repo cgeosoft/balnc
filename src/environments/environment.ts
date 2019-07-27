@@ -5,8 +5,12 @@ export const environment = {
   production: false,
   plugins: _plugins['plugins'],
   version: _package['version'],
-  funcs: 'http://localhost:4300/.netlify/functions',
-  db: 'http://localhost:5984'
+  servers: [
+    {
+      label: "Demo Server",
+      url: 'http://localhost:3000/api'
+    }
+  ]
 }
 
 export default environment

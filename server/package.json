@@ -21,6 +21,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "body-parser": "1.15.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "errorhandler": "1.4.3",
     "express": "^4.17.1",
