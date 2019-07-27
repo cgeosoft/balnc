@@ -11,6 +11,8 @@ const dbs = [
   "boards_boards",
 ]
 
+export const started = Date.now()
+
 export function uid() {
   return Math.floor((1 + Math.random()) * 0x100000000)
     .toString(16)

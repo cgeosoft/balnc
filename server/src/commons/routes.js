@@ -1,7 +1,7 @@
 import express from 'express';
-import { handler as profiles } from "./handlers/profiles";
-import { handler as status } from "./handlers/status";
-import response from './helpers/response';
+import { handler as profiles } from "../handlers/profiles";
+import { handler as status } from "../handlers/status";
+import response from '../helpers/response';
 
 const routes = express.Router();
 
