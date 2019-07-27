@@ -7,10 +7,11 @@ services:
     depends_on:
       - "db"
   db:
-    image: scttmthsn/pouchdb-server
+    image: couchdb
     ports:
       - "5984:5984"
     volumes:
-      - pouchdb:/pouchdb
+      - couchdb:/couchdb
 volumes:
+  couchdb:
   pouchdb:
