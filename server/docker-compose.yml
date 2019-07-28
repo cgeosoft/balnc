@@ -5,13 +5,21 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - "db"
-  db:
+      - "couchdb"
+    environment:
+      DB_HOST: http://couchdb:5984
+    networks: 
+      - backend
+  couchdb:
     image: couchdb
     ports:
       - "5984:5984"
     volumes:
-      - couchdb:/couchdb
+      - couchdb:/opt/couchdb/data
+    networks: 
+      - backend
 volumes:
   couchdb:
-  pouchdb:
+networks:
+  backend:
+    driver: "bridge"
