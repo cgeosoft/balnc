@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { RxDBService } from '@balnc/core';
+import { ConfigService, RxDBService } from '@balnc/core';
 import { CommonService } from '@balnc/shared';
 import * as faker from 'faker';
 import { Observable } from 'rxjs';
@@ -16,6 +16,7 @@ export class ProjectsService extends CommonService {
   constructor(
     zone: NgZone,
     dbService: RxDBService,
+    private config: ConfigService,
   ) {
     super(zone, dbService)
   }
@@ -48,7 +49,7 @@ export class ProjectsService extends CommonService {
   async createIssue(issue: Issue) {
     const d = {
       insertedAt: Date.now(),
-      insertedFrom: '_system',
+      insertedFrom: this.config.username,
       type: 'TASK',
       status: 'PENDING'
     }
@@ -62,7 +63,7 @@ export class ProjectsService extends CommonService {
     const log: Log = {
       text,
       insertedAt: Date.now(),
-      insertedFrom: '_system',
+      insertedFrom: this.config.username,
       type: LogType.comment,
       issueId: issueId,
     }
@@ -73,7 +74,7 @@ export class ProjectsService extends CommonService {
     const log: Log = {
       text: status,
       insertedAt: Date.now(),
-      insertedFrom: '_system',
+      insertedFrom: this.config.username,
       type: LogType.activity,
       issueId: issueId
     }
@@ -111,7 +112,7 @@ export class ProjectsService extends CommonService {
           type: IssueType[IssueType[Math.floor(Math.random() * Object.keys(IssueType).length / 2)]],
           projectId: projects[pr].get('_id'),
           insertedAt: Date.now(),
-          insertedFrom: "_system"
+          insertedFrom: this.config.username
         }
         await this.createIssue(issue)
       }

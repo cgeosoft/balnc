@@ -29,6 +29,11 @@ export class ConfigService {
     return this.profiles.find(p => p.id === this.selected)
   }
 
+  get username(): string {
+    const p = this.profile
+    return p.remote.username || "anonymous"
+  }
+
   get enabledPlugins() {
     return this.plugins
       .filter(m => {

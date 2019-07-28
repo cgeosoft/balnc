@@ -1,7 +1,7 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConfigService } from '@balnc/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Issue, IssueStatus, IssueStatuses, Log, LogType, Project } from '../_shared/models/project';
@@ -37,10 +37,10 @@ export class IssueComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private modal: NgbModal,
     private formBuilder: FormBuilder,
     private projectsService: ProjectsService,
-    private zone: NgZone
+    private zone: NgZone,
+    private config: ConfigService
   ) { }
 
   ngOnInit() {
@@ -67,13 +67,10 @@ export class IssueComponent implements OnInit {
     }
   }
 
-  async nextStatus(status: IssueStatus) {
-    const i = this.issueStatusModel.findIndex(x => x.key === status)
+  async nextStatus(currentStatus: IssueStatus) {
+    const i = this.issueStatusModel.findIndex(x => x.key === currentStatus)
     if (i === -1 || i === this.issueStatusModel.length - 1) return
-    const issue = await this.projectsService.getOne<Issue>("issues", this.issueId);
     const newstatus = this.issueStatusModel[i + 1].key
-    await issue.update({ $set: { status: newstatus } });
-    await this.log(`status updated to ${newstatus}`);
   }
 
   async updateTitle(title) {
@@ -81,6 +78,12 @@ export class IssueComponent implements OnInit {
     const _title = title.trim()
     if (issue.title === _title) return
     await issue.update({ $set: { title: _title } });
+  }
+
+  async updateStatus(status: IssueStatus) {
+    const issue = await this.projectsService.getOne<Issue>("issues", this.issueId);
+    await issue.update({ $set: { status: status } });
+    await this.log(`status updated to ${status}`);
   }
 
   async updateDesc(description) {
@@ -140,7 +143,7 @@ export class IssueComponent implements OnInit {
       type: LogType.activity,
       text: message,
       insertedAt: Date.now(),
-      insertedFrom: "_system"
+      insertedFrom: this.config.username
     })
   }
 

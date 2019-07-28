@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title">Create Issue</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -10,7 +10,8 @@
       <label>Title
         <small class="text-muted">required</small>
       </label>
-      <input #title tabindex="1" formControlName="title" class="form-control" [ngClass]="{'is-invalid':form.get('title').invalid && (form.get('title').dirty || form.get('title').touched)}">
+      <input #title tabindex="1" formControlName="title" class="form-control"
+        [ngClass]="{'is-invalid':form.get('title').invalid && (form.get('title').dirty || form.get('title').touched)}">
       <ng-container *ngIf="form.get('title').invalid && (form.get('title').dirty || form.get('title').touched)">
         <div *ngIf="form.get('title').errors.required" class="invalid-feedback">
           Title is required.

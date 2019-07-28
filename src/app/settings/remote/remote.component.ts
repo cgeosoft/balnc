@@ -136,9 +136,9 @@ export class RemoteComponent implements OnInit {
               key: p
             }
           })
-        this.loadProfiles()
         this.remote.username = _username
         this.remote.password = _password
+        this.loadProfiles()
         this.wizard.active = 'link'
       })
       .catch((response) => {
@@ -171,14 +171,14 @@ export class RemoteComponent implements OnInit {
 
   async loadProfiles() {
     const loads = []
-    this.profiles.forEach(p => {
+    this.profiles.forEach(profile => {
       const n = this.http
-        .get(`${this.remote.db}/${p.key}/manifest`, {
+        .get(`${this.remote.server}/profiles/${profile.key}`, {
           headers: { Authorization: "Basic " + btoa(this.remote.username + ":" + this.remote.password) }
         })
         .toPromise()
         .then((response: RemoteProfile) => {
-          p = Object.assign(p, response)
+          profile = Object.assign(profile, response)
         })
       loads.push(n)
     })
@@ -193,7 +193,7 @@ export class RemoteComponent implements OnInit {
   async removeProfile(profile: RemoteProfile) {
     if (!confirm(`Are you sure you want to delete profile ${profile.name} and all data? This is not reversible. Please make some backups first.`)) return
     await this.http
-      .delete(`${this.remote.server}/profiles?key=${profile.key}`, {
+      .delete(`${this.remote.server}/profiles/${profile.key}`, {
         headers: { Authorization: "Basic " + btoa(this.remote.username + ":" + this.remote.password) }
       })
       .toPromise()

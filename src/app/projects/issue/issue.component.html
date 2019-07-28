@@ -22,7 +22,7 @@
                 <button class="btn dropdown-toggle-split" [ngStyle]="status(issue.status).style"
                   ngbDropdownToggle></button>
                 <div class="dropdown-menu" ngbDropdownMenu>
-                  <button ngbDropdownItem *ngFor="let s of issueStatusModel" (click)="saveDetails({status:s.key})">
+                  <button ngbDropdownItem *ngFor="let s of issueStatusModel" (click)="updateStatus(s.key)">
                     <fa-icon [icon]="['fas','circle']" [ngStyle]="{color:s.color}"></fa-icon> {{s.alias}}
                   </button>
                 </div>
