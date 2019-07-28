@@ -8,7 +8,7 @@ routes
   .get((req, res) => {
     return res.json({
       started: started,
-      db: process.env.DB_HOST,
+      db: process.env.DB_HOST_EXTERNAL,
     })
   })
 

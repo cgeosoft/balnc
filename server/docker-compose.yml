@@ -8,6 +8,7 @@ services:
       - "couchdb"
     environment:
       DB_HOST: http://couchdb:5984
+      DB_HOST_EXTERNAL: http://localhost:5984
     networks: 
       - backend
   couchdb:
