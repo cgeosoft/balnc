@@ -87,7 +87,7 @@ export class RxDBService {
 
     console.log('[DatabaseService]', `Sync entities`, entities)
 
-    const name = `b${this.config.key}_${alias}`
+    const name = `${this.config.key}_${alias}`
 
     if (!this.config.enabled) {
       return

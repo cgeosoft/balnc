@@ -73,12 +73,10 @@
         <button class="btn btn-primary" [disabled]="loading.auth"
           (click)="login(username.value,password.value)">login</button>
       </div>
-      <ng-container *ngIf="isDemo">
-        <ng-container *ngTemplateOutlet="seperator"></ng-container>
-        <div class="text-center">
-          <a href="javascript:" (click)="authView='register'">Register</a> an new account
-        </div>
-      </ng-container>
+      <ng-container *ngTemplateOutlet="seperator"></ng-container>
+      <div class="text-center">
+        <a href="javascript:" (click)="authView='register'">Register</a> an new account
+      </div>
     </ng-container>
     <ng-container *ngIf="authView==='register'">
       <p>Register a new account at <strong>{{remote.db}}</strong>. Make sure that the host provider allows anonymous
@@ -99,7 +97,6 @@
       </div>
       <ng-container *ngTemplateOutlet="seperator"></ng-container>
       <div class="text-center">
-        <button class="btn btn-light mr-2" (click)="wizard.active='server'">back</button>
         having already an account? <a href="javascript:" (click)="authView='login'">login</a> instead
       </div>
     </ng-container>

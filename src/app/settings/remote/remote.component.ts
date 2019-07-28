@@ -110,6 +110,7 @@ export class RemoteComponent implements OnInit {
       .toPromise()
       .then(async () => {
         await this.login(_username, _password)
+        this.authView = 'login'
       })
       .catch((response) => {
         this.toastr.error(response.error.reason, response.error.error)
