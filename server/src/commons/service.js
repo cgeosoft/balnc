@@ -1,10 +1,5 @@
 import request from 'request';
 
-const _auth = {
-  user: process.env.DB_USER,
-  pass: process.env.DB_PASS,
-}
-
 export const dbs = [
   "projects_projects",
   "projects_issues",
@@ -56,39 +51,25 @@ export async function createDB(name, owner, group) {
   await new Promise((res, rej) => {
     request.put({
       url: `${process.env.DB_HOST}/${name}`,
-      auth: _auth,
+      auth: {
+        user: process.env.DB_USER,
+        pass: process.env.DB_PASS,
+      },
       json: true
     }, (e, r, b) => promiseCallback(e, b, res, rej))
   })
   await new Promise((res, rej) => {
+    const _admins = owner ? { names: [owner] } : {}
     request.put({
       url: `${process.env.DB_HOST}/${name}/_security`,
-      auth: _auth,
+      auth: {
+        user: process.env.DB_USER,
+        pass: process.env.DB_PASS,
+      },
       json: true,
       body: {
-        admins: { names: [owner] }, members: { roles: [group] }
+        admins: _admins, members: { roles: [group] }
       }
-    }, (e, r, b) => promiseCallback(e, b, res, rej))
-  })
-}
-
-export function updateUser(user) {
-  return new Promise((res, rej) => {
-    request.put({
-      url: `${process.env.DB_HOST}/_users/org.couchdb.user:${user.name}`,
-      auth: _auth,
-      json: true,
-      body: user
-    }, (e, r, b) => promiseCallback(e, b, res, rej))
-  })
-}
-
-export function getUser(username) {
-  return new Promise((res, rej) => {
-    request.get({
-      url: `${process.env.DB_HOST}/_users/org.couchdb.user:${username}`,
-      auth: _auth,
-      json: true
     }, (e, r, b) => promiseCallback(e, b, res, rej))
   })
 }
@@ -97,8 +78,38 @@ export function removeDB(db) {
   return new Promise((res, rej) => {
     request.delete({
       url: `${process.env.DB_HOST}/${db}`,
-      auth: _auth,
+      auth: {
+        user: process.env.DB_USER,
+        pass: process.env.DB_PASS,
+      },
       json: true
+    }, (e, r, b) => promiseCallback(e, b, res, rej))
+  })
+}
+
+export function getUser(username) {
+  return new Promise((res, rej) => {
+    request.get({
+      url: `${process.env.DB_HOST}/_users/org.couchdb.user:${username}`,
+      auth: {
+        user: process.env.DB_USER,
+        pass: process.env.DB_PASS,
+      },
+      json: true
+    }, (e, r, b) => promiseCallback(e, b, res, rej))
+  })
+}
+
+export function updateUser(user) {
+  return new Promise((res, rej) => {
+    request.put({
+      url: `${process.env.DB_HOST}/_users/org.couchdb.user:${user.name}`,
+      auth: {
+        user: process.env.DB_USER,
+        pass: process.env.DB_PASS,
+      },
+      json: true,
+      body: user
     }, (e, r, b) => promiseCallback(e, b, res, rej))
   })
 }
@@ -107,7 +118,10 @@ export async function getManifest(key) {
   return new Promise((res, rej) => {
     request.get({
       url: `${process.env.DB_HOST}/${key}/manifest`,
-      auth: _auth,
+      auth: {
+        user: process.env.DB_USER,
+        pass: process.env.DB_PASS,
+      },
       json: true,
     }, (e, r, b) => promiseCallback(e, b, res, rej))
   })
@@ -118,14 +132,35 @@ export async function createManifest(key, owner, profileName) {
     const _name = profileName || `Profile #${Date.now()}`
     request.post({
       url: `${process.env.DB_HOST}/${key}`,
-      auth: _auth,
+      auth: {
+        user: process.env.DB_USER,
+        pass: process.env.DB_PASS,
+      },
       json: true,
       body: {
         _id: "manifest",
+        key: key,
         name: _name,
         created: Date.now(),
-        owner: owner
+        owner: owner,
+        members: [
+          owner
+        ]
       }
+    }, (e, r, b) => promiseCallback(e, b, res, rej))
+  })
+}
+
+export async function updateManifest(manifest) {
+  return new Promise((res, rej) => {
+    request.put({
+      url: `${process.env.DB_HOST}/${manifest.key}/manifest`,
+      auth: {
+        user: process.env.DB_USER,
+        pass: process.env.DB_PASS,
+      },
+      json: true,
+      body: manifest
     }, (e, r, b) => promiseCallback(e, b, res, rej))
   })
 }
