@@ -70,7 +70,8 @@ export class IssueComponent implements OnInit {
   async nextStatus(currentStatus: IssueStatus) {
     const i = this.issueStatusModel.findIndex(x => x.key === currentStatus)
     if (i === -1 || i === this.issueStatusModel.length - 1) return
-    const newstatus = this.issueStatusModel[i + 1].key
+    const next = this.issueStatusModel[i + 1].key
+    await this.updateStatus(next)
   }
 
   async updateTitle(title) {

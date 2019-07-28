@@ -123,7 +123,7 @@
               <div class="text-muted">created by {{p.owner}} at {{p.created|date:'short'}}</div>
             </div>
             <button class="btn btn-sm btn-outline-primary" [ngClass]="{active:remote.key === p.key}"
-              (click)="remote.key = p.key">Link</button>
+              (click)="linkRemote(p)">Link</button>
           </div>
         </ng-container>
       </div>

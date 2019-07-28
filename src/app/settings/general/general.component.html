@@ -7,49 +7,77 @@
           <h5>Profile Information</h5>
           <dl class="row mb-0">
             <dt class="col-sm-3 text-right">Key:</dt>
-            <dd class="col-sm-9">{{profile.id}}&nbsp;</dd>
+            <dd class="col-sm-9 text-monospace">{{profile.id}}&nbsp;</dd>
             <dt class="col-sm-3 text-right">Name:</dt>
-            <dd class="col-sm-9 d-flex">
+            <dd class="col-sm-9 text-monospace d-flex">
               <span #newname class="bg-light rounded d-block flex-grow-1 pl-1"
                 contenteditable="true">{{profile.name}}</span>
-              <div style="width:50px">
-                <fa-icon (click)="rename(newname.innerText)" icon="save" class="ml-2 text-primary"></fa-icon>
-              </div>
+              <fa-icon (click)="rename(newname.innerText)" icon="save" class="ml-2 text-primary"></fa-icon>
             </dd>
             <dt class="col-sm-3 text-right">Created:</dt>
-            <dd class="col-sm-9">{{profile.createdAt|date:"short"}}&nbsp;</dd>
+            <dd class="col-sm-9 text-monospace">{{profile.createdAt|date:"short"}}&nbsp;</dd>
           </dl>
         </div>
         <div class="list-group-item">
           <h5>Remote</h5>
-          <p>
-            Use this option for make real-time backup of your data and access from multiple devices.
-            Some modules may require this option for them to work.
-          </p>
-          <ng-container *ngIf="profile.remote">
+          <div class="d-flex align-items-start">
+            <div>
+              Use this option for make real-time backup of your data and access from multiple devices.
+              Some modules may require this option for them to work.
+            </div>
+            <button class="btn btn-action btn-primary ml-4" (click)="remote()">Edit
+              Remote</button>
+          </div>
+          <ng-container *ngIf="profile.remote.key">
             <dl class="row">
-              <dt class="col-sm-3 text-right">Enabled:</dt>
-              <dd class="col-sm-9">
+              <dt class="col-sm-3 text-right">Username:</dt>
+              <dd class="col-sm-9 text-monospace">{{profile.remote.username || ' - '}}&nbsp;</dd>
+              <dt class="col-sm-3 text-right">Name:</dt>
+              <dd class="col-sm-9 text-monospace">{{profile.remote.name || ' - '}} <small>owner:
+                  {{profile.remote.owner}}</small>
+              </dd>
+              <dt class="col-sm-3 text-right">Server:</dt>
+              <dd class="col-sm-9 text-monospace">{{profile.remote.server || ' - '}}&nbsp;</dd>
+              <dt class="col-sm-3 text-right">Database:</dt>
+              <dd class="col-sm-9 text-monospace">{{profile.remote.db || ' - '}}/{{profile.remote.key}}&nbsp;</dd>
+
+              <dt class="col-sm-3 text-right">Members:</dt>
+              <dd class="col-sm-9 text-monospace">
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex" *ngFor="let member of profile.remote.members">
+                    <div class="flex-grow-1">
+                      {{member}}
+                    </div>
+                    <fa-icon (click)="removeMember(member)" icon="trash-alt" class="ml-2 text-danger">
+                    </fa-icon>
+                  </li>
+                  <li class="d-flex">
+                    <span #newmember class="bg-light rounded d-block flex-grow-1 pl-1" contenteditable="true"></span>
+                    <fa-icon (click)="addMember(newmember.innerText);newmember.innerText=''" icon="plus-circle"
+                      class="ml-2 text-success">
+                    </fa-icon>
+                  </li>
+                </ul>
+              </dd>
+              <dt class="col-sm-3 text-right">Sync:</dt>
+              <dd class="col-sm-9 mb-0">
                 <ng-container [ngSwitch]="profile.remote.enabled">
-                  <ng-container *ngSwitchCase="true">
-                    <span class="badge badge-success" (click)="toggleRemote()">ENABLED</span>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="false">
-                    <span class="badge badge-danger" (click)="toggleRemote()">DISABLED</span>
-                  </ng-container>
+                  <div *ngSwitchCase="true" class="d-flex align-items-center">
+                    <div>
+                      Remote sync is <span class="badge badge-success">ENABLED</span><br>
+                      If you disable this option, your data will stop syncing with the remote server</div>
+                    <span class="btn btn-action btn-danger ml-4" (click)="toggleRemote()">Disable</span>
+                  </div>
+                  <div *ngSwitchCase="false" class="d-flex align-items-center">
+                    <div>
+                      Remote sync is <span class="badge badge-danger">DISABLED</span><br>
+                      If you enable this option, your data will be synced with the remote server</div>
+                    <span class="btn btn-action btn-success ml-4" (click)="toggleRemote()">Enable</span>
+                  </div>
                 </ng-container>
               </dd>
-              <dt class="col-sm-3 text-right">Key:</dt>
-              <dd class="col-sm-9">{{profile.remote.key}}&nbsp;</dd>
-              <dt class="col-sm-3 text-right">Server:</dt>
-              <dd class="col-sm-9">{{profile.remote.server || ' - '}}&nbsp;</dd>
-              <dt class="col-sm-3 text-right">DB:</dt>
-              <dd class="col-sm-9">{{profile.remote.db || ' - '}}&nbsp;</dd>
-              <dt class="col-sm-3 text-right">Username:</dt>
-              <dd class="col-sm-9">{{profile.remote.username || ' - '}}&nbsp;</dd>
             </dl>
           </ng-container>
-          <button class="btn btn-action btn-primary" (click)="remote()">Edit Remote</button>
         </div>
         <div class="list-group-item">
           <h5>Danger Zone</h5>

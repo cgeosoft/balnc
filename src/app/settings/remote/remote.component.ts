@@ -15,6 +15,7 @@ interface RemoteProfile {
   name?: string
   created?: number
   owner?: string
+  members?: string[]
 }
 
 @Component({
@@ -202,6 +203,13 @@ export class RemoteComponent implements OnInit {
       })
     this.loading.auth = false
     await this.login(this.remote.username, this.remote.password)
+  }
+
+  linkRemote(profile: RemoteProfile) {
+    this.remote.key = profile.key
+    this.remote.name = profile.name
+    this.remote.owner = profile.owner
+    this.remote.members = profile.members
   }
 
   async finish() {
