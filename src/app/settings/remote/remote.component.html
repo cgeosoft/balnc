@@ -11,13 +11,13 @@
   </div>
   <ng-container *ngIf="wizard.active==='server'">
     <p>
-      Please follow <a href="https://github.com/ChristosGeorgiou/balnc/tree/master/docs/host.md" target="_blank">this
+      Please follow <a href="https://github.com/ChristosGeorgiou/balnc/tree/master/docs/server-setup.md" target="_blank">this
         guide</a> for
       more information about setup your own remote server.
     </p>
     <div class="form-group">
       <div class="input-group">
-        <input #server [disabled]="loading.verifing" placeholder="https://balnc.mycompany.com"
+        <input #server autofocus [disabled]="loading.verifing" placeholder="https://balnc.mycompany.com"
           class="form-control form-control-lg" [value]="remote.server" (keyup)="remote.server = server.value">
         <span ngbDropdown class="input-group-append" placement="bottom-right">
           <button ngbDropdownToggle class="btn btn-outline-primary">

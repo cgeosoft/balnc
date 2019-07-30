@@ -13,23 +13,15 @@
     "url": "https://github.com/christosgeorgiou/balnc"
   },
   "scripts": {
-    "ng": "ng",
+    "start": "ng serve",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron:run": "electron .",
-    "electron:build": "ng build --prod --base-href ./",
+    "build": "ng build --prod", 
+    "electron": "electron main.js",
+    "electron:build": "ng build --base-href ./",
     "electron:pack": "electron-builder --dir",
-    "electron:dist": "electron-builder",
-    "start": "run-p start:**",
-    "start:app": "ng serve --port 4200",
-    "start:lambda": "netlify-lambda serve server/src/handlers --port 4300",
-    "build": "run-p build:**",
-    "build:app": "ng build",
-    "build:lambda": "netlify-lambda build server/handlers",
-    "build-prod": "run-p build-prod:**",
-    "build-prod:app": "ng build --prod",
-    "build-prod:lambda": "netlify-lambda build server/src/handlers"
+    "electron:dist": "electron-builder"
   },
   "dependencies": {
     "@angular-devkit/build-angular": "^0.800.6",
