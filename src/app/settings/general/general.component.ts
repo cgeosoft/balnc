@@ -62,7 +62,7 @@ export class GeneralComponent implements OnInit {
     window.location.reload()
   }
 
-  async remote() {
+  async setupRemote() {
     const m = this.modal.open(RemoteComponent, { backdrop: "static" })
     m.componentInstance.profile = this.profile
     const remote = await m.result
@@ -72,9 +72,10 @@ export class GeneralComponent implements OnInit {
   }
 
   async getRemote() {
-    const manifest = await this.http.get<{ members: string[] }>(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
-      headers: { Authorization: "Basic " + btoa(this.profile.remote.username + ":" + this.profile.remote.password) }
-    }).toPromise()
+    const manifest = await this.http
+      .get<{ members: string[] }>(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
+        headers: { Authorization: "Basic " + btoa(this.profile.remote.username + ":" + this.profile.remote.password) }
+      }).toPromise()
     this.profile.remote.members = manifest.members
   }
 
@@ -83,12 +84,13 @@ export class GeneralComponent implements OnInit {
     if (!confirm("Are you sure?")) return
     this.profile.remote.members.push(username)
     this.profile.remote.members = this.profile.remote.members.filter((v, i) => this.profile.remote.members.indexOf(v) === i)
-    await this.http.put(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
-      name: this.profile.remote.name,
-      members: this.profile.remote.members,
-    }, {
-        headers: { Authorization: "Basic " + btoa(this.profile.remote.username + ":" + this.profile.remote.password) }
-      }).toPromise()
+    await this.http
+      .put(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
+        name: this.profile.remote.name,
+        members: this.profile.remote.members,
+      }, {
+          headers: { Authorization: "Basic " + btoa(this.profile.remote.username + ":" + this.profile.remote.password) }
+        }).toPromise()
     await this.getRemote()
   }
 
@@ -96,12 +98,13 @@ export class GeneralComponent implements OnInit {
     if (!username) return
     if (!confirm("Are you sure?")) return
     this.profile.remote.members = this.profile.remote.members.filter((v, i) => v !== username)
-    await this.http.put(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
-      name: this.profile.remote.name,
-      members: this.profile.remote.members,
-    }, {
-        headers: { Authorization: "Basic " + btoa(this.profile.remote.username + ":" + this.profile.remote.password) }
-      }).toPromise()
+    await this.http
+      .put(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
+        name: this.profile.remote.name,
+        members: this.profile.remote.members,
+      }, {
+          headers: { Authorization: "Basic " + btoa(this.profile.remote.username + ":" + this.profile.remote.password) }
+        }).toPromise()
     await this.getRemote()
   }
 }

@@ -6,8 +6,8 @@
 </div>
 <div class="modal-body">
   <div class="breadcrumb">
-    <span class="breadcrumb-item" *ngFor="let step of wizard.steps" [ngClass]="{active: wizard.active === step.key }">
-      {{step.label}}</span>
+    <small class="breadcrumb-item" *ngFor="let step of wizard.steps" [ngClass]="{active: wizard.active === step.key }">
+      {{step.label}}</small>
   </div>
   <ng-container *ngIf="wizard.active==='server'">
     <p>

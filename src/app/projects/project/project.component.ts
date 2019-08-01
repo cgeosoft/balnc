@@ -78,12 +78,12 @@ export class ProjectComponent implements OnInit {
     this.filters = this.filters
   }
 
-  async createIssue(projectId) {
+  async createIssue() {
     const m = this.modal.open(IssueCreateComponent)
-    m.componentInstance.projectId = projectId
+    m.componentInstance.projectId = this.projectId
     const issueId = await m.result
     if (issueId) {
-      this.router.navigate(["/projects/project", projectId, "issue", issueId])
+      this.router.navigate(["/projects/project", this.projectId, "issue", issueId])
     }
   }
 
@@ -98,7 +98,6 @@ export class ProjectComponent implements OnInit {
         tap((issues: Issue[]) => issues.sort((a, b) => a.insertedAt - b.insertedAt)),
         tap((issues: Issue[]) => issues.reverse()),
         tap((issues: Issue[]) => {
-          console.log(issues)
           this.issuesLength = issues.length
           this.calcPages()
         }),

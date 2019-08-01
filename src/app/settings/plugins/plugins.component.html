@@ -1,30 +1,18 @@
 <app-content>
   <app-content-header title="Plugins" icon="box"></app-content-header>
   <app-content-body>
-    <div class="list-group list-group-flush">
-      <div class="list-group-item" *ngFor="let plugin of plugins">
-        <div class="row">
-          <div class="col-sm-9 d-flex align-items-center">
-            <fa-icon [icon]="plugin.picon" size="lg" [fixedWidth]="true" class="text-muted mr-4"></fa-icon>
-            <div class="flex-grow-1">
-              <div class="mb-0">
-                <strong>{{plugin.title}}</strong>
-              </div>
-              <small class="text-muted">{{plugin.description}}</small>
-            </div>
-          </div>
-          <div class="col-sm-3 d-flex align-items-center">
-            <button *ngIf="!profile.plugins[plugin.id]" type="button"
-              class="btn btn-outline-primary btn-sm ml-auto mt-2" style="min-width:100px;"
-              (click)="setPluginStatus(plugin.id,true)">
-              Activate
-            </button>
-            <button *ngIf="profile.plugins[plugin.id]" type="button" class="btn btn-outline-danger btn-sm ml-auto mt-2"
-              style="min-width:100px;" (click)="setPluginStatus(plugin.id,false)">
-              Deactivate
-            </button>
-          </div>
+    <div class="list-settings">
+      <div class="list-settings-item" *ngFor="let p of plugins">
+        <fa-icon [icon]="p.picon" class="list-settings-icon bg-dark rounded-circle text-center" style="min-width: 60px;" [ngStyle]="{color:p.color}"></fa-icon>
+        <div class="list-settings-content">
+          <h5>{{p.title}}</h5>
+          <small class="text-muted">{{p.description}}</small>
         </div>
+        <button class="btn btn-action"
+          [ngClass]="{'btn-outline-primary':!profile.plugins[p.id],'btn-outline-danger':profile.plugins[p.id]}"
+          (click)="switchStatus(p.id)">
+          {{profile.plugins[p.id]?'Deactivate':'Activate'}}
+        </button>
       </div>
     </div>
   </app-content-body>

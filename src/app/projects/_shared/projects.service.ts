@@ -33,7 +33,7 @@ export class ProjectsService extends CommonService {
     const project: Project = {
       name
     }
-    const projectDoc = super.addOne('projects', project)
+    const projectDoc = await super.addOne('projects', project)
     return projectDoc["_id"]
   }
 
