@@ -19,24 +19,21 @@
           <ng-container *ngIf="projects.length">
             <h6 class="dropdown-header">Projects</h6>
             <ng-container *ngFor="let p of projects">
-              <a ngbDropdownItem [routerLink]="['/projects/project',p['_id']]">{{p.name}}</a>
+              <a ngbDropdownItem [routerLink]="['/projects/project',p['_id']]">
+                {{p.name}}</a>
             </ng-container>
           </ng-container>
         </ng-container>
       </div>
     </div>
     <div class="items" *ngIf="(project$ | async) as project">
+      <a [routerLink]="['/projects/project',project['_id']]" routerLinkActive="active">
+        <fa-icon icon="tasks" class="icon"></fa-icon>
+        <span>Issues</span>
+      </a>
       <button (click)="editDetails(project['_id'])">
         <fa-icon icon="pencil-ruler" class="icon"></fa-icon>
-        <span>Project details</span>
-      </button>
-      <a [routerLink]="['/projects/project',project['_id']]">
-        <fa-icon icon="tasks" class="icon"></fa-icon>
-        <span>All issues</span>
-      </a>
-      <button (click)="createIssue(project['_id'])">
-        <fa-icon icon="plus-circle" class="icon"></fa-icon>
-        <span>New issue</span>
+        <span>Details</span>
       </button>
     </div>
   </div>

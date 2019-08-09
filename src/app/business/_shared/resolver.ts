@@ -26,7 +26,7 @@ export class Resolver implements Resolve<void> {
     await this.invoicesService.setup()
     await this.ordersService.setup()
 
-    if (this.configService.profile.id === 'demo') {
+    if (this.configService.profile.key === 'demo') {
       if (!this.randomData) {
         await this.contactsService.generateDemoData()
       }

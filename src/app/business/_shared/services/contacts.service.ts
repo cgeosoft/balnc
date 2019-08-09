@@ -82,6 +82,8 @@ export class ContactsService extends CommonService {
         tags: [],
         details: {
           avatar: `${faker.image.avatar()}`,
+          phones: [faker.phone.phoneNumberFormat()],
+          emails: [faker.internet.email()],
           taxDetails: {
             vatNumber: `VAT${faker.random.number({ min: 1000000000, max: 9999999999 })}`,
             taxOffice: faker.address.city(3),

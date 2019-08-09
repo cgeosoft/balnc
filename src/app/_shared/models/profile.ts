@@ -1,7 +1,7 @@
 import { RemoteConfig } from "../../_core/rxdb/config";
 
 export type Profile = {
-  id?: string
+  key?: string
   name?: string
   createdAt?: number
   remote: RemoteConfig
@@ -10,7 +10,7 @@ export type Profile = {
 }
 
 export const DEMO_PROFILE = {
-  id: 'demo',
+  key: 'demo',
   name: 'Demo Profile',
   remote: {
     enabled: false,

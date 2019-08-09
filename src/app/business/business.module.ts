@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@balnc/shared';
-import { ContactsModule } from './contacts/contacts.module';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { OrderCreateComponent } from './order-create/order-create.component';
 import { OrderComponent } from './order/order.component';
 import { QuickSearchComponent } from './quick-search/quick-search.component';
 import { SearchComponent } from './search/search.component';
 import { SettingsComponent } from './settings/settings.component';
-import { EmptyComponent } from './_empty/empty.component';
 import { Resolver } from './_shared/resolver';
 import { ContactsService } from './_shared/services/contacts.service';
 import { InvoicesService } from './_shared/services/invoices.service';
@@ -19,7 +17,6 @@ import { ShellComponent } from './_shell/shell.component';
 @NgModule({
   imports: [
     SharedModule,
-    ContactsModule,
     RouterModule.forChild([{
       path: '',
       component: ShellComponent,
@@ -27,12 +24,15 @@ import { ShellComponent } from './_shell/shell.component';
         setup: Resolver
       },
       children: [
-        { path: '', component: EmptyComponent },
         { path: 'orders/:id', component: OrderComponent },
         { path: 'search', component: SearchComponent },
         { path: 'invoices/:id', component: InvoiceComponent },
         { path: 'settings', component: SettingsComponent },
-        { path: '**', redirectTo: '', pathMatch: 'full' }
+        {
+          path: 'contacts',
+          loadChildren: './contacts/contacts.module#ContactsModule'
+        },
+        { path: '', redirectTo: 'settings', pathMatch: 'full' }
       ]
     }])
   ],
@@ -43,7 +43,6 @@ import { ShellComponent } from './_shell/shell.component';
     OrderComponent,
     InvoiceComponent,
     SearchComponent,
-    EmptyComponent,
     OrderCreateComponent
   ],
   providers: [

@@ -1,6 +1,30 @@
 <app-content>
-  <app-content-header title="Settings"></app-content-header>
+  <div class="bg-light">
+    <div class="container">
+      <ol class="breadcrumb mb-0 bg-light">
+        <li class="breadcrumb-item active">Settings</li>
+      </ol>
+    </div>
+  </div>
   <app-content-body>
-    <button (click)="generate()">generate data</button>
+    <div class="list-settings">
+      <div class="list-group-item">
+        <div class="list-settings-content">
+          <h5>Random Data</h5>
+          This will generate random data. We suggest to generate random data in a non-production profile.
+        </div>
+        <div class="list-settings-content">
+          <span class="text-success" *ngIf="generated">Random data generated at {{generated|date:'short'}}</span>
+          <button class="btn btn-action btn-primary float-right" (click)="generateDemoData()">Generate</button>
+        </div>
+      </div>
+    </div>
   </app-content-body>
 </app-content>
+
+<ng-template #noProjects>
+  <app-empty message="No projects" icon="file-alt:regular"></app-empty>
+</ng-template>
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

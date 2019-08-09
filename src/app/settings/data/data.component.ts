@@ -18,7 +18,7 @@ export class DataComponent implements OnInit {
 
   async ngOnInit() {
     this.route.params.subscribe(params => {
-      const profile = this.configService.profiles.find(p => p.id === params['id'])
+      const profile = this.configService.profiles.find(p => p.key === params['id'])
       this.profile = Object.assign({}, profile)
       this.data = null
     })
@@ -36,7 +36,7 @@ export class DataComponent implements OnInit {
     const a = document.createElement('a')
     const file = new Blob([JSON.stringify(backup)], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
-    a.download = `balnc.${this.profile.id}.${(new Date()).getTime()}.json`
+    a.download = `balnc.${this.profile.key}.${(new Date()).getTime()}.json`
     a.click()
   }
 

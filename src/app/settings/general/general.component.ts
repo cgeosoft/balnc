@@ -46,12 +46,12 @@ export class GeneralComponent implements OnInit {
   }
 
   activate() {
-    this.configService.selectProfile(this.profile.id)
+    this.configService.selectProfile(this.profile.key)
   }
 
   delete() {
     if (!confirm('Are you sure?')) return
-    this.configService.deleteProfile(this.profile.id)
+    this.configService.deleteProfile(this.profile.key)
     window.location.reload()
   }
 

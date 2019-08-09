@@ -41,6 +41,7 @@ export class RxDBService {
 
   private config: RemoteConfig
   private replicationStates: { [key: string]: RxReplicationState } = {}
+  private key: string;
 
   constructor(
     private http: HttpClient,
@@ -48,6 +49,7 @@ export class RxDBService {
     private toastr: ToastrService
   ) {
     if (!configService.profile) return
+    this.key = configService.profile.key
     this.config = configService.profile.remote || {
       enabled: false
     }
@@ -59,7 +61,7 @@ export class RxDBService {
       return
     }
 
-    const name = `db_${this.config.key}_${alias}`
+    const name = `db_${this.key}_${alias}`
 
     console.log('[DatabaseService]', `Initializing DB: ${name}`, entities)
     const _adapter = await this.getAdapter()

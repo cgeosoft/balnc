@@ -17,8 +17,8 @@ import { ContactsComponent } from './contacts/contacts.component';
   imports: [
     SharedModule,
     RouterModule.forChild([
-      { path: 'contacts', component: ContactsComponent },
-      { path: 'contacts/:id', component: ContactComponent }
+      { path: '', component: ContactsComponent },
+      { path: ':id', component: ContactComponent }
     ])
   ]
 })

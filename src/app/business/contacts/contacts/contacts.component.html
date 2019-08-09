@@ -1,1 +1,51 @@
-<p>contacts works!</p>
+<app-content>
+  <app-content-header title="Contacts" icon="users"></app-content-header>
+  <app-content-body>
+    <div class="d-flex">
+      <div class=" flex-grow-1">
+        <div class="d-flex mb-2">
+          <input class="form-control form-control-lg flex-grow-1" placeholder="Search for customers...">
+          <!-- <button class="btn btn-outline-dark ml-2" (click)="openedFilters = !openedFilters">filters</button> -->
+        </div>
+        <ng-container *ngIf="(contacts$ | async) as contacts; loader">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let contact of contacts">
+                <td>
+                  <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user':'building']" class="mr-2 text-muted"></fa-icon>
+                  <a [routerLink]="['/business/contacts',contact['_id']]">{{contact.name}}</a>
+                </td>
+                <td>{{contact.details.phones[0] || '-'}}</td>
+                <td>{{contact.details.emails[0] || '-'}}</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+
+      </div>
+      <div class="ml-4" style="overflow:hidden" [ngStyle]="{width:(openedFilters?'250px':'0px')}">
+        <div class="card">
+          <div class="card-body">
+
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate et omnis atque deleniti dignissimos?
+            Iste,
+            impedit deserunt. Vel, ad illum. Nisi fugiat praesentium perferendis corporis error, quisquam perspiciatis
+            deserunt delectus.\
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </app-content-body>
+</app-content>
+
+<ng-template #loader>loading...</ng-template>
+<ng-template #empty>empty</ng-template>

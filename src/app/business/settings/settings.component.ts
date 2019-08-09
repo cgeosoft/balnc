@@ -7,16 +7,15 @@ import { ContactsService } from '../_shared/services/contacts.service';
 })
 export class SettingsComponent {
   generating: boolean
+  generated: number;
 
   constructor (
     private contactsService: ContactsService
   ) { }
 
-  async generate () {
-    this.generating = true
-    if (confirm('Are you sure?')) {
-      await this.contactsService.generateDemoData()
-    }
-    this.generating = false
+  async generateDemoData () {
+    if (!confirm('Are you sure?')) return
+    await this.contactsService.generateDemoData()
+    this.generated = Date.now()
   }
 }

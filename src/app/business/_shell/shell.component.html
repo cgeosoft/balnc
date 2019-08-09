@@ -9,7 +9,7 @@
   <div class="menu">
     <div class="items">
       <a routerLink="/business/contacts" routerLinkActive="active">
-        <fa-icon icon="border-all" class="icon"></fa-icon>
+        <fa-icon icon="users" class="icon"></fa-icon>
         <span>Contacts</span>
       </a>
       <a routerLink="/business/aggrements" routerLinkActive="active">
@@ -31,28 +31,6 @@
       <a routerLink="/business/services" routerLinkActive="active">
         <fa-icon icon="border-all" class="icon"></fa-icon>
         <span>Services</span>
-      </a>
-    </div>
-  </div>
-  <div class="menu" *ngIf="opened">
-    <div class="items">
-      <div class="header d-flex">
-        <span>Opened</span>
-        <button class="btn btn-sm ml-auto" (click)="closeAll()"><small>close all</small></button>
-      </div>
-      <a *ngFor="let item of opened; let i = index" [routerLink]="item.route" routerLinkActive="active">
-        <ng-container [ngSwitch]="item.type">
-          <fa-icon *ngSwitchCase="'company'" icon="building"></fa-icon>
-          <fa-icon *ngSwitchCase="'person'" icon="user-tie"></fa-icon>
-          <fa-icon *ngSwitchCase="'order'" icon="shopping-basket"></fa-icon>
-        </ng-container>
-        <div class="content">
-          <span>{{item.label}}</span>
-          <!-- <small *ngIf="item.sublabel">{{item.sublabel}}</small> -->
-        </div>
-        <button (click)="close(i,$event)" class="btn btn-close py-0 px-1 text-center btn-outline-danger">
-          <fa-icon [icon]="['fas','times']"></fa-icon>
-        </button>
       </a>
     </div>
   </div>

@@ -26,7 +26,7 @@ export class ConfigService {
   ) { }
 
   get profile(): Profile {
-    return this.profiles.find(p => p.id === this.selected)
+    return this.profiles.find(p => p.key === this.selected)
   }
 
   get username(): string {
@@ -57,9 +57,9 @@ export class ConfigService {
       return
     }
 
-    const profileIndex = this.profiles.findIndex(p => p.id === this.selected)
+    const profileIndex = this.profiles.findIndex(p => p.key === this.selected)
     if (!this.selected || profileIndex === -1)
-      this.selected = this.profiles[0].id
+      this.selected = this.profiles[0].key
   }
 
   getPackageConfig(id: string) {
@@ -78,7 +78,7 @@ export class ConfigService {
 
   removeProfile(profileId) {
     let profiles = [...this.profiles]
-    let index = this.profiles.findIndex(p => p.id === profileId)
+    let index = this.profiles.findIndex(p => p.key === profileId)
     if (index !== -1) {
       profiles.splice(index, 1)
     }
@@ -86,21 +86,21 @@ export class ConfigService {
   }
 
   saveProfile(profile: Profile): string {
-    profile.id = profile.id || Helpers.uid()
+    profile.key = profile.key || Helpers.uid()
     profile.createdAt = profile.createdAt || Date.now()
     let profiles = [...this.profiles]
-    let index = this.profiles.findIndex(p => p.id === profile.id)
+    let index = this.profiles.findIndex(p => p.key === profile.key)
     if (index !== -1) {
       profiles.splice(index, 1)
     }
     profiles.push(profile)
     this.profiles = profiles
-    return profile.id
+    return profile.key
   }
 
   deleteProfile(alias: string) {
     let profiles = [...this.profiles]
-    let index = this.profiles.findIndex(p => p.id === alias)
+    let index = this.profiles.findIndex(p => p.key === alias)
     profiles.splice(index, 1)
     this.profiles = profiles
   }
