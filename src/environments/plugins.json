@@ -3,7 +3,7 @@
     {
       "id": "business",
       "title": "Business",
-      "label": "Business",
+      "label": "business",
       "description": "A basic contact management database. Include company and persons, custom fields and analytics.",
       "icon": "building",
       "color": "#64B5F6"
@@ -11,7 +11,7 @@
     {
       "id": "projects",
       "title": "Projects",
-      "label": "Projects",
+      "label": "projects",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
       "icon": "tasks",
       "color": "#4DB6AC"
@@ -19,7 +19,7 @@
     {
       "id": "boards",
       "title": "Boards",
-      "label": "Boards",
+      "label": "boards",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
       "icon": "comments",
       "color": "#FF8A65"
@@ -27,7 +27,7 @@
     {
       "id": "presentations",
       "title": "Presentations",
-      "label": "Present",
+      "label": "present",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
       "icon": "desktop",
       "color": "#FFF176"
@@ -35,7 +35,7 @@
     {
       "id": "analytics",
       "title": "Analytics",
-      "label": "Analytics",
+      "label": "analytics",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
       "icon": "chart-pie",
       "color": "#F06292"
@@ -43,7 +43,7 @@
     {
       "id": "reports",
       "title": "Reports",
-      "label": "Reports",
+      "label": "reports",
       "description": "A simple but full-feature team chat with customizable rooms",
       "icon": "file-alt",
       "color": "#9575CD",

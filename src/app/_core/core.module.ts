@@ -3,6 +3,7 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@balnc/shared';
 import { DateFnsModule } from 'ngx-date-fns';
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { ToastrModule } from 'ngx-toastr';
 import { APP_ROUTES, ProfileGuardService } from './app.routes';
 import { ErrorComponent } from './components/error/error.component';
@@ -20,6 +21,20 @@ import { ConfigService } from './services/config.service';
     DateFnsModule.forRoot(),
     RouterModule.forRoot(APP_ROUTES, {
       // enableTracing: true
+    }),
+    MarkdownModule.forRoot({
+      markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+          gfm: true,
+          tables: true,
+          breaks: true,
+          pedantic: true,
+          sanitize: true,
+          smartLists: true,
+          smartypants: true
+        }
+      }
     }),
     SharedModule
   ],

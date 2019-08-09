@@ -59,7 +59,8 @@ export enum CEventType {
   OrderCreated,
   OrderRemoved,
   InvoiceCreated,
-  InvoiceRemoved
+  InvoiceRemoved,
+  AgreementCreated
 }
 
 export type RxContactDoc = RxDocument<Contact> & Contact

@@ -29,7 +29,8 @@ export class ContactComponent implements OnInit {
     OrderCreated: { label: 'Order Created', color: '#66BB6A' },
     OrderRemoved: { label: 'Order Removed', color: '#ef5350' },
     InvoiceCreated: { label: 'Invoice Created', color: '#66BB6A' },
-    InvoiceRemoved: { label: 'Invoice Removed', color: '#ef5350' }
+    InvoiceRemoved: { label: 'Invoice Removed', color: '#ef5350' },
+    AgreementCreated: { label: 'Agreement Created', color: '#66BB6A' }
   }
 
   tabsMenu = {

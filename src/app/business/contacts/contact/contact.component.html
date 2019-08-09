@@ -1,7 +1,6 @@
 <ng-container *ngIf="contact$ | async as contact; else loader">
   <ng-container *ngIf="contact; else empty">
     <app-content>
-
       <div class="bg-light">
         <div class="container">
           <ol class="breadcrumb mb-0 bg-light">
@@ -16,9 +15,9 @@
         </div> 
         <ng-container *ngIf="cevents$ | async as cevents; else loader">
           <ng-container *ngIf="cevents; else empty">
-            <table class="table mb-0">
+            <table class="table table-sm mb-0">
               <thead>
-                <th style="width:185px;">Date</th>
+                <th style="width:210px;">Date</th>
                 <th style="width:130px;">Type</th>
                 <th>Comment</th>
               </thead>

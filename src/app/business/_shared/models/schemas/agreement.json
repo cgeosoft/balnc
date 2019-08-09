@@ -1,0 +1,32 @@
+{
+  "title": "Argeement",
+  "type": "object",
+  "version": 0,
+  "disableKeyCompression": true,
+  "properties": {
+    "contact": {
+      "type": "string"
+    },
+    "serial": {
+      "type": "string"
+    },
+    "createdAt": {
+      "type": "number"
+    },
+    "updatedAt": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string"
+    },
+    "pdfTemplate": {
+      "type": "string"
+    },
+    "file": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    }
+  }
+}

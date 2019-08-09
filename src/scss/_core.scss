@@ -3,6 +3,7 @@ body,
 .wrapper {
   height: 100%;
   font-size: 1rem;
+  @extend .text-monospace;
 }
 
 a {

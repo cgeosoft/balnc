@@ -13,7 +13,7 @@
   <div class="menu">
     <a class="item" routerLinkActive="active" routerLink="/dashboard">
       <fa-icon icon="home"></fa-icon>
-      <span>Home</span>
+      <span>dashboard</span>
     </a>
     <ng-template ngFor let-plugin [ngForOf]="enabledPlugins">
       <a class="item" routerLinkActive="active" [routerLink]="['/',plugin.id]" [ngStyle]="{color:plugin.color}">
@@ -26,7 +26,7 @@
   <div class="menu mt-auto mb-2">
     <a class="item" routerLink="/settings" routerLinkActive="active">
       <fa-icon [icon]="['fas','cog']"></fa-icon>
-      <span>Settings</span>
+      <span>settings</span>
     </a>
   </div>
   <div class="version">Balnc v{{version}}</div>

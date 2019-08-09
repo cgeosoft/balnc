@@ -1,3 +1,4 @@
+import AgreementSchema from './schemas/agreement.json';
 import CEventSchema from './schemas/cevent.json';
 import ContactSchema from './schemas/contact.json';
 import InvoiceSchema from './schemas/invoice.json';
@@ -22,5 +23,11 @@ export const InvoicesEntities = [{
 export const OrdersEntities = [{
   name: 'orders',
   schema: OrderSchema,
+  sync: true
+}]
+
+export const AgreementsEntities = [{
+  name: 'agreements',
+  schema: AgreementSchema,
   sync: true
 }]

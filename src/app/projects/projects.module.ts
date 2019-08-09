@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@balnc/shared';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+import { MarkdownModule } from 'ngx-markdown';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { IssueCreateComponent } from './issue-create/issue-create.component';
 import { IssueComponent } from './issue/issue.component';
@@ -17,20 +17,7 @@ import { ShellComponent } from './_shell/shell.component';
 @NgModule({
   imports: [
     SharedModule,
-    MarkdownModule.forRoot({
-      markedOptions: {
-        provide: MarkedOptions,
-        useValue: {
-          gfm: true,
-          tables: true,
-          breaks: true,
-          pedantic: true,
-          sanitize: true,
-          smartLists: true,
-          smartypants: true
-        }
-      }
-    }),
+    MarkdownModule,
     RouterModule.forChild(ProjectsRoutes)
   ],
   declarations: [

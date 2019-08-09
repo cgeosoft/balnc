@@ -8,6 +8,7 @@ import { QuickSearchComponent } from './quick-search/quick-search.component';
 import { SearchComponent } from './search/search.component';
 import { SettingsComponent } from './settings/settings.component';
 import { Resolver } from './_shared/resolver';
+import { AgreementsService } from './_shared/services/agreements.service';
 import { ContactsService } from './_shared/services/contacts.service';
 import { InvoicesService } from './_shared/services/invoices.service';
 import { OrdersService } from './_shared/services/orders.service';
@@ -31,6 +32,9 @@ import { ShellComponent } from './_shell/shell.component';
         {
           path: 'contacts',
           loadChildren: './contacts/contacts.module#ContactsModule'
+        }, {
+          path: 'agreements',
+          loadChildren: './agreements/agreements.module#AgreementsModule'
         },
         { path: '', redirectTo: 'settings', pathMatch: 'full' }
       ]
@@ -50,7 +54,8 @@ import { ShellComponent } from './_shell/shell.component';
     ContactsService,
     InvoicesService,
     OrdersService,
-    StateService
+    StateService,
+    AgreementsService
   ],
   entryComponents: [
     QuickSearchComponent,
