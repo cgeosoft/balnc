@@ -16,6 +16,7 @@ import { WebStorageModule } from 'ngx-store';
 import { ToastrModule } from 'ngx-toastr';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ContentBodyComponent } from './components/content-body/content-body.component';
+import { ContentBreadcrumbComponent } from './components/content-breadcrumb/content-breadcrumb.component';
 import { ContentHeaderComponent } from './components/content-header/content-header.component';
 import { ContentComponent } from './components/content/content.component';
 import { DebugComponent } from './components/debug/debug.component';
@@ -58,7 +59,8 @@ library.add(fas, far)
     PageNotFoundComponent,
     SidebarComponent,
     SpinnerComponent,
-    StatusbarComponent
+    StatusbarComponent,
+    ContentBreadcrumbComponent
   ],
   entryComponents: [
     ConfirmDialogComponent
@@ -89,7 +91,8 @@ library.add(fas, far)
     FooterComponent,
     StatusbarComponent,
     SidebarComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ContentBreadcrumbComponent
   ]
 })
 export class SharedModule { }

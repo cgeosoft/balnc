@@ -1,11 +1,5 @@
 <app-content>
-  <div class="bg-light">
-    <div class="container">
-      <ol class="breadcrumb mb-0 bg-light">
-        <li class="breadcrumb-item active">{{project?.name}}</li>
-      </ol>
-    </div>
-  </div>
+  <app-content-breadcrumb [items]="[{label:project?.name}]"></app-content-breadcrumb>
   <app-content-body>
     <div class="btn-toolbar">
       <button class="btn btn-sm btn-primary" (click)="createIssue()">New Issue</button>

@@ -47,6 +47,7 @@ export class ContactComponent implements OnInit {
       right: true
     }]
   }
+  breadcrumb
 
   constructor(
     private route: ActivatedRoute,
@@ -84,6 +85,11 @@ export class ContactComponent implements OnInit {
             .$.pipe(
               tap((cevents: CEvent[]) => cevents.sort((a, b) => b.date - a.date))
             )
+
+          this.breadcrumb = [
+            { url: ["/business/contacts"], label: "Contacts" },
+            { label: contact.name },
+          ]
         })
       )
   }

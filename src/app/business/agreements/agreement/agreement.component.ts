@@ -13,7 +13,7 @@ export class AgreementComponent implements OnInit {
   editDesc = false
   agreementId: any;
   agreement: Agreement;
-
+  breadcrumb
   constructor(
     private agreementsService: AgreementsService,
     private route: ActivatedRoute,
@@ -30,6 +30,10 @@ export class AgreementComponent implements OnInit {
 
   private async setup() {
     this.agreement = await this.agreementsService.getOne<Agreement>('agreements', this.agreementId)
+    this.breadcrumb = [
+      { url: ["/business/agreements"], label: "Agreements" },
+      { label: this.agreement.serial }
+    ]
   }
 
   enableEdit() {

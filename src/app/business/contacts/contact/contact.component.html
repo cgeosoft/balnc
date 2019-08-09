@@ -1,14 +1,7 @@
 <ng-container *ngIf="contact$ | async as contact; else loader">
   <ng-container *ngIf="contact; else empty">
     <app-content>
-      <div class="bg-light">
-        <div class="container">
-          <ol class="breadcrumb mb-0 bg-light">
-            <li class="breadcrumb-item active">{{contact.name}}</li>
-          </ol>
-        </div>
-      </div>
-
+      <app-content-breadcrumb [items]="breadcrumb"></app-content-breadcrumb>
       <app-content-body *ngIf="tabsMenu.selected === 'timeline'">
         <div class="btn-toolbar">
           <button class="btn btn-outline-success btn-sm" (click)="createOrder()">New Order</button>

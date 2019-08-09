@@ -13,8 +13,10 @@ import { ProjectsService } from '../_shared/projects.service';
   styleUrls: ['./issue.component.scss']
 })
 export class IssueComponent implements OnInit {
-  @ViewChild('timeline', { static: false }) private timeline: ElementRef;
-  @ViewChild('desc', { static: false }) private desc: ElementRef;
+
+  @ViewChild('timeline', { static: false }) timeline: ElementRef;
+  @ViewChild('desc', { static: false }) desc: ElementRef;
+
   commentPreview: boolean
   projectId: string
   issueId: string
@@ -34,6 +36,10 @@ export class IssueComponent implements OnInit {
   issueStatusModel = IssueStatuses
 
   logType = LogType
+
+  ContentBreadcrumbComponent
+  project: Project;
+  breadcrumb
 
   constructor(
     private route: ActivatedRoute,
@@ -133,8 +139,12 @@ export class IssueComponent implements OnInit {
         })
       )
 
-    this.issue$.subscribe((issue) => {
-      this.project$ = this.projectsService.getOne$<Project>('projects', issue.projectId)
+    this.issue$.subscribe(async (issue) => {
+      this.project = await this.projectsService.getOne<Project>('projects', issue.projectId)
+      this.breadcrumb = [
+        { url: ['/projects/project', issue.projectId], label: this.project.name },
+        { label: issue.title }
+      ]
     })
   }
 

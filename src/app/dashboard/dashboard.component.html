@@ -1,6 +1,7 @@
 <app-content>
-  <app-content-header title="Dashboard" icon="tachometer-alt"></app-content-header>
+  <app-content-breadcrumb [items]="[{label:'Dashboard'}]"></app-content-breadcrumb>
   <app-content-body style="height:100%">
-    <app-empty message="dashboard is unavalable" submessage="Select another module from menu" icon="exclamation-circle"></app-empty>
+    <app-empty message="not avalable" submessage="select another module from menu" icon="exclamation-circle">
+    </app-empty>
   </app-content-body>
 </app-content>

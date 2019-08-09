@@ -1,13 +1,6 @@
 <ng-container *ngIf="agreement">
   <app-content>
-    <div class="bg-light">
-      <div class="container">
-        <ol class="breadcrumb mb-0 bg-light">
-          <li class="breadcrumb-item"><a [routerLink]="['/business/agreements']">agreements</a></li>
-          <li class="breadcrumb-item active">{{agreement.serial}}</li>
-        </ol>
-      </div>
-    </div>
+    <app-content-breadcrumb [items]="breadcrumb"></app-content-breadcrumb>
     <app-content-body>
       <div class="d-flex h-100">
         <div class="h-100 w-100 overflow-auto">
@@ -21,10 +14,12 @@
         <div class="card ml-4" style="min-width:200px">
           <div class="card-body">
             <dl>
+              <dt>Serial</dt>
+              <dd class="text-truncate">{{agreement.serial}}</dd>
               <dt>Created</dt>
-              <dd>{{agreement.createdAt|date}}</dd>
+              <dd>{{agreement.createdAt|date:"short"}}</dd>
               <dt>Updated</dt>
-              <dd>{{agreement.updatedAt|date}}</dd>
+              <dd>{{agreement.updatedAt|date:"short"}}</dd>
             </dl>
           </div>
         </div>

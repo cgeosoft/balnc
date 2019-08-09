@@ -1,0 +1,12 @@
+<div class="bg-light" style="min-height: 41px;">
+  <div class="container">
+    <ol class="breadcrumb mb-0 bg-light">
+      <ng-container *ngFor="let item of items">
+        <li class="breadcrumb-item" *ngIf="item.url">
+          <a [routerLink]="item.url">{{item.label}}</a>
+        </li>
+        <li class="breadcrumb-item active" *ngIf="!item.url">{{item.label}}</li>
+      </ng-container>
+    </ol>
+  </div>
+</div>

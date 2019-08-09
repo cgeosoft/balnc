@@ -1,14 +1,6 @@
 <ng-container *ngIf="(issue$ | async) as issue">
   <app-content>
-    <div class="bg-light">
-      <div class="container">
-        <ol class="breadcrumb mb-0 bg-light">
-          <li class="breadcrumb-item"><a
-              [routerLink]="['/projects/project',issue.projectId]">{{(project$ | async)?.name}}</a></li>
-          <li class="breadcrumb-item active">{{issue.title}}</li>
-        </ol>
-      </div>
-    </div>
+    <app-content-breadcrumb [items]="breadcrumb"></app-content-breadcrumb>
     <app-content-body>
       <div class="d-flex h-100">
         <div class="flex-grow-1 d-flex flex-column">
