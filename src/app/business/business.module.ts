@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@balnc/shared';
-import { ContactCreateComponent } from './contact-create/contact-create.component';
-import { ContactComponent } from './contact/contact.component';
+import { ContactsModule } from './contacts/contacts.module';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { OrderCreateComponent } from './order-create/order-create.component';
 import { OrderComponent } from './order/order.component';
@@ -20,6 +19,7 @@ import { ShellComponent } from './_shell/shell.component';
 @NgModule({
   imports: [
     SharedModule,
+    ContactsModule,
     RouterModule.forChild([{
       path: '',
       component: ShellComponent,
@@ -28,7 +28,6 @@ import { ShellComponent } from './_shell/shell.component';
       },
       children: [
         { path: '', component: EmptyComponent },
-        { path: 'contacts/:id', component: ContactComponent },
         { path: 'orders/:id', component: OrderComponent },
         { path: 'search', component: SearchComponent },
         { path: 'invoices/:id', component: InvoiceComponent },
@@ -39,14 +38,12 @@ import { ShellComponent } from './_shell/shell.component';
   ],
   declarations: [
     ShellComponent,
-    ContactComponent,
     SettingsComponent,
     QuickSearchComponent,
     OrderComponent,
     InvoiceComponent,
     SearchComponent,
     EmptyComponent,
-    ContactCreateComponent,
     OrderCreateComponent
   ],
   providers: [
@@ -58,7 +55,6 @@ import { ShellComponent } from './_shell/shell.component';
   ],
   entryComponents: [
     QuickSearchComponent,
-    ContactCreateComponent,
     OrderCreateComponent
   ]
 })

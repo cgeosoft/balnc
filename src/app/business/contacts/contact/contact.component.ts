@@ -3,15 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Helpers } from '@balnc/shared';
 import { Observable } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
-import { CEvent, CEventType, Contact, ContactType } from '../_shared/models/contacts';
-import { ContactsService } from '../_shared/services/contacts.service';
-import { OrdersService } from '../_shared/services/orders.service';
-import { StateService } from '../_shared/services/state.service';
+import { CEvent, CEventType, Contact, ContactType } from '../../_shared/models/contacts';
+import { ContactsService } from '../../_shared/services/contacts.service';
+import { OrdersService } from '../../_shared/services/orders.service';
+import { StateService } from '../../_shared/services/state.service';
 
 @Component({
   selector: 'app-contacts-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
 

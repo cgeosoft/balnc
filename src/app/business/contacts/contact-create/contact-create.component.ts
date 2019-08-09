@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { ContactType } from '../_shared/models/contacts';
-import { ContactsService } from '../_shared/services/contacts.service';
+import { ContactType } from '../../_shared/models/contacts';
+import { ContactsService } from '../../_shared/services/contacts.service';
 
 @Component({
   selector: 'app-contact-create',
   templateUrl: './contact-create.component.html',
-  styleUrls: ['./contact-create.component.css']
 })
 export class ContactCreateComponent implements OnInit {
 

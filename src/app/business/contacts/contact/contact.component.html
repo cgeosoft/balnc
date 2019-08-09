@@ -13,7 +13,7 @@
       <app-content-body *ngIf="tabsMenu.selected === 'timeline'">
         <div class="btn-toolbar">
           <button class="btn btn-outline-success btn-sm" (click)="createOrder()">New Order</button>
-        </div>
+        </div> 
         <ng-container *ngIf="cevents$ | async as cevents; else loader">
           <ng-container *ngIf="cevents; else empty">
             <table class="table mb-0">
