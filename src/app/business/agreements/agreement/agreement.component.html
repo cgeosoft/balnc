@@ -7,7 +7,7 @@
           <textarea #content *ngIf="editDesc" class="form-control h-100"
             style="padding:10px;box-shadow:none;background: #FAFAFA" placeholder="content..."
             [value]="agreement.content" (blur)="updateDesc(content.value)"></textarea>
-          <div style="padding:10px" *ngIf="!editDesc" (click)="enableEdit()">
+          <div id="print-section" style="padding:10px" *ngIf="!editDesc" (click)="enableEdit()">
             <markdown [data]="agreement.content"></markdown>
           </div>
         </div>
@@ -21,6 +21,7 @@
               <dt>Updated</dt>
               <dd>{{agreement.updatedAt|date:"short"}}</dd>
             </dl>
+            <button class="btn btn-outline-secondary btn-block btn-sm" styleSheetFile="/assets/css/print.css" printSectionId="print-section" ngxPrint>Print</button>
           </div>
         </div>
       </div>

@@ -632,3 +632,9 @@ app-boards-board {
     }
   }
 }
+
+th {
+  &.datetime {
+    width: 160px;
+  }
+}

@@ -2,35 +2,29 @@
   <app-content-breadcrumb [items]="[{label:'Agreements'}]"></app-content-breadcrumb>
   <app-content-body>
     <div class="d-flex">
-      <div class=" flex-grow-1">
-        <div class="d-flex mb-2">
-          <input class="form-control form-control-lg flex-grow-1" placeholder="Search for customers...">
-          <!-- <button class="btn btn-outline-dark ml-2" (click)="openedFilters = !openedFilters">filters</button> -->
-        </div>
+      <div class="flex-grow-1">
         <ng-container *ngIf="(agreements$ | async) as agreements; loader">
           <table class="table table-sm">
             <thead>
               <tr>
-                <th>Created</th>
+                <th class="datetime">Created</th>
                 <th>Serial</th>
                 <th>Contact</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let agreement of agreements">
-                <td>{{agreement.createdAt|date:"short"}}</td>
+                <td>{{agreement.createdAt|date:"yyyy-mm-dd HH:MM:ss"}}</td>
                 <td>
                   <a [routerLink]="['/business/agreements',agreement['_id']]">{{agreement.serial}}</a>
                 </td>
                 <td>
-                    <a [routerLink]="['/business/contacts',agreement.contact]">{{getContact(agreement.contact).name}}</a>
+                  <a [routerLink]="['/business/contacts',agreement.contact]">{{getContact(agreement.contact).name}}</a>
                 </td>
-                <td></td>
               </tr>
             </tbody>
           </table>
         </ng-container>
-
       </div>
       <div class="ml-4" style="overflow:hidden" [ngStyle]="{width:(openedFilters?'250px':'0px')}">
         <div class="card">

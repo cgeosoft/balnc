@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@balnc/shared';
-import { MarkdownModule } from 'ngx-markdown';
+import { NgxPrintModule } from 'ngx-print';
 import { AgreementComponent } from './agreement/agreement.component';
 import { AgreementsComponent } from './agreements/agreements.component';
 import { CreateComponent } from './create/create.component';
@@ -17,7 +17,7 @@ import { CreateComponent } from './create/create.component';
   ],
   imports: [
     SharedModule,
-    MarkdownModule,
+    NgxPrintModule,
     RouterModule.forChild([
       { path: '', component: AgreementsComponent },
       { path: ':id', component: AgreementComponent }

@@ -36,9 +36,8 @@
         <table class="table table-sm">
           <thead>
             <tr>
-              <th style="width:100px">Status</th>
+              <th style="width:80px">Status</th>
               <th>Issue</th>
-              <th style="width:350px">Details</th>
             </tr>
           </thead>
           <tbody>
@@ -48,11 +47,13 @@
                   [ngStyle]="{'background-color':getStatus(issue.status).color}">{{getStatus(issue.status).alias}}</span>
               </td>
               <td>
-                <a [routerLink]="['/projects/project',issue.projectId,'issue',issue['_id']]">{{issue.title}}</a>
-              </td>
-              <td>
-                {{issue.insertedAt | dfnsDistanceInWordsToNow}} ago by
-                {{issue.insertedFrom}}
+                <div>
+                  <a [routerLink]="['/projects/project',issue.projectId,'issue',issue['_id']]">{{issue.title}}</a>
+                </div>
+                <small class="text-muted">
+                  {{issue.insertedAt | dfnsDistanceInWordsToNow}} ago by
+                  {{issue.insertedFrom}}
+                </small>
               </td>
             </tr>
           </tbody>

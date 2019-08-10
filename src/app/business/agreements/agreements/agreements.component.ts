@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Agreement } from '../../_shared/models/agreement';
 import { Contact } from '../../_shared/models/contacts';
 import { AgreementsService } from '../../_shared/services/agreements.service';
@@ -20,7 +21,16 @@ export class AgreementsComponent implements OnInit {
 
   async ngOnInit() {
     this.contacts = await this.contactsService.getAll<Contact>("contacts")
-    this.agreements$ = this.agreementsService.getAll$<Agreement>("agreements")
+    this.agreements$ = this.agreementsService.getAll$<Agreement>("agreements").pipe(
+      tap(agreements => {
+
+        agreements = agreements.sort((a, b) => {
+          if (a.createdAt > b.createdAt) { return -1 }
+          if (a.createdAt < b.createdAt) { return 1 }
+          return 0
+        })
+      })
+    )
   }
 
   getContact(contactId) {

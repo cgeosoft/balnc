@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '@balnc/shared';
-import { MarkdownModule } from 'ngx-markdown';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { IssueCreateComponent } from './issue-create/issue-create.component';
 import { IssueComponent } from './issue/issue.component';
@@ -17,7 +16,6 @@ import { ShellComponent } from './_shell/shell.component';
 @NgModule({
   imports: [
     SharedModule,
-    MarkdownModule,
     RouterModule.forChild(ProjectsRoutes)
   ],
   declarations: [

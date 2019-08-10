@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ContenteditableModule } from '@ng-stack/contenteditable';
 import { DateFnsModule } from 'ngx-date-fns';
 import { NgxFileHelpersModule } from 'ngx-file-helpers';
+import { MarkdownModule } from 'ngx-markdown';
 import { NgPipesModule } from 'ngx-pipes';
 import { WebStorageModule } from 'ngx-store';
 import { ToastrModule } from 'ngx-toastr';
@@ -44,7 +45,8 @@ library.add(fas, far)
     RouterModule,
     WebStorageModule,
     ToastrModule,
-    ContenteditableModule
+    ContenteditableModule,
+    MarkdownModule.forChild(),
   ],
   declarations: [
     ContentBodyComponent,
@@ -78,7 +80,8 @@ library.add(fas, far)
     ToastrModule,
     DateFnsModule,
     ContenteditableModule,
-
+    MarkdownModule,
+    
     DocVersionPipe,
     EllipsisPipe,
 
