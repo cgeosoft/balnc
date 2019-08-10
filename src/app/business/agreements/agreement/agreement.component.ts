@@ -14,6 +14,7 @@ export class AgreementComponent implements OnInit {
   agreementId: any;
   agreement: Agreement;
   breadcrumb
+  
   constructor(
     private agreementsService: AgreementsService,
     private route: ActivatedRoute,
