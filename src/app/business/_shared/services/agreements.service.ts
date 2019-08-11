@@ -1,7 +1,7 @@
 
 import { Injectable, NgZone } from '@angular/core';
 import { RxDBService } from '@balnc/core';
-import { CommonService } from '@balnc/shared';
+import { CommonService, Helpers } from '@balnc/shared';
 import * as faker from 'faker';
 import { Agreement, AgreementStatus } from '../models/agreement';
 import { CEvent, CEventType, Contact } from '../models/contacts';
@@ -27,6 +27,7 @@ export class AgreementsService extends CommonService {
   }
 
   async addAgreement(agreement: Agreement) {
+    agreement.serial = Helpers.uid()
     const c = await super.addOne<Agreement>('agreements', agreement)
     await this.contactsService.addOne<CEvent>('cevents', {
       contact: agreement.contact,
@@ -45,11 +46,10 @@ export class AgreementsService extends CommonService {
     contacts.forEach(async contact => {
       for (let p = 0; p < 2; p++) {
         await this.addAgreement({
-          serial: faker.random.uuid(),
           contact: contact["_id"],
           status: AgreementStatus.draft,
           createdAt: Date.now(),
-          content: faker.lorem.paragraphs(10)
+          content: `# Agreement ${Date.now()}\n\r${faker.lorem.paragraphs(5)}`
         })
       }
     });

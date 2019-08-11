@@ -44,6 +44,13 @@ export class ShellComponent implements OnInit {
     return this.configService.version
   }
 
+  get statusbar() {
+    return {
+      version: this.configService.version,
+      profile: this.configService.profile
+    }
+  }
+
   async ngOnInit() {
 
     if (!this.configService.profiles.length) {

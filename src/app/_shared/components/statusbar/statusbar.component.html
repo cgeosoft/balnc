@@ -1,4 +1,4 @@
-<div class="item">Balnc v{{version}}</div>
+<div class="item text-center" style="width:80px;">Balnc v{{data.version}}</div>
 <div class="divider"></div>
 <a href="https://github.com/christosgeorgiou/balnc" target="_blank" class="item" rel="noopener">
   <fa-layers class="fa-fw">
@@ -10,11 +10,11 @@
 <div class="item">
   <fa-layers class="fa-fw">
     <fa-icon icon="swatchbook"></fa-icon>
-  </fa-layers> {{profile.name}}
+  </fa-layers> {{data.profile.name}}
 </div>
 <div class="divider"></div>
 <div class="item">
   <fa-layers class="fa-fw">
     <fa-icon icon="user"></fa-icon>
-  </fa-layers> {{profile.remoteUsername || '- none -'}}
+  </fa-layers> {{data.profile.remoteUsername || '- none -'}}
 </div>

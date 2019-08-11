@@ -16,7 +16,7 @@ import { ConfigService } from './services/config.service';
     CommonModule,
     // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ToastrModule.forRoot({
-      positionClass: 'toast-bottom-center'
+      positionClass: 'toast-bottom-right'
     }),
     DateFnsModule.forRoot(),
     RouterModule.forRoot(APP_ROUTES, {

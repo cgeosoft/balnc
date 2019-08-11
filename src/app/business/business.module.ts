@@ -36,7 +36,7 @@ import { ShellComponent } from './_shell/shell.component';
           path: 'agreements',
           loadChildren: './agreements/agreements.module#AgreementsModule'
         },
-        { path: '', redirectTo: 'settings', pathMatch: 'full' }
+        { path: '', redirectTo: 'contacts', pathMatch: 'full' }
       ]
     }])
   ],

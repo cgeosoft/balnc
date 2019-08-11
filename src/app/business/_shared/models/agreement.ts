@@ -2,7 +2,7 @@ import { RxDocument } from 'rxdb';
 
 export interface Agreement {
   contact: string
-  serial: string
+  serial?: string
   createdAt: number
   updatedAt?: number
   status: AgreementStatus
