@@ -18,8 +18,8 @@
         <ng-container *ngIf="profiles.length">
           <h6 class="dropdown-header">Profiles</h6>
           <ng-container *ngFor="let p of profiles">
-            <a ngbDropdownItem href="javascript:" (click)="activate(p.id)">{{p.name}} <fa-icon icon="check-circle"
-                class="text-primary float-right ml-2" *ngIf="selected === p.id"></fa-icon></a>
+            <a ngbDropdownItem href="javascript:" (click)="activate(p.key)">{{p.name}} <fa-icon icon="check-circle"
+                class="text-primary float-right ml-2" *ngIf="selected === p.key"></fa-icon></a>
           </ng-container>
         </ng-container>
       </div>
