@@ -9,21 +9,16 @@ export type Profile = {
   config?: any
 }
 
-export const DEMO_PROFILE = {
+export const DEMO_PROFILE: Profile = {
   key: 'demo',
   name: 'Demo Profile',
   remote: {
     enabled: false,
-    host: 'https://db.cgeosoft.com',
-    username: 'demo',
-    password: 'demo',
   },
   plugins: {
     business: true,
     projects: true,
     boards: true,
     presentations: true,
-    analytics: true,
-    reports: true
   }
 }

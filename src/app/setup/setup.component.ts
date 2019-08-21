@@ -15,11 +15,10 @@ export class SetupComponent implements OnInit {
   steps = [
     { label: 'Setup' },
     { label: 'Profile' },
-    { label: 'Sync' },
     { label: 'Plugins' },
     { label: 'Finish' }
   ]
-  stepIndex = 0
+  stepIndex = 2
 
   accepted: false
 
@@ -74,5 +73,9 @@ export class SetupComponent implements OnInit {
       return
     }
     this.stepIndex = this.steps.length - 1
+  }
+
+  switchStatus(pluginId: string) {
+    this.profile.plugins[pluginId] = !this.profile.plugins[pluginId]
   }
 }
