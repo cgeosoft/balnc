@@ -145,6 +145,7 @@ app-shell {
       width: 100%;
       height: 100%;
       transition: opacity 1s;
+      left: 0;
     }
 
     .content {
@@ -397,15 +398,6 @@ app-statusbar {
   .dropup .dropdown-toggle::after {
     display: none;
   }
-}
-
-app-spinner {
-  display: block;
-  height: 60px;
-  padding: 2rem;
-  width: 100%;
-  height: 100%;
-  position: relative;
 }
 
 app-presentations-overview {
