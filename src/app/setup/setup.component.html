@@ -3,27 +3,26 @@
     <div class="card">
       <div class="breadcrumb" style="overflow-x:auto;" *ngIf="stepIndex != 0">
         <div style="min-width: 350px;">
-          <span class="breadcrumb-item" *ngFor="let step of steps; let i = index;" [ngClass]="{active: stepIndex === i }">
+          <span class="breadcrumb-item" *ngFor="let step of steps; let i = index;"
+            [ngClass]="{active: stepIndex === i }">
             {{step.label}}</span>
         </div>
       </div>
 
-      <div class="card-body" *ngIf="steps[stepIndex].label=='Setup'">
+      <div class="card-body overflow-hidden" *ngIf="steps[stepIndex].label=='Setup'">
         <div class="text-center">
-          <h1 class="display-4 mt-4">Welcome to Balnc!</h1>
+          <h1 class="display-4 mt-4">Welcome!</h1>
         </div>
-        <div class=" p-4">
-          <p>Balnc (balance) is an open source offline-first business application that may run easily at freelancers'
-            laptops or at
-            companies' premises.</p>
-          <p>It has a modular architecture for robustness and extensibility using web-only technologies. With Balnc
-            software developers
-            may quickly bootstrap applications with premade plugins and create their own custom logic on top of them.</p>
-          <div class="alert alert-warning mb-0">
-            <strong>WARNING:</strong> This application is under development and it
-            <strong>SHOULD NOT</strong> be used in production enviroment.
-          </div>
+        <div class="alert alert-warning text-center">
+          <strong>WARNING: UNDER DEVELOPMENT AND NOT READY FOR PRODUCTION USE</strong>
         </div>
+        <p>Balnc (balance) is an free open source business management suite for small companies and freelancers. It is
+          included a collection of business modules and also provides the tools for extend them or build new ones.</p>
+        <p>All features and modules are running local at the users machine. This improves speed of loading any
+          part of the app to magnitute similar of the old buisness installable applications.</p>
+        <p> Even the data of the app is stored at the client, in a local database. It is not require a database
+          server for storing data. As so, data are store at the user's machine and are not visible to any third
+          parties and the speed is improved even more.</p>
       </div>
 
       <div class="card-body" *ngIf="steps[stepIndex].label=='Profile'">
@@ -32,7 +31,8 @@
             <h2>Profile</h2>
             <div class="form-group">
               <label>Profile Name</label>
-              <input autocomplete="false" [(ngModel)]="profile.name" class="form-control form-control-lg" placeholder="Enter a friendly name...">
+              <input autocomplete="false" [(ngModel)]="profile.name" class="form-control form-control-lg"
+                placeholder="Enter a friendly name...">
             </div>
             <ul class="list-unstyled text-center">
               <li>
@@ -70,8 +70,8 @@
             </div>
             <div class="form-group">
               <label>Remote Host</label>
-              <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost" class="form-control"
-                placeholder="https://db.myhost.com">
+              <input autocomplete="false" [disabled]="!profile.remoteSync" [(ngModel)]="profile.remoteHost"
+                class="form-control" placeholder="https://db.myhost.com">
             </div>
             <div class="row">
               <div class="col-6">
@@ -122,12 +122,14 @@
                 </div>
               </div>
               <div class="col-sm-3 d-flex align-items-center">
-                <button *ngIf="!profile.plugins[plugin.id]" type="button" class="btn btn-outline-primary btn-sm ml-auto mt-2"
-                  style="min-width:100px;" (click)="profile.plugins[plugin.id]=true;">
+                <button *ngIf="!profile.plugins[plugin.id]" type="button"
+                  class="btn btn-outline-primary btn-sm ml-auto mt-2" style="min-width:100px;"
+                  (click)="profile.plugins[plugin.id]=true;">
                   Activate
                 </button>
-                <button *ngIf="profile.plugins[plugin.id]" type="button" class="btn btn-outline-danger btn-sm ml-auto mt-2"
-                  style="min-width:100px;" (click)="profile.plugins[plugin.id]=false;">
+                <button *ngIf="profile.plugins[plugin.id]" type="button"
+                  class="btn btn-outline-danger btn-sm ml-auto mt-2" style="min-width:100px;"
+                  (click)="profile.plugins[plugin.id]=false;">
                   Deactivate
                 </button>
               </div>
@@ -164,7 +166,8 @@
         </a>
       </li>
       <li class="list-inline-item">
-        <a href="https://github.com/christosgeorgiou/balnc/LICENSE" target="_blank" rel="noopener" class="text-muted">
+        <a href="https://github.com/ChristosGeorgiou/balnc/blob/master/LICENSE" target="_blank" rel="noopener"
+          class="text-muted">
           license
         </a>
       </li>
