@@ -51,7 +51,7 @@
                   <a [routerLink]="['/projects/project',issue.projectId,'issue',issue['_id']]">{{issue.title}}</a>
                 </div>
                 <small class="text-muted">
-                  {{issue.insertedAt | dfnsDistanceInWordsToNow}} ago by
+                  {{issue.insertedAt | dfnsFormatDistanceToNow}} ago by
                   {{issue.insertedFrom}}
                 </small>
               </td>

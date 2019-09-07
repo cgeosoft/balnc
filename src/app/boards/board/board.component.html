@@ -16,7 +16,7 @@
                         {{m.text}}
                       </div>
                       <small class="msg-time text-secondary" [ngbTooltip]="m.timestamp | date:'medium'">
-                        {{m.timestamp | dfnsDistanceInWordsToNow}}</small>
+                        {{m.timestamp | dfnsFormatDistanceToNow}}</small>
                     </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="'CMD-CREATE'">

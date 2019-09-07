@@ -33,7 +33,7 @@
                   <ul class="list-unstyled">
                     <li>Version
                       <strong>{{presentation | docVersion}}</strong> with last edit
-                      <strong *ngIf="presentation.dateUpdated">{{presentation.dateUpdated | dfnsDistanceInWordsToNow}}</strong>
+                      <strong *ngIf="presentation.dateUpdated">{{presentation.dateUpdated | dfnsFormatDistanceToNow}}</strong>
                     </li>
                     <li>Total
                       <strong>{{presentation.pages.length}}</strong> pages with
