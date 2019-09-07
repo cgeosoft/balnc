@@ -1,21 +1,22 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "incremental": true,
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "importHelpers": true,
+    "module": "ES2015",
+    "moduleResolution": "node",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
-      "es2016",
-      "es2015",
+      "es2018",
       "dom"
     ],
     "paths": {
@@ -24,10 +25,7 @@
       ],
       "@balnc/shared": [
         "src/app/_shared"
-      ],
+      ]
     }
-  },
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }
