@@ -1,36 +1,31 @@
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { far } from '@fortawesome/free-regular-svg-icons';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ContenteditableModule } from '@ng-stack/contenteditable';
-import { DateFnsModule } from 'ngx-date-fns';
-import { NgxFileHelpersModule } from 'ngx-file-helpers';
-import { MarkdownModule } from 'ngx-markdown';
-import { NgPipesModule } from 'ngx-pipes';
-import { WebStorageModule } from 'ngx-store';
-import { ToastrModule } from 'ngx-toastr';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-import { ContentBodyComponent } from './components/content-body/content-body.component';
-import { ContentBreadcrumbComponent } from './components/content-breadcrumb/content-breadcrumb.component';
-import { ContentHeaderComponent } from './components/content-header/content-header.component';
-import { ContentComponent } from './components/content/content.component';
-import { DebugComponent } from './components/debug/debug.component';
-import { EmptyComponent } from './components/empty/empty.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { SpinnerComponent } from './components/spinner/spinner.component';
-import { StatusbarComponent } from './components/statusbar/statusbar.component';
-import { DocVersionPipe } from './pipes/doc-version.pipe';
-import { EllipsisPipe } from './pipes/ellipsis.pipe';
-
-library.add(fas, far)
+import { CommonModule } from '@angular/common'
+import { HttpClientModule } from '@angular/common/http'
+import { NgModule } from '@angular/core'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { RouterModule } from '@angular/router'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { ContenteditableModule } from '@ng-stack/contenteditable'
+import { DateFnsModule } from 'ngx-date-fns'
+import { NgxFileHelpersModule } from 'ngx-file-helpers'
+import { MarkdownModule } from 'ngx-markdown'
+import { NgPipesModule } from 'ngx-pipes'
+import { WebStorageModule } from 'ngx-store'
+import { ToastrModule } from 'ngx-toastr'
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component'
+import { ContentBodyComponent } from './components/content-body/content-body.component'
+import { ContentBreadcrumbComponent } from './components/content-breadcrumb/content-breadcrumb.component'
+import { ContentHeaderComponent } from './components/content-header/content-header.component'
+import { ContentComponent } from './components/content/content.component'
+import { DebugComponent } from './components/debug/debug.component'
+import { EmptyComponent } from './components/empty/empty.component'
+import { FooterComponent } from './components/footer/footer.component'
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
+import { SidebarComponent } from './components/sidebar/sidebar.component'
+import { SpinnerComponent } from './components/spinner/spinner.component'
+import { StatusbarComponent } from './components/statusbar/statusbar.component'
+import { FontAwesomeModule } from './modules/font-awesome/font-awesome.module'
+import { DocVersionPipe } from './pipes/doc-version.pipe'
+import { EllipsisPipe } from './pipes/ellipsis.pipe'
 
 @NgModule({
   imports: [
@@ -46,7 +41,7 @@ library.add(fas, far)
     WebStorageModule,
     ToastrModule,
     ContenteditableModule,
-    MarkdownModule.forChild(),
+    MarkdownModule.forChild()
   ],
   declarations: [
     ContentBodyComponent,
@@ -81,7 +76,7 @@ library.add(fas, far)
     DateFnsModule,
     ContenteditableModule,
     MarkdownModule,
-    
+
     DocVersionPipe,
     EllipsisPipe,
 
