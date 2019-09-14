@@ -3,7 +3,9 @@
   <app-content-body>
     <div class="list-settings">
       <div class="list-settings-item" *ngFor="let p of plugins">
-        <fa-icon [icon]="p.picon" class="list-settings-icon bg-dark rounded-circle text-center" style="min-width: 60px;" [ngStyle]="{color:p.color}"></fa-icon>
+        <div class="list-settings-icon">
+          <fa-icon [icon]="p.picon" [ngStyle]="{color:p.color}"></fa-icon>
+        </div>
         <div class="list-settings-content">
           <h5>{{p.title}}</h5>
           <small class="text-muted">{{p.description}}</small>

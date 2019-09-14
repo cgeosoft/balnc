@@ -6,7 +6,7 @@
       "label": "business",
       "description": "A basic contact management database. Include company and persons, custom fields and analytics.",
       "icon": "building",
-      "color": "#64B5F6"
+      "color": "#42A5F5"
     },
     {
       "id": "projects",
@@ -14,7 +14,7 @@
       "label": "projects",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
       "icon": "tasks",
-      "color": "#4DB6AC"
+      "color": "#9575CD"
     },
     {
       "id": "boards",
@@ -22,7 +22,7 @@
       "label": "boards",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
       "icon": "comments",
-      "color": "#FF8A65"
+      "color": "#F06292"
     },
     {
       "id": "presentations",
@@ -30,7 +30,7 @@
       "label": "present",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
       "icon": "desktop",
-      "color": "#FFF176"
+      "color": "#FF8A65"
     },
     {
       "id": "analytics",
@@ -38,7 +38,15 @@
       "label": "analytics",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
       "icon": "chart-pie",
-      "color": "#F06292"
+      "color": "#9ccc65"
+    },
+    {
+      "id": "notes",
+      "title": "Notes",
+      "label": "notes",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+      "icon": "sticky-note",
+      "color": "#4DB6AC"
     },
     {
       "id": "reports",
@@ -46,7 +54,7 @@
       "label": "reports",
       "description": "A simple but full-feature team chat with customizable rooms",
       "icon": "file-alt",
-      "color": "#9575CD",
+      "color": "#ffa726",
       "config": {
         "server": {
           "requireUser": {
