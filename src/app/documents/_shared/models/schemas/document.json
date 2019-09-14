@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "version": 0,
+  "disableKeyCompression": true,
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    }
+  }
+}

@@ -9,7 +9,8 @@ import { ContactsEntities, InvoicesEntities, OrdersEntities } from 'src/app/busi
 
 @Component({
   selector: 'app-settings-shell',
-  templateUrl: './shell.component.html'
+  templateUrl: './shell.component.html',
+  host: { 'class': 'shell' }
 })
 export class ShellComponent implements OnInit {
 

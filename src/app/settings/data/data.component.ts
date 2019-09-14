@@ -5,7 +5,8 @@ import { Profile } from '@balnc/shared'
 
 @Component({
   selector: 'app-settings-data',
-  templateUrl: './data.component.html'
+  templateUrl: './data.component.html',
+  host: { 'class': 'page' }
 })
 export class DataComponent implements OnInit {
   profile: Profile

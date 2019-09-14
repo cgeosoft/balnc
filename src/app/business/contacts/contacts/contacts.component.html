@@ -1,5 +1,5 @@
 <app-content>
-    <app-content-breadcrumb [items]="[{label:'Contacts'}]"></app-content-breadcrumb>
+  <app-content-breadcrumb [items]="[{label:'Contacts'}]"></app-content-breadcrumb>
   <app-content-body>
     <div class="d-flex">
       <div class=" flex-grow-1">
@@ -19,7 +19,8 @@
             <tbody>
               <tr *ngFor="let contact of contacts">
                 <td>
-                  <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user':'building']" class="mr-2 text-muted"></fa-icon>
+                  <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user':'building']"
+                    class="mr-2 text-muted"></fa-icon>
                   <a [routerLink]="['/business/contacts',contact['_id']]">{{contact.name}}</a>
                 </td>
                 <td>{{contact.details.phones[0] || '-'}}</td>

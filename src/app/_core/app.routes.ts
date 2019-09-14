@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core'
 import { CanActivate, Router, Routes } from '@angular/router'
 import { ErrorComponent } from './components/error/error.component'
-import { ShellComponent } from './components/shell/shell.component'
+import { MainShellComponent } from './components/main-shell/main-shell.component'
 import { ConfigService } from './services/config.service'
 
 @Injectable()
@@ -16,7 +16,7 @@ export class ProfileGuardService implements CanActivate {
 
 export const APP_ROUTES: Routes = [{
   path: '',
-  component: ShellComponent,
+  component: MainShellComponent,
   canActivate: [ProfileGuardService],
   children: [{
     path: 'dashboard',
@@ -28,8 +28,8 @@ export const APP_ROUTES: Routes = [{
     path: 'business',
     loadChildren: '../business/business.module#BusinessModule'
   }, {
-    path: 'notes',
-    loadChildren: '../notes/notes.module#NotesModule'
+    path: 'documents',
+    loadChildren: '../documents/documents.module#DocumentsModule'
   }, {
     path: 'projects',
     loadChildren: '../projects/projects.module#ProjectsModule'

@@ -7,7 +7,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
 import { ToastrModule } from 'ngx-toastr'
 import { APP_ROUTES, ProfileGuardService } from './app.routes'
 import { ErrorComponent } from './components/error/error.component'
-import { ShellComponent } from './components/shell/shell.component'
+import { MainShellComponent } from './components/main-shell/main-shell.component'
 import { RxDBService } from './rxdb/rxdb.service'
 import { ConfigService } from './services/config.service'
 
@@ -39,7 +39,7 @@ import { ConfigService } from './services/config.service'
     SharedModule
   ],
   declarations: [
-    ShellComponent,
+    MainShellComponent,
     ErrorComponent
   ],
   providers: [

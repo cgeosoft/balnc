@@ -5,7 +5,8 @@ import { Plugin, Profile } from '@balnc/shared'
 @Component({
   selector: 'app-settings-plugins',
   templateUrl: './plugins.component.html',
-  styleUrls: ['plugins.component.scss']
+  styleUrls: ['plugins.component.scss'],
+  host: { 'class': 'page' }
 })
 export class PluginsComponent implements OnInit {
 

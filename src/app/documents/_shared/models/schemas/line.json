@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "version": 0,
+  "disableKeyCompression": true,
+  "properties": {
+    "document": {
+      "type": "number"
+    },
+    "text": {
+      "type": "string"
+    },
+    "index": {
+      "type": "number"
+    },
+    "edited": {
+      "type": "number"
+    }
+  }
+}

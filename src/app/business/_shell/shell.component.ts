@@ -8,7 +8,8 @@ import { ContactsService } from '../_shared/services/contacts.service'
 @Component({
   selector: 'app-business-shell',
   templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.scss']
+  styleUrls: ['./shell.component.scss'],
+  host: { 'class': 'shell' }
 })
 export class ShellComponent {
 

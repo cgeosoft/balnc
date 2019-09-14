@@ -20,7 +20,8 @@ interface RemoteProfile {
 
 @Component({
   selector: 'app-settings-remote',
-  templateUrl: './remote.component.html'
+  templateUrl: './remote.component.html',
+  host: { 'class': 'page' }
 })
 export class RemoteComponent implements OnInit {
 
@@ -154,8 +155,8 @@ export class RemoteComponent implements OnInit {
       .post(`${this.remote.server}/profiles`, {
         name
       }, {
-          headers: { Authorization: 'Basic ' + btoa(this.remote.username + ':' + this.remote.password) }
-        })
+        headers: { Authorization: 'Basic ' + btoa(this.remote.username + ':' + this.remote.password) }
+      })
       .toPromise()
       .then((response: {
         key: string,

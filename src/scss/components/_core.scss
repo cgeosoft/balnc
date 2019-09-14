@@ -17,6 +17,13 @@ a {
   width: 120px;
 }
 
+.shell,
+.page {
+  @extend .d-flex;
+  @extend .w-100;
+  @extend .h-100;
+}
+
 .table-double {
   td {
     vertical-align: middle;
@@ -165,7 +172,7 @@ thead {
       height: 60px;
       min-height: 60px;
       line-height: 65px;
-      fa-icon{
+      fa-icon {
         font-size: 2rem;
       }
     }

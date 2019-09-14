@@ -41,11 +41,11 @@
       "color": "#9ccc65"
     },
     {
-      "id": "notes",
-      "title": "Notes",
-      "label": "notes",
+      "id": "documents",
+      "title": "Documents",
+      "label": "documents",
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
-      "icon": "sticky-note",
+      "icon": "file",
       "color": "#4DB6AC"
     },
     {

@@ -8,7 +8,8 @@ import { RemoteComponent } from '../remote/remote.component'
 
 @Component({
   selector: 'app-settings-general',
-  templateUrl: './general.component.html'
+  templateUrl: './general.component.html',
+  host: { 'class': 'page' }
 })
 export class GeneralComponent implements OnInit {
 
@@ -89,8 +90,8 @@ export class GeneralComponent implements OnInit {
         name: this.profile.remote.name,
         members: this.profile.remote.members
       }, {
-          headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.password) }
-        }).toPromise()
+        headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.password) }
+      }).toPromise()
     await this.getRemote()
   }
 
@@ -103,8 +104,8 @@ export class GeneralComponent implements OnInit {
         name: this.profile.remote.name,
         members: this.profile.remote.members
       }, {
-          headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.password) }
-        }).toPromise()
+        headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.password) }
+      }).toPromise()
     await this.getRemote()
   }
 }

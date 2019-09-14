@@ -4,11 +4,11 @@ import { ToastrService } from 'ngx-toastr'
 import { ConfigService } from '../../services/config.service'
 
 @Component({
-  selector: 'app-shell',
-  templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.scss']
+  selector: 'app-main-shell',
+  templateUrl: './main-shell.component.html',
+  styleUrls: ['./main-shell.component.scss']
 })
-export class ShellComponent implements OnInit {
+export class MainShellComponent implements OnInit {
 
   username: string
 
