@@ -1,14 +1,14 @@
 // src/app/auth/auth-guard.service.ts
-import { Injectable } from '@angular/core';
-import { CanActivate, Router, Routes } from '@angular/router';
-import { ErrorComponent } from './components/error/error.component';
-import { ShellComponent } from './components/shell/shell.component';
-import { ConfigService } from './services/config.service';
+import { Injectable } from '@angular/core'
+import { CanActivate, Router, Routes } from '@angular/router'
+import { ErrorComponent } from './components/error/error.component'
+import { ShellComponent } from './components/shell/shell.component'
+import { ConfigService } from './services/config.service'
 
 @Injectable()
 export class ProfileGuardService implements CanActivate {
-  constructor(public config: ConfigService, public router: Router) { }
-  async canActivate() {
+  constructor (public config: ConfigService, public router: Router) { }
+  async canActivate () {
     this.config.setup()
     return !!this.config.profile
   }
@@ -27,6 +27,9 @@ export const APP_ROUTES: Routes = [{
   }, {
     path: 'business',
     loadChildren: '../business/business.module#BusinessModule'
+  }, {
+    path: 'notes',
+    loadChildren: '../notes/notes.module#NotesModule'
   }, {
     path: 'projects',
     loadChildren: '../projects/projects.module#ProjectsModule'

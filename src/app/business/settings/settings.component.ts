@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { AgreementsService } from '../_shared/services/agreements.service';
-import { ContactsService } from '../_shared/services/contacts.service';
+import { Component } from '@angular/core'
+import { AgreementsService } from '../_shared/services/agreements.service'
+import { ContactsService } from '../_shared/services/contacts.service'
 
 @Component({
   selector: 'app-business-settings',
@@ -8,11 +8,11 @@ import { ContactsService } from '../_shared/services/contacts.service';
 })
 export class SettingsComponent {
   generating: boolean
-  generated: number;
+  generated: number
 
   constructor (
     private contactsService: ContactsService,
-    private agreementsService: AgreementsService,
+    private agreementsService: AgreementsService
   ) { }
 
   async generateDemoData () {

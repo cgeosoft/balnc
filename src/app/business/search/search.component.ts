@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ContactsService } from '../_shared/services/contacts.service';
+import { Component, OnInit } from '@angular/core'
+import { ContactsService } from '../_shared/services/contacts.service'
 
 @Component({
   selector: 'app-search',
-  templateUrl: './search.component.html',
+  templateUrl: './search.component.html'
 })
 export class SearchComponent implements OnInit {
 
   openedFilters = true
 
-  constructor(
+  constructor (
     private contactsService: ContactsService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
-  get contacts$() {
+  get contacts$ () {
     return this.contactsService.contacts$
   }
 

@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Helpers } from '../../helpers';
+import { Component, Input } from '@angular/core'
+import { Helpers } from '../../helpers'
 
 @Component({
   selector: 'app-empty',

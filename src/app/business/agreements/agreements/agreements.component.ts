@@ -1,27 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { Agreement } from '../../_shared/models/agreement';
-import { Contact } from '../../_shared/models/contacts';
-import { AgreementsService } from '../../_shared/services/agreements.service';
-import { ContactsService } from '../../_shared/services/contacts.service';
+import { Component, OnInit } from '@angular/core'
+import { Observable } from 'rxjs'
+import { tap } from 'rxjs/operators'
+import { Agreement } from '../../_shared/models/agreement'
+import { Contact } from '../../_shared/models/contacts'
+import { AgreementsService } from '../../_shared/services/agreements.service'
+import { ContactsService } from '../../_shared/services/contacts.service'
 
 @Component({
   selector: 'app-agreements',
-  templateUrl: './agreements.component.html',
+  templateUrl: './agreements.component.html'
 })
 export class AgreementsComponent implements OnInit {
-  agreements$: Observable<Agreement[]>;
-  contacts: Contact[];
+  agreements$: Observable<Agreement[]>
+  contacts: Contact[]
 
-  constructor(
+  constructor (
     private agreementsService: AgreementsService,
-    private contactsService: ContactsService,
+    private contactsService: ContactsService
   ) { }
 
-  async ngOnInit() {
-    this.contacts = await this.contactsService.getAll<Contact>("contacts")
-    this.agreements$ = this.agreementsService.getAll$<Agreement>("agreements").pipe(
+  async ngOnInit () {
+    this.contacts = await this.contactsService.getAll<Contact>('contacts')
+    this.agreements$ = this.agreementsService.getAll$<Agreement>('agreements').pipe(
       tap(agreements => {
 
         agreements = agreements.sort((a, b) => {
@@ -33,7 +33,7 @@ export class AgreementsComponent implements OnInit {
     )
   }
 
-  getContact(contactId) {
-    return this.contacts.find(c => c["_id"] === contactId)
+  getContact (contactId) {
+    return this.contacts.find(c => c['_id'] === contactId)
   }
 }

@@ -1,6 +1,6 @@
-import { Component, NgModule, OnInit } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { SharedModule } from '@balnc/shared';
+import { Component, NgModule, OnInit } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+import { SharedModule } from '@balnc/shared'
 
 @Component({
   selector: 'app-restaurants-client',
@@ -9,10 +9,10 @@ import { SharedModule } from '@balnc/shared';
 })
 export class RestaurantsClientComponent implements OnInit {
 
-  constructor(
+  constructor (
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 }
 

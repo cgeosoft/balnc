@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ConfigService, RxDBService } from '@balnc/core';
-import { ConfirmDialogComponent, DEMO_PROFILE, Helpers, Plugin, Profile } from '@balnc/shared';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ReadFile } from 'ngx-file-helpers';
-import { ToastrService } from 'ngx-toastr';
-import { ContactsEntities, InvoicesEntities, OrdersEntities } from 'src/app/business/_shared/models/_entities';
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { ConfigService, RxDBService } from '@balnc/core'
+import { ConfirmDialogComponent, DEMO_PROFILE, Helpers, Plugin, Profile } from '@balnc/shared'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { ReadFile } from 'ngx-file-helpers'
+import { ToastrService } from 'ngx-toastr'
+import { ContactsEntities, InvoicesEntities, OrdersEntities } from 'src/app/business/_shared/models/_entities'
 
 @Component({
   selector: 'app-settings-shell',
@@ -19,32 +19,32 @@ export class ShellComponent implements OnInit {
 
   helperService = Helpers
 
-  constructor(
+  constructor (
     public configService: ConfigService,
     private router: Router,
     private toastr: ToastrService,
     private modal: NgbModal,
-    private dbService: RxDBService,
+    private dbService: RxDBService
   ) { }
 
-  get profiles() {
+  get profiles () {
     return this.configService.profiles
   }
 
-  get selected() {
+  get selected () {
     return this.configService.selected
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.profile = this.configService.profile
     this.plugins = this.configService.plugins
   }
 
-  clear() {
+  clear () {
     this.configService.clearAllProfiles()
   }
 
-  create() {
+  create () {
     const alias = this.configService.saveProfile({
       name: Helpers.generateName(),
       remote: {
@@ -55,7 +55,7 @@ export class ShellComponent implements OnInit {
     this.configService.selectProfile(alias)
   }
 
-  async import(file: ReadFile) {
+  async import (file: ReadFile) {
     const profile = this.configService.importFile(file)
     if (!profile) {
       this.toastr.error('Import failed')
@@ -65,18 +65,18 @@ export class ShellComponent implements OnInit {
     this.configService.selectProfile(alias)
   }
 
-  activate(profileId) {
+  activate (profileId) {
     this.configService.selectProfile(profileId)
   }
 
-  async remove(profileId) {
+  async remove (profileId) {
     const entities = [
       ...ContactsEntities,
       ...OrdersEntities,
       ...InvoicesEntities
     ]
 
-    await this.modal.open(ConfirmDialogComponent, { size: "sm" })
+    await this.modal.open(ConfirmDialogComponent, { size: 'sm' })
       .result
       .then(async () => {
         this.configService.removeProfile(profileId)
@@ -87,7 +87,7 @@ export class ShellComponent implements OnInit {
       })
   }
 
-  createProfile() {
+  createProfile () {
     this.configService.saveProfile({
       name: this.helperService.generateName(),
       remote: {
@@ -97,12 +97,12 @@ export class ShellComponent implements OnInit {
     })
   }
 
-  createDemo() {
+  createDemo () {
     const demo = this.configService.saveProfile(DEMO_PROFILE)
     this.activate(demo)
   }
 
-  onFilePicked(file: ReadFile) {
+  onFilePicked (file: ReadFile) {
     this.error = null
     try {
       const data = file.content.split(',')[1]

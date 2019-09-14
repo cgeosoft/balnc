@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ConfigService } from '@balnc/core';
-import { Profile } from '@balnc/shared';
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { ConfigService } from '@balnc/core'
+import { Profile } from '@balnc/shared'
 
 @Component({
   selector: 'app-settings-data',
@@ -11,12 +11,12 @@ export class DataComponent implements OnInit {
   profile: Profile
   data: any
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private configService: ConfigService
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.route.params.subscribe(params => {
       const profile = this.configService.profiles.find(p => p.key === params['id'])
       this.profile = Object.assign({}, profile)
@@ -24,11 +24,11 @@ export class DataComponent implements OnInit {
     })
   }
 
-  save() {
+  save () {
     this.configService.saveProfile(this.profile)
   }
 
-  async export() {
+  async export () {
     const backup = {
       profile: this.profile,
       data: this.data
@@ -40,6 +40,6 @@ export class DataComponent implements OnInit {
     a.click()
   }
 
-  import() { }
+  import () { }
 
 }

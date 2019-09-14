@@ -1,24 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { ContactType } from '../../_shared/models/contacts';
-import { ContactsService } from '../../_shared/services/contacts.service';
+import { Component, OnInit } from '@angular/core'
+import { ContactType } from '../../_shared/models/contacts'
+import { ContactsService } from '../../_shared/services/contacts.service'
 
 @Component({
   selector: 'app-contacts',
-  templateUrl: './contacts.component.html',
+  templateUrl: './contacts.component.html'
 })
 export class ContactsComponent implements OnInit {
 
   contactType = ContactType
 
-  constructor(
+  constructor (
     private contactsService: ContactsService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
 
   }
 
-  get contacts$() {
+  get contacts$ () {
     return this.contactsService.contacts$
   }
 

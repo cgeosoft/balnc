@@ -1,26 +1,26 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { ConfigService } from '@balnc/core';
-import { LocalStorage } from 'ngx-store';
-import { AgreementsService } from './services/agreements.service';
-import { ContactsService } from './services/contacts.service';
-import { InvoicesService } from './services/invoices.service';
-import { OrdersService } from './services/orders.service';
+import { Injectable } from '@angular/core'
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router'
+import { ConfigService } from '@balnc/core'
+import { LocalStorage } from 'ngx-store'
+import { AgreementsService } from './services/agreements.service'
+import { ContactsService } from './services/contacts.service'
+import { InvoicesService } from './services/invoices.service'
+import { OrdersService } from './services/orders.service'
 
 @Injectable()
 export class Resolver implements Resolve<void> {
 
   @LocalStorage() randomData = {}
 
-  constructor(
+  constructor (
     private configService: ConfigService,
     private contactsService: ContactsService,
     private invoicesService: InvoicesService,
     private ordersService: OrdersService,
-    private agreementsService: AgreementsService,
+    private agreementsService: AgreementsService
   ) { }
 
-  async resolve(
+  async resolve (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) {

@@ -1,6 +1,6 @@
-import IssueSchema from '../schemas/issue.json';
-import LogSchema from '../schemas/log.json';
-import ProjectSchema from '../schemas/project.json';
+import IssueSchema from '../schemas/issue.json'
+import LogSchema from '../schemas/log.json'
+import ProjectSchema from '../schemas/project.json'
 
 export const ProjectsEntities = [{
   name: 'projects',

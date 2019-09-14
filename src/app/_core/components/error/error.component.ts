@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { SessionStorage } from 'ngx-store';
+import { Component } from '@angular/core'
+import { Router } from '@angular/router'
+import { SessionStorage } from 'ngx-store'
 
 @Component({
   selector: 'app-error',

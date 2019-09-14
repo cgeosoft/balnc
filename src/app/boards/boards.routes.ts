@@ -1,6 +1,6 @@
-import { BoardComponent } from './board/board.component';
-import { BoardsResolver } from './_shared/resolver';
-import { ShellComponent } from './_shell/shell.component';
+import { BoardComponent } from './board/board.component'
+import { BoardsResolver } from './_shared/resolver'
+import { ShellComponent } from './_shell/shell.component'
 
 export const BoardsRoutes = [{
   path: '',

@@ -1,12 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { SharedModule } from '@balnc/shared';
-import { BoardComponent } from './board/board.component';
-import { BoardsRoutes } from './boards.routes';
-import { BoardsService } from './_shared/boards.service';
-import { BoardsResolver } from './_shared/resolver';
-import { ShellComponent } from './_shell/shell.component';
-
+import { NgModule } from '@angular/core'
+import { RouterModule } from '@angular/router'
+import { SharedModule } from '@balnc/shared'
+import { BoardComponent } from './board/board.component'
+import { BoardsRoutes } from './boards.routes'
+import { BoardsService } from './_shared/boards.service'
+import { BoardsResolver } from './_shared/resolver'
+import { ShellComponent } from './_shell/shell.component'
 
 @NgModule({
   imports: [
@@ -19,7 +18,7 @@ import { ShellComponent } from './_shell/shell.component';
   ],
   providers: [
     BoardsService,
-    BoardsResolver,
+    BoardsResolver
   ]
 })
 export class BoardsModule { }

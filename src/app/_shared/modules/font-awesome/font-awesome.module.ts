@@ -9,7 +9,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
   exports: [VentorFontAwesomeModule]
 })
 export class FontAwesomeModule {
-  constructor(library: FaIconLibrary) {
+  constructor (library: FaIconLibrary) {
     library.addIconPacks(far, fas, fab)
   }
 }

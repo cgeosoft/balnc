@@ -1,4 +1,4 @@
-import { RxDocument } from 'rxdb';
+import { RxDocument } from 'rxdb'
 
 export interface Board {
   name?: string

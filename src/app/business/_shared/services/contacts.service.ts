@@ -1,36 +1,36 @@
-import { Injectable, NgZone } from '@angular/core';
-import { RxDBService } from '@balnc/core';
-import { CommonService } from '@balnc/shared';
-import * as faker from 'faker';
-import { Observable } from 'rxjs';
-import { CEvent, CEventType, Contact, ContactType } from '../models/contacts';
-import { ContactsEntities } from '../models/_entities';
+import { Injectable, NgZone } from '@angular/core'
+import { RxDBService } from '@balnc/core'
+import { CommonService } from '@balnc/shared'
+import * as faker from 'faker'
+import { Observable } from 'rxjs'
+import { CEvent, CEventType, Contact, ContactType } from '../models/contacts'
+import { ContactsEntities } from '../models/_entities'
 
 @Injectable()
 export class ContactsService extends CommonService {
 
   contacts$: Observable<Contact[]>
 
-  constructor(
+  constructor (
     zone: NgZone,
-    dbService: RxDBService,
+    dbService: RxDBService
   ) {
     super(zone, dbService)
   }
 
-  async setup() {
+  async setup () {
     await super.setup({
       alias: 'contacts',
-      entities: ContactsEntities,
+      entities: ContactsEntities
     })
     this.contacts$ = this.db['contacts'].find().$
   }
 
-  async getContacts(params): Promise<Contact[]> {
+  async getContacts (params): Promise<Contact[]> {
     return super.getAll<Contact>('contacts', params)
   }
 
-  async getContact(id): Promise<Contact> {
+  async getContact (id): Promise<Contact> {
     const contact = await super.getOne<Contact>('contacts', id)
     if (!contact) return null
 
@@ -42,11 +42,11 @@ export class ContactsService extends CommonService {
     return contact
   }
 
-  getContactObservable(id): Observable<Contact> {
+  getContactObservable (id): Observable<Contact> {
     return this.db['contacts'].findOne(id).$
   }
 
-  async addContact(contact: Contact) {
+  async addContact (contact: Contact) {
     const c = await super.addOne<Contact>('contacts', contact)
     await super.addOne<CEvent>('cevents', {
       contact: c.get('_id'),
@@ -56,8 +56,8 @@ export class ContactsService extends CommonService {
     return c
   }
 
-  async generateDemoData() {
-    console.log("generate random contacts")
+  async generateDemoData () {
+    console.log('generate random contacts')
     for (let p = 0; p < 5; p++) {
       await this.addContact({
         name: `${faker.name.findName()}`,

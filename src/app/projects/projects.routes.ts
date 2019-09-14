@@ -1,9 +1,9 @@
-import { IssueComponent } from './issue/issue.component';
-import { OverviewComponent } from './overview/overview.component';
-import { ProjectComponent } from './project/project.component';
-import { SettingsComponent } from './settings/settings.component';
-import { ProjectsResolver } from './_shared/resolver';
-import { ShellComponent } from './_shell/shell.component';
+import { IssueComponent } from './issue/issue.component'
+import { OverviewComponent } from './overview/overview.component'
+import { ProjectComponent } from './project/project.component'
+import { SettingsComponent } from './settings/settings.component'
+import { ProjectsResolver } from './_shared/resolver'
+import { ShellComponent } from './_shell/shell.component'
 
 export const ProjectsRoutes = [{
   path: '',

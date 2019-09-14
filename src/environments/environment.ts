@@ -1,5 +1,5 @@
-import * as _package from '../../package.json';
-import * as _plugins from './plugins.json';
+import * as _package from '../../package.json'
+import * as _plugins from './plugins.json'
 
 export const environment = {
   production: false,
@@ -7,7 +7,7 @@ export const environment = {
   version: _package['version'],
   servers: [
     {
-      label: "Demo Server",
+      label: 'Demo Server',
       url: 'http://localhost:3000/api'
     }
   ]

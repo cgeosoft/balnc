@@ -1,26 +1,26 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Agreement } from '../../_shared/models/agreement';
-import { AgreementsService } from '../../_shared/services/agreements.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { Agreement } from '../../_shared/models/agreement'
+import { AgreementsService } from '../../_shared/services/agreements.service'
 
 @Component({
   selector: 'app-agreement',
-  templateUrl: './agreement.component.html',
+  templateUrl: './agreement.component.html'
 })
 export class AgreementComponent implements OnInit {
 
-  @ViewChild('content', { static: false }) private content: ElementRef;
+  @ViewChild('content', { static: false }) private content: ElementRef
   editDesc = false
-  agreementId: any;
-  agreement: Agreement;
+  agreementId: any
+  agreement: Agreement
   breadcrumb
-  
-  constructor(
+
+  constructor (
     private agreementsService: AgreementsService,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route
       .params
       .subscribe(params => {
@@ -29,24 +29,24 @@ export class AgreementComponent implements OnInit {
       })
   }
 
-  private async setup() {
+  private async setup () {
     this.agreement = await this.agreementsService.getOne<Agreement>('agreements', this.agreementId)
     this.breadcrumb = [
-      { url: ["/business/agreements"], label: "Agreements" },
+      { url: ['/business/agreements'], label: 'Agreements' },
       { label: this.agreement.serial }
     ]
   }
 
-  enableEdit() {
+  enableEdit () {
     this.editDesc = true
     setTimeout(() => {
       this.content.nativeElement.focus()
     })
   }
 
-  async updateDesc(content) {
+  async updateDesc (content) {
     this.editDesc = false
-    const agreement = await this.agreementsService.getOne<Agreement>("agreements", this.agreementId);
+    const agreement = await this.agreementsService.getOne<Agreement>('agreements', this.agreementId)
     const _content = content.trim()
     if (agreement.content === _content) return
     await agreement.update({
@@ -54,6 +54,6 @@ export class AgreementComponent implements OnInit {
         content: _content,
         updatedAt: Date.now()
       }
-    });
+    })
   }
 }

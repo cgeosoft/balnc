@@ -1,15 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { SharedModule } from '@balnc/shared';
-import { DateFnsModule } from 'ngx-date-fns';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
-import { ToastrModule } from 'ngx-toastr';
-import { APP_ROUTES, ProfileGuardService } from './app.routes';
-import { ErrorComponent } from './components/error/error.component';
-import { ShellComponent } from './components/shell/shell.component';
-import { RxDBService } from './rxdb/rxdb.service';
-import { ConfigService } from './services/config.service';
+import { CommonModule } from '@angular/common'
+import { NgModule, Optional, SkipSelf } from '@angular/core'
+import { RouterModule } from '@angular/router'
+import { SharedModule } from '@balnc/shared'
+import { DateFnsModule } from 'ngx-date-fns'
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
+import { ToastrModule } from 'ngx-toastr'
+import { APP_ROUTES, ProfileGuardService } from './app.routes'
+import { ErrorComponent } from './components/error/error.component'
+import { ShellComponent } from './components/shell/shell.component'
+import { RxDBService } from './rxdb/rxdb.service'
+import { ConfigService } from './services/config.service'
 
 @NgModule({
   imports: [
@@ -53,7 +53,7 @@ import { ConfigService } from './services/config.service';
 })
 export class CoreModule {
   /* make sure CoreModule is imported only by one NgModule the AppModule */
-  constructor(
+  constructor (
     @Optional() @SkipSelf() parentModule: CoreModule
   ) {
     if (parentModule) {

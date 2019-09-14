@@ -1,8 +1,8 @@
-import AgreementSchema from './schemas/agreement.json';
-import CEventSchema from './schemas/cevent.json';
-import ContactSchema from './schemas/contact.json';
-import InvoiceSchema from './schemas/invoice.json';
-import OrderSchema from './schemas/order.json';
+import AgreementSchema from './schemas/agreement.json'
+import CEventSchema from './schemas/cevent.json'
+import ContactSchema from './schemas/contact.json'
+import InvoiceSchema from './schemas/invoice.json'
+import OrderSchema from './schemas/order.json'
 
 export const ContactsEntities = [{
   name: 'contacts',

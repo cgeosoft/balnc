@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { Helpers } from '@balnc/shared';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { PresentationDoc } from '../_shared/models/presentation';
+import { Component, Input } from '@angular/core'
+import { Helpers } from '@balnc/shared'
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { PresentationDoc } from '../_shared/models/presentation'
 
 @Component({
   selector: 'app-presentations-add-page',
@@ -25,9 +25,9 @@ export class AddPageComponent {
     height: 0
   }
 
-  constructor(public activeModal: NgbActiveModal) { }
+  constructor (public activeModal: NgbActiveModal) { }
 
-  async onSubmit() {
+  async onSubmit () {
 
     const pageKey = Helpers.uid()
 
@@ -57,7 +57,7 @@ export class AddPageComponent {
     this.activeModal.close(this.page)
   }
 
-  loadFile($event): void {
+  loadFile ($event): void {
     this.page.file = $event.target.files[0]
     const reader: FileReader = new FileReader()
 

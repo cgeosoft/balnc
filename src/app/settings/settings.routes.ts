@@ -1,8 +1,8 @@
-import { AboutComponent } from './about/about.component';
-import { DataComponent } from './data/data.component';
-import { GeneralComponent } from './general/general.component';
-import { PluginsComponent } from './plugins/plugins.component';
-import { ShellComponent } from './_shell/shell.component';
+import { AboutComponent } from './about/about.component'
+import { DataComponent } from './data/data.component'
+import { GeneralComponent } from './general/general.component'
+import { PluginsComponent } from './plugins/plugins.component'
+import { ShellComponent } from './_shell/shell.component'
 
 export const SettingsRoutes = [{
   path: '',

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { PresentationsService } from '../_shared/services/presentations.service';
+import { Component } from '@angular/core'
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { PresentationsService } from '../_shared/services/presentations.service'
 
 @Component({
   selector: 'app-presentations-create',

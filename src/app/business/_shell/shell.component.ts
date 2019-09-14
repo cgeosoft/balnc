@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { Contact, ContactType } from '../_shared/models/contacts';
-import { ContactsService } from '../_shared/services/contacts.service';
+import { Component } from '@angular/core'
+import { Router } from '@angular/router'
+import { Observable } from 'rxjs'
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
+import { Contact, ContactType } from '../_shared/models/contacts'
+import { ContactsService } from '../_shared/services/contacts.service'
 
 @Component({
   selector: 'app-business-shell',
@@ -17,12 +17,12 @@ export class ShellComponent {
   generating = false
   term: string
 
-  constructor(
+  constructor (
     private contactsService: ContactsService,
-    private router: Router,
+    private router: Router
   ) { }
 
-  get search() {
+  get search () {
     return (text$: Observable<string>) => text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
@@ -36,13 +36,13 @@ export class ShellComponent {
     )
   }
 
-  get formatter() {
+  get formatter () {
     return (result: Contact) => {
       return result.name
     }
   }
 
-  async select($event) {
+  async select ($event) {
     $event.preventDefault()
     const contact = $event.item as Contact
     this.term = ''

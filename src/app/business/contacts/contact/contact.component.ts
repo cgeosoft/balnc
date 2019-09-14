@@ -1,16 +1,16 @@
-import { Component, NgZone, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Helpers } from '@balnc/shared';
-import { Observable } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
-import { CEvent, CEventType, Contact, ContactType } from '../../_shared/models/contacts';
-import { ContactsService } from '../../_shared/services/contacts.service';
-import { OrdersService } from '../../_shared/services/orders.service';
-import { StateService } from '../../_shared/services/state.service';
+import { Component, NgZone, OnInit } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { Helpers } from '@balnc/shared'
+import { Observable } from 'rxjs'
+import { mergeMap, tap } from 'rxjs/operators'
+import { CEvent, CEventType, Contact, ContactType } from '../../_shared/models/contacts'
+import { ContactsService } from '../../_shared/services/contacts.service'
+import { OrdersService } from '../../_shared/services/orders.service'
+import { StateService } from '../../_shared/services/state.service'
 
 @Component({
   selector: 'app-contacts-contact',
-  templateUrl: './contact.component.html',
+  templateUrl: './contact.component.html'
 })
 export class ContactComponent implements OnInit {
 
@@ -49,16 +49,16 @@ export class ContactComponent implements OnInit {
   }
   breadcrumb
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private stateService: StateService,
     private contactsService: ContactsService,
     private ordersService: OrdersService,
     private zone: NgZone,
-    private router: Router,
+    private router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.contact$ = this.route
       .params
       .pipe(
@@ -87,14 +87,14 @@ export class ContactComponent implements OnInit {
             )
 
           this.breadcrumb = [
-            { url: ["/business/contacts"], label: "Contacts" },
-            { label: contact.name },
+            { url: ['/business/contacts'], label: 'Contacts' },
+            { label: contact.name }
           ]
         })
       )
   }
 
-  async createOrder() {
+  async createOrder () {
     const order = await this.ordersService.addOrder({
       serial: Helpers.uid(),
       customer: this.route.snapshot.params['id']

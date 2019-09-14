@@ -1,10 +1,10 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { BoardsService } from '../_shared/boards.service';
-import { Board } from '../_shared/models/board';
-import { Message } from '../_shared/models/message';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
+import { ActivatedRoute, Router } from '@angular/router'
+import { Observable, Subject } from 'rxjs'
+import { map, tap } from 'rxjs/operators'
+import { BoardsService } from '../_shared/boards.service'
+import { Board } from '../_shared/models/board'
+import { Message } from '../_shared/models/message'
 
 @Component({
   selector: 'app-boards-board',
@@ -42,22 +42,22 @@ export class BoardComponent implements OnInit {
       right: true
     }]
   }
-  board$: Observable<Board>;
+  board$: Observable<Board>
 
-  constructor(
+  constructor (
     public boardService: BoardsService,
     private route: ActivatedRoute,
     private router: Router,
     private zone: NgZone
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route.params.subscribe(async (params) => {
       this.selected = params['id']
       if (!this.selected) return
       this.boardService.selectBoard(this.selected)
       this.board$ = await this.boardService.getOne$<Board>('boards', this.selected)
-      this.messages$ = this.boardService.getAll$<Message>("messages").pipe(
+      this.messages$ = this.boardService.getAll$<Message>('messages').pipe(
         map(messages => messages.filter(message => message.board === this.selected)),
         tap(messages => {
           messages.sort((a, b) => a.timestamp - b.timestamp)
@@ -72,7 +72,7 @@ export class BoardComponent implements OnInit {
     })
   }
 
-  async send() {
+  async send () {
     if (!this.inputMessage) { return }
 
     const dt = Date.now()
@@ -90,19 +90,19 @@ export class BoardComponent implements OnInit {
     this.focusInput()
   }
 
-  async delete() {
+  async delete () {
     if (!confirm('Are you sure?')) return
     await this.boardService.deleteBoard(this.selected)
     this.router.navigate(['/boards'])
   }
 
-  scrollToBottom(): void {
+  scrollToBottom (): void {
     if (this.messageList) {
       this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
     }
   }
 
-  focusInput(): void {
+  focusInput (): void {
     if (this.messageInput) {
       this.messageInput.nativeElement.focus()
     }

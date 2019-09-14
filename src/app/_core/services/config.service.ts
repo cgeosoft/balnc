@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Plugin, Profile } from '@balnc/shared';
-import { ReadFile } from 'ngx-file-helpers';
-import { LocalStorage } from 'ngx-store';
-import { environment } from '../../../environments/environment';
-import { Helpers } from '../../_shared/helpers';
+import { Injectable } from '@angular/core'
+import { Router } from '@angular/router'
+import { Plugin, Profile } from '@balnc/shared'
+import { ReadFile } from 'ngx-file-helpers'
+import { LocalStorage } from 'ngx-store'
+import { environment } from '../../../environments/environment'
+import { Helpers } from '../../_shared/helpers'
 
 @Injectable()
 export class ConfigService {
@@ -21,20 +21,20 @@ export class ConfigService {
 
   menu: any
 
-  constructor(
+  constructor (
     private router: Router
   ) { }
 
-  get profile(): Profile {
+  get profile (): Profile {
     return this.profiles.find(p => p.key === this.selected)
   }
 
-  get username(): string {
+  get username (): string {
     const p = this.profile
-    return p.remote.username || "anonymous"
+    return p.remote.username || 'anonymous'
   }
 
-  get enabledPlugins() {
+  get enabledPlugins () {
     return this.plugins
       .filter(m => {
         return this.profile.plugins &&
@@ -42,7 +42,7 @@ export class ConfigService {
       })
   }
 
-  setup() {
+  setup () {
     console.log('[ConfigService]', 'Initializing with env:', environment)
     console.log('[ConfigService]', 'Profiles available:', this.profiles)
 
@@ -53,30 +53,31 @@ export class ConfigService {
     })
 
     if (!this.profiles.length) {
-      this.router.navigate(["/setup"])
+      this.router.navigate(['/setup'])
       return
     }
 
     const profileIndex = this.profiles.findIndex(p => p.key === this.selected)
-    if (!this.selected || profileIndex === -1)
+    if (!this.selected || profileIndex === -1) {
       this.selected = this.profiles[0].key
+    }
   }
 
-  getPackageConfig(id: string) {
+  getPackageConfig (id: string) {
     return this.profile.plugins[id]
   }
 
-  clearAllProfiles() {
+  clearAllProfiles () {
     this.selected = null
     window.location.reload()
   }
 
-  selectProfile(alias: string) {
+  selectProfile (alias: string) {
     this.selected = alias
     window.location.reload()
   }
 
-  removeProfile(profileId) {
+  removeProfile (profileId) {
     let profiles = [...this.profiles]
     let index = this.profiles.findIndex(p => p.key === profileId)
     if (index !== -1) {
@@ -85,7 +86,7 @@ export class ConfigService {
     this.profiles = profiles
   }
 
-  saveProfile(profile: Profile): string {
+  saveProfile (profile: Profile): string {
     profile.key = profile.key || Helpers.uid()
     profile.createdAt = profile.createdAt || Date.now()
     let profiles = [...this.profiles]
@@ -98,14 +99,14 @@ export class ConfigService {
     return profile.key
   }
 
-  deleteProfile(alias: string) {
+  deleteProfile (alias: string) {
     let profiles = [...this.profiles]
     let index = this.profiles.findIndex(p => p.key === alias)
     profiles.splice(index, 1)
     this.profiles = profiles
   }
 
-  importFile(file: ReadFile) {
+  importFile (file: ReadFile) {
     try {
       const data = file.content.split(',')[1]
       const profileStr = atob(data)

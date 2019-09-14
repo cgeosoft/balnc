@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router'
       path: '',
       component: NotesShellComponent,
       children: [
-        { path: ':id', component: NoteComponent } 
+        { path: ':id', component: NoteComponent }
       ]
     }])
   ]

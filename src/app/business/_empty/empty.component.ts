@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { ConfigService } from '@balnc/core';
-import { StateService } from '../_shared/services/state.service';
+import { Component } from '@angular/core'
+import { Router } from '@angular/router'
+import { ConfigService } from '@balnc/core'
+import { StateService } from '../_shared/services/state.service'
 
 @Component({
   selector: 'app-business-empty',
@@ -9,13 +9,13 @@ import { StateService } from '../_shared/services/state.service';
 })
 export class EmptyComponent {
 
-  constructor(
+  constructor (
     private router: Router,
     private stateService: StateService,
     private configService: ConfigService
   ) { }
 
-  async ngAfterViewInit() {
+  async ngAfterViewInit () {
     if (this.stateService.opened.length) {
       await this.router.navigate(this.stateService.opened[this.configService.selected][0].route)
     }

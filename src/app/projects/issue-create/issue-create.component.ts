@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConfigService } from '@balnc/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Issue, IssueType } from '../_shared/models/project';
-import { ProjectsService } from '../_shared/projects.service';
+import { Component, Input, OnInit } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { ConfigService } from '@balnc/core'
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { Issue, IssueType } from '../_shared/models/project'
+import { ProjectsService } from '../_shared/projects.service'
 
 @Component({
   selector: 'app-projects-issue-create',
@@ -15,18 +15,18 @@ export class IssueCreateComponent implements OnInit {
   @Input() projectId
   form: FormGroup
 
-  constructor(
+  constructor (
     private activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private projectsService: ProjectsService,
     private config: ConfigService
   ) { }
 
-  get modal() {
+  get modal () {
     return this.activeModal
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.form = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(100)]],
       project: [this.projectId, [Validators.required]],
@@ -34,7 +34,7 @@ export class IssueCreateComponent implements OnInit {
     })
   }
 
-  async onSubmit() {
+  async onSubmit () {
     const formModel = this.form.value
     const issue: Issue = {
       title: formModel.title,

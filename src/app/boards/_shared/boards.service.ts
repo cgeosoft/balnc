@@ -1,10 +1,10 @@
-import { Injectable, NgZone } from '@angular/core';
-import { ConfigService, RxDBService } from '@balnc/core';
-import { CommonService } from '@balnc/shared';
-import { LocalStorage } from 'ngx-store';
-import { Board } from './models/board';
-import { BoardsEntities } from './models/entities';
-import { Message } from './models/message';
+import { Injectable, NgZone } from '@angular/core'
+import { ConfigService, RxDBService } from '@balnc/core'
+import { CommonService } from '@balnc/shared'
+import { LocalStorage } from 'ngx-store'
+import { Board } from './models/board'
+import { BoardsEntities } from './models/entities'
+import { Message } from './models/message'
 
 export interface BoardStats {
   id: string
@@ -18,7 +18,7 @@ export class BoardsService extends CommonService {
   @LocalStorage() nickname: string = ''
   @LocalStorage() boardsStats: (Board & BoardStats)[] = []
   selectedBoard: string
-  constructor(
+  constructor (
     zone: NgZone,
     dbService: RxDBService,
     private configService: ConfigService
@@ -26,15 +26,15 @@ export class BoardsService extends CommonService {
     super(zone, dbService)
   }
 
-  async setup() {
+  async setup () {
     await super.setup({
       alias: 'boards',
       entities: BoardsEntities
     })
-    this.nickname = this.configService.profile.remote.username || "anonymous"
+    this.nickname = this.configService.profile.remote.username || 'anonymous'
 
-    super.getAll$<Message>("messages").subscribe((messages) => {
-      console.log("caclulate unread")
+    super.getAll$<Message>('messages').subscribe((messages) => {
+      console.log('caclulate unread')
       const bs = [...this.boardsStats]
       bs.forEach(b => { b.unread = 0 })
       messages.forEach(m => {
@@ -57,7 +57,7 @@ export class BoardsService extends CommonService {
 
   }
 
-  async createBoard(data: Board) {
+  async createBoard (data: Board) {
     const now = new Date()
     const board = Object.assign({
       created: now.getTime(),
@@ -70,10 +70,10 @@ export class BoardsService extends CommonService {
     }, data)
 
     const b = await super.addOne('boards', board)
-    return b["_id"]
+    return b['_id']
   }
 
-  selectBoard(boardId) {
+  selectBoard (boardId) {
     const bs = [...this.boardsStats]
     let bs1 = bs.find(x => x.id == boardId)
     if (!bs1) {
@@ -84,13 +84,13 @@ export class BoardsService extends CommonService {
       }
       bs.push(bs1)
     }
-    bs1.unread = 0;
+    bs1.unread = 0
     bs1.lastread = Date.now()
     this.boardsStats = [...bs]
     this.selectedBoard = boardId
   }
 
-  async deleteBoard(id) {
+  async deleteBoard (id) {
     let board = await this.db['boards'].findOne(id).exec()
     board.remove()
 

@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Report } from '../../models/report';
-import { ReportsService } from '../../reports.service';
-
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { Report } from '../../models/report'
+import { ReportsService } from '../../reports.service'
 
 @Component({
   selector: 'app-reports-wrapper',
@@ -14,21 +13,21 @@ export class WrapperComponent implements OnInit {
   idReportAdmin: boolean
   reports: Report[]
 
-  constructor(
+  constructor (
     private reportService: ReportsService,
     private router: Router
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.loadReports()
   }
 
-  async loadReports() {
+  async loadReports () {
     // this.idReportAdmin = await this.reportService.idReportAdmin()
     this.reports = await this.reportService.all()
   }
 
-  manage() {
+  manage () {
     // empty
   }
 }

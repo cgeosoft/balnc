@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { BoardsService } from './boards.service';
+import { Injectable } from '@angular/core'
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router'
+import { BoardsService } from './boards.service'
 
 @Injectable()
 export class BoardsResolver implements Resolve<void> {
-  constructor(
+  constructor (
     private boardsService: BoardsService
   ) { }
 
-  async resolve(
+  async resolve (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ) {

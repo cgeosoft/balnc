@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Helpers } from '../../helpers';
-import { TabsMenu } from '../../models/tabs-menu';
+import { Component, Input, OnInit } from '@angular/core'
+import { Helpers } from '../../helpers'
+import { TabsMenu } from '../../models/tabs-menu'
 
 @Component({
   selector: 'app-content-header',
@@ -18,7 +18,7 @@ export class ContentHeaderComponent implements OnInit {
   @Input() fullWidth = false
   @Input() route = null
 
-  ngOnInit() {
+  ngOnInit () {
     if (this.tabsMenu) {
       if (!this.tabsMenu.selected) {
         this.tabsMenu.selected = this.tabsMenu.tabs[0].id
@@ -26,7 +26,7 @@ export class ContentHeaderComponent implements OnInit {
     }
   }
 
-  getIcon(icon) {
+  getIcon (icon) {
     return Helpers.getIcon(icon)
   }
 }

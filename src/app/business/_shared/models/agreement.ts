@@ -1,4 +1,4 @@
-import { RxDocument } from 'rxdb';
+import { RxDocument } from 'rxdb'
 
 export interface Agreement {
   contact: string
@@ -12,8 +12,8 @@ export interface Agreement {
 }
 
 export enum AgreementStatus {
-  draft = "DRAFT",
-  signed = "SIGNED"
+  draft = 'DRAFT',
+  signed = 'SIGNED'
 }
 
 export type RxInvoiceDoc = RxDocument<Agreement> & Agreement

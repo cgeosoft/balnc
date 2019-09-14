@@ -1,4 +1,4 @@
-import { RemoteConfig } from "../../_core/rxdb/config";
+import { RemoteConfig } from '../../_core/rxdb/config'
 
 export type Profile = {
   key?: string
@@ -13,12 +13,12 @@ export const DEMO_PROFILE: Profile = {
   key: 'demo',
   name: 'Demo Profile',
   remote: {
-    enabled: false,
+    enabled: false
   },
   plugins: {
     business: true,
     projects: true,
     boards: true,
-    presentations: true,
+    presentations: true
   }
 }

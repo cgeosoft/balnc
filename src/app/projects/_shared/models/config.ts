@@ -1,4 +1,3 @@
-export interface Config{
+export interface Config {
 
 }
-

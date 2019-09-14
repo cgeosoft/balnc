@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-notes-shell',
   templateUrl: './notes-shell.component.html',
-  styleUrls: ['./notes-shell.component.css']
+  styleUrls: ['./notes-shell.component.scss']
 })
 export class NotesShellComponent implements OnInit {
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
 }

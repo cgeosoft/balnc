@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { ConfigService } from '@balnc/core';
-import { LocalStorage } from 'ngx-store';
-import { OpenedItem as SideItem } from '../models/general';
+import { Injectable } from '@angular/core'
+import { ConfigService } from '@balnc/core'
+import { LocalStorage } from 'ngx-store'
+import { OpenedItem as SideItem } from '../models/general'
 
 @Injectable()
 export class StateService {

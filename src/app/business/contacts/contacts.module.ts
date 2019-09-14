@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { SharedModule } from '@balnc/shared';
-import { ContactCreateComponent } from './contact-create/contact-create.component';
-import { ContactComponent } from './contact/contact.component';
-import { ContactsComponent } from './contacts/contacts.component';
+import { NgModule } from '@angular/core'
+import { RouterModule } from '@angular/router'
+import { SharedModule } from '@balnc/shared'
+import { ContactCreateComponent } from './contact-create/contact-create.component'
+import { ContactComponent } from './contact/contact.component'
+import { ContactsComponent } from './contacts/contacts.component'
 
 @NgModule({
   declarations: [
     ContactsComponent,
     ContactComponent,
-    ContactCreateComponent,
+    ContactCreateComponent
   ],
-  entryComponents:[
-    ContactCreateComponent,
+  entryComponents: [
+    ContactCreateComponent
   ],
   imports: [
     SharedModule,
