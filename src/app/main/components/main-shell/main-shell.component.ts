@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router'
+import { ConfigService } from '@balnc/core'
 import { ToastrService } from 'ngx-toastr'
-import { ConfigService } from '../../services/config.service'
 
 @Component({
   selector: 'app-main-shell',
@@ -32,41 +32,12 @@ export class MainShellComponent implements OnInit {
     })
   }
 
-  get enabledPlugins () {
-    return this.configService.enabledPlugins
-  }
-
-  get isClosed () {
-    return this.configService.isSidebarClosed
-  }
-
-  get version () {
-    return this.configService.version
-  }
-
-  get statusbar () {
-    return {
-      version: this.configService.version,
-      profile: this.configService.profile
-    }
-  }
-
   async ngOnInit () {
 
     if (!this.configService.profiles.length) {
       await this.router.navigate(['/setup'])
       return
     }
-
-    this.setStatus()
-  }
-
-  setStatus () {
-    this.isOnline = this.networkStatus && this.databaseStatus
-  }
-
-  toggleMenu () {
-    this.configService.isSidebarClosed = !this.configService.isSidebarClosed
   }
 
   private _navigationInterceptor (event: RouterEvent): void {

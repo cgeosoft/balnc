@@ -4,7 +4,7 @@
   "disableKeyCompression": true,
   "properties": {
     "document": {
-      "type": "number"
+      "type": "string"
     },
     "text": {
       "type": "string"

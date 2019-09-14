@@ -5,11 +5,9 @@ import { SharedModule } from '@balnc/shared'
 import { DateFnsModule } from 'ngx-date-fns'
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
 import { ToastrModule } from 'ngx-toastr'
-import { APP_ROUTES, ProfileGuardService } from './app.routes'
-import { ErrorComponent } from './components/error/error.component'
-import { MainShellComponent } from './components/main-shell/main-shell.component'
 import { RxDBService } from './rxdb/rxdb.service'
 import { ConfigService } from './services/config.service'
+import { ProfileGuardService } from './services/profile-guard.service'
 
 @NgModule({
   imports: [
@@ -19,9 +17,6 @@ import { ConfigService } from './services/config.service'
       positionClass: 'toast-bottom-right'
     }),
     DateFnsModule.forRoot(),
-    RouterModule.forRoot(APP_ROUTES, {
-      // enableTracing: true
-    }),
     MarkdownModule.forRoot({
       markedOptions: {
         provide: MarkedOptions,
@@ -37,10 +32,6 @@ import { ConfigService } from './services/config.service'
       }
     }),
     SharedModule
-  ],
-  declarations: [
-    MainShellComponent,
-    ErrorComponent
   ],
   providers: [
     RxDBService,

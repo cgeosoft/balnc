@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <app-appbar></app-appbar>
+  <div class="content">
+    <div *ngIf="pageLoading" class="page-loader">
+      <app-spinner></app-spinner>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<app-statusbar></app-statusbar>

@@ -22,7 +22,6 @@ import { FooterComponent } from './components/footer/footer.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 import { SidebarComponent } from './components/sidebar/sidebar.component'
 import { SpinnerComponent } from './components/spinner/spinner.component'
-import { StatusbarComponent } from './components/statusbar/statusbar.component'
 import { FontAwesomeModule } from './modules/font-awesome/font-awesome.module'
 import { DocVersionPipe } from './pipes/doc-version.pipe'
 import { EllipsisPipe } from './pipes/ellipsis.pipe'
@@ -56,7 +55,6 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     PageNotFoundComponent,
     SidebarComponent,
     SpinnerComponent,
-    StatusbarComponent,
     ContentBreadcrumbComponent
   ],
   entryComponents: [
@@ -87,7 +85,6 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     DebugComponent,
     EmptyComponent,
     FooterComponent,
-    StatusbarComponent,
     SidebarComponent,
     SpinnerComponent,
     ContentBreadcrumbComponent

@@ -53,7 +53,7 @@ export class ConfigService {
     })
 
     if (!this.profiles.length) {
-      this.router.navigate(['/setup'])
+      // await this.router.navigate(['/setup'])
       return
     }
 

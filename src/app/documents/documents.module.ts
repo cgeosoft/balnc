@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
+import { CaretTrackerDirective, DocumentLineComponent } from './document-line/document-line.component'
 import { DocumentComponent } from './document/document.component'
 import { ShellComponent } from './shell/shell.component'
 import { DocumentsService } from './_shared/documents.service'
@@ -8,7 +9,9 @@ import { DocumentsService } from './_shared/documents.service'
 @NgModule({
   declarations: [
     DocumentComponent,
-    ShellComponent
+    ShellComponent,
+    DocumentLineComponent,
+    CaretTrackerDirective
   ],
   imports: [
     SharedModule,

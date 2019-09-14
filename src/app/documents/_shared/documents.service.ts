@@ -44,15 +44,25 @@ export class DocumentsService extends CommonService implements Resolve<void> {
     return documentsDoc['_id']
   }
 
-  async addLine (document: string, index: number = Infinity) {
-    const documents: Line = {
+  async addLine (document: string, index: number = 0) {
+    const line: Line = {
       document,
       index,
       text: '',
       edited: Date.now()
     }
-    const documentsDoc = await super.addOne('documents', documents)
-    return documentsDoc['_id']
+    const lineDoc = await super.addOne('lines', line)
+    return lineDoc['_id']
+  }
+
+  async updateLine (line: Line, text) {
+    const d = line as RxLineDoc
+    await d.update({
+      $set: {
+        text,
+        edited: Date.now()
+      }
+    })
   }
 
   async generateDemoData () {

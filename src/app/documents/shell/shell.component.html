@@ -17,7 +17,8 @@
           <ng-template ngFor let-document [ngForOf]="documents">
             <a [routerLink]="['/documents',document.get('_id')]" routerLinkActive="active">
               <fa-icon icon="file" class="icon"></fa-icon>
-              <span>{{document.name}}</span>
+              <div><span>{{document.name}}</span><br>
+              <small>{{document.created|date:'short'}}</small></div>
             </a>
           </ng-template>
         </ng-container>

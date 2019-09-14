@@ -169,55 +169,6 @@ app-footer {
   }
 }
 
-app-statusbar {
-  @extend .d-flex;
-  background: $primary;
-  height: 20px;
-  min-height: 20px;
-  font-size: 0.5rem;
-  color: #eee;
-  z-index: 100;
-
-  .item {
-    @extend .align-self-end;
-    padding: 0 7px;
-    line-height: 20px;
-    height: 100%;
-
-    .fab,
-    .fa {
-      font-size: 0.4rem;
-    }
-  }
-
-  a.item {
-    background: none;
-    border: none;
-    color: #eee;
-    border-radius: 0;
-
-    &:hover {
-      background: darken($primary, 10%);
-      text-decoration: none;
-    }
-  }
-
-  .divider {
-    &:after {
-      content: "";
-      height: 10px;
-      background: darken($primary, 5%);
-      display: block;
-      width: 1px;
-      margin-top: 5px;
-    }
-  }
-
-  .dropup .dropdown-toggle::after {
-    display: none;
-  }
-}
-
 app-presentations-overview {
   .presentation-thumbnail {
     @extend .img-thumbnail;

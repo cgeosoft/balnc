@@ -1,0 +1,41 @@
+@import "theme";
+
+:host {
+  @extend .d-flex;
+  background: $primary;
+  font-size: 0.6rem;
+  color: #eee;
+  z-index: 100;
+
+  .item {
+    @extend .align-self-center;
+    padding: 4px 7px 2px;
+  }
+
+  a.item {
+    background: none;
+    border: none;
+    color: #eee;
+    border-radius: 0;
+
+    &:hover {
+      background: darken($primary, 10%);
+      text-decoration: none;
+    }
+  }
+
+  .divider {
+    &:after {
+      content: "";
+      height: 10px;
+      background: darken($primary, 5%);
+      display: block;
+      width: 1px;
+      margin-top: 5px;
+    }
+  }
+
+  .dropup .dropdown-toggle::after {
+    display: none;
+  }
+}
