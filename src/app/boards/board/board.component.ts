@@ -9,7 +9,8 @@ import { Message } from '../_shared/models/message'
 @Component({
   selector: 'app-boards-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  styleUrls: ['./board.component.scss'],
+  host: { 'class': 'page' }
 })
 export class BoardComponent implements OnInit {
 

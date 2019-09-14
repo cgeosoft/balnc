@@ -12,7 +12,8 @@ import { ProjectsService } from '../_shared/projects.service'
 
 @Component({
   selector: 'app-projects-shell',
-  templateUrl: './shell.component.html'
+  templateUrl: './shell.component.html',
+  host: { 'class': 'shell' }
 })
 export class ShellComponent implements OnInit {
 

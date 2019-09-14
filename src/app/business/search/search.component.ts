@@ -3,7 +3,8 @@ import { ContactsService } from '../_shared/services/contacts.service'
 
 @Component({
   selector: 'app-search',
-  templateUrl: './search.component.html'
+  templateUrl: './search.component.html',
+  host: { 'class': 'page' }
 })
 export class SearchComponent implements OnInit {
 

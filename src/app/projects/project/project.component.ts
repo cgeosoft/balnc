@@ -11,7 +11,8 @@ import { ProjectsService } from '../_shared/projects.service'
 @Component({
   selector: 'app-projects-project',
   templateUrl: 'project.component.html',
-  styleUrls: ['./project.component.scss']
+  styleUrls: ['./project.component.scss'],
+  host: { 'class': 'page' }
 })
 export class ProjectComponent implements OnInit {
 

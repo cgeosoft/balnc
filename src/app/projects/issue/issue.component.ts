@@ -10,7 +10,8 @@ import { ProjectsService } from '../_shared/projects.service'
 @Component({
   selector: 'app-projects-issue',
   templateUrl: 'issue.component.html',
-  styleUrls: ['./issue.component.scss']
+  styleUrls: ['./issue.component.scss'],
+  host: { 'class': 'page' }
 })
 export class IssueComponent implements OnInit {
 

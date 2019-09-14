@@ -10,7 +10,8 @@ import { PresentationsService } from '../_shared/services/presentations.service'
 @Component({
   selector: 'app-presentations-presentation',
   templateUrl: './presentation.component.html',
-  styleUrls: ['./presentation.component.scss']
+  styleUrls: ['./presentation.component.scss'],
+  host: { 'class': 'page' }
 })
 export class PresentationComponent implements OnInit {
 

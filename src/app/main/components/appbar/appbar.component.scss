@@ -54,15 +54,15 @@ $side-width: 90px;
       display: block;
       display: block;
       margin: 0 6px 1px;
-      padding: 0.2rem;
+      padding: 0.3rem 0;
       text-align: center;
       text-decoration: none;
       transition: background-color 0.7s;
       transition: color 0.7s;
 
-      .fa {
+      fa-icon {
         line-height: 1rem;
-        font-size: 1rem;
+        font-size: 1.4rem;
       }
 
       .label {
@@ -80,7 +80,7 @@ $side-width: 90px;
       }
 
       &.active {
-        background: lighten($color: $dark, $amount: 10%);
+        background: lighten($color: $dark, $amount: 3%);
         color: #fff;
       }
 

@@ -5,7 +5,8 @@ import { PresentationsService } from '../_shared/services/presentations.service'
 @Component({
   selector: 'app-presentations-overview',
   templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss']
+  styleUrls: ['./overview.component.scss'],
+  host: { 'class': 'page' }
 })
 export class OverviewComponent implements OnInit {
 

@@ -10,7 +10,8 @@ import { StateService } from '../../_shared/services/state.service'
 
 @Component({
   selector: 'app-contacts-contact',
-  templateUrl: './contact.component.html'
+  templateUrl: './contact.component.html',
+  host: { 'class': 'page' }
 })
 export class ContactComponent implements OnInit {
 

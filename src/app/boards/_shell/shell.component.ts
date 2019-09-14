@@ -7,7 +7,8 @@ import { Board } from '../_shared/models/board'
 @Component({
   selector: 'app-boards-shell',
   templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.scss']
+  styleUrls: ['./shell.component.scss'],
+  host: { 'class': 'shell' }
 })
 export class ShellComponent implements OnInit {
 

@@ -9,7 +9,8 @@ import { StateService } from '../_shared/services/state.service'
 
 @Component({
   selector: 'app-order',
-  templateUrl: './order.component.html'
+  templateUrl: './order.component.html',
+  host: { 'class': 'page' }
 })
 export class OrderComponent implements OnInit {
 

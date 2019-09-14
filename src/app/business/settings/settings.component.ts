@@ -4,7 +4,9 @@ import { ContactsService } from '../_shared/services/contacts.service'
 
 @Component({
   selector: 'app-business-settings',
-  templateUrl: './settings.component.html'
+  templateUrl: './settings.component.html',
+  host: { 'class': 'page' }
+
 })
 export class SettingsComponent {
   generating: boolean

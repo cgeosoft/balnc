@@ -9,7 +9,8 @@ import { ProjectsService } from '../_shared/projects.service'
 @Component({
   selector: 'app-projects-overview',
   templateUrl: 'overview.component.html',
-  styleUrls: ['./overview.component.scss']
+  styleUrls: ['./overview.component.scss'],
+  host: { 'class': 'page' }
 })
 export class OverviewComponent implements OnInit {
 

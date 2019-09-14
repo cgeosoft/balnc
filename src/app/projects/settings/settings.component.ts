@@ -8,7 +8,8 @@ import { ProjectsService } from '../_shared/projects.service'
 
 @Component({
   selector: 'app-projects-settings',
-  templateUrl: 'settings.component.html'
+  templateUrl: 'settings.component.html',
+  host: { 'class': 'page' }
 })
 export class SettingsComponent implements OnInit {
 

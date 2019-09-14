@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { CreateComponent } from '../create/create.component'
 import { PresentationDoc } from '../_shared/models/presentation'
 import { PresentationsService } from '../_shared/services/presentations.service'
-import { CreateComponent } from '../create/create.component'
 
 @Component({
   selector: 'app-presentations-shell',
-  templateUrl: './shell.component.html'
+  templateUrl: './shell.component.html',
+  host: { 'class': 'shell' }
 })
 export class ShellComponent implements OnInit {
 
