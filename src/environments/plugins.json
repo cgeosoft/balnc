@@ -9,6 +9,14 @@
       "color": "#42A5F5"
     },
     {
+      "id": "documents",
+      "title": "Documents",
+      "label": "documents",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+      "icon": "file",
+      "color": "#4DB6AC"
+    },
+    {
       "id": "projects",
       "title": "Projects",
       "label": "projects",
@@ -39,14 +47,6 @@
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
       "icon": "chart-pie",
       "color": "#9ccc65"
-    },
-    {
-      "id": "documents",
-      "title": "Documents",
-      "label": "documents",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
-      "icon": "file",
-      "color": "#4DB6AC"
     },
     {
       "id": "reports",
