@@ -5,7 +5,8 @@ import { AgreementsService } from '../../_shared/services/agreements.service'
 
 @Component({
   selector: 'app-agreement',
-  templateUrl: './agreement.component.html'
+  templateUrl: './agreement.component.html',
+  host: { 'class': 'page' }
 })
 export class AgreementComponent implements OnInit {
 

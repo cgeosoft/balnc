@@ -8,7 +8,8 @@ import { ContactsService } from '../../_shared/services/contacts.service'
 
 @Component({
   selector: 'app-agreements',
-  templateUrl: './agreements.component.html'
+  templateUrl: './agreements.component.html',
+  host: { 'class': 'page' }
 })
 export class AgreementsComponent implements OnInit {
   agreements$: Observable<Agreement[]>

@@ -1,46 +1,27 @@
 <app-content>
-  <app-content-breadcrumb [items]="[{label:'Agreements'}]"></app-content-breadcrumb>
   <app-content-body>
-    <div class="d-flex">
-      <div class="flex-grow-1">
-        <ng-container *ngIf="(agreements$ | async) as agreements; loader">
-          <table class="table table-sm">
-            <thead>
-              <tr>
-                <th class="datetime">Created</th>
-                <th>Serial</th>
-                <th>Contact</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let agreement of agreements">
-                <td>{{agreement.createdAt|date:"yyyy-mm-dd HH:MM:ss"}}</td>
-                <td>
-                  <a [routerLink]="['/business/agreements',agreement['_id']]">{{agreement.serial}}</a>
-                </td>
-                <td>
-                  <a [routerLink]="['/business/contacts',agreement.contact]">{{getContact(agreement.contact).name}}</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </ng-container>
-      </div>
-      <div class="ml-4" style="overflow:hidden" [ngStyle]="{width:(openedFilters?'250px':'0px')}">
-        <div class="card">
-          <div class="card-body">
-
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate et omnis atque deleniti
-            dignissimos?
-            Iste,
-            impedit deserunt. Vel, ad illum. Nisi fugiat praesentium perferendis corporis error, quisquam
-            perspiciatis
-            deserunt delectus.\
-          </div>
-        </div>
-
-      </div>
-    </div>
+    <ng-container *ngIf="(agreements$ | async) as agreements; loader">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="datetime">Created</th>
+            <th>Serial</th>
+            <th>Contact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let agreement of agreements">
+            <td>{{agreement.createdAt|date:"yyyy-mm-dd HH:MM:ss"}}</td>
+            <td>
+              <a [routerLink]="['/business/agreements',agreement['_id']]">{{agreement.serial}}</a>
+            </td>
+            <td>
+              <a [routerLink]="['/business/contacts',agreement.contact]">{{getContact(agreement.contact).name}}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
   </app-content-body>
 </app-content>
 

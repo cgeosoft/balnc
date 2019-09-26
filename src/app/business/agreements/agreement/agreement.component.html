@@ -11,17 +11,20 @@
             <markdown [data]="agreement.content"></markdown>
           </div>
         </div>
-        <div class="card ml-4" style="min-width:200px">
-          <div class="card-body">
-            <dl>
-              <dt>Serial</dt>
-              <dd class="text-truncate">{{agreement.serial}}</dd>
-              <dt>Created</dt>
-              <dd>{{agreement.createdAt|date:"short"}}</dd>
-              <dt>Updated</dt>
-              <dd>{{agreement.updatedAt|date:"short"}}</dd>
-            </dl>
-            <button class="btn btn-outline-secondary btn-block btn-sm" styleSheetFile="/assets/css/print.css" printSectionId="print-section" ngxPrint>Print</button>
+        <div class="ml-4" style="min-width:200px">
+          <div class="card">
+            <div class="card-body">
+              <dl>
+                <dt>Serial</dt>
+                <dd class="text-truncate">{{agreement.serial}}</dd>
+                <dt>Created</dt>
+                <dd>{{agreement.createdAt|date:"short"}}</dd>
+                <dt>Updated</dt>
+                <dd>{{agreement.updatedAt|date:"short"}}</dd>
+              </dl>
+              <button class="btn btn-outline-secondary btn-block btn-sm" styleSheetFile="/assets/css/print.css"
+                printSectionId="print-section" ngxPrint>Print</button>
+            </div>
           </div>
         </div>
       </div>

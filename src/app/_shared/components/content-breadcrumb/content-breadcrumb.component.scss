@@ -1,0 +1,8 @@
+@import "theme";
+
+:host {
+  @extend .breadcrumb;
+  @extend .bg-white;
+  @extend .mb-4;
+  @extend .p-0;
+}

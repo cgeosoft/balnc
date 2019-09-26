@@ -1,0 +1,7 @@
+@import "theme";
+
+:host {
+  @extend .w-100;
+  @extend .h-100;
+  overflow-y: auto;
+}

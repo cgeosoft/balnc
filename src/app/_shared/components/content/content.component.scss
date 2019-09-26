@@ -1,0 +1,16 @@
+@import "theme";
+
+:host {
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .justify-content-start;
+  @extend .h-100;
+  @extend .card;
+  @extend .p-4;
+  @extend .ml-2;
+  @extend .shadow;
+  @extend .rounded;
+  &:first-child{
+    @extend .w-100;
+  }
+}

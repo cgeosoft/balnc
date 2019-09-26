@@ -1,12 +1,11 @@
 <app-content>
-    <app-content-breadcrumb [items]="[{label:'Overview'}]"></app-content-breadcrumb>
   <app-content-body>
     <ng-container *ngIf="(logs$ | async) as logs; else loader">
       <ng-container *ngIf="logs.length; else nologs">
-        <table class="table table-sm">
+        <table class="table">
           <thead>
             <tr>
-              <th style="width:200px">Date</th>
+              <th class="datetime">Date</th>
               <th style="width:100px">From</th>
               <th style="width:100px">Type</th>
               <th>Details</th>
@@ -14,7 +13,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let log of logs | slice:0:30">
-              <td>{{log.insertedAt | date:'yyyy-MM-dd - HH:mm:ss'}}</td>
+              <td>{{log.insertedAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
               <td>{{log.insertedFrom}}</td>
               <td>{{log.type}}</td>
               <td>{{log.text}}</td>

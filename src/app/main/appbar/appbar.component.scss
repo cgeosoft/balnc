@@ -49,12 +49,11 @@ $side-width: 90px;
 
     a.item {
       border-radius: 0.5rem;
-      border: solid 2px rgba($color: #000000, $alpha: 0);
+      // border: solid 2px rgba($color: #000000, $alpha: 0);
       color: lighten($body-bg, 30);
       display: block;
-      display: block;
-      margin: 0 6px 1px;
-      padding: 0.3rem 0;
+      margin: .1rem .5rem;
+      padding: .6rem 0 .3rem 0;
       text-align: center;
       text-decoration: none;
       transition: background-color 0.7s;
@@ -66,7 +65,7 @@ $side-width: 90px;
       }
 
       .label {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         display: none;
       }
 
@@ -80,7 +79,8 @@ $side-width: 90px;
       }
 
       &.active {
-        background: lighten($color: $dark, $amount: 3%);
+        box-shadow: inset 0 0 5px #6b6b6b1a;
+        background: #ffffff13;
         color: #fff;
       }
 

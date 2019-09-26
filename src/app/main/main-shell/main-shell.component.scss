@@ -8,6 +8,7 @@
     @extend .d-flex;
     @extend .h-100;
     overflow: hidden;
+    background: darken($body-bg, 5);
 
     .page-loader {
       position: absolute;
@@ -18,11 +19,14 @@
       height: 100%;
       transition: opacity 1s;
       left: 0;
+      top: 0;
     }
 
     .content {
       @extend .h-100;
       @extend .w-100;
+      @extend .container;
+      @extend .p-4;
     }
   }
 }

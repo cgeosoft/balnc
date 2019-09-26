@@ -15,6 +15,7 @@ $sidebar-font: #666;
   transition: all 0.5s;
   padding: 0.5rem;
 }
+
 :host ::ng-deep .form-control-search {
   background: none;
   border: solid 1px lighten($sidebar-background, 20);
@@ -34,7 +35,7 @@ $sidebar-font: #666;
 :host ::ng-deep .title {
   color: $sidebar-font;
   margin-bottom: 0.7rem;
-  font-size: 1.3rem;
+  font-size: 2rem;
   padding: 0 0 0.3rem;
   font-weight: 300;
   border-bottom: solid 1px darken($sidebar-background, 5);
