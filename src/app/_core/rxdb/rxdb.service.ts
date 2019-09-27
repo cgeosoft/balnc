@@ -11,6 +11,7 @@ import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages'
 import JsonDumpPlugin from 'rxdb/plugins/json-dump'
 import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
 import RxDBReplicationModule from 'rxdb/plugins/replication'
+import RxDBReplicationGraphQL from 'rxdb/plugins/replication-graphql'
 import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
 import RxDBUpdateModule from 'rxdb/plugins/update'
 import RxDBValidateModule from 'rxdb/plugins/validate'
@@ -35,6 +36,53 @@ RxDB.plugin(JsonDumpPlugin)
 RxDB.plugin(AdapterHttp)
 RxDB.plugin(AdapterIDB)
 RxDB.plugin(RxDBUpdateModule)
+
+RxDB.plugin(RxDBReplicationGraphQL)
+const GRAPHQL_PORT = 10102
+const GRAPHQL_PATH = '/graphql'
+const GRAPHQL_SUBSCRIPTION_PORT = 10103
+const GRAPHQL_SUBSCRIPTION_PATH = '/subscriptions'
+
+const batchSize = 5
+const queryBuilder = doc => {
+  if (!doc) {
+    doc = {
+      id: '',
+      updatedAt: 0
+    }
+  }
+  const query = `{
+        feedForRxDBReplication(lastId: "${doc.id}", minUpdatedAt: ${doc.updatedAt}, limit: ${batchSize}) {
+            id
+            name
+            color
+            updatedAt
+            deleted
+        }
+    }`
+  return {
+    query,
+    variables: {}
+  }
+}
+const pushQueryBuilder = doc => {
+  const query = `
+        mutation CreateHuman($human: HumanInput) {
+            setHuman(human: $human) {
+                id,
+                updatedAt
+            }
+       }
+    `
+  const variables = {
+    human: doc
+  }
+
+  return {
+    query,
+    variables
+  }
+}
 
 @Injectable()
 export class RxDBService {
@@ -100,13 +148,14 @@ export class RxDBService {
     }
 
     entities.forEach((entity) => {
-      if (entity.sync) {
+      if (entity.sync || entity.name === 'boards' || entity.name === 'messages') {
         const ent: RxCollection<any> = db[entity.name]
 
         if (!ent) {
           console.log('[DatabaseService]', `Entity ${entity.name} for ${name} not found`)
         }
 
+        // regular sync
         this.replicationStates[entity.name] = ent.sync({
           remote: `${this.config.db}/${name}_${entity.name}/`,
           options: {
@@ -114,6 +163,44 @@ export class RxDBService {
             retry: true
           }
         })
+
+        // graphql sync
+        // this.replicationStates[entity.name] = ent.syncGraphQL({
+        //   url: 'http://127.0.0.1:' + GRAPHQL_PORT + GRAPHQL_PATH,
+        //   push: {
+        //     batchSize: 5,
+        //     queryBuilder: (doc) => {
+        //       return {
+        //         query: entity.mutationQuery,
+        //         variables: {
+        //           doc
+        //         }
+        //       }
+        //     }
+        //   },
+        //   pull: {
+        //     queryBuilder: (doc) => {
+        //       if (!doc) {
+        //         doc = {
+        //           id: '',
+        //           updatedAt: 0
+        //         }
+        //       }
+        //       return {
+        //         query: entity.feedQuery(doc, 5),
+        //         variables: {}
+        //       }
+        //     }
+        //   },
+        //   live: true,
+        //   /**
+        //    * TODO
+        //    * we have to set this to a low value, because the subscription-trigger
+        //    * does not work sometimes. See below at the SubscriptionClient
+        //    */
+        //   liveInterval: 1000 * 2,
+        //   deletedFlag: 'deleted'
+        // })
 
         this.replicationStates[entity.name].error$.subscribe((err) => {
           this.toastr.error(err, '[Database] Sync Error')
