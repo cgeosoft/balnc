@@ -2,6 +2,15 @@
 
 :host {
   @extend .w-100;
-  @extend .h-100;
-  overflow-y: auto;
+  @extend .card;
+  @extend .p-0;
+  @extend .shadow;
+  @extend .rounded;
+  &.padding{
+    @extend .p-4;
+  }
+  &.full{
+    @extend .h-100;
+    @extend .overflow-auto;
+  }
 }

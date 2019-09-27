@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core'
 
 @Component({
   selector: 'app-content-body',
@@ -6,4 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['content-body.component.scss']
 })
 export class ContentBodyComponent {
+  @Input() @HostBinding('class.padding') padding: boolean = true
+  @Input() @HostBinding('class.full') full: boolean = false
 }

@@ -143,12 +143,10 @@ thead {
 }
 
 .btn-toolbar {
-  background: #fafafa;
-  border: solid 1px #eee;
-  padding: 7.5px;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  border-width: 0 1px 1px 0;
+  background: none;
+  border: none;
+  padding: 1rem;
+  margin:0;
   display: flex;
   align-items: center;
 }

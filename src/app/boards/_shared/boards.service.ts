@@ -38,7 +38,7 @@ export class BoardsService extends CommonService {
       const bs = [...this.boardsStats]
       bs.forEach(b => { b.unread = 0 })
       messages.forEach(m => {
-        let bs1 = bs.find(x => x.id == m.board)
+        let bs1 = bs.find(x => x.id === m.board)
         if (!bs1) {
           bs1 = {
             id: m.board,
@@ -60,13 +60,13 @@ export class BoardsService extends CommonService {
   async createBoard (data: Board) {
     const now = new Date()
     const board = Object.assign({
-      created: now.getTime(),
-      members: [{
-        name: this.nickname,
-        type: 'ADMIN',
-        lastView: now.getTime()
-      }],
-      lastMessage: {}
+      created: Date.now(),
+      // members: [{
+      //   name: this.nickname,
+      //   type: 'ADMIN',
+      //   lastView: now.getTime()
+      // }],
+      // lastMessage: {}
     }, data)
 
     const b = await super.addOne('boards', board)
@@ -75,7 +75,7 @@ export class BoardsService extends CommonService {
 
   selectBoard (boardId) {
     const bs = [...this.boardsStats]
-    let bs1 = bs.find(x => x.id == boardId)
+    let bs1 = bs.find(x => x.id === boardId)
     if (!bs1) {
       bs1 = {
         id: boardId,

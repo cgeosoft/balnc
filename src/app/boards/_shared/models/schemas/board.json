@@ -4,7 +4,7 @@
   "version": 0,
   "disableKeyCompression": true,
   "properties": {
-    "id": {
+    "key": {
       "type": "string"
     },
     "name": {
@@ -18,9 +18,6 @@
     },
     "created": {
       "type": "number"
-    },
-    "lastMessage": {
-      "type": "object"
     },
     "avatar": {
       "type": "string"

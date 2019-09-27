@@ -22,6 +22,8 @@ import { FooterComponent } from './components/footer/footer.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 import { SidebarComponent } from './components/sidebar/sidebar.component'
 import { SpinnerComponent } from './components/spinner/spinner.component'
+import { PaginatePipe } from './components/table/paginate.pipe'
+import { TableComponent } from './components/table/table.component'
 import { FontAwesomeModule } from './modules/font-awesome/font-awesome.module'
 import { DocVersionPipe } from './pipes/doc-version.pipe'
 import { EllipsisPipe } from './pipes/ellipsis.pipe'
@@ -48,14 +50,17 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     ContentComponent,
     ContentHeaderComponent,
     DebugComponent,
-    DocVersionPipe,
-    EllipsisPipe,
     EmptyComponent,
     FooterComponent,
     PageNotFoundComponent,
     SidebarComponent,
     SpinnerComponent,
-    ContentBreadcrumbComponent
+    ContentBreadcrumbComponent,
+    TableComponent,
+
+    DocVersionPipe,
+    EllipsisPipe,
+    PaginatePipe
   ],
   entryComponents: [
     ConfirmDialogComponent
@@ -87,7 +92,8 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     FooterComponent,
     SidebarComponent,
     SpinnerComponent,
-    ContentBreadcrumbComponent
+    ContentBreadcrumbComponent,
+    TableComponent
   ]
 })
 export class SharedModule { }

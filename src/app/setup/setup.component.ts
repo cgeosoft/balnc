@@ -18,7 +18,7 @@ export class SetupComponent implements OnInit {
     { label: 'Plugins' },
     { label: 'Finish' }
   ]
-  stepIndex = 2
+  stepIndex = 0
 
   accepted: false
 
@@ -39,9 +39,9 @@ export class SetupComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
-  ngOnInit () {
+  async ngOnInit () {
     if (this.configService.profiles.length) {
-      this.router.navigate(['/dashboard'])
+      await this.router.navigate(['/dashboard'])
     }
 
     this.plugins = this.configService.plugins
