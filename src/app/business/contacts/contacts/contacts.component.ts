@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { TableSchema } from '@balnc/shared'
-import { Observable } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { Contact, ContactType } from '../../_shared/models/contacts'
 import { ContactsService } from '../../_shared/services/contacts.service'
 
@@ -15,7 +16,7 @@ export class ContactsComponent implements OnInit {
 
   schema: TableSchema = {
     properties: [
-      { label: 'Name', val: (item: Contact) => { return item.name } },
+      { label: 'Name', style: { 'width': '250px' }, template: 't1', locked: true },
       { label: 'Phones', val: (item: Contact) => { return item.details.phones } },
       { label: 'Emails', val: (item: Contact) => { return item.details.emails } },
       { label: 'Socials', val: (item: Contact) => { return item.details.socials } },
@@ -25,13 +26,19 @@ export class ContactsComponent implements OnInit {
   }
 
   contacts$: Observable<Contact[]>
+  term$: BehaviorSubject<string> = new BehaviorSubject<string>(null)
 
   constructor (
-    private contactsService: ContactsService
+    private contactsService: ContactsService,
+    private router: Router
   ) { }
 
   ngOnInit (): void {
     this.contacts$ = this.contactsService.contacts$
+  }
+
+  filter (term) {
+    this.term$.next(term)
   }
 
 }

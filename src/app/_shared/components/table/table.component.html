@@ -5,16 +5,22 @@
         <table class="table mb-0">
           <thead class="thead-light">
             <tr>
-              <th *ngFor="let property of schema.properties" [ngStyle]='property.style || {}'>{{property.label}}</th>
+              <th *ngFor="let property of properties" [ngStyle]='property.style || {}'>
+                {{property.label}}&nbsp;
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of data | paginate:page:limit" [id]="item._id">
-              <ng-container *ngFor="let property of schema.properties; let i = index">
-                <ng-container [ngSwitch]="property.type">
-                  <td *ngSwitchCase="'custom'" [ngStyle]='property.style || {}'>
-                    <ng-container *ngTemplateOutlet="templates[property.template]; context:item"></ng-container>
+              <ng-container *ngFor="let property of properties; let i = index">
+
+                <ng-container *ngIf="property.template">
+                  <td [ngStyle]='property.style || {}'>
+                    <ng-container *ngTemplateOutlet="templates[property.template]; context:{item:item}"></ng-container>
                   </td>
+                </ng-container>
+
+                <ng-container *ngIf="!property.template" [ngSwitch]="property.type">
                   <td *ngSwitchCase="'badge'" [ngStyle]='property.style || {}'>
                     <ng-container *ngFor="let badgeItem of property.badgeItems">
                       <div *ngIf="property.val(item) === badgeItem.value" class="badge badge-{{badgeItem.class}} w-100"
@@ -35,7 +41,8 @@
                     <img [src]="property.val(item) || property.empty" class="rounded" style="width:32px;height:32px"
                       [alt]="property.label">
                   </td>
-                  <td *ngSwitchDefault [ngStyle]='property.style || {}'>
+                  <td *ngSwitchDefault style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
+                    [ngStyle]='property.style || {}'>
                     {{property.val(item) || '-'}}
                   </td>
                 </ng-container>
@@ -56,20 +63,31 @@
         <div class="d-flex align-items-center">
           <span class="mr-2">Show</span>
           <select class="mr-2 form-control form-control-sm" (change)="resetLimit($event.target.value)">
-            <option value="10" selected>10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
+            <option value="30" selected>30</option>
+            <option value="100">100</option>
+            <option value="250">250</option>
           </select>
           <span class="mr-2">of</span>
           <strong class="mr-2">{{data.length}}</strong>
         </div>
         <ul *ngIf="data.length > limit" class="pagination pagination-sm m-0">
-          <li class="page-item"><button class="page-link" (click)="previous()">Previous</button></li>
+          <li class="page-item"><button class="page-link" (click)="first()">
+              <fa-icon [fixedWidth]="true" icon="angle-double-left"></fa-icon>
+            </button></li>
+          <li class="page-item"><button class="page-link" (click)="previous()">
+              <fa-icon [fixedWidth]="true" icon="angle-left"></fa-icon>
+            </button></li>
           <ng-container *ngFor="let p of pages">
-            <li class="page-item" [ngClass]="{active:page === p}"><button class="page-link"
-                (click)="page = p">{{p+1}}</button></li>
+            <li class="page-item" [ngClass]="{active:page === p}">
+              <button style="min-width:35px;" class="page-link" (click)="page = p">{{p+1}}</button>
+            </li>
           </ng-container>
-          <li class="page-item"><button class="page-link" (click)="next()">Next</button></li>
+          <li class="page-item"><button class="page-link" (click)="next()">
+              <fa-icon [fixedWidth]="true" icon="angle-right"></fa-icon>
+            </button></li>
+          <li class="page-item"><button class="page-link" (click)="last()">
+              <fa-icon [fixedWidth]="true" icon="angle-double-right"></fa-icon>
+            </button></li>
         </ul>
       </ng-container>
       <ng-container *ngIf="!data.length">
@@ -88,6 +106,17 @@
         <fa-icon icon="bars"></fa-icon>
       </button>
       <div ngbDropdownMenu>
+          <h6 class="dropdown-header">Toogle Columns</h6>
+        <div class="px-4">
+          <ng-container *ngFor="let property of schema.properties;let i = index">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" [disabled]="property.locked" class="custom-control-input" [id]="i" [(ngModel)]="settings.enabledProperties[i]"
+                (change)="calculateProperties()" [ngModelOptions]="{standalone: true}">
+              <label class="custom-control-label" [for]="i">{{property.label}}</label>
+            </div>
+          </ng-container>
+        </div>
+        <div class="dropdown-divider"></div>
         <button ngbDropdownItem (click)="showDebug = !showDebug">
           <fa-icon icon="code" [fixedWidth]="true"></fa-icon> toggle data
         </button>
@@ -97,7 +126,7 @@
 </div>
 
 <ng-template #empty>
-  <div class="card p-5 text-center text-muted">
+  <div class="p-5 text-center text-muted">
     <fa-icon icon="empty-set" size="4x"></fa-icon>
     <h2 style="font-weight:300">no data</h2>
   </div>

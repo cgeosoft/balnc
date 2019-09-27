@@ -1,7 +1,7 @@
 export interface TableSchema {
   properties: {
-    label: string
-    val (item: any): any
+    label?: string
+    val? (item: any): any
     click? (item: any): any
     style?: any
     type?: any
@@ -9,5 +9,6 @@ export interface TableSchema {
     icon?: any
     empty?: any
     badgeItems?: any[]
+    locked?: boolean
   }[]
 }

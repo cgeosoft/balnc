@@ -1,32 +1,25 @@
 @import "theme";
 
-$side-width: 90px;
+$appbar-width: 90px;
 
 :host  {
   @extend .d-flex;
   @extend .flex-column;
   @extend .justify-content-start;
-  text-align: center;
-  min-width: $side-width;
-  width: $side-width;
-  z-index: 1000;
-  // background: $dark;
-  background: #232526;
-  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to bottom, #414345, #232526);
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to bottom, #414345, #232526);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+  @extend .shadow-lg;
+  @extend .bg-dark;
+  @extend .text-center;
+  @extend .overflow-hidden;
+  min-width: $appbar-width;
+  width: $appbar-width;
   transition: all 0.5s;
-  overflow: hidden;
 
   .profile {
     @extend .d-flex;
     @extend .justify-content-center;
     @extend .align-items-center;
-    min-width: $side-width;
-    width: $side-width;
+    min-width: $appbar-width;
+    width: $appbar-width;
     height: 55px;
 
     .fa {
@@ -44,8 +37,8 @@ $side-width: 90px;
     @extend .flex-column;
     @extend .justify-content-start;
     overflow-y: auto;
-    min-width: $side-width;
-    width: $side-width;
+    min-width: $appbar-width;
+    width: $appbar-width;
 
     a.item {
       border-radius: 0.5rem;

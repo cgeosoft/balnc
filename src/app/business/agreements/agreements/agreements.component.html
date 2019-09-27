@@ -1,5 +1,5 @@
 <app-content>
-  <app-content-body>
+  <app-content-body [padding]="false" [full]="true">
     <ng-container *ngIf="(agreements$ | async) as agreements; loader">
       <table class="table">
         <thead>

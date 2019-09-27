@@ -11,9 +11,13 @@
 
 :host ::ng-deep > * {
   @extend .mb-3;
+
+  &:last-child{
+    @extend .mb-0;
+  }
 }
 
-:host ::ng-deep  * {
+:host ::ng-deep * {
   &::-webkit-scrollbar-track {
     background-color: none;
   }
@@ -24,6 +28,6 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: lighten($secondary,50%);
+    background-color: $secondary;
   }
 }

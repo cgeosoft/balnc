@@ -58,7 +58,7 @@ export class ContactsService extends CommonService {
 
   async generateDemoData () {
     console.log('generate random contacts')
-    for (let p = 0; p < 5; p++) {
+    for (let p = 0; p < 1500; p++) {
       await this.addContact({
         name: `${faker.name.findName()}`,
         type: ContactType.person,
@@ -75,7 +75,7 @@ export class ContactsService extends CommonService {
       })
     }
 
-    for (let c = 0; c < 10; c++) {
+    for (let c = 0; c < 1500; c++) {
       await this.addContact({
         name: `${faker.company.companyName()}`,
         type: ContactType.company,

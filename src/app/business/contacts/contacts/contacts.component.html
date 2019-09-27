@@ -1,36 +1,20 @@
 <app-content>
   <app-content-body [padding]="false">
-    <input class="form-control form-control-lg border-0" placeholder="Search for customers...">
+    <input (input)="filter($event.target.value)" class="form-control form-control-lg border-0"
+      placeholder="Filter customers by name...">
   </app-content-body>
   <app-content-body [padding]="false" [full]="true">
     <ng-container *ngIf="(contacts$ | async) as contacts; loader">
-      <app-table [data]="contacts" [schema]="schema"></app-table>
+      <app-table [data]="contacts | search:['name']:(term$ | async)" [schema]="schema" [templates]="{t1:t1}">
+      </app-table>
     </ng-container>
   </app-content-body>
 </app-content>
 
 <ng-template #loader>loading...</ng-template>
-<ng-template #empty>empty</ng-template>
-<!--
 
-<table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let contact of contacts">
-        <td>
-          <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user':'building']"
-            class="mr-2 text-muted">
-          </fa-icon>
-          <a [routerLink]="['/business/contacts',contact['_id']]">{{contact.name}}</a>
-        </td>
-        <td>{{contact.details.phones[0] || '-'}}</td>
-        <td>{{contact.details.emails[0] || '-'}}</td>
-      </tr>
-    </tbody>
-  </table> -->
+<ng-template #t1 let-contact="item">
+  <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user':'building']" class="mr-2 text-muted">
+  </fa-icon>
+  <a [routerLink]="['/business/contacts',contact['_id']]">{{contact.name}}</a>
+</ng-template>

@@ -23,6 +23,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { SidebarComponent } from './components/sidebar/sidebar.component'
 import { SpinnerComponent } from './components/spinner/spinner.component'
 import { PaginatePipe } from './components/table/paginate.pipe'
+import { SearchPipe } from './components/table/search.pipe'
 import { TableComponent } from './components/table/table.component'
 import { FontAwesomeModule } from './modules/font-awesome/font-awesome.module'
 import { DocVersionPipe } from './pipes/doc-version.pipe'
@@ -60,7 +61,8 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
 
     DocVersionPipe,
     EllipsisPipe,
-    PaginatePipe
+    PaginatePipe,
+    SearchPipe
   ],
   entryComponents: [
     ConfirmDialogComponent
@@ -93,7 +95,8 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     SidebarComponent,
     SpinnerComponent,
     ContentBreadcrumbComponent,
-    TableComponent
+    TableComponent,
+    SearchPipe
   ]
 })
 export class SharedModule { }

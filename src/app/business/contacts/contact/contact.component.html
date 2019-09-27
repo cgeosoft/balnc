@@ -7,7 +7,6 @@
       </app-content-body>
 
       <ng-container *ngIf="tabsMenu.selected === 'timeline'">
-
         <app-content-body [padding]="false">
           <div class="btn-toolbar">
             <button class="btn btn-outline-success btn-sm" (click)="createOrder()">New Order</button>
@@ -15,38 +14,36 @@
         </app-content-body>
 
         <app-content-body [padding]="false" [full]="true">
-          <app-table>
-            <ng-container *ngIf="cevents$ | async as cevents; else loader">
-              <ng-container *ngIf="cevents; else empty">
-                <table class="table">
-                  <thead>
-                    <th style="width:210px;">Date</th>
-                    <th style="width:130px;">Type</th>
-                    <th>Comment</th>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let cevent of cevents">
-                      <td>{{cevent.date|date:"yyyy-MM-dd HH:mm:ss"}}</td>
-                      <td>
-                        <span class="d-block badge badge-pill badge-dark mt-1"
-                          [ngStyle]="{background:badges[eventType[cevent.type]].color}">
-                          {{badges[eventType[cevent.type]].label}}</span>
-                      </td>
-                      <td>
-                        <div class="d-flex">
-                          <span>{{cevent.comment}}</span>
-                          <a *ngIf="cevent.reference" [routerLink]="[cevent.reference]"
-                            class="btn btn-sm btn-outline-primary border-0 py-0 ml-auto">
-                            <fa-icon icon="external-link-alt"></fa-icon> Open
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </ng-container>
+          <ng-container *ngIf="cevents$ | async as cevents; else loader">
+            <ng-container *ngIf="cevents; else empty">
+              <table class="table">
+                <thead>
+                  <th style="width:210px;">Date</th>
+                  <th style="width:130px;">Type</th>
+                  <th>Comment</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cevent of cevents">
+                    <td>{{cevent.date|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+                    <td>
+                      <span class="d-block badge badge-pill badge-dark mt-1"
+                        [ngStyle]="{background:badges[eventType[cevent.type]].color}">
+                        {{badges[eventType[cevent.type]].label}}</span>
+                    </td>
+                    <td>
+                      <div class="d-flex">
+                        <span>{{cevent.comment}}</span>
+                        <a *ngIf="cevent.reference" [routerLink]="[cevent.reference]"
+                          class="btn btn-sm btn-outline-primary border-0 py-0 ml-auto">
+                          <fa-icon icon="external-link-alt"></fa-icon> Open
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </ng-container>
-          </app-table>
+          </ng-container>
         </app-content-body>
 
       </ng-container>

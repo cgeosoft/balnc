@@ -2,10 +2,9 @@
 
 :host {
   @extend .d-flex;
-  background: $primary;
-  font-size: 0.6rem;
+  @extend .bg-primary;
+  font-size: 0.8rem;
   color: #eee;
-  z-index: 100;
 
   .item {
     @extend .align-self-center;
