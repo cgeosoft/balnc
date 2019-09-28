@@ -6,10 +6,11 @@
   @extend .p-0;
   @extend .shadow;
   @extend .rounded;
-  &.padding{
+  @extend .overflow-hidden;
+  &.padding {
     @extend .p-4;
   }
-  &.full{
+  &.full {
     @extend .h-100;
     @extend .overflow-auto;
   }

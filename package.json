@@ -46,6 +46,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",
     "@ng-stack/contenteditable": "^1.0.1",
+    "@swimlane/ngx-charts": "^12.0.1",
     "@types/core-js": "2.5.2",
     "@types/faker": "^4.1.5",
     "@types/hammerjs": "2.0.36",

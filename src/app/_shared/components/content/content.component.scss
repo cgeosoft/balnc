@@ -10,9 +10,9 @@
 }
 
 :host ::ng-deep > * {
-  @extend .mb-3;
+  @extend .mb-4;
 
-  &:last-child{
+  &:last-child {
     @extend .mb-0;
   }
 }

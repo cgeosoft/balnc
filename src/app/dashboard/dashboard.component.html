@@ -1,5 +1,30 @@
 <app-content>
-  <app-content-body style="height:100%">
+  <div class="row">
+    <div class="col">
+      <app-content-body [padding]="false">
+        <ngx-charts-number-card [results]="[
+        {          name: 'Germany',          value: 8940000        },
+        {          name: 'Germany',          value: 8940000        }]">
+        </ngx-charts-number-card>
+      </app-content-body>
+    </div>
+    <div class="col">
+      <app-content-body [padding]="false">
+        <app-tile label="ispum" theme="red"></app-tile>
+      </app-content-body>
+    </div>
+    <div class="col">
+      <app-content-body [padding]="false">
+        <app-tile label="dolor" theme="green"></app-tile>
+      </app-content-body>
+    </div>
+    <div class="col">
+      <app-content-body [padding]="false">
+        <app-tile label="dolor" theme="orange"></app-tile>
+      </app-content-body>
+    </div>
+  </div>
+  <app-content-body [full]="true">
     <app-empty message="not avalable" submessage="select another module from menu" icon="exclamation-circle">
     </app-empty>
   </app-content-body>
