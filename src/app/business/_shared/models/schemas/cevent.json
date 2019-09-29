@@ -11,7 +11,7 @@
       "type": "number"
     },
     "type": {
-      "type": "number"
+      "type": "string"
     },
     "reference": {
       "type": "string"

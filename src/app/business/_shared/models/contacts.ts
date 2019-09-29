@@ -6,8 +6,8 @@ export interface ContactConn {
 }
 
 export enum ContactType {
-  person,
-  company
+  person = 'person',
+  company = 'company'
 }
 
 export interface Contact {
@@ -45,16 +45,16 @@ export interface CEvent {
 }
 
 export enum CEventType {
-  ContactAccessed,
-  ContactCreated,
-  ContactUpdated,
-  ConnectionCreated,
-  ConnectionRemoved,
-  OrderCreated,
-  OrderRemoved,
-  InvoiceCreated,
-  InvoiceRemoved,
-  AgreementCreated
+  ContactAccessed = 'ContactAccessed',
+  ContactCreated = 'ContactCreated',
+  ContactUpdated = 'ContactUpdated',
+  ConnectionCreated = 'ConnectionCreated',
+  ConnectionRemoved = 'ConnectionRemoved',
+  OrderCreated = 'OrderCreated',
+  OrderRemoved = 'OrderRemoved',
+  InvoiceCreated = 'InvoiceCreated',
+  InvoiceRemoved = 'InvoiceRemoved',
+  AgreementCreated = 'AgreementCreated'
 }
 
 export type RxContactDoc = RxDocument<Contact> & Contact

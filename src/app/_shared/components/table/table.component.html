@@ -1,133 +1,135 @@
-<div class="d-flex flex-column h-100">
-  <div class="flex-grow-1 overflow-auto">
-    <ng-container *ngIf="!showDebug">
-      <ng-container *ngIf="data.length; else empty">
-        <table class="table mb-0">
-          <thead class="thead-light">
-            <tr>
-              <th *ngFor="let property of properties" [ngStyle]='property.style || {}'>
-                {{property.label}}&nbsp;
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of data | paginate:page:limit" [id]="item._id">
-              <ng-container *ngFor="let property of properties; let i = index">
+<ng-container *ngIf="(data$ | async) as data; else loader">
+  <div class="d-flex flex-column h-100">
+    <div class="flex-grow-1 overflow-auto">
+      <ng-container *ngIf="!showDebug">
+        <ng-container *ngIf="data.length; else empty">
+          <table class="table mb-0">
+            <thead class="thead-light">
+              <tr>
+                <th *ngFor="let prop of properties" [ngStyle]='prop.style || {}'>
+                  {{prop.label}}&nbsp;
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of data | paginate:page:limit" [id]="item._id">
+                <ng-container *ngFor="let prop of properties; let i = index">
 
-                <ng-container *ngIf="property.template">
-                  <td [ngStyle]='property.style || {}'>
-                    <ng-container *ngTemplateOutlet="templates[property.template]; context:{item:item}"></ng-container>
-                  </td>
-                </ng-container>
+                  <ng-container *ngIf="prop.template">
+                    <td [ngStyle]='prop.style || {}'>
+                      <ng-container *ngTemplateOutlet="templates[prop.template]; context:{item:item}">
+                      </ng-container>
+                    </td>
+                  </ng-container>
 
-                <ng-container *ngIf="!property.template" [ngSwitch]="property.type">
-                  <td *ngSwitchCase="'badge'" [ngStyle]='property.style || {}'>
-                    <ng-container *ngFor="let badgeItem of property.badgeItems">
-                      <div *ngIf="property.val(item) === badgeItem.value" class="badge badge-{{badgeItem.class}} w-100"
-                        [ngStyle]='badgeItem.style || {}'>
-                        {{badgeItem.label}}
+                  <ng-container *ngIf="!prop.template" [ngSwitch]="prop.type">
+                    <td *ngSwitchCase="'badge'" [ngStyle]='prop.style || {}'>
+                      <div class="badge badge-{{prop.badges[prop.val(item)].class||'default'}} w-100"
+                        [ngStyle]='prop.badges[prop.val(item)].style || {}'>
+                        {{prop.badges[prop.val(item)].label}}
                       </div>
-                    </ng-container>
-                  </td>
-                  <td *ngSwitchCase="'button'" [ngStyle]='property.style || {}'>
-                    <button class="btn btn-sm btn-outline-secondary" (click)="property.click(item)">
-                      <fa-icon [icon]="property.icon"></fa-icon>
-                    </button>
-                  </td>
-                  <td *ngSwitchCase="'date'" [ngStyle]='property.style || {}'>
-                    {{property.val(item) | date:'short'}}
-                  </td>
-                  <td *ngSwitchCase="'image'" style="width:56px" [ngStyle]='property.style || {}'>
-                    <img [src]="property.val(item) || property.empty" class="rounded" style="width:32px;height:32px"
-                      [alt]="property.label">
-                  </td>
-                  <td *ngSwitchDefault style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
-                    [ngStyle]='property.style || {}'>
-                    {{property.val(item) || '-'}}
-                  </td>
+                    </td>
+                    <td *ngSwitchCase="'button'" [ngStyle]='prop.style || {}'>
+                      <button class="btn btn-sm btn-outline-secondary" (click)="prop.click(item)">
+                        <fa-icon [icon]="prop.icon"></fa-icon>
+                      </button>
+                    </td>
+                    <td *ngSwitchCase="'date'" [ngStyle]='prop.style || {}'>
+                      {{prop.val(item) | date:'short'}}
+                    </td>
+                    <td *ngSwitchCase="'image'" style="width:56px" [ngStyle]='prop.style || {}'>
+                      <img [src]="prop.val(item) || prop.empty" class="rounded" style="width:32px;height:32px"
+                        [alt]="prop.label">
+                    </td>
+                    <td *ngSwitchDefault style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
+                      [ngStyle]='prop.style || {}'>
+                      {{prop.val(item) || '-'}}
+                    </td>
+                  </ng-container>
                 </ng-container>
-              </ng-container>
-            </tr>
-          </tbody>
-        </table>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
       </ng-container>
-    </ng-container>
-    <ng-container *ngIf="showDebug">
-      <app-debug title="data" [data]="data"></app-debug>
-      <app-debug title="schema" [data]="schema"></app-debug>
-    </ng-container>
-  </div>
-  <div class="d-flex justify-content-between p-3 bg-light">
-    <ng-container *ngIf="!showDebug">
-      <ng-container *ngIf="data.length">
+      <ng-container *ngIf="showDebug">
+        <app-debug title="data" [data]="data"></app-debug>
+        <app-debug title="schema" [data]="schema"></app-debug>
+      </ng-container>
+    </div>
+    <div class="d-flex justify-content-between p-3 bg-light">
+      <ng-container *ngIf="!showDebug">
+        <ng-container *ngIf="data.length">
+          <div class="d-flex align-items-center">
+            <span class="mr-2">Show</span>
+            <select class="mr-2 form-control form-control-sm" (change)="resetLimit($event.target.value)">
+              <option value="30" selected>30</option>
+              <option value="100">100</option>
+              <option value="250">250</option>
+            </select>
+            <span class="mr-2">of</span>
+            <strong class="mr-2">{{data.length}}</strong>
+          </div>
+          <ul *ngIf="data.length > limit" class="pagination pagination-sm m-0">
+            <li class="page-item"><button class="page-link" (click)="first()">
+                <fa-icon [fixedWidth]="true" icon="angle-double-left"></fa-icon>
+              </button></li>
+            <li class="page-item"><button class="page-link" (click)="previous()">
+                <fa-icon [fixedWidth]="true" icon="angle-left"></fa-icon>
+              </button></li>
+            <ng-container *ngFor="let p of pages">
+              <li class="page-item" [ngClass]="{active:page === p}">
+                <button style="min-width:35px;" class="page-link" (click)="page = p">{{p+1}}</button>
+              </li>
+            </ng-container>
+            <li class="page-item"><button class="page-link" (click)="next()">
+                <fa-icon [fixedWidth]="true" icon="angle-right"></fa-icon>
+              </button></li>
+            <li class="page-item"><button class="page-link" (click)="last()">
+                <fa-icon [fixedWidth]="true" icon="angle-double-right"></fa-icon>
+              </button></li>
+          </ul>
+        </ng-container>
+        <ng-container *ngIf="!data.length">
+          <div class="d-flex align-items-center">
+            <strong class="mr-2">No items were found</strong>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="showDebug">
         <div class="d-flex align-items-center">
-          <span class="mr-2">Show</span>
-          <select class="mr-2 form-control form-control-sm" (change)="resetLimit($event.target.value)">
-            <option value="30" selected>30</option>
-            <option value="100">100</option>
-            <option value="250">250</option>
-          </select>
-          <span class="mr-2">of</span>
-          <strong class="mr-2">{{data.length}}</strong>
-        </div>
-        <ul *ngIf="data.length > limit" class="pagination pagination-sm m-0">
-          <li class="page-item"><button class="page-link" (click)="first()">
-              <fa-icon [fixedWidth]="true" icon="angle-double-left"></fa-icon>
-            </button></li>
-          <li class="page-item"><button class="page-link" (click)="previous()">
-              <fa-icon [fixedWidth]="true" icon="angle-left"></fa-icon>
-            </button></li>
-          <ng-container *ngFor="let p of pages">
-            <li class="page-item" [ngClass]="{active:page === p}">
-              <button style="min-width:35px;" class="page-link" (click)="page = p">{{p+1}}</button>
-            </li>
-          </ng-container>
-          <li class="page-item"><button class="page-link" (click)="next()">
-              <fa-icon [fixedWidth]="true" icon="angle-right"></fa-icon>
-            </button></li>
-          <li class="page-item"><button class="page-link" (click)="last()">
-              <fa-icon [fixedWidth]="true" icon="angle-double-right"></fa-icon>
-            </button></li>
-        </ul>
-      </ng-container>
-      <ng-container *ngIf="!data.length">
-        <div class="d-flex align-items-center">
-          <strong class="mr-2">No items were found</strong>
+          <strong class="mr-2">{{data.length}} items</strong>
         </div>
       </ng-container>
-    </ng-container>
-    <ng-container *ngIf="showDebug">
-      <div class="d-flex align-items-center">
-        <strong class="mr-2">{{data.length}} items</strong>
-      </div>
-    </ng-container>
-    <div ngbDropdown placement="top-right" container="body" class="d-inline-block">
-      <button class="btn btn-outline-secondary border-0" ngbDropdownToggle>
-        <fa-icon icon="bars"></fa-icon>
-      </button>
-      <div ngbDropdownMenu>
-          <h6 class="dropdown-header">Toogle Columns</h6>
-        <div class="px-4">
-          <ng-container *ngFor="let property of schema.properties;let i = index">
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" [disabled]="property.locked" class="custom-control-input" [id]="i" [(ngModel)]="settings.enabledProperties[i]"
-                (change)="calculateProperties()" [ngModelOptions]="{standalone: true}">
-              <label class="custom-control-label" [for]="i">{{property.label}}</label>
-            </div>
-          </ng-container>
-        </div>
-        <div class="dropdown-divider"></div>
-        <button ngbDropdownItem (click)="showDebug = !showDebug">
-          <fa-icon icon="code" [fixedWidth]="true"></fa-icon> toggle data
+      <div ngbDropdown placement="top-right" container="body" class="d-inline-block">
+        <button class="btn btn-outline-secondary border-0" ngbDropdownToggle>
+          <fa-icon icon="bars"></fa-icon>
         </button>
+        <div ngbDropdownMenu>
+          <h6 class="dropdown-header">Columns</h6>
+          <div class="px-4">
+            <ng-container *ngFor="let prop of schema.properties;let i = index">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" [disabled]="prop.locked" class="custom-control-input" [id]="i"
+                  [(ngModel)]="settings[schema.name].visible[i]" (change)="calculateProperties()"
+                  [ngModelOptions]="{standalone: true}">
+                <label class="custom-control-label" [for]="i">{{prop.label}}</label>
+              </div>
+            </ng-container>
+          </div>
+          <div class="dropdown-divider"></div>
+          <button ngbDropdownItem (click)="showDebug = !showDebug">
+            <fa-icon icon="code" [fixedWidth]="true"></fa-icon> toggle data
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</ng-container>
 
+<ng-template #loader>
+  <app-empty message="loading..." icon="sync-alt" [icon-spin]="true"></app-empty>
+</ng-template>
 <ng-template #empty>
-  <div class="p-5 text-center text-muted">
-    <fa-icon icon="empty-set" size="4x"></fa-icon>
-    <h2 style="font-weight:300">no data</h2>
-  </div>
+  <app-empty message="no data" icon="folder-open"></app-empty>
 </ng-template>

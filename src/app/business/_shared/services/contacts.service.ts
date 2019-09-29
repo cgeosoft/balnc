@@ -11,14 +11,14 @@ export class ContactsService extends CommonService {
 
   contacts$: Observable<Contact[]>
 
-  constructor (
+  constructor(
     zone: NgZone,
     dbService: RxDBService
   ) {
     super(zone, dbService)
   }
 
-  async setup () {
+  async setup() {
     await super.setup({
       alias: 'contacts',
       entities: ContactsEntities
@@ -26,11 +26,11 @@ export class ContactsService extends CommonService {
     this.contacts$ = this.db['contacts'].find().$
   }
 
-  async getContacts (params): Promise<Contact[]> {
+  async getContacts(params): Promise<Contact[]> {
     return super.getAll<Contact>('contacts', params)
   }
 
-  async getContact (id): Promise<Contact> {
+  async getContact(id): Promise<Contact> {
     const contact = await super.getOne<Contact>('contacts', id)
     if (!contact) return null
 
@@ -42,11 +42,11 @@ export class ContactsService extends CommonService {
     return contact
   }
 
-  getContactObservable (id): Observable<Contact> {
+  getContactObservable(id): Observable<Contact> {
     return this.db['contacts'].findOne(id).$
   }
 
-  async addContact (contact: Contact) {
+  async addContact(contact: Contact) {
     const c = await super.addOne<Contact>('contacts', contact)
     await super.addOne<CEvent>('cevents', {
       contact: c.get('_id'),
@@ -56,9 +56,9 @@ export class ContactsService extends CommonService {
     return c
   }
 
-  async generateDemoData () {
+  async generateDemoData() {
     console.log('generate random contacts')
-    for (let p = 0; p < 1500; p++) {
+    for (let p = 0; p < 500; p++) {
       await this.addContact({
         name: `${faker.name.findName()}`,
         type: ContactType.person,
@@ -75,7 +75,7 @@ export class ContactsService extends CommonService {
       })
     }
 
-    for (let c = 0; c < 1500; c++) {
+    for (let c = 0; c < 500; c++) {
       await this.addContact({
         name: `${faker.company.companyName()}`,
         type: ContactType.company,

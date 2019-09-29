@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { DEMO_PROFILE, Helpers, Plugin, Profile } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
@@ -33,40 +32,35 @@ export class SetupComponent implements OnInit {
 
   helperService = Helpers
 
-  constructor (
+  constructor(
     public configService: ConfigService,
-    private router: Router,
     private toastr: ToastrService
   ) { }
 
-  async ngOnInit () {
-    if (this.configService.profiles.length) {
-      await this.router.navigate(['/dashboard'])
-    }
-
+  async ngOnInit() {
     this.plugins = this.configService.plugins
   }
 
-  back () {
+  back() {
     this.stepIndex--
   }
 
-  next () {
+  next() {
     this.stepIndex++
   }
 
-  finish () {
+  finish() {
     this.profile.name = this.profile.name || this.helperService.generateName()
     const alias = this.configService.saveProfile(this.profile)
     this.configService.selectProfile(alias)
   }
 
-  addDemo () {
+  addDemo() {
     this.profile = DEMO_PROFILE
     this.stepIndex = this.steps.length - 1
   }
 
-  importFile (file: ReadFile) {
+  importFile(file: ReadFile) {
     const profile: Profile = this.configService.importFile(file)
     if (!profile) {
       this.toastr.error('Import failed')
@@ -75,7 +69,7 @@ export class SetupComponent implements OnInit {
     this.stepIndex = this.steps.length - 1
   }
 
-  switchStatus (pluginId: string) {
+  switchStatus(pluginId: string) {
     this.profile.plugins[pluginId] = !this.profile.plugins[pluginId]
   }
 }

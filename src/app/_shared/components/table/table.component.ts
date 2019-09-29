@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, SimpleChanges } from '@angular/core'
-import { Subscription } from 'rxjs'
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core'
+import { LocalStorage } from 'ngx-store'
+import { Observable, Subscription } from 'rxjs'
 import { TableSchema } from './table-schema'
 
 @Component({
@@ -11,7 +12,7 @@ import { TableSchema } from './table-schema'
 export class TableComponent implements OnInit {
 
   @Input() schema: TableSchema
-  @Input() data: any[]
+  @Input() data$: Observable<any[]>
   @Input() debug: any
   @Input() templates: { [key: string]: ElementRef }
 
@@ -20,34 +21,37 @@ export class TableComponent implements OnInit {
   totalPages: number[]
   pages: number[]
 
+  dataLength = 0
   limit = 30
   sub: Subscription
   properties: any
-  settings = {
-    enabledProperties: {}
-  }
+
+  @LocalStorage('table_settings') settings: any = {}
 
   ngOnInit (): void {
-    this.schema.properties.forEach((p, i) => {
-      this.settings.enabledProperties[i] = true
+    this.updateSettings()
+    this.data$.subscribe((data) => {
+      this.dataLength = data.length
+      this.calculatePages()
     })
     this.calculateProperties()
   }
 
-  calculateProperties () {
-    console.log('calculateProperties', this.settings.enabledProperties)
-    this.properties = this.schema.properties.filter((p, i) => this.settings.enabledProperties[i])
+  updateSettings () {
+    this.settings[this.schema.name] = this.settings[this.schema.name] || { visible: {} }
+    this.schema.properties.forEach((p, i) => {
+      this.settings[this.schema.name].visible[i] = this.settings[this.schema.name].visible[i] || !p.hidden
+    })
+    this.settings.save()
   }
 
-  ngOnChanges (changes: SimpleChanges): void {
-    if (this.data) {
-      this.calculatePages()
-    }
+  calculateProperties () {
+    this.properties = this.schema.properties.filter((p, i) => this.settings[this.schema.name].visible[i])
   }
 
   calculatePages () {
-    let pages = Math.floor(this.data.length / this.limit)
-    pages += (this.data.length % this.limit > 0) ? 1 : 0
+    let pages = Math.floor(this.dataLength / this.limit)
+    pages += (this.dataLength % this.limit > 0) ? 1 : 0
     this.totalPages = Array.from(Array(pages), (x, index) => index)
     this.movePageWindow()
   }

@@ -8,7 +8,7 @@
       "type": "string"
     },
     "type": {
-      "type": "number"
+      "type": "string"
     },
     "tags": {
       "type": "array",

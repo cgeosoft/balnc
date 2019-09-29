@@ -4,17 +4,12 @@
       placeholder="Filter customers by name...">
   </app-content-body>
   <app-content-body [padding]="false" [full]="true">
-    <ng-container *ngIf="(contacts$ | async) as contacts; loader">
-      <app-table [data]="contacts | search:['name']:(term$ | async)" [schema]="schema" [templates]="{t1:t1}">
-      </app-table>
-    </ng-container>
+    <app-table [data$]="contacts$" [schema]="schema" [templates]="{t1:t1}"></app-table>
   </app-content-body>
 </app-content>
 
-<ng-template #loader>loading...</ng-template>
-
 <ng-template #t1 let-contact="item">
-  <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user':'building']" class="mr-2 text-muted">
+  <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user-circle':'building']" class="mr-2 text-muted">
   </fa-icon>
   <a [routerLink]="['/business/contacts',contact['_id']]">{{contact.name}}</a>
 </ng-template>

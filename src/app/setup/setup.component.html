@@ -11,7 +11,7 @@
 
       <div class="card-body overflow-hidden" *ngIf="steps[stepIndex].label=='Setup'">
         <div class="text-center">
-          <h1 class="display-4 mt-4">Welcome!</h1>
+          <h1 class="display-4 mt-4">Balnc Setup</h1>
         </div>
         <div class="alert alert-warning text-center">
           <strong>WARNING: UNDER DEVELOPMENT AND NOT READY FOR PRODUCTION USE</strong>
@@ -26,37 +26,31 @@
       </div>
 
       <div class="card-body" *ngIf="steps[stepIndex].label=='Profile'">
-        <div class="row">
-          <div class="col-7">
-            <h2>Profile</h2>
-            <div class="form-group">
-              <input autocomplete="false" [(ngModel)]="profile.name" class="form-control form-control-lg"
-                placeholder="Enter a friendly name...">
-            </div>
-            <ul class="list-unstyled text-center">
-              <li>
-                <a href="javascript:" ngxFilePicker accept="application/json" (filePick)="importFile($event)">Import</a>
-                from file</li>
-              <li>
-                <a href="javascript:" (click)="addDemo()">Start</a> with a demo profile</li>
-            </ul>
-          </div>
-          <div class="col-5">
-            <div class="alert alert-primary">
-              <h4>What is this?</h4>
-              <p>
-                Profile is a group of settings and data. Every profile is like another setup of its own plugins and
-                configuration. Your data are stored in the browser and are not by default synced to any server. You
-                should
-                keep backups or enable sync mode with a backup server.
-              </p>
-            </div>
-          </div>
+
+        <div class="alert alert-info">
+          <h4>What is profile?</h4>
+          <p>
+            Profile is a group of settings and data. Every profile is like another setup of its own plugins and
+            configuration. Your data are stored in the browser and are not by default synced to any server. You
+            should
+            keep backups or enable sync mode with a backup server.
+          </p>
         </div>
+
+        <div class="form-group">
+          <input autocomplete="false" [(ngModel)]="profile.name" class="form-control form-control-lg"
+            placeholder="Enter a profile name...">
+        </div>
+        <ul class="list-unstyled text-center">
+          <li>
+            <a href="javascript:" ngxFilePicker accept="application/json" (filePick)="importFile($event)">Import</a>
+            from file</li>
+          <li>
+            <a href="javascript:" (click)="addDemo()">Start</a> with a demo profile</li>
+        </ul>
       </div>
 
       <div class="card-body" *ngIf="steps[stepIndex].label=='Plugins'">
-        <h3>Plugins</h3>
         <div class="list-settings">
           <div class="list-settings-item" *ngFor="let p of plugins">
             <fa-icon [icon]="p.icon" class="list-settings-icon bg-dark rounded text-center"
@@ -77,6 +71,7 @@
       <div class="card-body" *ngIf="steps[stepIndex].label=='Finish'">
         <pre class="preview">{{profile|json:2}}</pre>
       </div>
+
       <div class="card-footer p-2">
         <button class="btn btn-light" (click)="back()" *ngIf="stepIndex != 0">
           <fa-icon [icon]="['fas','angle-left']"></fa-icon>
@@ -88,7 +83,6 @@
         </button>
         <button class="btn btn-primary float-right" (click)="finish()" *ngIf="stepIndex === steps.length - 1">
           Finish
-          <fa-icon [icon]="['fas','check-circle']"></fa-icon>
         </button>
       </div>
     </div>

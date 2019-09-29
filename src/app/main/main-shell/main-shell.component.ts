@@ -22,7 +22,7 @@ export class MainShellComponent implements OnInit {
 
   menu: any[] = []
 
-  constructor (
+  constructor(
     private configService: ConfigService,
     private router: Router,
     private toastr: ToastrService
@@ -32,15 +32,10 @@ export class MainShellComponent implements OnInit {
     })
   }
 
-  async ngOnInit () {
-
-    if (!this.configService.profiles.length) {
-      await this.router.navigate(['/setup'])
-      return
-    }
+  ngOnInit() {
   }
 
-  private _navigationInterceptor (event: RouterEvent): void {
+  private _navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.pageLoading = true
     }
@@ -56,7 +51,7 @@ export class MainShellComponent implements OnInit {
     }
   }
 
-  private _hideSpinner (): void {
+  private _hideSpinner(): void {
     this.pageLoading = false
   }
 }

@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router'
 import { ErrorComponent } from './main/error/error.component'
 import { MainShellComponent } from './main/main-shell/main-shell.component'
+import { MainGuard } from './main/main.guard'
 
 export const APP_ROUTES: Routes = [{
   path: '',
   component: MainShellComponent,
-  // canActivate: [ProfileGuardService],
+  canActivate: [MainGuard],
   children: [{
     path: 'dashboard',
     loadChildren: './dashboard/dashboard.module#DashboardModule'
