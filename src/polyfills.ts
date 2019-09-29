@@ -64,7 +64,9 @@
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
  */
-import 'zone.js/dist/zone' // Included with Angular CLI.
+// (window as any).process.nextTick = setTimeout;
+import * as process from 'process'
+import 'zone.js/dist/zone'; // Included with Angular CLI.
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
@@ -72,5 +74,5 @@ import 'zone.js/dist/zone' // Included with Angular CLI.
 
 // PouchDB Polyfill
 (window as any).global = window
-// (window as any).process = {};
-// (window as any).process.nextTick = setTimeout;
+
+window['process'] = process

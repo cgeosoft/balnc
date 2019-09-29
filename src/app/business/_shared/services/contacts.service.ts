@@ -56,9 +56,9 @@ export class ContactsService extends CommonService {
     return c
   }
 
-  async generateDemoData() {
-    console.log('generate random contacts')
-    for (let p = 0; p < 100; p++) {
+  async generateDemoData(size = 200) {
+    console.log(`generate ${size / 2} person/contacts`)
+    for (let p = 0; p < size / 2; p++) {
       await this.addContact({
         name: `${faker.name.findName()}`,
         type: ContactType.person,
@@ -73,10 +73,11 @@ export class ContactsService extends CommonService {
           type: 'owner'
         }]
       })
-      console.log(`add person contact ${p}`)
+      console.log(`add person ${p}`)
     }
 
-    for (let c = 0; c < 100; c++) {
+    console.log(`generate ${size / 2} company/contacts`)
+    for (let c = 0; c < size / 2; c++) {
       await this.addContact({
         name: `${faker.company.companyName()}`,
         type: ContactType.company,
@@ -98,7 +99,7 @@ export class ContactsService extends CommonService {
           type: 'owner'
         }]
       })
-      console.log(`add company contact ${c}`)
+      console.log(`add company ${c}`)
     }
   }
 }

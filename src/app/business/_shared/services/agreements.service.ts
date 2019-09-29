@@ -11,7 +11,7 @@ import { ContactsService } from './contacts.service'
 @Injectable()
 export class AgreementsService extends CommonService {
 
-  constructor (
+  constructor(
     zone: NgZone,
     dbService: RxDBService,
     private contactsService: ContactsService
@@ -19,14 +19,14 @@ export class AgreementsService extends CommonService {
     super(zone, dbService)
   }
 
-  async setup () {
+  async setup() {
     await super.setup({
       alias: 'agreements',
       entities: AgreementsEntities
     })
   }
 
-  async addAgreement (agreement: Agreement) {
+  async addAgreement(agreement: Agreement) {
     agreement.serial = Helpers.uid()
     const c = await super.addOne<Agreement>('agreements', agreement)
     await this.contactsService.addOne<CEvent>('cevents', {
@@ -39,19 +39,19 @@ export class AgreementsService extends CommonService {
     return c
   }
 
-  async generateDemoData () {
-    console.log('generate random agreements')
-
+  async generateDemoData(size = 100) {
+    console.log(`generate ${size} agreements`)
     const contacts = await this.contactsService.getAll<Contact[]>('contacts')
-    contacts.forEach(async contact => {
-      for (let p = 0; p < 2; p++) {
-        await this.addAgreement({
-          contact: contact['_id'],
-          status: AgreementStatus.draft,
-          createdAt: Date.now(),
-          content: `# Agreement ${Date.now()}\n\r${faker.lorem.paragraphs(5)}`
-        })
-      }
-    })
+
+    for (let a = 0; a < size; a++) {
+      const contact = contacts[faker.random.number({ min: 0, max: contacts.length - 1 })]
+      await this.addAgreement({
+        contact: contact['_id'],
+        status: AgreementStatus.draft,
+        createdAt: Date.now(),
+        content: `# Agreement ${Date.now()}\n\r${faker.lorem.paragraphs(5)}`
+      })
+      console.log(`add agreement to contact ${contact['_id']}`)
+    }
   }
 }
