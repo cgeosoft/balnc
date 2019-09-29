@@ -37,6 +37,9 @@
                     <td *ngSwitchCase="'date'" [ngStyle]='prop.style || {}'>
                       {{prop.val(item) | date:'short'}}
                     </td>
+                    <td *ngSwitchCase="'link'" [ngStyle]='prop.style || {}'>
+                      <ng-container *ngTemplateOutlet="link; context:prop.val(item)"></ng-container>
+                    </td>
                     <td *ngSwitchCase="'image'" style="width:56px" [ngStyle]='prop.style || {}'>
                       <img [src]="prop.val(item) || prop.empty" class="rounded" style="width:32px;height:32px"
                         [alt]="prop.label">
@@ -132,4 +135,7 @@
 </ng-template>
 <ng-template #empty>
   <app-empty message="no data" icon="folder-open"></app-empty>
+</ng-template>
+<ng-template #link let-link="link" let-label="label">
+  <a [routerLink]="link">{{label}}</a>
 </ng-template>

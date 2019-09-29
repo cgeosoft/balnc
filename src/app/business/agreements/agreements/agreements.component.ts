@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
+import { TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
 import { Agreement } from '../../_shared/models/agreement'
 import { Contact } from '../../_shared/models/contacts'
 import { AgreementsService } from '../../_shared/services/agreements.service'
@@ -15,26 +15,37 @@ export class AgreementsComponent implements OnInit {
   agreements$: Observable<Agreement[]>
   contacts: Contact[]
 
-  constructor (
+  schema: TableSchema = {
+    name: 'agreements',
+    properties: [
+      {
+        label: 'Serial', locked: true, type: 'link', val: (item: Agreement) => {
+          return {
+            label: item.serial,
+            link: ['/business/agreements', item['_id']]
+          }
+        }
+      },
+      { label: 'Date', type: 'date', val: (item: Agreement) => { return item.createdAt } },
+      {
+        label: 'Contact', type: 'link', val: (item: Agreement) => {
+          const c = this.contacts.find(c => c['_id'] === item.contact)
+          return {
+            label: c.name,
+            link: ['/business/contacts', item.contact]
+          }
+        }
+      }
+    ]
+  }
+
+  constructor(
     private agreementsService: AgreementsService,
     private contactsService: ContactsService
   ) { }
 
-  async ngOnInit () {
+  async ngOnInit() {
+    this.agreements$ = this.agreementsService.getAll$<Agreement>('agreements')
     this.contacts = await this.contactsService.getAll<Contact>('contacts')
-    this.agreements$ = this.agreementsService.getAll$<Agreement>('agreements').pipe(
-      tap(agreements => {
-
-        agreements = agreements.sort((a, b) => {
-          if (a.createdAt > b.createdAt) { return -1 }
-          if (a.createdAt < b.createdAt) { return 1 }
-          return 0
-        })
-      })
-    )
-  }
-
-  getContact (contactId) {
-    return this.contacts.find(c => c['_id'] === contactId)
   }
 }

@@ -229,6 +229,7 @@ $sidebar-font: #666;
         background: darken($sidebar-background, 5%);
       }
 
+      &.disabled,
       &:disabled {
         cursor: not-allowed;
         color: #666;

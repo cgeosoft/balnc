@@ -2,7 +2,7 @@
   <div class="title">Business</div>
   <div class="search">
     <input class="form-control" placeholder="quick search..." [ngbTypeahead]="search" [(ngModel)]="term"
-    [resultFormatter]="formatter" (selectItem)="select($event)">
+      [resultFormatter]="formatter" (selectItem)="select($event)">
     <a routerLink="/business/search">advanced search</a>
   </div>
   <div class="divider"></div>
@@ -16,29 +16,25 @@
         <fa-icon icon="signature" class="icon"></fa-icon>
         <span>Agreements</span>
       </a>
-      <a disabled routerLink="/business/orders" routerLinkActive="active">
+      <a href="javascript:void" class="disabled">
         <fa-icon icon="shopping-cart" class="icon"></fa-icon>
         <span>Orders</span>
       </a>
-      <a disabled routerLink="/business/invoices" routerLinkActive="active">
+      <a href="javascript:void" class="disabled">
         <fa-icon icon="file-invoice-dollar" class="icon"></fa-icon>
         <span>Invoices</span>
       </a>
-      <a disabled routerLink="/business/stock" routerLinkActive="active">
+      <a href="javascript:void" class="disabled">
         <fa-icon icon="warehouse" class="icon"></fa-icon>
         <span>Stock</span>
       </a>
-      <a disabled routerLink="/business/services" routerLinkActive="active">
+      <a href="javascript:void" class="disabled">
         <fa-icon icon="concierge-bell" class="icon"></fa-icon>
         <span>Services</span>
       </a>
-    </div>
-  </div>
-  <div class="menu mt-auto">
-    <div class="items">
       <a routerLink="/business/settings" routerLinkActive="active">
         <fa-icon icon="cog"></fa-icon>
-        <span>settings</span>
+        <span>Settings</span>
       </a>
     </div>
   </div>

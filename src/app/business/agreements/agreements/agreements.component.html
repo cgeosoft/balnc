@@ -1,29 +1,5 @@
 <app-content>
   <app-content-body [padding]="false" [full]="true">
-    <ng-container *ngIf="(agreements$ | async) as agreements; loader">
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="datetime">Created</th>
-            <th>Serial</th>
-            <th>Contact</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let agreement of agreements">
-            <td>{{agreement.createdAt|date:"yyyy-mm-dd HH:MM:ss"}}</td>
-            <td>
-              <a [routerLink]="['/business/agreements',agreement['_id']]">{{agreement.serial}}</a>
-            </td>
-            <td>
-              <a [routerLink]="['/business/contacts',agreement.contact]">{{getContact(agreement.contact).name}}</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </ng-container>
+    <app-table [data$]="agreements$" [schema]="schema"></app-table>
   </app-content-body>
 </app-content>
-
-<ng-template #loader>loading...</ng-template>
-<ng-template #empty>empty</ng-template>
