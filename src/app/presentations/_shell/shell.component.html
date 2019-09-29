@@ -3,16 +3,20 @@
   <div class="menu">
     <div class="items">
       <a routerLink="/presentations/overview" routerLinkActive="active">
-        <fa-icon icon="users" class="icon"></fa-icon>
+        <fa-icon icon="border-all" class="icon"></fa-icon>
         <div class="content">Overview</div>
       </a>
       <button (click)="create()">
-        <fa-icon [icon]="['fas','plus-circle']" class="icon"></fa-icon>
-        <div class="content">Quick Add</div>
+        <fa-icon icon="plus-circle" class="icon"></fa-icon>
+        <div class="content">Create Pesentation</div>
       </button>
+      <a routerLink="/presentations/settings" routerLinkActive="active">
+        <fa-icon icon="cog" class="icon"></fa-icon>
+        <div class="content">Settings</div>
+      </a>
       <div class="divider"></div>
       <ng-container *ngIf="presentations.length; else empty">
-        <a *ngFor="let presentation of presentations" [routerLink]="['/presentations',presentation._id]"
+        <a *ngFor="let presentation of presentations" [routerLink]="['/presentations',presentation['_id']]"
           routerLinkActive="active">
           <div class="thumb">
             <ng-container *ngIf="presentation.thumb; else noThumb">

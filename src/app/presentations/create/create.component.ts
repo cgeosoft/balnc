@@ -10,14 +10,14 @@ export class CreateComponent {
 
   presentationTitle: string
 
-  constructor (
+  constructor(
     public activeModal: NgbActiveModal,
     private presentationsService: PresentationsService
   ) { }
 
-  async onSubmit () {
+  async onSubmit() {
     const presentation = await this.presentationsService
-      .addPresentation(this.presentationTitle)
+      .createPresentation(this.presentationTitle)
     this.activeModal.close(presentation)
   }
 }

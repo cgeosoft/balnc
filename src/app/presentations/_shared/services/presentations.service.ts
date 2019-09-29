@@ -1,29 +1,30 @@
 import { Injectable, NgZone } from '@angular/core'
 import { RxDBService } from '@balnc/core'
-import { CommonService } from '@balnc/shared'
-import { Presentation, PresentationDoc, PresentationStats } from '../models/presentation'
+import { CommonService, Helpers } from '@balnc/shared'
+import * as faker from 'faker'
+import { Page, Presentation, PresentationStats, RxPresentationDoc } from '../models/presentation'
 import { PresentationsEntities } from '../models/_entities'
 
 @Injectable()
 export class PresentationsService extends CommonService {
 
-  constructor (
+  constructor(
     zone: NgZone,
     dbService: RxDBService
   ) {
     super(zone, dbService)
   }
 
-  async setup () {
+  async setup() {
     await super.setup({
       alias: 'presentations',
       entities: PresentationsEntities
     })
   }
 
-  async getPresentations (params?: any) {
+  async getPresentations(params?: any) {
     params = params || {}
-    let _presentations = await super.getAll<PresentationDoc>('presentations', params)
+    let _presentations = await super.getAll<RxPresentationDoc>('presentations', params)
     const images$ = _presentations
       .map(async (presentation) => {
         return this.getThumb(presentation)
@@ -46,11 +47,11 @@ export class PresentationsService extends CommonService {
     return presentations2
   }
 
-  async getPresentation (id): Promise<PresentationDoc> {
-    return super.getOne<PresentationDoc>('presentations', id)
+  async getPresentation(id): Promise<RxPresentationDoc> {
+    return super.getOne<RxPresentationDoc>('presentations', id)
   }
 
-  async addPresentation (title: string, description?: string) {
+  async createPresentation(title: string, description?: string) {
     return super.addOne<Presentation>('presentations', {
       title: title,
       description: description,
@@ -59,7 +60,7 @@ export class PresentationsService extends CommonService {
     })
   }
 
-  async getThumb (presentation: PresentationDoc): Promise<any> {
+  async getThumb(presentation: RxPresentationDoc): Promise<any> {
 
     if (!presentation.pages || presentation.pages.length === 0) {
       return
@@ -69,7 +70,7 @@ export class PresentationsService extends CommonService {
 
   }
 
-  async getImage (presentation: PresentationDoc, contentImage: string): Promise<any> {
+  async getImage(presentation: RxPresentationDoc, contentImage: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const attachment = await presentation.getAttachment(contentImage)
       const blobBuffer = await attachment.getData()
@@ -88,7 +89,7 @@ export class PresentationsService extends CommonService {
     })
   }
 
-  async getStats (presentation: PresentationDoc): Promise<PresentationStats> {
+  async getStats(presentation: RxPresentationDoc): Promise<PresentationStats> {
     if (!presentation.get('_attachments')) {
       return {
         filecount: 0,
@@ -103,6 +104,60 @@ export class PresentationsService extends CommonService {
     return {
       filecount: attachments.length,
       filesize: filesize
+    }
+  }
+
+  async createPage(presentation: RxPresentationDoc, page: Page) {
+    const pageKey = Helpers.uid()
+
+    await presentation.putAttachment({
+      id: `file-${pageKey}`,
+      data: page.file,
+      type: page.fileType
+    })
+
+    await presentation.update({
+      $push: {
+        pages: {
+          key: pageKey,
+          title: page.title || `Page ${pageKey}`,
+          description: page.description,
+          type: 'BGIMG',
+          params: {
+            image: `file-${pageKey}`
+          }
+        }
+      },
+      $set: {
+        dateUpdated: Date.now()
+      }
+    })
+  }
+
+  async generateDemoData() {
+    console.log('generate random presentations')
+    const presentations: RxPresentationDoc[] = []
+
+    for (let p = 0; p < 5; p++) {
+      const presentation = await this.createPresentation(faker.name.findName(), faker.lorem.paragraph())
+      console.log(`add presentation ${presentation.title}`)
+      presentations.push(presentation)
+    }
+
+    for (let c = 0; c < 50; c++) {
+      const pr = Math.floor(Math.random() * presentations.length)
+      if (presentations[pr]) {
+        const filedata = await fetch('https://source.unsplash.com/random')
+          .then(res => res.blob())
+        const page = {
+          title: faker.name.findName(),
+          description: faker.lorem.paragraph(),
+          file: filedata,
+          fileType: 'image/png'
+        }
+        await this.createPage(presentations[pr], page)
+        console.log(`add page`, page)
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ import { AddPageComponent } from './add-page/add-page.component'
 import { CreateComponent } from './create/create.component'
 import { OverviewComponent } from './overview/overview.component'
 import { PresentationComponent } from './presentation/presentation.component'
+import { SettingsComponent } from './settings/settings.component'
 import { Resolver } from './_shared/resolver'
 import { PresentationsService } from './_shared/services/presentations.service'
 import { ShellComponent } from './_shell/shell.component'
@@ -24,6 +25,7 @@ import { ShellComponent } from './_shell/shell.component'
       },
       children: [
         { path: 'overview', component: OverviewComponent },
+        { path: 'settings', component: SettingsComponent },
         { path: ':id', component: PresentationComponent },
         { path: '', pathMatch: 'full', redirectTo: 'overview' }
       ]
@@ -34,6 +36,7 @@ import { ShellComponent } from './_shell/shell.component'
     OverviewComponent,
     PresentationComponent,
     CreateComponent,
+    SettingsComponent,
     AddPageComponent
   ],
   providers: [

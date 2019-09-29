@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import * as screenfull from 'screenfull'
 import { Screenfull } from 'screenfull'
 import { AddPageComponent } from '../add-page/add-page.component'
-import { PresentationDoc, PresentationStats } from '../_shared/models/presentation'
+import { PresentationStats, RxPresentationDoc } from '../_shared/models/presentation'
 import { PresentationsService } from '../_shared/services/presentations.service'
 
 @Component({
@@ -20,25 +20,24 @@ export class PresentationComponent implements OnInit {
   activePageIndex: number = 0
   imageData: string
   pages: any[] = []
-  presentation: PresentationDoc
+  presentation: RxPresentationDoc
 
   presenting = false
 
   menu = {
-    selected: 'overview',
+    selected: 'slides',
     items: [{
       id: 'overview',
       label: 'Overview',
-      icon: 'chart-line'
+      icon: ['fas', 'chart-line']
     }, {
       id: 'slides',
       label: 'Slides',
-      icon: 'images:regular'
+      icon: ['far', 'images']
     }, {
-      id: 'manage',
-      label: '',
-      icon: 'cog',
-      right: true
+      id: 'raw',
+      label: 'Raw',
+      icon: ['fas', 'code']
     }]
   }
 

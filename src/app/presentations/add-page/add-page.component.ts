@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
-import { Helpers } from '@balnc/shared'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { PresentationDoc } from '../_shared/models/presentation'
+import { Page, RxPresentationDoc } from '../_shared/models/presentation'
+import { PresentationsService } from '../_shared/services/presentations.service'
 
 @Component({
   selector: 'app-presentations-add-page',
@@ -9,13 +9,12 @@ import { PresentationDoc } from '../_shared/models/presentation'
 })
 export class AddPageComponent {
 
-  @Input() presentation: PresentationDoc
+  @Input() presentation: RxPresentationDoc
 
-  page: any = {
+  page: Page = {
     title: null,
     description: null,
     file: null,
-    blob: null,
     fileType: null
   }
   imagePreview: string
@@ -25,43 +24,16 @@ export class AddPageComponent {
     height: 0
   }
 
-  constructor (public activeModal: NgbActiveModal) { }
+  constructor(
+    public activeModal: NgbActiveModal,
+    public presentationsService: PresentationsService
+  ) { }
 
-  async onSubmit () {
-
-    const pageKey = Helpers.uid()
-
-    await this.presentation.putAttachment({
-      id: `file-${pageKey}`,
-      data: this.page.file,
-      type: this.page.fileType
-    })
-
-    await this.presentation.update({
-      $push: {
-        pages: {
-          key: pageKey,
-          title: this.page.title || `Page ${pageKey}`,
-          description: this.page.description,
-          type: 'BGIMG',
-          params: {
-            image: `file-${pageKey}`
-          }
-        }
-      },
-      $set: {
-        dateUpdated: Date.now()
-      }
-    })
-
-    this.activeModal.close(this.page)
-  }
-
-  loadFile ($event): void {
-    this.page.file = $event.target.files[0]
+  loadFile(file): void {
+    this.page.file = file
     const reader: FileReader = new FileReader()
 
-    this.imageInfo.size = this.page.file.size
+    this.imageInfo.size = file.size
 
     reader.onloadend = (e) => {
       const img = new Image()
@@ -76,9 +48,13 @@ export class AddPageComponent {
       this.imagePreview = src
       const parts = src.split(',')
       const info = parts[0].split(';')
-      // this.page.blob = parts[1]
       this.page.fileType = info[0].replace('data:', '')
     }
     reader.readAsDataURL(this.page.file)
+  }
+
+  async create() {
+    await this.presentationsService.createPage(this.presentation, this.page)
+    this.activeModal.close(this.page)
   }
 }

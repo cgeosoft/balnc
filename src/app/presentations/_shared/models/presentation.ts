@@ -16,4 +16,11 @@ export interface PresentationStats {
   filesize: number
 }
 
-export type PresentationDoc = RxDocument<Presentation> & Presentation
+export interface Page {
+  title: string,
+  description: string,
+  file: any,
+  fileType: string
+}
+
+export type RxPresentationDoc = RxDocument<Presentation> & Presentation
