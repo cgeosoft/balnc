@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core'
 import { ConfigService, RxDBService } from '@balnc/core'
 import { CommonService } from '@balnc/shared'
+import * as faker from 'faker'
 import { LocalStorage } from 'ngx-store'
 import { Board } from './models/board'
 import { BoardsEntities } from './models/entities'
@@ -18,7 +19,7 @@ export class BoardsService extends CommonService {
   @LocalStorage() nickname: string = ''
   @LocalStorage() boardsStats: (Board & BoardStats)[] = []
   selectedBoard: string
-  constructor (
+  constructor(
     zone: NgZone,
     dbService: RxDBService,
     private configService: ConfigService
@@ -26,7 +27,7 @@ export class BoardsService extends CommonService {
     super(zone, dbService)
   }
 
-  async setup () {
+  async setup() {
     await super.setup({
       alias: 'boards',
       entities: BoardsEntities
@@ -34,7 +35,6 @@ export class BoardsService extends CommonService {
     this.nickname = this.configService.profile.remote.username || 'anonymous'
 
     super.getAll$<Message>('messages').subscribe((messages) => {
-      console.log('caclulate unread')
       const bs = [...this.boardsStats]
       bs.forEach(b => { b.unread = 0 })
       messages.forEach(m => {
@@ -57,10 +57,10 @@ export class BoardsService extends CommonService {
 
   }
 
-  async createBoard (data: Board) {
+  async createBoard(data: Board) {
     const now = new Date()
     const board = Object.assign({
-      created: Date.now(),
+      created: Date.now()
       // members: [{
       //   name: this.nickname,
       //   type: 'ADMIN',
@@ -70,10 +70,10 @@ export class BoardsService extends CommonService {
     }, data)
 
     const b = await super.addOne('boards', board)
-    return b['_id']
+    return b
   }
 
-  selectBoard (boardId) {
+  selectBoard(boardId) {
     const bs = [...this.boardsStats]
     let bs1 = bs.find(x => x.id === boardId)
     if (!bs1) {
@@ -90,7 +90,7 @@ export class BoardsService extends CommonService {
     this.selectedBoard = boardId
   }
 
-  async deleteBoard (id) {
+  async deleteBoard(id) {
     let board = await this.db['boards'].findOne(id).exec()
     board.remove()
 
@@ -98,5 +98,34 @@ export class BoardsService extends CommonService {
     messages.forEach(m => {
       m.remove()
     })
+  }
+
+  async generateDemoData(size = 5) {
+    console.log(`generate ${size} boards`)
+
+    for (let b = 0; b < 5; b++) {
+      const board = await this.createBoard({
+        name: faker.name.findName()
+      })
+      console.log(`add board ${board}:${board.get('_id')}`)
+
+      const rotation = faker.random.number({ min: 0, max: 1 }) === 1 ? '1024/768' : '768/1024'
+
+      console.log(`generate ${size * 7} messages for ${board.get('_id')}`)
+      for (let c = 0; c < size * 7; c++) {
+
+        const messageData: Message = {
+          timestamp: faker.date.past().getTime(),
+          text: faker.hacker.phrase(),
+          sender: faker.internet.userName(),
+          board: board.get('_id'),
+          status: 'SEND',
+          type: 'MESSAGE'
+        }
+        const message = await this.addOne('messages', messageData)
+
+        console.log(`add message ${c}:${message.get('_id')} to project ${board.get('_id')}`)
+      }
+    }
   }
 }

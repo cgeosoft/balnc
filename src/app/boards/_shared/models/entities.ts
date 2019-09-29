@@ -5,6 +5,7 @@ export const BoardsEntities = [{
   name: 'boards',
   schema: BoardSchema,
   sync: true,
+  syncType: 'graphql',
   mutationQuery: `
     mutation CreateBoard($doc: inputBoard) {
       setBoard(doc: $doc) {
@@ -29,6 +30,7 @@ export const BoardsEntities = [{
   name: 'messages',
   schema: MessageSchema,
   sync: true,
+  syncType: 'graphql',
   mutationQuery: `
     mutation CreateMessage($doc: inputMessage) {
       setMessage(doc: $doc) {

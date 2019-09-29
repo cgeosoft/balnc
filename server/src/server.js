@@ -105,8 +105,7 @@ export async function run() {
   const root = {
     info: () => 1,
     feedBoards: args => {
-      log('## feedBoards()');
-      log(args);
+      log('## feedBoards()', args);
       // sorted by updatedAt and primary
       const sortedDocuments = boards.sort(sortByUpdatedAtAndPrimary);
 
@@ -125,8 +124,7 @@ export async function run() {
       return limited;
     },
     feedMessages: args => {
-      log('## feedMessages()');
-      log(args);
+      log('## feedMessages()', args);
       // sorted by updatedAt and primary
       const sortedDocuments = messages.sort(sortByUpdatedAtAndPrimary);
 
@@ -145,8 +143,7 @@ export async function run() {
       return limited;
     },
     setBoard: args => {
-      log('## setBoard()');
-      log(args);
+      log('## setBoard()', args);
       const doc = args.doc;
       boards = boards.filter(d => d._id !== doc._id);
       doc.updatedAt = Math.round(new Date().getTime() / 1000);
@@ -163,8 +160,7 @@ export async function run() {
       return doc;
     },
     setMessage: args => {
-      log('## setMessage()');
-      log(args);
+      log('## setMessage()', args);
       const doc = args.doc;
       messages = messages.filter(d => d._id !== doc._id);
       doc.updatedAt = Math.round(new Date().getTime() / 1000);

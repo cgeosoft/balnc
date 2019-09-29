@@ -36,53 +36,7 @@ RxDB.plugin(JsonDumpPlugin)
 RxDB.plugin(AdapterHttp)
 RxDB.plugin(AdapterMemory)
 RxDB.plugin(RxDBUpdateModule)
-
 RxDB.plugin(RxDBReplicationGraphQL)
-const GRAPHQL_PORT = 10102
-const GRAPHQL_PATH = '/graphql'
-const GRAPHQL_SUBSCRIPTION_PORT = 10103
-const GRAPHQL_SUBSCRIPTION_PATH = '/subscriptions'
-
-const batchSize = 5
-const queryBuilder = doc => {
-  if (!doc) {
-    doc = {
-      id: '',
-      updatedAt: 0
-    }
-  }
-  const query = `{
-        feedForRxDBReplication(lastId: "${doc.id}", minUpdatedAt: ${doc.updatedAt}, limit: ${batchSize}) {
-            id
-            name
-            color
-            updatedAt
-            deleted
-        }
-    }`
-  return {
-    query,
-    variables: {}
-  }
-}
-const pushQueryBuilder = doc => {
-  const query = `
-        mutation CreateHuman($human: HumanInput) {
-            setHuman(human: $human) {
-                id,
-                updatedAt
-            }
-       }
-    `
-  const variables = {
-    human: doc
-  }
-
-  return {
-    query,
-    variables
-  }
-}
 
 @Injectable()
 export class RxDBService {
@@ -115,7 +69,7 @@ export class RxDBService {
     const _adapter = await this.getAdapter()
     const db = await RxDB.create({
       name: name,
-      adapter: "memory"
+      adapter: 'memory'
     })
 
     let sets = []
@@ -148,63 +102,73 @@ export class RxDBService {
     }
 
     entities.forEach((entity) => {
-      if (entity.sync || entity.name === 'boards' || entity.name === 'messages') {
-        const ent: RxCollection<any> = db[entity.name]
+      if (entity.sync) {
+        const coll: RxCollection<any> = db[entity.name]
 
-        if (!ent) {
+        if (!coll) {
           console.log('[DatabaseService]', `Entity ${entity.name} for ${name} not found`)
         }
 
-        // regular sync
-        this.replicationStates[entity.name] = ent.sync({
-          remote: `${this.config.db}/${name}_${entity.name}/`,
-          options: {
-            live: true,
-            retry: true
-          }
-        })
-
-        // graphql sync
-        // this.replicationStates[entity.name] = ent.syncGraphQL({
-        //   url: 'http://127.0.0.1:' + GRAPHQL_PORT + GRAPHQL_PATH,
-        //   push: {
-        //     batchSize: 5,
-        //     queryBuilder: (doc) => {
-        //       return {
-        //         query: entity.mutationQuery,
-        //         variables: {
-        //           doc
-        //         }
-        //       }
-        //     }
-        //   },
-        //   pull: {
-        //     queryBuilder: (doc) => {
-        //       if (!doc) {
-        //         doc = {
-        //           id: '',
-        //           updatedAt: 0
-        //         }
-        //       }
-        //       return {
-        //         query: entity.feedQuery(doc, 5),
-        //         variables: {}
-        //       }
-        //     }
-        //   },
-        //   live: true,
-        //   /**
-        //    * TODO
-        //    * we have to set this to a low value, because the subscription-trigger
-        //    * does not work sometimes. See below at the SubscriptionClient
-        //    */
-        //   liveInterval: 1000 * 2,
-        //   deletedFlag: 'deleted'
-        // })
+        if (entity.syncType === 'graphql') {
+          this.replicationStates[entity.name] = this.syncGraphQL(entity, coll)
+        } else {
+          this.replicationStates[entity.name] = this.syncCouch(entity, coll)
+        }
 
         this.replicationStates[entity.name].error$.subscribe((err) => {
           this.toastr.error(err, '[Database] Sync Error')
         })
+      }
+    })
+  }
+
+  syncGraphQL(entity, coll) {
+    console.log('sync with syncGraphQL')
+    return coll.syncGraphQL({
+      url: 'http://127.0.0.1:10102/graphql',
+      push: {
+        batchSize: 5,
+        queryBuilder: (doc) => {
+          return {
+            query: entity.mutationQuery,
+            variables: {
+              doc
+            }
+          }
+        }
+      },
+      pull: {
+        queryBuilder: (doc) => {
+          if (!doc) {
+            doc = {
+              id: '',
+              updatedAt: 0
+            }
+          }
+          return {
+            query: entity.feedQuery(doc, 5),
+            variables: {}
+          }
+        }
+      },
+      live: true,
+      /**
+       * TODO
+       * we have to set this to a low value, because the subscription-trigger
+       * does not work sometimes. See below at the SubscriptionClient
+       */
+      liveInterval: 1000 * 2,
+      deletedFlag: 'deleted'
+    })
+  }
+
+  syncCouch(entity, coll) {
+    console.log('sync with syncCouch')
+    return coll.sync({
+      remote: `${this.config.db}/${name}_${entity.name}/`,
+      options: {
+        live: true,
+        retry: true
       }
     })
   }

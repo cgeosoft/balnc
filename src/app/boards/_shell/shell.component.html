@@ -24,7 +24,14 @@
         </ng-container>
       </ng-container>
     </div>
-    <pre>{{unread|json:2}}</pre>
+  </div>
+  <div class="menu mt-auto">
+    <div class="items">
+      <button (click)="generate()">
+        <fa-icon icon="plus-circle" class="icon"></fa-icon>
+        <div class="content">Generate</div>
+      </button>
+    </div>
   </div>
 </app-sidebar>
 <router-outlet></router-outlet>
