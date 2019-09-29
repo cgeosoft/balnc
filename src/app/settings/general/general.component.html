@@ -1,7 +1,7 @@
 <ng-container *ngIf="profile; else loading">
   <app-content>
-    <app-content-header title="General" icon="cog"></app-content-header>
-    <app-content-body>
+    <app-content-header title="General" [icon]="['fas','cog']"></app-content-header>
+    <app-content-body [full]="true">
       <div class="list-settings">
         <div class="list-settings-item">
           <div class="list-settings-content">
