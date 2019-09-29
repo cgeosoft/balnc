@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
 import * as AdapterHttp from 'pouchdb-adapter-http'
-import * as AdapterIDB from 'pouchdb-adapter-idb'
+import * as AdapterMemory from 'pouchdb-adapter-memory'
 import { RxCollection, RxReplicationState } from 'rxdb'
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
 import AttachmentsPlugin from 'rxdb/plugins/attachments'
@@ -34,7 +34,7 @@ RxDB.plugin(RxDBErrorMessagesModule)
 RxDB.plugin(AdapterCheckPlugin)
 RxDB.plugin(JsonDumpPlugin)
 RxDB.plugin(AdapterHttp)
-RxDB.plugin(AdapterIDB)
+RxDB.plugin(AdapterMemory)
 RxDB.plugin(RxDBUpdateModule)
 
 RxDB.plugin(RxDBReplicationGraphQL)
@@ -91,7 +91,7 @@ export class RxDBService {
   private replicationStates: { [key: string]: RxReplicationState } = {}
   private key: string
 
-  constructor (
+  constructor(
     private http: HttpClient,
     private configService: ConfigService,
     private toastr: ToastrService
@@ -103,7 +103,7 @@ export class RxDBService {
     }
   }
 
-  async setup (alias, entities: Entity[]) {
+  async setup(alias, entities: Entity[]) {
     if (!this.configService.profile) {
       console.log('[DatabaseService]', `There is not a selected profile`)
       return
@@ -115,7 +115,7 @@ export class RxDBService {
     const _adapter = await this.getAdapter()
     const db = await RxDB.create({
       name: name,
-      adapter: _adapter
+      adapter: "memory"
     })
 
     let sets = []
@@ -133,7 +133,7 @@ export class RxDBService {
     return db
   }
 
-  async sync (alias, db, entities) {
+  async sync(alias, db, entities) {
 
     console.log('[DatabaseService]', `Sync entities`, entities)
 
@@ -209,7 +209,7 @@ export class RxDBService {
     })
   }
 
-  async authenticate (username: string, password: string) {
+  async authenticate(username: string, password: string) {
     return this.http.post(`${this.config.db}/_session`, {
       name: username,
       password: password
@@ -220,7 +220,7 @@ export class RxDBService {
       })
   }
 
-  async removeProfile (profileId: string, entities: Entity[]) {
+  async removeProfile(profileId: string, entities: Entity[]) {
     const adapter = await this.getAdapter()
     entities.forEach(async (entity) => {
       const name = `${profileId}_${entity.name}`
@@ -228,7 +228,8 @@ export class RxDBService {
     })
   }
 
-  private async getAdapter () {
+  private async getAdapter() {
+    return 'memory'
     if (await RxDB.checkAdapter('idb')) {
       return 'idb'
     }
