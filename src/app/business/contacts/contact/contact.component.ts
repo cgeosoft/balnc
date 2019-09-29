@@ -8,36 +8,6 @@ import { ContactsService } from '../../_shared/services/contacts.service'
 import { OrdersService } from '../../_shared/services/orders.service'
 import { StateService } from '../../_shared/services/state.service'
 
-// <ng-container *ngIf="cevents$ | async as cevents; else loader">
-// <ng-container *ngIf="cevents; else empty">
-//   <table class="table">
-//     <thead>
-//       <th style="width:210px;">Date</th>
-//       <th style="width:130px;">Type</th>
-//       <th>Comment</th>
-//     </thead>
-//     <tbody>
-//       <tr *ngFor="let cevent of cevents">
-//         <td>{{cevent.date|date:"yyyy-MM-dd HH:mm:ss"}}</td>
-//         <td>
-//           <span class="d-block badge badge-pill badge-dark mt-1"
-//             [ngStyle]="{background:badges[eventType[cevent.type]].color}">
-//             {{badges[eventType[cevent.type]].label}}</span>
-//         </td>
-//         <td>
-//           <div class="d-flex">
-//             <span>{{cevent.comment}}</span>
-//             <a *ngIf="cevent.reference" [routerLink]="[cevent.reference]"
-//               class="btn btn-sm btn-outline-primary border-0 py-0 ml-auto">
-//               <fa-icon icon="external-link-alt"></fa-icon> Open
-//             </a>
-//           </div>
-//         </td>
-//       </tr>
-//     </tbody>
-//   </table>
-// </ng-container>
-// </ng-container>
 @Component({
   selector: 'app-contacts-contact',
   templateUrl: './contact.component.html',
@@ -84,8 +54,7 @@ export class ContactComponent implements OnInit {
       label: 'Manage'
     }, {
       id: 'raw',
-      label: 'Raw',
-      right: true
+      label: 'Raw Data'
     }]
   }
   breadcrumb

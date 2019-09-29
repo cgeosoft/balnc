@@ -75,7 +75,9 @@
 </app-content>
 
 <ng-template #noboard>
-  <app-empty message="No board selected" icon="comments:regular"></app-empty>
+  <app-content-body *ngIf="menu.selected === 'messages'" [full]="true" [padding]="false">
+    <app-empty message="No board selected" icon="comments:regular"></app-empty>
+  </app-content-body>
 </ng-template>
 <ng-template #emptyMessages>
   <app-empty message="No messages yet" icon="comments:regular"></app-empty>

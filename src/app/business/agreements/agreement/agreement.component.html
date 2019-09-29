@@ -1,34 +1,32 @@
 <ng-container *ngIf="agreement">
   <app-content>
     <app-content-body>
-      <app-content-breadcrumb [items]="breadcrumb"></app-content-breadcrumb>
+      <div class="btn-toolbar">
+        <button class="btn btn-secondary" styleSheetFile="/assets/css/print.css" printSectionId="print-section"
+          ngxPrint>Print</button>
+      </div>
+    </app-content-body>
+    <app-content-body>
+      <div class="row">
+        <div class="col-4">
+          <div><strong>Serial</strong></div>
+          <div class="text-monospace">{{agreement.serial}}</div>
+        </div>
+        <div class="col-4">
+          <div><strong>Created</strong></div>
+          <div>{{agreement.createdAt|date:"short"}}</div>
+        </div>
+        <div class="col-4">
+          <div><strong>Updated</strong></div>
+          <div>{{agreement.updatedAt|date:"short"}}</div>
+        </div>
+      </div>
     </app-content-body>
     <app-content-body [full]="true">
-      <div class="d-flex h-100">
-        <div class="h-100 w-100 overflow-auto">
-          <textarea #content *ngIf="editDesc" class="form-control h-100"
-            style="padding:10px;box-shadow:none;background: #FAFAFA" placeholder="content..."
-            [value]="agreement.content" (blur)="updateDesc(content.value)"></textarea>
-          <div id="print-section" style="padding:10px" *ngIf="!editDesc" (click)="enableEdit()">
-            <markdown [data]="agreement.content"></markdown>
-          </div>
-        </div>
-        <div class="ml-4" style="min-width:200px">
-          <div class="card">
-            <div class="card-body">
-              <dl>
-                <dt>Serial</dt>
-                <dd class="text-truncate">{{agreement.serial}}</dd>
-                <dt>Created</dt>
-                <dd>{{agreement.createdAt|date:"short"}}</dd>
-                <dt>Updated</dt>
-                <dd>{{agreement.updatedAt|date:"short"}}</dd>
-              </dl>
-              <button class="btn btn-outline-secondary btn-block btn-sm" styleSheetFile="/assets/css/print.css"
-                printSectionId="print-section" ngxPrint>Print</button>
-            </div>
-          </div>
-        </div>
+      <textarea #content *ngIf="editDesc" class="form-control h-100" style="box-shadow:none;background: #FAFAFA"
+        placeholder="content..." [value]="agreement.content" (blur)="updateDesc(content.value)"></textarea>
+      <div id="print-section" *ngIf="!editDesc" (click)="enableEdit()">
+        <markdown [data]="agreement.content"></markdown>
       </div>
     </app-content-body>
   </app-content>

@@ -1,14 +1,10 @@
 <app-content>
-  <app-content-body>
-    <div class="list-settings">
-      <div class="list-group-item">
-        <div class="list-settings-content">
-          <h5>Random Data</h5>
-          <p>This will generate random data. We suggest to generate random data in a non-production profile.</p>
-          <button class="btn btn-action btn-primary float-right" (click)="generateDemoData()">Generate</button>
-          <p class="text-center text-success" *ngIf="generated">Random data generated at {{generated|date:'short'}}</p>
-        </div>
-      </div>
+  <app-content-body [full]="true">
+    <div>
+      <h4>Generate Random Data</h4>
+      <p>This will generate random data. We suggest to generate random data in a non-production profile.</p>
+      <button class="btn btn-primary" (click)="generateDemoData()">Generate</button>
+      <p class="text-center text-success" *ngIf="generated">Random data generated at {{generated|date:'short'}}</p>
     </div>
   </app-content-body>
 </app-content>
