@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { Observable } from 'rxjs'
 import { CreateComponent } from '../create/create.component'
-import { RxPresentationDoc } from '../_shared/models/presentation'
+import { Presentation } from '../_shared/models/presentation'
 import { PresentationsService } from '../_shared/services/presentations.service'
 
 @Component({
@@ -12,7 +13,7 @@ import { PresentationsService } from '../_shared/services/presentations.service'
 })
 export class ShellComponent implements OnInit {
 
-  presentations: RxPresentationDoc[] = []
+  presentations$: Observable<Presentation[]>
 
   constructor(
     private modal: NgbModal,
@@ -21,8 +22,7 @@ export class ShellComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    const presentations = await this.presentationsService.getPresentations()
-    return this.presentations = presentations
+    this.presentations$ = this.presentationsService.getAll$<Presentation>('presentations')
   }
 
   async create() {

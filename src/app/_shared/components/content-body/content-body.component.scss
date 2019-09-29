@@ -13,5 +13,6 @@
   &.full {
     @extend .h-100;
     @extend .overflow-auto;
+    @extend .flex-shrink-1;
   }
 }

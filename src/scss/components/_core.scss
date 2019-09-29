@@ -168,6 +168,11 @@ thead {
     @extend .mr-2;
   }
 
+  > .ml-auto > .btn,
+  > .ml-auto > .btn-group {
+    @extend .ml-2;
+  }
+
   .btn {
     @extend .btn-sm;
   }

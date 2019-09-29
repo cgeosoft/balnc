@@ -15,21 +15,13 @@
         <div class="content">Settings</div>
       </a>
       <div class="divider"></div>
-      <ng-container *ngIf="presentations.length; else empty">
-        <a *ngFor="let presentation of presentations" [routerLink]="['/presentations',presentation['_id']]"
-          routerLinkActive="active">
-          <div class="thumb">
-            <ng-container *ngIf="presentation.thumb; else noThumb">
-              <div class="thumb-img" [ngStyle]="{'background-image': 'url('+presentation.thumb+')'}"></div>
-            </ng-container>
-          </div>
-          <div class="content">
+      <ng-container *ngIf="(presentations$ | async) as presentations">
+        <ng-container *ngIf="presentations.length; else empty">
+          <a *ngFor="let presentation of presentations" [routerLink]="['/presentations',presentation['_id']]"
+            routerLinkActive="active">
             <span>{{presentation.title}}</span>
-            <ng-container *ngIf="presentation.stats.filecount">
-              <small>files: {{presentation.stats.filecount}} | Size: {{presentation.stats.filesize | bytes:0}}</small>
-            </ng-container>
-          </div>
-        </a>
+          </a>
+        </ng-container>
       </ng-container>
     </div>
   </div>

@@ -11,6 +11,7 @@
 
 :host ::ng-deep > * {
   @extend .mb-4;
+  @extend .flex-shrink-0;
 
   &:last-child {
     @extend .mb-0;

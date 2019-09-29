@@ -162,13 +162,13 @@
 
             <div class="btn-group">
               <div ngbDropdown container="body" placement="bottom-right" class="d-inline-block">
-                <button class="btn btn-link text-secondary dropdown-toggle-hidden" ngbDropdownToggle>
+                <button class="btn btn-light dropdown-toggle-hidden" ngbDropdownToggle>
                   <fa-layers class="fa-fw">
                     <fa-icon [icon]="['fas','th-list']"></fa-icon>
                   </fa-layers>
                 </button>
                 <div ngbDropdownMenu>
-                  <ng-container *ngIf="presentation.pages; else emptyPages">
+                  <ng-container *ngIf="presentation.pages">
                     <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}"
                       (click)="setPageIndex(i)" *ngFor="let page of presentation.pages; let i = index;">
                       {{page.title}}
@@ -183,12 +183,16 @@
       </app-content-body>
 
       <ng-container *ngIf="presentation.pages; else noPages">
-        <app-content-body [padding]="false">
-          <img class="img-fluid" [src]="imageData">
-        </app-content-body>
+
         <app-content-body>
           <h4>{{presentation.pages[activePageIndex].title || 'without title'}}</h4>
           <div class="text-muted">{{presentation.pages[activePageIndex].description || 'without title'}}</div>
+        </app-content-body>
+
+        <app-content-body [full]="true" [padding]="false">
+          <div class="overflow-auto text-center">
+            <img class="img-fluid" [src]="imageData">
+          </div>
         </app-content-body>
       </ng-container>
 

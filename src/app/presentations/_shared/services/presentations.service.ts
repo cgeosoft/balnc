@@ -142,12 +142,12 @@ export class PresentationsService extends CommonService {
       const presentation = await this.createPresentation(faker.name.findName(), faker.lorem.paragraph())
       console.log(`add presentation ${presentation.title}`)
       presentations.push(presentation)
-    }
 
-    for (let c = 0; c < 50; c++) {
-      const pr = Math.floor(Math.random() * presentations.length)
-      if (presentations[pr]) {
-        const filedata = await fetch('https://source.unsplash.com/random')
+      const rotation = faker.random.number({ min: 0, max: 1 }) === 1 ? '1024/768' : '768/1024'
+      for (let c = 0; c < 15; c++) {
+        const image = `https://picsum.photos/id/${faker.random.number({ min: 1000, max: 1017 })}/${rotation}`
+
+        const filedata = await fetch(image)
           .then(res => res.blob())
         const page = {
           title: faker.name.findName(),
@@ -155,7 +155,7 @@ export class PresentationsService extends CommonService {
           file: filedata,
           fileType: 'image/png'
         }
-        await this.createPage(presentations[pr], page)
+        await this.createPage(presentation, page)
         console.log(`add page`, page)
       }
     }
