@@ -17,9 +17,9 @@ export class OrderComponent implements OnInit {
   order$: any
   contact$: any
 
-  tabsMenu = {
+  menu = {
     selected: 'overview',
-    tabs: [{
+    items: [{
       id: 'overview',
       label: 'Overview'
     }, {
@@ -31,7 +31,7 @@ export class OrderComponent implements OnInit {
 
   contact: Contact
 
-  constructor (
+  constructor(
     private route: ActivatedRoute,
     private stateService: StateService,
     private contactsService: ContactsService,
@@ -39,7 +39,7 @@ export class OrderComponent implements OnInit {
     private zone: NgZone
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.order$ = this.route
       .params
       .pipe(

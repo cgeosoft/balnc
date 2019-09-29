@@ -26,38 +26,33 @@ export class BoardComponent implements OnInit {
   messages$: Observable<Message[]>
   filteredMessages$: Subject<Message[]>
 
-  tabsMenu = {
+  menu = {
     selected: 'messages',
-    tabs: [{
+    items: [{
       id: 'messages',
       label: 'Messages',
-      icon: 'comments:regular'
+      icon: ['fas', 'comments']
     }, {
-      //   id: 'files',
-      //   label: 'Files',
-      //   icon: 'copy'
-      // }, {
       id: 'manage',
       label: 'Manage',
-      icon: 'cog',
-      right: true
+      icon: ['fas', 'cog']
     }]
   }
   board$: Observable<Board>
 
-  constructor (
+  constructor(
     public boardService: BoardsService,
     private route: ActivatedRoute,
     private router: Router,
     private zone: NgZone
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.route.params.subscribe(async (params) => {
       this.selected = params['id']
       if (!this.selected) return
       this.boardService.selectBoard(this.selected)
-      this.board$ = await this.boardService.getOne$<Board>('boards', this.selected)
+      this.board$ = this.boardService.getOne$<Board>('boards', this.selected)
       this.messages$ = this.boardService.getAll$<Message>('messages').pipe(
         map(messages => messages.filter(message => message.board === this.selected)),
         tap(messages => {
@@ -73,7 +68,7 @@ export class BoardComponent implements OnInit {
     })
   }
 
-  async send () {
+  async send() {
     if (!this.inputMessage) { return }
 
     const dt = Date.now()
@@ -91,19 +86,19 @@ export class BoardComponent implements OnInit {
     this.focusInput()
   }
 
-  async delete () {
+  async delete() {
     if (!confirm('Are you sure?')) return
     await this.boardService.deleteBoard(this.selected)
     this.router.navigate(['/boards'])
   }
 
-  scrollToBottom (): void {
+  scrollToBottom(): void {
     if (this.messageList) {
       this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
     }
   }
 
-  focusInput (): void {
+  focusInput(): void {
     if (this.messageInput) {
       this.messageInput.nativeElement.focus()
     }

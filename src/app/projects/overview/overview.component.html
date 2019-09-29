@@ -1,5 +1,5 @@
 <app-content>
-  <app-content-body>
+  <app-content-body [padding]="false" [full]="true">
     <ng-container *ngIf="(logs$ | async) as logs; else loader">
       <ng-container *ngIf="logs.length; else nologs">
         <table class="table">

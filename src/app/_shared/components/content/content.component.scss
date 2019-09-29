@@ -5,8 +5,8 @@
   @extend .flex-column;
   @extend .justify-content-start;
   @extend .h-100;
-  @extend .ml-2;
   @extend .w-100;
+  @extend .ml-2;
 }
 
 :host ::ng-deep > * {

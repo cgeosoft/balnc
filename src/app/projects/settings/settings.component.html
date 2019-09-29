@@ -1,13 +1,14 @@
 <app-content>
-  <app-content-breadcrumb [items]="[{label:'settings'}]"></app-content-breadcrumb>
   <app-content-body>
     <div class="list-settings">
       <div class="list-group-item">
         <h5>Random Data</h5>
         <p>You may generate some random data. A few projects will be created and some issues in each project. Keep in
           mind that all data are permant. We suggest to generate random data in a non-production profile</p>
-        <span class="text-success" *ngIf="generated">Random data generated at {{generated|date:'short'}}</span>
-        <button class="btn btn-action btn-primary" (click)="generateDemoData()">Generate Random Data</button>
+        <p>
+          <button class="btn btn-action btn-primary" (click)="generateDemoData()">Generate Random Data</button>
+        </p>
+        <p class="text-success" *ngIf="generated">Random data generated at {{generated|date:'short'}}</p>
       </div>
     </div>
   </app-content-body>

@@ -42,7 +42,7 @@ export class IssueComponent implements OnInit {
   project: Project
   breadcrumb
 
-  constructor (
+  constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private projectsService: ProjectsService,
@@ -50,20 +50,20 @@ export class IssueComponent implements OnInit {
     private config: ConfigService
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.route
       .params
-      .subscribe(params => {
+      .subscribe(async (params) => {
         this.projectId = params['pid']
         this.issueId = params['iid']
         this.form = this.formBuilder.group({
           comment: ['', [Validators.required]]
         })
-        this.setup()
+        await this.setup()
       })
   }
 
-  status (status: IssueStatus) {
+  status(status: IssueStatus) {
     const s = this.issueStatusModel.find(x => x.key === status)
     return {
       style: {
@@ -74,27 +74,27 @@ export class IssueComponent implements OnInit {
     }
   }
 
-  async nextStatus (currentStatus: IssueStatus) {
+  async nextStatus(currentStatus: IssueStatus) {
     const i = this.issueStatusModel.findIndex(x => x.key === currentStatus)
     if (i === -1 || i === this.issueStatusModel.length - 1) return
     const next = this.issueStatusModel[i + 1].key
     await this.updateStatus(next)
   }
 
-  async updateTitle (title) {
+  async updateTitle(title) {
     const issue = await this.projectsService.getOne<Issue>('issues', this.issueId)
     const _title = title.trim()
     if (issue.title === _title) return
     await issue.update({ $set: { title: _title } })
   }
 
-  async updateStatus (status: IssueStatus) {
+  async updateStatus(status: IssueStatus) {
     const issue = await this.projectsService.getOne<Issue>('issues', this.issueId)
     await issue.update({ $set: { status: status } })
     await this.log(`status updated to ${status}`)
   }
 
-  async updateDesc (description) {
+  async updateDesc(description) {
     this.editDesc = false
     const issue = await this.projectsService.getOne<Issue>('issues', this.issueId)
     const _description = description.trim()
@@ -106,7 +106,7 @@ export class IssueComponent implements OnInit {
     })
   }
 
-  async submitComment () {
+  async submitComment() {
     const formModel = this.form.value
     if (!formModel.comment) return
     this.postCommentLoading = true
@@ -115,18 +115,18 @@ export class IssueComponent implements OnInit {
     this.postCommentLoading = false
   }
 
-  async changeStatus (status: string) {
+  async changeStatus(status: string) {
     await this.projectsService.changeStatus(status, this.issueId)
   }
 
-  enableEditDesc () {
+  enableEditDesc() {
     this.editDesc = true
     setTimeout(() => {
       this.desc.nativeElement.focus()
     })
   }
 
-  private async setup () {
+  private async setup() {
     this.issue$ = this.projectsService.getOne$<Issue>('issues', this.issueId)
     this.logs$ = this.projectsService
       .getAll$<Log>('logs', {
@@ -143,13 +143,15 @@ export class IssueComponent implements OnInit {
     this.issue$.subscribe(async (issue) => {
       this.project = await this.projectsService.getOne<Project>('projects', issue.projectId)
       this.breadcrumb = [
-        { url: ['/projects/project', issue.projectId], label: this.project.name },
+        { label: 'Projects' },
+        { url: ['/projects/project', issue.projectId], label: 'Projects' },
+        { url: ['/projects/project', issue.projectId], label: 'Issues' },
         { label: issue.title }
       ]
     })
   }
 
-  private log (message: string) {
+  private log(message: string) {
     return this.projectsService.addOne<Log>('logs', {
       issueId: this.issueId,
       type: LogType.activity,
@@ -159,7 +161,7 @@ export class IssueComponent implements OnInit {
     })
   }
 
-  private scroll (): void {
+  private scroll(): void {
     setTimeout(() => {
       this.timeline.nativeElement.scrollTop = this.timeline.nativeElement.scrollHeight
     }, 100)

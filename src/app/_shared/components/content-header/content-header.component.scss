@@ -12,8 +12,8 @@ $content-header-height: 42px;
     @extend .flex-row;
     @extend .align-items-center;
     @extend .w-100;
-    height: $content-header-height;
-    min-height: $content-header-height;
+    // height: $content-header-height;
+    // min-height: $content-header-height;
 
     .header-icon {
       @extend .mr-2;
@@ -21,14 +21,13 @@ $content-header-height: 42px;
       font-size: 1.5rem;
       text-align: center;
       color: lighten($body-color, 20%);
-      // border-right: solid 1px lighten($body-color, 30%);
     }
 
     .header-body {
       @extend .d-flex;
       @extend .flex-column;
       @extend .justify-content-center;
-      height: 100%;
+      // height: 100%;
 
       h1 {
         font-size: 1.3rem;
@@ -52,41 +51,19 @@ $content-header-height: 42px;
         }
       }
     }
-
-    &.has-tabs {
-      padding-bottom: 0;
-    }
   }
 
-  .header-tabs {
+  .menu {
     @extend .mt-auto;
     @extend .p-0;
 
-    .nav-tabs {
-      border-bottom: none;
-
+    .nav-pills {
       .nav-item {
-        @extend .mr-1;
-
         .nav-link {
-          @extend .text-muted;
           @extend .py-1;
-
-          &.active {
-            color: lighten($body-color, 5%);
-          }
-
-          &:hover {
-            border-bottom: none;
-          }
         }
       }
     }
-  }
-
-  &.has-tabs {
-    height: 94px;
-    min-height: 94px;
   }
 }
 

@@ -44,15 +44,15 @@
     </div>
   </div>
 </div>
-<div *ngIf="tabsMenu" class="header-tabs">
-  <ul class="nav nav-tabs">
-    <li class="nav-item" *ngFor="let tab of tabsMenu.tabs" [ngClass]="{'ml-auto':tab.right}">
-      <a class="nav-link" [ngClass]="{active:(tabsMenu.selected == tab.id)}" href="javascript:void(0);"
-        (click)="tabsMenu.selected = tab.id">
-        <fa-layers class="fa-fw" *ngIf="tab.icon">
-          <fa-icon [icon]="tab.icon"></fa-icon>
+<div *ngIf="menu" class="menu">
+  <ul class="nav nav-pills">
+    <li class="nav-item" *ngFor="let item of menu.items" [ngClass]="{'ml-auto':item.right}">
+      <a class="nav-link" [ngClass]="{active:(menu.selected == item.id)}" href="javascript:void(0);"
+        (click)="menu.selected = item.id">
+        <fa-layers class="fa-fw" *ngIf="item.icon">
+          <fa-icon [icon]="item.icon"></fa-icon>
         </fa-layers>
-        {{tab.label}}
+        {{item.label}}
       </a>
     </li>
   </ul>

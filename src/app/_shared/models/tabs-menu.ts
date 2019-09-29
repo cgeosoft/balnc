@@ -1,9 +1,9 @@
-export type TabsMenu = {
+export type HeaderMenu = {
   selected?: string
-  tabs?: TabsMenuItem[]
+  items?: HeaderMenuItem[]
 }
 
-export type TabsMenuItem = {
+export type HeaderMenuItem = {
   id?: string
   label?: string
   icon?: string | string[]

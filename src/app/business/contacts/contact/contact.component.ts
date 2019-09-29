@@ -74,9 +74,9 @@ export class ContactComponent implements OnInit {
     ]
   }
 
-  tabsMenu = {
+  menu = {
     selected: 'timeline',
-    tabs: [{
+    items: [{
       id: 'timeline',
       label: 'Timeline'
     }, {

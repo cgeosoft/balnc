@@ -1,7 +1,7 @@
 <app-content>
   <ng-container *ngIf="(board$ | async) as board; else noboard">
-    <app-content-header [title]="board.name" icon="comments:regular" [tabsMenu]="tabsMenu"></app-content-header>
-    <app-content-body *ngIf="tabsMenu.selected === 'messages'" class="h-100">
+    <app-content-header [menu]="menu"></app-content-header>
+    <app-content-body *ngIf="menu.selected === 'messages'" [full]="true" [padding]="false">
       <div class="card card-chat d-flex h-100">
         <div #messageList class="card-body">
           <ng-container *ngIf="(messages$ | async) as messages; else loader">
@@ -56,15 +56,13 @@
       </div>
     </app-content-body>
 
-    <app-content-body *ngIf="tabsMenu.selected === 'files'">
+    <app-content-body *ngIf="menu.selected === 'files'" [full]="true">
       <h4>Files</h4>
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni, quas quis. Velit ipsum amet quibusdam similique
-      ad
-      asperiores
-      dolores. Deleniti libero ex harum accusamus consectetur ipsa ipsam nihil, sed eaque!
+      ad asperiores dolores. Deleniti libero ex harum accusamus consectetur ipsa ipsam nihil, sed eaque!
     </app-content-body>
 
-    <app-content-body *ngIf="tabsMenu.selected === 'manage'">
+    <app-content-body *ngIf="menu.selected === 'manage'" [full]="true">
       <div class="list-settings">
         <div class="list-group-item">
           <h5>Delete board</h5>
@@ -74,7 +72,6 @@
       </div>
     </app-content-body>
   </ng-container>
-
 </app-content>
 
 <ng-template #noboard>

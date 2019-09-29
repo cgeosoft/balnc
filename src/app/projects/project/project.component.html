@@ -1,39 +1,8 @@
 <app-content>
-  <app-content-breadcrumb [items]="[{label:project?.name}]"></app-content-breadcrumb>
-  <app-content-body>
-    <div class="btn-toolbar">
-      <button class="btn btn-sm btn-primary" (click)="createIssue()">New Issue</button>
-      <div class="ml-auto d-flex align-items-center">
-        <div>Show</div>
-        <select class="form-control form-control-sm mx-2" style="width: 60px" [(ngModel)]="pLength"
-          (change)="calcPages()">
-          <option *ngFor="let length of lengths" [ngValue]="length">{{length}}</option>
-        </select>
-        <div>of <strong>{{issuesLength}}</strong> issues with status</div>
-        <select class="form-control form-control-sm mx-2" style="width: 100px" [(ngModel)]="filters.status"
-          (change)="calcPages();changedFilters()">
-          <option [ngValue]="null">Any</option>
-          <option *ngFor="let is of issueStatuses" [ngValue]="is.key">{{is.alias}}</option>
-        </select>
-        <div class="ml-auto">
-          <ul class="pagination pagination-sm mb-0" *ngIf="pages.length">
-            <li class="page-item">
-              <button class="page-link" (click)="goPrevious()">Previous</button>
-            </li>
-            <li class="page-item" [ngClass]="{active:p === page}" *ngFor="let p of pages">
-              <button class="page-link" (click)="page = p">{{p+1}}</button>
-            </li>
-            <li class="page-item">
-              <button class="page-link" (click)="goNext()">Next</button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
+  <app-content-body [padding]="false" [full]="true">
     <ng-container *ngIf="(issues$ | async) as issues; else loader">
-      <ng-container *ngIf="(issues | filterIssues:filters).length; else noissues">
-        <table class="table table-sm">
+      <ng-container *ngIf="(issues | filterIssues:filters).length; else empty">
+        <table class="table">
           <thead>
             <tr>
               <th style="width:80px">Status</th>
@@ -60,13 +29,14 @@
         </table>
       </ng-container>
     </ng-container>
-
-    <ng-template #empty>
-      <app-empty message="You don't have any issues yet" submessage="Click create to add your first one" icon="issues">
-      </app-empty>
-    </ng-template>
-    <ng-template #loader>
-      <app-spinner></app-spinner>
-    </ng-template>
   </app-content-body>
 </app-content>
+
+<ng-template #empty>
+  <app-empty message="You don't have any issues yet" submessage="Click create to add your first one" icon="issues">
+  </app-empty>
+</ng-template>
+
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

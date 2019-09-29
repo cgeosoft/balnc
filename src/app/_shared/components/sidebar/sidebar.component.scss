@@ -175,11 +175,12 @@ $sidebar-font: #666;
 
       > fa-icon:first-child,
       .icon {
+        @extend .ml-1;
         @extend .mr-2;
         text-align: center;
         width: 1.2rem;
         min-width: 1.2rem;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
 
         &.icon-badge {
           @extend .mr-0;

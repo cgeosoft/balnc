@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { TabsMenu } from '../../models/tabs-menu'
+import { HeaderMenu } from '../../models/tabs-menu'
 
 @Component({
   selector: 'app-content-header',
@@ -10,18 +10,18 @@ export class ContentHeaderComponent implements OnInit {
 
   @Input() title: string
   @Input() subtitle: string = null
-  @Input() icon: string[]
+  @Input() icon: string[] = ['fas', 'cube']
   @Input() details: any[] = []
   @Input() settingsMenu: any[] = []
 
-  @Input() tabsMenu: TabsMenu
+  @Input() menu: HeaderMenu
   @Input() fullWidth = false
   @Input() route = null
 
   ngOnInit() {
-    if (this.tabsMenu) {
-      if (!this.tabsMenu.selected) {
-        this.tabsMenu.selected = this.tabsMenu.tabs[0].id
+    if (this.menu) {
+      if (!this.menu.selected) {
+        this.menu.selected = this.menu.items[0].id
       }
     }
   }

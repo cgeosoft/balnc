@@ -4,7 +4,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { LocalStorage } from 'ngx-store'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
-import { IssueCreateComponent } from '../issue-create/issue-create.component'
 import { Issue, IssueStatus, IssueStatuses, IssueType, Project } from '../_shared/models/project'
 import { ProjectsService } from '../_shared/projects.service'
 
@@ -32,7 +31,9 @@ export class ProjectComponent implements OnInit {
     status: null
   }
 
-  constructor (
+  breadcrumb: any[]
+
+  constructor(
     private projectsService: ProjectsService,
     private modal: NgbModal,
     private zone: NgZone,
@@ -40,56 +41,51 @@ export class ProjectComponent implements OnInit {
     private router: Router
   ) { }
 
-  get pStart () {
+  get pStart() {
     return this.page * this.pLength
   }
-  get pEnd () {
+  get pEnd() {
     return this.pStart + this.pLength
   }
 
-  async ngOnInit () {
-    this.route.params.subscribe(params => {
+  async ngOnInit() {
+    this.route.params.subscribe(async (params) => {
       this.projectId = params['pid']
-      this.load()
+      await this.load()
     })
   }
 
-  getStatus (status: IssueStatus) {
+  getStatus(status: IssueStatus) {
     return IssueStatuses.find(s => s.key === status)
   }
 
-  getProject (projectId) {
+  getProject(projectId) {
     return this.projects.find(p => p['_id'] === projectId)
   }
 
-  goPrevious () {
+  goPrevious() {
     if (this.page > 0) this.page--
   }
 
-  goNext () {
+  goNext() {
     if (this.page < this.pages.length - 1) this.page++
   }
 
-  calcPages () {
+  calcPages() {
     this.pages = Array.apply(null, { length: this.issuesLength / this.pLength }).map(Number.call, Number)
     if (this.pages.length && this.issuesLength % this.pLength > 0) this.pages.push(this.pages[this.pages.length - 1] + 1)
   }
 
-  changedFilters () {
+  changedFilters() {
     this.filters = this.filters
   }
 
-  async createIssue () {
-    const m = this.modal.open(IssueCreateComponent)
-    m.componentInstance.projectId = this.projectId
-    const issueId = await m.result
-    if (issueId) {
-      this.router.navigate(['/projects/project', this.projectId, 'issue', issueId])
-    }
-  }
-
-  private async load () {
+  private async load() {
     this.project = await this.projectsService.getOne<Project>('projects', this.projectId)
+    this.breadcrumb = [
+      { label: 'Projects' },
+      { label: this.project.name }
+    ]
     this.issues$ = this.projectsService
       .getAll$<Issue>('issues', {
         projectId: { $eq: this.projectId },
@@ -108,7 +104,7 @@ export class ProjectComponent implements OnInit {
 
 @Pipe({ name: 'filterIssues', pure: false })
 export class FilterIssuesPipe implements PipeTransform {
-  transform (issues: Issue[], filters?: any): Issue[] {
+  transform(issues: Issue[], filters?: any): Issue[] {
     return issues.filter((i) => i.status === filters.status || filters.status === null)
   }
 }

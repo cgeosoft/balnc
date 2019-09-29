@@ -6,7 +6,7 @@
         <app-content-breadcrumb [items]="breadcrumb"></app-content-breadcrumb>
       </app-content-body>
 
-      <ng-container *ngIf="tabsMenu.selected === 'timeline'">
+      <ng-container *ngIf="menu.selected === 'timeline'">
 
         <app-content-body [padding]="false" [full]="true">
           <div class="btn-toolbar">
@@ -17,7 +17,7 @@
 
       </ng-container>
 
-      <app-content-body *ngIf="tabsMenu.selected === 'manage'">
+      <app-content-body *ngIf="menu.selected === 'manage'">
         <div class="card mb-4">
           <img class="img-thumbnail" [src]="contact.details.avatar" *ngIf="contact.details.avatar">
           <div class="card-body">
@@ -56,7 +56,7 @@
 
       </app-content-body>
 
-      <app-content-body *ngIf="tabsMenu.selected === 'raw'">
+      <app-content-body *ngIf="menu.selected === 'raw'">
         <div class="row">
           <div class="col-6">
             <div class="card">

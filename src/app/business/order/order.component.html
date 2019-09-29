@@ -12,15 +12,15 @@
         </div>
       </div>
 
-      <app-content-header [tabsMenu]="tabsMenu"></app-content-header>
+      <app-content-header [menu]="menu"></app-content-header>
 
-      <app-content-body *ngIf="tabsMenu.selected === 'overview'">
+      <app-content-body *ngIf="menu.selected === 'overview'">
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. At aliquam repellendus id vero pariatur quis velit,
         non aliquid laboriosam iure, voluptas nostrum cumque dicta possimus tempore suscipit modi minus eum.
 
       </app-content-body>
 
-      <app-content-body *ngIf="tabsMenu.selected === 'raw'">
+      <app-content-body *ngIf="menu.selected === 'raw'">
         <div class="card">
           <div class="card-body">
             <pre>{{order|json:2}}</pre>

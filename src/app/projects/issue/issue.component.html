@@ -1,101 +1,98 @@
-<ng-container *ngIf="(issue$ | async) as issue">
-  <app-content>
-    <app-content-breadcrumb [items]="breadcrumb"></app-content-breadcrumb>
-    <app-content-body>
-      <div class="d-flex h-100">
-        <div class="flex-grow-1 d-flex flex-column">
-          <div class="btn-toolbar">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm" [ngStyle]="status(issue.status).style"
-                (click)="nextStatus(issue.status)">
-                {{status(issue.status).label}}
-              </button>
-              <div class="btn-group btn-group-sm" ngbDropdown role="group">
-                <button class="btn dropdown-toggle-split" [ngStyle]="status(issue.status).style"
-                  ngbDropdownToggle></button>
-                <div class="dropdown-menu" ngbDropdownMenu>
-                  <button ngbDropdownItem *ngFor="let s of issueStatusModel" (click)="updateStatus(s.key)">
-                    <fa-icon [icon]="['fas','circle']" [ngStyle]="{color:s.color}"></fa-icon> {{s.alias}}
-                  </button>
-                </div>
-              </div>
-            </div>
+<app-content *ngIf="(issue$ | async) as issue">
+  <app-content-body>
+    <div class="btn-toolbar">
+      <div class="btn-group">
+        <button type="button" class="btn btn-sm" [ngStyle]="status(issue.status).style"
+          (click)="nextStatus(issue.status)">
+          {{status(issue.status).label}}
+        </button>
+        <div class="btn-group btn-group-sm" ngbDropdown container="body">
+          <button class="btn dropdown-toggle-split" [ngStyle]="status(issue.status).style" ngbDropdownToggle></button>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <button ngbDropdownItem *ngFor="let s of issueStatusModel" (click)="updateStatus(s.key)">
+              <fa-icon [icon]="['fas','circle']" [ngStyle]="{color:s.color}"></fa-icon> {{s.alias}}
+            </button>
           </div>
-          <h2 #title contenteditable="true" (blur)="updateTitle(title.innerText)" class="pb-2 border-bottom">
-            {{issue.title}}
-          </h2>
-          <div class="flex-grow-1 overflow-auto">
-            <textarea #desc *ngIf="editDesc" class="form-control h-100"
-              style="padding:10px;box-shadow:none;background: #FAFAFA" placeholder="description..."
-              [value]="issue.description" (blur)="updateDesc(desc.value)"></textarea>
-            <div style="padding:10px" *ngIf="!editDesc" (click)="enableEditDesc()">
-              <markdown [data]="issue.description"></markdown>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex flex-column bg-light rounded h-100 ml-4 p-2" style="min-width:450px;width:450px">
-          <div #timeline class="flex-grow-1 overflow-auto timeline">
-            <ng-container *ngIf="(logs$ | async) as logs">
-              <ng-container *ngIf="logs.length; else emptyLogs">
-                <ng-container *ngFor="let log of logs">
-                  <ng-container *ngIf="log.type===logType.comment">
-                    <div class="timeline-item">
-                      <div class="timeline-item-content">
-                        <markdown ngPreserveWhitespaces>
-                          {{log.text}}
-                        </markdown>
-                      </div>
-                      <div class="timeline-item-footer">
-                        {{log.insertedFrom}} - {{log.insertedAt | dfnsFormatDistanceToNow}}
-                      </div>
-                    </div>
-                  </ng-container>
-                  <ng-container *ngIf="log.type===logType.activity">
-                    <div class="timeline-item">
-                      <div class="timeline-item-content">
-                        {{log.text}}
-                      </div>
-                      <div class="timeline-item-footer">
-                        {{log.insertedFrom}} - {{log.insertedAt | dfnsFormatDistanceToNow}}
-                      </div>
-                    </div>
-                  </ng-container>
-
-                </ng-container>
-              </ng-container>
-            </ng-container>
-          </div>
-          <hr>
-          <div>
-            <form [formGroup]="form" (ngSubmit)="submitComment()">
-              <ng-container *ngIf="!commentPreview">
-                <div class="form-group mt-2">
-                  <textarea tabindex="3" formControlName="comment" class="form-control border" rows="3"
-                    placeholder="Write a comment..."></textarea>
-                </div>
-              </ng-container>
-              <!-- <ng-container *ngIf="!commentPreview">
-                <markdown ngPreserveWhitespaces class="comment" [data]="form.get('comment').value"></markdown>
-              </ng-container> -->
-              <div class="d-flex">
-                <div class="form-text text-muted">
-                  <a target="_blank" href="https://www.markdownguide.org/">Markdown</a> is supported
-                </div>
-                <div class="ml-auto">
-                  <button type="button" class="btn btn-success" type="submit">Submit
-                    <fa-icon [icon]="['fas','cog']" [spin]="true" *ngIf="postCommentLoading"></fa-icon>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-
         </div>
       </div>
+    </div>
+  </app-content-body>
+  <app-content-body [padding]="false" [full]="true">
+    <div class="d-flex h-100">
+      <div class="flex-grow-1 d-flex flex-column p-4">
+        <h2 #title contenteditable="true" (blur)="updateTitle(title.innerText)" class="pb-2 border-bottom">
+          {{issue.title}}
+        </h2>
+        <div class="flex-grow-1 overflow-auto">
+          <textarea #desc *ngIf="editDesc" class="form-control h-100"
+            style="padding:10px;box-shadow:none;background: #FAFAFA" placeholder="description..."
+            [value]="issue.description" (blur)="updateDesc(desc.value)"></textarea>
+          <div style="padding:10px" *ngIf="!editDesc" (click)="enableEditDesc()">
+            <markdown [data]="issue.description"></markdown>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-column bg-light rounded h-100 ml-4 p-4" style="min-width:350px;width:350px">
+        <div #timeline class="flex-grow-1 overflow-auto timeline">
+          <ng-container *ngIf="(logs$ | async) as logs">
+            <ng-container *ngIf="logs.length; else emptyLogs">
+              <ng-container *ngFor="let log of logs">
+                <ng-container *ngIf="log.type===logType.comment">
+                  <div class="timeline-item">
+                    <div class="timeline-item-content">
+                      <markdown ngPreserveWhitespaces>
+                        {{log.text}}
+                      </markdown>
+                    </div>
+                    <div class="timeline-item-footer">
+                      {{log.insertedFrom}} - {{log.insertedAt | dfnsFormatDistanceToNow}}
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="log.type===logType.activity">
+                  <div class="timeline-item">
+                    <div class="timeline-item-content">
+                      {{log.text}}
+                    </div>
+                    <div class="timeline-item-footer">
+                      {{log.insertedFrom}} - {{log.insertedAt | dfnsFormatDistanceToNow}}
+                    </div>
+                  </div>
+                </ng-container>
 
-    </app-content-body>
-  </app-content>
-</ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </div>
+        <hr>
+        <div>
+          <form [formGroup]="form" (ngSubmit)="submitComment()">
+            <ng-container *ngIf="!commentPreview">
+              <div class="form-group mt-2">
+                <textarea tabindex="3" formControlName="comment" class="form-control border" rows="3"
+                  placeholder="Write a comment..."></textarea>
+              </div>
+            </ng-container>
+            <!-- <ng-container *ngIf="!commentPreview">
+                <markdown ngPreserveWhitespaces class="comment" [data]="form.get('comment').value"></markdown>
+              </ng-container> -->
+            <div class="d-flex">
+              <div class="form-text text-muted">
+                <a target="_blank" href="https://www.markdownguide.org/">Markdown</a> is supported
+              </div>
+              <div class="ml-auto">
+                <button type="button" class="btn btn-success" type="submit">Submit
+                  <fa-icon [icon]="['fas','cog']" [spin]="true" *ngIf="postCommentLoading"></fa-icon>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </app-content-body>
+</app-content>
 
 <ng-template #emptyLogs>
   <app-empty message="You don't have any logs"> </app-empty>
