@@ -1,0 +1,54 @@
+{
+  "name": "@balnc/desktop",
+  "description": "An offline-first application for managing small business",
+  "version": "0.4.0",
+  "license": "MIT",
+  "author": {
+    "name": "Christos Georgiou",
+    "email": "georgiou.christos@outlook.com",
+    "url": "http://cgeosoft.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/christosgeorgiou/balnc"
+  },
+  "scripts": {
+    "start": "electron main.js",
+    "build": "ng build --base-href ./",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "@balnc/app": "^0.803.4",
+    "electron": "^6.0.9",
+    "electron-builder": "^21.2.0",
+    "electron-protocol-serve": "^1.3.0"
+  },
+  "build": {
+    "appId": "com.cgeosoft.balnc",
+    "files": [
+      {
+        "from": "./dist/app",
+        "to": "./"
+      },
+      "main.js",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist/desktop"
+    },
+    "asar": false,
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "mac": {
+      "category": "public.app-category.business"
+    },
+    "nsis": {
+      "runAfterFinish": true,
+      "license": "LICENSE"
+    }
+  }
+}

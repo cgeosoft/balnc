@@ -1,7 +1,7 @@
-import BoardSchema from './schemas/board.json'
-import MessageSchema from './schemas/message.json'
+import BoardSchema from '@balnc/commons/boards/schemas/board.json'
+import MessageSchema from '@balnc/commons/boards/schemas/message.json'
 
-export const BoardsEntities = [{
+export const Entities = [{
   name: 'boards',
   schema: BoardSchema,
   sync: true,

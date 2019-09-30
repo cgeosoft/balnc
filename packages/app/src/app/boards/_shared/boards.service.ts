@@ -1,11 +1,11 @@
 import { Injectable, NgZone } from '@angular/core'
+import { Board } from '@balnc/commons/boards/models/board'
+import { Message } from '@balnc/commons/boards/models/message'
 import { ConfigService, RxDBService } from '@balnc/core'
 import { CommonService } from '@balnc/shared'
 import * as faker from 'faker'
 import { LocalStorage } from 'ngx-store'
-import { Board } from './models/board'
-import { BoardsEntities } from './models/entities'
-import { Message } from './models/message'
+import { Entities } from './models/entities'
 
 export interface BoardStats {
   id: string
@@ -30,7 +30,7 @@ export class BoardsService extends CommonService {
   async setup() {
     await super.setup({
       alias: 'boards',
-      entities: BoardsEntities
+      entities: Entities
     })
     this.nickname = this.configService.profile.remote.username || 'anonymous'
 
@@ -74,19 +74,17 @@ export class BoardsService extends CommonService {
   }
 
   selectBoard(boardId) {
-    const bs = [...this.boardsStats]
-    let bs1 = bs.find(x => x.id === boardId)
+    let bs1 = this.boardsStats.find(x => x.id === boardId)
     if (!bs1) {
       bs1 = {
         id: boardId,
         lastread: 0,
         unread: 0
       }
-      bs.push(bs1)
+      this.boardsStats.push(bs1)
     }
     bs1.unread = 0
     bs1.lastread = Date.now()
-    this.boardsStats = [...bs]
     this.selectedBoard = boardId
   }
 

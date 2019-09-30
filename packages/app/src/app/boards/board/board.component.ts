@@ -1,10 +1,10 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
+import { Board } from '@balnc/commons/boards/models/board'
+import { Message } from '@balnc/commons/boards/models/message'
 import { Observable, Subject } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
 import { BoardsService } from '../_shared/boards.service'
-import { Board } from '../_shared/models/board'
-import { Message } from '../_shared/models/message'
 
 @Component({
   selector: 'app-boards-board',

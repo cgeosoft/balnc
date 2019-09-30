@@ -1,5 +1,3 @@
-import { RxDocument } from 'rxdb'
-
 export interface Message {
   timestamp: number
   text?: string
@@ -9,5 +7,3 @@ export interface Message {
   status: string
   type: string
 }
-
-export type RxMessageDoc = RxDocument<Message> & Message

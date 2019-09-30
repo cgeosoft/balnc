@@ -1,0 +1,15 @@
+{
+  "name": "@balnc/commons",
+  "description": "An offline-first application for managing small business",
+  "version": "0.4.0",
+  "license": "MIT",
+  "author": {
+    "name": "Christos Georgiou",
+    "email": "georgiou.christos@outlook.com",
+    "url": "http://cgeosoft.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/christosgeorgiou/balnc"
+  }
+}

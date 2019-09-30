@@ -1,8 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
+import { Board } from '@balnc/commons/boards/models/board'
 import { Observable } from 'rxjs'
 import { BoardsService, BoardStats } from '../_shared/boards.service'
-import { Board } from '../_shared/models/board'
 
 @Component({
   selector: 'app-boards-shell',
