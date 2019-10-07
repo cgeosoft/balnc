@@ -1,0 +1,63 @@
+type Query {
+    info: Int
+    feedBoards(lastId: String!, minUpdatedAt: Int!, limit: Int!): [Board!]!
+    feedMessages(lastId: String!, minUpdatedAt: Int!, limit: Int!): [Message!]!
+}
+
+type Mutation {
+  setBoard(doc: inputBoard): Board
+  setMessage(doc: inputMessage): Message
+}
+
+input inputBoard {
+    _id: ID!,
+    name: String,
+    created: Float,
+    avatar: String,
+    updatedAt: Float,
+    deleted: Boolean
+}
+
+type Board {
+  _id: ID!,
+  name: String,
+  created: Float,
+  avatar: String,
+  updatedAt: Float,
+  deleted: Boolean
+}
+
+input inputMessage {
+  _id: ID!,
+  timestamp: Float,
+  text: String,
+  data: String,
+  sender: String,
+  board: String,
+  status: String,
+  type: String,
+  updatedAt: Float,
+  deleted: Boolean
+}
+type Message {
+  _id: ID!,
+  timestamp: Float,
+  text: String,
+  data: String,
+  sender: String,
+  board: String,
+  status: String,
+  type: String,
+  updatedAt: Float,
+  deleted: Boolean
+}
+
+type Subscription {
+    boardChanged: Board
+    messageChanged: Message
+}
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}

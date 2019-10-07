@@ -19,7 +19,7 @@
     "e2e": "ng e2e",
     "build": "ng build --prod"
   },
-  "dependencies": {
+  "devDependencies": {
     "@balnc/commons": "*",
     "@angular-devkit/build-angular": "^0.803.4",
     "@angular-devkit/build-ng-packagr": "^0.803.4",

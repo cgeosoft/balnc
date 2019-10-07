@@ -19,10 +19,13 @@
     "dist": "electron-builder"
   },
   "dependencies": {
-    "@balnc/app": "^0.803.4",
     "electron": "^6.0.9",
     "electron-builder": "^21.2.0",
     "electron-protocol-serve": "^1.3.0"
+  },
+  "devDependencies": {
+    "@balnc/app": "*",
+    "@balnc/commons": "*"
   },
   "build": {
     "appId": "com.cgeosoft.balnc",
