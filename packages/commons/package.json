@@ -11,5 +11,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/christosgeorgiou/balnc"
+  },
+  "dependencies": {
+    "@lifeomic/json-schema-to-graphql-types": "^1.3.1",
+    "json-schema-to-typescript": "^7.1.0"
   }
 }

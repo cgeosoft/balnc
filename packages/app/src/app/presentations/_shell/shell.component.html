@@ -1,30 +1,27 @@
 <app-sidebar>
   <div class="title">Present</div>
-  <div class="menu">
-    <div class="items">
-      <a routerLink="/presentations/overview" routerLinkActive="active">
-        <fa-icon icon="border-all" class="icon"></fa-icon>
-        <div class="content">Overview</div>
-      </a>
-      <button (click)="create()">
-        <fa-icon icon="plus-circle" class="icon"></fa-icon>
-        <div class="content">Create Pesentation</div>
-      </button>
-      <a routerLink="/presentations/settings" routerLinkActive="active">
-        <fa-icon icon="cog" class="icon"></fa-icon>
-        <div class="content">Settings</div>
-      </a>
+  <a class="menu" routerLink="/presentations/overview" routerLinkActive="active">
+    <fa-icon icon="border-all" class="icon"></fa-icon>
+    <span>Overview</span>
+  </a>
+  <button class="menu" (click)="create()">
+    <fa-icon icon="plus-circle" class="icon"></fa-icon>
+    <span>Create Pesentation</span>
+  </button>
+  <a class="menu" routerLink="/presentations/settings" routerLinkActive="active">
+    <fa-icon icon="cog" class="icon"></fa-icon>
+    <span>Settings</span>
+  </a>
+  <ng-container *ngIf="(presentations$ | async) as presentations">
+    <ng-container *ngIf="presentations.length; else empty">
       <div class="divider"></div>
-      <ng-container *ngIf="(presentations$ | async) as presentations">
-        <ng-container *ngIf="presentations.length; else empty">
-          <a *ngFor="let presentation of presentations" [routerLink]="['/presentations',presentation['_id']]"
-            routerLinkActive="active">
-            <span>{{presentation.title}}</span>
-          </a>
-        </ng-container>
-      </ng-container>
-    </div>
-  </div>
+      <a class="menu" *ngFor="let presentation of presentations" [routerLink]="['/presentations',presentation['_id']]"
+        routerLinkActive="active">
+        <span>{{presentation.title}}</span>
+      </a>
+    </ng-container>
+  </ng-container>
+
 </app-sidebar>
 <router-outlet></router-outlet>
 <ng-template #empty>

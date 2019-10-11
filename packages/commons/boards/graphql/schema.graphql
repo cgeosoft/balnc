@@ -1,63 +1,59 @@
-type Query {
-    info: Int
-    feedBoards(lastId: String!, minUpdatedAt: Int!, limit: Int!): [Board!]!
-    feedMessages(lastId: String!, minUpdatedAt: Int!, limit: Int!): [Message!]!
+type Board {
+  key: String
+  name: String
+  members: [BoardMembersItem!]
+  created: Float
+  avatar: String
+}
+
+input BoardIn {
+  key: String
+  name: String
+  members: [BoardMembersItemIn!]
+  created: Float
+  avatar: String
+}
+
+type BoardMembersItem {
+  _typesWithoutFieldsAreNotAllowed_: String
+}
+
+input BoardMembersItemIn {
+  _typesWithoutFieldsAreNotAllowed_: String
+}
+
+type Message {
+  timestamp: Float
+  text: String
+  data: MessageData
+  sender: String
+  board: String
+  status: String
+  type: String
+}
+
+type MessageData {
+  _typesWithoutFieldsAreNotAllowed_: String
+}
+
+input MessageDataIn {
+  _typesWithoutFieldsAreNotAllowed_: String
+}
+
+input MessageIn {
+  timestamp: Float
+  text: String
+  data: MessageDataIn
+  sender: String
+  board: String
+  status: String
+  type: String
 }
 
 type Mutation {
-  setBoard(doc: inputBoard): Board
-  setMessage(doc: inputMessage): Message
+  Board(input: BoardIn): String
+  Message(input: MessageIn): String
 }
 
-input inputBoard {
-    _id: ID!,
-    name: String,
-    created: Float,
-    avatar: String,
-    updatedAt: Float,
-    deleted: Boolean
-}
 
-type Board {
-  _id: ID!,
-  name: String,
-  created: Float,
-  avatar: String,
-  updatedAt: Float,
-  deleted: Boolean
-}
 
-input inputMessage {
-  _id: ID!,
-  timestamp: Float,
-  text: String,
-  data: String,
-  sender: String,
-  board: String,
-  status: String,
-  type: String,
-  updatedAt: Float,
-  deleted: Boolean
-}
-type Message {
-  _id: ID!,
-  timestamp: Float,
-  text: String,
-  data: String,
-  sender: String,
-  board: String,
-  status: String,
-  type: String,
-  updatedAt: Float,
-  deleted: Boolean
-}
-
-type Subscription {
-    boardChanged: Board
-    messageChanged: Message
-}
-schema {
-    query: Query
-    mutation: Mutation
-    subscription: Subscription
-}

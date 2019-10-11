@@ -1,5 +1,7 @@
 {
-  "title": "message",
+  "$id": "https://balnc.cgeosoft.com/schemas/message",
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Message",
   "type": "object",
   "version": 0,
   "disableKeyCompression": true,

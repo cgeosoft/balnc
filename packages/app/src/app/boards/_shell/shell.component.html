@@ -1,38 +1,30 @@
 <app-sidebar>
   <div class="title">Boards</div>
-  <div class="menu">
-    <div class="input-group mb-2">
-      <input #boardname class="form-control" placeholder="New board">
-      <div class="input-group-append">
-        <button class="btn btn-primary" type="button" (click)="create(boardname.value)">
-          <fa-layers class="fa-fw">
-            <fa-icon icon="plus-circle"></fa-icon>
-          </fa-layers>
-        </button>
-      </div>
-    </div>
-    <div class="items">
-      <ng-container *ngIf="(boards$ | async) as boards; else loader">
-        <ng-container *ngIf="boards.length; else empty">
-          <ng-template ngFor let-board [ngForOf]="boards">
-            <a [routerLink]="['/boards',board.get('_id')]" routerLinkActive="active">
-              <fa-icon icon="comments" class="icon"></fa-icon>
-              <span>{{board.name}}</span>
-              <span class="ml-auto badge badge-primary" *ngIf="unread(board['_id'])">{{unread(board['_id'])}}</span>
-            </a>
-          </ng-template>
-        </ng-container>
-      </ng-container>
-    </div>
-  </div>
-  <div class="menu mt-auto">
-    <div class="items">
-      <button (click)="generate()">
-        <fa-icon icon="plus-circle" class="icon"></fa-icon>
-        <div class="content">Generate</div>
+  <div class="menu input-group">
+    <input #boardname class="form-control" placeholder="New board">
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="button" (click)="create(boardname.value)">
+        <fa-layers class="fa-fw">
+          <fa-icon icon="plus-circle"></fa-icon>
+        </fa-layers>
       </button>
     </div>
   </div>
+  <ng-container *ngIf="(boards$ | async) as boards; else loader">
+    <ng-container *ngIf="boards.length; else empty">
+      <ng-template ngFor let-board [ngForOf]="boards">
+        <a class="menu" [routerLink]="['/boards',board.get('_id')]" routerLinkActive="active">
+          <fa-icon icon="comments" class="icon"></fa-icon>
+          <span>{{board.name}}</span>
+          <span class="ml-auto badge badge-primary" *ngIf="unread(board['_id'])">{{unread(board['_id'])}}</span>
+        </a>
+      </ng-template>
+    </ng-container>
+  </ng-container>
+  <button class="menu" (click)="generate()">
+    <fa-icon icon="plus-circle" class="icon"></fa-icon>
+    <div class="content">Generate</div>
+  </button>
 </app-sidebar>
 <router-outlet></router-outlet>
 

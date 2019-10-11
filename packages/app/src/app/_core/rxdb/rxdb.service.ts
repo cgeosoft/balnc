@@ -69,7 +69,7 @@ export class RxDBService {
     const _adapter = await this.getAdapter()
     const db = await RxDB.create({
       name: name,
-      adapter: 'memory'
+      adapter: _adapter
     })
 
     let sets = []

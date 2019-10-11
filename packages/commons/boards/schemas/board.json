@@ -1,8 +1,11 @@
 {
-  "title": "board",
+  "$id": "https://balnc.cgeosoft.com/schemas/board",
+  "$schema": "http://json-schema.org/schema#",
+  "title": "Board",
   "type": "object",
   "version": 0,
   "disableKeyCompression": true,
+  "additionalProperties": false,
   "properties": {
     "key": {
       "type": "string"
@@ -22,5 +25,9 @@
     "avatar": {
       "type": "string"
     }
-  }
+  },
+  "required": [
+    "key",
+    "name"
+  ]
 }
