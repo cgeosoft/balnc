@@ -82,7 +82,7 @@ app.use(cors());
 const pubsub = new PubSub();
 
 const gqlTypes = fileLoader(path.join(__dirname, '../node_modules/@balnc/commons/**/*.graphql'), { recursive: true })
-const gqlResolvers = fileLoader(path.join(__dirname, "../node_modules/@balnc/commons**/*.resolvers.*"))
+const gqlResolvers = fileLoader(path.join(__dirname, "../node_modules/@balnc/commons/**/*.resolvers.*"))
 
 // server graphql-endpoint
 app.use(GRAPHQL_PATH, graphqlHTTP({

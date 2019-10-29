@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core'
 import { RxDBService } from '@balnc/core'
 import { CommonService } from '@balnc/shared'
-import { Order } from '../models/order'
+import { CEvent } from '../models/contacts'
 
 @Injectable()
-export class OrdersService extends CommonService<Order> {
-
+export class CEventsService extends CommonService<CEvent> {
   constructor(
     dbService: RxDBService
   ) {
     super(dbService)
-    this.type = 'order'
+    this.type = 'cevent'
   }
 }

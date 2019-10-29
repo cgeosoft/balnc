@@ -13,15 +13,15 @@
   <ng-container *ngIf="(boards$ | async) as boards; else loader">
     <ng-container *ngIf="boards.length; else empty">
       <ng-template ngFor let-board [ngForOf]="boards">
-        <a class="menu" [routerLink]="['/boards',board.get('_id')]" routerLinkActive="active">
+        <a class="menu" [routerLink]="['/boards',board._id]" routerLinkActive="active">
           <fa-icon icon="comments" class="icon"></fa-icon>
-          <span>{{board.name}}</span>
-          <span class="ml-auto badge badge-primary" *ngIf="unread(board['_id'])">{{unread(board['_id'])}}</span>
+          <span>{{board.data.name}}</span>
+          <span class="ml-auto badge badge-primary" *ngIf="unread[board._id]">{{unread[board._id]}}</span>
         </a>
       </ng-template>
     </ng-container>
   </ng-container>
-  <button class="menu" (click)="generate()">
+  <button class="menu mt-auto" (click)="generate()">
     <fa-icon icon="plus-circle" class="icon"></fa-icon>
     <div class="content">Generate</div>
   </button>

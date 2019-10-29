@@ -20,7 +20,6 @@
     "build": "ng build --prod"
   },
   "devDependencies": {
-    "@balnc/commons": "*",
     "@angular-devkit/build-angular": "^0.803.4",
     "@angular-devkit/build-ng-packagr": "^0.803.4",
     "@angular/animations": "^8.2.6",

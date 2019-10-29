@@ -7,22 +7,23 @@
           <ng-container *ngIf="(messages$ | async) as messages; else loader">
             <ng-container *ngIf="messages.length else emptyMessages">
               <ng-template ngFor let-m [ngForOf]="messages">
-                <ng-container [ngSwitch]="m.type">
+                <ng-container [ngSwitch]="m.data.type">
                   <ng-container *ngSwitchCase="'MESSAGE'">
-                    <div class="msg-item" [ngClass]="{'own':m.sender === boardService.nickname}">
-                      <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png"
-                        [ngbTooltip]="m.sender" placement="bottom">
+                    <div class="msg-item" [ngClass]="{'own':m.data.sender === boardService.nickname}">
+                      <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.data.sender}}.png"
+                        [ngbTooltip]="m.data.sender" placement="bottom" container="body">
                       <div class="msg-body">
-                        {{m.text}}
+                        {{m.data.text}}
                       </div>
-                      <small class="msg-time text-secondary" [ngbTooltip]="m.timestamp | date:'medium'">
+                      <small class="msg-time text-secondary" [ngbTooltip]="m.timestamp | date:'medium'"
+                        container="body">
                         {{m.timestamp | dfnsFormatDistanceToNow}}</small>
                     </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="'CMD-CREATE'">
                     <div class="msg-command">
-                      <strong>{{m.data.user}}</strong> created
-                      <strong>{{m.board}}</strong> at
+                      <strong>{{m.data.sender}}</strong> created
+                      <strong>{{m.data.board}}</strong> at
                       <strong>{{m.timestamp|date:'medium'}}</strong>
                     </div>
                   </ng-container>

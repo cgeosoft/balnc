@@ -20,33 +20,33 @@
         <app-content-body>
           <div class="row">
             <div class="col-4">
-              <img class="img-thumbnail" [src]="contact.details.avatar" *ngIf="contact.details.avatar">
+              <img class="img-thumbnail" [src]="contact.data.details.avatar" *ngIf="contact.data.details.avatar">
               <dl class="mb-0">
                 <dt>Name</dt>
-                <dd>{{contact.name}}</dd>
+                <dd>{{contact.data.name}}</dd>
                 <dt>Description</dt>
-                <dd>{{contact.details.description || '-'}}</dd>
+                <dd>{{contact.data.details.description || '-'}}</dd>
               </dl>
             </div>
             <div class="col-8">
               <h4>Connections</h4>
               <div class="list-group list-group-flush">
-                <a href="" class="list-group-item list-group-item-action" *ngFor="let conn of contact.conns">
+                <a href="" class="list-group-item list-group-item-action" *ngFor="let conn of contact.data.conns">
                   {{conn.reference}} <span class="badge badge-primary">{{conn.type}}</span>
                 </a>
               </div>
-              <ng-container *ngIf="contact.details.taxDetails">
+              <ng-container *ngIf="contact.data.details.taxDetails">
                 <hr>
                 <h4>Tax Details</h4>
                 <dl class="mb-0">
                   <dt>Legal Name</dt>
-                  <dd>{{contact.details.taxDetails.legalName || '-'}}</dd>
+                  <dd>{{contact.data.details.taxDetails.legalName || '-'}}</dd>
                   <dt>Address</dt>
-                  <dd>{{contact.details.taxDetails.address || '-'}}</dd>
+                  <dd>{{contact.data.details.taxDetails.address || '-'}}</dd>
                   <dt>Vat Number</dt>
-                  <dd class="text-monospace">{{contact.details.taxDetails.vatNumber || '-'}}</dd>
+                  <dd class="text-monospace">{{contact.data.details.taxDetails.vatNumber || '-'}}</dd>
                   <dt>Tax Office</dt>
-                  <dd>{{contact.details.taxDetails.taxOffice || '-'}}</dd>
+                  <dd>{{contact.data.details.taxDetails.taxOffice || '-'}}</dd>
                 </dl>
               </ng-container>
             </div>

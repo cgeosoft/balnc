@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
 import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterMemory from 'pouchdb-adapter-memory'
-import { RxCollection, RxReplicationState } from 'rxdb'
+import { RxDatabase, RxReplicationState } from 'rxdb'
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
 import AttachmentsPlugin from 'rxdb/plugins/attachments'
 import RxDB from 'rxdb/plugins/core'
@@ -17,8 +17,9 @@ import RxDBUpdateModule from 'rxdb/plugins/update'
 import RxDBValidateModule from 'rxdb/plugins/validate'
 import environment from '../../../environments/environment'
 import { ConfigService } from '../services/config.service'
-import { RemoteConfig } from './config'
-import { Entity } from './entity'
+import { Migrations } from './migrations'
+import { RemoteConfig } from './models/config'
+import schema from './models/entity.json'
 
 if (!environment.production) {
   console.log('[DatabaseService]', 'In debug')
@@ -41,9 +42,11 @@ RxDB.plugin(RxDBReplicationGraphQL)
 @Injectable()
 export class RxDBService {
 
+  db: RxDatabase
+  replicationState: RxReplicationState
+
   private config: RemoteConfig
-  private replicationStates: { [key: string]: RxReplicationState } = {}
-  private key: string
+  private profileKey: string
 
   constructor(
     private http: HttpClient,
@@ -51,86 +54,58 @@ export class RxDBService {
     private toastr: ToastrService
   ) {
     if (!configService.profile) return
-    this.key = configService.profile.key
+    this.profileKey = configService.profile.key
     this.config = configService.profile.remote || {
       enabled: false
     }
   }
 
-  async setup(alias, entities: Entity[]) {
+  async setup() {
     if (!this.configService.profile) {
       console.log('[DatabaseService]', `There is not a selected profile`)
       return
     }
 
-    const name = `db_${this.key}_${alias}`
-
-    console.log('[DatabaseService]', `Initializing DB: ${name}`, entities)
+    console.log('[DatabaseService]', `Initializing DB: ${this.profileKey}`)
     const _adapter = await this.getAdapter()
-    const db = await RxDB.create({
-      name: name,
+
+    this.db = await RxDB.create({
+      name: `balnc_${this.profileKey}`,
       adapter: _adapter
     })
 
-    let sets = []
-    for (const entity of entities) {
-      let set = db.collection({
-        name: entity.name,
-        schema: entity.schema,
-        migrationStrategies: entity.migrationStrategies || {}
-      })
-      sets.push(set)
-    }
-    await Promise.all(sets)
-    await this.sync(alias, db, entities)
+    await this.db.collection({
+      name: 'entities',
+      schema: schema,
+      migrationStrategies: Migrations
+    })
 
-    return db
-  }
-
-  async sync(alias, db, entities) {
-
-    console.log('[DatabaseService]', `Sync entities`, entities)
-
-    const name = `${this.config.key}_${alias}`
+    console.log('[DatabaseService]', `Sync entities`)
 
     if (!this.config.enabled) {
       return
     }
 
-    if (this.config.username) {
-      await this.authenticate(this.config.username, this.config.password)
-    }
+    // if (this.config.username) {
+    //   await this.authenticate(this.config.username, this.config.password)
+    // }
 
-    entities.forEach((entity) => {
-      if (entity.sync) {
-        const coll: RxCollection<any> = db[entity.name]
-
-        if (!coll) {
-          console.log('[DatabaseService]', `Entity ${entity.name} for ${name} not found`)
-        }
-
-        if (entity.syncType === 'graphql') {
-          this.replicationStates[entity.name] = this.syncGraphQL(entity, coll)
-        } else {
-          this.replicationStates[entity.name] = this.syncCouch(entity, coll)
-        }
-
-        this.replicationStates[entity.name].error$.subscribe((err) => {
-          this.toastr.error(err, '[Database] Sync Error')
-        })
-      }
-    })
-  }
-
-  syncGraphQL(entity, coll) {
     console.log('sync with syncGraphQL')
-    return coll.syncGraphQL({
+
+    this.replicationState = this.db.entities.syncGraphQL({
       url: 'http://127.0.0.1:10102/graphql',
       push: {
         batchSize: 5,
         queryBuilder: (doc) => {
           return {
-            query: entity.mutationQuery,
+            query: `
+              mutation EntityCreate($doc: EntityInput) {
+                setEntity(doc: $doc) {
+                  _id,
+                  timestamp
+                }
+              }
+            `,
             variables: {
               doc
             }
@@ -146,7 +121,18 @@ export class RxDBService {
             }
           }
           return {
-            query: entity.feedQuery(doc, 5),
+            query: (doc, batch) => {
+              return `
+                {
+                  feedForRxDBReplication(lastId: "${doc._id}", minUpdatedAt: ${doc.timestamp}, limit: ${batch}) {
+                    _id
+                    timestamp
+                    deleted
+                    type
+                    data
+                  }
+                }`
+            },
             variables: {}
           }
         }
@@ -162,17 +148,6 @@ export class RxDBService {
     })
   }
 
-  syncCouch(entity, coll) {
-    console.log('sync with syncCouch')
-    return coll.sync({
-      remote: `${this.config.db}/${name}_${entity.name}/`,
-      options: {
-        live: true,
-        retry: true
-      }
-    })
-  }
-
   async authenticate(username: string, password: string) {
     return this.http.post(`${this.config.db}/_session`, {
       name: username,
@@ -184,12 +159,9 @@ export class RxDBService {
       })
   }
 
-  async removeProfile(profileId: string, entities: Entity[]) {
+  async removeProfile(profileKey: string) {
     const adapter = await this.getAdapter()
-    entities.forEach(async (entity) => {
-      const name = `${profileId}_${entity.name}`
-      await RxDB.removeDatabase(name, adapter)
-    })
+    await RxDB.removeDatabase(`balnc_${profileKey}`, adapter)
   }
 
   private async getAdapter() {

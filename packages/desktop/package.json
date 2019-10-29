@@ -24,8 +24,7 @@
     "electron-protocol-serve": "^1.3.0"
   },
   "devDependencies": {
-    "@balnc/app": "*",
-    "@balnc/commons": "*"
+    "@balnc/app": "*"
   },
   "build": {
     "appId": "com.cgeosoft.balnc",

@@ -7,8 +7,8 @@ import { OrderComponent } from './order/order.component'
 import { QuickSearchComponent } from './quick-search/quick-search.component'
 import { SearchComponent } from './search/search.component'
 import { SettingsComponent } from './settings/settings.component'
-import { Resolver } from './_shared/resolver'
 import { AgreementsService } from './_shared/services/agreements.service'
+import { CEventsService } from './_shared/services/cevents.service'
 import { ContactsService } from './_shared/services/contacts.service'
 import { InvoicesService } from './_shared/services/invoices.service'
 import { OrdersService } from './_shared/services/orders.service'
@@ -21,9 +21,6 @@ import { ShellComponent } from './_shell/shell.component'
     RouterModule.forChild([{
       path: '',
       component: ShellComponent,
-      resolve: {
-        setup: Resolver
-      },
       children: [
         { path: 'orders/:id', component: OrderComponent },
         { path: 'search', component: SearchComponent },
@@ -50,7 +47,7 @@ import { ShellComponent } from './_shell/shell.component'
     OrderCreateComponent
   ],
   providers: [
-    Resolver,
+    CEventsService,
     ContactsService,
     InvoicesService,
     OrdersService,

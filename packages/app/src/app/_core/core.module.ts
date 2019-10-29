@@ -5,6 +5,7 @@ import { SharedModule } from '@balnc/shared'
 import { DateFnsModule } from 'ngx-date-fns'
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
 import { ToastrModule } from 'ngx-toastr'
+import { MainResolver } from './resolver'
 import { RxDBService } from './rxdb/rxdb.service'
 import { ConfigService } from './services/config.service'
 import { ProfileGuardService } from './services/profile-guard.service'
@@ -36,7 +37,8 @@ import { ProfileGuardService } from './services/profile-guard.service'
   providers: [
     RxDBService,
     ConfigService,
-    ProfileGuardService
+    ProfileGuardService,
+    MainResolver
   ],
   exports: [
     RouterModule
@@ -44,7 +46,7 @@ import { ProfileGuardService } from './services/profile-guard.service'
 })
 export class CoreModule {
   /* make sure CoreModule is imported only by one NgModule the AppModule */
-  constructor (
+  constructor(
     @Optional() @SkipSelf() parentModule: CoreModule
   ) {
     if (parentModule) {

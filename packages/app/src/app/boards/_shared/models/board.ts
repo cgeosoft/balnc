@@ -1,4 +1,12 @@
-import { Board } from '@balnc/commons/boards/models/board'
-import { RxDocument } from 'rxdb'
+import { DataItem } from '../../../_core/rxdb/models/entity';
 
-export type RxBoardDoc = RxDocument<Board> & Board
+export interface Board extends DataItem {
+  data: {
+    name: string;
+    members?: {
+      [k: string]: any;
+    }[];
+    created?: number;
+    avatar?: string;
+  }
+}

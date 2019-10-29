@@ -1,69 +1,56 @@
-import { NgZone } from '@angular/core'
-import { RxDatabase, RxDocument } from 'rxdb'
+import { RxCollection } from 'rxdb'
 import { Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
-import { Entity } from '../../_core/rxdb/entity'
+import { map } from 'rxjs/operators'
 import { RxDBService } from '../../_core/rxdb/rxdb.service'
 
-export interface CommonConfig {
-  alias: string
-  entities: Entity[]
-}
+export class CommonService<T> {
 
-export class CommonService {
-
+  type = null
   observables: { [key: string]: Observable<any> } = {}
-  db: RxDatabase
+  entities: RxCollection
 
-  constructor (
-    private zone: NgZone,
+  constructor(
     private dbService: RxDBService
-  ) { }
-
-  async setup (config: CommonConfig) {
-    if (!this.db) {
-      this.db = await this.dbService.setup(config.alias, config.entities)
-      config.entities.forEach(entity => {
-        this.observables[`${entity.name}$`] = this.db[entity.name].find().$
-      })
-    } else {
-      console.log('db dound', this.db)
-    }
+  ) {
+    this.entities = this.dbService.db.entities
   }
 
-  async getAll<T> (entity: string, params: any = {}): Promise<(RxDocument<T> & T)[]> {
-    return this.db[entity].find(params).exec()
+  async all(): Promise<T[]> {
+    const items = await this.entities.find().where('type').eq(this.type).exec()
+    return items as T[]
   }
 
-  getAll$<T> (entity: string, params: any = {}): Observable<(RxDocument<T> & T)[]> {
-    return this.db[entity].find(params).$.pipe(
-      tap(() => {
-        setTimeout(() => {
-          this.zone.run(() => { })
-        }, 100)
-      })
+  all$(): Observable<T[]> {
+    return this.entities.find().where('type').eq(this.type).$.pipe(
+      map((items) => items as T[])
     )
   }
 
-  async getOne<T> (entity: string, id): Promise<RxDocument<T> & T> {
-    const obj = await this.db[entity].findOne(id).exec()
+  async get(id: string): Promise<T> {
+    const obj = await this.entities.findOne(id).exec()
     if (!obj) return null
-    return obj
+    return obj as T
   }
 
-  getOne$<T> (entity: string, id): Observable<RxDocument<T> & T> {
-    return this.db[entity].findOne(id).$.pipe(
-      tap(() => {
-        setTimeout(() => {
-          this.zone.run(() => { })
-        }, 100)
-      })
+  get$(id: string): Observable<T> {
+    return this.entities.findOne(id).$.pipe(
+      map((item) => item as T)
     )
   }
 
-  async addOne<T> (entity: string, obj: T): Promise<RxDocument<T> & T> {
-    let doc = this.db[entity].newDocument(obj)
-    await doc.save()
-    return doc
+  async add(data: any, ts?: number): Promise<T> {
+    const obj = {
+      data,
+      type: this.type,
+      timestamp: ts || Date.now()
+    }
+    console.log(obj)
+    const doc = await this.entities.insert(obj)
+    return doc as T
+  }
+
+  async remove(id: string): Promise<void> {
+    const obj = await this.entities.findOne(id).exec()
+    await obj.remove()
   }
 }

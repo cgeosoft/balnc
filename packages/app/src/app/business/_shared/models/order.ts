@@ -1,4 +1,5 @@
 import { RxDocument } from 'rxdb'
+import { DataItem } from '../../../_core/rxdb/models/entity'
 
 export enum TransformationMethod {
   percent,
@@ -18,16 +19,18 @@ export interface OrderItem {
   description: string
 }
 
-export interface Order {
-  serial: string
-  customer?: string
-  executedAt?: number
-  crontab?: string
-  status?: string
-  currency?: string
-  comment?: string
-  transformations?: Transformation[]
-  items?: OrderItem[]
+export interface Order extends DataItem {
+  data: {
+    serial: string
+    customer?: string
+    executedAt?: number
+    crontab?: string
+    status?: string
+    currency?: string
+    comment?: string
+    transformations?: Transformation[]
+    items?: OrderItem[]
+  }
 }
 
 export type RxOrderDocument = RxDocument<Order> & Order

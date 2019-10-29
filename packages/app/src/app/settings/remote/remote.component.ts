@@ -4,7 +4,7 @@ import { ConfigService } from '@balnc/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
 import { environment } from '../../../environments/environment'
-import { RemoteConfig } from '../../_core/rxdb/config'
+import { RemoteConfig } from '../../_core/rxdb/models/config'
 
 interface RemoteStatus {
   started: Date

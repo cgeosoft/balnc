@@ -2,7 +2,6 @@ import { Component, NgZone, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { mergeMap } from 'rxjs/operators'
 import { Contact } from '../_shared/models/contacts'
-import { Order } from '../_shared/models/order'
 import { ContactsService } from '../_shared/services/contacts.service'
 import { OrdersService } from '../_shared/services/orders.service'
 import { StateService } from '../_shared/services/state.service'
@@ -44,9 +43,11 @@ export class OrderComponent implements OnInit {
       .params
       .pipe(
         mergeMap(async params => {
-          const order = await this.ordersService.getOne<Order>('orders', params['id'])
-          this.contact = await this.contactsService.getContact(order.customer)
-          return order
+          const order = await this.ordersService.get(params['id'])
+          if (order) {
+            this.contact = await this.contactsService.get(order.data.customer)
+            return order
+          }
         })
       )
   }

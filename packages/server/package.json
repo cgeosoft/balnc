@@ -46,7 +46,6 @@
     "subscriptions-transport-ws": "0.9.16"
   },
   "devDependencies": {
-    "@balnc/commons": "*",
     "@babel/cli": "^7.6.2",
     "@babel/core": "^7.6.2",
     "@babel/node": "^7.6.2",

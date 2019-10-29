@@ -9,7 +9,7 @@
 </app-content>
 
 <ng-template #t1 let-contact="item">
-  <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user-circle':'building']" class="mr-2 text-muted">
+  <fa-icon [icon]="['fas',(contact.data.type === contactType.person)?'user-circle':'building']" class="mr-2 text-muted">
   </fa-icon>
-  <a [routerLink]="['/business/contacts',contact['_id']]">{{contact.name}}</a>
+  <a [routerLink]="['/business/contacts',contact._id]">{{contact.data.name}}</a>
 </ng-template>

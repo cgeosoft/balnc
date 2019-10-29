@@ -1,4 +1,5 @@
 import { RxDocument } from 'rxdb'
+import { DataItem } from '../../../_core/rxdb/models/entity'
 
 export interface ContactConn {
   reference: string
@@ -10,38 +11,41 @@ export enum ContactType {
   company = 'company'
 }
 
-export interface Contact {
-  name: string
-  type: ContactType
-  tags: string[]
-  details: {
-    avatar?: string
-    phones?: string[]
-    emails?: string[]
-    socials?: string[]
-    offices?: {
-      address: string
-      location?: string
+export interface Contact extends DataItem {
+  data: {
+    name: string
+    type: ContactType
+    tags: string[]
+    details: {
+      avatar?: string
       phones?: string[]
       emails?: string[]
-    }[]
-    taxDetails?: {
-      vatNumber: string
-      taxOffice: string
-      address: string
-      legalName: string
-      description: string
+      socials?: string[]
+      offices?: {
+        address: string
+        location?: string
+        phones?: string[]
+        emails?: string[]
+      }[]
+      taxDetails?: {
+        vatNumber: string
+        taxOffice: string
+        address: string
+        legalName: string
+        description: string
+      }
     }
+    conns?: ContactConn[]
   }
-  conns?: ContactConn[]
 }
 
-export interface CEvent {
-  contact: string
-  date: number
-  type: CEventType
-  reference?: string
-  comment?: string
+export interface CEvent extends DataItem {
+  data: {
+    contact: string
+    type: CEventType
+    reference?: string
+    comment?: string
+  }
 }
 
 export enum CEventType {

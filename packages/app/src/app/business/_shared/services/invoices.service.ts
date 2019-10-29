@@ -1,23 +1,16 @@
-import { Injectable, NgZone } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { RxDBService } from '@balnc/core'
 import { CommonService } from '@balnc/shared'
-import { InvoicesEntities } from '../models/_entities'
+import { Invoice } from '../models/invoice'
 
 @Injectable()
-export class InvoicesService extends CommonService {
+export class InvoicesService extends CommonService<Invoice> {
 
-  constructor (
-    zone: NgZone,
+  constructor(
     dbService: RxDBService
   ) {
-    super(zone, dbService)
-  }
-
-  async setup () {
-    await super.setup({
-      alias: 'invoices',
-      entities: InvoicesEntities
-    })
+    super(dbService)
+    this.type = 'invoice'
   }
 
 }

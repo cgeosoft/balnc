@@ -1,18 +1,21 @@
 import { RxDocument } from 'rxdb'
+import { DataItem } from '../../../_core/rxdb/models/entity'
 
-export interface Invoice {
-  serial: string
-  from: any
-  to: any
-  createdAt: string
-  updatedAt: string
-  issuedAt?: string
-  details: InvoiceItem[]
-  status: ('pending' | 'issued')
-  pdfTemplate?: string
-  file?: string
-  comment?: string
-  transformations: InvoiceTransformation[]
+export interface Invoice extends DataItem {
+  data: {
+    serial: string
+    from: any
+    to: any
+    createdAt: string
+    updatedAt: string
+    issuedAt?: string
+    details: InvoiceItem[]
+    status: ('pending' | 'issued')
+    pdfTemplate?: string
+    file?: string
+    comment?: string
+    transformations: InvoiceTransformation[]
+  }
 }
 
 export interface InvoiceItem {

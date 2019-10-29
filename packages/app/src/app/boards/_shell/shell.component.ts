@@ -1,8 +1,10 @@
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { Board } from '@balnc/commons/boards/models/board'
 import { Observable } from 'rxjs'
-import { BoardsService, BoardStats } from '../_shared/boards.service'
+import { BoardsService } from '../_shared/boards.service'
+import { MessagesService } from '../_shared/messages.service'
+import { Board } from '../_shared/models/board'
+import { BoardStats } from '../_shared/models/board-stats'
 
 @Component({
   selector: 'app-boards-shell',
@@ -15,34 +17,61 @@ export class ShellComponent implements OnInit {
   boards$: Observable<Board[]>
 
   nickname: string
-  boardsStats: (Board & BoardStats)[]
+  boardsStats: BoardStats[]
+  unread = {}
 
   constructor(
-    private boardService: BoardsService,
-    private router: Router,
-    private zone: NgZone
+    private boardsService: BoardsService,
+    private messagesService: MessagesService,
+    private router: Router
   ) { }
 
-  unread(boardid: string) {
-    const s = this.boardService.boardsStats.find(x => x.id === boardid)
-    return s ? s.unread : 0
+  async ngOnInit() {
+    this.nickname = 'chris'
+    this.boards$ = this.boardsService.all$()
+    await this.generate()
+    // this.messagesService.all$().subscribe((messages) => {
+    //   let bs = this.boardsStats
+    //   bs.forEach(b => { b.unread = 0 })
+    //   messages.forEach(m => {
+    //     let bs1 = bs.find(x => x.id === m.data.board)
+    //     if (!bs1) {
+    //       bs1 = {
+    //         id: m.data.board,
+    //         lastread: 0,
+    //         unread: 0
+    //       }
+    //       bs.push(bs1)
+    //     }
+
+    //     if (m.timestamp > bs1.lastread && this.boardsService.selected !== m.data.board) {
+    //       bs1.unread++
+    //     }
+    //   })
+    //   this.boardsStats = bs
+    // })
   }
 
-  ngOnInit() {
-    this.nickname = this.boardService.nickname
-    this.boards$ = this.boardService.getAll$<Board>('boards')
-  }
+  // unread(boardid: string) {
+  //   const s = this.boardsService.boardsStats.find(x => x.id === boardid)
+  //   return s ? s.unread : 0
+  // }
 
-  async create(name) {
+  async create(name: string) {
     if (!name) return
-    const board = await this.boardService.createBoard({
-      name: name
+    const board = await this.boardsService.add({
+      name
     })
     name = null
-    await this.router.navigate(['/boards', board.get('id')])
+    await this.router.navigate(['/boards', board._id])
   }
 
   async generate() {
-    await this.boardService.generateDemoData()
+    await this.boardsService.generateDemoData()
+    const boards = await this.boardsService.all()
+    boards.forEach(async b => {
+      await this.messagesService.generateDemoData(b)
+    })
+    await this.router.navigate(['/boards', boards[0]._id])
   }
 }

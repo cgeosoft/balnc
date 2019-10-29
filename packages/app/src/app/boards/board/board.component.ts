@@ -1,10 +1,11 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Board } from '@balnc/commons/boards/models/board'
-import { Message } from '@balnc/commons/boards/models/message'
 import { Observable, Subject } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
 import { BoardsService } from '../_shared/boards.service'
+import { MessagesService } from '../_shared/messages.service'
+import { Board } from '../_shared/models/board'
+import { Message } from '../_shared/models/message'
 
 @Component({
   selector: 'app-boards-board',
@@ -42,6 +43,7 @@ export class BoardComponent implements OnInit {
 
   constructor(
     public boardService: BoardsService,
+    public messagesService: MessagesService,
     private route: ActivatedRoute,
     private router: Router,
     private zone: NgZone
@@ -51,10 +53,10 @@ export class BoardComponent implements OnInit {
     this.route.params.subscribe(async (params) => {
       this.selected = params['id']
       if (!this.selected) return
-      this.boardService.selectBoard(this.selected)
-      this.board$ = this.boardService.getOne$<Board>('boards', this.selected)
-      this.messages$ = this.boardService.getAll$<Message>('messages').pipe(
-        map(messages => messages.filter(message => message.board === this.selected)),
+      this.boardService.selected = this.selected
+      this.board$ = this.boardService.get$(this.selected)
+      this.messages$ = this.messagesService.all$().pipe(
+        map(messages => messages.filter(message => message.data.board === this.selected)),
         tap(messages => {
           messages.sort((a, b) => a.timestamp - b.timestamp)
         }),
@@ -68,19 +70,42 @@ export class BoardComponent implements OnInit {
     })
   }
 
+  // selectBoard(boardId) {
+  //   let bs1 = this.boardsStats.find(x => x.id === boardId)
+  //   if (!bs1) {
+  //     bs1 = {
+  //       id: boardId,
+  //       lastread: 0,
+  //       unread: 0
+  //     }
+  //     this.boardsStats.push(bs1)
+  //   }
+  //   bs1.unread = 0
+  //   bs1.lastread = Date.now()
+  //   this.selectedBoard = boardId
+  // }
+
+  async deleteBoard(id) {
+    // let board = await this.db['boards'].findOne(id).exec()
+    // board.remove()
+
+    // let messages = await this.db['messages'].find().where('board').eq(id).exec()
+    // messages.forEach(m => {
+    //   m.remove()
+    // })
+  }
+
   async send() {
     if (!this.inputMessage) { return }
 
-    const dt = Date.now()
-    const message: Message = {
-      timestamp: dt,
+    const data = {
       text: this.inputMessage,
-      sender: this.boardService.nickname,
+      sender: 'anonymous',
       board: this.selected,
       status: 'SEND',
       type: 'MESSAGE'
     }
-    await this.boardService.addOne('messages', message)
+    await this.messagesService.add(data)
     this.inputMessage = null
     this.scrollToBottom()
     this.focusInput()
@@ -88,8 +113,8 @@ export class BoardComponent implements OnInit {
 
   async delete() {
     if (!confirm('Are you sure?')) return
-    await this.boardService.deleteBoard(this.selected)
-    this.router.navigate(['/boards'])
+    await this.boardService.remove(this.selected)
+    await this.router.navigate(['/boards'])
   }
 
   scrollToBottom(): void {
