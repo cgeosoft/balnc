@@ -3,8 +3,8 @@ import { TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { Agreement } from '../../_shared/models/agreement'
 import { Contact } from '../../_shared/models/contacts'
-import { AgreementsService } from '../../_shared/services/agreements.service'
-import { ContactsService } from '../../_shared/services/contacts.service'
+import { AgreementsService } from '../../_shared/repos/agreements.repo'
+import { ContactsRepo } from '../../_shared/repos/contacts.repo'
 
 @Component({
   selector: 'app-agreements',
@@ -21,18 +21,18 @@ export class AgreementsComponent implements OnInit {
       {
         label: 'Serial', locked: true, type: 'link', val: (item: Agreement) => {
           return {
-            label: item.serial,
-            link: ['/business/agreements', item['_id']]
+            label: item.data.serial,
+            link: ['/business/agreements', item._id]
           }
         }
       },
-      { label: 'Date', type: 'date', val: (item: Agreement) => { return item.createdAt } },
+      { label: 'Date', type: 'date', val: (item: Agreement) => { return item.data.createdAt } },
       {
         label: 'Contact', type: 'link', val: (item: Agreement) => {
-          const c = this.contacts.find(c => c['_id'] === item.contact)
+          const c = this.contacts.find(c => c._id === item.data.contact)
           return {
-            label: c.name,
-            link: ['/business/contacts', item.contact]
+            label: c.data.name,
+            link: ['/business/contacts', item.data.contact]
           }
         }
       }
@@ -41,11 +41,11 @@ export class AgreementsComponent implements OnInit {
 
   constructor(
     private agreementsService: AgreementsService,
-    private contactsService: ContactsService
+    private contactsService: ContactsRepo
   ) { }
 
   async ngOnInit() {
-    this.agreements$ = this.agreementsService.getAll$<Agreement>('agreements')
-    this.contacts = await this.contactsService.getAll<Contact>('contacts')
+    this.agreements$ = this.agreementsService.all$()
+    this.contacts = await this.contactsService.all()
   }
 }

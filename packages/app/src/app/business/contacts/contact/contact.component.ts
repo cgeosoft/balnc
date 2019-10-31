@@ -4,9 +4,9 @@ import { Helpers, TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { map, mergeMap, tap } from 'rxjs/operators'
 import { CEvent, CEventType, Contact, ContactType } from '../../_shared/models/contacts'
-import { CEventsService } from '../../_shared/services/cevents.service'
-import { ContactsService } from '../../_shared/services/contacts.service'
-import { OrdersService } from '../../_shared/services/orders.service'
+import { CEventsRepo } from '../../_shared/repos/cevents.repo'
+import { ContactsRepo } from '../../_shared/repos/contacts.repo'
+import { OrdersRepo } from '../../_shared/repos/orders.repo'
 import { StateService } from '../../_shared/services/state.service'
 
 @Component({
@@ -63,9 +63,9 @@ export class ContactComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private stateService: StateService,
-    private contactsService: ContactsService,
-    private ceventsService: CEventsService,
-    private ordersService: OrdersService,
+    private contactsService: ContactsRepo,
+    private ceventsService: CEventsRepo,
+    private ordersService: OrdersRepo,
     private router: Router
   ) { }
 
@@ -73,7 +73,7 @@ export class ContactComponent implements OnInit {
     this.contact$ = this.route
       .params
       .pipe(
-        mergeMap(params => this.contactsService.get$(params['id'])),
+        mergeMap(params => this.contactsService.one$(params['id'])),
         // map((params) => {
         //   return {
         //     contact: this.contactsService.getContact(params['id']),

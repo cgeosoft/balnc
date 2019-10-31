@@ -25,7 +25,7 @@ export class ReportComponent implements OnInit {
   maxPage: number
   pdfData: any = null
 
-  constructor (
+  constructor(
     private reportService: ReportsService,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer
@@ -33,26 +33,26 @@ export class ReportComponent implements OnInit {
     pdfMake.vfs = pdfFonts.pdfMake.vfs
   }
 
-  ngOnInit () {
+  ngOnInit() {
     this.route.params.subscribe(async params => {
       await this.loadReport(params['id'])
       // await this.execReport()
     })
   }
 
-  async loadReport (id) {
+  async loadReport(id) {
     this.report = await this.reportService.one(id)
     this.resetFilters()
   }
 
-  decideClosure (event, datepicker) {
+  decideClosure(event, datepicker) {
     const path = event.path.map(p => p.localName)
     if (!path.includes('ngb-datepicker')) {
       datepicker.close()
     }
   }
 
-  async execReport () {
+  async execReport() {
     const _time = (new Date()).getTime()
     this.err = null
     this.pdfData = null
@@ -99,8 +99,8 @@ export class ReportComponent implements OnInit {
     this.loading = false
   }
 
-  resetFilters () {
-    this.filters = this.report.filters
+  resetFilters() {
+    this.filters = this.report.data.filters
       .map(filter => {
         return {
           key: filter.field,

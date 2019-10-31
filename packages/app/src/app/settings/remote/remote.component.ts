@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, OnInit } from '@angular/core'
 import { ConfigService } from '@balnc/core'
+import { Profile } from '@balnc/shared'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
 import { environment } from '../../../environments/environment'
@@ -24,6 +25,7 @@ interface RemoteProfile {
 })
 export class RemoteComponent implements OnInit {
 
+  profile: Profile
   profiles: RemoteProfile[] = []
 
   wizard = {

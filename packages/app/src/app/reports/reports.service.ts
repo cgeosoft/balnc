@@ -1,58 +1,50 @@
 import { HttpClient } from '@angular/common/http'
-import { Injectable, NgZone } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { RxDBService } from '@balnc/core'
-import { CommonService } from '@balnc/shared'
+import { Repository } from '@balnc/shared'
 import * as _ from 'lodash'
 import { BehaviorSubject } from 'rxjs'
 import { ReportSettings } from './models/module-settings'
-import { Report } from './models/report'
-import { ReportsEntities } from './models/_entities'
+import { Report, RxReportDoc } from './models/report'
 
 @Injectable()
-export class ReportsService extends CommonService {
+export class ReportsService extends Repository<Report> {
 
   reportAdminRole = 'report-admin'
   settings: ReportSettings
 
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
-  constructor (
-    zone: NgZone,
+  constructor(
     dbService: RxDBService,
     private http: HttpClient
   ) {
-    super(zone, dbService)
+    super(dbService)
+    this.entity = 'report'
   }
 
-  async setup () {
-    await super.setup({
-      alias: 'reports',
-      entities: ReportsEntities
-    })
-  }
-
-  async all (params: any = {}) {
-    const data = await super.getAll<Report>('reports', params)
+  async all() {
+    const data = await super.all()
     const reports = data
       .filter(report => {
-        return report.roles
+        return report.data.roles
       })
       .filter(report => {
         // return report.roles.some(role => super.profileService.roles.indexOf(role) >= 0)
       })
       .sort((a, b) => {
-        if (a.name < b.name) { return -1 }
-        if (a.name > b.name) { return 1 }
+        if (a.data.name < b.data.name) { return -1 }
+        if (a.data.name > b.data.name) { return 1 }
         return 0
       })
     return reports
   }
 
-  async one (id: string) {
-    const reportDoc = await super.getOne<Report>('reports', id)
+  async one(id: string) {
+    const reportDoc = await super.one(id)
     const report = _.cloneDeep(reportDoc) as Report
 
-    report.filters.forEach(async filter => {
+    report.data.filters.forEach(async filter => {
       switch (filter.type) {
         case 'select':
           filter.value = -1
@@ -72,7 +64,7 @@ export class ReportsService extends CommonService {
     return report
   }
 
-  async getCommonData (query) {
+  async getCommonData(query) {
     const result = await this.execute(query)
     return result['rows'].map(r => {
       return {
@@ -82,11 +74,11 @@ export class ReportsService extends CommonService {
     })
   }
 
-  async generateQuery (report: Report, filters) {
+  async generateQuery(report: Report, filters) {
     let query = ''
     try {
-      const r = await super.getOne<Report>('reports', report.alias)
-      const attachment = await r.getAttachment('query.sql')
+      const r = await super.one(report.data.alias)
+      const attachment = (r as RxReportDoc).getAttachment('query.sql')
       query = await attachment.getStringData()
     } catch (err) {
       return Promise.reject(err)
@@ -95,7 +87,7 @@ export class ReportsService extends CommonService {
     return this.formatQuery(query, filters)
   }
 
-  async execute (query) {
+  async execute(query) {
     const url = `${this.settings.host}/execute`
     const headers = this.generateHeaders()
     const result = await this.http.post(url, {
@@ -104,9 +96,9 @@ export class ReportsService extends CommonService {
     return result
   }
 
-  async generatePdfMake (report: Report, data: any) {
-    const fields = _.cloneDeep(report.fields)
-    const pdf = _.cloneDeep(report.pdf)
+  async generatePdfMake(report: Report, data: any) {
+    const fields = _.cloneDeep(report.data.fields)
+    const pdf = _.cloneDeep(report.data.pdf)
     const d = _.cloneDeep(data)
 
     if (!pdf) {
@@ -140,11 +132,11 @@ export class ReportsService extends CommonService {
     return pdf
   }
 
-  idReportAdmin () {
+  idReportAdmin() {
     // return super.profileService.roles.indexOf(this.reportAdminRole) >= 0
   }
 
-  private generateHeaders () {
+  private generateHeaders() {
     return {
       headers: {
         Authorization: 'Basic ' + btoa('key:' + this.settings.key)
@@ -152,7 +144,7 @@ export class ReportsService extends CommonService {
     }
   }
 
-  formatQuery (query, filters) {
+  formatQuery(query, filters) {
     for (const k in filters) {
       if (filters.hasOwnProperty(k)) {
         let value = ''

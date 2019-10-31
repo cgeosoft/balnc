@@ -1,7 +1,8 @@
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
-import { DocumentsService } from '../_shared/documents.service'
+import { Document } from '../_shared/models/Document'
+import { DocumentsRepo } from '../_shared/repos/documents.repo'
 
 @Component({
   selector: 'app-shell',
@@ -15,19 +16,18 @@ export class ShellComponent implements OnInit {
 
   nickname: string
 
-  constructor (
-    private documentService: DocumentsService,
-    private router: Router,
-    private zone: NgZone
+  constructor(
+    private documentsRepo: DocumentsRepo,
+    private router: Router
   ) { }
 
-  ngOnInit () {
-    this.documents$ = this.documentService.getAll$<Document>('documents')
+  ngOnInit() {
+    this.documents$ = this.documentsRepo.all$()
   }
 
-  async create (name) {
+  async create(name) {
     if (!name) return
-    const id = await this.documentService.createDocument(name)
+    const id = await this.documentsRepo.add({ data: { name } })
     name = null
     await this.router.navigate(['/documents', id])
   }

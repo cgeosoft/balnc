@@ -7,11 +7,11 @@ import { OrderComponent } from './order/order.component'
 import { QuickSearchComponent } from './quick-search/quick-search.component'
 import { SearchComponent } from './search/search.component'
 import { SettingsComponent } from './settings/settings.component'
-import { AgreementsService } from './_shared/services/agreements.service'
-import { CEventsService } from './_shared/services/cevents.service'
-import { ContactsService } from './_shared/services/contacts.service'
-import { InvoicesService } from './_shared/services/invoices.service'
-import { OrdersService } from './_shared/services/orders.service'
+import { AgreementsService } from './_shared/repos/agreements.repo'
+import { CEventsRepo } from './_shared/repos/cevents.repo'
+import { ContactsRepo } from './_shared/repos/contacts.repo'
+import { InvoicesRepo } from './_shared/repos/invoices.repo'
+import { OrdersRepo } from './_shared/repos/orders.repo'
 import { StateService } from './_shared/services/state.service'
 import { ShellComponent } from './_shell/shell.component'
 
@@ -47,10 +47,10 @@ import { ShellComponent } from './_shell/shell.component'
     OrderCreateComponent
   ],
   providers: [
-    CEventsService,
-    ContactsService,
-    InvoicesService,
-    OrdersService,
+    CEventsRepo,
+    ContactsRepo,
+    InvoicesRepo,
+    OrdersRepo,
     StateService,
     AgreementsService
   ],

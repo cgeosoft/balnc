@@ -24,12 +24,12 @@ export const APP_ROUTES: Routes = [{
     path: 'documents',
     loadChildren: './documents/documents.module#DocumentsModule'
   }, {
-    path: 'projects',
-    loadChildren: './projects/projects.module#ProjectsModule'
-  }, {
-    path: 'presentations',
-    loadChildren: './presentations/presentations.module#PresentationsModule'
-  }, {
+    //   path: 'projects',
+    //   loadChildren: './projects/projects.module#ProjectsModule'
+    // }, {
+    //   path: 'presentations',
+    //   loadChildren: './presentations/presentations.module#PresentationsModule'
+    // }, {
     path: 'boards',
     loadChildren: './boards/boards.module#BoardsModule'
   }, {

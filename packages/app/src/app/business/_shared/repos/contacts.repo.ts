@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core'
 import { RxDBService } from '@balnc/core'
-import { CommonService } from '@balnc/shared'
+import { Repository } from '@balnc/shared'
 import * as faker from 'faker'
 import { CEventType, Contact, ContactType } from '../models/contacts'
-import { CEventsService } from './cevents.service'
+import { CEventsRepo } from './cevents.repo'
 
 @Injectable()
-export class ContactsService extends CommonService<Contact> {
+export class ContactsRepo extends Repository<Contact> {
 
   constructor(
     dbService: RxDBService,
-    private ceventsService: CEventsService
+    private ceventsService: CEventsRepo
   ) {
     super(dbService)
-    this.type = 'contact'
+    this.entity = 'contact'
   }
 
   async add(contact) {

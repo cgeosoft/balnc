@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core'
 import { RxDBService } from '@balnc/core'
-import { CommonService } from '@balnc/shared'
+import { Repository } from '@balnc/shared'
 import * as faker from 'faker'
 import { LocalStorage } from 'ngx-store'
-import { Board } from './models/board'
-import { BoardStats } from './models/board-stats'
+import { Board } from '../models/board'
+import { BoardStats } from '../models/board-stats'
 
 @Injectable()
-export class BoardsService extends CommonService<Board> {
+export class BoardsRepo extends Repository<Board> {
 
   @LocalStorage() boardsStats: BoardStats[] = []
 
@@ -18,7 +18,7 @@ export class BoardsService extends CommonService<Board> {
     dbService: RxDBService
   ) {
     super(dbService)
-    this.type = 'board'
+    this.entity = 'board'
   }
 
   async generateDemoData(size = 5) {

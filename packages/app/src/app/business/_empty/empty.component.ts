@@ -9,13 +9,13 @@ import { StateService } from '../_shared/services/state.service'
 })
 export class EmptyComponent {
 
-  constructor (
+  constructor(
     private router: Router,
     private stateService: StateService,
     private configService: ConfigService
   ) { }
 
-  async ngAfterViewInit () {
+  async ngAfterViewInit() {
     if (this.stateService.opened.length) {
       await this.router.navigate(this.stateService.opened[this.configService.selected][0].route)
     }

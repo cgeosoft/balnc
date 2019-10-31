@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
-import { BoardsService } from '../_shared/boards.service'
-import { MessagesService } from '../_shared/messages.service'
 import { Board } from '../_shared/models/board'
 import { BoardStats } from '../_shared/models/board-stats'
+import { BoardsRepo } from '../_shared/repos/boards.repo'
+import { MessagesRepo } from '../_shared/repos/messages.repo'
 
 @Component({
   selector: 'app-boards-shell',
@@ -21,14 +21,14 @@ export class ShellComponent implements OnInit {
   unread = {}
 
   constructor(
-    private boardsService: BoardsService,
-    private messagesService: MessagesService,
+    private boardsRepo: BoardsRepo,
+    private messagesRepo: MessagesRepo,
     private router: Router
   ) { }
 
   async ngOnInit() {
     this.nickname = 'chris'
-    this.boards$ = this.boardsService.all$()
+    this.boards$ = this.boardsRepo.all$()
     await this.generate()
     // this.messagesService.all$().subscribe((messages) => {
     //   let bs = this.boardsStats
@@ -59,7 +59,7 @@ export class ShellComponent implements OnInit {
 
   async create(name: string) {
     if (!name) return
-    const board = await this.boardsService.add({
+    const board = await this.boardsRepo.add({
       name
     })
     name = null
@@ -67,10 +67,10 @@ export class ShellComponent implements OnInit {
   }
 
   async generate() {
-    await this.boardsService.generateDemoData()
-    const boards = await this.boardsService.all()
+    await this.boardsRepo.generateDemoData()
+    const boards = await this.boardsRepo.all()
     boards.forEach(async b => {
-      await this.messagesService.generateDemoData(b)
+      await this.messagesRepo.generateDemoData(b)
     })
     await this.router.navigate(['/boards', boards[0]._id])
   }

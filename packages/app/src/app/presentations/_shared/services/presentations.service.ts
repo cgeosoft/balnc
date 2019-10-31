@@ -1,25 +1,17 @@
-import { Injectable, NgZone } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { RxDBService } from '@balnc/core'
-import { CommonService, Helpers } from '@balnc/shared'
+import { Helpers, Repository } from '@balnc/shared'
 import * as faker from 'faker'
 import { Page, Presentation, PresentationStats, RxPresentationDoc } from '../models/presentation'
-import { PresentationsEntities } from '../models/_entities'
 
 @Injectable()
-export class PresentationsService extends CommonService {
+export class PresentationsService extends Repository<Presentation> {
 
   constructor(
-    zone: NgZone,
     dbService: RxDBService
   ) {
-    super(zone, dbService)
-  }
-
-  async setup() {
-    await super.setup({
-      alias: 'presentations',
-      entities: PresentationsEntities
-    })
+    super(dbService)
+    this.entity = 'presentation'
   }
 
   async getPresentations(params?: any) {

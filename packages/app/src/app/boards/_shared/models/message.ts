@@ -1,6 +1,6 @@
-import { DataItem } from '../../../_core/rxdb/models/entity';
+import { Entity } from '../../../_core/rxdb/models/entity';
 
-export interface Message extends DataItem {
+export interface Message extends Entity {
   data: {
     text?: string
     sender: string

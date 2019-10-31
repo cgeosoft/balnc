@@ -2,8 +2,8 @@ import { Component, NgZone, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { mergeMap } from 'rxjs/operators'
 import { Contact } from '../_shared/models/contacts'
-import { ContactsService } from '../_shared/services/contacts.service'
-import { OrdersService } from '../_shared/services/orders.service'
+import { ContactsRepo } from '../_shared/repos/contacts.repo'
+import { OrdersRepo } from '../_shared/repos/orders.repo'
 import { StateService } from '../_shared/services/state.service'
 
 @Component({
@@ -33,8 +33,8 @@ export class OrderComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private stateService: StateService,
-    private contactsService: ContactsService,
-    private ordersService: OrdersService,
+    private contactsService: ContactsRepo,
+    private ordersService: OrdersRepo,
     private zone: NgZone
   ) { }
 
@@ -43,9 +43,9 @@ export class OrderComponent implements OnInit {
       .params
       .pipe(
         mergeMap(async params => {
-          const order = await this.ordersService.get(params['id'])
+          const order = await this.ordersService.one(params['id'])
           if (order) {
-            this.contact = await this.contactsService.get(order.data.customer)
+            this.contact = await this.contactsService.one(order.data.customer)
             return order
           }
         })

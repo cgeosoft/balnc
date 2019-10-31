@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core'
 import { RxDBService } from '@balnc/core'
-import { CommonService } from '@balnc/shared'
+import { Repository } from '@balnc/shared'
 import * as faker from 'faker'
 import { LocalStorage } from 'ngx-store'
-import { Board } from './models/board'
-import { BoardStats } from './models/board-stats'
-import { Message } from './models/message'
+import { Board } from '../models/board'
+import { BoardStats } from '../models/board-stats'
+import { Message } from '../models/message'
 
 @Injectable()
-export class MessagesService extends CommonService<Message> {
+export class MessagesRepo extends Repository<Message> {
 
   @LocalStorage() nickname: string = ''
   @LocalStorage() boardsStats: BoardStats[] = []
@@ -19,7 +19,7 @@ export class MessagesService extends CommonService<Message> {
     dbService: RxDBService
   ) {
     super(dbService)
-    this.type = 'message'
+    this.entity = 'message'
   }
 
   async generateDemoData(board: Board, size = 15) {

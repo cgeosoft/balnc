@@ -4,7 +4,7 @@ import { TableSchema } from '@balnc/shared'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { map, switchMap } from 'rxjs/operators'
 import { Contact, ContactType } from '../../_shared/models/contacts'
-import { ContactsService } from '../../_shared/services/contacts.service'
+import { ContactsRepo } from '../../_shared/repos/contacts.repo'
 
 @Component({
   selector: 'app-contacts',
@@ -31,7 +31,7 @@ export class ContactsComponent implements OnInit {
   term$: BehaviorSubject<string> = new BehaviorSubject<string>(null)
 
   constructor(
-    private contactsService: ContactsService,
+    private contactsService: ContactsRepo,
     private router: Router
   ) { }
 

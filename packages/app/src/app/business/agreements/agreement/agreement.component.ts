@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
+import { RxDocument } from 'rxdb'
 import { Agreement } from '../../_shared/models/agreement'
-import { AgreementsService } from '../../_shared/services/agreements.service'
+import { AgreementsService } from '../../_shared/repos/agreements.repo'
 
 @Component({
   selector: 'app-agreement',
@@ -16,45 +17,43 @@ export class AgreementComponent implements OnInit {
   agreement: Agreement
   breadcrumb
 
-  constructor (
+  constructor(
     private agreementsService: AgreementsService,
     private route: ActivatedRoute
   ) { }
 
-  ngOnInit () {
-    this.route
-      .params
-      .subscribe(params => {
-        this.agreementId = params['id']
-        this.setup()
-      })
+  ngOnInit() {
+    this.route.params.subscribe(async params => {
+      this.agreementId = params['id']
+      await this.load()
+    })
   }
 
-  private async setup () {
-    this.agreement = await this.agreementsService.getOne<Agreement>('agreements', this.agreementId)
-    this.breadcrumb = [
-      { url: ['/business/agreements'], label: 'Agreements' },
-      { label: this.agreement.serial }
-    ]
-  }
-
-  enableEdit () {
+  enableEdit() {
     this.editDesc = true
     setTimeout(() => {
       this.content.nativeElement.focus()
     })
   }
 
-  async updateDesc (content) {
+  async updateDesc(content) {
     this.editDesc = false
-    const agreement = await this.agreementsService.getOne<Agreement>('agreements', this.agreementId)
+    const agreement = await this.agreementsService.one(this.agreementId)
     const _content = content.trim()
-    if (agreement.content === _content) return
-    await agreement.update({
+    if (agreement.data.content === _content) return
+    await (agreement as RxDocument<Agreement>).update({
       $set: {
         content: _content,
         updatedAt: Date.now()
       }
     })
+  }
+
+  private async load() {
+    this.agreement = await this.agreementsService.one(this.agreementId)
+    this.breadcrumb = [
+      { url: ['/business/agreements'], label: 'Agreements' },
+      { label: this.agreement.data.serial }
+    ]
   }
 }

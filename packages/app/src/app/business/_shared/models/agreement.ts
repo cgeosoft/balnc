@@ -1,7 +1,7 @@
 import { RxDocument } from 'rxdb'
-import { DataItem } from '../../../_core/rxdb/models/entity'
+import { Entity } from '../../../_core/rxdb/models/entity'
 
-export interface Agreement extends DataItem {
+export interface Agreement extends Entity {
   data: {
     contact: string
     serial?: string

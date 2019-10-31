@@ -3,7 +3,7 @@ import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
 import { Contact, ContactType } from '../_shared/models/contacts'
-import { ContactsService } from '../_shared/services/contacts.service'
+import { ContactsRepo } from '../_shared/repos/contacts.repo'
 
 @Component({
   selector: 'app-business-shell',
@@ -18,32 +18,32 @@ export class ShellComponent {
   generating = false
   term: string
 
-  constructor (
-    private contactsService: ContactsService,
+  constructor(
+    private contactsService: ContactsRepo,
     private router: Router
   ) { }
 
-  get search () {
+  get search() {
     return (text$: Observable<string>) => text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       switchMap(async (term) => {
         if (term.length < 2) return [] as Contact[]
-        let contacts = await this.contactsService.getAll<Contact>('contacts', {})
+        let contacts = await this.contactsService.all()
         return contacts
-          .filter(contact => contact.name.toLowerCase().indexOf(term.toLowerCase()) > -1)
+          .filter(contact => contact.data.name.toLowerCase().indexOf(term.toLowerCase()) > -1)
           .slice(0, 10)
       })
     )
   }
 
-  get formatter () {
+  get formatter() {
     return (result: Contact) => {
-      return result.name
+      return result.data.name
     }
   }
 
-  async select ($event) {
+  async select($event) {
     $event.preventDefault()
     const contact = $event.item as Contact
     this.term = ''

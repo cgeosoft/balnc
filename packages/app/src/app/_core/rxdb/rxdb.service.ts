@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
 import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterMemory from 'pouchdb-adapter-memory'
-import { RxDatabase, RxReplicationState } from 'rxdb'
+import { RxDatabase } from 'rxdb'
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
 import AttachmentsPlugin from 'rxdb/plugins/attachments'
 import RxDB from 'rxdb/plugins/core'
@@ -11,7 +11,7 @@ import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages'
 import JsonDumpPlugin from 'rxdb/plugins/json-dump'
 import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
 import RxDBReplicationModule from 'rxdb/plugins/replication'
-import RxDBReplicationGraphQL from 'rxdb/plugins/replication-graphql'
+import RxDBReplicationGraphQL, { RxGraphQLReplicationState } from 'rxdb/plugins/replication-graphql'
 import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
 import RxDBUpdateModule from 'rxdb/plugins/update'
 import RxDBValidateModule from 'rxdb/plugins/validate'
@@ -24,7 +24,7 @@ import schema from './models/entity.json'
 if (!environment.production) {
   console.log('[DatabaseService]', 'In debug')
   RxDB.plugin(RxDBSchemaCheckModule)
-  RxDB.QueryChangeDetector.enableDebugging()
+  // RxDB.QueryChangeDetector.enableDebugging()
 }
 
 RxDB.plugin(RxDBValidateModule)
@@ -43,7 +43,7 @@ RxDB.plugin(RxDBReplicationGraphQL)
 export class RxDBService {
 
   db: RxDatabase
-  replicationState: RxReplicationState
+  replicationState: RxGraphQLReplicationState
 
   private config: RemoteConfig
   private profileKey: string
@@ -121,10 +121,9 @@ export class RxDBService {
             }
           }
           return {
-            query: (doc, batch) => {
-              return `
+            query: `
                 {
-                  feedForRxDBReplication(lastId: "${doc._id}", minUpdatedAt: ${doc.timestamp}, limit: ${batch}) {
+                  feedForRxDBReplication(lastId: "${doc._id}", minUpdatedAt: ${doc.timestamp}, limit: 30) {
                     _id
                     timestamp
                     deleted
@@ -132,7 +131,7 @@ export class RxDBService {
                     data
                   }
                 }`
-            },
+            ,
             variables: {}
           }
         }

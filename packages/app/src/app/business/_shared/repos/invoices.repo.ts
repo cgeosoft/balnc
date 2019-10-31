@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core'
 import { RxDBService } from '@balnc/core'
-import { CommonService } from '@balnc/shared'
-import { CEvent } from '../models/contacts'
+import { Repository } from '@balnc/shared'
+import { Invoice } from '../models/invoice'
 
 @Injectable()
-export class CEventsService extends CommonService<CEvent> {
+export class InvoicesRepo extends Repository<Invoice> {
+
   constructor(
     dbService: RxDBService
   ) {
     super(dbService)
-    this.type = 'cevent'
+    this.entity = 'invoice'
   }
+
 }

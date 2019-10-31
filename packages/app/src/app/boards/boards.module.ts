@@ -3,8 +3,8 @@ import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
 import { BoardComponent } from './board/board.component'
 import { BoardsRoutes } from './boards.routes'
-import { BoardsService } from './_shared/boards.service'
-import { MessagesService } from './_shared/messages.service'
+import { BoardsRepo } from './_shared/repos/boards.repo'
+import { MessagesRepo } from './_shared/repos/messages.repo'
 import { ShellComponent } from './_shell/shell.component'
 
 @NgModule({
@@ -17,8 +17,8 @@ import { ShellComponent } from './_shell/shell.component'
     BoardComponent
   ],
   providers: [
-    BoardsService,
-    MessagesService,
+    BoardsRepo,
+    MessagesRepo
   ]
 })
 export class BoardsModule { }

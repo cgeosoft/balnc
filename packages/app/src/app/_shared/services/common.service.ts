@@ -3,9 +3,9 @@ import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { RxDBService } from '../../_core/rxdb/rxdb.service'
 
-export class CommonService<T> {
+export class Repository<T> {
 
-  type = null
+  entity = null
   observables: { [key: string]: Observable<any> } = {}
   entities: RxCollection
 
@@ -16,23 +16,23 @@ export class CommonService<T> {
   }
 
   async all(): Promise<T[]> {
-    const items = await this.entities.find().where('type').eq(this.type).exec()
+    const items = await this.entities.find().where('type').eq(this.entity).exec()
     return items as T[]
   }
 
   all$(): Observable<T[]> {
-    return this.entities.find().where('type').eq(this.type).$.pipe(
+    return this.entities.find().where('type').eq(this.entity).$.pipe(
       map((items) => items as T[])
     )
   }
 
-  async get(id: string): Promise<T> {
+  async one(id: string): Promise<T> {
     const obj = await this.entities.findOne(id).exec()
     if (!obj) return null
     return obj as T
   }
 
-  get$(id: string): Observable<T> {
+  one$(id: string): Observable<T> {
     return this.entities.findOne(id).$.pipe(
       map((item) => item as T)
     )
@@ -41,7 +41,7 @@ export class CommonService<T> {
   async add(data: any, ts?: number): Promise<T> {
     const obj = {
       data,
-      type: this.type,
+      type: this.entity,
       timestamp: ts || Date.now()
     }
     console.log(obj)

@@ -1,13 +1,13 @@
 import { Injectable, NgZone } from '@angular/core'
 import { ConfigService, RxDBService } from '@balnc/core'
-import { CommonService } from '@balnc/shared'
+import { Repository } from '@balnc/shared'
 import * as faker from 'faker'
 import { Observable } from 'rxjs'
 import { ProjectsEntities } from './models/entities'
 import { Issue, IssueType, Log, LogType, Project, RxIssueDoc, RxLogDoc, RxProjectDoc } from './models/project'
 
 @Injectable()
-export class ProjectsService extends CommonService {
+export class ProjectsService extends Repository {
 
   projects$: Observable<RxProjectDoc[]>
   issues$: Observable<RxIssueDoc[]>

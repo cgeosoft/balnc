@@ -1,5 +1,5 @@
 import { RxDocument } from 'rxdb'
-import { DataItem } from '../../../_core/rxdb/models/entity'
+import { Entity } from '../../../_core/rxdb/models/entity'
 
 export enum TransformationMethod {
   percent,
@@ -19,7 +19,7 @@ export interface OrderItem {
   description: string
 }
 
-export interface Order extends DataItem {
+export interface Order extends Entity {
   data: {
     serial: string
     customer?: string

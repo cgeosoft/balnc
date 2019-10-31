@@ -1,6 +1,6 @@
-import { DataItem } from '../../../_core/rxdb/models/entity';
+import { Entity } from '../../../_core/rxdb/models/entity';
 
-export interface Board extends DataItem {
+export interface Board extends Entity {
   data: {
     name: string;
     members?: {

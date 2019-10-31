@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
-import { CaretTrackerDirective, DocumentLineComponent } from './document-line/document-line.component'
+import { CaretTrackerDirective } from './document-line/CaretTrackerDirective'
+import { DocumentLineComponent } from './document-line/document-line.component'
 import { DocumentComponent } from './document/document.component'
 import { ShellComponent } from './shell/shell.component'
-import { DocumentsService } from './_shared/documents.service'
+import { DocumentsRepo } from './_shared/repos/documents.repo'
+import { LinesRepo } from './_shared/repos/lines.repo'
 
 @NgModule({
   declarations: [
@@ -18,16 +20,14 @@ import { DocumentsService } from './_shared/documents.service'
     RouterModule.forChild([{
       path: '',
       component: ShellComponent,
-      resolve: {
-        srv: DocumentsService
-      },
       children: [
         { path: ':id', component: DocumentComponent }
       ]
     }])
   ],
   providers: [
-    DocumentsService
+    DocumentsRepo,
+    LinesRepo
   ]
 })
 export class DocumentsModule { }

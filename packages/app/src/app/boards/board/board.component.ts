@@ -2,10 +2,10 @@ import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable, Subject } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
-import { BoardsService } from '../_shared/boards.service'
-import { MessagesService } from '../_shared/messages.service'
 import { Board } from '../_shared/models/board'
 import { Message } from '../_shared/models/message'
+import { BoardsRepo } from '../_shared/repos/boards.repo'
+import { MessagesRepo } from '../_shared/repos/messages.repo'
 
 @Component({
   selector: 'app-boards-board',
@@ -42,8 +42,8 @@ export class BoardComponent implements OnInit {
   board$: Observable<Board>
 
   constructor(
-    public boardService: BoardsService,
-    public messagesService: MessagesService,
+    public boardService: BoardsRepo,
+    public messagesService: MessagesRepo,
     private route: ActivatedRoute,
     private router: Router,
     private zone: NgZone
@@ -54,7 +54,7 @@ export class BoardComponent implements OnInit {
       this.selected = params['id']
       if (!this.selected) return
       this.boardService.selected = this.selected
-      this.board$ = this.boardService.get$(this.selected)
+      this.board$ = this.boardService.one$(this.selected)
       this.messages$ = this.messagesService.all$().pipe(
         map(messages => messages.filter(message => message.data.board === this.selected)),
         tap(messages => {
