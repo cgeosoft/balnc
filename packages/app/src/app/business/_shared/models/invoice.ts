@@ -2,20 +2,18 @@ import { Entity } from '@balnc/core'
 import { RxDocument } from 'rxdb'
 
 export interface Invoice extends Entity {
-  data: {
-    serial: string
-    from: any
-    to: any
-    createdAt: string
-    updatedAt: string
-    issuedAt?: string
-    details: InvoiceItem[]
-    status: ('pending' | 'issued')
-    pdfTemplate?: string
-    file?: string
-    comment?: string
-    transformations: InvoiceTransformation[]
-  }
+  serial: string
+  from: any
+  to: any
+  createdAt: string
+  updatedAt: string
+  issuedAt?: string
+  details: InvoiceItem[]
+  status: ('pending' | 'issued')
+  pdfTemplate?: string
+  file?: string
+  comment?: string
+  transformations: InvoiceTransformation[]
 }
 
 export interface InvoiceItem {

@@ -12,40 +12,36 @@ export enum ContactType {
 }
 
 export interface Contact extends Entity {
-  data: {
-    name: string
-    type: ContactType
-    tags: string[]
-    details: {
-      avatar?: string
+  name: string
+  type: ContactType
+  tags: string[]
+  details: {
+    avatar?: string
+    phones?: string[]
+    emails?: string[]
+    socials?: string[]
+    offices?: {
+      address: string
+      location?: string
       phones?: string[]
       emails?: string[]
-      socials?: string[]
-      offices?: {
-        address: string
-        location?: string
-        phones?: string[]
-        emails?: string[]
-      }[]
-      taxDetails?: {
-        vatNumber: string
-        taxOffice: string
-        address: string
-        legalName: string
-        description: string
-      }
+    }[]
+    taxDetails?: {
+      vatNumber: string
+      taxOffice: string
+      address: string
+      legalName: string
+      description: string
     }
-    conns?: ContactConn[]
   }
+  conns?: ContactConn[]
 }
 
 export interface CEvent extends Entity {
-  data: {
-    contact: string
-    type: CEventType
-    reference?: string
-    comment?: string
-  }
+  contact: string
+  type: CEventType
+  reference?: string
+  comment?: string
 }
 
 export enum CEventType {

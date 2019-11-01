@@ -20,17 +20,15 @@ export interface OrderItem {
 }
 
 export interface Order extends Entity {
-  data: {
-    serial: string
-    customer?: string
-    executedAt?: number
-    crontab?: string
-    status?: string
-    currency?: string
-    comment?: string
-    transformations?: Transformation[]
-    items?: OrderItem[]
-  }
+  serial: string
+  customer?: string
+  executedAt?: number
+  crontab?: string
+  status?: string
+  currency?: string
+  comment?: string
+  transformations?: Transformation[]
+  items?: OrderItem[]
 }
 
 export type RxOrderDocument = RxDocument<Order> & Order

@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core'
-import { RxDBService } from '@balnc/core'
-import { Helpers, Repository } from '@balnc/shared'
+import { Repository, RxDBService } from '@balnc/core'
+import { Helpers } from '@balnc/shared'
 import * as faker from 'faker'
 import { Agreement, AgreementStatus } from '../models/agreement'
 import { CEventType } from '../models/contacts'
@@ -35,21 +35,19 @@ export class AgreementsService extends Repository<Agreement> {
     return c
   }
 
-  async generateDemoData(size = 100) {
+  async generateDemoData(size = 10) {
     console.log(`generate ${size} agreements`)
     const contacts = await this.contactsService.all()
 
     for (let a = 0; a < size; a++) {
       const contact = contacts[faker.random.number({ min: 0, max: contacts.length - 1 })]
       await this.add({
-        data: {
-          contact: contact._id,
-          status: AgreementStatus.draft,
-          createdAt: Date.now(),
-          content: `# Agreement ${Date.now()}\n\r${faker.lorem.paragraphs(5)}`
-        }
+        contact: contact._id,
+        status: AgreementStatus.draft,
+        createdAt: Date.now(),
+        content: `# Agreement ${Date.now()}\n\r${faker.lorem.paragraphs(5)}`
       })
-      console.log(`add agreement to contact ${contact['_id']}`)
+      console.log(`add agreement to contact ${contact._id}`)
     }
   }
 }
