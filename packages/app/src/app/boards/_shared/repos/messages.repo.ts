@@ -18,7 +18,7 @@ export class MessagesRepo extends Repository<Message> {
     dbService: RxDBService
   ) {
     super(dbService)
-    this.entity = 'message'
+    this.entity = 'boards.message'
   }
 
   async generateDemoData(board: Board, size = 15) {

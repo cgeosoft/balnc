@@ -17,7 +17,7 @@ export class AgreementsService extends Repository<Agreement> {
     private ceventsService: CEventsRepo
   ) {
     super(dbService)
-    this.entity = 'agreement'
+    this.entity = 'business.agreement'
   }
 
   async add(agreement: Partial<Agreement>) {

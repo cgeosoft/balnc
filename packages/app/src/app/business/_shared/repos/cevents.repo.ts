@@ -8,6 +8,6 @@ export class CEventsRepo extends Repository<CEvent> {
     dbService: RxDBService
   ) {
     super(dbService)
-    this.entity = 'cevent'
+    this.entity = 'business.event'
   }
 }

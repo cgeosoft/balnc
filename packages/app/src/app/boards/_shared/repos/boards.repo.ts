@@ -17,7 +17,7 @@ export class BoardsRepo extends Repository<Board> {
     dbService: RxDBService
   ) {
     super(dbService)
-    this.entity = 'board'
+    this.entity = 'boards.board'
   }
 
   async generateDemoData(size = 5) {

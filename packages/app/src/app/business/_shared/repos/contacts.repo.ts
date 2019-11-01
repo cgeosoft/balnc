@@ -12,7 +12,7 @@ export class ContactsRepo extends Repository<Contact> {
     private ceventsService: CEventsRepo
   ) {
     super(dbService)
-    this.entity = 'contact'
+    this.entity = 'business.contact'
   }
 
   async add(contact) {

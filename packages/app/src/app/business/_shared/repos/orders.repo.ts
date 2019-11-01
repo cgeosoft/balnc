@@ -9,6 +9,6 @@ export class OrdersRepo extends Repository<Order> {
     dbService: RxDBService
   ) {
     super(dbService)
-    this.entity = 'order'
+    this.entity = 'business.order'
   }
 }
