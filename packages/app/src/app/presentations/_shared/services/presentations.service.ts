@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Helpers } from '@balnc/shared'
 import * as faker from 'faker'
+import { RxDocument } from 'rxdb'
 import { Page } from '../models/page'
 import { Presentation, PresentationStats } from '../models/presentation'
 import { PagesRepo } from '../repos/pages.repo'
@@ -9,62 +10,39 @@ import { PresentationsRepo } from '../repos/presentations.repo'
 @Injectable()
 export class PresentationsService {
 
-  constructor(
-    private pagesRepo: PagesRepo
+  constructor (
+    private pagesRepo: PagesRepo,
     private presentationsRepo: PresentationsRepo
   ) { }
 
-  async getPresentations(params?: any) {
+  async getPresentations (params?: any) {
     params = params || {}
-    let _presentations = await super.getAll<RxPresentationDoc>('presentations', params)
-    const images$ = _presentations
-      .map(async (presentation) => {
-        return this.getThumb(presentation)
-      })
-    const images = await Promise.all(images$)
+    let _presentations = await this.presentationsRepo.all()
 
-    const stats$ = _presentations
-      .map(async (presentation) => {
-        return this.getStats(presentation)
-      })
-    const stats = await Promise.all(stats$)
+    const images = await Promise.all(_presentations.map((p) => this.getThumb(p)))
 
-    const presentations2 = _presentations
-      .map((presentation, index) => {
-        const p: any = presentation
-        p.thumb = images[index]
-        p.stats = stats[index]
-        return p
-      })
+    const stats = await Promise.all(_presentations.map((p) => this.getStats(p)))
+
+    const presentations2 = _presentations.map((presentation, index) => {
+      const p: any = presentation
+      p.thumb = images[index]
+      p.stats = stats[index]
+      return p
+    })
     return presentations2
   }
 
-  async getPresentation(id): Promise<RxPresentationDoc> {
-    return super.getOne<RxPresentationDoc>('presentations', id)
-  }
-
-  async createPresentation(title: string, description?: string) {
-    return super.addOne<Presentation>('presentations', {
-      title: title,
-      description: description,
-      pages: [],
-      dateCreated: Date.now()
-    })
-  }
-
-  async getThumb(presentation: RxPresentationDoc): Promise<any> {
-
+  async getThumb (presentation: Presentation): Promise<any> {
     if (!presentation.pages || presentation.pages.length === 0) {
       return
     }
     const image = presentation.pages[0].params.image
-    return this.getImage(presentation, image)
-
+    return this.getImage((presentation as RxDocument<Presentation>), image)
   }
 
-  async getImage(presentation: RxPresentationDoc, contentImage: string): Promise<any> {
+  async getImage (presentation: Presentation, contentImage: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      const attachment = await presentation.getAttachment(contentImage)
+      const attachment = (presentation as RxDocument<Presentation>).getAttachment(contentImage)
       const blobBuffer = await attachment.getData()
       try {
         const reader = new FileReader()
@@ -81,14 +59,15 @@ export class PresentationsService {
     })
   }
 
-  async getStats(presentation: RxPresentationDoc): Promise<PresentationStats> {
-    if (!presentation.get('_attachments')) {
+  async getStats (presentation: Presentation): Promise<PresentationStats> {
+    const p = presentation as RxDocument<Presentation>
+    if (!p.get('_attachments')) {
       return {
         filecount: 0,
         filesize: 0
       }
     }
-    const attachments = await presentation.allAttachments()
+    const attachments = p.allAttachments()
     const filesize = attachments.reduce((t, i) => {
       return t + i.length
     }, 0)
@@ -99,16 +78,17 @@ export class PresentationsService {
     }
   }
 
-  async createPage(presentation: RxPresentationDoc, page: Page) {
+  async createPage (presentation: Presentation, page: Page) {
+    const p = presentation as RxDocument<Presentation>
     const pageKey = Helpers.uid()
 
-    await presentation.putAttachment({
+    await p.putAttachment({
       id: `file-${pageKey}`,
       data: page.file,
       type: page.fileType
     })
 
-    await presentation.update({
+    await p.update({
       $push: {
         pages: {
           key: pageKey,
@@ -126,16 +106,16 @@ export class PresentationsService {
     })
   }
 
-  async generateDemoData(size = 10) {
+  async generateDemoData (size = 10) {
     console.log(`generate ${size} presentations`)
 
-    for (let p = 0; p < 5; p++) {
-      const presentation = await this.createPresentation(faker.name.findName(), faker.lorem.paragraph())
-      console.log(`add presentation ${presentation}:${presentation.get('_id')}`)
+    for (let i = 0; i < 5; i++) {
+      const p = await this.presentationsRepo.add({ name: faker.name.findName(), description: faker.lorem.paragraph() })
+      console.log(`add presentation ${p}:${p._id}`)
 
       const rotation = faker.random.number({ min: 0, max: 1 }) === 1 ? '1024/768' : '768/1024'
 
-      console.log(`generate ${size * 2} pages for ${presentation.get('_id')}`)
+      console.log(`generate ${size * 2} pages for ${p._id}`)
       for (let c = 0; c < size * 2; c++) {
         const image = `https://picsum.photos/id/${faker.random.number({ min: 1000, max: 1017 })}/${rotation}`
 
@@ -147,8 +127,8 @@ export class PresentationsService {
           file: filedata,
           fileType: 'image/png'
         }
-        await this.createPage(presentation, pageData)
-        console.log(`add page ${c} to project ${presentation.get('_id')}`)
+        await this.createPage(p, pageData)
+        console.log(`add page ${c} to project ${p._id}`)
       }
     }
   }

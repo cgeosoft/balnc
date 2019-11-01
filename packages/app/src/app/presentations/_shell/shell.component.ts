@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs'
 import { CreateComponent } from '../create/create.component'
 import { Presentation } from '../_shared/models/presentation'
-import { PresentationsService } from '../_shared/services/presentations.service'
+import { PresentationsRepo } from '../_shared/repos/presentations.repo'
 
 @Component({
   selector: 'app-presentations-shell',
@@ -15,17 +15,17 @@ export class ShellComponent implements OnInit {
 
   presentations$: Observable<Presentation[]>
 
-  constructor(
+  constructor (
     private modal: NgbModal,
-    public presentationsService: PresentationsService,
+    private presentationsRepo: PresentationsRepo,
     private router: Router
   ) { }
 
-  async ngOnInit() {
-    this.presentations$ = this.presentationsService.getAll$<Presentation>('presentations')
+  async ngOnInit () {
+    this.presentations$ = this.presentationsRepo.all$()
   }
 
-  async create() {
+  async create () {
     const modal = this.modal.open(CreateComponent, { size: 'sm' })
     const presentation = await modal.result
     await this.ngOnInit()
