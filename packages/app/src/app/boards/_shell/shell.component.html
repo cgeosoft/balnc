@@ -10,17 +10,19 @@
       </button>
     </div>
   </div>
-  <ng-container *ngIf="(boards$ | async) as boards; else loader">
-    <ng-container *ngIf="boards.length; else empty">
-      <ng-template ngFor let-board [ngForOf]="boards">
-        <a class="menu" [routerLink]="['/boards',board._id]" routerLinkActive="active">
-          <fa-icon icon="comments" class="icon"></fa-icon>
-          <span>{{board.data.name}}</span>
-          <span class="ml-auto badge badge-primary" *ngIf="unread[board._id]">{{unread[board._id]}}</span>
-        </a>
-      </ng-template>
+  <div class="menu-wrapper">
+    <ng-container *ngIf="(boards$ | async) as boards; else loader">
+      <ng-container *ngIf="boards.length; else empty">
+        <ng-template ngFor let-board [ngForOf]="boards">
+          <a class="menu" [routerLink]="['/boards',board._id]" routerLinkActive="active">
+            <fa-icon icon="comments" class="icon"></fa-icon>
+            <span>{{board.name}}</span>
+            <span class="ml-auto badge badge-primary" *ngIf="unread[board._id]">{{unread[board._id]}}</span>
+          </a>
+        </ng-template>
+      </ng-container>
     </ng-container>
-  </ng-container>
+  </div>
   <button class="menu mt-auto" (click)="generate()">
     <fa-icon icon="plus-circle" class="icon"></fa-icon>
     <div class="content">Generate</div>

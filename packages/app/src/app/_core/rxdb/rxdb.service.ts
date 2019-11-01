@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
 import * as AdapterHttp from 'pouchdb-adapter-http'
+import * as AdapterIdb from 'pouchdb-adapter-idb'
 import * as AdapterMemory from 'pouchdb-adapter-memory'
 import { RxDatabase } from 'rxdb'
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
@@ -35,6 +36,7 @@ RxDB.plugin(RxDBErrorMessagesModule)
 RxDB.plugin(AdapterCheckPlugin)
 RxDB.plugin(JsonDumpPlugin)
 RxDB.plugin(AdapterHttp)
+RxDB.plugin(AdapterIdb)
 RxDB.plugin(AdapterMemory)
 RxDB.plugin(RxDBUpdateModule)
 RxDB.plugin(RxDBReplicationGraphQL)
@@ -123,7 +125,7 @@ export class RxDBService {
           return {
             query: `
                 {
-                  feedForRxDBReplication(lastId: "${doc._id}", minUpdatedAt: ${doc.timestamp}, limit: 30) {
+                  feedForRxDBReplication(lastId: "${doc._id}", minUpdatedAt: ${doc._timestamp}, limit: 30) {
                     _id
                     timestamp
                     deleted
@@ -164,7 +166,7 @@ export class RxDBService {
   }
 
   private async getAdapter() {
-    return 'memory'
+    // return 'memory'
     if (await RxDB.checkAdapter('idb')) {
       return 'idb'
     }

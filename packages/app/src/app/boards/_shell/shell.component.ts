@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
+import { tap } from 'rxjs/operators'
 import { Board } from '../_shared/models/board'
 import { BoardStats } from '../_shared/models/board-stats'
 import { BoardsRepo } from '../_shared/repos/boards.repo'
@@ -28,23 +29,25 @@ export class ShellComponent implements OnInit {
 
   async ngOnInit() {
     this.nickname = 'chris'
-    this.boards$ = this.boardsRepo.all$()
-    await this.generate()
+    this.boards$ = this.boardsRepo.all$().pipe(
+      tap(boards => boards.sort((a, b) => a._timestamp - b._timestamp))
+    )
+    // await this.generate()
     // this.messagesService.all$().subscribe((messages) => {
     //   let bs = this.boardsStats
     //   bs.forEach(b => { b.unread = 0 })
     //   messages.forEach(m => {
-    //     let bs1 = bs.find(x => x.id === m.data.board)
+    //     let bs1 = bs.find(x => x.id === m.board)
     //     if (!bs1) {
     //       bs1 = {
-    //         id: m.data.board,
+    //         id: m.board,
     //         lastread: 0,
     //         unread: 0
     //       }
     //       bs.push(bs1)
     //     }
 
-    //     if (m.timestamp > bs1.lastread && this.boardsService.selected !== m.data.board) {
+    //     if (m._timestamp > bs1.lastread && this.boardsService.selected !== m.board) {
     //       bs1.unread++
     //     }
     //   })

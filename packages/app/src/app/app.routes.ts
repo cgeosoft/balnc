@@ -18,12 +18,12 @@ export const APP_ROUTES: Routes = [{
     path: 'settings',
     loadChildren: './settings/settings.module#SettingsModule'
   }, {
-    path: 'business',
-    loadChildren: './business/business.module#BusinessModule'
-  }, {
-    path: 'documents',
-    loadChildren: './documents/documents.module#DocumentsModule'
-  }, {
+    //   path: 'business',
+    //   loadChildren: './business/business.module#BusinessModule'
+    // }, {
+    //   path: 'documents',
+    //   loadChildren: './documents/documents.module#DocumentsModule'
+    // }, {
     //   path: 'projects',
     //   loadChildren: './projects/projects.module#ProjectsModule'
     // }, {

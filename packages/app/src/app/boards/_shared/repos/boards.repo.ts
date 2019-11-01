@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core'
-import { RxDBService } from '@balnc/core'
-import { Repository } from '@balnc/shared'
+import { Repository, RxDBService } from '@balnc/core'
 import * as faker from 'faker'
 import { LocalStorage } from 'ngx-store'
 import { Board } from '../models/board'

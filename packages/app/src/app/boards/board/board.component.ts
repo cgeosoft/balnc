@@ -56,9 +56,9 @@ export class BoardComponent implements OnInit {
       this.boardService.selected = this.selected
       this.board$ = this.boardService.one$(this.selected)
       this.messages$ = this.messagesService.all$().pipe(
-        map(messages => messages.filter(message => message.data.board === this.selected)),
+        map(messages => messages.filter(message => message.board === this.selected)),
         tap(messages => {
-          messages.sort((a, b) => a.timestamp - b.timestamp)
+          messages.sort((a, b) => a._timestamp - b._timestamp)
         }),
         tap(() => {
           setTimeout(() => {

@@ -108,7 +108,12 @@ $sidebar-font: #666;
   }
 }
 
-:host ::ng-deep > .menu {
+:host ::ng-deep > .menu-wrapper {
+  @extend .flex-grow-1;
+  overflow: auto;
+}
+
+:host ::ng-deep .menu {
   @extend .d-flex;
   @extend .flex-row;
   @extend .align-items-center;
@@ -183,6 +188,11 @@ $sidebar-font: #666;
       @extend .mr-0;
       @extend .ml-auto;
     }
+  }
+
+  > span {
+    @extend .d-block;
+    @extend .text-truncate;
   }
 
   .content {
