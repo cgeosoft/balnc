@@ -17,7 +17,7 @@
         <ng-container *ngIf="(contacts$ | async) as contacts; loader">
           <ul class="list-group list-group-flush">
             <ng-container *ngFor="let contact of contacts">
-              <a class="list-group-item list-group-item-action" [routerLink]="['/business/contacts',contact['_id']]">
+              <a class="list-group-item list-group-item-action" [routerLink]="['/business/contacts',contact._id]">
                 {{contact.name}}
               </a>
             </ng-container>

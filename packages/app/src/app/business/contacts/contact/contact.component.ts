@@ -114,9 +114,9 @@ export class ContactComponent implements OnInit {
     await this.ceventsService.add({
       contact: this.route.snapshot.params['id'],
       comment: `add new order #${order['serial']}`,
-      reference: `/business/orders/${order['_id']}`,
+      reference: `/business/orders/${order._id}`,
       type: CEventType.OrderCreated
     })
-    await this.router.navigate([`/business/orders`, order['_id']])
+    await this.router.navigate([`/business/orders`, order._id])
   }
 }

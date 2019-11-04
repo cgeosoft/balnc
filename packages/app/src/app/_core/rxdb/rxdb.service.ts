@@ -166,7 +166,7 @@ export class RxDBService {
   }
 
   private async getAdapter() {
-    // return 'memory'
+    return 'memory'
     if (await RxDB.checkAdapter('idb')) {
       return 'idb'
     }

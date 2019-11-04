@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { LocalStorage } from 'ngx-store'
 import { Observable, of } from 'rxjs'
 import { filter, switchMap, tap } from 'rxjs/operators'
 import { CreateProjectComponent } from '../create-project/create-project.component'
@@ -9,6 +8,7 @@ import { IssueCreateComponent } from '../issue-create/issue-create.component'
 import { ProjectManageComponent } from '../project-manage/project-manage.component'
 import { Project } from '../_shared/models/all'
 import { ProjectsRepo } from '../_shared/repos/projects.repo'
+import { DemoService } from '../_shared/services/demo.service'
 
 @Component({
   selector: 'app-projects-shell',
@@ -33,17 +33,16 @@ export class ShellComponent implements OnInit {
   filters: any
   showFilters = false
 
-  @LocalStorage('projects_selected') selectedProjectId: string
-
   constructor(
-    private projectsService: ProjectsRepo,
+    private demoService: DemoService,
+    private projectsRepo: ProjectsRepo,
     private modal: NgbModal,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
-  ngOnInit() {
-    this.projects$ = this.projectsService.all$()
+  async ngOnInit() {
+    this.projects$ = this.projectsRepo.all$()
       .pipe(
         tap((projects: Project[]) => projects.sort((a, b) => {
           if (a.name < b.name) {
@@ -63,18 +62,12 @@ export class ShellComponent implements OnInit {
         switchMap(() => (this.route.firstChild && this.route.firstChild.params) || of({}))
       )
       .subscribe(params => this.loadProject(params['pid']))
+
+    await this.demoService.generate()
   }
 
   private loadProject(pid) {
-    if (pid) {
-      this.selectedProjectId = pid
-      this.project$ = this.projectsService.one$(pid)
-    } else if (this.selectedProjectId) {
-      this.project$ = this.projectsService.one$(this.selectedProjectId)
-    } else {
-      this.selectedProjectId = null
-      this.project$ = null
-    }
+    this.project$ = this.projectsRepo.one$(pid)
   }
 
   setFilter(filter) {

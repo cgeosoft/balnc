@@ -15,7 +15,7 @@
   <ng-container *ngIf="(presentations$ | async) as presentations">
     <ng-container *ngIf="presentations.length; else empty">
       <div class="divider"></div>
-      <a class="menu" *ngFor="let presentation of presentations" [routerLink]="['/presentations',presentation['_id']]"
+      <a class="menu" *ngFor="let presentation of presentations" [routerLink]="['/presentations',presentation._id]"
         routerLinkActive="active">
         <span>{{presentation.title}}</span>
       </a>

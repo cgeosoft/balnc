@@ -1,9 +1,10 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
 import { Contact, ContactType } from '../_shared/models/contacts'
 import { ContactsRepo } from '../_shared/repos/contacts.repo'
+import { DemoService } from '../_shared/services/demo.service'
 
 @Component({
   selector: 'app-business-shell',
@@ -11,7 +12,7 @@ import { ContactsRepo } from '../_shared/repos/contacts.repo'
   styleUrls: ['./shell.component.scss'],
   host: { 'class': 'shell' }
 })
-export class ShellComponent {
+export class ShellComponent implements OnInit {
 
   contactType = ContactType
 
@@ -19,9 +20,14 @@ export class ShellComponent {
   term: string
 
   constructor(
+    private demoService: DemoService,
     private contactsService: ContactsRepo,
     private router: Router
   ) { }
+
+  async ngOnInit() {
+    await this.demoService.generate()
+  }
 
   get search() {
     return (text$: Observable<string>) => text$.pipe(
@@ -47,6 +53,6 @@ export class ShellComponent {
     $event.preventDefault()
     const contact = $event.item as Contact
     this.term = ''
-    await this.router.navigate(['/business/contacts', contact['_id']])
+    await this.router.navigate(['/business/contacts', contact._id])
   }
 }

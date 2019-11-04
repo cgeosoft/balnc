@@ -20,21 +20,21 @@
           <span>{{(project$ | async)?.name || 'Select a project...'}}</span></button>
         <div ngbDropdownMenu>
           <ng-container *ngFor="let p of projects">
-            <a ngbDropdownItem [routerLink]="['/projects/project',p['_id']]">
+            <a ngbDropdownItem [routerLink]="['/projects/project',p._id]">
               {{p.name}}</a>
           </ng-container>
         </div>
       </div>
       <ng-container *ngIf="(project$ | async) as project">
-        <button class="menu" (click)="createIssue(project['_id'])">
+        <button class="menu" (click)="createIssue(project._id)">
           <fa-icon icon="plus-circle" class="icon"></fa-icon>
           <span>New Issue</span>
         </button>
-        <a class="menu" [routerLink]="['/projects/project',project['_id']]" routerLinkActive="active">
+        <a class="menu" [routerLink]="['/projects/project',project._id]" routerLinkActive="active">
           <fa-icon icon="tasks" class="icon"></fa-icon>
           <span>All Issues</span>
         </a>
-        <button class="menu" (click)="editDetails(project['_id'])">
+        <button class="menu" (click)="editDetails(project._id)">
           <fa-icon icon="pencil-ruler" class="icon"></fa-icon>
           <span>Details</span>
         </button>

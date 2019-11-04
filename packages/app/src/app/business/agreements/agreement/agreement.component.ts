@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { RxDocument } from 'rxdb'
 import { Agreement } from '../../_shared/models/agreement'
-import { AgreementsService } from '../../_shared/repos/agreements.repo'
+import { AgreementsRepo } from '../../_shared/repos/agreements.repo'
 
 @Component({
   selector: 'app-agreement',
@@ -18,7 +18,7 @@ export class AgreementComponent implements OnInit {
   breadcrumb
 
   constructor(
-    private agreementsService: AgreementsService,
+    private agreementsService: AgreementsRepo,
     private route: ActivatedRoute
   ) { }
 

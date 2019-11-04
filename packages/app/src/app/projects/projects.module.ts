@@ -12,6 +12,7 @@ import { SettingsComponent } from './settings/settings.component'
 import { IssuesRepo } from './_shared/repos/issues.repo'
 import { PEventsRepo } from './_shared/repos/pevents.repo'
 import { ProjectsRepo } from './_shared/repos/projects.repo'
+import { DemoService } from './_shared/services/demo.service'
 import { ShellComponent } from './_shell/shell.component'
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ShellComponent } from './_shell/shell.component'
   providers: [
     PEventsRepo,
     IssuesRepo,
-    ProjectsRepo
+    ProjectsRepo,
+    DemoService
   ],
   entryComponents: [
     IssueCreateComponent,

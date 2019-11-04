@@ -1,9 +1,9 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { LocalStorage } from 'ngx-store'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
-import { Issue, IssueStatus, IssueStatuses, IssueType, Project } from '../_shared/models/all'
+import { Issue, IssueStatus, IssueStatuses, Project } from '../_shared/models/all'
 import { IssuesRepo } from '../_shared/repos/issues.repo'
 import { ProjectsRepo } from '../_shared/repos/projects.repo'
 
@@ -23,8 +23,7 @@ export class ProjectComponent implements OnInit {
 
   lengths = [5, 10, 25, 50]
   projects: Project[]
-  projectId: any
-  project: any
+  project: Project
 
   issueStatuses = IssueStatuses
   @LocalStorage('project_filters') filters = {
@@ -36,7 +35,8 @@ export class ProjectComponent implements OnInit {
   constructor(
     private projectsRepo: ProjectsRepo,
     private issuesRepo: IssuesRepo,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   get pStart() {
@@ -48,17 +48,12 @@ export class ProjectComponent implements OnInit {
 
   async ngOnInit() {
     this.route.params.subscribe(async (params) => {
-      this.projectId = params['pid']
-      await this.load()
+      await this.load(params['pid'])
     })
   }
 
   getStatus(status: IssueStatus) {
     return IssueStatuses.find(s => s.key === status)
-  }
-
-  getProject(projectId) {
-    return this.projects.find(p => p['_id'] === projectId)
   }
 
   goPrevious() {
@@ -78,23 +73,22 @@ export class ProjectComponent implements OnInit {
     this.filters = this.filters
   }
 
-  private async load() {
-    this.project = await this.projectsRepo.one(this.projectId)
+  private async load(projectId) {
+    this.project = await this.projectsRepo.one(projectId)
+    if (!this.project) { await this.router.navigate(['/projects/overview']) }
     this.breadcrumb = [
       { label: 'Projects' },
       { label: this.project.name }
     ]
-    this.issues$ = this.issuesRepo
-      .all$()
-      .pipe(
-        map(x => x.filter(y => y.project === this.projectId && y.type === IssueType.issue)),
-        tap((issues: Issue[]) => issues.sort((a, b) => a._timestamp - b._timestamp)),
-        tap((issues: Issue[]) => issues.reverse()),
-        tap((issues: Issue[]) => {
-          this.issuesLength = issues.length
-          this.calcPages()
-        })
-      )
+    this.issues$ = this.issuesRepo.all$().pipe(
+      map(x => x.filter(y => y.project === this.project._id)),
+      tap((issues: Issue[]) => issues.sort((a, b) => a._timestamp - b._timestamp)),
+      tap((issues: Issue[]) => issues.reverse()),
+      tap((issues: Issue[]) => {
+        this.issuesLength = issues.length
+        this.calcPages()
+      })
+    )
   }
 }
 

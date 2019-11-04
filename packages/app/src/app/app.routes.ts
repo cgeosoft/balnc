@@ -21,15 +21,15 @@ export const APP_ROUTES: Routes = [{
     path: 'business',
     loadChildren: './business/business.module#BusinessModule'
   }, {
-    //   path: 'documents',
-    //   loadChildren: './documents/documents.module#DocumentsModule'
-    // }, {
-    //   path: 'projects',
-    //   loadChildren: './projects/projects.module#ProjectsModule'
-    // }, {
-    //   path: 'presentations',
-    //   loadChildren: './presentations/presentations.module#PresentationsModule'
-    // }, {
+    path: 'documents',
+    loadChildren: './documents/documents.module#DocumentsModule'
+  }, {
+    path: 'projects',
+    loadChildren: './projects/projects.module#ProjectsModule'
+  }, {
+    path: 'presentations',
+    loadChildren: './presentations/presentations.module#PresentationsModule'
+  }, {
     path: 'boards',
     loadChildren: './boards/boards.module#BoardsModule'
   }, {

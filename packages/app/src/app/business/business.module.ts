@@ -7,11 +7,12 @@ import { OrderComponent } from './order/order.component'
 import { QuickSearchComponent } from './quick-search/quick-search.component'
 import { SearchComponent } from './search/search.component'
 import { SettingsComponent } from './settings/settings.component'
-import { AgreementsService } from './_shared/repos/agreements.repo'
+import { AgreementsRepo } from './_shared/repos/agreements.repo'
 import { CEventsRepo } from './_shared/repos/cevents.repo'
 import { ContactsRepo } from './_shared/repos/contacts.repo'
 import { InvoicesRepo } from './_shared/repos/invoices.repo'
 import { OrdersRepo } from './_shared/repos/orders.repo'
+import { DemoService } from './_shared/services/demo.service'
 import { StateService } from './_shared/services/state.service'
 import { ShellComponent } from './_shell/shell.component'
 
@@ -52,7 +53,8 @@ import { ShellComponent } from './_shell/shell.component'
     InvoicesRepo,
     OrdersRepo,
     StateService,
-    AgreementsService
+    AgreementsRepo,
+    DemoService
   ],
   entryComponents: [
     QuickSearchComponent,

@@ -6,7 +6,7 @@ import { IssuesRepo } from '../repos/issues.repo'
 import { ProjectsRepo } from '../repos/projects.repo'
 
 @Injectable()
-export class ProjectsService {
+export class DemoService {
 
   constructor(
     private projectsRepo: ProjectsRepo,
@@ -14,7 +14,7 @@ export class ProjectsService {
     private configService: ConfigService
   ) { }
 
-  async generateDemoData(size = 10) {
+  async generate(size = 3) {
     console.log(`generate ${size} projects`)
     for (let i = 0; i < size; i++) {
       const pdata: Partial<Project> = {

@@ -13,8 +13,8 @@
           </thead>
           <tbody>
             <tr *ngFor="let log of logs | slice:0:30">
-              <td>{{log.insertedAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-              <td>{{log.insertedFrom}}</td>
+              <td>{{log._timestamp | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+              <td>{{log.user}}</td>
               <td>{{log.type}}</td>
               <td>{{log.text}}</td>
             </tr>

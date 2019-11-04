@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators'
 import { CreateProjectComponent } from '../create-project/create-project.component'
 import { Project } from '../_shared/models/all'
 import { ProjectsRepo } from '../_shared/repos/projects.repo'
-import { ProjectsService } from '../_shared/services/projects.service'
+import { DemoService } from '../_shared/services/demo.service'
 
 @Component({
   selector: 'app-projects-settings',
@@ -21,7 +21,7 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private projectsRepo: ProjectsRepo,
-    private projectsService: ProjectsService,
+    private projectsService: DemoService,
     private modal: NgbModal
   ) { }
 
@@ -47,7 +47,7 @@ export class SettingsComponent implements OnInit {
 
   async generateDemoData() {
     if (!confirm('Are you sure?')) return
-    await this.projectsService.generateDemoData()
+    await this.projectsService.generate()
     this.generated = Date.now()
   }
 }

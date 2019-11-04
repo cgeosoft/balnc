@@ -2,49 +2,31 @@
 import { Injectable } from '@angular/core'
 import { Repository, RxDBService } from '@balnc/core'
 import { Helpers } from '@balnc/shared'
-import * as faker from 'faker'
-import { Agreement, AgreementStatus } from '../models/agreement'
+import { Agreement } from '../models/agreement'
 import { CEventType } from '../models/contacts'
 import { CEventsRepo } from './cevents.repo'
-import { ContactsRepo } from './contacts.repo'
 
 @Injectable()
-export class AgreementsService extends Repository<Agreement> {
+export class AgreementsRepo extends Repository<Agreement> {
 
   constructor(
     dbService: RxDBService,
-    private contactsService: ContactsRepo,
     private ceventsService: CEventsRepo
   ) {
     super(dbService)
     this.entity = 'business.agreement'
   }
 
-  async add(agreement: Partial<Agreement>) {
-    agreement.serial = Helpers.uid()
-    const c = await super.add(agreement)
+  async add(data: Partial<Agreement>, ts?: number): Promise<Agreement> {
+    data.serial = Helpers.uid()
+    const agreement = await super.add(data, ts)
     await this.ceventsService.add({
       contact: agreement.contact,
       type: CEventType.AgreementCreated,
-      comment: `new agreement #${c.serial}`,
-      reference: `/business/agreements/${c['_id']}`
+      comment: `new agreement #${agreement.serial}`,
+      reference: `/business/agreements/${data._id}`
     })
-    return c
+    return agreement
   }
 
-  async generateDemoData(size = 10) {
-    console.log(`generate ${size} agreements`)
-    const contacts = await this.contactsService.all()
-
-    for (let a = 0; a < size; a++) {
-      const contact = contacts[faker.random.number({ min: 0, max: contacts.length - 1 })]
-      await this.add({
-        contact: contact._id,
-        status: AgreementStatus.draft,
-        createdAt: Date.now(),
-        content: `# Agreement ${Date.now()}\n\r${faker.lorem.paragraphs(5)}`
-      })
-      console.log(`add agreement to contact ${contact._id}`)
-    }
-  }
 }

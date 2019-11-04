@@ -3,7 +3,7 @@ import { TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { Agreement } from '../../_shared/models/agreement'
 import { Contact } from '../../_shared/models/contacts'
-import { AgreementsService } from '../../_shared/repos/agreements.repo'
+import { AgreementsRepo } from '../../_shared/repos/agreements.repo'
 import { ContactsRepo } from '../../_shared/repos/contacts.repo'
 
 @Component({
@@ -40,7 +40,7 @@ export class AgreementsComponent implements OnInit {
   }
 
   constructor(
-    private agreementsService: AgreementsService,
+    private agreementsService: AgreementsRepo,
     private contactsService: ContactsRepo
   ) { }
 

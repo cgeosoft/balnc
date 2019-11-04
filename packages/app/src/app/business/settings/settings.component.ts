@@ -1,6 +1,5 @@
 import { Component } from '@angular/core'
-import { AgreementsService } from '../_shared/repos/agreements.repo'
-import { ContactsRepo } from '../_shared/repos/contacts.repo'
+import { DemoService } from '../_shared/services/demo.service'
 
 @Component({
   selector: 'app-business-settings',
@@ -13,14 +12,12 @@ export class SettingsComponent {
   generated: number
 
   constructor(
-    private contactsService: ContactsRepo,
-    private agreementsService: AgreementsService
+    private demoService: DemoService
   ) { }
 
   async generateDemoData() {
     if (!confirm('Are you sure?')) return
-    await this.contactsService.generateDemoData()
-    await this.agreementsService.generateDemoData()
+    await this.demoService.generate()
     this.generated = Date.now()
   }
 }

@@ -35,13 +35,12 @@ export class ContactsComponent implements OnInit {
     private router: Router
   ) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.contacts$ = this.contactsService.all$().pipe(
       switchMap(contacts => this.term$.pipe(
         map(term => this.doFilterContacts(contacts, term))
       ))
     )
-    await this.contactsService.generateDemoData()
   }
 
   filter(term) {
