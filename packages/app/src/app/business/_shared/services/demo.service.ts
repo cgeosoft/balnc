@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core'
 import * as faker from 'faker'
 import { AgreementStatus } from '../models/agreement'
 import { ContactType } from '../models/contacts'
+import { AccountsRepo } from '../repos/accounts.repo'
 import { AgreementsRepo } from '../repos/agreements.repo'
 import { CEventsRepo } from '../repos/cevents.repo'
 import { ContactsRepo } from '../repos/contacts.repo'
+import { RecordsRepo } from '../repos/records.repo'
+import { TransactionsRepo } from '../repos/transactions.repo'
 
 @Injectable()
 export class DemoService {
@@ -12,10 +15,59 @@ export class DemoService {
   generated = false
 
   constructor(
+    private accountsRepo: AccountsRepo,
+    private transactionsRepo: TransactionsRepo,
+    private recordsRepo: RecordsRepo,
     private ceventsRepo: CEventsRepo,
     private contactsRepo: ContactsRepo,
     private agreementsRepo: AgreementsRepo
   ) { }
+
+  async execute(id: string) {
+    console.log(`execute transaction ${id}`)
+    const t = await this.transactionsRepo.one(id)
+    if (!t) return
+
+    if (t.from) {
+      await this.recordsRepo.add({
+        transaction: t._id,
+        account: t.from,
+        amount: t.amount * -1
+      })
+    }
+
+    if (t.to) {
+      await this.recordsRepo.add({
+        transaction: t._id,
+        account: t.to,
+        amount: t.amount
+      })
+    }
+  }
+
+  async generateOwnAccount() {
+    console.log(`Generate Own Account`)
+    for (let p = 0; p < 5; p++) {
+      const own = await this.accountsRepo.add({
+        name: `${faker.finance.accountName()}`
+      })
+      console.log(`add account ${p}`)
+
+      for (let k = 0; k < faker.random.number(5); k++) {
+        const funds = faker.random.number({ min: 100, max: 1000, precision: 2 })
+        console.log(`add funds ${funds}`)
+
+        const t = await this.transactionsRepo.add({
+          from: null,
+          to: own._id,
+          amount: funds,
+          executed: Date.now()
+        }, faker.date.past().getTime())
+
+        await this.execute(t._id)
+      }
+    }
+  }
 
   async generate(size = 20) {
 

@@ -63,9 +63,9 @@ export class ContactComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private stateService: StateService,
-    private contactsService: ContactsRepo,
-    private ceventsService: CEventsRepo,
-    private ordersService: OrdersRepo,
+    private contactsRepo: ContactsRepo,
+    private ceventsRepo: CEventsRepo,
+    private ordersRepo: OrdersRepo,
     private router: Router
   ) { }
 
@@ -73,7 +73,7 @@ export class ContactComponent implements OnInit {
     this.contact$ = this.route
       .params
       .pipe(
-        mergeMap(params => this.contactsService.one$(params['id'])),
+        mergeMap(params => this.contactsRepo.one$(params['id'])),
         // map((params) => {
         //   return {
         //     contact: this.contactsService.getContact(params['id']),
@@ -93,7 +93,7 @@ export class ContactComponent implements OnInit {
             route: [`/business/contacts`, contact._id],
             type: ContactType[contact.type]
           })
-          this.cevents$ = this.ceventsService.all$().pipe(
+          this.cevents$ = this.ceventsRepo.all$().pipe(
             map((cevents: CEvent[]) => cevents.filter((cevent) => cevent.contact === contact._id)),
             tap((cevents: CEvent[]) => cevents.sort((a, b) => b._timestamp - a._timestamp))
           )
@@ -107,11 +107,11 @@ export class ContactComponent implements OnInit {
   }
 
   async createOrder() {
-    const order = await this.ordersService.add({
+    const order = await this.ordersRepo.add({
       serial: Helpers.uid(),
       customer: this.route.snapshot.params['id']
     })
-    await this.ceventsService.add({
+    await this.ceventsRepo.add({
       contact: this.route.snapshot.params['id'],
       comment: `add new order #${order['serial']}`,
       reference: `/business/orders/${order._id}`,
