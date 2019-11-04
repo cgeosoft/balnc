@@ -43,7 +43,7 @@ export class ShellComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.projects$ = this.projectsService.getAll$<Project>('projects')
+    this.projects$ = this.projectsService.all$()
       .pipe(
         tap((projects: Project[]) => projects.sort((a, b) => {
           if (a.name < b.name) {
@@ -68,9 +68,9 @@ export class ShellComponent implements OnInit {
   private loadProject(pid) {
     if (pid) {
       this.selectedProjectId = pid
-      this.project$ = this.projectsService.getOne$<Project>('projects', pid)
+      this.project$ = this.projectsService.one$(pid)
     } else if (this.selectedProjectId) {
-      this.project$ = this.projectsService.getOne$<Project>('projects', this.selectedProjectId)
+      this.project$ = this.projectsService.one$(this.selectedProjectId)
     } else {
       this.selectedProjectId = null
       this.project$ = null

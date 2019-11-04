@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
+import { map, tap } from 'rxjs/operators'
 import { Issue, IssueStatus, IssueStatuses, PEvent, PEventType, Project } from '../_shared/models/all'
+import { IssuesRepo } from '../_shared/repos/issues.repo'
+import { PEventsRepo } from '../_shared/repos/pevents.repo'
 import { ProjectsRepo } from '../_shared/repos/projects.repo'
 
 @Component({
@@ -45,7 +47,9 @@ export class IssueComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private projectsService: ProjectsRepo,
+    private projectsRepo: ProjectsRepo,
+    private peventsRepo: PEventsRepo,
+    private issuesRepo: IssuesRepo,
     private zone: NgZone,
     private config: ConfigService
   ) { }
@@ -82,41 +86,52 @@ export class IssueComponent implements OnInit {
   }
 
   async updateTitle(title) {
-    const issue = await this.projectsService.getOne<Issue>('issues', this.issueId)
+    const issue = await this.issuesRepo.one(this.issueId)
     const _title = title.trim()
     if (issue.title === _title) return
-    await issue.update({ $set: { title: _title } })
+    await this.issuesRepo.update(this.issueId, { $set: { title: _title } })
   }
 
   async updateStatus(status: IssueStatus) {
-    const issue = await this.projectsService.getOne<Issue>('issues', this.issueId)
-    await issue.update({ $set: { status: status } })
-    await this.log(`status updated to ${status}`)
+    await this.issuesRepo.update(this.issueId, { $set: { status: status } })
+    this.log(`status updated to ${status}`)
   }
 
   async updateDesc(description) {
     this.editDesc = false
-    const issue = await this.projectsService.getOne<Issue>('issues', this.issueId)
+    const issue = await this.issuesRepo.one(this.issueId)
     const _description = description.trim()
     if (issue.description === _description) return
-    await issue.update({
-      $set: {
-        description: _description
-      }
-    })
+    await this.issuesRepo.update(this.issueId, { $set: { description: _description } })
   }
 
   async submitComment() {
     const formModel = this.form.value
     if (!formModel.comment) return
     this.postCommentLoading = true
-    await this.projectsService.createComment(formModel.comment, this.issueId)
+
+    const event: Partial<PEvent> = {
+      text: formModel.comment,
+      user: this.config.username,
+      type: PEventType.comment,
+      issueId: this.issueId
+    }
+    await this.peventsRepo.add(event)
+
     this.form.reset()
     this.postCommentLoading = false
   }
 
   async changeStatus(status: string) {
-    await this.projectsService.changeStatus(status, this.issueId)
+    await this.issuesRepo.update(this.issueId, {
+      $set: {
+        status: status,
+        updated: {
+          timestamp: Date.now(),
+          user: this.config.username
+        }
+      }
+    })
   }
 
   enableEditDesc() {
@@ -127,13 +142,12 @@ export class IssueComponent implements OnInit {
   }
 
   private async setup() {
-    this.issue$ = this.projectsService.getOne$<Issue>('issues', this.issueId)
-    this.logs$ = this.projectsService
-      .getAll$<PEvent>('logs', {
-        issueId: { $eq: this.issueId }
-      })
+    this.issue$ = this.issuesRepo.one$(this.issueId)
+    this.logs$ = this.peventsRepo
+      .all$()
       .pipe(
-        tap((logs: PEvent[]) => logs.sort((a, b) => a.insertedAt - b.insertedAt)),
+        map(i => i.filter(x => x.issueId === this.issueId)),
+        tap((logs: PEvent[]) => logs.sort((a, b) => a._timestamp - b._timestamp)),
         tap((logs: PEvent[]) => {
           this.zone.run(() => { })
           this.scroll()
@@ -141,7 +155,7 @@ export class IssueComponent implements OnInit {
       )
 
     this.issue$.subscribe(async (issue) => {
-      this.project = await this.projectsService.getOne<Project>('projects', issue.project)
+      this.project = await this.projectsRepo.one(issue.project)
       this.breadcrumb = [
         { label: 'Projects' },
         { url: ['/projects/project', issue.project], label: 'Projects' },
@@ -152,12 +166,11 @@ export class IssueComponent implements OnInit {
   }
 
   private log(message: string) {
-    return this.projectsService.addOne<PEvent>('logs', {
+    return this.peventsRepo.add({
       issueId: this.issueId,
       type: PEventType.activity,
       text: message,
-      insertedAt: Date.now(),
-      insertedFrom: this.config.username
+      user: this.config.username
     })
   }
 

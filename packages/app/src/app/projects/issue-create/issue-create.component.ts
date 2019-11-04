@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ConfigService } from '@balnc/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { Issue, IssueType } from '../_shared/models/all'
-import { ProjectsRepo } from '../_shared/repos/projects.repo'
+import { IssueType } from '../_shared/models/all'
+import { IssuesRepo } from '../_shared/repos/issues.repo'
 
 @Component({
   selector: 'app-projects-issue-create',
@@ -18,7 +18,7 @@ export class IssueCreateComponent implements OnInit {
   constructor(
     private activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
-    private projectsService: ProjectsRepo,
+    private issuesRepo: IssuesRepo,
     private config: ConfigService
   ) { }
 
@@ -36,15 +36,13 @@ export class IssueCreateComponent implements OnInit {
 
   async onSubmit() {
     const formModel = this.form.value
-    const issue: Issue = {
+    const issueId = await this.issuesRepo.add({
       title: formModel.title,
       description: formModel.description,
       project: this.projectId,
-      insertedFrom: this.config.username,
-      insertedAt: Date.now(),
+      user: this.config.username,
       type: IssueType.issue
-    }
-    const issueId = await this.projectsService.createIssue(issue)
+    })
     this.activeModal.close(issueId)
   }
 }

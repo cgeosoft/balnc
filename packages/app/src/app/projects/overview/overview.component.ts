@@ -4,7 +4,9 @@ import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
 import { CreateProjectComponent } from '../create-project/create-project.component'
 import { PEvent, Project } from '../_shared/models/all'
+import { PEventsRepo } from '../_shared/repos/pevents.repo'
 import { ProjectsRepo } from '../_shared/repos/projects.repo'
+import { ProjectsService } from '../_shared/services/projects.service'
 
 @Component({
   selector: 'app-projects-overview',
@@ -18,15 +20,17 @@ export class OverviewComponent implements OnInit {
   projects: Project[]
 
   constructor(
-    private projectsService: ProjectsRepo,
+    private projectsRepo: ProjectsRepo,
+    private peventsRepo: PEventsRepo,
+    private projectsService: ProjectsService,
     private modal: NgbModal,
     private zone: NgZone
   ) { }
 
   async ngOnInit() {
-    this.projects = await this.projectsService.getAll<Project>('projects')
-    this.logs$ = this.projectsService.getAll$<PEvent>('logs').pipe(
-      tap((logs: PEvent[]) => logs.sort((a, b) => a.insertedAt - b.insertedAt)),
+    this.projects = await this.projectsRepo.all()
+    this.logs$ = this.peventsRepo.all$().pipe(
+      tap((logs: PEvent[]) => logs.sort((a, b) => a._timestamp - b._timestamp)),
       tap((logs: PEvent[]) => logs.reverse()),
       tap(() => {
         this.zone.run(() => { })
@@ -40,11 +44,11 @@ export class OverviewComponent implements OnInit {
   }
 
   async generate() {
-    this.projectsService.generateDemoData()
+    await this.projectsService.generateDemoData()
   }
 
   getProject(projectId) {
-    return this.projects.find(p => p['_id'] === projectId)
+    return this.projects.find(p => p._id === projectId)
   }
 
 }

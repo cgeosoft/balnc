@@ -1,5 +1,6 @@
+import { Entity } from '@balnc/core'
 
-export interface Project {
+export interface Project extends Entity {
   name: string
   description?: string
   features?: { [key: string]: boolean }
@@ -16,7 +17,7 @@ export interface Meta {
   }
 }
 
-export interface Issue extends Meta {
+export interface Issue extends Entity, Meta {
   project: string
   type: IssueType
   title: string
@@ -33,7 +34,7 @@ export interface Issue extends Meta {
   dueDate?: number
 }
 
-export interface PEvent extends Meta {
+export interface PEvent extends Entity, Meta {
   issueId: string
   text?: string
   type: PEventType

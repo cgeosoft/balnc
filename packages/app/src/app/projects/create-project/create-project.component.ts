@@ -25,7 +25,7 @@ export class CreateProjectComponent implements OnInit {
 
   async onSubmit() {
     const formModel = this.form.value
-    const projectId = await this.projectsService.createProject(formModel.name)
+    const projectId = await this.projectsService.add({ name: formModel.name })
     this.activeModal.close(projectId)
   }
 }

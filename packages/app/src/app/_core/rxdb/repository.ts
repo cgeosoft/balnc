@@ -38,7 +38,7 @@ export class Repository<T> {
     )
   }
 
-  async add(data: any, ts?: number): Promise<T> {
+  async add<T>(data: Partial<T>, ts?: number): Promise<T> {
     const obj = {
       data,
       type: this.entity,
@@ -46,6 +46,11 @@ export class Repository<T> {
     }
     const doc = await this.entities.insert(obj)
     return this.mappedItems([doc])[0]
+  }
+
+  async update(id: string, query: any) {
+    const item = await this.entities.findOne(id).exec()
+    await item.update(query)
   }
 
   async remove(id: string): Promise<void> {
