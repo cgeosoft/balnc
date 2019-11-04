@@ -38,7 +38,7 @@ export class Repository<T> {
     )
   }
 
-  async add<T>(data: Partial<T>, ts?: number): Promise<T> {
+  async add(data: Partial<T>, ts?: number): Promise<T> {
     const obj = {
       data,
       type: this.entity,

@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators'
 import { CreateProjectComponent } from '../create-project/create-project.component'
 import { Project } from '../_shared/models/all'
 import { ProjectsRepo } from '../_shared/repos/projects.repo'
+import { ProjectsService } from '../_shared/services/projects.service'
 
 @Component({
   selector: 'app-projects-settings',
@@ -19,25 +20,24 @@ export class SettingsComponent implements OnInit {
   generated: number
 
   constructor(
-    private projectsService: ProjectsRepo,
+    private projectsRepo: ProjectsRepo,
+    private projectsService: ProjectsService,
     private modal: NgbModal
   ) { }
 
   async ngOnInit() {
-    this.projects$ = await this.projectsService
-      .getAll$<Project>('projects')
-      .pipe(
-        tap((projects: Project[]) => projects.sort((a, b) => {
-          if (a.name < b.name) {
-            return -1
-          }
-          if (a.name > b.name) {
-            return 1
-          }
-          return 0
+    this.projects$ = this.projectsRepo.all$().pipe(
+      tap((projects: Project[]) => projects.sort((a, b) => {
+        if (a.name < b.name) {
+          return -1
         }
-        ))
-      )
+        if (a.name > b.name) {
+          return 1
+        }
+        return 0
+      }
+      ))
+    )
   }
 
   async createProject() {

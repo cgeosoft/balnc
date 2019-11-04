@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { Page } from '../_shared/models/page'
-import { RxPresentationDoc } from '../_shared/models/presentation'
+import { Presentation } from '../_shared/models/presentation'
 import { PresentationsService } from '../_shared/services/presentations.service'
 
 @Component({
@@ -10,7 +10,7 @@ import { PresentationsService } from '../_shared/services/presentations.service'
 })
 export class AddPageComponent {
 
-  @Input() presentation: RxPresentationDoc
+  @Input() presentation: Presentation
 
   page: Page = {
     title: null,

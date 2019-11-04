@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
-import { ChartModule } from 'angular2-chartjs'
 import { SwiperModule, SWIPER_CONFIG } from 'ngx-swiper-wrapper'
 import { AddPageComponent } from './add-page/add-page.component'
 import { CreateComponent } from './create/create.component'
@@ -17,7 +16,6 @@ import { ShellComponent } from './_shell/shell.component'
   imports: [
     SharedModule,
     SwiperModule,
-    ChartModule,
     RouterModule.forChild([{
       path: '',
       component: ShellComponent,

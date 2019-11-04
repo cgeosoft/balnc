@@ -27,7 +27,7 @@ export class ShellComponent implements OnInit {
 
   async create(name) {
     if (!name) return
-    const id = await this.documentsRepo.add({ data: { name } })
+    const id = await this.documentsRepo.add({ name })
     name = null
     await this.router.navigate(['/documents', id])
   }

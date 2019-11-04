@@ -24,13 +24,10 @@ export class AgreementsService extends Repository<Agreement> {
     agreement.serial = Helpers.uid()
     const c = await super.add(agreement)
     await this.ceventsService.add({
-      data: {
-        contact: agreement.contact,
-        date: Date.now(),
-        type: CEventType.AgreementCreated,
-        comment: `new agreement #${c.serial}`,
-        reference: `/business/agreements/${c['_id']}`
-      }
+      contact: agreement.contact,
+      type: CEventType.AgreementCreated,
+      comment: `new agreement #${c.serial}`,
+      reference: `/business/agreements/${c['_id']}`
     })
     return c
   }

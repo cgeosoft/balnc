@@ -1,10 +1,10 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import * as screenfull from 'screenfull'
-import { Screenfull } from 'screenfull'
+import { RxDocument } from 'rxdb'
 import { AddPageComponent } from '../add-page/add-page.component'
-import { PresentationStats, RxPresentationDoc } from '../_shared/models/presentation'
+import { Presentation, PresentationStats } from '../_shared/models/presentation'
+import { PresentationsRepo } from '../_shared/repos/presentations.repo'
 import { PresentationsService } from '../_shared/services/presentations.service'
 
 @Component({
@@ -20,7 +20,7 @@ export class PresentationComponent implements OnInit {
   activePageIndex: number = 0
   imageData: string
   pages: any[] = []
-  presentation: RxPresentationDoc
+  presentation: Presentation
 
   presenting = false
 
@@ -84,6 +84,7 @@ export class PresentationComponent implements OnInit {
     private zone: NgZone,
     private router: Router,
     private modal: NgbModal,
+    private presentationsRepo: PresentationsRepo,
     private presentationsService: PresentationsService
   ) { }
 
@@ -91,16 +92,16 @@ export class PresentationComponent implements OnInit {
     this.route
       .params
       .subscribe(async params => {
-        this.presentation = await this.presentationsService.getPresentation(params['id'])
-        this.stats = await this.presentationsService.getStats(this.presentation)
-        this.setPageIndex(0)
+        this.presentation = await this.presentationsRepo.one(params['id'])
+        // this.stats = await this.presentationsRepo.getStats(this.presentation)
+        await this.setPageIndex(0)
       })
 
-    let sf = screenfull as Screenfull
-    sf.on('change', (ev) => {
-      console.log(ev)
-      this.presenting = !this.presenting
-    })
+    // let sf = screenfull
+    // sf.on('change', (ev) => {
+    //   console.log(ev)
+    //   this.presenting = !this.presenting
+    // })
 
     this.events = this.events
       .sort((a, b) => {
@@ -110,16 +111,16 @@ export class PresentationComponent implements OnInit {
       })
   }
 
-  deletePresentation() {
-    this.presentation.remove()
-    this.router.navigateByUrl('/presentations')
+  async deletePresentation() {
+    await this.presentationsRepo.remove(this.presentation._id)
+    await this.router.navigateByUrl('/presentations')
   }
 
   async addImage() {
     const modalRef = this.modal.open(AddPageComponent)
     modalRef.componentInstance.presentation = this.presentation
     await modalRef.result
-    this.setPageIndex(0)
+    await this.setPageIndex(0)
   }
 
   async deletePage(index) {
@@ -127,7 +128,7 @@ export class PresentationComponent implements OnInit {
     _pages.splice(index, 1)
     this.presentation.pages = _pages
     this.presentation.dateUpdated = Date.now()
-    await this.presentation.save()
+    await this.presentationsRepo.update(this.presentation._id, { $set: this.presentation })
     await this.cleanupFiles()
   }
 
@@ -137,7 +138,8 @@ export class PresentationComponent implements OnInit {
         return page.params.image
       })
 
-    const attachments = await this.presentation.allAttachments()
+    const doc = this.presentation as RxDocument<Presentation>
+    const attachments = doc.allAttachments()
 
     for (const attachment of attachments) {
       if (usedFiles.indexOf(attachment.id) === -1) {
@@ -147,7 +149,6 @@ export class PresentationComponent implements OnInit {
   }
 
   async setPageIndex(index: number) {
-
     this.activePageIndex = index
     if (this.presentation.pages.length === 0) {
       return
@@ -167,28 +168,28 @@ export class PresentationComponent implements OnInit {
       proms.push(prom)
     })
 
-    let sf = screenfull as Screenfull
-    if (sf.enabled) {
-      sf.toggle(this.presentElem.nativeElement)
-    }
+    // let sf = screenfull
+    // if (sf.isEnabled) {
+    //   await sf.toggle(this.presentElem.nativeElement)
+    // }
   }
 
-  goToFirst() {
-    this.setPageIndex(0)
+  async goToFirst() {
+    await this.setPageIndex(0)
   }
 
-  goToPrevious() {
+  async goToPrevious() {
     if (this.activePageIndex <= 0) { return }
-    this.setPageIndex(this.activePageIndex - 1)
+    await this.setPageIndex(this.activePageIndex - 1)
   }
 
-  goToNext() {
+  async goToNext() {
     if (this.activePageIndex >= this.presentation.pages.length - 1) { return }
-    this.setPageIndex(this.activePageIndex + 1)
+    await this.setPageIndex(this.activePageIndex + 1)
   }
 
-  goToLast() {
-    this.setPageIndex(this.presentation.pages.length - 1)
+  async goToLast() {
+    await this.setPageIndex(this.presentation.pages.length - 1)
   }
 
 }

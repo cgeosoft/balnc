@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Repository, RxDBService } from '@balnc/core'
 import * as _ from 'lodash'
+import { RxDocument } from 'rxdb'
 import { BehaviorSubject } from 'rxjs'
 import { ReportSettings } from './models/module-settings'
-import { Report, RxReportDoc } from './models/report'
+import { Report } from './models/report'
 
 @Injectable()
 export class ReportsService extends Repository<Report> {
@@ -77,7 +78,7 @@ export class ReportsService extends Repository<Report> {
     let query = ''
     try {
       const r = await super.one(report.alias)
-      const attachment = (r as RxReportDoc).getAttachment('query.sql')
+      const attachment = (r as RxDocument<Report>).getAttachment('query.sql')
       query = await attachment.getStringData()
     } catch (err) {
       return Promise.reject(err)

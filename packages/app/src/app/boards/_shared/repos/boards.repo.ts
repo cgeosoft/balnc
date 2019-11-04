@@ -25,7 +25,6 @@ export class BoardsRepo extends Repository<Board> {
 
     for (let b = 0; b < 5; b++) {
       const board = await this.add({
-        key: faker.random.uuid(),
         name: faker.name.findName()
       })
       console.log(` - Added board ${board._id}`)

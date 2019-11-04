@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { Project, RxIssueDoc, RxProjectDoc } from '../_shared/models/all'
+import { Project } from '../_shared/models/all'
+import { IssuesRepo } from '../_shared/repos/issues.repo'
+import { PEventsRepo } from '../_shared/repos/pevents.repo'
 import { ProjectsRepo } from '../_shared/repos/projects.repo'
 
 @Component({
@@ -16,7 +18,9 @@ export class ProjectManageComponent implements OnInit {
 
   constructor(
     private activeModal: NgbActiveModal,
-    private projectsService: ProjectsRepo,
+    private projectsRepo: ProjectsRepo,
+    private issuesRepo: IssuesRepo,
+    private peventsRepo: PEventsRepo,
     private router: Router
   ) { }
 
@@ -25,17 +29,13 @@ export class ProjectManageComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const p = await this.projectsService.getOne<Project>('projects', this.projectId)
-    this.project = {
-      name: p.name
-    }
+    const p = await this.projectsRepo.one(this.projectId)
+    this.project = { ...p }
   }
 
   async updateName() {
     this.loading = true
-    const p = await this.projectsService
-      .getOne<RxProjectDoc>('projects', this.projectId)
-    await p.update({
+    const p = await this.projectsRepo.update(this.projectId, {
       $set: {
         name: this.project.name
       }
@@ -45,17 +45,26 @@ export class ProjectManageComponent implements OnInit {
 
   async deleteProject() {
     if (!confirm('Are you sure?')) return
-    const project = await this.projectsService.getOne<RxProjectDoc>('projects', this.projectId)
-    await project.remove()
-    const issues = await this.projectsService.getAll<RxIssueDoc[]>('issues', {
-      projectId: { $eq: this.projectId }
-    })
-    issues.forEach(i => i.remove())
-    const logs = await this.projectsService.getAll<RxIssueDoc[]>('logs', {
-      projectId: { $eq: this.projectId }
-    })
-    logs.forEach(i => i.remove())
-    this.router.navigate(['/projects/overview'])
+
+    await this.projectsRepo.remove(this.projectId)
+
+    const issues = await this.issuesRepo.all()
+
+    const promiseIssues = issues
+      .filter(i => i.project === this.projectId)
+      .map(i => this.issuesRepo.remove(i._id))
+
+    await Promise.all(promiseIssues)
+
+    const issuesIds = issues.map(i => i._id)
+    const promisePEvents = await this.peventsRepo.all()
+      .then((pevents) => pevents
+        .filter(i => issuesIds.indexOf(i._id) >= 0)
+        .map(i => this.peventsRepo.remove(i._id))
+      )
+    await Promise.all(promisePEvents)
+
     this.activeModal.close()
+    await this.router.navigate(['/projects/overview'])
   }
 }

@@ -1,10 +1,10 @@
-import { Component, NgZone, OnInit, Pipe, PipeTransform } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
 import { LocalStorage } from 'ngx-store'
 import { Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
+import { map, tap } from 'rxjs/operators'
 import { Issue, IssueStatus, IssueStatuses, IssueType, Project } from '../_shared/models/all'
+import { IssuesRepo } from '../_shared/repos/issues.repo'
 import { ProjectsRepo } from '../_shared/repos/projects.repo'
 
 @Component({
@@ -34,11 +34,9 @@ export class ProjectComponent implements OnInit {
   breadcrumb: any[]
 
   constructor(
-    private projectsService: ProjectsRepo,
-    private modal: NgbModal,
-    private zone: NgZone,
-    private route: ActivatedRoute,
-    private router: Router
+    private projectsRepo: ProjectsRepo,
+    private issuesRepo: IssuesRepo,
+    private route: ActivatedRoute
   ) { }
 
   get pStart() {
@@ -81,18 +79,16 @@ export class ProjectComponent implements OnInit {
   }
 
   private async load() {
-    this.project = await this.projectsService.getOne<Project>('projects', this.projectId)
+    this.project = await this.projectsRepo.one(this.projectId)
     this.breadcrumb = [
       { label: 'Projects' },
       { label: this.project.name }
     ]
-    this.issues$ = this.projectsService
-      .getAll$<Issue>('issues', {
-        projectId: { $eq: this.projectId },
-        type: { $eq: IssueType.issue }
-      })
+    this.issues$ = this.issuesRepo
+      .all$()
       .pipe(
-        tap((issues: Issue[]) => issues.sort((a, b) => a.insertedAt - b.insertedAt)),
+        map(x => x.filter(y => y.project === this.projectId && y.type === IssueType.issue)),
+        tap((issues: Issue[]) => issues.sort((a, b) => a._timestamp - b._timestamp)),
         tap((issues: Issue[]) => issues.reverse()),
         tap((issues: Issue[]) => {
           this.issuesLength = issues.length

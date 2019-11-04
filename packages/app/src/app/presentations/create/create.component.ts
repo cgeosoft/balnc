@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { PresentationsService } from '../_shared/services/presentations.service'
+import { PresentationsRepo } from '../_shared/repos/presentations.repo'
 
 @Component({
   selector: 'app-presentations-create',
@@ -12,12 +12,11 @@ export class CreateComponent {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private presentationsService: PresentationsService
+    private presentationsRepo: PresentationsRepo
   ) { }
 
   async onSubmit() {
-    const presentation = await this.presentationsService
-      .createPresentation(this.presentationTitle)
+    const presentation = await this.presentationsRepo.add({ title: this.presentationTitle })
     this.activeModal.close(presentation)
   }
 }

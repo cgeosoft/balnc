@@ -115,7 +115,6 @@ export class ContactComponent implements OnInit {
       contact: this.route.snapshot.params['id'],
       comment: `add new order #${order['serial']}`,
       reference: `/business/orders/${order['_id']}`,
-      date: Date.now(),
       type: CEventType.OrderCreated
     })
     await this.router.navigate([`/business/orders`, order['_id']])
