@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import * as faker from 'faker'
+import { AccountType } from '../models/account'
 import { AgreementStatus } from '../models/agreement'
 import { ContactType } from '../models/contacts'
 import { AccountsRepo } from '../repos/accounts.repo'
@@ -45,11 +46,18 @@ export class DemoService {
     }
   }
 
-  async generateOwnAccount() {
+  async generate() {
+
+    const NO_OF_ACCOUNTS = 5
+    const NO_OF_CUSTOMERS = 20
+
     console.log(`Generate Own Account`)
-    for (let p = 0; p < 5; p++) {
+
+    console.log(Object.keys(AccountType))
+    for (let p = 0; p < NO_OF_ACCOUNTS; p++) {
       const own = await this.accountsRepo.add({
-        name: `${faker.finance.accountName()}`
+        name: `${faker.finance.accountName()}`,
+        type: AccountType.Cash
       })
       console.log(`add account ${p}`)
 
@@ -67,14 +75,11 @@ export class DemoService {
         await this.execute(t._id)
       }
     }
-  }
-
-  async generate(size = 20) {
 
     if (this.generated) return
 
-    console.log(`generate ${size / 2} person/contacts`)
-    for (let p = 0; p < size / 2; p++) {
+    console.log(`generate ${NO_OF_CUSTOMERS / 2} person/contacts`)
+    for (let p = 0; p < NO_OF_CUSTOMERS / 2; p++) {
       await this.contactsRepo.add({
         name: `${faker.name.findName()}`,
         type: ContactType.person,
@@ -92,8 +97,8 @@ export class DemoService {
       console.log(`add person ${p}`)
     }
 
-    console.log(`generate ${size / 2} company/contacts`)
-    for (let c = 0; c < size / 2; c++) {
+    console.log(`generate ${NO_OF_CUSTOMERS / 2} company/contacts`)
+    for (let c = 0; c < NO_OF_CUSTOMERS / 2; c++) {
       await this.contactsRepo.add({
         name: `${faker.company.companyName()}`,
         type: ContactType.company,
@@ -118,15 +123,14 @@ export class DemoService {
       console.log(`add company ${c}`)
     }
 
-    console.log(`generate ${size} agreements`)
+    console.log(`generate ${NO_OF_CUSTOMERS} agreements`)
     const contacts = await this.contactsRepo.all()
 
-    for (let a = 0; a < size; a++) {
+    for (let a = 0; a < NO_OF_CUSTOMERS; a++) {
       const contact = contacts[faker.random.number({ min: 0, max: contacts.length - 1 })]
       await this.agreementsRepo.add({
         contact: contact._id,
         status: AgreementStatus.draft,
-        createdAt: Date.now(),
         content: `# Agreement ${Date.now()}\n\r${faker.lorem.paragraphs(5)}`
       })
       console.log(`add agreement to contact ${contact._id}`)

@@ -1,5 +1,4 @@
 import { Entity } from '@balnc/core'
-import { RxDocument } from 'rxdb'
 
 export interface ContactConn {
   reference: string
@@ -45,19 +44,28 @@ export interface CEvent extends Entity {
 }
 
 export enum CEventType {
-  ContactAccessed = 'ContactAccessed',
-  ContactCreated = 'ContactCreated',
-  ContactUpdated = 'ContactUpdated',
-  ConnectionCreated = 'ConnectionCreated',
-  ConnectionRemoved = 'ConnectionRemoved',
-  OrderCreated = 'OrderCreated',
-  OrderRemoved = 'OrderRemoved',
-  InvoiceCreated = 'InvoiceCreated',
-  InvoiceRemoved = 'InvoiceRemoved',
-  AgreementCreated = 'AgreementCreated',
-  RecordCreated = 'RecordCreated'
+  ContactAccessed,
+  ContactCreated,
+  ContactUpdated,
+  ConnectionCreated,
+  ConnectionRemoved,
+  OrderCreated,
+  OrderRemoved,
+  InvoiceCreated,
+  InvoiceRemoved,
+  AgreementCreated,
+  RecordCreated
 }
 
-export type RxContactDoc = RxDocument<Contact> & Contact
-
-export type RxCEventDoc = RxDocument<CEvent> & CEvent
+export const CEventTypeBadges = {
+  ContactAccessed: { label: 'Contact Accessed', color: '#78909C' },
+  ContactCreated: { label: 'Contact Created', color: '#9FA8DA' },
+  ContactUpdated: { label: 'Contact Updated', color: '#D4E157' },
+  ConnectionCreated: { label: 'Connection Created', color: '#66BB6A' },
+  ConnectionRemoved: { label: 'Connection Removed', color: '#ef5350' },
+  OrderCreated: { label: 'Order Created', color: '#66BB6A' },
+  OrderRemoved: { label: 'Order Removed', color: '#ef5350' },
+  InvoiceCreated: { label: 'Invoice Created', color: '#66BB6A' },
+  InvoiceRemoved: { label: 'Invoice Removed', color: '#ef5350' },
+  AgreementCreated: { label: 'Agreement Created', color: '#66BB6A' }
+}

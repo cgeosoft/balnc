@@ -16,6 +16,7 @@ export class AccountsRepo extends Repository<Account> {
   }
 
   async add(data: Partial<Account>, ts?: number): Promise<Account> {
+    console.log(data)
     const account = await super.add(data, ts)
     // await this.ceventsService.add({
     //   contact: account.contact,

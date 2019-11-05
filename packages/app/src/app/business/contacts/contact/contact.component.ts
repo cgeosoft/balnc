@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Helpers, TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { map, mergeMap, tap } from 'rxjs/operators'
-import { CEvent, CEventType, Contact, ContactType } from '../../_shared/models/contacts'
+import { CEvent, CEventType, CEventTypeBadges, Contact, ContactType } from '../../_shared/models/contacts'
 import { CEventsRepo } from '../../_shared/repos/cevents.repo'
 import { ContactsRepo } from '../../_shared/repos/contacts.repo'
 import { OrdersRepo } from '../../_shared/repos/orders.repo'
@@ -26,20 +26,7 @@ export class ContactComponent implements OnInit {
     name: 'contact-events',
     properties: [
       { label: 'Date', type: 'date', locked: true, val: (item: CEvent) => item._timestamp },
-      {
-        label: 'Type', type: 'badge', locked: true, badges: {
-          ContactAccessed: { label: 'Contact Accessed', color: '#78909C' },
-          ContactCreated: { label: 'Contact Created', color: '#9FA8DA' },
-          ContactUpdated: { label: 'Contact Updated', color: '#D4E157' },
-          ConnectionCreated: { label: 'Connection Created', color: '#66BB6A' },
-          ConnectionRemoved: { label: 'Connection Removed', color: '#ef5350' },
-          OrderCreated: { label: 'Order Created', color: '#66BB6A' },
-          OrderRemoved: { label: 'Order Removed', color: '#ef5350' },
-          InvoiceCreated: { label: 'Invoice Created', color: '#66BB6A' },
-          InvoiceRemoved: { label: 'Invoice Removed', color: '#ef5350' },
-          AgreementCreated: { label: 'Agreement Created', color: '#66BB6A' }
-        }, val: (item: CEvent) => item.type
-      },
+      { label: 'Type', type: 'badge', locked: true, badges: CEventTypeBadges, val: (item: CEvent) => CEventType[item.type] },
       { label: 'Comment', locked: true, val: (item: CEvent) => item.contact },
       { type: 'button', locked: true, icon: 'link', click: (item: CEvent) => item.comment }
     ]

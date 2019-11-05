@@ -19,14 +19,14 @@ export class AgreementsComponent implements OnInit {
     name: 'agreements',
     properties: [
       {
-        label: 'Serial', locked: true, type: 'link', val: (item: Agreement) => {
+        label: 'Serial', style: { width: '100px' }, locked: true, type: 'link', val: (item: Agreement) => {
           return {
             label: item.serial,
             link: ['/business/agreements', item._id]
           }
         }
       },
-      { label: 'Date', type: 'date', val: (item: Agreement) => { return item.createdAt } },
+      { label: 'Date', style: { width: '160px' }, type: 'date', val: (item: Agreement) => { return item._timestamp } },
       {
         label: 'Contact', type: 'link', val: (item: Agreement) => {
           const c = this.contacts.find(c => c._id === item.contact)

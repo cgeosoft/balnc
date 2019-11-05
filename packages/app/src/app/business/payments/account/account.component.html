@@ -1,0 +1,7 @@
+<app-content>
+  <app-content-body [padding]="true" [full]="true">
+    <ng-container *ngIf="(account$ | async) as account">
+      <pre>{{account|json:2}}</pre>
+    </ng-container>
+  </app-content-body>
+</app-content>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
 import { TableSchema } from '@balnc/shared'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { Account } from '../../_shared/models/account'
@@ -10,7 +9,7 @@ import { TransactionsRepo } from '../../_shared/repos/transactions.repo'
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
-  styleUrls: ['./transactions.component.css']
+  host: { 'class': 'page' }
 })
 export class TransactionsComponent implements OnInit {
 
@@ -25,22 +24,13 @@ export class TransactionsComponent implements OnInit {
     ]
   }
 
-  // from?: string
-  // to?: string
-  // amount: number
-  // executed?: number
-  // planned?: number
-  // aggreement?: string
-  // invoice?: string
-
   transactions$: Observable<Transaction[]> = new Observable<Transaction[]>()
   term$: BehaviorSubject<string> = new BehaviorSubject<string>(null)
   accounts: { [key: string]: Account }
 
   constructor(
     private accountsRepo: AccountsRepo,
-    private transactionsRepo: TransactionsRepo,
-    private router: Router
+    private transactionsRepo: TransactionsRepo
   ) { }
 
   async ngOnInit() {
