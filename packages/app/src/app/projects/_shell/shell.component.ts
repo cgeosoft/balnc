@@ -18,7 +18,6 @@ import { DemoService } from '../_shared/services/demo.service'
 export class ShellComponent implements OnInit {
 
   issues: any[] = []
-  projects: any[] = null
 
   projects$: Observable<Project[]>
   project$: Observable<Project>

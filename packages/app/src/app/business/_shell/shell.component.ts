@@ -26,7 +26,8 @@ export class ShellComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    await this.demoService.generate()
+    // await this.demoService.generate()
+    await this.demoService.generateOwnAccount()
   }
 
   get search() {

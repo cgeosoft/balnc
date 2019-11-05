@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { Account, AccountsRepo } from '../../_shared/repos/accounts.repo'
+import { Account } from '../../_shared/models/account'
+import { Record } from '../../_shared/models/record'
+import { AccountsRepo } from '../../_shared/repos/accounts.repo'
 import { CEventsRepo } from '../../_shared/repos/cevents.repo'
 import { OrdersRepo } from '../../_shared/repos/orders.repo'
-import { Record, RecordsRepo } from '../../_shared/repos/records.repo'
+import { RecordsRepo } from '../../_shared/repos/records.repo'
 import { DemoService } from '../../_shared/services/demo.service'
 
 @Component({
@@ -29,7 +31,6 @@ export class OverviewComponent implements OnInit {
   reducer = (accumulator, currentValue) => accumulator + currentValue
 
   async ngOnInit() {
-    await this.demoService.generateOwnAccount()
 
     const accounts = await this.accountsRepo.all()
     this.totals = accounts

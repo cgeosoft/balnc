@@ -1,0 +1,36 @@
+<app-content>
+  <app-content-body [padding]="false" [full]="true">
+    <app-table [data$]="transactions$" [schema]="schema"
+      [templates]="{statusTpl:statusTpl,accountFromTpl:accountFromTpl,accountToTpl:accountToTpl}">
+    </app-table>
+  </app-content-body>
+</app-content>
+
+<ng-template #statusTpl let-transaction="item">
+  <ng-container *ngIf="transaction.executed">
+    <span class="badge badge-success d-block">EXECUTED</span>
+  </ng-container>
+  <ng-container *ngIf="!transaction.executed && transaction.planned">
+    <span class="badge badge-primary d-block">PLANNED</span>
+  </ng-container>
+  <ng-container *ngIf="!transaction.executed && !transaction.planned">
+    <span class="badge badge-warning d-block">PENDING</span>
+  </ng-container>
+</ng-template>
+
+<ng-template #accountFromTpl let-transaction="item">
+  <ng-container *ngIf="transaction.from && accounts[transaction.from]">
+    <a [routerLink]="['/business/payments/accounts',accounts[transaction.from]._id]">
+      {{accounts[transaction.from].name}}</a>
+  </ng-container>
+  <ng-container *ngIf="!transaction.from">
+    <span>balance entry</span>
+  </ng-container>
+</ng-template>
+
+<ng-template #accountToTpl let-transaction="item">
+  <ng-container *ngIf="transaction.to && accounts[transaction.to]">
+    <a [routerLink]="['/business/payments/accounts',accounts[transaction.to]._id]">
+      {{accounts[transaction.to].name}}</a>
+  </ng-container>
+</ng-template>

@@ -23,18 +23,20 @@
       </ng-container>
     </div>
   </div>
-  <a class="menu" routerLink="/settings/general" routerLinkActive="active">
-    <fa-icon icon='cog'></fa-icon>
-    <span>Configure</span>
-  </a>
-  <a class="menu" routerLink="/settings/plugins" routerLinkActive="active">
-    <fa-icon icon='box'></fa-icon>
-    <span>Plugins</span>
-  </a>
-  <a class="menu" routerLink="/settings/about" routerLinkActive="active">
-    <fa-icon icon="info-circle"></fa-icon>
-    <span>About</span>
-  </a>
+  <div class="menu">
+    <a routerLink="/settings/general" routerLinkActive="active">
+      <fa-icon icon='cog'></fa-icon>
+      <span>Configure</span>
+    </a>
+    <a routerLink="/settings/plugins" routerLinkActive="active">
+      <fa-icon icon='box'></fa-icon>
+      <span>Plugins</span>
+    </a>
+    <a routerLink="/settings/about" routerLinkActive="active">
+      <fa-icon icon="info-circle"></fa-icon>
+      <span>About</span>
+    </a>
+  </div>
 </app-sidebar>
 <router-outlet></router-outlet>
 <ng-template #empty>

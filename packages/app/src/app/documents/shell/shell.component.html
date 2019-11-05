@@ -11,19 +11,17 @@
         </button>
       </div>
     </div>
-    <div class="items">
-      <ng-container *ngIf="(documents$ | async) as documents; else loader">
-        <ng-container *ngIf="documents.length; else empty">
-          <ng-template ngFor let-document [ngForOf]="documents">
-            <a [routerLink]="['/documents',document.get('_id')]" routerLinkActive="active">
-              <fa-icon icon="file" class="icon"></fa-icon>
-              <div><span>{{document.name}}</span><br>
+    <ng-container *ngIf="(documents$ | async) as documents; else loader">
+      <ng-container *ngIf="documents.length; else empty">
+        <ng-template ngFor let-document [ngForOf]="documents">
+          <a [routerLink]="['/documents',document.get('_id')]" routerLinkActive="active">
+            <fa-icon icon="file" class="icon"></fa-icon>
+            <div><span>{{document.name}}</span><br>
               <small>{{document.created|date:'short'}}</small></div>
-            </a>
-          </ng-template>
-        </ng-container>
+          </a>
+        </ng-template>
       </ng-container>
-    </div>
+    </ng-container>
   </div>
 </app-sidebar>
 <router-outlet></router-outlet>

@@ -1,13 +1,8 @@
 
 import { Injectable } from '@angular/core'
-import { Entity, Repository, RxDBService } from '@balnc/core'
+import { Repository, RxDBService } from '@balnc/core'
+import { Record } from '../models/record'
 import { CEventsRepo } from './cevents.repo'
-
-export interface Record extends Entity {
-  transaction: string
-  account: string
-  amount: number
-}
 
 @Injectable()
 export class RecordsRepo extends Repository<Record> {

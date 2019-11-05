@@ -1,6 +1,6 @@
 <app-sidebar>
   <div class="title">Boards</div>
-  <div class="menu input-group">
+  <div class="input-group input-group-sm mb-2">
     <input #boardname class="form-control" placeholder="New board">
     <div class="input-group-append">
       <button class="btn btn-primary" type="button" (click)="create(boardname.value)">
@@ -10,11 +10,11 @@
       </button>
     </div>
   </div>
-  <div class="menu-wrapper">
+  <div class="menu">
     <ng-container *ngIf="(boards$ | async) as boards; else loader">
       <ng-container *ngIf="boards.length; else empty">
         <ng-template ngFor let-board [ngForOf]="boards">
-          <a class="menu" [routerLink]="['/boards',board._id]" routerLinkActive="active">
+          <a [routerLink]="['/boards',board._id]" routerLinkActive="active">
             <fa-icon icon="comments" class="icon"></fa-icon>
             <span>{{board.name}}</span>
             <span class="ml-auto badge badge-primary" *ngIf="unread[board._id]">{{unread[board._id]}}</span>
@@ -23,10 +23,12 @@
       </ng-container>
     </ng-container>
   </div>
-  <button class="menu mt-auto" (click)="generate()">
-    <fa-icon icon="plus-circle" class="icon"></fa-icon>
-    <div class="content">Generate</div>
-  </button>
+  <div class="menu mt-auto">
+    <button (click)="generate()">
+      <fa-icon icon="plus-circle" class="icon"></fa-icon>
+      <div class="content">Generate</div>
+    </button>
+  </div>
 </app-sidebar>
 <router-outlet></router-outlet>
 

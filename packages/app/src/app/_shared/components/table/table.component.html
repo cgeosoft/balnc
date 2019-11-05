@@ -35,7 +35,14 @@
                       </button>
                     </td>
                     <td *ngSwitchCase="'date'" [ngStyle]='prop.style || {}'>
-                      {{prop.val(item) | date:'short'}}
+                      <span *ngIf="prop.val(item)">{{prop.val(item) | date:'short'}}</span>
+                      <span *ngIf="!prop.val(item)" class="text-muted"> - </span>
+                    </td>
+                    <td *ngSwitchCase="'currency'" [ngStyle]='prop.style || {}'>
+                      {{prop.val(item) | currency}}
+                    </td>
+                    <td *ngSwitchCase="'icon'" [ngStyle]='prop.style || {}'>
+                      <fa-icon [icon]="prop.val(item)"></fa-icon>
                     </td>
                     <td *ngSwitchCase="'link'" [ngStyle]='prop.style || {}'>
                       <ng-container *ngTemplateOutlet="link; context:prop.val(item)"></ng-container>

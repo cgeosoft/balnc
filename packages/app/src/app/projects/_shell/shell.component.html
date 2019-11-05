@@ -1,44 +1,46 @@
 <app-sidebar>
   <div class="title">Projects</div>
-  <a class="menu" routerLink="/projects/overview" routerLinkActive="active">
-    <fa-icon icon="border-all" class="icon"></fa-icon>
-    <span>Overview</span>
-  </a>
-  <button class="menu" (click)="createProject()">
-    <fa-icon icon="plus-circle" class="icon"></fa-icon>
-    <span>Create Project</span>
-  </button>
-  <a class="menu" routerLink="/projects/settings" routerLinkActive="active">
-    <fa-icon icon="cog"></fa-icon>
-    <span>Settings</span>
-  </a>
+  <div class="menu">
+    <a routerLink="/projects/overview" routerLinkActive="active">
+      <fa-icon icon="border-all" class="icon"></fa-icon>
+      <span>Overview</span>
+    </a>
+    <button (click)="createProject()">
+      <fa-icon icon="plus-circle" class="icon"></fa-icon>
+      <span>Create Project</span>
+    </button>
+    <a routerLink="/projects/settings" routerLinkActive="active">
+      <fa-icon icon="cog" class="icon"></fa-icon>
+      <span>Settings</span>
+    </a>
+  </div>
   <ng-container *ngIf="(projects$ | async) as projects">
-    <ng-container *ngIf="projects.length">
-      <div class="divider"></div>
-      <div class="header dropdown" ngbDropdown container="body">
-        <button ngbDropdownToggle>
-          <span>{{(project$ | async)?.name || 'Select a project...'}}</span></button>
-        <div ngbDropdownMenu>
-          <ng-container *ngFor="let p of projects">
-            <a ngbDropdownItem [routerLink]="['/projects/project',p._id]">
-              {{p.name}}</a>
-          </ng-container>
-        </div>
+    <div class="divider"></div>
+    <div class="header dropdown" ngbDropdown container="body">
+      <button ngbDropdownToggle>
+        <span>{{(project$ | async)?.name || 'Select a project...'}}</span></button>
+      <div ngbDropdownMenu>
+        <ng-container *ngFor="let p of projects">
+          <a ngbDropdownItem [routerLink]="['/projects/project',p._id]">
+            {{p.name}}</a>
+        </ng-container>
       </div>
-      <ng-container *ngIf="(project$ | async) as project">
-        <button class="menu" (click)="createIssue(project._id)">
+    </div>
+    <ng-container *ngIf="(project$ | async) as project">
+      <div class="menu">
+        <button (click)="createIssue(project._id)">
           <fa-icon icon="plus-circle" class="icon"></fa-icon>
           <span>New Issue</span>
         </button>
-        <a class="menu" [routerLink]="['/projects/project',project._id]" routerLinkActive="active">
+        <a [routerLink]="['/projects/project',project._id]" routerLinkActive="active">
           <fa-icon icon="tasks" class="icon"></fa-icon>
           <span>All Issues</span>
         </a>
-        <button class="menu" (click)="editDetails(project._id)">
+        <button (click)="editDetails(project._id)">
           <fa-icon icon="pencil-ruler" class="icon"></fa-icon>
           <span>Details</span>
         </button>
-      </ng-container>
+      </div>
     </ng-container>
   </ng-container>
 </app-sidebar>

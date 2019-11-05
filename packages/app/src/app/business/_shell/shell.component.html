@@ -6,47 +6,61 @@
     <a routerLink="/business/search">advanced search</a>
   </div>
   <div class="divider"></div>
-  <a href="javascript:void" class="menu disabled">
-    <fa-icon icon="border-all" class="icon"></fa-icon>
-    <span>Overview</span>
-  </a>
-  <a href="javascript:void" class="menu disabled">
-    <fa-icon icon="calendar-alt" class="icon"></fa-icon>
-    <span>Calendar</span>
-  </a>
-  <div class="divider"></div>
-  <a href="javascript:void" class="menu disabled">
-    <fa-icon icon="shopping-cart" class="icon"></fa-icon>
-    <span>Orders</span>
-  </a>
-  <a routerLink="/business/contacts" class="menu" routerLinkActive="active">
-    <fa-icon icon="users" class="icon"></fa-icon>
-    <span>Contacts</span>
-  </a>
-  <a routerLink="/business/agreements" class="menu" routerLinkActive="active">
-    <fa-icon icon="signature" class="icon"></fa-icon>
-    <span>Agreements</span>
-  </a>
-  <a href="javascript:void" class="menu disabled">
-    <fa-icon icon="shopping-cart" class="icon"></fa-icon>
-    <span>Orders</span>
-  </a>
-  <a href="javascript:void" class="menu disabled">
-    <fa-icon icon="file-invoice-dollar" class="icon"></fa-icon>
-    <span>Invoices</span>
-  </a>
-  <a routerLink="/business/payments" class="menu" routerLinkActive="active">
-    <fa-icon icon="file-invoice-dollar" class="icon"></fa-icon>
-    <span>Payments</span>
-  </a>
-  <a href="javascript:void" class="menu disabled">
-    <fa-icon icon="concierge-bell" class="icon"></fa-icon>
-    <span>Storage</span>
-  </a>
-  <a routerLink="/business/settings" class="menu" routerLinkActive="active">
-    <fa-icon icon="cog"></fa-icon>
-    <span>Settings</span>
-  </a>
+  <div class="menu">
+    <a href="javascript:void" class="disabled">
+      <fa-icon icon="border-all" class="icon"></fa-icon>
+      <span>Overview</span>
+    </a>
+    <a href="javascript:void" class="disabled">
+      <fa-icon icon="calendar-alt" class="icon"></fa-icon>
+      <span>Calendar</span>
+    </a>
+    <div class="divider"></div>
+    <a href="javascript:void" class="disabled">
+      <fa-icon icon="shopping-cart" class="icon"></fa-icon>
+      <span>Orders</span>
+    </a>
+    <a routerLink="/business/contacts" routerLinkActive="active">
+      <fa-icon icon="users" class="icon"></fa-icon>
+      <span>Contacts</span>
+    </a>
+    <a routerLink="/business/agreements" routerLinkActive="active">
+      <fa-icon icon="signature" class="icon"></fa-icon>
+      <span>Agreements</span>
+    </a>
+    <a href="javascript:void" class="disabled">
+      <fa-icon icon="shopping-cart" class="icon"></fa-icon>
+      <span>Orders</span>
+    </a>
+    <a href="javascript:void" class="disabled">
+      <fa-icon icon="file-invoice-dollar" class="icon"></fa-icon>
+      <span>Invoices</span>
+    </a>
+    <div class="submenu" routerLinkActive="active">
+      <a routerLink="/business/payments" routerLinkActive="active">
+        <fa-icon icon="money-check" class="icon"></fa-icon>
+        <span>Payments</span>
+      </a>
+      <div class="menu">
+        <a routerLink="/business/payments/transactions" routerLinkActive="active">
+          <fa-icon icon="exchange-alt" class="icon"></fa-icon>
+          <span>Transactions</span>
+        </a>
+        <a routerLink="/business/payments/accounts" routerLinkActive="active">
+          <fa-icon icon="piggy-bank" class="icon"></fa-icon>
+          <span>Accounts</span>
+        </a>
+      </div>
+    </div>
+    <a href="javascript:void" class="disabled">
+      <fa-icon icon="warehouse" class="icon"></fa-icon>
+      <span>Storage</span>
+    </a>
+    <a routerLink="/business/settings" routerLinkActive="active">
+      <fa-icon icon="cog"></fa-icon>
+      <span>Settings</span>
+    </a>
+  </div>
 </app-sidebar>
 <router-outlet></router-outlet>
 <ng-template #loader>
