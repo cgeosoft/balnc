@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  server:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "couchdb"
+    environment:
+      DB_HOST: http://couchdb:5984
+      DB_HOST_EXTERNAL: http://localhost:5984
+    networks: 
+      - backend
+  couchdb:
+    image: couchdb
+    ports:
+      - "5984:5984"
+    volumes:
+      - couchdb_data:/opt/couchdb/data
+      - couchdb_config:/opt/couchdb/etc/local.d
+    networks: 
+      - backend
+volumes:
+  couchdb_data:
+  couchdb_config:
+networks:
+  backend:
+    driver: "bridge"

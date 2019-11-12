@@ -1,0 +1,18 @@
+<app-content>
+  <app-content-body [padding]="true" [full]="true">
+    <h4>Own Accounts</h4>
+    <table class="table">
+      <ng-container *ngFor="let account of accounts">
+        <tr>
+          <td>{{account.name}}</td>
+          <td>{{totals[account._id].amount|currency}}</td>
+          <td>{{totals[account._id].records}}</td>
+        </tr>
+      </ng-container>
+    </table>
+    <ng-container *ngFor="let account of accounts">
+      <pre>{{account|json:2}}</pre>
+      <pre>{{totals[account._id]|json:2}}</pre>
+    </ng-container>
+  </app-content-body>
+</app-content>

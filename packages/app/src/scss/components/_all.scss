@@ -1,0 +1,214 @@
+app-empty {
+  @extend .h-100;
+  @extend .w-100;
+  @extend .d-flex;
+  @extend .align-items-center;
+  @extend .justify-content-center;
+  color: #999;
+
+  .empty {
+    max-width: 300px;
+    @extend .text-center;
+
+    fa-icon {
+      font-size: 3rem;
+      width: 40px;
+      height: 40px;
+      margin: 0 auto;
+    }
+
+    .message {
+      font-size: 1.5rem;
+      font-weight: 300;
+      padding: 0;
+      margin: 0;
+    }
+
+    .submessage {
+      font-size: 1rem;
+      font-weight: 300;
+      padding: 0;
+    }
+  }
+}
+
+app-footer {
+  @extend .pt-2;
+  @extend .text-center;
+  width: 100%;
+  display: block;
+  font-size: 0.8rem;
+  color: lighten($dark, 15);
+
+  a {
+    color: lighten($dark, 20);
+  }
+}
+
+app-presentations-overview {
+  .presentation-thumbnail {
+    @extend .img-thumbnail;
+    @extend .mr-3;
+    height: 56px;
+    width: 56px;
+    padding: 2px;
+
+    .img-thumb {
+      height: 100%;
+      width: 100%;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .img-empty {
+      position: relative;
+      height: 100%;
+
+      span {
+        font-size: 1.5rem;
+        color: #aaa;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -12px 0 0 -12px;
+      }
+    }
+  }
+}
+
+app-presentations-presentation {
+  .descCollToggle {
+    float: right;
+    font-size: 0.7rem;
+    text-decoration: none;
+    font-weight: 300;
+  }
+
+  .descColl {
+    height: 24px;
+    overflow: hidden;
+
+    &.open {
+      height: auto;
+    }
+  }
+
+  .present {
+    @extend .h-100;
+    background-color: #ccc;
+    background-image: linear-gradient(white 2px, transparent 2px), linear-gradient(90deg, white 2px, transparent 2px),
+      linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+
+    > div {
+      @extend .h-100;
+    }
+  }
+}
+
+app-boards-board {
+  .media {
+    margin-bottom: 1rem;
+  }
+
+  .card-chat {
+    @extend .d-flex;
+    @extend .w-100;
+    @extend .h-100;
+
+    .card-body {
+      @extend .h-100;
+      overflow-y: scroll;
+      height: 100%;
+      padding: 1rem;
+
+      .nickname-avatar {
+        width: 31px;
+        height: 31px;
+        border-radius: 5px 0 0 5px;
+      }
+
+      .msg-broke {
+        @extend .p-2;
+        @extend .bg-light;
+        @extend .text-center;
+        @extend .mb-2;
+      }
+
+      .msg-command {
+        color: #ccc;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .msg-item {
+        @extend .d-flex;
+        @extend .justify-content-start;
+        @extend .align-items-start;
+        @extend .mb-2;
+
+        .msg-avatar {
+          @extend .mr-2;
+          @extend .border;
+          @extend .rounded-circle;
+          width: 40px;
+          height: 40px;
+        }
+
+        .msg-body {
+          @extend .py-2;
+          @extend .px-3;
+          @extend .rounded;
+          @extend .mr-2;
+          background: #f6f6f6;
+          box-shadow: 0.1rem 0.1rem 0 #eee;
+          max-width: 80%;
+        }
+
+        .msg-time {
+          display: none;
+        }
+
+        &.own {
+          .msg-body {
+            background: $primary;
+            color: #fff;
+          }
+        }
+
+        &:hover {
+          .msg-time {
+            display: inline;
+          }
+        }
+      }
+
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #ccc;
+      }
+    }
+
+    .card-footer {
+      padding: 0.5rem;
+    }
+
+    .card-footer {
+      .form-control {
+        // border-radius: 1rem;
+        padding: 0.5rem 1rem;
+      }
+    }
+  }
+}
+
+th {
+  &.datetime {
+    width: 180px;
+  }
+}

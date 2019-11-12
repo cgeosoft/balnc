@@ -1,0 +1,35 @@
+<app-content>
+  <app-content-body [padding]="false" [full]="true">
+    <ng-container *ngIf="(logs$ | async) as logs; else loader">
+      <ng-container *ngIf="logs.length; else nologs">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="datetime">Date</th>
+              <th style="width:100px">From</th>
+              <th style="width:100px">Type</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let log of logs | slice:0:30">
+              <td>{{log._timestamp | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+              <td>{{log.user}}</td>
+              <td>{{log.type}}</td>
+              <td>{{log.text}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
+
+  </app-content-body>
+
+</app-content>
+
+<ng-template #nologs>
+  <app-empty message="You don't have any logs yet" icon="file-alt:regular"></app-empty>
+</ng-template>
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

@@ -1,0 +1,39 @@
+@import "theme";
+
+:host {
+  @extend .w-100;
+  @extend .card;
+  @extend .p-0;
+  @extend .shadow;
+  @extend .rounded;
+  @extend .overflow-hidden;
+  &.padding {
+    @extend .p-4;
+  }
+  &.full {
+    @extend .h-100;
+    @extend .overflow-auto;
+    @extend .flex-shrink-1;
+  }
+}
+
+:host ::ng-deep > section {
+  @extend .mb-4;
+
+  &:after {
+    @extend .d-block;
+    @extend .mt-4;
+    @extend .mx-auto;
+    content: "";
+    width: 50%;
+    height: 1px;
+    background: #EEE;
+  }
+
+  &:last-child {
+    @extend .mb-0;
+    &:after {
+      @extend .d-none;
+    }
+  }
+}

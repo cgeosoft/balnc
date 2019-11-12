@@ -1,0 +1,41 @@
+@import "theme";
+
+:host {
+  > div {
+    @extend .p-3;
+    @extend .d-flex;
+    @extend .align-items-center;
+    min-height: 110px;
+    color: white;
+    fa-icon {
+      @extend .mr-3;
+      @extend .ml-1;
+      @extend .text-center;
+      width: 60px;
+      font-size: 3rem;
+      opacity: 0.9;
+    }
+    h1,
+    span {
+      @extend .m-0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    span {
+      opacity: 0.8;
+    }
+    &.theme-blue {
+      background: #2196f3;
+    }
+    &.theme-red {
+      background: #f44336;
+    }
+    &.theme-green {
+      background: #4caf50;
+    }
+    &.theme-orange {
+      background: #ff9800;
+    }
+  }
+}

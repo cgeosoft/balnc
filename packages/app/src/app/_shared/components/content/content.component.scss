@@ -1,0 +1,19 @@
+@import "theme";
+
+:host {
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .justify-content-start;
+  @extend .h-100;
+  @extend .w-100;
+  @extend .ml-2;
+}
+
+:host ::ng-deep > * {
+  @extend .mb-4;
+  @extend .flex-shrink-0;
+
+  &:last-child {
+    @extend .mb-0;
+  }
+}

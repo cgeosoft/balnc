@@ -1,0 +1,16 @@
+@import "theme";
+
+:host {
+  @extend .w-100;
+  @extend .h-100;
+  table {
+    position: relative;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    th {
+      position: sticky;
+      top: -1px;
+    }
+  }
+}

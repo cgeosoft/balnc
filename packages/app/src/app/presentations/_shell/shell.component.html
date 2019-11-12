@@ -1,0 +1,33 @@
+<app-sidebar>
+  <div class="title">Present</div>
+  <div class="menu">
+    <a routerLink="/presentations/overview" routerLinkActive="active">
+      <fa-icon icon="border-all" class="icon"></fa-icon>
+      <span>Overview</span>
+    </a>
+    <button (click)="create()">
+      <fa-icon icon="plus-circle" class="icon"></fa-icon>
+      <span>Create Pesentation</span>
+    </button>
+    <a routerLink="/presentations/settings" routerLinkActive="active">
+      <fa-icon icon="cog" class="icon"></fa-icon>
+      <span>Settings</span>
+    </a>
+    <ng-container *ngIf="(presentations$ | async) as presentations">
+      <ng-container *ngIf="presentations.length; else empty">
+        <div class="divider"></div>
+        <a *ngFor="let presentation of presentations" [routerLink]="['/presentations',presentation._id]"
+          routerLinkActive="active">
+          <span>{{presentation.title}}</span>
+        </a>
+      </ng-container>
+    </ng-container>
+  </div>
+</app-sidebar>
+<router-outlet></router-outlet>
+<ng-template #empty>
+  <app-empty></app-empty>
+</ng-template>
+<ng-template #noThumb>
+  <fa-icon [icon]="['fas','desktop']"></fa-icon>
+</ng-template>

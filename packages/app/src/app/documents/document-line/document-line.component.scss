@@ -1,0 +1,17 @@
+:host{
+  .line{
+    border-bottom: solid 1px #f1f1f1;
+    padding: 2px;
+    margin-bottom: 1px;
+    min-height: 28px;
+    background: #f1f1f1;
+    &:focus{
+      outline: none
+    }
+  }
+  pre{
+    padding:5px;
+    background: #333;
+    color:#FFF
+  }
+}

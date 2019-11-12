@@ -1,0 +1,10 @@
+export * from './components/confirm-dialog/confirm-dialog.component'
+export * from './components/table/table-schema'
+export * from './helpers'
+export * from './models/plugin'
+export * from './models/profile'
+export * from './models/tabs-menu'
+export * from './pipes/doc-version.pipe'
+export * from './pipes/ellipsis.pipe'
+export * from './shared.module'
+

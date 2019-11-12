@@ -1,0 +1,92 @@
+<ng-container *ngIf="contact$ | async as contact; else loader">
+  <ng-container *ngIf="contact; else empty">
+    <app-content>
+      <app-content-header [menu]="menu"></app-content-header>
+
+      <ng-container *ngIf="menu.selected === 'timeline'">
+        <app-content-body>
+          <div class="btn-toolbar">
+            <button class="btn btn-primary" (click)="createOrder()">New Order</button>
+          </div>
+        </app-content-body>
+
+        <app-content-body [padding]="false" [full]="true">
+          <app-table [data$]="cevents$" [schema]="schema"></app-table>
+        </app-content-body>
+
+      </ng-container>
+
+      <ng-container *ngIf="menu.selected === 'manage'">
+        <app-content-body>
+          <div class="row">
+            <div class="col-4">
+              <img class="img-thumbnail" [src]="contact.details.avatar" *ngIf="contact.details.avatar">
+              <dl class="mb-0">
+                <dt>Name</dt>
+                <dd>{{contact.name}}</dd>
+                <dt>Description</dt>
+                <dd>{{contact.details.description || '-'}}</dd>
+              </dl>
+            </div>
+            <div class="col-8">
+              <h4>Connections</h4>
+              <div class="list-group list-group-flush">
+                <a href="" class="list-group-item list-group-item-action" *ngFor="let conn of contact.conns">
+                  {{conn.reference}} <span class="badge badge-primary">{{conn.type}}</span>
+                </a>
+              </div>
+              <ng-container *ngIf="contact.details.taxDetails">
+                <hr>
+                <h4>Tax Details</h4>
+                <dl class="mb-0">
+                  <dt>Legal Name</dt>
+                  <dd>{{contact.details.taxDetails.legalName || '-'}}</dd>
+                  <dt>Address</dt>
+                  <dd>{{contact.details.taxDetails.address || '-'}}</dd>
+                  <dt>Vat Number</dt>
+                  <dd class="text-monospace">{{contact.details.taxDetails.vatNumber || '-'}}</dd>
+                  <dt>Tax Office</dt>
+                  <dd>{{contact.details.taxDetails.taxOffice || '-'}}</dd>
+                </dl>
+              </ng-container>
+            </div>
+          </div>
+        </app-content-body>
+      </ng-container>
+
+      <app-content-body *ngIf="menu.selected === 'raw'">
+        <div class="row">
+          <div class="col-6">
+            <div class="card">
+              <div class="card-body">
+                <pre>{{contact|json:2}}</pre>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="card">
+              <div class="card-body">
+                <ng-container *ngIf="cevents$ | async as cevents; else loader">
+                  <ng-container *ngIf="cevents; else empty">
+                    <pre>{{cevents|json:2}}</pre>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </app-content-body>
+
+    </app-content>
+  </ng-container>
+</ng-container>
+
+<ng-template #empty>
+  <app-empty message="Select a contact or create a new one" icon="desktop"></app-empty>
+</ng-template>
+
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

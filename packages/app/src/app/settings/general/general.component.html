@@ -1,0 +1,101 @@
+<app-content>
+  <app-content-body [full]="true">
+    <ng-container *ngIf="profile; else loading">
+      <section>
+        <h4>Profile Information</h4>
+        <dl class="row mb-0">
+          <dt class="col-sm-3 text-right">Key:</dt>
+          <dd class="col-sm-9 text-monospace">{{profile.key}}&nbsp;</dd>
+          <dt class="col-sm-3 text-right">Name:</dt>
+          <dd class="col-sm-9 text-monospace d-flex">
+            <span #newname class="bg-light rounded d-block flex-grow-1 pl-1"
+              contenteditable="true">{{profile.name}}</span>
+            <fa-icon (click)="rename(newname.innerText)" icon="save" class="ml-2 text-primary"></fa-icon>
+          </dd>
+          <dt class="col-sm-3 text-right">Created:</dt>
+          <dd class="col-sm-9 text-monospace">{{profile.createdAt|date:"short"}}&nbsp;</dd>
+        </dl>
+      </section>
+      <section>
+        <h4>Remote</h4>
+        <p>
+          Use this option for make real-time backup of your data and access from multiple devices.
+          Some modules may require this option for them to work.
+        </p>
+        <button class="btn btn-primary" (click)="setupRemote()">Setup</button>
+        <ng-container *ngIf="profile.remote.key">
+          <dl class="row">
+            <dt class="col-sm-3 text-right">Username:</dt>
+            <dd class="col-sm-9 text-monospace">{{profile.remote.username || ' - '}}&nbsp;</dd>
+            <dt class="col-sm-3 text-right">Name:</dt>
+            <dd class="col-sm-9 text-monospace">{{profile.remote.name || ' - '}} <small>owner:
+                {{profile.remote.owner}}</small>
+            </dd>
+            <dt class="col-sm-3 text-right">Server:</dt>
+            <dd class="col-sm-9 text-monospace">{{profile.remote.server || ' - '}}&nbsp;</dd>
+            <dt class="col-sm-3 text-right">Database:</dt>
+            <dd class="col-sm-9 text-monospace">{{profile.remote.db || ' - '}}/{{profile.remote.key}}&nbsp;</dd>
+
+            <dt class="col-sm-3 text-right">Members:</dt>
+            <dd class="col-sm-9 text-monospace">
+              <ul class="list-unstyled mb-0">
+                <li class="d-flex" *ngFor="let member of profile.remote.members">
+                  <div class="flex-grow-1">
+                    {{member}}
+                  </div>
+                  <fa-icon (click)="removeMember(member)" icon="trash-alt" class="ml-2 text-danger">
+                  </fa-icon>
+                </li>
+                <li class="d-flex">
+                  <span #newmember class="bg-light rounded d-block flex-grow-1 pl-1" contenteditable="true"></span>
+                  <fa-icon (click)="addMember(newmember.innerText);newmember.innerText=''" icon="plus-circle"
+                    class="ml-2 text-success">
+                  </fa-icon>
+                </li>
+              </ul>
+            </dd>
+            <dt class="col-sm-3 text-right">Sync:</dt>
+            <dd class="col-sm-9 mb-0">
+              <ng-container [ngSwitch]="profile.remote.enabled">
+                <div *ngSwitchCase="true" class="d-flex align-items-center">
+                  <div>
+                    Remote sync is <span class="badge badge-success">ENABLED</span><br>
+                    If you disable this option, your data will stop syncing with the remote server</div>
+                  <span class="btn btn-danger ml-4" (click)="toggleRemote()">Disable</span>
+                </div>
+                <div *ngSwitchCase="false" class="d-flex align-items-center">
+                  <div>
+                    Remote sync is <span class="badge badge-danger">DISABLED</span><br>
+                    If you enable this option, your data will be synced with the remote server</div>
+                  <span class="btn btn-success ml-4" (click)="toggleRemote()">Enable</span>
+                </div>
+              </ng-container>
+            </dd>
+          </dl>
+        </ng-container>
+      </section>
+      <section>
+        <h4>Danger Zone</h4>
+        <p>
+          Deleting your profile, you immediately remove all local data. If you would like also
+          to delete the remote data please check the appropriate option below. If you do not delete remote data, all
+          data will be synced once again if profile is recreated or imported.
+        </p>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="deleteData" [(ngModel)]="deleteData">
+          <label class="form-check-label" for="deleteData">Ι understand that this is not reversable</label>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="deleteDataRemote" [(ngModel)]="deleteDataRemote">
+          <label class="form-check-label" for="deleteDataRemote">Also delete remote data</label>
+        </div>
+        <button class="btn btn-danger" [disabled]="!deleteData" (click)="delete()">
+          Remove Profile
+        </button>
+      </section>
+    </ng-container>
+  </app-content-body>
+</app-content>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

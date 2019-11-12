@@ -1,0 +1,16 @@
+:host {
+  width: 100%;
+  overflow: hidden;
+  .report-wrapper {
+    height: 100%;
+    width: 100%;
+    .filters {
+      width: 200px;
+      min-width: 200px;
+      height: 100%;
+      h4 {
+        font-weight: 300;
+      }
+    }
+  }
+}

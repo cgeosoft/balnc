@@ -1,0 +1,34 @@
+<app-sidebar>
+  <div class="title">Documents</div>
+  <div class="menu">
+    <div class="input-group mb-2">
+      <input #documentname class="form-control" placeholder="New document">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button" (click)="create(documentname.value)">
+          <fa-layers class="fa-fw">
+            <fa-icon icon="plus-circle"></fa-icon>
+          </fa-layers>
+        </button>
+      </div>
+    </div>
+    <ng-container *ngIf="(documents$ | async) as documents; else loader">
+      <ng-container *ngIf="documents.length; else empty">
+        <ng-template ngFor let-document [ngForOf]="documents">
+          <a [routerLink]="['/documents',document.get('_id')]" routerLinkActive="active">
+            <fa-icon icon="file" class="icon"></fa-icon>
+            <div><span>{{document.name}}</span><br>
+              <small>{{document.created|date:'short'}}</small></div>
+          </a>
+        </ng-template>
+      </ng-container>
+    </ng-container>
+  </div>
+</app-sidebar>
+<router-outlet></router-outlet>
+
+<ng-template #empty>
+  <app-empty></app-empty>
+</ng-template>
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

@@ -1,0 +1,36 @@
+.list-settings {
+  @extend .list-group;
+  @extend .list-group-flush;
+  @extend .mx-auto;
+  .list-settings-item {
+    @extend .d-flex;
+    @extend .align-items-center;
+    @extend .py-2;
+    .list-settings-icon {
+      @extend .bg-dark;
+      @extend .rounded-circle;
+      @extend .mr-4;
+      @extend .text-center;
+      width: 60px;
+      min-width: 60px;
+      height: 60px;
+      min-height: 60px;
+      line-height: 65px;
+      fa-icon {
+        font-size: 2rem;
+      }
+    }
+    .list-settings-content {
+      @extend .flex-grow-1;
+      h5 {
+        @extend .mb-1;
+        font-size: 1rem;
+      }
+    }
+    .btn-action {
+      @extend .btn-sm;
+      @extend .ml-4;
+      min-width: 100px;
+    }
+  }
+}
