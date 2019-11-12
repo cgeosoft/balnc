@@ -18,7 +18,7 @@ import { MainModule } from './main/main.module'
     })
   ],
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   bootstrap: [AppComponent]
 })

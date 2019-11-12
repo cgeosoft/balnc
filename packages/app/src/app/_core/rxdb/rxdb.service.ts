@@ -50,7 +50,7 @@ export class RxDBService {
   private config: RemoteConfig
   private profileKey: string
 
-  constructor(
+  constructor (
     private http: HttpClient,
     private configService: ConfigService,
     private toastr: ToastrService
@@ -62,7 +62,7 @@ export class RxDBService {
     }
   }
 
-  async setup() {
+  async setup () {
     if (!this.configService.profile) {
       console.log('[DatabaseService]', `There is not a selected profile`)
       return
@@ -149,7 +149,7 @@ export class RxDBService {
     })
   }
 
-  async authenticate(username: string, password: string) {
+  async authenticate (username: string, password: string) {
     return this.http.post(`${this.config.db}/_session`, {
       name: username,
       password: password
@@ -160,13 +160,12 @@ export class RxDBService {
       })
   }
 
-  async removeProfile(profileKey: string) {
+  async removeProfile (profileKey: string) {
     const adapter = await this.getAdapter()
     await RxDB.removeDatabase(`balnc_${profileKey}`, adapter)
   }
 
-  private async getAdapter() {
-    return 'memory'
+  private async getAdapter () {
     if (await RxDB.checkAdapter('idb')) {
       return 'idb'
     }
