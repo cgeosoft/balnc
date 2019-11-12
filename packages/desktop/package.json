@@ -14,8 +14,8 @@
   },
   "scripts": {
     "start": "electron main.js",
-    "build": "ng build --base-href ./",
-    "pack": "electron-builder --dir",
+    "build": "electron-builder --dir",
+    "test": "snyk test",
     "dist": "electron-builder"
   },
   "dependencies": {

@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "ng serve",
-    "test": "ng test",
+    "test": "snyk test && ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build": "ng build --prod"
@@ -83,5 +83,8 @@
     "tslint-config-standard": "^8.0.1",
     "typescript": "^3.5.3",
     "zone.js": "^0.10.2"
+  },
+  "devDependencies": {
+    "snyk": "^1.244.0"
   }
 }
