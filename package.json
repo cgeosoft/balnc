@@ -18,7 +18,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-release": "ng build --prod --output-path release"
+    "build-release": "ng build --prod --output-path release",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@angular-devkit/build-angular": "~0.12.3",
@@ -84,13 +86,15 @@
     "pouchdb-adapter-http": "7.0.0",
     "pouchdb-adapter-idb": "7.0.0",
     "protractor": "6.0.0",
-    "rxdb": "^8.0.4",
+    "rxdb": "^8.4.0",
     "rxjs": "6.4.0",
     "rxjs-compat": "^6.4.0",
     "screenfull": "^4.0.0",
     "tslint": "5.12.1",
     "tslint-config-standard": "^8.0.1",
     "typescript": "^3.2.4",
-    "zone.js": "0.8.29"
-  }
+    "zone.js": "0.8.29",
+    "snyk": "^1.244.0"
+  },
+  "snyk": true
 }
