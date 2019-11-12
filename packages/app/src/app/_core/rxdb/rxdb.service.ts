@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
 import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterIdb from 'pouchdb-adapter-idb'
-import * as AdapterMemory from 'pouchdb-adapter-memory'
 import { RxDatabase } from 'rxdb'
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
 import AttachmentsPlugin from 'rxdb/plugins/attachments'
@@ -37,7 +36,6 @@ RxDB.plugin(AdapterCheckPlugin)
 RxDB.plugin(JsonDumpPlugin)
 RxDB.plugin(AdapterHttp)
 RxDB.plugin(AdapterIdb)
-RxDB.plugin(AdapterMemory)
 RxDB.plugin(RxDBUpdateModule)
 RxDB.plugin(RxDBReplicationGraphQL)
 
@@ -69,11 +67,10 @@ export class RxDBService {
     }
 
     console.log('[DatabaseService]', `Initializing DB: ${this.profileKey}`)
-    const _adapter = await this.getAdapter()
 
     this.db = await RxDB.create({
       name: `balnc_${this.profileKey}`,
-      adapter: _adapter
+      adapter: 'idb'
     })
 
     await this.db.collection({
@@ -161,25 +158,6 @@ export class RxDBService {
   }
 
   async removeProfile (profileKey: string) {
-    const adapter = await this.getAdapter()
-    await RxDB.removeDatabase(`balnc_${profileKey}`, adapter)
+    await RxDB.removeDatabase(`balnc_${profileKey}`, 'idb')
   }
-
-  private async getAdapter () {
-    if (await RxDB.checkAdapter('idb')) {
-      return 'idb'
-    }
-    if (await RxDB.checkAdapter('websql')) {
-      return 'websql'
-    }
-  }
-
-  // async export (alias: string) {
-  //   console.log(this.entities)
-  //   return this.db.dump()
-  //   // const data = await this.db.dump()
-  //   // return data.map(d => {
-  //   //   return d
-  //   // })
-  // }
 }

@@ -72,8 +72,6 @@
     "pouchdb": "^7.1.1",
     "pouchdb-adapter-http": "7.1.1",
     "pouchdb-adapter-idb": "7.1.1",
-    "pouchdb-adapter-leveldb": "^7.1.1",
-    "pouchdb-adapter-memory": "^7.1.1",
     "rxdb": "^8.7.2",
     "rxjs": "6.5.3",
     "screenfull": "^5.0.0",

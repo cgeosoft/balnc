@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
 import { AboutComponent } from './about/about.component'
-import { DataComponent } from './data/data.component'
 import { GeneralComponent } from './general/general.component'
 import { PluginsComponent } from './plugins/plugins.component'
 import { RemoteComponent } from './remote/remote.component'
@@ -17,7 +16,6 @@ import { ShellComponent } from './_shell/shell.component'
   declarations: [
     ShellComponent,
     GeneralComponent,
-    DataComponent,
     PluginsComponent,
     AboutComponent,
     RemoteComponent
