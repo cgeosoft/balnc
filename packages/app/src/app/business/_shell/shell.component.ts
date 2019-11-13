@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
 import { Contact, ContactType } from '../_shared/models/contacts'
 import { ContactsRepo } from '../_shared/repos/contacts.repo'
-import { DemoService } from '../_shared/services/demo.service'
 
 @Component({
   selector: 'app-business-shell',
@@ -12,24 +11,19 @@ import { DemoService } from '../_shared/services/demo.service'
   styleUrls: ['./shell.component.scss'],
   host: { 'class': 'shell' }
 })
-export class ShellComponent implements OnInit {
+export class ShellComponent {
 
   contactType = ContactType
 
   generating = false
   term: string
 
-  constructor(
-    private demoService: DemoService,
+  constructor (
     private contactsService: ContactsRepo,
     private router: Router
   ) { }
 
-  async ngOnInit() {
-    await this.demoService.generate()
-  }
-
-  get search() {
+  get search () {
     return (text$: Observable<string>) => text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
@@ -43,13 +37,13 @@ export class ShellComponent implements OnInit {
     )
   }
 
-  get formatter() {
+  get formatter () {
     return (result: Contact) => {
       return result.name
     }
   }
 
-  async select($event) {
+  async select ($event) {
     $event.preventDefault()
     const contact = $event.item as Contact
     this.term = ''
