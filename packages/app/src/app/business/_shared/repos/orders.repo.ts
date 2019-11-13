@@ -5,7 +5,7 @@ import { Order } from '../models/order'
 @Injectable()
 export class OrdersRepo extends Repository<Order> {
 
-  constructor(
+  constructor (
     dbService: RxDBService
   ) {
     super(dbService)

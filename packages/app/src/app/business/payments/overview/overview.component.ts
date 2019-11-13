@@ -19,7 +19,7 @@ export class OverviewComponent implements OnInit {
   records: Record[]
   totals: { [key: string]: { amount: number, records: number } }
 
-  constructor(
+  constructor (
     private demoService: DemoService,
     private recordsRepo: RecordsRepo,
     private accountsRepo: AccountsRepo,
@@ -30,7 +30,7 @@ export class OverviewComponent implements OnInit {
 
   reducer = (accumulator, currentValue) => accumulator + currentValue
 
-  async ngOnInit() {
+  async ngOnInit () {
 
     const accounts = await this.accountsRepo.all()
     this.totals = accounts

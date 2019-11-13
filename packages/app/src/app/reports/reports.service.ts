@@ -15,7 +15,7 @@ export class ReportsService extends Repository<Report> {
 
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
-  constructor(
+  constructor (
     dbService: RxDBService,
     private http: HttpClient
   ) {
@@ -23,7 +23,7 @@ export class ReportsService extends Repository<Report> {
     this.entity = 'reports.report'
   }
 
-  async all() {
+  async all () {
     const data = await super.all()
     const reports = data
       .filter(report => {
@@ -40,7 +40,7 @@ export class ReportsService extends Repository<Report> {
     return reports
   }
 
-  async one(id: string) {
+  async one (id: string) {
     const reportDoc = await super.one(id)
     const report = _.cloneDeep(reportDoc) as Report
 
@@ -64,7 +64,7 @@ export class ReportsService extends Repository<Report> {
     return report
   }
 
-  async getCommonData(query) {
+  async getCommonData (query) {
     const result = await this.execute(query)
     return result['rows'].map(r => {
       return {
@@ -74,7 +74,7 @@ export class ReportsService extends Repository<Report> {
     })
   }
 
-  async generateQuery(report: Report, filters) {
+  async generateQuery (report: Report, filters) {
     let query = ''
     try {
       const r = await super.one(report.alias)
@@ -87,7 +87,7 @@ export class ReportsService extends Repository<Report> {
     return this.formatQuery(query, filters)
   }
 
-  async execute(query) {
+  async execute (query) {
     const url = `${this.settings.host}/execute`
     const headers = this.generateHeaders()
     const result = await this.http.post(url, {
@@ -96,7 +96,7 @@ export class ReportsService extends Repository<Report> {
     return result
   }
 
-  async generatePdfMake(report: Report, data: any) {
+  async generatePdfMake (report: Report, data: any) {
     const fields = _.cloneDeep(report.fields)
     const pdf = _.cloneDeep(report.pdf)
     const d = _.cloneDeep(data)
@@ -132,11 +132,11 @@ export class ReportsService extends Repository<Report> {
     return pdf
   }
 
-  idReportAdmin() {
+  idReportAdmin () {
     // return super.profileService.roles.indexOf(this.reportAdminRole) >= 0
   }
 
-  private generateHeaders() {
+  private generateHeaders () {
     return {
       headers: {
         Authorization: 'Basic ' + btoa('key:' + this.settings.key)
@@ -144,7 +144,7 @@ export class ReportsService extends Repository<Report> {
     }
   }
 
-  formatQuery(query, filters) {
+  formatQuery (query, filters) {
     for (const k in filters) {
       if (filters.hasOwnProperty(k)) {
         let value = ''

@@ -18,7 +18,7 @@ export class DocumentComponent implements OnInit {
   document$: Observable<Document>
   selected: string
 
-  constructor(
+  constructor (
     public documentsRepo: DocumentsRepo,
     public linesRepo: LinesRepo,
     private route: ActivatedRoute,
@@ -26,7 +26,7 @@ export class DocumentComponent implements OnInit {
     private zone: NgZone
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route.params.subscribe(async (params) => {
       this.selected = params['id']
       if (!this.selected) return
@@ -36,7 +36,7 @@ export class DocumentComponent implements OnInit {
     })
   }
 
-  async addLine() {
+  async addLine () {
     await this.linesRepo.addLine(this.selected)
   }
 }

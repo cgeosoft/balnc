@@ -30,7 +30,7 @@ export class OrderComponent implements OnInit {
 
   contact: Contact
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private stateService: StateService,
     private contactsService: ContactsRepo,
@@ -38,7 +38,7 @@ export class OrderComponent implements OnInit {
     private zone: NgZone
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.order$ = this.route
       .params
       .pipe(

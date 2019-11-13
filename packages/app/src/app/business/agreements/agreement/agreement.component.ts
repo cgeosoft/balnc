@@ -17,26 +17,26 @@ export class AgreementComponent implements OnInit {
   agreement: Agreement
   breadcrumb
 
-  constructor(
+  constructor (
     private agreementsService: AgreementsRepo,
     private route: ActivatedRoute
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route.params.subscribe(async params => {
       this.agreementId = params['id']
       await this.load()
     })
   }
 
-  enableEdit() {
+  enableEdit () {
     this.editDesc = true
     setTimeout(() => {
       this.content.nativeElement.focus()
     })
   }
 
-  async updateDesc(content) {
+  async updateDesc (content) {
     this.editDesc = false
     const agreement = await this.agreementsService.one(this.agreementId)
     const _content = content.trim()
@@ -49,7 +49,7 @@ export class AgreementComponent implements OnInit {
     })
   }
 
-  private async load() {
+  private async load () {
     this.agreement = await this.agreementsService.one(this.agreementId)
     this.breadcrumb = [
       { url: ['/business/agreements'], label: 'Agreements' },

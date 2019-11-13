@@ -10,11 +10,11 @@ export class SearchComponent {
 
   openedFilters = true
 
-  constructor(
+  constructor (
     private contactsService: ContactsRepo
   ) { }
 
-  get contacts$() {
+  get contacts$ () {
     return this.contactsService.all$()
   }
 }

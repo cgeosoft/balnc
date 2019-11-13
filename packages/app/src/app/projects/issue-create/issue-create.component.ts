@@ -15,18 +15,18 @@ export class IssueCreateComponent implements OnInit {
   @Input() projectId
   form: FormGroup
 
-  constructor(
+  constructor (
     private activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private issuesRepo: IssuesRepo,
     private config: ConfigService
   ) { }
 
-  get modal() {
+  get modal () {
     return this.activeModal
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.form = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(100)]],
       project: [this.projectId, [Validators.required]],
@@ -34,7 +34,7 @@ export class IssueCreateComponent implements OnInit {
     })
   }
 
-  async onSubmit() {
+  async onSubmit () {
     const formModel = this.form.value
     const issueId = await this.issuesRepo.add({
       title: formModel.title,

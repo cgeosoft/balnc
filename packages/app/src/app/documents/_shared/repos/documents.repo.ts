@@ -6,14 +6,14 @@ import { Document } from '../models/document'
 @Injectable()
 export class DocumentsRepo extends Repository<Document> {
 
-  constructor(
+  constructor (
     dbService: RxDBService
   ) {
     super(dbService)
     this.entity = 'documents.document'
   }
 
-  async generateDemoData() {
+  async generateDemoData () {
     const documents: string[] = []
     for (let i = 0; i < 3; i++) {
       const d: Partial<Document> = {

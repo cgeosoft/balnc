@@ -41,7 +41,7 @@ export class BoardComponent implements OnInit {
   }
   board$: Observable<Board>
 
-  constructor(
+  constructor (
     public boardService: BoardsRepo,
     public messagesService: MessagesRepo,
     private route: ActivatedRoute,
@@ -49,7 +49,7 @@ export class BoardComponent implements OnInit {
     private zone: NgZone
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route.params.subscribe(async (params) => {
       this.selected = params['id']
       if (!this.selected) return
@@ -85,7 +85,7 @@ export class BoardComponent implements OnInit {
   //   this.selectedBoard = boardId
   // }
 
-  async deleteBoard(id) {
+  async deleteBoard (id) {
     // let board = await this.db['boards'].findOne(id).exec()
     // board.remove()
 
@@ -95,7 +95,7 @@ export class BoardComponent implements OnInit {
     // })
   }
 
-  async send() {
+  async send () {
     if (!this.inputMessage) { return }
 
     const data = {
@@ -111,19 +111,19 @@ export class BoardComponent implements OnInit {
     this.focusInput()
   }
 
-  async delete() {
+  async delete () {
     if (!confirm('Are you sure?')) return
     await this.boardService.remove(this.selected)
     await this.router.navigate(['/boards'])
   }
 
-  scrollToBottom(): void {
+  scrollToBottom (): void {
     if (this.messageList) {
       this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
     }
   }
 
-  focusInput(): void {
+  focusInput (): void {
     if (this.messageInput) {
       this.messageInput.nativeElement.focus()
     }

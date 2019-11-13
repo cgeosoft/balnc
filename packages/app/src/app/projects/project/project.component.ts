@@ -32,48 +32,48 @@ export class ProjectComponent implements OnInit {
 
   breadcrumb: any[]
 
-  constructor(
+  constructor (
     private projectsRepo: ProjectsRepo,
     private issuesRepo: IssuesRepo,
     private route: ActivatedRoute,
     private router: Router
   ) { }
 
-  get pStart() {
+  get pStart () {
     return this.page * this.pLength
   }
-  get pEnd() {
+  get pEnd () {
     return this.pStart + this.pLength
   }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.route.params.subscribe(async (params) => {
       await this.load(params['pid'])
     })
   }
 
-  getStatus(status: IssueStatus) {
+  getStatus (status: IssueStatus) {
     return IssueStatuses.find(s => s.key === status)
   }
 
-  goPrevious() {
+  goPrevious () {
     if (this.page > 0) this.page--
   }
 
-  goNext() {
+  goNext () {
     if (this.page < this.pages.length - 1) this.page++
   }
 
-  calcPages() {
+  calcPages () {
     this.pages = Array.apply(null, { length: this.issuesLength / this.pLength }).map(Number.call, Number)
     if (this.pages.length && this.issuesLength % this.pLength > 0) this.pages.push(this.pages[this.pages.length - 1] + 1)
   }
 
-  changedFilters() {
+  changedFilters () {
     this.filters = this.filters
   }
 
-  private async load(projectId) {
+  private async load (projectId) {
     this.project = await this.projectsRepo.one(projectId)
     if (!this.project) { await this.router.navigate(['/projects/overview']) }
     this.breadcrumb = [
@@ -94,7 +94,7 @@ export class ProjectComponent implements OnInit {
 
 @Pipe({ name: 'filterIssues', pure: false })
 export class FilterIssuesPipe implements PipeTransform {
-  transform(issues: Issue[], filters?: any): Issue[] {
+  transform (issues: Issue[], filters?: any): Issue[] {
     return issues.filter((i) => i.status === filters.status || filters.status === null)
   }
 }

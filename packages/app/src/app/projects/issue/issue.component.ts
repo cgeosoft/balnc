@@ -44,7 +44,7 @@ export class IssueComponent implements OnInit {
   project: Project
   breadcrumb
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private projectsRepo: ProjectsRepo,
@@ -54,7 +54,7 @@ export class IssueComponent implements OnInit {
     private config: ConfigService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route
       .params
       .subscribe(async (params) => {
@@ -67,7 +67,7 @@ export class IssueComponent implements OnInit {
       })
   }
 
-  status(status: IssueStatus) {
+  status (status: IssueStatus) {
     const s = this.issueStatusModel.find(x => x.key === status)
     return {
       style: {
@@ -78,26 +78,26 @@ export class IssueComponent implements OnInit {
     }
   }
 
-  async nextStatus(currentStatus: IssueStatus) {
+  async nextStatus (currentStatus: IssueStatus) {
     const i = this.issueStatusModel.findIndex(x => x.key === currentStatus)
     if (i === -1 || i === this.issueStatusModel.length - 1) return
     const next = this.issueStatusModel[i + 1].key
     await this.updateStatus(next)
   }
 
-  async updateTitle(title) {
+  async updateTitle (title) {
     const issue = await this.issuesRepo.one(this.issueId)
     const _title = title.trim()
     if (issue.title === _title) return
     await this.issuesRepo.update(this.issueId, { $set: { title: _title } })
   }
 
-  async updateStatus(status: IssueStatus) {
+  async updateStatus (status: IssueStatus) {
     await this.issuesRepo.update(this.issueId, { $set: { status: status } })
     this.log(`status updated to ${status}`)
   }
 
-  async updateDesc(description) {
+  async updateDesc (description) {
     this.editDesc = false
     const issue = await this.issuesRepo.one(this.issueId)
     const _description = description.trim()
@@ -105,7 +105,7 @@ export class IssueComponent implements OnInit {
     await this.issuesRepo.update(this.issueId, { $set: { description: _description } })
   }
 
-  async submitComment() {
+  async submitComment () {
     const formModel = this.form.value
     if (!formModel.comment) return
     this.postCommentLoading = true
@@ -122,7 +122,7 @@ export class IssueComponent implements OnInit {
     this.postCommentLoading = false
   }
 
-  async changeStatus(status: string) {
+  async changeStatus (status: string) {
     await this.issuesRepo.update(this.issueId, {
       $set: {
         status: status,
@@ -134,14 +134,14 @@ export class IssueComponent implements OnInit {
     })
   }
 
-  enableEditDesc() {
+  enableEditDesc () {
     this.editDesc = true
     setTimeout(() => {
       this.desc.nativeElement.focus()
     })
   }
 
-  private async setup() {
+  private async setup () {
     this.issue$ = this.issuesRepo.one$(this.issueId)
     this.logs$ = this.peventsRepo
       .all$()
@@ -165,7 +165,7 @@ export class IssueComponent implements OnInit {
     })
   }
 
-  private log(message: string) {
+  private log (message: string) {
     return this.peventsRepo.add({
       issueId: this.issueId,
       type: PEventType.activity,
@@ -174,7 +174,7 @@ export class IssueComponent implements OnInit {
     })
   }
 
-  private scroll(): void {
+  private scroll (): void {
     setTimeout(() => {
       this.timeline.nativeElement.scrollTop = this.timeline.nativeElement.scrollHeight
     }, 100)

@@ -11,19 +11,19 @@ export class CreateProjectComponent implements OnInit {
 
   form: FormGroup
 
-  constructor(
+  constructor (
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private projectsService: ProjectsRepo
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(100)]]
     })
   }
 
-  async onSubmit() {
+  async onSubmit () {
     const formModel = this.form.value
     const projectId = await this.projectsService.add({ name: formModel.name })
     this.activeModal.close(projectId)

@@ -19,7 +19,7 @@ export class ShellComponent implements OnInit {
 
   helperService = Helpers
 
-  constructor(
+  constructor (
     public configService: ConfigService,
     private router: Router,
     private toastr: ToastrService,
@@ -27,24 +27,24 @@ export class ShellComponent implements OnInit {
     private dbService: RxDBService
   ) { }
 
-  get profiles() {
+  get profiles () {
     return this.configService.profiles
   }
 
-  get selected() {
+  get selected () {
     return this.configService.selected
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.profile = this.configService.profile
     this.plugins = this.configService.plugins
   }
 
-  clear() {
+  clear () {
     this.configService.clearAllProfiles()
   }
 
-  create() {
+  create () {
     const alias = this.configService.saveProfile({
       name: Helpers.generateName(),
       remote: {
@@ -55,7 +55,7 @@ export class ShellComponent implements OnInit {
     this.configService.selectProfile(alias)
   }
 
-  async import(file: ReadFile) {
+  async import (file: ReadFile) {
     const profile = this.configService.importFile(file)
     if (!profile) {
       this.toastr.error('Import failed')
@@ -65,11 +65,11 @@ export class ShellComponent implements OnInit {
     this.configService.selectProfile(alias)
   }
 
-  activate(profileId) {
+  activate (profileId) {
     this.configService.selectProfile(profileId)
   }
 
-  async remove(profileId) {
+  async remove (profileId) {
 
     await this.modal.open(ConfirmDialogComponent, { size: 'sm' })
       .result
@@ -82,7 +82,7 @@ export class ShellComponent implements OnInit {
       })
   }
 
-  createProfile() {
+  createProfile () {
     this.configService.saveProfile({
       name: this.helperService.generateName(),
       remote: {
@@ -92,12 +92,12 @@ export class ShellComponent implements OnInit {
     })
   }
 
-  createDemo() {
+  createDemo () {
     const demo = this.configService.saveProfile(DEMO_PROFILE)
     this.activate(demo)
   }
 
-  onFilePicked(file: ReadFile) {
+  onFilePicked (file: ReadFile) {
     this.error = null
     try {
       const data = file.content.split(',')[1]

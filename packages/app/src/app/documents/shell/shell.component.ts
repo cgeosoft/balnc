@@ -16,16 +16,16 @@ export class ShellComponent implements OnInit {
 
   nickname: string
 
-  constructor(
+  constructor (
     private documentsRepo: DocumentsRepo,
     private router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.documents$ = this.documentsRepo.all$()
   }
 
-  async create(name) {
+  async create (name) {
     if (!name) return
     const id = await this.documentsRepo.add({ name })
     name = null

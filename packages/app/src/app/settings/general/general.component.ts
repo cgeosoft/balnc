@@ -26,44 +26,44 @@ export class GeneralComponent implements OnInit {
   deleteDataRemote = false
   editName = false
 
-  constructor(
+  constructor (
     private router: Router,
     private http: HttpClient,
     private configService: ConfigService,
     private modal: NgbModal
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.profile = this.configService.profile
     if (this.profile.remote.key) {
       await this.getRemote()
     }
   }
 
-  rename(newName) {
+  rename (newName) {
     if (!newName) return
     this.profile.name = newName
     this.configService.saveProfile(this.profile)
   }
 
-  activate() {
+  activate () {
     this.configService.selectProfile(this.profile.key)
   }
 
-  delete() {
+  delete () {
     if (!confirm('Are you sure?')) return
     this.configService.deleteProfile(this.profile.key)
     window.location.reload()
   }
 
-  toggleRemote() {
+  toggleRemote () {
     if (!confirm('Are you sure?')) return
     this.profile.remote.enabled = !this.profile.remote.enabled
     this.configService.saveProfile(this.profile)
     window.location.reload()
   }
 
-  async setupRemote() {
+  async setupRemote () {
     const m = this.modal.open(RemoteComponent, { backdrop: 'static' })
     m.componentInstance.profile = this.profile
     const remote = await m.result
@@ -72,7 +72,7 @@ export class GeneralComponent implements OnInit {
     window.location.reload()
   }
 
-  async getRemote() {
+  async getRemote () {
     const manifest = await this.http
       .get<{ members: string[] }>(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
         headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.password) }
@@ -80,7 +80,7 @@ export class GeneralComponent implements OnInit {
     this.profile.remote.members = manifest.members
   }
 
-  async addMember(username) {
+  async addMember (username) {
     if (!username) return
     if (!confirm('Are you sure?')) return
     this.profile.remote.members.push(username)
@@ -95,7 +95,7 @@ export class GeneralComponent implements OnInit {
     await this.getRemote()
   }
 
-  async removeMember(username) {
+  async removeMember (username) {
     if (!username) return
     if (!confirm('Are you sure?')) return
     this.profile.remote.members = this.profile.remote.members.filter((v, i) => v !== username)

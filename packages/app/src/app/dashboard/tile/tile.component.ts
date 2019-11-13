@@ -12,9 +12,9 @@ export class TileComponent implements OnInit {
   @Input() value: any = 0
   @Input() theme: string
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
 }

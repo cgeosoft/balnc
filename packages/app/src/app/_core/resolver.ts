@@ -4,8 +4,8 @@ import { RxDBService } from './rxdb/rxdb.service'
 
 @Injectable()
 export class MainResolver implements Resolve<void> {
-  constructor(private rxdbService: RxDBService) { }
-  async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  constructor (private rxdbService: RxDBService) { }
+  async resolve (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     await this.rxdbService.setup()
   }
 }

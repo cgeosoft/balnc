@@ -28,12 +28,12 @@ export class TransactionsComponent implements OnInit {
   term$: BehaviorSubject<string> = new BehaviorSubject<string>(null)
   accounts: { [key: string]: Account }
 
-  constructor(
+  constructor (
     private accountsRepo: AccountsRepo,
     private transactionsRepo: TransactionsRepo
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.accountsRepo.all$().subscribe((accounts) => {
       this.accounts = accounts.reduce((m, d) => {
         m[d._id] = d

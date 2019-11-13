@@ -79,7 +79,7 @@ export class PresentationComponent implements OnInit {
   ]
   stats: PresentationStats
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private zone: NgZone,
     private router: Router,
@@ -88,7 +88,7 @@ export class PresentationComponent implements OnInit {
     private presentationsService: PresentationsService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route
       .params
       .subscribe(async params => {
@@ -111,19 +111,19 @@ export class PresentationComponent implements OnInit {
       })
   }
 
-  async deletePresentation() {
+  async deletePresentation () {
     await this.presentationsRepo.remove(this.presentation._id)
     await this.router.navigateByUrl('/presentations')
   }
 
-  async addImage() {
+  async addImage () {
     const modalRef = this.modal.open(AddPageComponent)
     modalRef.componentInstance.presentation = this.presentation
     await modalRef.result
     await this.setPageIndex(0)
   }
 
-  async deletePage(index) {
+  async deletePage (index) {
     const _pages = this.presentation.pages
     _pages.splice(index, 1)
     this.presentation.pages = _pages
@@ -132,7 +132,7 @@ export class PresentationComponent implements OnInit {
     await this.cleanupFiles()
   }
 
-  async cleanupFiles() {
+  async cleanupFiles () {
     const usedFiles = this.presentation.pages
       .map(page => {
         return page.params.image
@@ -148,7 +148,7 @@ export class PresentationComponent implements OnInit {
     }
   }
 
-  async setPageIndex(index: number) {
+  async setPageIndex (index: number) {
     this.activePageIndex = index
     if (this.presentation.pages.length === 0) {
       return
@@ -157,7 +157,7 @@ export class PresentationComponent implements OnInit {
     this.imageData = await this.presentationsService.getImage(this.presentation, contentImage)
   }
 
-  async startPresentation() {
+  async startPresentation () {
     this.pages = []
     let proms = []
 
@@ -174,21 +174,21 @@ export class PresentationComponent implements OnInit {
     // }
   }
 
-  async goToFirst() {
+  async goToFirst () {
     await this.setPageIndex(0)
   }
 
-  async goToPrevious() {
+  async goToPrevious () {
     if (this.activePageIndex <= 0) { return }
     await this.setPageIndex(this.activePageIndex - 1)
   }
 
-  async goToNext() {
+  async goToNext () {
     if (this.activePageIndex >= this.presentation.pages.length - 1) { return }
     await this.setPageIndex(this.activePageIndex + 1)
   }
 
-  async goToLast() {
+  async goToLast () {
     await this.setPageIndex(this.presentation.pages.length - 1)
   }
 

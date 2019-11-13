@@ -14,14 +14,14 @@ export class MessagesRepo extends Repository<Message> {
 
   selectedBoard: string
 
-  constructor(
+  constructor (
     dbService: RxDBService
   ) {
     super(dbService)
     this.entity = 'boards.message'
   }
 
-  async generateDemoData(board: Board, size = 15) {
+  async generateDemoData (board: Board, size = 15) {
     console.log(`Generate: ${size} messages for ${board._id}`)
     for (let c = 0; c < size; c++) {
 

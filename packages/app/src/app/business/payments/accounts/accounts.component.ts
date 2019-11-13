@@ -35,12 +35,12 @@ export class AccountsComponent implements OnInit {
   accounts$: Observable<Account[]> = new Observable<Account[]>()
   totals: { [key: string]: { amount: number, records: number } } = {}
 
-  constructor(
+  constructor (
     private accountsRepo: AccountsRepo,
     private recordsRepo: RecordsRepo
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.recordsRepo.all$().subscribe((records) => {
       this.totals = records
         .reduce((m, d) => {

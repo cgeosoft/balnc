@@ -15,12 +15,12 @@ export class DashboardComponent implements OnInit {
     customers: [{ name: 'customers', value: 55403 }]
   }
 
-  constructor(
+  constructor (
     private configService: ConfigService,
     private router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.profile = this.configService.profile
   }
 }

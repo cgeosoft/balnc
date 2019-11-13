@@ -12,7 +12,7 @@ export class EmptyComponent {
   @Input() icon = 'expand'
   @Input('icon-spin') iconSpin = false
 
-  get getIcon() {
+  get getIcon () {
     return Helpers.getIcon(this.icon)
   }
 }

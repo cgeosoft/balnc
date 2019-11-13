@@ -6,7 +6,7 @@ import { CEventsRepo } from './cevents.repo'
 @Injectable()
 export class ContactsRepo extends Repository<Contact> {
 
-  constructor(
+  constructor (
     dbService: RxDBService,
     private ceventsService: CEventsRepo
   ) {
@@ -14,7 +14,7 @@ export class ContactsRepo extends Repository<Contact> {
     this.entity = 'business.contact'
   }
 
-  async add(data: Partial<Contact>, ts?: number): Promise<Contact> {
+  async add (data: Partial<Contact>, ts?: number): Promise<Contact> {
     const contact = await super.add(data, ts)
     await this.ceventsService.add({
       contact: contact._id,

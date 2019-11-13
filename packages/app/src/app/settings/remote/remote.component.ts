@@ -45,28 +45,28 @@ export class RemoteComponent implements OnInit {
   servers = environment.servers
   remote: RemoteConfig
 
-  constructor(
+  constructor (
     private http: HttpClient,
     private activeModal: NgbActiveModal,
     private toastr: ToastrService,
     private config: ConfigService
   ) { }
 
-  get localProfile() {
+  get localProfile () {
     return this.config.profile
   }
 
-  get remoteProfile() {
+  get remoteProfile () {
     if (!this.remote.key) return {}
     return this.profiles.find(p => p.key === this.remote.key)
   }
 
-  get isDemo() {
+  get isDemo () {
     const demoServer = environment.servers.find(s => s.label === 'Demo Server')
     return demoServer.url === this.remote.server
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.remote = {
       ...this.config.profile.remote,
       ...{
@@ -78,15 +78,15 @@ export class RemoteComponent implements OnInit {
     }
   }
 
-  save() {
+  save () {
     this.activeModal.close(this.remote)
   }
 
-  dismiss() {
+  dismiss () {
     this.activeModal.dismiss()
   }
 
-  async verify(server) {
+  async verify (server) {
     this.loading.verifing = true
     const _server = server.trim().replace(/\/$/, '')
     await this.http
@@ -102,7 +102,7 @@ export class RemoteComponent implements OnInit {
     this.loading.verifing = false
   }
 
-  async register(username, password) {
+  async register (username, password) {
     this.loading.auth = true
     const _username = username.trim()
     const _password = password.trim()
@@ -121,7 +121,7 @@ export class RemoteComponent implements OnInit {
     this.loading.auth = false
   }
 
-  async login(username, password) {
+  async login (username, password) {
     this.loading.auth = true
 
     const _username = username.trim()
@@ -150,7 +150,7 @@ export class RemoteComponent implements OnInit {
     this.loading.auth = false
   }
 
-  async createProfile(name) {
+  async createProfile (name) {
     this.loading.auth = true
     await this.http
       .post(`${this.remote.server}/profiles`, {
@@ -172,7 +172,7 @@ export class RemoteComponent implements OnInit {
     this.loading.auth = false
   }
 
-  async loadProfiles() {
+  async loadProfiles () {
     const loads = []
     this.profiles.forEach(profile => {
       const n = this.http
@@ -193,7 +193,7 @@ export class RemoteComponent implements OnInit {
     this.profiles = this.profiles.sort((a, b) => b.created - a.created)
   }
 
-  async removeProfile(profile: RemoteProfile) {
+  async removeProfile (profile: RemoteProfile) {
     if (!confirm(`Are you sure you want to delete profile ${profile.name} and all data? This is not reversible. Please make some backups first.`)) return
     await this.http
       .delete(`${this.remote.server}/profiles/${profile.key}`, {
@@ -207,14 +207,14 @@ export class RemoteComponent implements OnInit {
     await this.login(this.remote.username, this.remote.password)
   }
 
-  linkRemote(profile: RemoteProfile) {
+  linkRemote (profile: RemoteProfile) {
     this.remote.key = profile.key
     this.remote.name = profile.name
     this.remote.owner = profile.owner
     this.remote.members = profile.members
   }
 
-  async finish() {
+  async finish () {
     this.activeModal.close(this.remote)
   }
 }

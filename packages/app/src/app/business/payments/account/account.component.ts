@@ -13,12 +13,12 @@ import { AccountsRepo } from '../../_shared/repos/accounts.repo'
 export class AccountComponent implements OnInit {
 
   account$: Observable<Account> = new Observable<Account>()
-  constructor(
+  constructor (
     private accountsRepo: AccountsRepo,
     private route: ActivatedRoute
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.account$ = this.route.params.pipe(
       mergeMap(params => this.accountsRepo.one$(params.id))
     )

@@ -15,7 +15,7 @@ export class DemoService {
 
   generated = false
 
-  constructor(
+  constructor (
     private accountsRepo: AccountsRepo,
     private transactionsRepo: TransactionsRepo,
     private recordsRepo: RecordsRepo,
@@ -24,7 +24,7 @@ export class DemoService {
     private agreementsRepo: AgreementsRepo
   ) { }
 
-  async execute(id: string) {
+  async execute (id: string) {
     console.log(`execute transaction ${id}`)
     const t = await this.transactionsRepo.one(id)
     if (!t) return
@@ -46,7 +46,7 @@ export class DemoService {
     }
   }
 
-  async generate() {
+  async generate () {
 
     const NO_OF_ACCOUNTS = 5
     const NO_OF_CUSTOMERS = 20

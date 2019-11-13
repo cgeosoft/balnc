@@ -18,7 +18,7 @@ export class ContentHeaderComponent implements OnInit {
   @Input() fullWidth = false
   @Input() route = null
 
-  ngOnInit() {
+  ngOnInit () {
     if (this.menu) {
       if (!this.menu.selected) {
         this.menu.selected = this.menu.items[0].id

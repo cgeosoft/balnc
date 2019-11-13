@@ -27,12 +27,12 @@ export class DocumentLineComponent implements AfterViewInit {
   focused = false
   text: string
 
-  constructor(
+  constructor (
     public documentsRepo: DocumentsRepo,
     public linesRepo: LinesRepo
   ) { }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit (): void {
     // Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     // Add 'implements AfterViewInit' to the class.
 
@@ -69,7 +69,7 @@ export class DocumentLineComponent implements AfterViewInit {
       })
   }
 
-  getCaretPosition(editableDiv) {
+  getCaretPosition (editableDiv) {
     let caretPos = 0
     let sel
     let range
@@ -83,15 +83,15 @@ export class DocumentLineComponent implements AfterViewInit {
     return caretPos
   }
 
-  async addLine() {
+  async addLine () {
     await this.linesRepo.addLine(this.selected)
   }
 
-  async chg(ev) {
+  async chg (ev) {
     this.lineChanged.next(ev.srcElement.innerText.replace(/^\n|\n$/g, ''))
   }
 
-  async keytab(event: any) {
+  async keytab (event: any) {
     let element = event.srcElement.nextElementSibling
 
     if (element) {
@@ -102,15 +102,15 @@ export class DocumentLineComponent implements AfterViewInit {
     }
   }
 
-  focus(ev) {
+  focus (ev) {
     this.focused = true
   }
 
-  blur(ev) {
+  blur (ev) {
     this.focused = false
   }
 
-  log(ev) {
+  log (ev) {
     console.log(ev)
   }
 
@@ -141,10 +141,10 @@ export class Mirror {
     'wordWrap']
   private $mirror: HTMLElement
 
-  constructor(private $element: HTMLElement) {
+  constructor (private $element: HTMLElement) {
   }
 
-  private css(): any {
+  private css (): any {
     const _css = {
       position: 'absolute',
       left: -9999,
@@ -162,7 +162,7 @@ export class Mirror {
     return _css
   }
 
-  create(html: string): Mirror {
+  create (html: string): Mirror {
     this.$mirror = document.createElement('div')
     const _css = this.css()
     Object.keys(_css).forEach(k => {
@@ -173,7 +173,7 @@ export class Mirror {
     return this
   }
 
-  rect(): ICaretOffset {
+  rect (): ICaretOffset {
     const $flag = this.$mirror.querySelector('#caret')
     const _rect = $flag.getBoundingClientRect()
     const position = {

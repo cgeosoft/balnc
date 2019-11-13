@@ -4,7 +4,7 @@ import { Page } from '../models/page'
 
 @Injectable()
 export class PagesRepo extends Repository<Page> {
-  constructor(
+  constructor (
     dbService: RxDBService
   ) {
     super(dbService)

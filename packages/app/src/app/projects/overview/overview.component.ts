@@ -14,11 +14,11 @@ export class OverviewComponent implements OnInit {
 
   logs$: Observable<PEvent[]>
 
-  constructor(
+  constructor (
     private peventsRepo: PEventsRepo
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.logs$ = this.peventsRepo.all$().pipe(
       tap((logs: PEvent[]) => logs.sort((a, b) => a._timestamp - b._timestamp)),
       tap((logs: PEvent[]) => logs.reverse())

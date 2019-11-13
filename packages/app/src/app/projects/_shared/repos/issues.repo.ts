@@ -6,7 +6,7 @@ import { PEventsRepo } from './pevents.repo'
 @Injectable()
 export class IssuesRepo extends Repository<Issue> {
 
-  constructor(
+  constructor (
     dbService: RxDBService,
     private peventsService: PEventsRepo
   ) {
@@ -14,7 +14,7 @@ export class IssuesRepo extends Repository<Issue> {
     this.entity = 'projects.issue'
   }
 
-  async add(data: Partial<Issue>, ts?: number): Promise<Issue> {
+  async add (data: Partial<Issue>, ts?: number): Promise<Issue> {
     const issue = await super.add(data, ts)
     await this.peventsService.add({
       issueId: issue._id,

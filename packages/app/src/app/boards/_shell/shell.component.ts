@@ -21,13 +21,13 @@ export class ShellComponent implements OnInit {
   boardsStats: BoardStats[]
   unread = {}
 
-  constructor(
+  constructor (
     private boardsRepo: BoardsRepo,
     private messagesRepo: MessagesRepo,
     private router: Router
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.nickname = 'chris'
     this.boards$ = this.boardsRepo.all$().pipe(
       tap(boards => boards.sort((a, b) => a._timestamp - b._timestamp))
@@ -60,7 +60,7 @@ export class ShellComponent implements OnInit {
   //   return s ? s.unread : 0
   // }
 
-  async create(name: string) {
+  async create (name: string) {
     if (!name) return
     const board = await this.boardsRepo.add({
       name
@@ -69,7 +69,7 @@ export class ShellComponent implements OnInit {
     await this.router.navigate(['/boards', board._id])
   }
 
-  async generate() {
+  async generate () {
     await this.boardsRepo.generateDemoData()
     const boards = await this.boardsRepo.all()
     boards.forEach(async b => {

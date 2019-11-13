@@ -5,6 +5,6 @@ import { Component, Input } from '@angular/core'
   templateUrl: './content-breadcrumb.component.html',
   styleUrls: ['content-breadcrumb.component.scss']
 })
-export class ContentBreadcrumbComponent{
+export class ContentBreadcrumbComponent {
   @Input() items: any[] = []
 }

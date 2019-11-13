@@ -14,35 +14,33 @@ export class CaretTrackerDirective implements AfterViewInit {
   settings: any = {}
   @Output()
   caret = new EventEmitter<ICaret>()
-  constructor(private element: ElementRef) { }
-  ngAfterViewInit() {
+  constructor (private element: ElementRef) { }
+  ngAfterViewInit () {
     this.$element = this.element.nativeElement
     if (this._contentEditable() || this._isTextarea()) {
       this.context(this.settings)
-    }
-    else {
+    } else {
       throw new Error(`caretTracker directive can be used either on textarea or contenteditable element only`)
     }
   }
-  private context(settings: any) {
+  private context (settings: any) {
     const iframe: HTMLIFrameElement = settings !== null ? settings.iframe : void 0
     if (iframe) {
       this._iframe = iframe
       this._window = iframe.contentWindow
       this._document = iframe.contentDocument || this._window.document
-    }
-    else {
+    } else {
       this._iframe = void 0
       this._window = window
       this._document = document
     }
   }
-  private _contentEditable(): boolean {
+  private _contentEditable (): boolean {
     return this.$element.isContentEditable
       && this.$element.getAttribute('contenteditable') === 'true'
   }
   @HostListener('focus', ['$event'])
-  onFocus($event: MouseEvent | KeyboardEvent) {
+  onFocus ($event: MouseEvent | KeyboardEvent) {
     this.caret.emit({
       offset: this.getOffset(),
       position: this.getCaretPosition(),
@@ -50,7 +48,7 @@ export class CaretTrackerDirective implements AfterViewInit {
     })
   }
   @HostListener('keyup', ['$event'])
-  onKeyup($event: KeyboardEvent) {
+  onKeyup ($event: KeyboardEvent) {
     this.caret.emit({
       offset: this.getOffset(),
       position: this.getCaretPosition(),
@@ -58,22 +56,21 @@ export class CaretTrackerDirective implements AfterViewInit {
     })
   }
   @HostListener('mouseup', ['$event'])
-  onMouseup($event: MouseEvent) {
+  onMouseup ($event: MouseEvent) {
     this.caret.emit({
       offset: this.getOffset(),
       position: this.getCaretPosition(),
       event: $event
     })
   }
-  private _range(): Range {
+  private _range (): Range {
     const selection = this._window.getSelection()
     return selection.rangeCount > 0 ? selection.getRangeAt(0) : null
   }
-  getCaretPositionFromHead(): number {
+  getCaretPositionFromHead (): number {
     if (this._isTextarea()) {
       return (this.$element as HTMLTextAreaElement).selectionStart
-    }
-    else {
+    } else {
       const range = this._range()
       if (range) {
         const clonedRange = range.cloneRange()
@@ -85,11 +82,10 @@ export class CaretTrackerDirective implements AfterViewInit {
       }
     }
   }
-  setCaretPositionFromHead(position: number): CaretTrackerDirective {
+  setCaretPositionFromHead (position: number): CaretTrackerDirective {
     if (this._isTextarea()) {
       (this.$element as HTMLTextAreaElement).setSelectionRange(position, position)
-    }
-    else {
+    } else {
       const selection = this._window.getSelection()
       if (selection) {
         let offset = 0, found = false, fn: Function
@@ -98,8 +94,7 @@ export class CaretTrackerDirective implements AfterViewInit {
           for (const node of nodeList) {
             if (found) {
               break
-            }
-            else {
+            } else {
               if (node.nodeType === Node.TEXT_NODE) {
                 if (offset + node['length'] >= pos) {
                   found = true
@@ -108,12 +103,10 @@ export class CaretTrackerDirective implements AfterViewInit {
                   selection.removeAllRanges()
                   selection.addRange(range)
                   break
-                }
-                else {
+                } else {
                   results.push(offset += node['length'])
                 }
-              }
-              else {
+              } else {
                 results.push(fn(pos, node))
               }
             }
@@ -124,17 +117,17 @@ export class CaretTrackerDirective implements AfterViewInit {
     }
     return this
   }
-  getCaretPosition(): ICaretOffset {
+  getCaretPosition (): ICaretOffset {
     return this.getOrSetCaretPosition()
   }
-  getCaretPositionOf(charAt: number) {
+  getCaretPositionOf (charAt: number) {
     return this.getOrSetCaretPosition(charAt)
   }
-  setCaretPosition(position: number): CaretTrackerDirective {
+  setCaretPosition (position: number): CaretTrackerDirective {
     this.getOrSetCaretPosition(position)
     return this
   }
-  private getOrSetCaretPosition(position?: number): ICaretOffset {
+  private getOrSetCaretPosition (position?: number): ICaretOffset {
     if (this._isTextarea()) {
       const $element = this.$element as HTMLTextAreaElement
       const formater = (value: any) => {
@@ -153,8 +146,7 @@ export class CaretTrackerDirective implements AfterViewInit {
                   <span id="caret" style="position: relative; display: inline;">|</span>
                   <span style="position: relative; display: inline;">${formater(endRange)}</span>`
       return (new Mirror($element)).create(html).rect()
-    }
-    else {
+    } else {
       const offset = this.getOffset() || { top: 0, left: 0, height: 0 }
       const rect = this.$element.getBoundingClientRect()
       const eleOffset = {
@@ -166,13 +158,13 @@ export class CaretTrackerDirective implements AfterViewInit {
       return offset
     }
   }
-  getOffsetPosition(): ICaretOffset {
+  getOffsetPosition (): ICaretOffset {
     return this.getOffset()
   }
-  getOffsetPositionOf(charAt: number) {
+  getOffsetPositionOf (charAt: number) {
     return this.getOffset(charAt)
   }
-  private getOffset(position?: number): ICaretOffset {
+  private getOffset (position?: number): ICaretOffset {
     if (this._isTextarea()) {
       const rect = this.$element.getBoundingClientRect()
       const offset = {
@@ -185,8 +177,7 @@ export class CaretTrackerDirective implements AfterViewInit {
         top: offset.top + pos.top - this.$element.scrollTop,
         height: pos.height
       }
-    }
-    else {
+    } else {
       const range = this._range()
       let offset: ICaretOffset
       if (range) {
@@ -224,7 +215,7 @@ export class CaretTrackerDirective implements AfterViewInit {
       return offset
     }
   }
-  private _isTextarea(ele?: HTMLElement): boolean {
+  private _isTextarea (ele?: HTMLElement): boolean {
     const element = ele || this.$element
     return element.tagName === 'TEXTAREA' && element instanceof HTMLTextAreaElement
   }

@@ -30,12 +30,12 @@ export class ContactsComponent implements OnInit {
   contacts$: Observable<Contact[]>
   term$: BehaviorSubject<string> = new BehaviorSubject<string>(null)
 
-  constructor(
+  constructor (
     private contactsService: ContactsRepo,
     private router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.contacts$ = this.contactsService.all$().pipe(
       switchMap(contacts => this.term$.pipe(
         map(term => this.doFilterContacts(contacts, term))
@@ -43,11 +43,11 @@ export class ContactsComponent implements OnInit {
     )
   }
 
-  filter(term) {
+  filter (term) {
     this.term$.next(term)
   }
 
-  private doFilterContacts(contacts, term) {
+  private doFilterContacts (contacts, term) {
     if (!term) return contacts
     return contacts.filter(d => d.name.toUpperCase().startsWith(term.toUpperCase()))
   }

@@ -47,7 +47,7 @@ export class ContactComponent implements OnInit {
   }
   breadcrumb
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private stateService: StateService,
     private contactsRepo: ContactsRepo,
@@ -56,7 +56,7 @@ export class ContactComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.contact$ = this.route
       .params
       .pipe(
@@ -93,7 +93,7 @@ export class ContactComponent implements OnInit {
       )
   }
 
-  async createOrder() {
+  async createOrder () {
     const order = await this.ordersRepo.add({
       serial: Helpers.uid(),
       customer: this.route.snapshot.params['id']

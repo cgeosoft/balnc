@@ -19,13 +19,13 @@ export class SettingsComponent implements OnInit {
   generating: boolean
   generated: number
 
-  constructor(
+  constructor (
     private projectsRepo: ProjectsRepo,
     private projectsService: DemoService,
     private modal: NgbModal
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.projects$ = this.projectsRepo.all$().pipe(
       tap((projects: Project[]) => projects.sort((a, b) => {
         if (a.name < b.name) {
@@ -40,12 +40,12 @@ export class SettingsComponent implements OnInit {
     )
   }
 
-  async createProject() {
+  async createProject () {
     await this.modal.open(CreateProjectComponent).result
     await this.ngOnInit()
   }
 
-  async generateDemoData() {
+  async generateDemoData () {
     if (!confirm('Are you sure?')) return
     await this.projectsService.generate()
     this.generated = Date.now()

@@ -46,7 +46,7 @@ import { ProfileGuardService } from './services/profile-guard.service'
 })
 export class CoreModule {
   /* make sure CoreModule is imported only by one NgModule the AppModule */
-  constructor(
+  constructor (
     @Optional() @SkipSelf() parentModule: CoreModule
   ) {
     if (parentModule) {

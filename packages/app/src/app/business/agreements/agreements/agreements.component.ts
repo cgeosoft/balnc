@@ -39,12 +39,12 @@ export class AgreementsComponent implements OnInit {
     ]
   }
 
-  constructor(
+  constructor (
     private agreementsService: AgreementsRepo,
     private contactsService: ContactsRepo
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.agreements$ = this.agreementsService.all$()
     this.contacts = await this.contactsService.all()
   }

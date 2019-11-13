@@ -16,7 +16,7 @@ export class ProjectManageComponent implements OnInit {
   project: Project
   loading = true
 
-  constructor(
+  constructor (
     private activeModal: NgbActiveModal,
     private projectsRepo: ProjectsRepo,
     private issuesRepo: IssuesRepo,
@@ -24,16 +24,16 @@ export class ProjectManageComponent implements OnInit {
     private router: Router
   ) { }
 
-  get modal() {
+  get modal () {
     return this.activeModal
   }
 
-  async ngOnInit() {
+  async ngOnInit () {
     const p = await this.projectsRepo.one(this.projectId)
     this.project = { ...p }
   }
 
-  async updateName() {
+  async updateName () {
     this.loading = true
     const p = await this.projectsRepo.update(this.projectId, {
       $set: {
@@ -43,7 +43,7 @@ export class ProjectManageComponent implements OnInit {
     this.activeModal.close()
   }
 
-  async deleteProject() {
+  async deleteProject () {
     if (!confirm('Are you sure?')) return
 
     await this.projectsRepo.remove(this.projectId)

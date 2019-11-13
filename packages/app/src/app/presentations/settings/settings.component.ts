@@ -11,11 +11,11 @@ export class SettingsComponent {
   generating: boolean
   generated: number
 
-  constructor(
-    private presentationsService: PresentationsService,
+  constructor (
+    private presentationsService: PresentationsService
   ) { }
 
-  async generateDemoData() {
+  async generateDemoData () {
     if (!confirm('Are you sure?')) return
     await this.presentationsService.generateDemoData()
     this.generated = Date.now()

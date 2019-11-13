@@ -32,35 +32,35 @@ export class SetupComponent implements OnInit {
 
   helperService = Helpers
 
-  constructor(
+  constructor (
     public configService: ConfigService,
     private toastr: ToastrService
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.plugins = this.configService.plugins
   }
 
-  back() {
+  back () {
     this.stepIndex--
   }
 
-  next() {
+  next () {
     this.stepIndex++
   }
 
-  finish() {
+  finish () {
     this.profile.name = this.profile.name || this.helperService.generateName()
     const alias = this.configService.saveProfile(this.profile)
     this.configService.selectProfile(alias)
   }
 
-  addDemo() {
+  addDemo () {
     this.profile = DEMO_PROFILE
     this.stepIndex = this.steps.length - 1
   }
 
-  importFile(file: ReadFile) {
+  importFile (file: ReadFile) {
     const profile: Profile = this.configService.importFile(file)
     if (!profile) {
       this.toastr.error('Import failed')
@@ -69,7 +69,7 @@ export class SetupComponent implements OnInit {
     this.stepIndex = this.steps.length - 1
   }
 
-  switchStatus(pluginId: string) {
+  switchStatus (pluginId: string) {
     this.profile.plugins[pluginId] = !this.profile.plugins[pluginId]
   }
 }

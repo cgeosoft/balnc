@@ -32,7 +32,7 @@ export class ShellComponent implements OnInit {
   filters: any
   showFilters = false
 
-  constructor(
+  constructor (
     private demoService: DemoService,
     private projectsRepo: ProjectsRepo,
     private modal: NgbModal,
@@ -40,7 +40,7 @@ export class ShellComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.projects$ = this.projectsRepo.all$()
       .pipe(
         tap((projects: Project[]) => projects.sort((a, b) => {
@@ -65,11 +65,11 @@ export class ShellComponent implements OnInit {
     await this.demoService.generate()
   }
 
-  private loadProject(pid) {
+  private loadProject (pid) {
     this.project$ = this.projectsRepo.one$(pid)
   }
 
-  setFilter(filter) {
+  setFilter (filter) {
     this.typeFilterSelected = filter
     switch (filter) {
       case 'Starred':
@@ -87,12 +87,12 @@ export class ShellComponent implements OnInit {
     }
   }
 
-  editDetails(projectId) {
+  editDetails (projectId) {
     const m = this.modal.open(ProjectManageComponent)
     m.componentInstance.projectId = projectId
   }
 
-  async createIssue(projectId) {
+  async createIssue (projectId) {
     const m = this.modal.open(IssueCreateComponent)
     m.componentInstance.projectId = projectId
     const issueId = await m.result
@@ -101,7 +101,7 @@ export class ShellComponent implements OnInit {
     }
   }
 
-  async createProject() {
+  async createProject () {
     const m = this.modal.open(CreateProjectComponent)
     const projectId = await m.result
     if (projectId) {

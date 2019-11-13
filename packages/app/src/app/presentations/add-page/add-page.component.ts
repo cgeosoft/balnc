@@ -25,12 +25,12 @@ export class AddPageComponent {
     height: 0
   }
 
-  constructor(
+  constructor (
     public activeModal: NgbActiveModal,
     public presentationsService: PresentationsService
   ) { }
 
-  loadFile(file): void {
+  loadFile (file): void {
     this.page.file = file
     const reader: FileReader = new FileReader()
 
@@ -54,7 +54,7 @@ export class AddPageComponent {
     reader.readAsDataURL(this.page.file)
   }
 
-  async create() {
+  async create () {
     await this.presentationsService.createPage(this.presentation, this.page)
     this.activeModal.close(this.page)
   }

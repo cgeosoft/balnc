@@ -10,12 +10,12 @@ import { PresentationsRepo } from '../repos/presentations.repo'
 @Injectable()
 export class PresentationsService {
 
-  constructor(
+  constructor (
     private pagesRepo: PagesRepo,
     private presentationsRepo: PresentationsRepo
   ) { }
 
-  async getPresentations(params?: any) {
+  async getPresentations (params?: any) {
     params = params || {}
     let _presentations = await this.presentationsRepo.all()
 
@@ -32,7 +32,7 @@ export class PresentationsService {
     return presentations2
   }
 
-  async getThumb(presentation: Presentation): Promise<any> {
+  async getThumb (presentation: Presentation): Promise<any> {
     if (!presentation.pages || presentation.pages.length === 0) {
       return
     }
@@ -40,7 +40,7 @@ export class PresentationsService {
     return this.getImage((presentation as RxDocument<Presentation>), image)
   }
 
-  async getImage(presentation: Presentation, contentImage: string): Promise<any> {
+  async getImage (presentation: Presentation, contentImage: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       const attachment = (presentation as RxDocument<Presentation>).getAttachment(contentImage)
       const blobBuffer = await attachment.getData()
@@ -59,7 +59,7 @@ export class PresentationsService {
     })
   }
 
-  async getStats(presentation: Presentation): Promise<PresentationStats> {
+  async getStats (presentation: Presentation): Promise<PresentationStats> {
     const p = presentation as RxDocument<Presentation>
     if (!p.get('_attachments')) {
       return {
@@ -78,7 +78,7 @@ export class PresentationsService {
     }
   }
 
-  async createPage(presentation: Presentation, page: Page) {
+  async createPage (presentation: Presentation, page: Page) {
     const p = presentation as RxDocument<Presentation>
     const pageKey = Helpers.uid()
 
@@ -106,7 +106,7 @@ export class PresentationsService {
     })
   }
 
-  async generateDemoData(size = 10) {
+  async generateDemoData (size = 10) {
     console.log(`generate ${size} presentations`)
 
     for (let i = 0; i < 5; i++) {

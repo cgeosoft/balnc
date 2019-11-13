@@ -3,7 +3,7 @@ import { RxDocumentBase } from 'rxdb'
 
 @Pipe({ name: 'docVersion' })
 export class DocVersionPipe implements PipeTransform {
-  transform(val: RxDocumentBase<any> & any, args) {
+  transform (val: RxDocumentBase<any> & any, args) {
     return val.get('_rev').split('-')[0]
   }
 }

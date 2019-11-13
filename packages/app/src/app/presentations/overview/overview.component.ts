@@ -34,11 +34,11 @@ export class OverviewComponent implements OnInit {
     ]
   }
 
-  constructor(
+  constructor (
     private presentationsRepo: PresentationsRepo
   ) { }
 
-  async ngOnInit() {
+  async ngOnInit () {
     this.presentations$ = this.presentationsRepo.all$()
   }
 }
