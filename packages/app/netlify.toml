@@ -1,9 +1,0 @@
-[build]
-  base = ""
-  publish = "www"
-  command = "npm run build-prod"
-  functions = ".lambda"
-[[redirects]]
-  from = "/*"
-  status = 200
-  to = "/index.html"
