@@ -1,5 +1,8 @@
 <app-content>
   <app-content-body [padding]="false" [full]="true">
+    <div class="btn-toolbar p-3">
+      <button class="btn btn-primary" (click)="createAccount()">New Account</button>
+    </div>
     <app-table [data$]="accounts$" [schema]="schema">
     </app-table>
   </app-content-body>

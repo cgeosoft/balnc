@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { TableSchema } from '@balnc/shared'
+import { Router } from '@angular/router'
+import { Helpers, TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { Account, AccountType, AccountTypeBadges } from '../../_shared/models/account'
 import { AccountsRepo } from '../../_shared/repos/accounts.repo'
@@ -37,7 +38,8 @@ export class AccountsComponent implements OnInit {
 
   constructor (
     private accountsRepo: AccountsRepo,
-    private recordsRepo: RecordsRepo
+    private recordsRepo: RecordsRepo,
+    private router: Router
   ) { }
 
   async ngOnInit () {
@@ -53,5 +55,10 @@ export class AccountsComponent implements OnInit {
         }, {})
     })
     this.accounts$ = this.accountsRepo.all$()
+  }
+
+  async createAccount() {
+    const account = await this.accountsRepo.add({ name: `Account #${Helpers.uid()}` })
+    await this.router.navigate(['/business/payments/accounts', account._id])
   }
 }
