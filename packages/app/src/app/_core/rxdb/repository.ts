@@ -1,6 +1,7 @@
+import { NgZone } from '@angular/core'
 import { RxCollection } from 'rxdb'
 import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { map, tap } from 'rxjs/operators'
 import { RxDBService } from './rxdb.service'
 
 export class Repository<T> {
@@ -10,7 +11,8 @@ export class Repository<T> {
   entities: RxCollection
 
   constructor (
-    private dbService: RxDBService
+    private dbService: RxDBService,
+    private zone: NgZone
   ) {
     this.entities = this.dbService.db.entities
   }
@@ -22,7 +24,10 @@ export class Repository<T> {
 
   all$ (): Observable<T[]> {
     return this.entities.find().where('type').eq(this.entity).$.pipe(
-      map((items) => this.mappedItems(items))
+      map((items) => this.mappedItems(items)),
+      tap(() => {
+        this.zone.run(() => { })
+      })
     )
   }
 
@@ -34,7 +39,8 @@ export class Repository<T> {
 
   one$ (id: string): Observable<T> {
     return this.entities.findOne(id).$.pipe(
-      map((item) => this.mappedItems([item])[0])
+      map((item) => this.mappedItems([item])[0]),
+      tap(() => { this.zone.run(() => { }) })
     )
   }
 
