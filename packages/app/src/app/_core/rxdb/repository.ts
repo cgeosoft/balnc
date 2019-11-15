@@ -66,7 +66,7 @@ export class Repository<T> {
 
   private mappedItems (items) {
     const r = items
-      .filter(i => i._id)
+      .filter(i => i && i._id)
       .map(i => {
         const o = i.data
         o._id = i._id
