@@ -4,16 +4,12 @@
       <app-content-header [menu]="menu"></app-content-header>
 
       <ng-container *ngIf="menu.selected === 'timeline'">
-        <app-content-body>
-          <div class="btn-toolbar">
+        <app-content-body [padding]="false" [full]="true">
+          <div class="btn-toolbar p-3">
             <button class="btn btn-primary" (click)="createOrder()">New Order</button>
           </div>
-        </app-content-body>
-
-        <app-content-body [padding]="false" [full]="true">
           <app-table [data$]="cevents$" [schema]="schema"></app-table>
         </app-content-body>
-
       </ng-container>
 
       <ng-container *ngIf="menu.selected === 'manage'">
