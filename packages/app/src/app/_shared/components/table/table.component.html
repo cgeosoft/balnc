@@ -24,9 +24,9 @@
 
                   <ng-container *ngIf="!prop.template" [ngSwitch]="prop.type">
                     <td *ngSwitchCase="'badge'" [ngStyle]='prop.style || {}'>
-                      <div class="badge badge-{{prop.badges[prop.val(item)].class||'default'}} w-100"
-                        [ngStyle]='{"background-color":prop.badges[prop.val(item)].color} || {}'>
-                        {{prop.badges[prop.val(item)].label}}
+                      <div class="badge badge-{{getBadge(prop.badges,prop.val(item)).class||'default'}} w-100"
+                        [ngStyle]='{"background-color":getBadge(prop.badges,prop.val(item)).color} || {}'>
+                        {{getBadge(prop.badges,prop.val(item)).label}}
                       </div>
                     </td>
                     <td *ngSwitchCase="'button'" [ngStyle]='prop.style || {}'>
@@ -38,7 +38,7 @@
                       <span *ngIf="prop.val(item)">{{prop.val(item) | date:'short'}}</span>
                       <span *ngIf="!prop.val(item)" class="text-muted"> - </span>
                     </td>
-                    <td *ngSwitchCase="'currency'" [ngStyle]='prop.style || {}'>
+                    <td *ngSwitchCase="'currency'" class="text-monospace" [ngStyle]='prop.style || {}'>
                       {{prop.val(item) | currency}}
                     </td>
                     <td *ngSwitchCase="'icon'" [ngStyle]='prop.style || {}'>

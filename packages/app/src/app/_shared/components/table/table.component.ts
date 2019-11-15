@@ -28,7 +28,7 @@ export class TableComponent implements OnInit {
 
   @LocalStorage('table_settings') settings: any = {}
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.updateSettings()
     this.data$.subscribe((data) => {
       this.dataLength = data.length
@@ -37,7 +37,7 @@ export class TableComponent implements OnInit {
     this.calculateProperties()
   }
 
-  updateSettings () {
+  updateSettings() {
     this.settings[this.schema.name] = this.settings[this.schema.name] || { visible: {} }
     this.schema.properties.forEach((p, i) => {
       this.settings[this.schema.name].visible[i] = this.settings[this.schema.name].visible[i] || !p.hidden
@@ -45,18 +45,18 @@ export class TableComponent implements OnInit {
     this.settings.save()
   }
 
-  calculateProperties () {
+  calculateProperties() {
     this.properties = this.schema.properties.filter((p, i) => this.settings[this.schema.name].visible[i])
   }
 
-  calculatePages () {
+  calculatePages() {
     let pages = Math.floor(this.dataLength / this.limit)
     pages += (this.dataLength % this.limit > 0) ? 1 : 0
     this.totalPages = Array.from(Array(pages), (x, index) => index)
     this.movePageWindow()
   }
 
-  movePageWindow () {
+  movePageWindow() {
     if (this.totalPages.length <= 5) {
       this.pages = this.totalPages
     } else if (this.page <= 2) {
@@ -80,33 +80,44 @@ export class TableComponent implements OnInit {
     }
   }
 
-  resetLimit (limit) {
+  resetLimit(limit) {
     this.page = 0
     this.limit = parseInt(limit, 10)
     this.calculatePages()
   }
 
-  previous () {
+  previous() {
     if (this.page > 0) {
       this.page -= 1
       this.movePageWindow()
     }
   }
 
-  next () {
+  next() {
     if (this.page < this.totalPages.length - 1) {
       this.page += 1
       this.movePageWindow()
     }
   }
 
-  first () {
+  first() {
     this.page = 0
     this.movePageWindow()
   }
 
-  last () {
+  last() {
     this.page = this.totalPages.length - 1
     this.movePageWindow()
+  }
+
+  getBadge(badges: any[], badge: any) {
+    if (badges[badge]) {
+      return badges[badge]
+    }
+    return {
+      class: null,
+      label: 'Unknown',
+      color: '#DDD'
+    }
   }
 }
