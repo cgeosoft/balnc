@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core'
-import { Repository, RxDBService } from '@balnc/core'
+import { Injectable, Injector } from '@angular/core'
+import { Repository } from '@balnc/core'
 import * as faker from 'faker'
 import { LocalStorage } from 'ngx-store'
 import { Board } from '../models/board'
@@ -14,14 +14,14 @@ export class MessagesRepo extends Repository<Message> {
 
   selectedBoard: string
 
-  constructor (
-    dbService: RxDBService
+  constructor(
+    injector: Injector
   ) {
-    super(dbService)
+    super(injector)
     this.entity = 'boards.message'
   }
 
-  async generateDemoData (board: Board, size = 15) {
+  async generateDemoData(board: Board, size = 15) {
     console.log(`Generate: ${size} messages for ${board._id}`)
     for (let c = 0; c < size; c++) {
 

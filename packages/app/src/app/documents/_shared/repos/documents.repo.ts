@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core'
-import { Repository, RxDBService } from '@balnc/core'
+import { Injectable, Injector } from '@angular/core'
+import { Repository } from '@balnc/core'
 import * as faker from 'faker'
 import { Document } from '../models/document'
 
 @Injectable()
 export class DocumentsRepo extends Repository<Document> {
 
-  constructor (
-    dbService: RxDBService
+  constructor(
+    injector: Injector
   ) {
-    super(dbService)
+    super(injector)
     this.entity = 'documents.document'
   }
 
-  async generateDemoData () {
+  async generateDemoData() {
     const documents: string[] = []
     for (let i = 0; i < 3; i++) {
       const d: Partial<Document> = {

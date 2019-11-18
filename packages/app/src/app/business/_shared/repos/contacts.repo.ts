@@ -1,20 +1,20 @@
-import { Injectable } from '@angular/core'
-import { Repository, RxDBService } from '@balnc/core'
+import { Injectable, Injector } from '@angular/core'
+import { Repository } from '@balnc/core'
 import { CEventType, Contact } from '../models/contacts'
 import { CEventsRepo } from './cevents.repo'
 
 @Injectable()
 export class ContactsRepo extends Repository<Contact> {
 
-  constructor (
-    dbService: RxDBService,
+  constructor(
+    injector: Injector,
     private ceventsService: CEventsRepo
   ) {
-    super(dbService)
+    super(injector)
     this.entity = 'business.contact'
   }
 
-  async add (data: Partial<Contact>, ts?: number): Promise<Contact> {
+  async add(data: Partial<Contact>, ts?: number): Promise<Contact> {
     const contact = await super.add(data, ts)
     await this.ceventsService.add({
       contact: contact._id,

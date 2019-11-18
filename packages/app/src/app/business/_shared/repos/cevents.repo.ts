@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core'
-import { Repository, RxDBService } from '@balnc/core'
+import { Injectable, Injector } from '@angular/core'
+import { Repository } from '@balnc/core'
 import { CEvent } from '../models/contacts'
 
 @Injectable()
 export class CEventsRepo extends Repository<CEvent> {
-  constructor (
-    dbService: RxDBService
+
+  constructor(
+    injector: Injector
   ) {
-    super(dbService)
+    super(injector)
     this.entity = 'business.event'
   }
+
 }

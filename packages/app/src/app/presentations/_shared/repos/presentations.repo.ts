@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core'
-import { Repository, RxDBService } from '@balnc/core'
+import { Injectable, Injector } from '@angular/core'
+import { Repository } from '@balnc/core'
 import { Presentation } from '../models/presentation'
 
 @Injectable()
 export class PresentationsRepo extends Repository<Presentation> {
 
-  constructor (
-    dbService: RxDBService
+  constructor(
+    injector: Injector
   ) {
-    super(dbService)
+    super(injector)
     this.entity = 'presentations.presentation'
   }
 }

@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core'
-import { Repository, RxDBService } from '@balnc/core'
+import { Injectable, Injector } from '@angular/core'
+import { Repository } from '@balnc/core'
 import { RxDocument } from 'rxdb'
 import { Line } from '../models/line'
 
 @Injectable()
 export class LinesRepo extends Repository<Line> {
 
-  constructor (
-    dbService: RxDBService
+  constructor(
+    injector: Injector
   ) {
-    super(dbService)
+    super(injector)
     this.entity = 'documents.line'
   }
 
-  async addLine (document: string, index: number = 0) {
+  async addLine(document: string, index: number = 0) {
     const line: Partial<Line> = {
       document,
       index,
@@ -23,7 +23,7 @@ export class LinesRepo extends Repository<Line> {
     return lineDoc._id
   }
 
-  async updateLine (line: Line, text) {
+  async updateLine(line: Line, text) {
     const d = line as RxDocument<Line>
     await d.update({
       $set: {
@@ -33,7 +33,7 @@ export class LinesRepo extends Repository<Line> {
     })
   }
 
-  async generateDemoData (document) {
+  async generateDemoData(document) {
     for (let k = 0; k < 20; k++) {
       await this.addLine(document)
     }
