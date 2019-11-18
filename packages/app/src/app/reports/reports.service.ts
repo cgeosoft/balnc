@@ -15,9 +15,9 @@ export class ReportsService extends Repository<Report> {
 
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
-  constructor(
-    injector: Injector,
-    private http: HttpClient
+  constructor (
+    private http: HttpClient,
+    injector: Injector
   ) {
     super(injector)
     this.entity = 'reports.report'

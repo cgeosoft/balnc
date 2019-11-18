@@ -13,7 +13,7 @@ export class BoardsRepo extends Repository<Board> {
   selectedBoard: string
   selected: string
 
-  constructor(
+  constructor (
     injector: Injector
   ) {
     super(injector)

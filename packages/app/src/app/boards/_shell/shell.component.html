@@ -10,7 +10,7 @@
       </button>
     </div>
   </div>
-  <div class="menu">
+  <div class="menu overflow-auto">
     <ng-container *ngIf="(boards$ | async) as boards; else loader">
       <ng-container *ngIf="boards.length; else empty">
         <ng-template ngFor let-board [ngForOf]="boards">

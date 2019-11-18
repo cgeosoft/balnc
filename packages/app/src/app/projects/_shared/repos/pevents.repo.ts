@@ -4,8 +4,7 @@ import { PEvent } from '../models/all'
 
 @Injectable()
 export class PEventsRepo extends Repository<PEvent> {
-
-  constructor(
+  constructor (
     injector: Injector
   ) {
     super(injector)

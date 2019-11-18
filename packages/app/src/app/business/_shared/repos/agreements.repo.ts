@@ -1,3 +1,4 @@
+
 import { Injectable, Injector } from '@angular/core'
 import { Repository } from '@balnc/core'
 import { Helpers } from '@balnc/shared'
@@ -8,9 +9,9 @@ import { CEventsRepo } from './cevents.repo'
 @Injectable()
 export class AgreementsRepo extends Repository<Agreement> {
 
-  constructor(
-    injector: Injector,
-    private ceventsService: CEventsRepo
+  constructor (
+    private ceventsService: CEventsRepo,
+    injector: Injector
   ) {
     super(injector)
     this.entity = 'business.agreement'

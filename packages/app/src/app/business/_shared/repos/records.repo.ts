@@ -6,7 +6,7 @@ import { Record } from '../models/record'
 @Injectable()
 export class RecordsRepo extends Repository<Record> {
 
-  constructor(
+  constructor (
     injector: Injector
   ) {
     super(injector)

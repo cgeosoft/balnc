@@ -10,12 +10,14 @@ export class Repository<T> {
   observables: { [key: string]: Observable<any> } = {}
   entities: RxCollection
 
-  protected dbService: RxDBService
-  protected zone: NgZone
+  private dbService: RxDBService
+  private zone: NgZone
 
-  constructor(injector: Injector) {
-    this.dbService = injector.get(RxDBService)
-    this.zone = injector.get(NgZone)
+  constructor (
+    private injector: Injector
+  ) {
+    this.dbService = this.injector.get(RxDBService)
+    this.zone = this.injector.get(NgZone)
     this.entities = this.dbService.db.entities
   }
 

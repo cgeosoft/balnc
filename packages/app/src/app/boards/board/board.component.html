@@ -1,8 +1,10 @@
 <app-content>
   <ng-container *ngIf="(board$ | async) as board; else noboard">
-    <app-content-header [menu]="menu"></app-content-header>
     <app-content-body *ngIf="menu.selected === 'messages'" [full]="true" [padding]="false">
       <div class="card card-chat d-flex h-100">
+        <div class="card-header">
+          {{board.name}}
+        </div>
         <div #messageList class="card-body">
           <ng-container *ngIf="(messages$ | async) as messages; else loader">
             <ng-container *ngIf="messages.length else emptyMessages">
@@ -12,12 +14,10 @@
                     <div class="msg-item" [ngClass]="{'own':m.sender === boardService.nickname}">
                       <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png"
                         [ngbTooltip]="m.sender" placement="bottom" container="body">
-                      <div class="msg-body">
+                      <div class="msg-body" [ngbTooltip]="m._timestamp | date:'medium'" placement="bottom"
+                        container="body">
                         {{m.text}}
                       </div>
-                      <small class="msg-time text-secondary" [ngbTooltip]="m._timestamp | date:'medium'"
-                        container="body">
-                        {{m._timestamp | dfnsFormatDistanceToNow}}</small>
                     </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="'CMD-CREATE'">

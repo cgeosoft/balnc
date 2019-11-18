@@ -6,7 +6,7 @@ import { Line } from '../models/line'
 @Injectable()
 export class LinesRepo extends Repository<Line> {
 
-  constructor(
+  constructor (
     injector: Injector
   ) {
     super(injector)

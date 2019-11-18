@@ -6,9 +6,9 @@ import { CEventsRepo } from './cevents.repo'
 @Injectable()
 export class ContactsRepo extends Repository<Contact> {
 
-  constructor(
-    injector: Injector,
-    private ceventsService: CEventsRepo
+  constructor (
+    private ceventsService: CEventsRepo,
+    injector: Injector
   ) {
     super(injector)
     this.entity = 'business.contact'

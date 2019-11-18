@@ -56,6 +56,7 @@ export class BoardComponent implements OnInit {
       this.boardService.selected = this.selected
       this.board$ = this.boardService.one$(this.selected)
       this.messages$ = this.messagesService.all$().pipe(
+        tap(() => { console.log('test') }),
         map(messages => messages.filter(message => message.board === this.selected)),
         tap(messages => {
           messages.sort((a, b) => a._timestamp - b._timestamp)
@@ -97,7 +98,6 @@ export class BoardComponent implements OnInit {
 
   async send () {
     if (!this.inputMessage) { return }
-
     const data = {
       text: this.inputMessage,
       sender: 'anonymous',
@@ -107,8 +107,6 @@ export class BoardComponent implements OnInit {
     }
     await this.messagesService.add(data)
     this.inputMessage = null
-    this.scrollToBottom()
-    this.focusInput()
   }
 
   async delete () {

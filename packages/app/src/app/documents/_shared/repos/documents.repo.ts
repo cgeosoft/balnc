@@ -6,7 +6,7 @@ import { Document } from '../models/document'
 @Injectable()
 export class DocumentsRepo extends Repository<Document> {
 
-  constructor(
+  constructor (
     injector: Injector
   ) {
     super(injector)

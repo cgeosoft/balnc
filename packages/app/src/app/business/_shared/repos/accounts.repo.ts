@@ -1,3 +1,4 @@
+
 import { Injectable, Injector } from '@angular/core'
 import { Repository } from '@balnc/core'
 import { Account } from '../models/account'
@@ -5,7 +6,7 @@ import { Account } from '../models/account'
 @Injectable()
 export class AccountsRepo extends Repository<Account> {
 
-  constructor(
+  constructor (
     injector: Injector
   ) {
     super(injector)

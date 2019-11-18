@@ -4,7 +4,7 @@ import { Project } from '../models/all'
 
 @Injectable()
 export class ProjectsRepo extends Repository<Project> {
-  constructor(
+  constructor (
     injector: Injector
   ) {
     super(injector)

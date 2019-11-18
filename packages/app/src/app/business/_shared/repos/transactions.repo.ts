@@ -6,7 +6,7 @@ import { Transaction } from '../models/transaction'
 @Injectable()
 export class TransactionsRepo extends Repository<Transaction> {
 
-  constructor(
+  constructor (
     injector: Injector
   ) {
     super(injector)

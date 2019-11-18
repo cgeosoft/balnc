@@ -5,7 +5,7 @@ import { Invoice } from '../models/invoice'
 @Injectable()
 export class InvoicesRepo extends Repository<Invoice> {
 
-  constructor(
+  constructor (
     injector: Injector
   ) {
     super(injector)

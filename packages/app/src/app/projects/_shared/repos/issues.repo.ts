@@ -6,9 +6,9 @@ import { PEventsRepo } from './pevents.repo'
 @Injectable()
 export class IssuesRepo extends Repository<Issue> {
 
-  constructor(
-    injector: Injector,
-    private peventsService: PEventsRepo
+  constructor (
+    private peventsService: PEventsRepo,
+    injector: Injector
   ) {
     super(injector)
     this.entity = 'projects.issue'

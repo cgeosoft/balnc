@@ -14,7 +14,7 @@ export class MessagesRepo extends Repository<Message> {
 
   selectedBoard: string
 
-  constructor(
+  constructor (
     injector: Injector
   ) {
     super(injector)

@@ -4,8 +4,7 @@ import { Presentation } from '../models/presentation'
 
 @Injectable()
 export class PresentationsRepo extends Repository<Presentation> {
-
-  constructor(
+  constructor (
     injector: Injector
   ) {
     super(injector)
