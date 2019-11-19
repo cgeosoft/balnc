@@ -17,6 +17,7 @@ export class BoardComponent implements OnInit {
 
   @ViewChild('messageList', { static: false }) messageList: ElementRef
   @ViewChild('messageInput', { static: false }) messageInput: ElementRef
+  @ViewChild('fileupload', { static: false }) fileupload: ElementRef
 
   selected: string
   board: Board
@@ -40,25 +41,47 @@ export class BoardComponent implements OnInit {
     }]
   }
   board$: Observable<Board>
+  previews: { [key: string]: { base64: string, metadata: any, blob: Blob } } = {}
 
-  constructor (
+  constructor(
     public boardService: BoardsRepo,
     public messagesRepo: MessagesRepo,
     private route: ActivatedRoute,
     private router: Router
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.route.params.subscribe(async (params) => {
       this.selected = params['id']
       if (!this.selected) return
       this.boardService.selected = this.selected
       this.board$ = this.boardService.one$(this.selected)
       this.messages$ = this.messagesRepo.all$(this.selected).pipe(
-        tap(() => { console.log('test') }),
         map(messages => messages.filter(message => message.board === this.selected)),
         tap(messages => {
           messages.sort((a, b) => a._timestamp - b._timestamp)
+        }),
+        tap(async (messages) => {
+          const ps = messages
+            .filter(m => m.type === 'FILE')
+            .map(async (msg, i) => {
+              if (!this.previews[msg._id]) {
+                const metadata = await this.messagesRepo.getAttachment(msg._id, msg.file)
+                if (!metadata) return
+                const blob = await metadata.getData()
+                let base64 = null
+                if (metadata.type.startsWith('image/')) {
+                  base64 = await this.getImage(blob, metadata.type)
+                }
+                this.previews[msg._id] = {
+                  blob,
+                  metadata,
+                  base64
+                }
+              }
+            })
+          await Promise.all(ps)
+
         }),
         tap(() => {
           setTimeout(() => {
@@ -85,7 +108,7 @@ export class BoardComponent implements OnInit {
   //   this.selectedBoard = boardId
   // }
 
-  async deleteBoard (id) {
+  async deleteBoard(id) {
     // let board = await this.db['boards'].findOne(id).exec()
     // board.remove()
 
@@ -95,7 +118,7 @@ export class BoardComponent implements OnInit {
     // })
   }
 
-  async send () {
+  async send() {
     if (!this.inputMessage) { return }
     const data = {
       text: this.inputMessage,
@@ -108,19 +131,67 @@ export class BoardComponent implements OnInit {
     this.inputMessage = null
   }
 
-  async delete () {
+  async attach() {
+    this.fileupload.nativeElement.click()
+  }
+
+  async upload(file: File) {
+    const data: Partial<Message> = {
+      text: null,
+      sender: 'anonymous',
+      board: this.selected,
+      status: 'SEND',
+      type: 'FILE',
+      file: file.name
+    }
+    const msg = await this.messagesRepo.add(data, this.selected)
+    await this.messagesRepo.upload(msg._id, file)
+  }
+
+  async download(msg: Message) {
+    const attachment = await this.messagesRepo.getAttachment(msg._id, msg.file)
+    if (!attachment) return
+    const blob = await attachment.getData()
+    const a = document.createElement('a')
+    document.body.appendChild(a)
+    a.href = window.URL.createObjectURL(blob)
+    a.download = msg.file
+    a.click()
+    window.URL.revokeObjectURL(a.href)
+
+    // window['saveAs'](blob, msg.file)
+  }
+
+  getImage(blob: Blob, type: string): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const reader = new FileReader()
+        reader.onload = () => {
+          const result = reader.result as string
+          const base64 = result.split(',')[1]
+          const src = 'data:' + type + ';base64,' + base64
+          resolve(src)
+        }
+        reader.readAsDataURL(blob)
+      } catch (err) {
+        reject()
+      }
+    })
+  }
+
+  async delete() {
     if (!confirm('Are you sure?')) return
     await this.boardService.remove(this.selected)
     await this.router.navigate(['/boards'])
   }
 
-  scrollToBottom (): void {
+  scrollToBottom(): void {
     if (this.messageList) {
       this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
     }
   }
 
-  focusInput (): void {
+  focusInput(): void {
     if (this.messageInput) {
       this.messageInput.nativeElement.focus()
     }

@@ -20,6 +20,28 @@
                       </div>
                     </div>
                   </ng-container>
+                  <ng-container *ngSwitchCase="'FILE'">
+                    <div class="msg-item" [ngClass]="{'own':m.sender === boardService.nickname}">
+                      <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png"
+                        [ngbTooltip]="m.sender" placement="bottom" container="body">
+                      <div class="img-thumbnail" [ngbTooltip]="m._timestamp | date:'medium'" placement="bottom"
+                        container="body">
+                        <img *ngIf="previews[m._id] && previews[m._id].base64" [src]="previews[m._id].base64"
+                          alt="m.file" class="img-fluid mb-1" (load)="scrollToBottom()">
+                        <ul class="list-inline mb-0 p-2">
+                          <li class="list-inline-item text-primary">
+                            <fa-icon icon="arrow-alt-circle-down"></fa-icon>
+                          </li>
+                          <li class="list-inline-item">
+                            <a href="javascript:void" (click)="download(m)">{{m.file}}</a>
+                          </li>
+                          <li *ngIf="previews[m._id] && previews[m._id].metadata" class="list-inline-item">
+                            <small>{{previews[m._id].metadata.length | bytes:0}}</small>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </ng-container>
                   <ng-container *ngSwitchCase="'CMD-CREATE'">
                     <div class="msg-command">
                       <strong>{{m.sender}}</strong> created
@@ -42,18 +64,16 @@
             (keydown.enter)="send()">
           <div class="d-flex mt-2">
             <div>
-              <button type="button" class="ml-auto btn btn-link">
-                <fa-icon [icon]="['fas','image']"></fa-icon>
-              </button>
-              <button type="button" class="ml-auto btn btn-link">
+              <button class="ml-auto btn btn-link" (click)="attach()">
                 <fa-icon [icon]="['fas','paperclip']"></fa-icon>
               </button>
             </div>
-            <button type="button" class="ml-auto btn btn-outline-primary" (click)="send()">
+            <button class="ml-auto btn btn-outline-primary" (click)="send()">
               <fa-icon [icon]="['far','paper-plane']"></fa-icon> send
             </button>
           </div>
         </div>
+        <input #fileupload type="file" (change)="upload($event.target.files[0])" style="display: none;">
       </div>
     </app-content-body>
 
