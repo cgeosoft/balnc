@@ -1,9 +1,12 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { RxDocument } from 'rxdb'
+import { Observable } from 'rxjs'
+import { map, tap } from 'rxjs/operators'
 import { AddPageComponent } from '../add-page/add-page.component'
 import { Presentation, PresentationStats } from '../_shared/models/presentation'
+import { Slide, SlideContentType } from '../_shared/models/slide'
+import { SlidesRepo } from '../_shared/repos/pages.repo'
 import { PresentationsRepo } from '../_shared/repos/presentations.repo'
 import { PresentationsService } from '../_shared/services/presentations.service'
 
@@ -17,9 +20,8 @@ export class PresentationComponent implements OnInit {
 
   @ViewChild('presentElem', { static: false }) presentElem: ElementRef
 
-  activePageIndex: number = 0
-  imageData: string
-  pages: any[] = []
+  active: number = 0
+  previews: string[]
   presentation: Presentation
 
   presenting = false
@@ -77,13 +79,16 @@ export class PresentationComponent implements OnInit {
     { type: 'PRESENT_START', time: 1532864791000, ref: 'b254190e-b24a-4a12-876c-a9c92e74ee86', user: 'demo' },
     { type: 'PRESENT_END', time: 1532864799000, ref: 'c0d47163-baca-448b-b204-baff43926395', user: 'demo' }
   ]
-  stats: PresentationStats
+  stats: PresentationStats = {}
+  slides$: Observable<Slide[]>
+  length: number
 
   constructor (
     private route: ActivatedRoute,
     private zone: NgZone,
     private router: Router,
     private modal: NgbModal,
+    private slidesRepo: SlidesRepo,
     private presentationsRepo: PresentationsRepo,
     private presentationsService: PresentationsService
   ) { }
@@ -93,6 +98,17 @@ export class PresentationComponent implements OnInit {
       .params
       .subscribe(async params => {
         this.presentation = await this.presentationsRepo.one(params['id'])
+        this.slides$ = this.slidesRepo.all$().pipe(
+          map((slides) => slides.filter(s => s.presentation === params['id'])),
+          tap(async (slides) => {
+            this.previews = []
+            this.length = slides.length
+            const ps = slides.map(async (s, i) => {
+              this.previews[i] = await this.presentationsService.getImage(s, s.content[0])
+            })
+            await Promise.all(ps)
+          })
+        )
         // this.stats = await this.presentationsRepo.getStats(this.presentation)
         await this.setPageIndex(0)
       })
@@ -109,6 +125,8 @@ export class PresentationComponent implements OnInit {
         if (a.time < b.time) { return 1 }
         return 0
       })
+
+    // this.addImage()
   }
 
   async deletePresentation () {
@@ -119,77 +137,60 @@ export class PresentationComponent implements OnInit {
   async addImage () {
     const modalRef = this.modal.open(AddPageComponent)
     modalRef.componentInstance.presentation = this.presentation
-    await modalRef.result
-    await this.setPageIndex(0)
+    const file: File = await modalRef.result
+
+    const slide: Partial<Slide> = {
+      title: 'New Page',
+      presentation: this.presentation._id,
+      content: [
+        {
+          file: file.name,
+          type: SlideContentType.BACKGROUND
+        }
+      ]
+    }
+
+    const slideDoc = await this.slidesRepo.add(slide)
+    await this.slidesRepo.upload(slideDoc._id, file)
   }
 
   async deletePage (index) {
-    const _pages = this.presentation.pages
-    _pages.splice(index, 1)
-    this.presentation.pages = _pages
-    this.presentation.dateUpdated = Date.now()
-    await this.presentationsRepo.update(this.presentation._id, { $set: this.presentation })
-    await this.cleanupFiles()
+    // todo
   }
 
   async cleanupFiles () {
-    const usedFiles = this.presentation.pages
-      .map(page => {
-        return page.params.image
-      })
-
-    const doc = this.presentation as RxDocument<Presentation>
-    const attachments = doc.allAttachments()
-
-    for (const attachment of attachments) {
-      if (usedFiles.indexOf(attachment.id) === -1) {
-        await attachment.remove()
-      }
-    }
+    // todo
   }
 
   async setPageIndex (index: number) {
-    this.activePageIndex = index
-    if (this.presentation.pages.length === 0) {
-      return
-    }
-    const contentImage = this.presentation.pages[index].params.image
-    this.imageData = await this.presentationsService.getImage(this.presentation, contentImage)
+    this.active = index
+  }
+
+  async getPreview (slide: Slide) {
+    // const preview = await this.presentationsService.getImage(slide, slide.content[0])
+    // return preview
   }
 
   async startPresentation () {
-    this.pages = []
-    let proms = []
-
-    this.presentation.pages.forEach((p, i) => {
-      const prom = this.presentationsService
-        .getImage(this.presentation, p.params.image)
-        .then(r => { this.pages[i] = r })
-      proms.push(prom)
-    })
-
-    // let sf = screenfull
-    // if (sf.isEnabled) {
-    //   await sf.toggle(this.presentElem.nativeElement)
-    // }
+    // todo
   }
 
   async goToFirst () {
-    await this.setPageIndex(0)
+    this.active = 0
   }
 
   async goToPrevious () {
-    if (this.activePageIndex <= 0) { return }
-    await this.setPageIndex(this.activePageIndex - 1)
+    if (this.active <= 0) { return }
+    this.active = this.active - 1
   }
 
   async goToNext () {
-    if (this.activePageIndex >= this.presentation.pages.length - 1) { return }
-    await this.setPageIndex(this.activePageIndex + 1)
+    if (this.active >= this.length - 1) { return }
+    this.active = this.active + 1
   }
 
   async goToLast () {
-    await this.setPageIndex(this.presentation.pages.length - 1)
+    this.active = this.length - 1
   }
 
 }

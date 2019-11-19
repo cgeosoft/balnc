@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { Page } from '../_shared/models/page'
 import { Presentation } from '../_shared/models/presentation'
-import { PresentationsService } from '../_shared/services/presentations.service'
 
 @Component({
   selector: 'app-presentations-add-page',
@@ -12,50 +10,40 @@ export class AddPageComponent {
 
   @Input() presentation: Presentation
 
-  page: Page = {
-    title: null,
-    description: null,
-    file: null,
-    fileType: null
-  }
-  imagePreview: string
-  imageInfo: any = {
-    size: 0,
+  preview: string
+  info: any = {
     width: 0,
     height: 0
   }
+  file: File
 
   constructor (
-    public activeModal: NgbActiveModal,
-    public presentationsService: PresentationsService
+    public activeModal: NgbActiveModal
   ) { }
 
-  loadFile (file): void {
-    this.page.file = file
-    const reader: FileReader = new FileReader()
+  loadFile (file: File): void {
+    this.file = file
 
-    this.imageInfo.size = file.size
+    const reader: FileReader = new FileReader()
 
     reader.onloadend = (e) => {
       const img = new Image()
       img.onload = () => {
-        this.imageInfo.width = img.width
-        this.imageInfo.height = img.height
+        this.info.width = img.width
+        this.info.height = img.height
       }
 
       const src = reader.result as string
       img.src = src
 
-      this.imagePreview = src
+      this.preview = src
       const parts = src.split(',')
       const info = parts[0].split(';')
-      this.page.fileType = info[0].replace('data:', '')
     }
-    reader.readAsDataURL(this.page.file)
+    reader.readAsDataURL(this.file)
   }
 
   async create () {
-    await this.presentationsService.createPage(this.presentation, this.page)
-    this.activeModal.close(this.page)
+    this.activeModal.close(this.file)
   }
 }

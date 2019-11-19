@@ -7,7 +7,7 @@ import { CreateComponent } from './create/create.component'
 import { OverviewComponent } from './overview/overview.component'
 import { PresentationComponent } from './presentation/presentation.component'
 import { SettingsComponent } from './settings/settings.component'
-import { PagesRepo } from './_shared/repos/pages.repo'
+import { SlidesRepo } from './_shared/repos/pages.repo'
 import { PresentationsRepo } from './_shared/repos/presentations.repo'
 import { PresentationsService } from './_shared/services/presentations.service'
 import { ShellComponent } from './_shell/shell.component'
@@ -37,7 +37,7 @@ import { ShellComponent } from './_shell/shell.component'
   ],
   providers: [
     PresentationsRepo,
-    PagesRepo,
+    SlidesRepo,
     PresentationsService,
     {
       provide: SWIPER_CONFIG,

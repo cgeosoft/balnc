@@ -1,49 +1,23 @@
 import { Injectable } from '@angular/core'
-import { Helpers } from '@balnc/shared'
 import * as faker from 'faker'
 import { RxDocument } from 'rxdb'
-import { Page } from '../models/page'
 import { Presentation, PresentationStats } from '../models/presentation'
-import { PagesRepo } from '../repos/pages.repo'
+import { Slide, SlideContent } from '../models/slide'
+import { SlidesRepo } from '../repos/pages.repo'
 import { PresentationsRepo } from '../repos/presentations.repo'
 
 @Injectable()
 export class PresentationsService {
 
   constructor (
-    private pagesRepo: PagesRepo,
+    private pagesRepo: SlidesRepo,
     private presentationsRepo: PresentationsRepo
   ) { }
 
-  async getPresentations (params?: any) {
-    params = params || {}
-    let _presentations = await this.presentationsRepo.all()
-
-    const images = await Promise.all(_presentations.map((p) => this.getThumb(p)))
-
-    const stats = await Promise.all(_presentations.map((p) => this.getStats(p)))
-
-    const presentations2 = _presentations.map((presentation, index) => {
-      const p: any = presentation
-      p.thumb = images[index]
-      p.stats = stats[index]
-      return p
-    })
-    return presentations2
-  }
-
-  async getThumb (presentation: Presentation): Promise<any> {
-    if (!presentation.pages || presentation.pages.length === 0) {
-      return
-    }
-    const image = presentation.pages[0].params.image
-    return this.getImage((presentation as RxDocument<Presentation>), image)
-  }
-
-  async getImage (presentation: Presentation, contentImage: string): Promise<any> {
+  async getImage (slide: Slide, item: SlideContent): Promise<any> {
+    const attachment = await this.pagesRepo.getAttachment(slide._id, item.file)
+    const blobBuffer = await attachment.getData()
     return new Promise(async (resolve, reject) => {
-      const attachment = (presentation as RxDocument<Presentation>).getAttachment(contentImage)
-      const blobBuffer = await attachment.getData()
       try {
         const reader = new FileReader()
         reader.onload = () => {
@@ -78,34 +52,6 @@ export class PresentationsService {
     }
   }
 
-  async createPage (presentation: Presentation, page: Page) {
-    const p = presentation as RxDocument<Presentation>
-    const pageKey = Helpers.uid()
-
-    await p.putAttachment({
-      id: `file-${pageKey}`,
-      data: page.file,
-      type: page.fileType
-    })
-
-    await p.update({
-      $push: {
-        pages: {
-          key: pageKey,
-          title: page.title || `Page ${pageKey}`,
-          description: page.description,
-          type: 'BGIMG',
-          params: {
-            image: `file-${pageKey}`
-          }
-        }
-      },
-      $set: {
-        dateUpdated: Date.now()
-      }
-    })
-  }
-
   async generateDemoData (size = 10) {
     console.log(`generate ${size} presentations`)
 
@@ -127,8 +73,8 @@ export class PresentationsService {
           file: filedata,
           fileType: 'image/png'
         }
-        await this.createPage(p, pageData)
-        console.log(`add page ${c} to project ${p._id}`)
+        // await this.createImagePage(p, pageData)
+        // console.log(`add page ${c} to project ${p._id}`)
       }
     }
   }

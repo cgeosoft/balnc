@@ -30,13 +30,12 @@
                   <dt>Statistics</dt>
                   <dd>
                     <ul class="list-unstyled">
-                      <li>Version
-                        <strong>{{presentation | docVersion}}</strong> with last edit
+                      <li>Last edit
                         <strong
                           *ngIf="presentation.dateUpdated">{{presentation.dateUpdated | dfnsFormatDistanceToNow}}</strong>
                       </li>
                       <li>Total
-                        <strong>{{presentation.pages.length}}</strong> pages with
+                        <strong>{{length}}</strong> pages with
                         <strong>{{stats.filecount}}</strong> files
                       </li>
                       <li>Document is
@@ -163,12 +162,14 @@
                   </fa-layers>
                 </button>
                 <div ngbDropdownMenu>
-                  <ng-container *ngIf="presentation.pages">
-                    <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': activePageIndex==i}"
-                      (click)="setPageIndex(i)" *ngFor="let page of presentation.pages; let i = index;">
-                      {{page.title}}
-                      <small class="pull-right">#{{i+1}}</small>
-                    </a>
+                  <ng-container *ngIf="(slides$ | async) as slides">
+                    <ng-container *ngIf="slides">
+                      <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': active==i}"
+                        (click)="setPageIndex(i)" *ngFor="let page of slides; let i = index;">
+                        {{page.title}}
+                        <small class="pull-right">#{{i+1}}</small>
+                      </a>
+                    </ng-container>
                   </ng-container>
                 </div>
               </div>
@@ -177,35 +178,40 @@
         </div>
       </app-content-body>
 
-      <ng-container *ngIf="presentation.pages; else noPages">
-
-        <app-content-body>
-          <h4>{{presentation.pages[activePageIndex].title || 'without title'}}</h4>
-          <div class="text-muted">{{presentation.pages[activePageIndex].description || 'without title'}}</div>
-        </app-content-body>
-
-        <app-content-body [full]="true" [padding]="false">
-          <div class="overflow-auto text-center">
-            <img class="img-fluid" [src]="imageData">
-          </div>
-        </app-content-body>
+      <ng-container *ngIf="(slides$ | async) as slides">
+        <ng-container *ngIf="slides.length > 0; else noPages">
+          <app-content-body [full]="true" [padding]="false">
+            <img class="img-fluid" [src]="previews[active]">
+            <div class="p-4">
+              <div>{{slides[active].title || 'without title'}}</div>
+              <small>{{slides[active].description || 'without title'}}</small>
+            </div>
+          </app-content-body>
+        </ng-container>
       </ng-container>
 
     </ng-container>
 
     <app-content-body *ngIf="menu.selected === 'raw'" [full]="true">
       <app-debug title="presentation" [data]="presentation"></app-debug>
+      <ng-container *ngIf="(slides$ | async) as slides">
+        <app-debug title="slides" [data]="slides"></app-debug>
+      </ng-container>
     </app-content-body>
   </app-content>
 </ng-container>
 
 <div #presentElem class="present">
   <div *ngIf="presenting">
-    <swiper>
-      <div *ngFor="let img of pages" class="d-flex align-items-center justify-content-center">
-        <img [src]="img" class="img-fluid">
-      </div>
-    </swiper>
+    <ng-container *ngIf="(slides$ | async) as slides">
+      <ng-container *ngIf="slides.legth > 0">
+        <swiper>
+          <div *ngFor="let img of slides" class="d-flex align-items-center justify-content-center">
+            <img [src]="img" class="img-fluid">
+          </div>
+        </swiper>
+      </ng-container>
+    </ng-container>
   </div>
 </div>
 

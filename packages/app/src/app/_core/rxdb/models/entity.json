@@ -4,6 +4,7 @@
   "type": "object",
   "version": 0,
   "disableKeyCompression": true,
+  "attachments": true,
   "properties": {
     "timestamp": {
       "type": "number"

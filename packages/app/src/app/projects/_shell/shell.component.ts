@@ -61,8 +61,6 @@ export class ShellComponent implements OnInit {
         switchMap(() => (this.route.firstChild && this.route.firstChild.params) || of({}))
       )
       .subscribe(params => this.loadProject(params['pid']))
-
-    await this.demoService.generate()
   }
 
   private loadProject (pid) {

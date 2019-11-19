@@ -3,7 +3,8 @@ import { Helpers } from '../../helpers'
 
 @Component({
   selector: 'app-empty',
-  templateUrl: './empty.component.html'
+  templateUrl: './empty.component.html',
+  styleUrls: ['empty.component.scss']
 })
 export class EmptyComponent {
 

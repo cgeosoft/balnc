@@ -1,17 +1,17 @@
-import { Entity } from '@balnc/core'
+import { Entity } from '@balnc/core';
 
 export interface Presentation extends Entity {
   title: string
   description?: string
   image?: string
-  pages: any[]
   menu?: any[]
   dateCreated: number
   dateUpdated?: number
   comment?: any
+  pinned?: boolean
 }
 
 export interface PresentationStats {
-  filecount: number
-  filesize: number
+  filecount?: number
+  filesize?: number
 }

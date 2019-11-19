@@ -49,10 +49,8 @@
     <li class="nav-item" *ngFor="let item of menu.items" [ngClass]="{'ml-auto':item.right}">
       <a class="nav-link" [ngClass]="{active:(menu.selected == item.id)}" href="javascript:void(0);"
         (click)="menu.selected = item.id">
-        <fa-layers class="fa-fw" *ngIf="item.icon">
-          <fa-icon [icon]="item.icon"></fa-icon>
-        </fa-layers>
-        {{item.label}}
+        <fa-icon *ngIf="item.icon" [icon]="item.icon" class="mr-2"></fa-icon>
+        <span>{{item.label}}</span>
       </a>
     </li>
   </ul>

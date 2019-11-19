@@ -1,13 +1,13 @@
 import { Injectable, Injector } from '@angular/core'
 import { Repository } from '@balnc/core'
-import { Page } from '../models/page'
+import { Slide } from '../models/slide'
 
 @Injectable()
-export class PagesRepo extends Repository<Page> {
+export class SlidesRepo extends Repository<Slide> {
   constructor (
     injector: Injector
   ) {
     super(injector)
-    this.entity = 'presentations.page'
+    this.entity = 'presentations.slides'
   }
 }

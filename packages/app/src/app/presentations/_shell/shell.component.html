@@ -9,19 +9,24 @@
       <fa-icon icon="plus-circle" class="icon"></fa-icon>
       <span>Create Pesentation</span>
     </button>
-    <a routerLink="/presentations/settings" routerLinkActive="active">
-      <fa-icon icon="cog" class="icon"></fa-icon>
-      <span>Settings</span>
-    </a>
-    <ng-container *ngIf="(presentations$ | async) as presentations">
-      <ng-container *ngIf="presentations.length; else empty">
+  </div>
+  <div class="header">Pinned</div>
+  <div class="menu">
+    <ng-container *ngIf="(pinned$ | async) as pinned">
+      <ng-container *ngIf="pinned.length; else empty">
         <div class="divider"></div>
-        <a *ngFor="let presentation of presentations" [routerLink]="['/presentations',presentation._id]"
+        <a *ngFor="let presentation of pinned" [routerLink]="['/presentations',presentation._id]"
           routerLinkActive="active">
           <span>{{presentation.title}}</span>
         </a>
       </ng-container>
     </ng-container>
+  </div>
+  <div class="menu mt-auto">
+    <a routerLink="/presentations/settings" routerLinkActive="active">
+      <fa-icon icon="cog" class="icon"></fa-icon>
+      <span>Settings</span>
+    </a>
   </div>
 </app-sidebar>
 <router-outlet></router-outlet>

@@ -3,7 +3,8 @@ import { environment } from '../../../../environments/environment'
 
 @Component({
   selector: 'app-debug',
-  templateUrl: './debug.component.html'
+  templateUrl: './debug.component.html',
+  styleUrls: ['debug.component.scss']
 })
 export class DebugComponent implements OnInit {
 
