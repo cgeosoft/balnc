@@ -20,12 +20,12 @@ export class BoardsRepo extends Repository<Board> {
     this.entity = 'boards.board'
   }
 
-  async generateDemoData(size = 5) {
+  async generateDemoData (size = 5) {
     console.log(`Generate: ${size} boards`)
 
     for (let b = 0; b < 5; b++) {
       const board = await this.add({
-        name: faker.name.findName()
+        name: `${faker.hacker.ingverb()} ${faker.hacker.noun()}`
       })
       console.log(` - Added board ${board._id}`)
     }

@@ -2,6 +2,7 @@ import { Injector, NgZone } from '@angular/core'
 import { RxAttachment, RxCollection } from 'rxdb'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
+import { Entity } from './models/entity'
 import { RxDBService } from './rxdb.service'
 
 export class Repository<T> {
@@ -21,16 +22,26 @@ export class Repository<T> {
     this.entities = this.dbService.db.entities
   }
 
-  async all (): Promise<T[]> {
-    const items = await this.entities.find().where('type').eq(this.entity).exec()
+  async all (group?: string): Promise<T[]> {
+    let q = this.entities.find().where('t').eq(this.entity)
+    if (group) {
+      q = q.where('g').eq(group)
+    }
+    const items = await q.exec()
     return this.mappedItems(items)
   }
 
-  all$ (): Observable<T[]> {
-    return this.entities.find().where('type').eq(this.entity).$.pipe(
+  all$ (group?: string): Observable<T[]> {
+    let q = this.entities.find().where('t').eq(this.entity)
+    if (group) {
+      q = q.where('g').eq(group)
+    }
+    return q.$.pipe(
       map((items) => this.mappedItems(items)),
       tap(() => {
-        this.zone.run(() => { })
+        this.zone.run(() => {
+          // empty run for ui update
+        })
       })
     )
   }
@@ -44,15 +55,20 @@ export class Repository<T> {
   one$ (id: string): Observable<T> {
     return this.entities.findOne(id).$.pipe(
       map((item) => this.mappedItems([item])[0]),
-      tap(() => { this.zone.run(() => { }) })
+      tap(() => {
+        this.zone.run(() => {
+          // empty run for ui update
+        })
+      })
     )
   }
 
-  async add (data: Partial<T>, ts?: number): Promise<T> {
+  async add (data: Partial<T>, group?: string, ts?: number): Promise<T> {
     const obj = {
-      data,
-      type: this.entity,
-      timestamp: ts || Date.now()
+      c: data,
+      t: this.entity,
+      d: ts || Date.now(),
+      g: group
     }
     const doc = await this.entities.insert(obj)
     return this.mappedItems([doc])[0]
@@ -87,11 +103,12 @@ export class Repository<T> {
     const r = items
       .filter(i => i && i._id)
       .map(i => {
-        const o = i.data
+        const o: Entity = i.c
         o._id = i._id
-        o._timestamp = i.timestamp
-        o._type = i.type
-        return o as T
+        o._timestamp = i.d
+        o._type = i.t
+        o._group = i.g
+        return o as unknown as T
       })
     return r
   }

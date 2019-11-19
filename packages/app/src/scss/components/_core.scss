@@ -64,18 +64,6 @@ a {
   }
 }
 
-.card-title {
-  font-weight: 400;
-}
-
-.text-lg {
-  font-size: 1.2rem;
-}
-
-.text-xl {
-  font-size: 1.5rem;
-}
-
 .copyright {
   color: lighten($dark, 10);
   text-align: center;
@@ -111,14 +99,6 @@ a {
   height: 100%;
 }
 
-// .card-header {
-//   .btn,
-//   .form-control {
-//     height: 24px !important;
-//     padding: 0 5px !important;
-//     margin: 0 0 0 .7rem;
-//   }
-// }
 thead {
   th {
     .btn {
@@ -127,17 +107,6 @@ thead {
       .fa {
         margin-left: 10px !important;
         padding: 3px;
-      }
-    }
-  }
-}
-
-.card {
-  > ngb-tabset {
-    .nav-tabs {
-      padding: 0 19px;
-      .nav-item {
-        margin: 0 1px -1px !important;
       }
     }
   }

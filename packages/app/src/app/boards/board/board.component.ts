@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable, Subject } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
@@ -43,10 +43,9 @@ export class BoardComponent implements OnInit {
 
   constructor (
     public boardService: BoardsRepo,
-    public messagesService: MessagesRepo,
+    public messagesRepo: MessagesRepo,
     private route: ActivatedRoute,
-    private router: Router,
-    private zone: NgZone
+    private router: Router
   ) { }
 
   ngOnInit () {
@@ -55,7 +54,7 @@ export class BoardComponent implements OnInit {
       if (!this.selected) return
       this.boardService.selected = this.selected
       this.board$ = this.boardService.one$(this.selected)
-      this.messages$ = this.messagesService.all$().pipe(
+      this.messages$ = this.messagesRepo.all$(this.selected).pipe(
         tap(() => { console.log('test') }),
         map(messages => messages.filter(message => message.board === this.selected)),
         tap(messages => {
@@ -105,7 +104,7 @@ export class BoardComponent implements OnInit {
       status: 'SEND',
       type: 'MESSAGE'
     }
-    await this.messagesService.add(data)
+    await this.messagesRepo.add(data, this.selected)
     this.inputMessage = null
   }
 
