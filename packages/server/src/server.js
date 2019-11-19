@@ -1,13 +1,19 @@
+import '@babel/polyfill';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 import express from 'express';
+import graphqlHTTP from 'express-graphql';
+import rateLimit from "express-rate-limit";
+import routemap from 'express-routemap';
 import { execute, subscribe } from 'graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { createServer } from 'http';
 import { fileLoader, mergeResolvers, mergeTypes } from 'merge-graphql-schemas';
+import morgan from 'morgan';
 import * as path from 'path';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
+import routes from './commons/routes';
 
-const graphqlHTTP = require('express-graphql');
-const cors = require('cors');
 
 const GRAPHQL_PORT = 10102;
 const GRAPHQL_PATH = '/graphql';
@@ -91,7 +97,7 @@ app.use(GRAPHQL_PATH, graphqlHTTP({
   graphiql: true,
 }));
 
-const server = app.listen(GRAPHQL_PORT, function () {
+app.listen(GRAPHQL_PORT, () => {
   log('Started graphql-endpoint at http://localhost:' +
     GRAPHQL_PORT + GRAPHQL_PATH
   );
@@ -123,6 +129,33 @@ serverSubscription.listen(GRAPHQL_SUBSCRIPTION_PORT, () => {
   );
 });
 
+
+// Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
+// see https://expressjs.com/en/guide/behind-proxies.html
+// app.set('trust proxy', 1);
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
+
+//  apply to all requests
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(morgan('short'))
+app.use('/api', limiter);
+app.use('/api', routes);
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log('Server started on port: ' + port);
+  // HERE IS THE FUN PART:
+  routemap(app);
+
+  // or use like this
+  routemap(app, 'route-table.log');
+})
 
   // comment this in for testing of the subscriptions
 /*

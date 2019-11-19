@@ -1,4 +1,5 @@
 import express from 'express';
+import og from "../controllers/og.controller";
 import profiles from "../controllers/profiles.controller";
 import status from "../controllers/status.controller";
 import response from '../helpers/response';
@@ -7,6 +8,7 @@ const routes = express.Router();
 
 routes.use("/status", status)
 routes.use("/profiles", profiles)
+routes.use("/og", og)
 
 routes.use((req, res) => {
   response.sendNotFound(res);

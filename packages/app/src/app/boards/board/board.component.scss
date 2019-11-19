@@ -50,8 +50,6 @@
         }
 
         .msg-body {
-          @extend .py-2;
-          @extend .px-3;
           @extend .rounded;
           @extend .mr-2;
           background: #f6f6f6;

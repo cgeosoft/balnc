@@ -1,3 +1,4 @@
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable, Subject } from 'rxjs'
@@ -6,6 +7,38 @@ import { Board } from '../_shared/models/board'
 import { Message } from '../_shared/models/message'
 import { BoardsRepo } from '../_shared/repos/boards.repo'
 import { MessagesRepo } from '../_shared/repos/messages.repo'
+
+interface OgResults {
+  data: {
+    ogLocale: string
+    ogType: string
+    ogTitle: string
+    ogDescription: string
+    ogUrl: string
+    ogSiteName: string
+    twitterCard: string
+    twitterDescription: string
+    twitterTitle: string
+    twitterSite: string
+    ogImage: {
+      url: string
+      width: number
+      height: number
+      type: any
+    },
+    twitterImage: {
+      url: string
+
+      width: null,
+      height: null,
+      alt: null
+    }
+  },
+  success: boolean,
+  requestUrl: string
+}
+
+const urlRegex = /(https?:\/\/[^\s]+)/g
 
 @Component({
   selector: 'app-boards-board',
@@ -41,16 +74,24 @@ export class BoardComponent implements OnInit {
     }]
   }
   board$: Observable<Board>
-  previews: { [key: string]: { base64: string, metadata: any, blob: Blob } } = {}
+  previews: {
+    [key: string]: {
+      base64?: string,
+      file?: any,
+      blob?: Blob,
+      og?: OgResults
+    }
+  } = {}
 
-  constructor(
-    public boardService: BoardsRepo,
-    public messagesRepo: MessagesRepo,
+  constructor (
+    private boardService: BoardsRepo,
+    private messagesRepo: MessagesRepo,
+    private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route.params.subscribe(async (params) => {
       this.selected = params['id']
       if (!this.selected) return
@@ -63,20 +104,25 @@ export class BoardComponent implements OnInit {
         }),
         tap(async (messages) => {
           const ps = messages
-            .filter(m => m.type === 'FILE')
             .map(async (msg, i) => {
               if (!this.previews[msg._id]) {
-                const metadata = await this.messagesRepo.getAttachment(msg._id, msg.file)
-                if (!metadata) return
-                const blob = await metadata.getData()
-                let base64 = null
-                if (metadata.type.startsWith('image/')) {
-                  base64 = await this.getImage(blob, metadata.type)
+                this.previews[msg._id] = {}
+                if (msg.file) {
+                  this.previews[msg._id].file = await this.messagesRepo.getAttachment(msg._id, msg.file)
+                  if (this.previews[msg._id].file) {
+                    this.previews[msg._id].blob = await this.previews[msg._id].file.getData()
+                    if (this.previews[msg._id].file.type.startsWith('image/')) {
+                      this.previews[msg._id].base64 = await this.getImage(this.previews[msg._id].blob, this.previews[msg._id].file.type)
+                    }
+                  }
                 }
-                this.previews[msg._id] = {
-                  blob,
-                  metadata,
-                  base64
+                if (msg.text) {
+                  const urls = msg.text.match(urlRegex)
+                  if (urls) {
+                    msg.text = msg.text.replace(urlRegex, (url) => `<a target="_blank" href="${url}">${url}</a>`)
+                    let params = new HttpParams().set('q', urls[0])
+                    this.previews[msg._id].og = await this.http.get<OgResults>('http://localhost:3000/api/og', { params }).toPromise()
+                  }
                 }
               }
             })
@@ -108,7 +154,7 @@ export class BoardComponent implements OnInit {
   //   this.selectedBoard = boardId
   // }
 
-  async deleteBoard(id) {
+  async deleteBoard (id) {
     // let board = await this.db['boards'].findOne(id).exec()
     // board.remove()
 
@@ -118,7 +164,7 @@ export class BoardComponent implements OnInit {
     // })
   }
 
-  async send() {
+  async send () {
     if (!this.inputMessage) { return }
     const data = {
       text: this.inputMessage,
@@ -131,24 +177,24 @@ export class BoardComponent implements OnInit {
     this.inputMessage = null
   }
 
-  async attach() {
+  async attach () {
     this.fileupload.nativeElement.click()
   }
 
-  async upload(file: File) {
+  async upload (file: File) {
     const data: Partial<Message> = {
       text: null,
       sender: 'anonymous',
       board: this.selected,
       status: 'SEND',
-      type: 'FILE',
+      type: 'MESSAGE',
       file: file.name
     }
     const msg = await this.messagesRepo.add(data, this.selected)
     await this.messagesRepo.upload(msg._id, file)
   }
 
-  async download(msg: Message) {
+  async download (msg: Message) {
     const attachment = await this.messagesRepo.getAttachment(msg._id, msg.file)
     if (!attachment) return
     const blob = await attachment.getData()
@@ -162,7 +208,7 @@ export class BoardComponent implements OnInit {
     // window['saveAs'](blob, msg.file)
   }
 
-  getImage(blob: Blob, type: string): Promise<any> {
+  getImage (blob: Blob, type: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const reader = new FileReader()
@@ -179,19 +225,19 @@ export class BoardComponent implements OnInit {
     })
   }
 
-  async delete() {
+  async delete () {
     if (!confirm('Are you sure?')) return
     await this.boardService.remove(this.selected)
     await this.router.navigate(['/boards'])
   }
 
-  scrollToBottom(): void {
+  scrollToBottom (): void {
     if (this.messageList) {
       this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
     }
   }
 
-  focusInput(): void {
+  focusInput (): void {
     if (this.messageInput) {
       this.messageInput.nativeElement.focus()
     }
