@@ -13,8 +13,8 @@ export class RecordsRepo extends Repository<Record> {
     this.entity = 'business.record'
   }
 
-  async add(data: Partial<Record>, ts?: number): Promise<Record> {
-    const record = await super.add(data, ts)
+  async add (data: Partial<Record>, group?: string, ts?: number): Promise<Record> {
+    const record = await super.add(data, group, ts)
     // if (acccount) {
     //   const account = await this.account.
     // }

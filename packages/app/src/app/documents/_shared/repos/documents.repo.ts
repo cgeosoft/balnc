@@ -13,13 +13,13 @@ export class DocumentsRepo extends Repository<Document> {
     this.entity = 'documents.document'
   }
 
-  async generateDemoData() {
+  async generateDemoData () {
     const documents: string[] = []
     for (let i = 0; i < 3; i++) {
       const d: Partial<Document> = {
         name: faker.commerce.productName()
       }
-      let p = await super.add(d, faker.date.past().getTime())
+      let p = await super.add(d, null, faker.date.past().getTime())
       documents.push(p._id)
     }
   }

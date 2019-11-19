@@ -68,6 +68,7 @@
     "ngx-store": "^2.1.0",
     "ngx-swiper-wrapper": "^8.0.2",
     "ngx-toastr": "^11.2.0",
+    "open-graph-scraper": "^3.6.2",
     "pdfmake": "^0.1.62",
     "pouchdb": "^7.1.1",
     "pouchdb-adapter-http": "7.1.1",

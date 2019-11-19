@@ -5,7 +5,6 @@ import { AgreementStatus } from '../models/agreement'
 import { ContactType } from '../models/contacts'
 import { AccountsRepo } from '../repos/accounts.repo'
 import { AgreementsRepo } from '../repos/agreements.repo'
-import { CEventsRepo } from '../repos/cevents.repo'
 import { ContactsRepo } from '../repos/contacts.repo'
 import { RecordsRepo } from '../repos/records.repo'
 import { TransactionsRepo } from '../repos/transactions.repo'
@@ -19,7 +18,6 @@ export class DemoService {
     private accountsRepo: AccountsRepo,
     private transactionsRepo: TransactionsRepo,
     private recordsRepo: RecordsRepo,
-    private ceventsRepo: CEventsRepo,
     private contactsRepo: ContactsRepo,
     private agreementsRepo: AgreementsRepo
   ) { }
@@ -70,7 +68,7 @@ export class DemoService {
           to: own._id,
           amount: funds,
           executed: Date.now()
-        }, faker.date.past().getTime())
+        }, null, faker.date.past().getTime())
 
         await this.execute(t._id)
       }
@@ -132,7 +130,7 @@ export class DemoService {
         contact: contact._id,
         status: AgreementStatus.draft,
         content: `# Agreement ${Date.now()}\n\r${faker.lorem.paragraphs(5)}`
-      })
+      }, contact._id)
       console.log(`add agreement to contact ${contact._id}`)
     }
 

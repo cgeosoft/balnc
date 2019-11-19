@@ -13,8 +13,8 @@ export class TransactionsRepo extends Repository<Transaction> {
     this.entity = 'business.transaction'
   }
 
-  async add(data: Partial<Transaction>, ts?: number): Promise<Transaction> {
-    const transaction = await super.add(data, ts)
+  async add (data: Partial<Transaction>, group?: string, ts?: number): Promise<Transaction> {
+    const transaction = await super.add(data, group, ts)
     // await this.ceventsService.add({
     //   contact: transaction.contact,
     //   type: CEventType.TransactionCreated,

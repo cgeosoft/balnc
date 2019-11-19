@@ -17,9 +17,9 @@ export class AgreementsRepo extends Repository<Agreement> {
     this.entity = 'business.agreement'
   }
 
-  async add(data: Partial<Agreement>, ts?: number): Promise<Agreement> {
+  async add (data: Partial<Agreement>, group?: string, ts?: number): Promise<Agreement> {
     data.serial = Helpers.uid()
-    const agreement = await super.add(data, ts)
+    const agreement = await super.add(data, group, ts)
     await this.ceventsService.add({
       contact: agreement.contact,
       type: CEventType.AgreementCreated,

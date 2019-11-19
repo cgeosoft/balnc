@@ -13,9 +13,9 @@ export class AccountsRepo extends Repository<Account> {
     this.entity = 'business.account'
   }
 
-  async add(data: Partial<Account>, ts?: number): Promise<Account> {
+  async add (data: Partial<Account>, group?: string, ts?: number): Promise<Account> {
     console.log(data)
-    const account = await super.add(data, ts)
+    const account = await super.add(data, group, ts)
     // await this.ceventsService.add({
     //   contact: account.contact,
     //   type: CEventType.AccountCreated,
