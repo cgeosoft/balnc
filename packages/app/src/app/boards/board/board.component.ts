@@ -4,39 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Observable, Subject } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
 import { Board } from '../_shared/models/board'
-import { Message } from '../_shared/models/message'
+import { Message, OgMetadata } from '../_shared/models/message'
 import { BoardsRepo } from '../_shared/repos/boards.repo'
 import { MessagesRepo } from '../_shared/repos/messages.repo'
-
-interface OgResults {
-  data: {
-    ogLocale: string
-    ogType: string
-    ogTitle: string
-    ogDescription: string
-    ogUrl: string
-    ogSiteName: string
-    twitterCard: string
-    twitterDescription: string
-    twitterTitle: string
-    twitterSite: string
-    ogImage: {
-      url: string
-      width: number
-      height: number
-      type: any
-    },
-    twitterImage: {
-      url: string
-
-      width: null,
-      height: null,
-      alt: null
-    }
-  },
-  success: boolean,
-  requestUrl: string
-}
 
 const urlRegex = /(https?:\/\/[^\s]+)/g
 
@@ -61,25 +31,12 @@ export class BoardComponent implements OnInit {
   messages$: Observable<Message[]>
   filteredMessages$: Subject<Message[]>
 
-  menu = {
-    selected: 'messages',
-    items: [{
-      id: 'messages',
-      label: 'Messages',
-      icon: ['fas', 'comments']
-    }, {
-      id: 'manage',
-      label: 'Manage',
-      icon: ['fas', 'cog']
-    }]
-  }
   board$: Observable<Board>
   previews: {
     [key: string]: {
       base64?: string,
       file?: any,
-      blob?: Blob,
-      og?: OgResults
+      blob?: Blob
     }
   } = {}
 
@@ -103,31 +60,24 @@ export class BoardComponent implements OnInit {
           messages.sort((a, b) => a._timestamp - b._timestamp)
         }),
         tap(async (messages) => {
-          const ps = messages
-            .map(async (msg, i) => {
-              if (!this.previews[msg._id]) {
-                this.previews[msg._id] = {}
-                if (msg.file) {
-                  this.previews[msg._id].file = await this.messagesRepo.getAttachment(msg._id, msg.file)
-                  if (this.previews[msg._id].file) {
-                    this.previews[msg._id].blob = await this.previews[msg._id].file.getData()
-                    if (this.previews[msg._id].file.type.startsWith('image/')) {
-                      this.previews[msg._id].base64 = await this.getImage(this.previews[msg._id].blob, this.previews[msg._id].file.type)
-                    }
-                  }
-                }
-                if (msg.text) {
-                  const urls = msg.text.match(urlRegex)
-                  if (urls) {
-                    msg.text = msg.text.replace(urlRegex, (url) => `<a target="_blank" href="${url}">${url}</a>`)
-                    let params = new HttpParams().set('q', urls[0])
-                    this.previews[msg._id].og = await this.http.get<OgResults>('http://localhost:3000/api/og', { params }).toPromise()
-                  }
+          const ps = messages.map(async (msg, i) => {
+            if (!this.previews[msg._id]) {
+              this.previews[msg._id] = {}
+            }
+            if (msg.file && !this.previews[msg._id].file) {
+              this.previews[msg._id].file = await this.messagesRepo.getAttachment(msg._id, msg.file)
+              if (this.previews[msg._id].file) {
+                this.previews[msg._id].blob = await this.previews[msg._id].file.getData()
+                if (this.previews[msg._id].file.type.startsWith('image/')) {
+                  this.previews[msg._id].base64 = await this.getImage(this.previews[msg._id].blob, this.previews[msg._id].file.type)
                 }
               }
-            })
+            }
+            if (msg.text) {
+              msg.text = msg.text.replace(urlRegex, (url) => `<a target="_blank" href="${url}">${url}</a>`)
+            }
+          })
           await Promise.all(ps)
-
         }),
         tap(() => {
           setTimeout(() => {
@@ -166,6 +116,7 @@ export class BoardComponent implements OnInit {
 
   async send () {
     if (!this.inputMessage) { return }
+
     const data = {
       text: this.inputMessage,
       sender: 'anonymous',
@@ -173,8 +124,19 @@ export class BoardComponent implements OnInit {
       status: 'SEND',
       type: 'MESSAGE'
     }
-    await this.messagesRepo.add(data, this.selected)
+
+    const message = await this.messagesRepo.add(data, this.selected)
+
     this.inputMessage = null
+    const urls = data.text.match(urlRegex)
+    if (urls) {
+      let params = new HttpParams().set('q', urls[0])
+      const res = await this.http.get<{ data: OgMetadata }>('http://localhost:3000/api/og', { params }).toPromise()
+      message.metadata = res.data
+      await this.messagesRepo.update(message._id, {
+        $set: { c: message }
+      })
+    }
   }
 
   async attach () {

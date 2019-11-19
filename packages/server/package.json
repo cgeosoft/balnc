@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
+    "apicache": "^1.5.2",
     "apollo-server-express": "2.9.5",
     "body-parser": "1.19.0",
     "concurrently": "5.0.0",

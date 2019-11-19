@@ -6,6 +6,7 @@ const routes = express.Router();
 routes
     .route("/")
     .get((req, res, next) => {
+        console.log("load", req.query.q)
         ogs({ url: req.query.q }, (error, results) => {
             if (error) {
                 next(error) // Pass errors to Express.

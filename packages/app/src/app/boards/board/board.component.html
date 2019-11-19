@@ -1,9 +1,18 @@
 <app-content>
   <ng-container *ngIf="(board$ | async) as board; else noboard">
-    <app-content-body *ngIf="menu.selected === 'messages'" [full]="true" [padding]="false">
+    <app-content-body [full]="true" [padding]="false">
       <div class="card card-chat d-flex h-100">
-        <div class="card-header">
-          {{board.name}}
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <span>{{board.name}}</span>
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-link btn-sm text-muted" ngbDropdownToggle>
+              <fa-icon icon="cog"></fa-icon>
+            </button>
+            <div ngbDropdownMenu>
+              <button ngbDropdownItem>Archive</button>
+              <button ngbDropdownItem>Delete</button>
+            </div>
+          </div>
         </div>
         <div #messageList class="card-body">
           <ng-container *ngIf="(messages$ | async) as messages; else loader">
@@ -17,34 +26,30 @@
                       <div class="msg-body" [ngbTooltip]="m._timestamp | date:'medium'" placement="bottom"
                         container="body">
                         <div *ngIf="m.text" class="py-2 px-3" [innerHTML]="m.text"></div>
-                        <ng-container *ngIf="previews[m._id]">
-                          <div *ngIf="previews[m._id].file" class="img-thumbnail"
-                            [ngbTooltip]="m._timestamp | date:'medium'" placement="bottom" container="body">
-                            <img *ngIf="previews[m._id].base64" [src]="previews[m._id].base64" alt="m.file"
-                              class="img-fluid mb-1" (load)="scrollToBottom()">
-                            <ul class="list-inline mb-0 p-2">
-                              <li class="list-inline-item text-primary">
-                                <fa-icon icon="arrow-alt-circle-down"></fa-icon>
-                              </li>
-                              <li class="list-inline-item">
-                                <a href="javascript:void" (click)="download(m)">{{previews[m._id].file.filename}}</a>
-                              </li>
-                              <li *ngIf="previews[m._id].file" class="list-inline-item">
-                                <small>{{previews[m._id].file.length | bytes:0}}</small>
-                              </li>
-                            </ul>
+                        <div *ngIf="m.file">
+                          <img *ngIf="previews[m._id].base64" [src]="previews[m._id].base64" alt="m.file"
+                            class="img-fluid mb-1" (load)="scrollToBottom()">
+                          <ul class="list-inline mb-0 p-2">
+                            <li class="list-inline-item text-primary">
+                              <fa-icon icon="arrow-alt-circle-down"></fa-icon>
+                            </li>
+                            <li class="list-inline-item">
+                              <a href="javascript:void" (click)="download(m)">{{m.file}}</a>
+                            </li>
+                            <li *ngIf="previews[m._id].file" class="list-inline-item">
+                              <small>{{previews[m._id].file.length | bytes:0}}</small>
+                            </li>
+                          </ul>
+                        </div>
+                        <div *ngIf="m.metadata" class="media px-3">
+                          <img *ngIf="m.metadata.ogImage.url" class="align-self-start img-thumbnail mr-3"
+                            [src]="m.metadata.ogImage.url" style="max-width: 120px;" alt="" (load)="scrollToBottom()">
+                          <div class="media-body">
+                            <div class="mb-1"><strong>{{m.metadata.ogTitle}}</strong></div>
+                            <div>{{m.metadata.ogDescription}}</div>
+                            <div><small class="text-muted">{{m.metadata.ogUrl}}</small></div>
                           </div>
-                          <div *ngIf="previews[m._id].og">
-                            <div class="media px-3">
-                              <img class="align-self-start img-thumbnail mr-3" [src]="previews[m._id].og.data.ogImage.url" style="max-width: 120px;" alt="" (load)="scrollToBottom()">
-                              <div class="media-body">
-                                <div class="mb-1"><strong>{{previews[m._id].og.data.ogTitle}}</strong></div>
-                                <div>{{previews[m._id].og.data.ogDescription}}</div>
-                                <div><small class="text-muted">{{previews[m._id].og.data.ogUrl}}</small></div>
-                              </div>
-                            </div>
-                          </div>
-                        </ng-container>
+                        </div>
                       </div>
                     </div>
                   </ng-container>
@@ -82,29 +87,11 @@
         <input #fileupload type="file" (change)="upload($event.target.files[0])" style="display: none;">
       </div>
     </app-content-body>
-
-    <app-content-body *ngIf="menu.selected === 'files'" [full]="true">
-      <h4>Files</h4>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni, quas quis. Velit ipsum amet quibusdam similique
-      ad asperiores dolores. Deleniti libero ex harum accusamus consectetur ipsa ipsam nihil, sed eaque!
-    </app-content-body>
-
-    <app-content-body *ngIf="menu.selected === 'manage'" [full]="true">
-      <div class="list-settings">
-        <div class="list-group-item">
-          <h5>Delete board</h5>
-          <p>This will remove this board and all messages and files. This is not reversable</p>
-          <button class="btn btn-action btn-danger" (click)="delete()"> Delete </button>
-        </div>
-      </div>
-    </app-content-body>
   </ng-container>
 </app-content>
 
 <ng-template #noboard>
-  <app-content-body *ngIf="menu.selected === 'messages'" [full]="true" [padding]="false">
-    <app-empty message="No board selected" icon="comments:regular"></app-empty>
-  </app-content-body>
+  <app-empty message="No board selected" icon="comments:regular"></app-empty>
 </ng-template>
 <ng-template #emptyMessages>
   <app-empty message="No messages yet" icon="comments:regular"></app-empty>

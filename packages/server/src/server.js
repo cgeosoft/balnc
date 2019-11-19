@@ -1,4 +1,5 @@
 import '@babel/polyfill';
+import apicache from 'apicache';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
@@ -13,7 +14,6 @@ import morgan from 'morgan';
 import * as path from 'path';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import routes from './commons/routes';
-
 
 const GRAPHQL_PORT = 10102;
 const GRAPHQL_PATH = '/graphql';
@@ -141,10 +141,13 @@ const limiter = rateLimit({
 
 //  apply to all requests
 
+let cache = apicache.middleware
+ 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('short'))
 app.use('/api', limiter);
+app.use('/api', cache('5 minutes'))
 app.use('/api', routes);
 
 const port = process.env.PORT || 3000;
