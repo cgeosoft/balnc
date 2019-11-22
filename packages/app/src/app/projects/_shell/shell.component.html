@@ -9,16 +9,12 @@
       <fa-icon icon="plus-circle" class="icon"></fa-icon>
       <span>Create Project</span>
     </button>
-    <a routerLink="/projects/settings" routerLinkActive="active">
-      <fa-icon icon="cog" class="icon"></fa-icon>
-      <span>Settings</span>
-    </a>
   </div>
   <ng-container *ngIf="(projects$ | async) as projects">
     <div class="divider"></div>
     <div class="header dropdown" ngbDropdown container="body">
       <button ngbDropdownToggle>
-        <span>{{(project$ | async)?.name || 'Select a project...'}}</span></button>
+        <span>{{project?.name || 'Select...'}}</span></button>
       <div ngbDropdownMenu>
         <ng-container *ngFor="let p of projects">
           <a ngbDropdownItem [routerLink]="['/projects/project',p._id]">
@@ -26,7 +22,7 @@
         </ng-container>
       </div>
     </div>
-    <ng-container *ngIf="(project$ | async) as project">
+    <ng-container *ngIf="project">
       <div class="menu">
         <button (click)="createIssue(project._id)">
           <fa-icon icon="plus-circle" class="icon"></fa-icon>
@@ -43,6 +39,13 @@
       </div>
     </ng-container>
   </ng-container>
+
+  <div class="menu mt-auto">
+    <a routerLink="/projects/settings" routerLinkActive="active">
+      <fa-icon icon="cog" class="icon"></fa-icon>
+      <span>Settings</span>
+    </a>
+  </div>
 </app-sidebar>
 <router-outlet></router-outlet>
 

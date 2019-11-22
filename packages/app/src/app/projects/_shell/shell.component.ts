@@ -20,7 +20,7 @@ export class ShellComponent implements OnInit {
   issues: any[] = []
 
   projects$: Observable<Project[]>
-  project$: Observable<Project>
+  project: Project
 
   typeFilterSelected = null
   typeFilters = [
@@ -55,16 +55,15 @@ export class ShellComponent implements OnInit {
         ))
       )
     this.route.firstChild.params.subscribe(params => this.loadProject(params['pid']))
-    this.router.events
-      .pipe(
-        filter(event => event instanceof NavigationEnd),
-        switchMap(() => (this.route.firstChild && this.route.firstChild.params) || of({}))
-      )
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      switchMap(() => (this.route.firstChild && this.route.firstChild.params) || of({}))
+    )
       .subscribe(params => this.loadProject(params['pid']))
   }
 
-  private loadProject (pid) {
-    this.project$ = this.projectsRepo.one$(pid)
+  private async loadProject (pid) {
+    this.project = await this.projectsRepo.one(pid)
   }
 
   setFilter (filter) {
