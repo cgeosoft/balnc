@@ -11,9 +11,10 @@ export type Profile = {
 
 export const DEMO_PROFILE: Profile = {
   key: 'demo',
-  name: 'Demo Profile',
+  name: 'Demo',
   remote: {
-    enabled: false
+    enabled: false,
+    name: 'John'
   },
   plugins: {
     business: true,

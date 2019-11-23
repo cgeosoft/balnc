@@ -24,10 +24,10 @@
     </ng-container>
   </div>
   <div class="menu mt-auto">
-    <button (click)="generate()">
-      <fa-icon icon="plus-circle" class="icon"></fa-icon>
-      <div class="content">Generate</div>
-    </button>
+    <a routerLink="/boards/settings" routerLinkActive="active">
+      <fa-icon icon="cog"></fa-icon>
+      <span>Settings</span>
+    </a>
   </div>
 </app-sidebar>
 <router-outlet></router-outlet>
