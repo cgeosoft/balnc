@@ -68,13 +68,4 @@ export class ShellComponent implements OnInit {
     name = null
     await this.router.navigate(['/boards', board._id])
   }
-
-  async generate () {
-    await this.boardsRepo.generateDemoData()
-    const boards = await this.boardsRepo.all()
-    boards.forEach(async b => {
-      await this.messagesRepo.generateDemoData(b)
-    })
-    await this.router.navigate(['/boards', boards[0]._id])
-  }
 }

@@ -76,10 +76,10 @@ export class Repository<T> {
 
   async update (id: string, data: any) {
     const item = await this.entities.findOne(id).exec()
-    item.c = Object.assign(item.c, data)
+    const content = Object.assign(item.c, data)
     await item.update({
       $set: {
-        c: item.c
+        c: content
       }
     })
   }
