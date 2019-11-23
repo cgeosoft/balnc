@@ -1,4 +1,4 @@
-import { Entity } from '@balnc/core'
+import { Entity } from '@balnc/core';
 
 export interface Board extends Entity {
   name: string
@@ -7,4 +7,6 @@ export interface Board extends Entity {
   }[]
   created?: number
   avatar?: string
+  pinned?: boolean
+  archived?: boolean
 }

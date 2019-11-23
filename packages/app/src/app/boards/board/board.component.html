@@ -9,8 +9,12 @@
               <fa-icon icon="cog"></fa-icon>
             </button>
             <div ngbDropdownMenu>
-              <button ngbDropdownItem>Archive</button>
-              <button ngbDropdownItem>Delete</button>
+              <button ngbDropdownItem *ngIf="!board.pinned" (click)="pinBoard()">Pin</button>
+              <button ngbDropdownItem *ngIf="board.pinned" (click)="unpinBoard()">Unpin</button>
+              <button ngbDropdownItem *ngIf="!board.archived" (click)="archiveBoard()">Archive</button>
+              <button ngbDropdownItem *ngIf="board.archived" (click)="unarchiveBoard()">Unarchive</button>
+              <div class="divider"></div>
+              <button ngbDropdownItem (click)="deleteBoard()">Delete</button>
             </div>
           </div>
         </div>
@@ -20,7 +24,7 @@
               <ng-template ngFor let-m [ngForOf]="messages">
                 <ng-container [ngSwitch]="m.type">
                   <ng-container *ngSwitchCase="'MESSAGE'">
-                    <div class="msg-item" [ngClass]="{'own':m.sender === boardService.nickname}">
+                    <div class="msg-item" [ngClass]="{'own':m.sender === nickname}">
                       <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png"
                         [ngbTooltip]="m.sender" placement="bottom" container="body">
                       <div class="msg-body" [ngbTooltip]="m._timestamp | date:'medium'" placement="bottom"

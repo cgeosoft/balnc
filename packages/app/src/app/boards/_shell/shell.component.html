@@ -15,7 +15,8 @@
       <ng-container *ngIf="boards.length; else empty">
         <ng-template ngFor let-board [ngForOf]="boards">
           <a [routerLink]="['/boards',board._id]" routerLinkActive="active">
-            <fa-icon icon="comments" class="icon"></fa-icon>
+            <fa-icon *ngIf="!board.pinned" icon="comments" class="icon"></fa-icon>
+            <fa-icon *ngIf="board.pinned" icon="comments" class="thumbtack"></fa-icon>
             <span>{{board.name}}</span>
             <span class="ml-auto badge badge-primary" *ngIf="unread[board._id]">{{unread[board._id]}}</span>
           </a>

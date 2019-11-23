@@ -23,9 +23,6 @@ export class BoardComponent implements OnInit {
   @ViewChild('fileupload', { static: false }) fileupload: ElementRef
 
   selected: string
-  board: Board
-  boardName: string
-
   inputMessage: string
 
   messages$: Observable<Message[]>
@@ -41,7 +38,7 @@ export class BoardComponent implements OnInit {
   } = {}
 
   constructor (
-    private boardService: BoardsRepo,
+    private boardsRepo: BoardsRepo,
     private messagesRepo: MessagesRepo,
     private http: HttpClient,
     private route: ActivatedRoute,
@@ -52,8 +49,8 @@ export class BoardComponent implements OnInit {
     this.route.params.subscribe(async (params) => {
       this.selected = params['id']
       if (!this.selected) return
-      this.boardService.selected = this.selected
-      this.board$ = this.boardService.one$(this.selected)
+      this.boardsRepo.selected = this.selected
+      this.board$ = this.boardsRepo.one$(this.selected)
       this.messages$ = this.messagesRepo.all$(this.selected).pipe(
         map(messages => messages.filter(message => message.board === this.selected)),
         tap(messages => {
@@ -90,7 +87,7 @@ export class BoardComponent implements OnInit {
   }
 
   // selectBoard(boardId) {
-  //   let bs1 = this.boardsStats.find(x => x.id === boardId)
+  // const bs1 = this.boardsStats.find(x => x.id === boardId)
   //   if (!bs1) {
   //     bs1 = {
   //       id: boardId,
@@ -104,14 +101,35 @@ export class BoardComponent implements OnInit {
   //   this.selectedBoard = boardId
   // }
 
-  async deleteBoard (id) {
-    // let board = await this.db['boards'].findOne(id).exec()
-    // board.remove()
+  async pinBoard () {
+    await this.boardsRepo.update(this.selected, {
+      pinned: true
+    })
+  }
 
-    // let messages = await this.db['messages'].find().where('board').eq(id).exec()
-    // messages.forEach(m => {
-    //   m.remove()
-    // })
+  async unpinBoard () {
+    await this.boardsRepo.update(this.selected, {
+      pinned: false
+    })
+  }
+
+  async archiveBoard () {
+
+  }
+
+  async unarchiveBoard () {
+
+  }
+
+  async deleteBoard () {
+    if (!confirm('Are you sure? All message will be deleted')) return
+    await this.boardsRepo.remove(this.selected)
+
+    const messages = await this.messagesRepo.all(this.selected)
+    const ps = messages.map(m => this.messagesRepo.remove(m._id))
+    await Promise.all(ps)
+
+    await this.router.navigateByUrl('/boards')
   }
 
   async send () {
@@ -130,7 +148,7 @@ export class BoardComponent implements OnInit {
     this.inputMessage = null
     const urls = data.text.match(urlRegex)
     if (urls) {
-      let params = new HttpParams().set('q', urls[0])
+      const params = new HttpParams().set('q', urls[0])
       const res = await this.http.get<{ data: OgMetadata }>('http://localhost:3000/api/og', { params }).toPromise()
       message.metadata = res.data
       await this.messagesRepo.update(message._id, {
@@ -189,7 +207,7 @@ export class BoardComponent implements OnInit {
 
   async delete () {
     if (!confirm('Are you sure?')) return
-    await this.boardService.remove(this.selected)
+    await this.boardsRepo.remove(this.selected)
     await this.router.navigate(['/boards'])
   }
 

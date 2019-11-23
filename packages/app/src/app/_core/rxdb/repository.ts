@@ -74,9 +74,14 @@ export class Repository<T> {
     return this.mappedItems([doc])[0]
   }
 
-  async update (id: string, query: any) {
+  async update (id: string, data: any) {
     const item = await this.entities.findOne(id).exec()
-    await item.update(query)
+    item.c = Object.assign(item.c, data)
+    await item.update({
+      $set: {
+        c: item.c
+      }
+    })
   }
 
   async remove (id: string): Promise<void> {
