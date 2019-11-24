@@ -2,12 +2,12 @@
 
 :host {
   @extend .d-flex;
+  @extend .align-items-center;
   @extend .bg-primary;
   font-size: 0.8rem;
   color: #eee;
 
   .item {
-    @extend .align-self-center;
     padding: 4px 7px 2px;
   }
 
@@ -26,11 +26,10 @@
   .divider {
     &:after {
       content: "";
-      height: 10px;
+      height: 14px;
       background: darken($primary, 5%);
       display: block;
       width: 1px;
-      margin-top: 5px;
     }
   }
 

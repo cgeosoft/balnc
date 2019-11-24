@@ -14,7 +14,7 @@ export const DEMO_PROFILE: Profile = {
   name: 'Demo',
   remote: {
     enabled: false,
-    name: 'John'
+    username: 'John'
   },
   plugins: {
     business: true,
