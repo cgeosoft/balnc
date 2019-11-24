@@ -1,7 +1,15 @@
 <app-content>
   <app-content-body [padding]="true" [full]="true">
-    <ng-container *ngIf="(account$ | async) as account">
-      <pre>{{account|json:2}}</pre>
+    <ng-container *ngIf="account">
+      <div class="form-group">
+        <label>Name</label>
+        <input class="form-control" [(ngModel)]="account.name" (change)="update()">
+      </div>
+      <div class="form-group">
+        <label>Contact</label>
+        <input class="form-control" [(ngModel)]="account.contact" (change)="update()">
+      </div>
     </ng-container>
+    <pre>{{account|json:2}}</pre>
   </app-content-body>
 </app-content>

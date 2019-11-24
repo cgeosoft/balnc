@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Helpers, TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
+import { tap } from 'rxjs/operators'
 import { Account, AccountType, AccountTypeBadges } from '../../_shared/models/account'
 import { AccountsRepo } from '../../_shared/repos/accounts.repo'
 import { RecordsRepo } from '../../_shared/repos/records.repo'
@@ -19,16 +20,18 @@ export class AccountsComponent implements OnInit {
       {
         label: 'Name', type: 'link', locked: true, val: (item: Account) => {
           return {
-            label: item.name,
+            label: item.name || '{unamed account}',
             link: ['/business/payments/accounts', item._id]
           }
         }
       },
-      { label: 'Type', style: { width: '90px' }, type: 'badge', badges: AccountTypeBadges, val: (item: Account) => AccountType[item.type] },
-      { label: 'Contact', val: (item: Account) => item.contact },
+      { label: 'Type', style: { width: '100px' }, type: 'badge', badges: AccountTypeBadges, val: (item: Account) => AccountType[item.type] },
       {
-        label: 'Amount', style: { 'text-align': 'right' }, type: 'currency', locked: true,
+        label: 'Amount', style: { width: '140px', 'text-align': 'right' }, type: 'currency', locked: true,
         val: (item: Account) => this.totals[item._id] ? this.totals[item._id].amount : 0
+      }, {
+        label: 'Amount', style: { width: '140px', 'text-align': 'right' }, type: 'currency', locked: true,
+        val: (item: Account) => this.totals[item._id] ? this.totals[item._id].records : 0
       }
     ]
   }
@@ -43,21 +46,32 @@ export class AccountsComponent implements OnInit {
   ) { }
 
   async ngOnInit () {
-    this.recordsRepo.all$().subscribe((records) => {
-      this.totals = records
-        .reduce((m, d) => {
-          if (!m[d.account]) {
-            m[d.account] = { amount: 0, records: 0 }
-          }
-          m[d.account].amount += d.amount
-          m[d.account].records += 1
-          return m
-        }, {})
-    })
-    this.accounts$ = this.accountsRepo.all$()
+    const records = await this.recordsRepo.all()
+
+    this.totals = records.reduce((m, d) => {
+      if (!m[d.account]) {
+        m[d.account] = { amount: 0, records: 0 }
+      }
+      if (d.account === 'zo6tkw9ffc:1574465509178') console.log(d.amount)
+      m[d.account].amount += d.amount
+      m[d.account].records += 1
+      return m
+    }, {})
+
+    this.accounts$ = this.accountsRepo.all$().pipe(
+      tap(accounts => accounts.sort((a, b) => {
+        if (a.name < b.name) {
+          return -1
+        }
+        if (a.name > b.name) {
+          return 1
+        }
+        return 0
+      }))
+    )
   }
 
-  async createAccount() {
+  async createAccount () {
     const account = await this.accountsRepo.add({ name: `Account #${Helpers.uid()}` })
     await this.router.navigate(['/business/payments/accounts', account._id])
   }
