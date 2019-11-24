@@ -47,7 +47,7 @@
     "pouchdb-adapter-idb": "7.1.1",
     "request": "^2.88.0",
     "rxdb": "^8.6.0",
-    "snyk": "^1.244.0",
+    "snyk": "^1.251.0",
     "subscriptions-transport-ws": "0.9.16"
   },
   "devDependencies": {
