@@ -17,7 +17,8 @@
     "test": "snyk test && ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build": "ng build --prod"
+    "build": "ng build --prod",
+    "build-desktop":"ng build -c desktop --base-href ./"
   },
   "dependencies": {
     "@angular-devkit/build-angular": "^0.803.17",

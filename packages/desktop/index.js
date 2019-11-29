@@ -1,4 +1,6 @@
 const { app, BrowserWindow } = require('electron')
+const url = require("url");
+const path = require("path");
 
 let win;
 
@@ -8,11 +10,16 @@ function createWindow () {
     width: 600, 
     height: 600,
     backgroundColor: '#ffffff',
-    icon: `file://${__dirname}/dist/app/assets/apple-logo.png`
+    icon: `file://${__dirname}/app/assets/icons/apple-logo.png`
   })
 
-
-  win.loadURL(`file://${__dirname}/dist/app/index.html`)
+  win.loadURL(
+    url.format({
+      pathname: path.join(__dirname, `/app/index.html`),
+      protocol: "file:",
+      slashes: true
+    })
+  );
 
   //// uncomment below to open the DevTools.
   // win.webContents.openDevTools()
