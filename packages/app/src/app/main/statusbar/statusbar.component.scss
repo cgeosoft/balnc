@@ -2,38 +2,45 @@
 
 :host {
   @extend .d-flex;
-  @extend .align-items-center;
+  @extend .justify-content-between;
   @extend .bg-primary;
-  font-size: 0.8rem;
   color: #eee;
+  font-size: 0.8rem;
 
-  .item {
-    padding: 4px 7px 2px;
-  }
+  .menu {
+    @extend .d-flex;
+    @extend .align-items-center;
 
-  a.item {
-    background: none;
-    border: none;
-    color: #eee;
-    border-radius: 0;
-
-    &:hover {
-      background: darken($primary, 10%);
-      text-decoration: none;
+    .item {
+      @extend .py-1;
+      @extend .px-2;
     }
-  }
 
-  .divider {
-    &:after {
-      content: "";
-      height: 14px;
-      background: darken($primary, 5%);
-      display: block;
-      width: 1px;
+    a.item {
+      background: none;
+      border: none;
+      color: #eee;
+      border-radius: 0;
+
+      &:hover {
+        background: darken($primary, 10%);
+        text-decoration: none;
+        outline: none;
+      }
     }
-  }
 
-  .dropup .dropdown-toggle::after {
-    display: none;
+    .divider {
+      &:after {
+        content: "";
+        height: 14px;
+        background: darken($primary, 5%);
+        display: block;
+        width: 1px;
+      }
+    }
+
+    .dropup .dropdown-toggle::after {
+      display: none;
+    }
   }
 }
