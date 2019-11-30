@@ -5,33 +5,33 @@
     height: 33px;
     background: #fafafa;
     position: relative;
-    padding-right: .8rem;
-    padding-left: .8rem;
-    border-color: #CCC;
+    padding-right: 0.8rem;
+    padding-left: 0.8rem;
+    border-color: #ccc;
     margin-bottom: -1px;
     .nav-link {
       height: 33px; // color: #666;
-      border-radius: .3rem .3rem 0 0;
-      margin-right: .3rem;
-      padding: .2rem 1rem;
+      border-radius: 0.3rem 0.3rem 0 0;
+      margin-right: 0.3rem;
+      padding: 0.2rem 1rem;
       &.active {
-        border-color: #CCC;
-        border-bottom-color: #FFF;
+        border-color: #ccc;
+        border-bottom-color: #fff;
         margin-bottom: -1px;
         &:hover {
-          border-color: #CCC;
-          border-bottom-color: #FFF;
+          border-color: #ccc;
+          border-bottom-color: #fff;
         }
       }
       &:hover {
         border-color: #fafafa;
-        border-bottom-color: #CCC;
+        border-bottom-color: #ccc;
       }
     }
   }
   &.content-menu {
     background: $dark;
-    color: #FFF;
+    color: #fff;
     padding: 4rem;
     .content-header {
       background: inherit;

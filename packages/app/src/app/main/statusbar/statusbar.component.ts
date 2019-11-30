@@ -19,4 +19,12 @@ export class StatusbarComponent {
   get profile () {
     return this.configService.profile
   }
+
+  get fluid () {
+    return this.configService.fluid
+  }
+
+  toggleFluid () {
+    this.configService.fluid = !this.configService.fluid
+  }
 }
