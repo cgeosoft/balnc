@@ -75,7 +75,7 @@ export class GeneralComponent implements OnInit {
   async getRemote () {
     const manifest = await this.http
       .get<{ members: string[] }>(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
-        headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.password) }
+        headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.token) }
       }).toPromise()
     this.profile.remote.members = manifest.members
   }
@@ -90,7 +90,7 @@ export class GeneralComponent implements OnInit {
         name: this.profile.remote.name,
         members: this.profile.remote.members
       }, {
-        headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.password) }
+        headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.token) }
       }).toPromise()
     await this.getRemote()
   }
@@ -104,7 +104,7 @@ export class GeneralComponent implements OnInit {
         name: this.profile.remote.name,
         members: this.profile.remote.members
       }, {
-        headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.password) }
+        headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.token) }
       }).toPromise()
     await this.getRemote()
   }

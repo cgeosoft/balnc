@@ -5,7 +5,7 @@ export interface RemoteConfig {
   server?: string
   db?: string
   username?: string
-  password?: string
+  token?: string
   owner?: string
   members?: string[]
 }

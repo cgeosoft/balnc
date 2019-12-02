@@ -73,7 +73,7 @@ export class RemoteComponent implements OnInit {
         enabled: false,
         server: null,
         username: null,
-        password: null
+        token: null
       }
     }
   }
@@ -140,7 +140,7 @@ export class RemoteComponent implements OnInit {
             }
           })
         this.remote.username = _username
-        this.remote.password = _password
+        this.remote.token = _password
         this.loadProfiles()
         this.wizard.active = 'link'
       })
@@ -156,7 +156,7 @@ export class RemoteComponent implements OnInit {
       .post(`${this.remote.server}/profiles`, {
         name
       }, {
-        headers: { Authorization: 'Basic ' + btoa(this.remote.username + ':' + this.remote.password) }
+        headers: { Authorization: 'Basic ' + btoa(this.remote.username + ':' + this.remote.token) }
       })
       .toPromise()
       .then((response: {
@@ -164,7 +164,7 @@ export class RemoteComponent implements OnInit {
         dbs: string[],
         owner: string
       }) => {
-        this.login(this.remote.username, this.remote.password)
+        this.login(this.remote.username, this.remote.token)
       })
       .catch((response) => {
         this.toastr.error(response.error.reason, response.error.error)
@@ -177,7 +177,7 @@ export class RemoteComponent implements OnInit {
     this.profiles.forEach(profile => {
       const n = this.http
         .get(`${this.remote.server}/profiles/${profile.key}`, {
-          headers: { Authorization: 'Basic ' + btoa(this.remote.username + ':' + this.remote.password) }
+          headers: { Authorization: 'Basic ' + btoa(this.remote.username + ':' + this.remote.token) }
         })
         .toPromise()
         .then((response: RemoteProfile) => {
@@ -197,14 +197,14 @@ export class RemoteComponent implements OnInit {
     if (!confirm(`Are you sure you want to delete profile ${profile.name} and all data? This is not reversible. Please make some backups first.`)) return
     await this.http
       .delete(`${this.remote.server}/profiles/${profile.key}`, {
-        headers: { Authorization: 'Basic ' + btoa(this.remote.username + ':' + this.remote.password) }
+        headers: { Authorization: 'Basic ' + btoa(this.remote.username + ':' + this.remote.token) }
       })
       .toPromise()
       .catch((response) => {
         this.toastr.error(response.error.reason, response.error.error)
       })
     this.loading.auth = false
-    await this.login(this.remote.username, this.remote.password)
+    await this.login(this.remote.username, this.remote.token)
   }
 
   linkRemote (profile: RemoteProfile) {

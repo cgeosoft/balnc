@@ -20,11 +20,9 @@ export class StatusbarComponent {
     return this.configService.profile
   }
 
-  get fluid () {
-    return this.configService.fluid
-  }
-
-  toggleFluid () {
-    this.configService.fluid = !this.configService.fluid
+  toggleLayout (layout) {
+    const profile = { ...this.configService.profile }
+    profile.layout = layout
+    this.configService.saveProfile(profile)
   }
 }

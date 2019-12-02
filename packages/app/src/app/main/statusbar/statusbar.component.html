@@ -1,29 +1,26 @@
 <div class="menu">
-  <div class="item text-center" style="width:90px;">v{{version}}</div>
-
-  <div class="divider"></div>
-  <a href="javascript:void" class="item" (click)="toggleFluid()">
-    <fa-icon *ngIf="fluid" icon="compress-arrows-alt"></fa-icon>
-    <fa-icon *ngIf="!fluid" icon="expand-arrows-alt"></fa-icon>
-  </a>
+  <div class=" text-center px-0" style="width:90px;">v{{version}}</div>
 </div>
 <div class="menu">
+  <button *ngIf="profile.layout === 'BOX'" class="item" (click)="toggleLayout('FLUID')">
+    <fa-icon icon="compress-arrows-alt"></fa-icon> box
+  </button>
+  <button *ngIf="profile.layout === 'FLUID'" class="item" (click)="toggleLayout('BOX')">
+    <fa-icon icon="expand-arrows-alt"></fa-icon> fluid
+  </button>
   <div class="item">
     <fa-layers class="fa-fw">
       <fa-icon icon="swatchbook"></fa-icon>
     </fa-layers> {{profile.name}}
   </div>
-  <div class="divider"></div>
   <div class="item">
     <fa-layers class="fa-fw">
       <fa-icon icon="user"></fa-icon>
     </fa-layers> {{profile.remote.username || '- none -'}}
   </div>
-  <div class="divider"></div>
-  <a href="javascript:void" class="item" [ngbPopover]="popContent" container="body" placement="top-right">
+  <button class="item" [ngbPopover]="popContent" container="body" placement="top-right">
     <fa-icon icon="circle" class="text-danger shadow"></fa-icon> offline
-  </a>
+  </button>
 </div>
-
 
 <ng-template #popContent>sync content placeholder</ng-template>

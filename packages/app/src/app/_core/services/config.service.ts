@@ -19,8 +19,6 @@ export class ConfigService {
   @LocalStorage() selected: string = ''
   @LocalStorage() profiles: Profile[] = []
 
-  @LocalStorage() fluid = false
-
   menu: any
 
   constructor (
