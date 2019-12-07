@@ -18,9 +18,19 @@
       <fa-icon icon="user"></fa-icon>
     </fa-layers> {{profile.remote.username || '- none -'}}
   </div>
-  <button class="item" [ngbPopover]="popContent" container="body" placement="top-right">
-    <fa-icon icon="circle" class="text-danger shadow"></fa-icon> offline
-  </button>
+  <div ngbDropdown placement="top-right" container="body">
+    <button class="item" id="dropdownBasic1" ngbDropdownToggle>
+      <ng-container [ngSwitch]="'disabled'">
+      <span *ngSwitchCase="'disabled'" class="indicator bg-muted"></span>
+      <span *ngSwitchCase="'syncing'" class="indicator bg-muted"></span>
+      <span *ngSwitchDefault class="indicator bg-muted"></span>
+      </ng-container>
+      <fa-icon icon="square" class="text-danger border"></fa-icon>
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button ngbDropdownItem>Action - 1</button>
+      <button ngbDropdownItem>Another Action</button>
+      <button ngbDropdownItem>Something else is here</button>
+    </div>
+  </div>
 </div>
-
-<ng-template #popContent>sync content placeholder</ng-template>
