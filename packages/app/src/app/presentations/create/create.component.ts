@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { PresentationsRepo } from '../_shared/repos/presentations.repo'
+import { PresentationsRepo } from '../@shared/repos/presentations.repo'
 
 @Component({
   selector: 'app-presentations-create',

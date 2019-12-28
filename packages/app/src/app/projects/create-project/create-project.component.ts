@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { ProjectsRepo } from '../_shared/repos/projects.repo'
+import { ProjectsRepo } from '../@shared/repos/projects.repo'
 
 @Component({
   selector: 'app-projects-project-create',

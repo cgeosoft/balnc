@@ -1,4 +1,4 @@
-import { RemoteConfig } from '../../_core/rxdb/models/config'
+import { RemoteConfig } from '../../@core/rxdb/models/config'
 
 export type Profile = {
   key?: string

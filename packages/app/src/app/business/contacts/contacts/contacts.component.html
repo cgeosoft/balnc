@@ -1,8 +1,4 @@
 <app-content>
-  <app-content-body [padding]="false">
-    <input (input)="filter($event.target.value)" class="form-control form-control-lg border-0"
-      placeholder="Filter customers by name...">
-  </app-content-body>
   <app-content-body [padding]="false" [full]="true">
     <app-table [data$]="contacts$" [schema]="schema" [templates]="{t1:t1}"></app-table>
   </app-content-body>

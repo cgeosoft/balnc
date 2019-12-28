@@ -4,11 +4,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
 import { AddPageComponent } from '../add-page/add-page.component'
-import { Presentation, PresentationStats } from '../_shared/models/presentation'
-import { Slide, SlideContentType } from '../_shared/models/slide'
-import { SlidesRepo } from '../_shared/repos/pages.repo'
-import { PresentationsRepo } from '../_shared/repos/presentations.repo'
-import { PresentationsService } from '../_shared/services/presentations.service'
+import { Presentation, PresentationStats } from '../@shared/models/presentation'
+import { Slide, SlideContentType } from '../@shared/models/slide'
+import { SlidesRepo } from '../@shared/repos/pages.repo'
+import { PresentationsRepo } from '../@shared/repos/presentations.repo'
+import { PresentationsService } from '../@shared/services/presentations.service'
 
 @Component({
   selector: 'app-presentations-presentation',

@@ -3,8 +3,8 @@ import { Router } from '@angular/router'
 import { TableSchema } from '@balnc/shared'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { map, switchMap, tap } from 'rxjs/operators'
-import { Contact, ContactType } from '../../_shared/models/contacts'
-import { ContactsRepo } from '../../_shared/repos/contacts.repo'
+import { Contact, ContactType } from '../../@shared/models/contacts'
+import { ContactsRepo } from '../../@shared/repos/contacts.repo'
 
 @Component({
   selector: 'app-contacts',

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
-import { Board } from '../_shared/models/board'
-import { BoardStats } from '../_shared/models/board-stats'
-import { BoardsRepo } from '../_shared/repos/boards.repo'
-import { MessagesRepo } from '../_shared/repos/messages.repo'
+import { Board } from '../@shared/models/board'
+import { BoardStats } from '../@shared/models/board-stats'
+import { BoardsRepo } from '../@shared/repos/boards.repo'
+import { MessagesRepo } from '../@shared/repos/messages.repo'
 
 @Component({
   selector: 'app-boards-shell',

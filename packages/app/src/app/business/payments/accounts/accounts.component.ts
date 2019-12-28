@@ -3,9 +3,9 @@ import { Router } from '@angular/router'
 import { Helpers, TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
-import { Account, AccountType, AccountTypeBadges } from '../../_shared/models/account'
-import { AccountsRepo } from '../../_shared/repos/accounts.repo'
-import { RecordsRepo } from '../../_shared/repos/records.repo'
+import { Account, AccountType, AccountTypeBadges } from '../../@shared/models/account'
+import { AccountsRepo } from '../../@shared/repos/accounts.repo'
+import { RecordsRepo } from '../../@shared/repos/records.repo'
 
 @Component({
   selector: 'app-accounts',

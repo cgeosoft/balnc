@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { RxDocument } from 'rxdb'
-import { Agreement } from '../../_shared/models/agreement'
-import { AgreementsRepo } from '../../_shared/repos/agreements.repo'
+import { Agreement } from '../../@shared/models/agreement'
+import { AgreementsRepo } from '../../@shared/repos/agreements.repo'
 
 @Component({
   selector: 'app-agreement',

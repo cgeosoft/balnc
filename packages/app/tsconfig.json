@@ -21,10 +21,10 @@
     ],
     "paths": {
       "@balnc/core": [
-        "src/app/_core"
+        "src/app/@core"
       ],
       "@balnc/shared": [
-        "src/app/_shared"
+        "src/app/@shared"
       ]
     }
   }

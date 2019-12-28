@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
-import { Document } from '../_shared/models/document'
-import { DocumentsRepo } from '../_shared/repos/documents.repo'
+import { Document } from '../@shared/models/document'
+import { DocumentsRepo } from '../@shared/repos/documents.repo'
 
 @Component({
   selector: 'app-shell',

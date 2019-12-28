@@ -1,11 +1,10 @@
 import { Component } from '@angular/core'
-import { DemoService } from '../_shared/services/demo.service'
+import { DemoService } from '../@shared/services/demo.service'
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   host: { 'class': 'page' }
-
 })
 export class SettingsComponent {
   generating: boolean

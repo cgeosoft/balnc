@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Helpers, TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { map, mergeMap, tap } from 'rxjs/operators'
-import { CEvent, CEventType, CEventTypeBadges, Contact, ContactType } from '../../_shared/models/contacts'
-import { CEventsRepo } from '../../_shared/repos/cevents.repo'
-import { ContactsRepo } from '../../_shared/repos/contacts.repo'
-import { OrdersRepo } from '../../_shared/repos/orders.repo'
-import { StateService } from '../../_shared/services/state.service'
+import { CEvent, CEventType, CEventTypeBadges, Contact, ContactType } from '../../@shared/models/contacts'
+import { CEventsRepo } from '../../@shared/repos/cevents.repo'
+import { ContactsRepo } from '../../@shared/repos/contacts.repo'
+import { OrdersRepo } from '../../@shared/repos/orders.repo'
+import { StateService } from '../../@shared/services/state.service'
 
 @Component({
   selector: 'app-contacts-contact',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { ContactType } from '../../_shared/models/contacts'
-import { ContactsRepo } from '../../_shared/repos/contacts.repo'
+import { ContactType } from '../../@shared/models/contacts'
+import { ContactsRepo } from '../../@shared/repos/contacts.repo'
 
 @Component({
   selector: 'app-contact-create',

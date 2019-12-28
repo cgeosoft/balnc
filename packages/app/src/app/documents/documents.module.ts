@@ -5,8 +5,8 @@ import { CaretTrackerDirective } from './document-line/CaretTrackerDirective'
 import { DocumentLineComponent } from './document-line/document-line.component'
 import { DocumentComponent } from './document/document.component'
 import { ShellComponent } from './shell/shell.component'
-import { DocumentsRepo } from './_shared/repos/documents.repo'
-import { LinesRepo } from './_shared/repos/lines.repo'
+import { DocumentsRepo } from './@shared/repos/documents.repo'
+import { LinesRepo } from './@shared/repos/lines.repo'
 
 @NgModule({
   declarations: [

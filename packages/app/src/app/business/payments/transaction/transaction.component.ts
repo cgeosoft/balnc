@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
-import { Transaction } from '../../_shared/models/transaction'
-import { TransactionsRepo } from '../../_shared/repos/transactions.repo'
+import { Transaction } from '../../@shared/models/transaction'
+import { TransactionsRepo } from '../../@shared/repos/transactions.repo'
 
 @Component({
   selector: 'app-transaction',

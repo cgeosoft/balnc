@@ -4,8 +4,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 import { CreateComponent } from '../create/create.component'
-import { Presentation } from '../_shared/models/presentation'
-import { PresentationsRepo } from '../_shared/repos/presentations.repo'
+import { Presentation } from '../@shared/models/presentation'
+import { PresentationsRepo } from '../@shared/repos/presentations.repo'
 
 @Component({
   selector: 'app-presentations-shell',

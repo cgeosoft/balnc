@@ -3,10 +3,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable, Subject } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
-import { Board } from '../_shared/models/board'
-import { Message, OgMetadata } from '../_shared/models/message'
-import { BoardsRepo } from '../_shared/repos/boards.repo'
-import { MessagesRepo } from '../_shared/repos/messages.repo'
+import { Board } from '../@shared/models/board'
+import { Message, OgMetadata } from '../@shared/models/message'
+import { BoardsRepo } from '../@shared/repos/boards.repo'
+import { MessagesRepo } from '../@shared/repos/messages.repo'
 
 const urlRegex = /(https?:\/\/[^\s]+)/g
 

@@ -2,8 +2,8 @@ import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
-import { Contact, ContactType } from '../_shared/models/contacts'
-import { ContactsRepo } from '../_shared/repos/contacts.repo'
+import { Contact, ContactType } from '../@shared/models/contacts'
+import { ContactsRepo } from '../@shared/repos/contacts.repo'
 
 @Component({
   selector: 'app-business-shell',

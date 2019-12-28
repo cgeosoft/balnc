@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { LocalStorage } from 'ngx-store'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
-import { Issue, IssueStatus, IssueStatuses, Project } from '../_shared/models/all'
-import { IssuesRepo } from '../_shared/repos/issues.repo'
-import { ProjectsRepo } from '../_shared/repos/projects.repo'
+import { Issue, IssueStatus, IssueStatuses, Project } from '../@shared/models/all'
+import { IssuesRepo } from '../@shared/repos/issues.repo'
+import { ProjectsRepo } from '../@shared/repos/projects.repo'
 
 @Component({
   selector: 'app-projects-project',

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
-import { Agreement } from '../../_shared/models/agreement'
-import { Contact } from '../../_shared/models/contacts'
-import { AgreementsRepo } from '../../_shared/repos/agreements.repo'
-import { ContactsRepo } from '../../_shared/repos/contacts.repo'
+import { Agreement } from '../../@shared/models/agreement'
+import { Contact } from '../../@shared/models/contacts'
+import { AgreementsRepo } from '../../@shared/repos/agreements.repo'
+import { ContactsRepo } from '../../@shared/repos/contacts.repo'
 
 @Component({
   selector: 'app-agreements',

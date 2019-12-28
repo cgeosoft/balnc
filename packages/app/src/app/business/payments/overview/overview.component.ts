@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { Account } from '../../_shared/models/account'
-import { Record } from '../../_shared/models/record'
-import { AccountsRepo } from '../../_shared/repos/accounts.repo'
-import { CEventsRepo } from '../../_shared/repos/cevents.repo'
-import { OrdersRepo } from '../../_shared/repos/orders.repo'
-import { RecordsRepo } from '../../_shared/repos/records.repo'
-import { DemoService } from '../../_shared/services/demo.service'
+import { Account } from '../../@shared/models/account'
+import { Record } from '../../@shared/models/record'
+import { AccountsRepo } from '../../@shared/repos/accounts.repo'
+import { CEventsRepo } from '../../@shared/repos/cevents.repo'
+import { OrdersRepo } from '../../@shared/repos/orders.repo'
+import { RecordsRepo } from '../../@shared/repos/records.repo'
+import { DemoService } from '../../@shared/services/demo.service'
 
 @Component({
   selector: 'app-payments-overview',

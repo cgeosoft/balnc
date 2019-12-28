@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core'
 import { Observable, Subject } from 'rxjs'
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators'
-import { Document } from '../_shared/models/document'
-import { Line } from '../_shared/models/line'
-import { DocumentsRepo } from '../_shared/repos/documents.repo'
-import { LinesRepo } from '../_shared/repos/lines.repo'
+import { Document } from '../@shared/models/document'
+import { Line } from '../@shared/models/line'
+import { DocumentsRepo } from '../@shared/repos/documents.repo'
+import { LinesRepo } from '../@shared/repos/lines.repo'
 
 @Component({
   selector: 'app-documents-document-line',

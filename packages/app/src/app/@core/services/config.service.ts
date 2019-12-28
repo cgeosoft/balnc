@@ -4,7 +4,7 @@ import { Plugin, Profile } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { LocalStorage } from 'ngx-store'
 import { environment } from '../../../environments/environment'
-import { Helpers } from '../../_shared/helpers'
+import { Helpers } from '../../@shared/helpers'
 
 @Injectable()
 export class ConfigService {

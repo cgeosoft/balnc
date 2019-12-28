@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { Presentation } from '../_shared/models/presentation'
+import { Presentation } from '../@shared/models/presentation'
 
 @Component({
   selector: 'app-presentations-add-page',

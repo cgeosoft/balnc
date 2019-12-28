@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { PresentationsService } from '../_shared/services/presentations.service'
+import { PresentationsService } from '../@shared/services/presentations.service'
 
 @Component({
   selector: 'app-presentations-settings',

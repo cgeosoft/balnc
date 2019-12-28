@@ -1,5 +1,4 @@
 <app-sidebar>
-  <div class="title">Business</div>
   <div class="search">
     <input class="form-control" placeholder="quick search..." [ngbTypeahead]="search" [(ngModel)]="term"
       [resultFormatter]="formatter" (selectItem)="select($event)">
@@ -18,10 +17,6 @@
   </div>
   <div class="divider"></div>
   <div class="menu">
-    <a href="javascript:void" class="disabled">
-      <fa-icon icon="shopping-cart" class="icon"></fa-icon>
-      <span>Orders</span>
-    </a>
     <a routerLink="/business/contacts" routerLinkActive="active">
       <fa-icon icon="users" class="icon"></fa-icon>
       <span>Contacts</span>

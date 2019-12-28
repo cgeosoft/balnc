@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { ContactsRepo } from '../_shared/repos/contacts.repo'
+import { ContactsRepo } from '../@shared/repos/contacts.repo'
 
 @Component({
   selector: 'app-search',

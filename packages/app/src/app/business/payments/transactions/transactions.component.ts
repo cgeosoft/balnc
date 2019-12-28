@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { TableSchema } from '@balnc/shared'
 import { BehaviorSubject, Observable } from 'rxjs'
-import { Account } from '../../_shared/models/account'
-import { Transaction } from '../../_shared/models/transaction'
-import { AccountsRepo } from '../../_shared/repos/accounts.repo'
-import { TransactionsRepo } from '../../_shared/repos/transactions.repo'
+import { Account } from '../../@shared/models/account'
+import { Transaction } from '../../@shared/models/transaction'
+import { AccountsRepo } from '../../@shared/repos/accounts.repo'
+import { TransactionsRepo } from '../../@shared/repos/transactions.repo'
 
 @Component({
   selector: 'app-transactions',

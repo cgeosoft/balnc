@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
-import { Presentation } from '../_shared/models/presentation'
-import { PresentationsRepo } from '../_shared/repos/presentations.repo'
+import { Presentation } from '../@shared/models/presentation'
+import { PresentationsRepo } from '../@shared/repos/presentations.repo'
 
 @Component({
   selector: 'app-presentations-overview',

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { DemoService } from '../_shared/services/demo.service'
+import { DemoService } from '../@shared/services/demo.service'
 
 @Component({
   selector: 'app-business-settings',

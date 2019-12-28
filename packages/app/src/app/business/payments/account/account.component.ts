@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
-import { Account } from '../../_shared/models/account'
-import { AccountsRepo } from '../../_shared/repos/accounts.repo'
+import { Account } from '../../@shared/models/account'
+import { AccountsRepo } from '../../@shared/repos/accounts.repo'
 
 @Component({
   selector: 'app-account',

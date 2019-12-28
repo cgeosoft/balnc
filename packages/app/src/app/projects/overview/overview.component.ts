@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
-import { PEvent } from '../_shared/models/all'
-import { PEventsRepo } from '../_shared/repos/pevents.repo'
+import { PEvent } from '../@shared/models/all'
+import { PEventsRepo } from '../@shared/repos/pevents.repo'
 
 @Component({
   selector: 'app-projects-overview',

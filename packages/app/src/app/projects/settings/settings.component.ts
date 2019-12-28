@@ -3,9 +3,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
 import { CreateProjectComponent } from '../create-project/create-project.component'
-import { Project } from '../_shared/models/all'
-import { ProjectsRepo } from '../_shared/repos/projects.repo'
-import { DemoService } from '../_shared/services/demo.service'
+import { Project } from '../@shared/models/all'
+import { ProjectsRepo } from '../@shared/repos/projects.repo'
+import { DemoService } from '../@shared/services/demo.service'
 
 @Component({
   selector: 'app-projects-settings',
