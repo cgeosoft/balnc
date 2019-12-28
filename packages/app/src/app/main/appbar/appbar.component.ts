@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { ConfigService } from '@balnc/core'
+import { Plugin } from '@balnc/shared/models/plugin'
 
 @Component({
   selector: 'app-appbar',

@@ -7,20 +7,18 @@
 <div class="menu">
   <a class="item" routerLinkActive="active" routerLink="/dashboard">
     <fa-icon icon="home"></fa-icon>
-    <span>dashboard</span>
   </a>
-  <ng-template ngFor let-plugin [ngForOf]="enabledPlugins">
-    <a class="item" routerLinkActive="active" [routerLink]="['/',plugin.id]" [ngStyle]="{color:plugin.color}">
+  <ng-container *ngFor="let plugin of enabledPlugins">
+    <a class="item" routerLinkActive="active" [routerLink]="['/',plugin.id]" [ngStyle]="{color:plugin.color}"
+   [ngbTooltip]="plugin.label" placement="right">
       <fa-icon [icon]="plugin.icon"></fa-icon>
-      <span>{{plugin.label}}</span>
     </a>
-  </ng-template>
+  </ng-container>
 </div>
 
 <div class="menu mt-auto mb-2">
   <a class="item" routerLink="/settings" routerLinkActive="active">
     <fa-icon [icon]="['fas','cog']"></fa-icon>
-    <span>settings</span>
   </a>
 </div>
 
