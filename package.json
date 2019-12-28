@@ -6,6 +6,6 @@
     "build": "lerna run start --parallel --scope @balnc/app --scope @balnc/server"
   },
   "devDependencies": {
-    "lerna": "^3.16.4"
+    "lerna": "^3.20.0"
   }
 }
