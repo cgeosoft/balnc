@@ -41,30 +41,21 @@ $appbar-width: 60px;
     width: $appbar-width;
 
     a.item {
-      border-radius: 0.5rem;
-      // border: solid 2px rgba($color: #000000, $alpha: 0);
-      color: lighten($body-bg, 30);
+      border-radius: 0.7rem;
+      border: solid 1px $dark;
       display: block;
-      margin: 0.1rem 0.5rem;
+      margin: 0rem auto 0.5rem;
       padding: 0.6rem 0 0.3rem 0;
       text-align: center;
       text-decoration: none;
       transition: background-color 0.7s;
       transition: color 0.7s;
+      color: $light;
+      width: 80%;
 
       fa-icon {
         line-height: 1rem;
         font-size: 1.4rem;
-      }
-
-      .label {
-        font-size: 0.9rem;
-        display: none;
-      }
-
-      span {
-        font-size: 0.7rem;
-        display: block;
       }
 
       &:hover {
@@ -72,19 +63,8 @@ $appbar-width: 60px;
       }
 
       &.active {
-        box-shadow: inset 0 0 5px #6b6b6b1a;
-        background: #ffffff13;
-        color: #fff;
-      }
-
-      &.highlight {
-        > a {
-          color: #fff;
-
-          span {
-            margin: 0;
-          }
-        }
+        background: lighten($color: $dark, $amount: 5%);
+        border-color: lighten($color: $dark, $amount: 7%);
       }
     }
   }
