@@ -1,4 +1,4 @@
-<app-content *ngIf="(issue$ | async) as issue">
+<ng-container *ngIf="(issue$ | async) as issue">
   <app-content-body>
     <div class="btn-toolbar">
       <div class="btn-group">
@@ -92,7 +92,7 @@
       </div>
     </div>
   </app-content-body>
-
+</ng-container>
 
 <ng-template #emptyLogs>
   <app-empty message="You don't have any logs"> </app-empty>
