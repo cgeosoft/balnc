@@ -22,5 +22,5 @@ export const DEMO_PROFILE: Profile = {
     boards: true,
     presentations: true
   },
-  layout: 'BOX'
+  layout: 'container'
 }
