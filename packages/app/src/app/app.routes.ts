@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router'
 import { MainResolver } from './@core'
+import { MainShellComponent } from './main/@shell/@shell.component'
 import { ErrorComponent } from './main/error/error.component'
-import { MainShellComponent } from './main/main-shell/main-shell.component'
 import { MainGuard } from './main/main.guard'
 
 export const APP_ROUTES: Routes = [{

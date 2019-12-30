@@ -1,8 +1,6 @@
-<app-content>
-  <app-content-body [padding]="false" [full]="true">
-    <app-table [data$]="contacts$" [schema]="schema" [templates]="{t1:t1}"></app-table>
-  </app-content-body>
-</app-content>
+<app-content-body [padding]="false">
+  <app-table [data$]="contacts$" [schema]="schema" [templates]="{t1:t1}"></app-table>
+</app-content-body>
 
 <ng-template #t1 let-contact="item">
   <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user-circle':'building']" class="mr-2 text-muted">

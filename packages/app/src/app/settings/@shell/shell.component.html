@@ -1,4 +1,4 @@
-<app-sidebar>
+<!-- <app-sidebar>
   <div class="header dropdown" ngbDropdown container="body">
     <button ngbDropdownToggle>
       <span>{{profile.name}}</span></button>
@@ -36,8 +36,7 @@
       <span>About</span>
     </a>
   </div>
-</app-sidebar>
-<router-outlet></router-outlet>
-<ng-template #empty>
-  <app-empty></app-empty>
-</ng-template>
+</app-sidebar> -->
+<app-page [menu]="menu">
+  <router-outlet></router-outlet>
+</app-page>

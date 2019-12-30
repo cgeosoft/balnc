@@ -1,5 +1,5 @@
-<app-content>
-  <app-content-body [full]="true">
+
+  <app-content-body>
     <ng-container *ngIf="profile; else loading">
       <section>
         <h4>Profile Information</h4>
@@ -95,7 +95,7 @@
       </section>
     </ng-container>
   </app-content-body>
-</app-content>
+
 <ng-template #loading>
   <app-spinner></app-spinner>
 </ng-template>

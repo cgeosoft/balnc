@@ -1,8 +1,8 @@
-<app-content>
-  <app-content-body [padding]="false" [full]="true">
+
+  <app-content-body [padding]="false">
     <app-table [data$]="presentations$" [schema]="schema" [templates]="{files:files}"></app-table>
   </app-content-body>
-</app-content>
+
 
 <ng-template #files let-stats="item">
   <ng-container *ngIf="stats.filecount">

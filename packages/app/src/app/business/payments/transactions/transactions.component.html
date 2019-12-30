@@ -1,10 +1,10 @@
-<app-content>
-  <app-content-body [padding]="false" [full]="true">
+
+  <app-content-body [padding]="false">
     <app-table [data$]="transactions$" [schema]="schema"
       [templates]="{statusTpl:statusTpl,accountFromTpl:accountFromTpl,accountToTpl:accountToTpl}">
     </app-table>
   </app-content-body>
-</app-content>
+
 
 <ng-template #statusTpl let-transaction="item">
   <ng-container *ngIf="transaction.executed">

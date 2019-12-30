@@ -14,7 +14,7 @@ const urlRegex = /(https?:\/\/[^\s]+)/g
   selector: 'app-boards-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
-  host: { 'class': 'page' }
+
 })
 export class BoardComponent implements OnInit {
 

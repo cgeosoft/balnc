@@ -8,8 +8,7 @@ import { ContactsRepo } from '../../@shared/repos/contacts.repo'
 
 @Component({
   selector: 'app-contacts',
-  templateUrl: './contacts.component.html',
-  host: { 'class': 'page' }
+  templateUrl: './contacts.component.html'
 })
 export class ContactsComponent implements OnInit {
 

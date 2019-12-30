@@ -1,5 +1,5 @@
-<app-content>
-  <app-content-body [padding]="true" [full]="true">
+
+  <app-content-body [padding]="true">
     <ng-container *ngIf="transaction">
       <div class="form-group">
         <label>From</label>
@@ -24,4 +24,4 @@
     </ng-container>
     <pre>{{transaction|json:2}}</pre>
   </app-content-body>
-</app-content>
+

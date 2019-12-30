@@ -8,8 +8,7 @@ import { ContactsRepo } from '../../@shared/repos/contacts.repo'
 
 @Component({
   selector: 'app-agreements',
-  templateUrl: './agreements.component.html',
-  host: { 'class': 'page' }
+  templateUrl: './agreements.component.html'
 })
 export class AgreementsComponent implements OnInit {
   agreements$: Observable<Agreement[]>

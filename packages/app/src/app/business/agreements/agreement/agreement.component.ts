@@ -7,7 +7,7 @@ import { AgreementsRepo } from '../../@shared/repos/agreements.repo'
 @Component({
   selector: 'app-agreement',
   templateUrl: './agreement.component.html',
-  host: { 'class': 'page' }
+
 })
 export class AgreementComponent implements OnInit {
 

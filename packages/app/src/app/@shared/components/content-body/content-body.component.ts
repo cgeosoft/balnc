@@ -7,5 +7,4 @@ import { Component, HostBinding, Input } from '@angular/core'
 })
 export class ContentBodyComponent {
   @Input() @HostBinding('class.padding') padding: boolean = true
-  @Input() @HostBinding('class.full') full: boolean = false
 }

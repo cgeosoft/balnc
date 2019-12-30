@@ -1,4 +1,4 @@
-<app-content>
+
   <ng-container *ngIf="(document$ | async) as document">
     <app-content-header [title]="document.name" icon="file"></app-content-header>
     <app-content-body> <button (click)="addLine()">add line</button>
@@ -9,4 +9,4 @@
       <pre>{{document|json:2}}</pre>
     </app-content-body>
   </ng-container>
-</app-content>
+

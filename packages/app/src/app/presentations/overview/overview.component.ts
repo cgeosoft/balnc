@@ -8,7 +8,7 @@ import { PresentationsRepo } from '../@shared/repos/presentations.repo'
   selector: 'app-presentations-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.scss'],
-  host: { 'class': 'page' }
+
 })
 export class OverviewComponent implements OnInit {
 

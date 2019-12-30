@@ -12,8 +12,8 @@ import { ProjectsRepo } from '../@shared/repos/projects.repo'
 @Component({
   selector: 'app-projects-issue',
   templateUrl: 'issue.component.html',
-  styleUrls: ['./issue.component.scss'],
-  host: { 'class': 'page' }
+  styleUrls: ['./issue.component.scss']
+
 })
 export class IssueComponent implements OnInit {
 

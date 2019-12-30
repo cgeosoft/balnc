@@ -3,17 +3,17 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable, of } from 'rxjs'
 import { filter, switchMap, tap } from 'rxjs/operators'
-import { CreateProjectComponent } from '../create-project/create-project.component'
-import { IssueCreateComponent } from '../issue-create/issue-create.component'
-import { ProjectManageComponent } from '../project-manage/project-manage.component'
 import { Project } from '../@shared/models/all'
 import { ProjectsRepo } from '../@shared/repos/projects.repo'
 import { DemoService } from '../@shared/services/demo.service'
+import { CreateProjectComponent } from '../create-project/create-project.component'
+import { IssueCreateComponent } from '../issue-create/issue-create.component'
+import { ProjectManageComponent } from '../project-manage/project-manage.component'
 
 @Component({
   selector: 'app-projects-shell',
   templateUrl: './shell.component.html',
-  host: { 'class': 'shell' }
+
 })
 export class ShellComponent implements OnInit {
 

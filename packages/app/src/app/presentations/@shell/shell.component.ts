@@ -3,14 +3,14 @@ import { Router } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { CreateComponent } from '../create/create.component'
 import { Presentation } from '../@shared/models/presentation'
 import { PresentationsRepo } from '../@shared/repos/presentations.repo'
+import { CreateComponent } from '../create/create.component'
 
 @Component({
   selector: 'app-presentations-shell',
   templateUrl: './shell.component.html',
-  host: { 'class': 'shell' }
+
 })
 export class ShellComponent implements OnInit {
 

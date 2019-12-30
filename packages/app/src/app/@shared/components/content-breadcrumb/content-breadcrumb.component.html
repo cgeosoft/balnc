@@ -1,6 +1,0 @@
-<ng-container *ngFor="let item of items">
-  <li class="breadcrumb-item" *ngIf="item.url">
-    <a [routerLink]="item.url">{{item.label}}</a>
-  </li>
-  <li class="breadcrumb-item active" *ngIf="!item.url">{{item.label}}</li>
-</ng-container>

@@ -3,8 +3,8 @@ import { ContactsRepo } from '../@shared/repos/contacts.repo'
 
 @Component({
   selector: 'app-search',
-  templateUrl: './search.component.html',
-  host: { 'class': 'page' }
+  templateUrl: './search.component.html'
+
 })
 export class SearchComponent {
 

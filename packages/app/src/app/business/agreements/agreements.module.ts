@@ -19,8 +19,19 @@ import { CreateComponent } from './create/create.component'
     SharedModule,
     NgxPrintModule,
     RouterModule.forChild([
-      { path: '', component: AgreementsComponent },
-      { path: ':id', component: AgreementComponent }
+      {
+        path: '',
+        component: AgreementsComponent
+      },
+      {
+        path: ':id',
+        data: {
+          breadcrumb: {
+            label: '#Agreement'
+          }
+        },
+        component: AgreementComponent
+      }
     ])
   ]
 })

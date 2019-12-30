@@ -1,0 +1,69 @@
+<div *ngIf="breadcrumb" class="page-breadcrumb">
+  <div [ngClass]="layout">
+    <ul class="breadcrumb">
+      <ng-container *ngFor="let breadcrumb of breadcrumbs">
+        <li class="breadcrumb-item">
+          <a [routerLink]='[breadcrumb.url]' routerLinkActive='active'>
+            {{ breadcrumb.label }}</a>
+        </li>
+      </ng-container>
+    </ul>
+    <!-- <pre>{{ breadcrumbs | json }}</pre> -->
+  </div>
+</div>
+<div class="page-wrapper" [ngClass]="layout">
+  <app-sidebar *ngIf="menu" class="page-sidebar">
+    <div *ngIf="search" class="search">
+      <input class="form-control" placeholder="search..." [ngbTypeahead]="search.typeaheadFn" [(ngModel)]="search.term"
+        [resultFormatter]="search.formatter" (selectItem)="search.select($event)">
+      <a *ngIf="search.advanced" [routerLink]="search.advanced">advanced search</a>
+    </div>
+    <div class="menu">
+      <ng-container *ngFor="let i of menu.items">
+        <ng-container [ngSwitch]="i.type">
+          <ng-container *ngSwitchCase="'DIVIDER'">
+            <div class="divider"></div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'PAGE'">
+            <ng-container *ngIf="i.items">
+              <div class="item">
+                <fa-icon [icon]="i.icon" class="icon"></fa-icon>
+                <span>{{i.label}}</span>
+              </div>
+              <div class="submenu">
+                <div class="menu">
+                  <ng-container *ngFor="let s of i.items">
+                    <a [routerLink]="s.url" routerLinkActive="active">
+                      <fa-icon [icon]="s.icon" class="icon"></fa-icon>
+                      <span>{{s.label}}</span>
+                    </a>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="!i.items">
+              <a [routerLink]="i.url" routerLinkActive="active" [ngClass]="{disabled:!i.url}">
+                <fa-icon [icon]="i.icon" class="icon"></fa-icon>
+                <span>{{i.label}}</span>
+              </a>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </app-sidebar>
+  <div class="page-content">
+    <ng-content></ng-content>
+  </div>
+</div>
+<ng-template #loader>
+  <div class="text-center p-4">
+    <fa-icon icon="sync" [spin]="true" size="lg"></fa-icon>
+  </div>
+</ng-template>
+<ng-template #empty>
+  <app-empty icon="desktop"></app-empty>
+</ng-template>
+<ng-template #noThumb>
+  <fa-icon [icon]="['fas','desktop']"></fa-icon>
+</ng-template>

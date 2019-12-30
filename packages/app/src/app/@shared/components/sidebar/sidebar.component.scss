@@ -13,7 +13,6 @@ $sidebar-font: #666;
   width: 200px;
   background: $sidebar-background;
   transition: all 0.5s;
-  padding: 0.5rem;
 }
 
 :host ::ng-deep > .form-control-search {
@@ -116,6 +115,7 @@ $sidebar-font: #666;
 :host ::ng-deep .menu {
   > button,
   > .submenu > a,
+  > .item,
   > a {
     @extend .d-flex;
     @extend .flex-row;
@@ -277,12 +277,6 @@ $sidebar-font: #666;
   .submenu {
     .menu {
       @extend .pl-3;
-      @extend .d-none;
-    }
-    &.active {
-      .menu {
-        @extend .d-block;
-      }
     }
   }
 }
@@ -308,7 +302,7 @@ $sidebar-font: #666;
   margin-bottom: 0;
 }
 
-:host ::ng-deep > .divider {
+:host ::ng-deep .divider {
   @extend .m-2;
   background: darken($sidebar-background, 10);
   height: 1px;

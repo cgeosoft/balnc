@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-main-shell',
-  templateUrl: './main-shell.component.html',
-  styleUrls: ['./main-shell.component.scss']
+  templateUrl: './@shell.component.html',
+  styleUrls: ['./@shell.component.scss']
 })
-export class MainShellComponent implements OnInit {
+export class MainShellComponent {
 
   username: string
 
@@ -23,7 +23,7 @@ export class MainShellComponent implements OnInit {
   menu: any[] = []
 
   constructor (
-    private configService: ConfigService,
+    private config: ConfigService,
     private router: Router,
     private toastr: ToastrService
   ) {
@@ -32,20 +32,8 @@ export class MainShellComponent implements OnInit {
     })
   }
 
-  ngOnInit () {
-  }
-
-  getSize () {
-    switch (this.configService.profile.layout) {
-      case 'FLUID':
-        return {
-          'container-fluid': true
-        }
-      case 'BOX':
-        return {
-          'container': true
-        }
-    }
+  get layout () {
+    return this.config.profile.layout
   }
 
   private _navigationInterceptor (event: RouterEvent): void {

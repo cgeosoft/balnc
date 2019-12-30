@@ -1,19 +1,9 @@
 @import "theme";
 
 :host {
-  @extend .w-100;
-  @extend .card;
-  @extend .p-0;
-  @extend .shadow;
-  @extend .rounded;
-  @extend .overflow-hidden;
+  @extend .h-100;
   &.padding {
     @extend .p-4;
-  }
-  &.full {
-    @extend .h-100;
-    @extend .overflow-auto;
-    @extend .flex-shrink-1;
   }
 }
 
@@ -27,7 +17,7 @@
     content: "";
     width: 50%;
     height: 1px;
-    background: #EEE;
+    background: #eee;
   }
 
   &:last-child {

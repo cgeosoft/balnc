@@ -11,7 +11,7 @@ import { DemoService } from '../../@shared/services/demo.service'
 @Component({
   selector: 'app-payments-overview',
   templateUrl: './overview.component.html',
-  host: { 'class': 'page' }
+
 })
 export class OverviewComponent implements OnInit {
 

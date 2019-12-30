@@ -4,8 +4,6 @@ import { DemoService } from '../@shared/services/demo.service'
 @Component({
   selector: 'app-business-settings',
   templateUrl: './settings.component.html',
-  host: { 'class': 'page' }
-
 })
 export class SettingsComponent {
   generating: boolean

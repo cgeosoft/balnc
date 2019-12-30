@@ -10,7 +10,7 @@ import { LinesRepo } from '../@shared/repos/lines.repo'
   selector: 'app-documents-document',
   templateUrl: './document.component.html',
   styleUrls: ['./document.component.scss'],
-  host: { 'class': 'page' }
+
 })
 export class DocumentComponent implements OnInit {
 

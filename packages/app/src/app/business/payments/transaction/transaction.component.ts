@@ -7,7 +7,7 @@ import { TransactionsRepo } from '../../@shared/repos/transactions.repo'
 @Component({
   selector: 'app-transaction',
   templateUrl: './transaction.component.html',
-  host: { 'class': 'page' }
+
 })
 export class TransactionComponent implements OnInit {
 

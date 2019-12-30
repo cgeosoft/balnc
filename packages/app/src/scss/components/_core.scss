@@ -32,13 +32,6 @@ a {
   width: 120px;
 }
 
-.shell,
-.page {
-  @extend .d-flex;
-  @extend .w-100;
-  @extend .h-100;
-}
-
 .table-double {
   td {
     vertical-align: middle;

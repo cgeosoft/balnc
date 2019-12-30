@@ -1,6 +1,6 @@
-<app-content>
+
   <ng-container *ngIf="(board$ | async) as board; else noboard">
-    <app-content-body [full]="true" [padding]="false">
+    <app-content-body [padding]="false">
       <div class="card card-chat d-flex h-100">
         <div class="card-header d-flex align-items-center justify-content-between">
           <span>{{board.name}}</span>
@@ -92,7 +92,7 @@
       </div>
     </app-content-body>
   </ng-container>
-</app-content>
+
 
 <ng-template #noboard>
   <app-empty message="No board selected" icon="comments:regular"></app-empty>

@@ -1,5 +1,5 @@
-<app-content>
-  <app-content-body [padding]="true" [full]="true">
+
+  <app-content-body [padding]="true">
     <ng-container *ngIf="account">
       <div class="form-group">
         <label>Name</label>
@@ -12,4 +12,4 @@
     </ng-container>
     <pre>{{account|json:2}}</pre>
   </app-content-body>
-</app-content>
+

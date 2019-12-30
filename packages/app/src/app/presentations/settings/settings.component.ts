@@ -3,8 +3,7 @@ import { PresentationsService } from '../@shared/services/presentations.service'
 
 @Component({
   selector: 'app-presentations-settings',
-  templateUrl: './settings.component.html',
-  host: { 'class': 'page' }
+  templateUrl: './settings.component.html'
 
 })
 export class SettingsComponent {

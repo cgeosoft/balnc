@@ -1,5 +1,5 @@
 <ng-container *ngIf="agreement">
-  <app-content>
+
     <app-content-body>
       <div class="btn-toolbar">
         <button class="btn btn-secondary" styleSheetFile="/assets/css/print.css" printSectionId="print-section"
@@ -22,12 +22,12 @@
         </div>
       </div>
     </app-content-body>
-    <app-content-body [full]="true">
+    <app-content-body>
       <textarea #content *ngIf="editDesc" class="form-control h-100" style="box-shadow:none;background: #FAFAFA"
         placeholder="content..." [value]="agreement.content" (blur)="updateDesc(content.value)"></textarea>
       <div id="print-section" *ngIf="!editDesc" (click)="enableEdit()">
         <markdown [data]="agreement.content"></markdown>
       </div>
     </app-content-body>
-  </app-content>
+
 </ng-container>

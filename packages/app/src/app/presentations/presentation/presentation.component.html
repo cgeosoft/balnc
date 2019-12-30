@@ -1,9 +1,9 @@
 <ng-container *ngIf="presentation; else emptyPresentation">
-  <app-content>
+
     <app-content-header [menu]="menu"></app-content-header>
 
     <ng-container *ngIf="menu.selected === 'overview'">
-      <app-content-body [full]="true">
+      <app-content-body>
 
         <div class="row">
           <div class="col-lg-3">
@@ -180,7 +180,7 @@
 
       <ng-container *ngIf="(slides$ | async) as slides">
         <ng-container *ngIf="slides.length > 0; else noPages">
-          <app-content-body [full]="true" [padding]="false">
+          <app-content-body [padding]="false">
             <img class="img-fluid" [src]="previews[active]">
             <div class="p-4">
               <div>{{slides[active].title || 'without title'}}</div>
@@ -192,13 +192,13 @@
 
     </ng-container>
 
-    <app-content-body *ngIf="menu.selected === 'raw'" [full]="true">
+    <app-content-body *ngIf="menu.selected === 'raw'">
       <app-debug title="presentation" [data]="presentation"></app-debug>
       <ng-container *ngIf="(slides$ | async) as slides">
         <app-debug title="slides" [data]="slides"></app-debug>
       </ng-container>
     </app-content-body>
-  </app-content>
+
 </ng-container>
 
 <div #presentElem class="present">

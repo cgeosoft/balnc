@@ -8,8 +8,7 @@ import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-settings-shell',
-  templateUrl: './shell.component.html',
-  host: { 'class': 'shell' }
+  templateUrl: './shell.component.html'
 })
 export class ShellComponent implements OnInit {
 
@@ -18,6 +17,27 @@ export class ShellComponent implements OnInit {
   plugins: Plugin[] = []
 
   helperService = Helpers
+
+  menu = {
+    items: [{
+      url: '/settings/general',
+      icon: 'cog',
+      type: 'PAGE',
+      label: 'Configure'
+    },
+    {
+      url: '/settings/plugins',
+      icon: 'box',
+      type: 'PAGE',
+      label: 'Plugins'
+    },
+    {
+      url: '/settings/about',
+      icon: 'info-circle',
+      type: 'PAGE',
+      label: 'About'
+    }]
+  }
 
   constructor (
     public configService: ConfigService,

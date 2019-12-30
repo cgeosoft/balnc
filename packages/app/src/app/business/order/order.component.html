@@ -1,6 +1,6 @@
 <ng-container *ngIf="order$ | async as order; else loader">
   <ng-container *ngIf="order; else empty">
-    <app-content>
+
 
       <div class="bg-light">
         <div class="container">
@@ -28,7 +28,7 @@
         </div>
       </app-content-body>
 
-    </app-content>
+
   </ng-container>
 </ng-container>
 

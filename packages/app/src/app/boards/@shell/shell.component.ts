@@ -11,7 +11,7 @@ import { MessagesRepo } from '../@shared/repos/messages.repo'
   selector: 'app-boards-shell',
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss'],
-  host: { 'class': 'shell' }
+
 })
 export class ShellComponent implements OnInit {
 

@@ -10,8 +10,8 @@ import { ProjectsRepo } from '../@shared/repos/projects.repo'
 @Component({
   selector: 'app-projects-project',
   templateUrl: 'project.component.html',
-  styleUrls: ['./project.component.scss'],
-  host: { 'class': 'page' }
+  styleUrls: ['./project.component.scss']
+
 })
 export class ProjectComponent implements OnInit {
 

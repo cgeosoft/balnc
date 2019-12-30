@@ -17,7 +17,7 @@
       </div>
     </div>
   </app-content-body>
-  <app-content-body [padding]="false" [full]="true">
+  <app-content-body [padding]="false">
     <div class="d-flex h-100">
       <div class="flex-grow-1 d-flex flex-column p-4">
         <h2 #title contenteditable="true" (blur)="updateTitle(title.innerText)" class="pb-2 border-bottom">
@@ -92,7 +92,7 @@
       </div>
     </div>
   </app-content-body>
-</app-content>
+
 
 <ng-template #emptyLogs>
   <app-empty message="You don't have any logs"> </app-empty>

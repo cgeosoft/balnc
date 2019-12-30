@@ -1,5 +1,5 @@
-<app-content>
-  <app-content-body [padding]="false" [full]="true">
+
+  <app-content-body [padding]="false">
     <ng-container *ngIf="(logs$ | async) as logs; else loader">
       <ng-container *ngIf="logs.length; else nologs">
         <table class="table">
@@ -25,7 +25,7 @@
 
   </app-content-body>
 
-</app-content>
+
 
 <ng-template #nologs>
   <app-empty message="You don't have any logs yet" icon="file-alt:regular"></app-empty>

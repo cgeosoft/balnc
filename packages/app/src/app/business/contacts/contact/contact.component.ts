@@ -12,7 +12,7 @@ import { StateService } from '../../@shared/services/state.service'
 @Component({
   selector: 'app-contacts-contact',
   templateUrl: './contact.component.html',
-  host: { 'class': 'page' }
+
 })
 export class ContactComponent implements OnInit {
 
@@ -57,40 +57,40 @@ export class ContactComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    this.contact$ = this.route
-      .params
-      .pipe(
-        mergeMap(params => this.contactsRepo.one$(params['id'])),
-        // map((params) => {
-        //   return {
-        //     contact: this.contactsService.getContact(params['id']),
-        //     cevents: this.contactsService.db['cevents'].$.find().where('contact').eq(params['id']).exec()
-        //   }
-        // }),
-        tap(async (contact) => {
-          if (!contact) {
-            await this.router.navigate([`/business/contacts`])
-            return
-          }
-          this.stateService.add({
-            key: contact._id,
-            label: contact.name,
-            sublabel: contact._id,
-            image: contact.details.avatar,
-            route: [`/business/contacts`, contact._id],
-            type: ContactType[contact.type]
-          })
-          this.cevents$ = this.ceventsRepo.all$().pipe(
-            map((cevents: CEvent[]) => cevents.filter((cevent) => cevent.contact === contact._id)),
-            tap((cevents: CEvent[]) => cevents.sort((a, b) => b._timestamp - a._timestamp))
-          )
 
-          this.breadcrumb = [
-            { url: ['/business/contacts'], label: 'Contacts' },
-            { label: contact.name }
-          ]
+    this.contact$ = this.route.params.pipe(
+      mergeMap(params => this.contactsRepo.one$(params['id'])),
+      // map((params) => {
+      //   return {
+      //     contact: this.contactsService.getContact(params['id']),
+      //     cevents: this.contactsService.db['cevents'].$.find().where('contact').eq(params['id']).exec()
+      //   }
+      // }),
+      tap(async (contact) => {
+        if (!contact) {
+          await this.router.navigate([`/business/contacts`])
+          return
+        }
+        this.stateService.add({
+          key: contact._id,
+          label: contact.name,
+          sublabel: contact._id,
+          image: contact.details.avatar,
+          route: [`/business/contacts`, contact._id],
+          type: ContactType[contact.type]
         })
-      )
+        this.cevents$ = this.ceventsRepo.all$().pipe(
+          map((cevents: CEvent[]) => cevents.filter((cevent) => cevent.contact === contact._id)),
+          tap((cevents: CEvent[]) => cevents.sort((a, b) => b._timestamp - a._timestamp))
+        )
+
+        this.breadcrumb = [
+          { url: ['/business/contacts'], label: 'Contacts' },
+          { label: contact.name }
+        ]
+        this.route.snapshot.data.breadcrumb.label = contact.name
+      })
+    )
   }
 
   async createOrder () {

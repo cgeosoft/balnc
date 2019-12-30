@@ -9,7 +9,7 @@ import { RemoteComponent } from '../remote/remote.component'
 @Component({
   selector: 'app-settings-general',
   templateUrl: './general.component.html',
-  host: { 'class': 'page' }
+
 })
 export class GeneralComponent implements OnInit {
 

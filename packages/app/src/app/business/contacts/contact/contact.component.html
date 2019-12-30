@@ -1,10 +1,10 @@
 <ng-container *ngIf="contact$ | async as contact; else loader">
   <ng-container *ngIf="contact; else empty">
-    <app-content>
+
       <app-content-header [menu]="menu"></app-content-header>
 
       <ng-container *ngIf="menu.selected === 'timeline'">
-        <app-content-body [padding]="false" [full]="true">
+        <app-content-body [padding]="false">
           <div class="btn-toolbar p-3">
             <button class="btn btn-primary" (click)="createOrder()">New Order</button>
           </div>
@@ -75,7 +75,7 @@
 
       </app-content-body>
 
-    </app-content>
+
   </ng-container>
 </ng-container>
 

@@ -4,16 +4,21 @@
   @extend .d-flex;
   @extend .flex-column;
   @extend .h-100;
-  .wrapper {
+
+  .main-wrapper {
     @extend .d-flex;
     @extend .h-100;
     overflow: hidden;
     background: darken($body-bg, 5);
 
-    .content {
+    .container,
+    .container-fluid{
+      @extend .p-0;
+    }
+
+    .main-content {
       @extend .h-100;
       @extend .w-100;
-      @extend .p-4;
       position: relative;
 
       .page-loader {

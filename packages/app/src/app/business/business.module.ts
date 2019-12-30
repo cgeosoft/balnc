@@ -24,20 +24,57 @@ import { SettingsComponent } from './settings/settings.component'
     SharedModule,
     RouterModule.forChild([{
       path: '',
+      data: {
+        breadcrumb: {
+          label: 'Business'
+        }
+      },
       component: ShellComponent,
       children: [
-        { path: 'orders/:id', component: OrderComponent },
-        { path: 'search', component: SearchComponent },
-        { path: 'invoices/:id', component: InvoiceComponent },
-        { path: 'settings', component: SettingsComponent },
+        {
+          path: 'orders/:id',
+          data: {
+            breadcrumb: {
+              label: '#Order'
+            }
+          },
+          component: OrderComponent
+        },
+        {
+          path: 'search',
+          component: SearchComponent
+        },
+        {
+          path: 'invoices/:id',
+          component: InvoiceComponent
+        },
+        {
+          path: 'settings',
+          data: {
+            breadcrumb: {
+              label: 'Settings'
+            }
+          },
+          component: SettingsComponent
+        },
         {
           path: 'contacts',
+          data: {
+            breadcrumb: {
+              label: 'Contacts'
+            }
+          },
           loadChildren: './contacts/contacts.module#ContactsModule'
         }, {
           path: 'payments',
           loadChildren: './payments/payments.module#PaymentsModule'
         }, {
           path: 'agreements',
+          data: {
+            breadcrumb: {
+              label: 'Agreements'
+            }
+          },
           loadChildren: './agreements/agreements.module#AgreementsModule'
         },
         { path: '', redirectTo: 'contacts', pathMatch: 'full' }

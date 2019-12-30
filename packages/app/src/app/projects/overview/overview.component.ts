@@ -7,8 +7,8 @@ import { PEventsRepo } from '../@shared/repos/pevents.repo'
 @Component({
   selector: 'app-projects-overview',
   templateUrl: 'overview.component.html',
-  styleUrls: ['./overview.component.scss'],
-  host: { 'class': 'page' }
+  styleUrls: ['./overview.component.scss']
+
 })
 export class OverviewComponent implements OnInit {
 
