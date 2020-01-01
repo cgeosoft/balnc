@@ -24,8 +24,8 @@ export class AgreementsRepo extends Repository<Agreement> {
       contact: agreement.contact,
       type: CEventType.AgreementCreated,
       comment: `new agreement #${agreement.serial}`,
-      reference: `/business/agreements/${data._id}`
-    })
+      reference: `/business/agreements/${agreement._id}`
+    }, agreement.contact)
     return agreement
   }
 

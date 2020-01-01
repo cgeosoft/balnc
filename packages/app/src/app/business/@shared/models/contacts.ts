@@ -16,6 +16,7 @@ export interface Contact extends Entity {
   tags: string[]
   details: {
     avatar?: string
+    description?: string
     phones?: string[]
     emails?: string[]
     socials?: string[]

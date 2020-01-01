@@ -1,0 +1,15 @@
+@import "theme";
+
+:host {
+  .list-group-customer-menu {
+    @extend .mb-3;
+    .list-group-item {
+      @extend .py-2;
+      @extend .px-3;
+      &.active{
+        @extend .bg-dark;
+        @extend .border-dark;
+      }
+    }
+  }
+}

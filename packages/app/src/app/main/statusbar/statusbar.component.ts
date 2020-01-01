@@ -39,7 +39,7 @@ export class StatusbarComponent implements OnInit {
       url += `/${routeURL}`
 
     }
-    console.log(route, child.snapshot.data.breadcrumb)
+    // console.log(route, child.snapshot.data.breadcrumb)
     if (child.snapshot.data.breadcrumb) {
       breadcrumbs.push({ label: child.snapshot.data.breadcrumb.label, url })
     }

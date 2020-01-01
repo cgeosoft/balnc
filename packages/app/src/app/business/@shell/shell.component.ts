@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
-import { MENU } from '../@shared/models/constants'
+import { BUSINESS_SIDEBAR } from '../@shared/models/constants'
 import { Contact, ContactType } from '../@shared/models/contacts'
 import { ContactsRepo } from '../@shared/repos/contacts.repo'
 
@@ -14,21 +14,20 @@ import { ContactsRepo } from '../@shared/repos/contacts.repo'
 export class ShellComponent {
 
   contactType = ContactType
-  search: any = {
-    term: null,
-    typeaheadFn: this.typeaheadFn,
-    formatter: this.formatter,
-    select: this.select
-  }
   generating = false
 
-  menu = MENU
+  sidebar = BUSINESS_SIDEBAR
 
   constructor (
     private contactsService: ContactsRepo,
     private router: Router
   ) {
-    this.menu['search'] = this.search
+    this.sidebar.search = {
+      term: null,
+      typeaheadFn: this.typeaheadFn,
+      formatter: this.formatter,
+      select: this.select
+    }
   }
 
   get typeaheadFn () {
@@ -54,7 +53,7 @@ export class ShellComponent {
   async select ($event) {
     $event.preventDefault()
     const contact = $event.item as Contact
-    this.search.term = null
+    this.sidebar.search.term = null
     await this.router.navigate(['/business/contacts', contact._id])
   }
 }

@@ -12,7 +12,7 @@ import { StateService } from '../../@shared/services/state.service'
 @Component({
   selector: 'app-contacts-contact',
   templateUrl: './contact.component.html',
-
+  styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
 
@@ -32,20 +32,21 @@ export class ContactComponent implements OnInit {
     ]
   }
 
-  menu = {
-    selected: 'timeline',
-    items: [{
-      id: 'timeline',
-      label: 'Timeline'
-    }, {
-      id: 'manage',
-      label: 'Manage'
-    }, {
-      id: 'raw',
-      label: 'Raw Data'
-    }]
-  }
-  breadcrumb
+  menu = [
+    {
+      items: [
+        { label: 'Timeline', url: 'timeline', relative: true },
+        { label: 'Manage', url: 'manage', relative: true }
+      ]
+    },
+    {
+      items: [
+        { label: 'Agreements', url: '/business/agreements' },
+        { label: 'Orders', url: '/business/orders' },
+        { label: 'Invoices', url: '/business/invoices' }
+      ]
+    }
+  ]
 
   constructor (
     private route: ActivatedRoute,
@@ -84,10 +85,6 @@ export class ContactComponent implements OnInit {
           tap((cevents: CEvent[]) => cevents.sort((a, b) => b._timestamp - a._timestamp))
         )
 
-        this.breadcrumb = [
-          { url: ['/business/contacts'], label: 'Contacts' },
-          { label: contact.name }
-        ]
         this.route.snapshot.data.breadcrumb.label = contact.name
       })
     )

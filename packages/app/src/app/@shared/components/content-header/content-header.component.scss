@@ -7,6 +7,7 @@ $content-header-height: 42px;
   @extend .flex-column;
   @extend .align-items-center;
   @extend .mb-2;
+  @extend .p-2;
 
   .header-title {
     @extend .d-flex;

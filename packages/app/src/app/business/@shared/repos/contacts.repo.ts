@@ -19,7 +19,7 @@ export class ContactsRepo extends Repository<Contact> {
     await this.ceventsService.add({
       contact: contact._id,
       type: CEventType.ContactCreated
-    })
+    },contact._id)
     return contact
   }
 }

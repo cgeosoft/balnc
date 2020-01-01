@@ -1,5 +1,7 @@
-export const MENU = {
-  items: [
+export const BUSINESS_SIDEBAR = {
+  title: 'Business',
+  search: null,
+  menu: [
     {
       label: 'Overview',
       type: 'PAGE',

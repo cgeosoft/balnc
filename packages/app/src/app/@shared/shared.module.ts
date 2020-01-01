@@ -19,7 +19,6 @@ import { EmptyComponent } from './components/empty/empty.component'
 import { FooterComponent } from './components/footer/footer.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 import { PageComponent } from './components/page/page.component'
-import { SidebarComponent } from './components/sidebar/sidebar.component'
 import { SpinnerComponent } from './components/spinner/spinner.component'
 import { PaginatePipe } from './components/table/paginate.pipe'
 import { SearchPipe } from './components/table/search.pipe'
@@ -53,7 +52,6 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     EmptyComponent,
     FooterComponent,
     PageNotFoundComponent,
-    SidebarComponent,
     SpinnerComponent,
     TableComponent,
 
@@ -90,7 +88,6 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     DebugComponent,
     EmptyComponent,
     FooterComponent,
-    SidebarComponent,
     SpinnerComponent,
     TableComponent,
     SearchPipe
