@@ -7,9 +7,35 @@ export const SettingsRoutes = [{
   path: '',
   component: ShellComponent,
   children: [
-    { path: 'general', component: GeneralComponent },
-    { path: 'plugins', component: PluginsComponent },
-    { path: 'about', component: AboutComponent },
+    {
+      path: 'general',
+      data: {
+        breadcrumb: {
+          label: 'General'
+        }
+      },
+      component: GeneralComponent
+    },
+    {
+      path: 'plugins',
+
+      data: {
+        breadcrumb: {
+          label: 'Plugins'
+        }
+      },
+      component: PluginsComponent
+    },
+    {
+      path: 'about',
+
+      data: {
+        breadcrumb: {
+          label: 'About '
+        }
+      },
+      component: AboutComponent
+    },
     {
       path: '',
       pathMatch: 'full',

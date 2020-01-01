@@ -7,18 +7,6 @@
   @extend .h-100;
   @extend .w-100;
 
-  .page-breadcrumb {
-    @extend .bg-light;
-    @extend .p-2;
-    @extend .shadow-sm;
-    font-size: small;
-    .breadcrumb{
-      @extend .bg-transparent;
-      @extend .p-0;
-      @extend .m-0;
-    }
-  }
-
   .page-wrapper {
     @extend .p-3;
     @extend .d-flex;

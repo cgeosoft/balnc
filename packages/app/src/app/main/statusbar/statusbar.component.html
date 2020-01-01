@@ -1,7 +1,15 @@
 <div class="menu">
-  <div class=" text-center px-0" style="width:90px;">v{{version}}</div>
+  <ul class="breadcrumb">
+    <ng-container *ngFor="let breadcrumb of breadcrumbs">
+      <li class="breadcrumb-item">
+        <a class="item" [routerLink]='[breadcrumb.url]' routerLinkActive='active'>
+          {{ breadcrumb.label }}</a>
+      </li>
+    </ng-container>
+  </ul>
 </div>
 <div class="menu">
+  <div class="text-center px-0" style="width:90px;">v{{version}}</div>
   <button *ngIf="profile.layout === 'container'" class="item" (click)="toggleLayout('container-fluid')">
     <fa-icon icon="compress-arrows-alt"></fa-icon> box
   </button>

@@ -1,16 +1,3 @@
-<div *ngIf="breadcrumb" class="page-breadcrumb">
-  <div [ngClass]="layout">
-    <ul class="breadcrumb">
-      <ng-container *ngFor="let breadcrumb of breadcrumbs">
-        <li class="breadcrumb-item">
-          <a [routerLink]='[breadcrumb.url]' routerLinkActive='active'>
-            {{ breadcrumb.label }}</a>
-        </li>
-      </ng-container>
-    </ul>
-    <!-- <pre>{{ breadcrumbs | json }}</pre> -->
-  </div>
-</div>
 <div class="page-wrapper" [ngClass]="layout">
   <app-sidebar *ngIf="menu" class="page-sidebar">
     <div *ngIf="search" class="search">

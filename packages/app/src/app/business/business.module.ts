@@ -59,23 +59,23 @@ import { SettingsComponent } from './settings/settings.component'
         },
         {
           path: 'contacts',
+          loadChildren: './contacts/contacts.module#ContactsModule',
           data: {
             breadcrumb: {
               label: 'Contacts'
             }
-          },
-          loadChildren: './contacts/contacts.module#ContactsModule'
+          }
         }, {
           path: 'payments',
           loadChildren: './payments/payments.module#PaymentsModule'
         }, {
           path: 'agreements',
+          loadChildren: './agreements/agreements.module#AgreementsModule',
           data: {
             breadcrumb: {
               label: 'Agreements'
             }
-          },
-          loadChildren: './agreements/agreements.module#AgreementsModule'
+          }
         },
         { path: '', redirectTo: 'contacts', pathMatch: 'full' }
       ]

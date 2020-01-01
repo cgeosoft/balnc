@@ -1,29 +1,15 @@
-<div class="profile">
-  <a routerLink="/dashboard">
-    <img src="assets/icons/favicon-32x32.png" alt="logo">
-  </a>
-</div>
-<div class="divider"></div>
 <div class="menu">
-  <a class="item" routerLinkActive="active" routerLink="/dashboard">
+  <a class="item" routerLinkActive="active" routerLink="/dashboard" ngbTooltip="Dashboard" placement="right">
     <fa-icon icon="home"></fa-icon>
   </a>
   <ng-container *ngFor="let plugin of enabledPlugins">
     <a class="item" routerLinkActive="active" [routerLink]="['/',plugin.id]" [ngStyle]="{color:plugin.color}"
-   [ngbTooltip]="plugin.label" placement="right">
+      [ngbTooltip]="plugin.label" placement="right">
       <fa-icon [icon]="plugin.icon"></fa-icon>
     </a>
   </ng-container>
-</div>
-
-<div class="menu mt-auto mb-2">
-  <a class="item" routerLink="/settings" routerLinkActive="active">
+  <div class="divider"></div>
+  <a class="item" routerLink="/settings" routerLinkActive="active" ngbTooltip="Settings" placement="right">
     <fa-icon [icon]="['fas','cog']"></fa-icon>
   </a>
 </div>
-
-<!-- <a href="javascript:void(0)" (click)="toggleMenu()" class="toggle">
-  <fa-layers class="fa-fw">
-    <fa-icon [icon]="['fas','angle-right']"></fa-icon>
-  </fa-layers>
-</a> -->

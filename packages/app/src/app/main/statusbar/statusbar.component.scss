@@ -11,6 +11,15 @@
     @extend .d-flex;
     @extend .align-items-center;
 
+    .breadcrumb {
+      @extend .bg-transparent;
+      @extend .p-0;
+      @extend .m-0;
+      @extend .py-1;
+      @extend .px-2;
+      font-size: small;
+    }
+
     .item {
       @extend .py-1;
       @extend .px-2;

@@ -5,10 +5,10 @@ $appbar-width: 60px;
 :host {
   @extend .d-flex;
   @extend .flex-column;
-  @extend .justify-content-start;
-  @extend .shadow;
-  @extend .bg-dark;
+  @extend .justify-content-center;
+  // @extend .shadow;
   @extend .text-center;
+  @extend .bg-transparent;
   @extend .overflow-hidden;
   min-width: $appbar-width;
   width: $appbar-width;
@@ -33,12 +33,15 @@ $appbar-width: 60px;
   }
 
   .menu {
+    @extend .bg-dark;
+    border-radius: 0 1rem 1rem 0;
     @extend .d-flex;
     @extend .flex-column;
     @extend .justify-content-start;
     overflow-y: auto;
     min-width: $appbar-width;
     width: $appbar-width;
+    padding: .8rem 0;
 
     a.item {
       border-radius: 0.7rem;
@@ -65,6 +68,9 @@ $appbar-width: 60px;
       &.active {
         background: lighten($color: $dark, $amount: 5%);
         border-color: lighten($color: $dark, $amount: 7%);
+      }
+      &:last-child{
+        margin-bottom: 0;
       }
     }
   }

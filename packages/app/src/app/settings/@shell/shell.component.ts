@@ -23,7 +23,7 @@ export class ShellComponent implements OnInit {
       url: '/settings/general',
       icon: 'cog',
       type: 'PAGE',
-      label: 'Configure'
+      label: 'General Settings'
     },
     {
       url: '/settings/plugins',
