@@ -10,8 +10,8 @@ import { filter } from 'rxjs/operators'
 })
 export class PageComponent {
   @Input() breadcrumb: boolean = false
-  @Input() menu = []
-  @Input() search = {}
+  @Input() menu = null
+  @Input() search = null
 
   breadcrumbs = []
 
