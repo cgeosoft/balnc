@@ -1,15 +1,15 @@
 <div class="menu">
-  <a class="item" routerLinkActive="active" routerLink="/dashboard" ngbTooltip="Dashboard" placement="right">
+  <a class="item" routerLinkActive="active" routerLink="/dashboard" ngbTooltip="Dashboard" placement="right" container="body">
     <fa-icon icon="home"></fa-icon>
   </a>
   <ng-container *ngFor="let plugin of enabledPlugins">
     <a class="item" routerLinkActive="active" [routerLink]="['/',plugin.id]" [ngStyle]="{color:plugin.color}"
-      [ngbTooltip]="plugin.label" placement="right">
+      [ngbTooltip]="plugin.label" placement="right" container="body">
       <fa-icon [icon]="plugin.icon"></fa-icon>
     </a>
   </ng-container>
   <div class="divider"></div>
-  <a class="item" routerLink="/settings" routerLinkActive="active" ngbTooltip="Settings" placement="right">
+  <a class="item" routerLink="/settings" routerLinkActive="active" ngbTooltip="Settings" placement="right" container="body">
     <fa-icon [icon]="['fas','cog']"></fa-icon>
   </a>
 </div>

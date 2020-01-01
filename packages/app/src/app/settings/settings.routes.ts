@@ -6,6 +6,11 @@ import { PluginsComponent } from './plugins/plugins.component'
 export const SettingsRoutes = [{
   path: '',
   component: ShellComponent,
+  data: {
+    breadcrumb: {
+      label: 'Settings'
+    }
+  },
   children: [
     {
       path: 'general',
