@@ -1,20 +1,22 @@
-
-  <app-content-body [padding]="false">
-    <app-table [data$]="transactions$" [schema]="schema"
-      [templates]="{statusTpl:statusTpl,accountFromTpl:accountFromTpl,accountToTpl:accountToTpl}">
-    </app-table>
-  </app-content-body>
+<app-content-body [full]="true" [padding]="false">
+  <app-table [data$]="transactions$" [schema]="schema"
+    [templates]="{statusTpl:statusTpl,accountFromTpl:accountFromTpl,accountToTpl:accountToTpl}">
+  </app-table>
+</app-content-body>
 
 
 <ng-template #statusTpl let-transaction="item">
   <ng-container *ngIf="transaction.executed">
-    <fa-icon icon="check-circle" class="text-success mr-2" ngbTooltip="executed" container="body"></fa-icon> {{transaction.executed | date:"short"}}
+    <fa-icon icon="check-circle" class="text-success mr-2" ngbTooltip="executed" container="body"></fa-icon>
+    {{transaction.executed | date:"short"}}
   </ng-container>
   <ng-container *ngIf="!transaction.executed && transaction.planned">
-    <fa-icon icon="check-circle" class="text-primary mr-2" ngbTooltip="planned" container="body"></fa-icon> {{transaction.planned | date:"short"}}
+    <fa-icon icon="check-circle" class="text-primary mr-2" ngbTooltip="planned" container="body"></fa-icon>
+    {{transaction.planned | date:"short"}}
   </ng-container>
   <ng-container *ngIf="!transaction.executed && !transaction.planned">
-    <fa-icon icon="check-circle" class="text-warning mr-2" ngbTooltip="pending" container="body"></fa-icon> {{transaction.planned | date:"short"}}
+    <fa-icon icon="check-circle" class="text-warning mr-2" ngbTooltip="pending" container="body"></fa-icon>
+    {{transaction.planned | date:"short"}}
   </ng-container>
 </ng-template>
 

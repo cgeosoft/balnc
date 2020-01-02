@@ -1,10 +1,10 @@
 import { Component, NgZone, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { mergeMap } from 'rxjs/operators'
-import { Contact } from '../@shared/models/contacts'
-import { ContactsRepo } from '../@shared/repos/contacts.repo'
-import { OrdersRepo } from '../@shared/repos/orders.repo'
-import { StateService } from '../@shared/services/state.service'
+import { Contact } from '../../@shared/models/contacts'
+import { ContactsRepo } from '../../@shared/repos/contacts.repo'
+import { OrdersRepo } from '../../@shared/repos/orders.repo'
+import { StateService } from '../../@shared/services/state.service'
 
 @Component({
   selector: 'app-order',

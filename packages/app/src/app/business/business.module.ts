@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
+import { BUSINESS_ROUTES } from './@shared/models/constants'
 import { AccountsRepo } from './@shared/repos/accounts.repo'
 import { AgreementsRepo } from './@shared/repos/agreements.repo'
 import { CEventsRepo } from './@shared/repos/cevents.repo'
@@ -12,9 +13,6 @@ import { TransactionsRepo } from './@shared/repos/transactions.repo'
 import { DemoService } from './@shared/services/demo.service'
 import { StateService } from './@shared/services/state.service'
 import { ShellComponent } from './@shell/shell.component'
-import { InvoiceComponent } from './invoice/invoice.component'
-import { OrderCreateComponent } from './order-create/order-create.component'
-import { OrderComponent } from './order/order.component'
 import { QuickSearchComponent } from './quick-search/quick-search.component'
 import { SearchComponent } from './search/search.component'
 import { SettingsComponent } from './settings/settings.component'
@@ -22,73 +20,13 @@ import { SettingsComponent } from './settings/settings.component'
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule.forChild([{
-      path: '',
-      data: {
-        breadcrumb: {
-          label: 'Business'
-        }
-      },
-      component: ShellComponent,
-      children: [
-        {
-          path: 'orders/:id',
-          data: {
-            breadcrumb: {
-              label: '#Order'
-            }
-          },
-          component: OrderComponent
-        },
-        {
-          path: 'search',
-          component: SearchComponent
-        },
-        {
-          path: 'invoices/:id',
-          component: InvoiceComponent
-        },
-        {
-          path: 'settings',
-          data: {
-            breadcrumb: {
-              label: 'Settings'
-            }
-          },
-          component: SettingsComponent
-        },
-        {
-          path: 'contacts',
-          loadChildren: './contacts/contacts.module#ContactsModule',
-          data: {
-            breadcrumb: {
-              label: 'Contacts'
-            }
-          }
-        }, {
-          path: 'payments',
-          loadChildren: './payments/payments.module#PaymentsModule'
-        }, {
-          path: 'agreements',
-          loadChildren: './agreements/agreements.module#AgreementsModule',
-          data: {
-            breadcrumb: {
-              label: 'Agreements'
-            }
-          }
-        },
-        { path: '', redirectTo: 'contacts', pathMatch: 'full' }
-      ]
-    }])
+    RouterModule.forChild(BUSINESS_ROUTES)
   ],
   declarations: [
     ShellComponent,
     SettingsComponent,
     QuickSearchComponent,
-    OrderComponent,
-    InvoiceComponent,
-    SearchComponent,
-    OrderCreateComponent
+    SearchComponent
   ],
   providers: [
     CEventsRepo,
@@ -103,8 +41,7 @@ import { SettingsComponent } from './settings/settings.component'
     RecordsRepo
   ],
   entryComponents: [
-    QuickSearchComponent,
-    OrderCreateComponent
+    QuickSearchComponent
   ]
 })
 export class BusinessModule { }

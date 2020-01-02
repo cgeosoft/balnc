@@ -1,10 +1,12 @@
 import { Component, NgZone, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { TableSchema } from '@balnc/shared'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { map, switchMap, tap } from 'rxjs/operators'
 import { Contact, ContactType } from '../../@shared/models/contacts'
 import { ContactsRepo } from '../../@shared/repos/contacts.repo'
+import { ContactCreateComponent } from './../contact-create/contact-create.component'
 
 @Component({
   selector: 'app-contacts',
@@ -32,7 +34,8 @@ export class ContactsComponent implements OnInit {
   constructor (
     private contactsService: ContactsRepo,
     private router: Router,
-    private zone: NgZone
+    private zone: NgZone,
+    private modal: NgbModal
   ) { }
 
   ngOnInit () {
@@ -48,6 +51,10 @@ export class ContactsComponent implements OnInit {
 
   filter (term) {
     this.term$.next(term)
+  }
+
+  createContact () {
+    this.modal.open(ContactCreateComponent)
   }
 
   private doFilterContacts (contacts, term) {
