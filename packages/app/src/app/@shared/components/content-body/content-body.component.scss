@@ -1,14 +1,8 @@
 @import "theme";
 
 :host {
-  @extend .h-100;
-  &.padding {
-    @extend .p-4;
-  }
-}
-
-:host ::ng-deep > section {
-  @extend .mb-4;
+  @extend .d-block;
+  @extend .w-100;
 
   &:after {
     @extend .d-block;
@@ -20,8 +14,12 @@
     background: #eee;
   }
 
-  &:last-child {
-    @extend .mb-0;
+  &.padding {
+    @extend .p-4;
+  }
+
+  &.full{
+    @extend .h-100;
     &:after {
       @extend .d-none;
     }

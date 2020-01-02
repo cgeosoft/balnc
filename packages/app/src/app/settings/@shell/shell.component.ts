@@ -18,8 +18,9 @@ export class ShellComponent implements OnInit {
 
   helperService = Helpers
 
-  menu = {
-    items: [{
+  sidebar = {
+    title: 'Settings',
+    menu: [{
       url: '/settings/general',
       icon: 'cog',
       type: 'PAGE',

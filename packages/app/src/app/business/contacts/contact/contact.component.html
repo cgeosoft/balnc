@@ -1,6 +1,5 @@
 <ng-container *ngIf="contact$ | async as contact; else loader">
   <ng-container *ngIf="contact; else empty">
-
     <div class="d-flex h-100">
       <div style="width:250px; min-width: 250px;" class="p-3 bg-light border-right h-100 overflow-auto">
         <img style="width:217px;height:217px" class="img-thumbnail img-fluid mb-3" [src]="contact.details.avatar"

@@ -5,7 +5,7 @@
       <input class="form-control" placeholder="search..." [ngbTypeahead]="sidebar.search.typeaheadFn"
         [(ngModel)]="sidebar.search.term" [resultFormatter]="sidebar.search.formatter"
         (selectItem)="sidebar.search.select($event)">
-      <a *ngIf="sidebar.search.advanced" [routerLink]="sidebar.search.advanced">advanced search</a>
+      <button *ngIf="sidebar.search.advanced" [routerLink]="sidebar.search.advanced">advanced search</button>
     </div>
     <div class="menu-wrapper">
       <div class="menu">
@@ -23,19 +23,19 @@
                 <div class="submenu">
                   <div class="menu">
                     <ng-container *ngFor="let s of i.items">
-                      <a [routerLink]="s.url" routerLinkActive="active">
+                      <button [routerLink]="s.url" routerLinkActive="active">
                         <fa-icon [icon]="s.icon" class="icon"></fa-icon>
                         <span>{{s.label}}</span>
-                      </a>
+                      </button>
                     </ng-container>
                   </div>
                 </div>
               </ng-container>
               <ng-container *ngIf="!i.items">
-                <a [routerLink]="i.url" routerLinkActive="active" [ngClass]="{disabled:!i.url}">
+                <button [routerLink]="i.url" routerLinkActive="active" [ngClass]="{disabled:!i.url}">
                   <fa-icon [icon]="i.icon" class="icon"></fa-icon>
                   <span>{{i.label}}</span>
-                </a>
+                </button>
               </ng-container>
             </ng-container>
           </ng-container>

@@ -1,12 +1,11 @@
 @import "theme";
 
-$appbar-width: 60px;
+$appbar-width: 50px;
 
 :host {
   @extend .d-flex;
   @extend .flex-column;
   @extend .justify-content-center;
-  // @extend .shadow;
   @extend .text-center;
   @extend .bg-transparent;
   @extend .overflow-hidden;
@@ -14,78 +13,56 @@ $appbar-width: 60px;
   width: $appbar-width;
   transition: all 0.5s;
 
-  .profile {
-    @extend .d-flex;
-    @extend .justify-content-center;
-    @extend .align-items-center;
-    min-width: $appbar-width;
-    width: $appbar-width;
-    height: 55px;
-
-    .fa {
-      text-shadow: none;
-      line-height: 2rem;
-      font-size: 1rem;
-      display: block;
-      color: #fff;
-      border-radius: 21px;
-    }
-  }
-
   .menu {
     @extend .bg-dark;
-    border-radius: 0 1rem 1rem 0;
+    @extend .shadow-sm;
     @extend .d-flex;
     @extend .flex-column;
     @extend .justify-content-start;
-    overflow-y: auto;
-    min-width: $appbar-width;
-    width: $appbar-width;
-    padding: .8rem 0;
+    @extend .w-100;
+    @extend .py-2;
+    @extend .px-2;
+    border-radius: 0 .5rem .5rem 0;
 
-    a.item {
-      border-radius: 0.7rem;
-      border: solid 1px $dark;
-      display: block;
-      margin: 0rem auto 0.5rem;
-      padding: 0.6rem 0 0.3rem 0;
-      text-align: center;
-      text-decoration: none;
+    .item {
+      @extend .w-100;
+      @extend .rounded;
+      @extend .border-0;
+      @extend .mb-2;
+      @extend .py-1;
+      @extend .px-0;
+      @extend .text-center;
+      background-color: $dark;
+      outline: none;
       transition: background-color 0.7s;
       transition: color 0.7s;
       color: $light;
-      width: 80%;
 
       fa-icon {
-        line-height: 1rem;
-        font-size: 1.4rem;
+        line-height: 1.2rem;
+        font-size: 1.2rem;
       }
 
       &:hover {
-        color: #fff;
+        background: lighten($dark, 2%);
       }
 
       &.active {
-        background: lighten($color: $dark, $amount: 5%);
-        border-color: lighten($color: $dark, $amount: 7%);
+        background: lighten($dark, 5%);
+        border-color: lighten($dark, 7%);
       }
-      &:last-child{
-        margin-bottom: 0;
+
+      &:last-child {
+        @extend .mb-0;
       }
     }
-  }
 
-  .divider {
-    @extend .mx-2;
-    @extend .my-1;
-    background: lighten($dark, 10);
-    height: 1px;
-  }
-
-  .version {
-    font-size: 0.5rem;
-    color: lighten($dark, 10);
-    padding: 0.5rem 0;
+    .divider {
+      @extend .mx-1;
+      @extend .mb-2;
+      background: lighten($dark, 10%);
+      height: 1px;
+    }
   }
 
   &.closed {
