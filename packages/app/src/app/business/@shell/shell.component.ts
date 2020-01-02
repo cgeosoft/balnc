@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
-import { BUSINESS_SIDEBAR } from '../@shared/models/constants'
+import { BUSINESS_SIDEBAR } from '../@shared/constants/sidebar'
 import { Contact, ContactType } from '../@shared/models/contacts'
 import { ContactsRepo } from '../@shared/repos/contacts.repo'
 

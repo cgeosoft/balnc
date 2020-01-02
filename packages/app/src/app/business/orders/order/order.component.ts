@@ -1,10 +1,9 @@
-import { Component, NgZone, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { mergeMap } from 'rxjs/operators'
 import { Contact } from '../../@shared/models/contacts'
 import { ContactsRepo } from '../../@shared/repos/contacts.repo'
 import { OrdersRepo } from '../../@shared/repos/orders.repo'
-import { StateService } from '../../@shared/services/state.service'
 
 @Component({
   selector: 'app-order',
@@ -32,10 +31,8 @@ export class OrderComponent implements OnInit {
 
   constructor (
     private route: ActivatedRoute,
-    private stateService: StateService,
     private contactsService: ContactsRepo,
-    private ordersService: OrdersRepo,
-    private zone: NgZone
+    private ordersService: OrdersRepo
   ) { }
 
   ngOnInit () {

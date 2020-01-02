@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
-import { BUSINESS_ROUTES } from './@shared/models/constants'
+import { BUSINESS_ROUTES } from './@shared/constants/routes'
 import { AccountsRepo } from './@shared/repos/accounts.repo'
 import { AgreementsRepo } from './@shared/repos/agreements.repo'
 import { CEventsRepo } from './@shared/repos/cevents.repo'
