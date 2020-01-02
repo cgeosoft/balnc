@@ -1,52 +1,51 @@
-<div class="page-wrapper">
-  <div *ngIf="sidebar" class="page-sidebar">
-    <div *ngIf="sidebar.title" class="title">{{sidebar.title}}</div>
-    <div *ngIf="sidebar.search" class="search">
-      <input class="form-control" placeholder="search..." [ngbTypeahead]="sidebar.search.typeaheadFn"
-        [(ngModel)]="sidebar.search.term" [resultFormatter]="sidebar.search.formatter"
-        (selectItem)="sidebar.search.select($event)">
-      <button *ngIf="sidebar.search.advanced" [routerLink]="sidebar.search.advanced">advanced search</button>
-    </div>
-    <div class="menu-wrapper">
-      <div class="menu">
-        <ng-container *ngFor="let i of sidebar.menu">
-          <ng-container [ngSwitch]="i.type">
-            <ng-container *ngSwitchCase="'DIVIDER'">
-              <div class="divider"></div>
+<div *ngIf="sidebar" class="page-sidebar">
+  <div *ngIf="sidebar.title" class="title">{{sidebar.title}}</div>
+  <div *ngIf="sidebar.search" class="search">
+    <input class="form-control" placeholder="search..." [ngbTypeahead]="sidebar.search.typeaheadFn"
+      [(ngModel)]="sidebar.search.term" [resultFormatter]="sidebar.search.formatter"
+      (selectItem)="sidebar.search.select($event)">
+    <button *ngIf="sidebar.search.advanced" [routerLink]="sidebar.search.advanced">advanced search</button>
+  </div>
+  <div class="menu-wrapper">
+    <div class="menu">
+      <ng-container *ngFor="let i of sidebar.menu">
+        <ng-container [ngSwitch]="i.type">
+          <ng-container *ngSwitchCase="'DIVIDER'">
+            <div class="divider"></div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'PAGE'">
+            <ng-container *ngIf="i.items">
+              <div class="item">
+                <fa-icon [icon]="i.icon" class="icon"></fa-icon>
+                <span>{{i.label}}</span>
+              </div>
+              <div class="submenu">
+                <div class="menu">
+                  <ng-container *ngFor="let s of i.items">
+                    <button [routerLink]="s.url" routerLinkActive="active">
+                      <fa-icon [icon]="s.icon" class="icon"></fa-icon>
+                      <span>{{s.label}}</span>
+                    </button>
+                  </ng-container>
+                </div>
+              </div>
             </ng-container>
-            <ng-container *ngSwitchCase="'PAGE'">
-              <ng-container *ngIf="i.items">
-                <div class="item">
-                  <fa-icon [icon]="i.icon" class="icon"></fa-icon>
-                  <span>{{i.label}}</span>
-                </div>
-                <div class="submenu">
-                  <div class="menu">
-                    <ng-container *ngFor="let s of i.items">
-                      <button [routerLink]="s.url" routerLinkActive="active">
-                        <fa-icon [icon]="s.icon" class="icon"></fa-icon>
-                        <span>{{s.label}}</span>
-                      </button>
-                    </ng-container>
-                  </div>
-                </div>
-              </ng-container>
-              <ng-container *ngIf="!i.items">
-                <button [routerLink]="i.url" routerLinkActive="active" [ngClass]="{disabled:!i.url}">
-                  <fa-icon [icon]="i.icon" class="icon"></fa-icon>
-                  <span>{{i.label}}</span>
-                </button>
-              </ng-container>
+            <ng-container *ngIf="!i.items">
+              <button [routerLink]="i.url" routerLinkActive="active" [ngClass]="{disabled:!i.url}">
+                <fa-icon [icon]="i.icon" class="icon"></fa-icon>
+                <span>{{i.label}}</span>
+              </button>
             </ng-container>
           </ng-container>
         </ng-container>
-      </div>
+      </ng-container>
     </div>
   </div>
-  <div class="page-content">
-    <ng-content></ng-content>
-  </div>
 </div>
+<div class="page-content">
+  <ng-content></ng-content>
+</div>
+
 <ng-template #loader>
   <div class="text-center p-4">
     <fa-icon icon="sync" [spin]="true" size="lg"></fa-icon>

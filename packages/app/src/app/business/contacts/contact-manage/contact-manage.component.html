@@ -1,34 +1,32 @@
 <ng-container *ngIf="contact$ | async as contact; else loader">
   <ng-container *ngIf="contact; else empty">
-    <div class="row">
-      <div class="col-4">
+    <app-content-body>
+      <h4>Connections</h4>
+      <div class="list-group list-group-flush">
+        <a href="" class="list-group-item list-group-item-action" *ngFor="let conn of contact.conns">
+          {{conn.reference}} <span class="badge badge-primary">{{conn.type}}</span>
+        </a>
       </div>
-      <div class="col-8">
-        <h4>Connections</h4>
-        <div class="list-group list-group-flush">
-          <a href="" class="list-group-item list-group-item-action" *ngFor="let conn of contact.conns">
-            {{conn.reference}} <span class="badge badge-primary">{{conn.type}}</span>
-          </a>
-        </div>
-        <ng-container *ngIf="contact.taxDetails">
-          <hr>
-          <h4>Tax Details</h4>
-          <dl class="mb-0">
-            <dt>Legal Name</dt>
-            <dd>{{contact.taxDetails.legalName || '-'}}</dd>
-            <dt>Address</dt>
-            <dd>{{contact.taxDetails.address || '-'}}</dd>
-            <dt>Vat Number</dt>
-            <dd class="text-monospace">{{contact.taxDetails.vatNumber || '-'}}</dd>
-            <dt>Tax Office</dt>
-            <dd>{{contact.taxDetails.taxOffice || '-'}}</dd>
-          </dl>
-        </ng-container>
-      </div>
-    </div>
+      <ng-container *ngIf="contact.taxDetails">
+        <hr>
+        <h4>Tax Details</h4>
+        <dl class="mb-0">
+          <dt>Legal Name</dt>
+          <dd>{{contact.taxDetails.legalName || '-'}}</dd>
+          <dt>Address</dt>
+          <dd>{{contact.taxDetails.address || '-'}}</dd>
+          <dt>Vat Number</dt>
+          <dd class="text-monospace">{{contact.taxDetails.vatNumber || '-'}}</dd>
+          <dt>Tax Office</dt>
+          <dd>{{contact.taxDetails.taxOffice || '-'}}</dd>
+        </dl>
+      </ng-container>
+    </app-content-body>
+    <app-content-body [full]="true">
+      <app-debug [data]="contact"></app-debug>
+    </app-content-body>
   </ng-container>
 </ng-container>
-
 
 <ng-template #empty>
   <app-empty message="Select a contact or create a new one" icon="desktop"></app-empty>

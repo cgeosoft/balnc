@@ -5,17 +5,11 @@ $sidebar-font: #666;
 
 :host {
   @extend .d-flex;
-  @extend .flex-column;
   @extend .justify-content-start;
   @extend .h-100;
   @extend .w-100;
-
-  .page-wrapper {
-    @extend .p-3;
-    @extend .d-flex;
-    @extend .h-100;
-    @extend .flex-grow-1;
-  }
+  @extend .p-3;
+  @extend .flex-grow-1;
 
   .page-sidebar {
     @extend .d-flex;
@@ -24,8 +18,8 @@ $sidebar-font: #666;
     @extend .mr-3;
     overflow: hidden;
     height: 100%;
-    min-width: 200px;
-    width: 200px;
+    min-width: 180px;
+    width: 180px;
     background: $sidebar-background;
     transition: all 0.5s;
 
