@@ -14,25 +14,23 @@ export interface Contact extends Entity {
   name: string
   type: ContactType
   tags: string[]
-  details: {
-    avatar?: string
-    description?: string
+  avatar?: string
+  description?: string
+  phones?: string[]
+  emails?: string[]
+  socials?: string[]
+  offices?: {
+    address: string
+    location?: string
     phones?: string[]
     emails?: string[]
-    socials?: string[]
-    offices?: {
-      address: string
-      location?: string
-      phones?: string[]
-      emails?: string[]
-    }[]
-    taxDetails?: {
-      vatNumber: string
-      taxOffice: string
-      address: string
-      legalName: string
-      description: string
-    }
+  }[]
+  taxDetails?: {
+    vatNumber: string
+    taxOffice: string
+    address: string
+    legalName: string
+    description: string
   }
   conns?: ContactConn[]
 }

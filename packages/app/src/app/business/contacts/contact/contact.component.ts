@@ -76,7 +76,7 @@ export class ContactComponent implements OnInit {
           key: contact._id,
           label: contact.name,
           sublabel: contact._id,
-          image: contact.details.avatar,
+          image: contact.avatar,
           route: [`/business/contacts`, contact._id],
           type: ContactType[contact.type]
         })

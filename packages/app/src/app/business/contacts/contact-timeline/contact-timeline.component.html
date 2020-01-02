@@ -1,11 +1,27 @@
-<ng-container *ngIf="events$ | async as events; else loader">
-  <ng-container *ngIf="events; else empty">
-    <ng-container *ngFor="let event of events">
-      <pre>{{ event | json }}</pre>
+<app-content-body [full]="true">
+  <ng-container *ngIf="events$ | async as events; else loader">
+    <ng-container *ngIf="events; else empty">
+      <ng-container *ngFor="let e of events">
+        <div class="d-flex align-items-start mb-2">
+          <div class="mr-2 text-center rounded border p-1" style="width:100px;min-width:100px">
+            {{e._timestamp|date:"dd MMM"}}<br>
+            {{e._timestamp|date:"HH:mm"}}
+          </div>
+          <div class="flex-grow-1">
+            <div class="card">
+              <div class="card-header d-flex" (click)="e._show = !e._show">
+                {{eventTypes[e.type]}} <a *ngIf="e.reference" class="ml-auto" [routerLink]="e.reference">link</a>
+              </div>
+              <div class="card-body" [ngClass]="{'d-none':!e._show,'d-block':e._show}">
+                <pre>{{ e | json }}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
     </ng-container>
   </ng-container>
-</ng-container>
-
+</app-content-body>
 <ng-template #empty>
   <app-empty message="Select a contact or create a new one" icon="desktop"></app-empty>
 </ng-template>

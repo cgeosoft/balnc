@@ -9,6 +9,9 @@ import { ContactsRepo } from '../repos/contacts.repo'
 import { RecordsRepo } from '../repos/records.repo'
 import { TransactionsRepo } from '../repos/transactions.repo'
 
+const NO_OF_ACCOUNTS = 5
+const NO_OF_CUSTOMERS = 20
+
 @Injectable()
 export class DemoService {
 
@@ -46,8 +49,7 @@ export class DemoService {
 
   async generate () {
 
-    const NO_OF_ACCOUNTS = 5
-    const NO_OF_CUSTOMERS = 20
+    if (this.generated) return
 
     console.log(`Generate Own Account`)
 
@@ -74,67 +76,78 @@ export class DemoService {
       }
     }
 
-    if (this.generated) return
+    console.log(`clear old demo ${NO_OF_CUSTOMERS / 2} contacts`)
 
-    console.log(`generate ${NO_OF_CUSTOMERS / 2} person/contacts`)
+    const contacts = await this.contactsRepo.all()
+    const contactIds = contacts.filter(o => o.tags.indexOf('demo') !== -1).map(c => c._id)
+    const contactsProm = contactIds.map(id => this.contactsRepo.remove(id))
+
+    const agreements = await this.agreementsRepo.all()
+    const agreementIds = agreements.filter(o => contactIds.indexOf(o.contact) !== -1).map(a => a._id)
+    const agreementsProm = agreementIds.map(id => this.agreementsRepo.remove(id))
+
+    await Promise.all([
+      ...contactsProm,
+      ...agreementsProm
+    ])
+
+    console.log(`generate ${NO_OF_CUSTOMERS / 2} persons`)
     for (let p = 0; p < NO_OF_CUSTOMERS / 2; p++) {
       await this.contactsRepo.add({
         name: `${faker.name.findName()}`,
         type: ContactType.person,
-        tags: [],
-        details: {
-          avatar: `${faker.image.avatar()}`,
-          phones: [faker.phone.phoneNumberFormat()],
-          emails: [faker.internet.email()]
-        },
+        tags: ['demo'],
+        avatar: `${faker.image.avatar()}`,
+        phones: [faker.phone.phoneNumberFormat()],
+        emails: [faker.internet.email()],
         conns: [{
           reference: 'company1',
           type: 'owner'
         }]
-      })
+      }, null, faker.date.past(2).getTime())
       console.log(`add person ${p}`)
     }
 
-    console.log(`generate ${NO_OF_CUSTOMERS / 2} company/contacts`)
+    console.log(`generate ${NO_OF_CUSTOMERS / 2} companies`)
     for (let c = 0; c < NO_OF_CUSTOMERS / 2; c++) {
       await this.contactsRepo.add({
         name: `${faker.company.companyName()}`,
         type: ContactType.company,
-        tags: [],
-        details: {
-          avatar: `${faker.image.avatar()}`,
-          phones: [faker.phone.phoneNumberFormat()],
-          emails: [faker.internet.email()],
-          taxDetails: {
-            vatNumber: `VAT${faker.random.number({ min: 1000000000, max: 9999999999 })}`,
-            taxOffice: faker.address.city(3),
-            address: faker.address.streetAddress(true),
-            legalName: '',
-            description: ''
-          }
+        tags: ['demo'],
+        avatar: `${faker.image.avatar()}`,
+        phones: [faker.phone.phoneNumberFormat()],
+        emails: [faker.internet.email()],
+        taxDetails: {
+          vatNumber: `VAT${faker.random.number({ min: 1000000000, max: 9999999999 })}`,
+          taxOffice: faker.address.city(3),
+          address: faker.address.streetAddress(true),
+          legalName: '',
+          description: ''
         },
         conns: [{
           reference: 'person1',
           type: 'owner'
         }]
-      })
+      }, null, faker.date.past(2).getTime())
       console.log(`add company ${c}`)
     }
 
     console.log(`generate ${NO_OF_CUSTOMERS} agreements`)
-    const contacts = await this.contactsRepo.all()
+    await this.GenerateAggrements()
 
+    this.generated = true
+  }
+
+  private async GenerateAggrements () {
+    const contacts = await this.contactsRepo.all()
     for (let a = 0; a < NO_OF_CUSTOMERS; a++) {
       const contact = contacts[faker.random.number({ min: 0, max: contacts.length - 1 })]
       await this.agreementsRepo.add({
         contact: contact._id,
         status: AgreementStatus.draft,
         content: `# Agreement ${Date.now()}\n\r${faker.lorem.paragraphs(5)}`
-      }, contact._id)
+      }, contact._id, faker.date.past(1).getTime())
       console.log(`add agreement to contact ${contact._id}`)
     }
-
-    this.generated = true
   }
-
 }

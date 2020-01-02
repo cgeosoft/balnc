@@ -18,11 +18,11 @@ export class ContactsComponent implements OnInit {
     name: 'contacts',
     properties: [
       { label: 'Name', style: { 'min-width': '300px' }, template: 't1', locked: true },
-      { label: 'Phones', style: { width: '150px' }, val: (item: Contact) => item.details.phones },
-      { label: 'Emails', style: { width: '200px' }, val: (item: Contact) => item.details.emails },
-      { label: 'Socials', val: (item: Contact) => item.details.socials, hidden: true },
-      { label: 'Offices', val: (item: Contact) => item.details.offices, hidden: true },
-      { label: 'TaxDetails', val: (item: Contact) => (item.details.taxDetails) ? item.details.taxDetails.taxOffice : '-', hidden: true }
+      { label: 'Phones', style: { width: '150px' }, val: (item: Contact) => item.phones },
+      { label: 'Emails', style: { width: '200px' }, val: (item: Contact) => item.emails },
+      { label: 'Socials', val: (item: Contact) => item.socials, hidden: true },
+      { label: 'Offices', val: (item: Contact) => item.offices, hidden: true },
+      { label: 'TaxDetails', val: (item: Contact) => (item.taxDetails) ? item.taxDetails.taxOffice : '-', hidden: true }
     ]
   }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { Observable } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
-import { CEvent } from '../../@shared/models/contacts'
+import { CEvent, CEventType } from '../../@shared/models/contacts'
 import { CEventsRepo } from '../../@shared/repos/cevents.repo'
 
 @Component({
@@ -11,6 +11,7 @@ import { CEventsRepo } from '../../@shared/repos/cevents.repo'
 })
 export class ContactTimelineComponent implements OnInit {
 
+  eventTypes = CEventType
   events$: Observable<CEvent[]>
 
   constructor (
