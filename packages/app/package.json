@@ -18,7 +18,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build": "ng build --prod",
-    "build-desktop": "ng build -c desktop --base-href ./"
+    "build-desktop": "ng build -c desktop --base-href ./",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@angular-devkit/build-angular": "^0.803.21",
@@ -78,11 +80,12 @@
     "rxjs": "6.5.3",
     "screenfull": "^5.0.0",
     "slug": "1.1.0",
+    "snyk": "^1.271.0",
     "tslib": "^1.10.0",
     "tslint": "5.20.1",
     "tslint-config-standard": "^9.0.0",
     "typescript": "^3.5.3",
-    "zone.js": "^0.9.1",
-    "snyk": "^1.266.0"
-  }
+    "zone.js": "^0.9.1"
+  },
+  "snyk": true
 }
