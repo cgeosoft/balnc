@@ -18,6 +18,9 @@ export const APP_ROUTES: Routes = [{
     path: 'settings',
     loadChildren: './settings/settings.module#SettingsModule'
   }, {
+    path: 'support',
+    loadChildren: './support/support.module#SupportModule'
+  }, {
     path: 'business',
     loadChildren: './business/business.module#BusinessModule'
   }, {
