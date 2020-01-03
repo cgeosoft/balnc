@@ -1,5 +1,9 @@
 # Balnc
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/79c2730e3816489d9a9b10f506cc3ac5)](https://www.codacy.com/manual/xris-georgiou/balnc?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChristosGeorgiou/balnc&amp;utm_campaign=Badge_Grade)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/085594e9-5f2e-4a4c-9dd4-148c0e889869/deploy-status)](https://app.netlify.com/sites/balnc/deploys)
+
 > WARNING: NOT FOR PRODUCTION USE
 > This is more of an experiment rather a working product. New and untested libraries are been used. Performance is subject to my mood and no security audit have been performed whatsoever. That been said, welcome to balnc...
 
