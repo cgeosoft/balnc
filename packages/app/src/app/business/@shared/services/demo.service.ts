@@ -10,7 +10,7 @@ import { RecordsRepo } from '../repos/records.repo'
 import { TransactionsRepo } from '../repos/transactions.repo'
 
 const NO_OF_ACCOUNTS = 5
-const NO_OF_CUSTOMERS = 20
+const NO_OF_CUSTOMERS = 200
 
 @Injectable()
 export class DemoService {

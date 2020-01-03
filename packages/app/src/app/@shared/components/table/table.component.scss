@@ -1,31 +1,37 @@
 @import "theme";
 
 :host {
-  @extend .d-flex;
-  @extend .flex-column;
   @extend .h-100;
 
-  .table-wrapper {
-    @extend .w-100;
-    @extend .flex-grow-1;
-    @extend .overflow-auto;
-    .table {
-      position: relative;
-      border-collapse: collapse;
-      table-layout: fixed;
-      width: 100%;
-      th {
-        position: sticky;
-        top: -1px;
+  .wrapper {
+    @extend .d-flex;
+    @extend .flex-column;
+    @extend .h-100;
+
+    .table-wrapper {
+      // @extend .h-100;
+      @extend .w-100;
+      @extend .flex-grow-1;
+      @extend .overflow-auto;
+
+      .table {
+        position: relative;
+        border-collapse: collapse;
+        table-layout: fixed;
+        width: 100%;
+        th {
+          position: sticky;
+          top: -1px;
+        }
       }
     }
-  }
 
-  .table-footer {
-    @extend .d-flex;
-    @extend .justify-content-between;
-    @extend .py-2;
-    @extend .px-3;
-    @extend .bg-light;
+    .table-footer {
+      @extend .d-flex;
+      @extend .justify-content-between;
+      @extend .py-2;
+      @extend .px-3;
+      @extend .bg-light;
+    }
   }
 }

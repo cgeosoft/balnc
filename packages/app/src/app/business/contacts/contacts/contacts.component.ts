@@ -1,9 +1,8 @@
-import { Component, NgZone, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
+import { Component, OnInit } from '@angular/core'
 import { TableSchema } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { BehaviorSubject, Observable } from 'rxjs'
-import { map, switchMap, tap } from 'rxjs/operators'
+import { map, switchMap } from 'rxjs/operators'
 import { Contact, ContactType } from '../../@shared/models/contacts'
 import { ContactsRepo } from '../../@shared/repos/contacts.repo'
 import { ContactCreateComponent } from './../contact-create/contact-create.component'
@@ -33,18 +32,13 @@ export class ContactsComponent implements OnInit {
 
   constructor (
     private contactsService: ContactsRepo,
-    private router: Router,
-    private zone: NgZone,
     private modal: NgbModal
   ) { }
 
   ngOnInit () {
     this.contacts$ = this.contactsService.all$().pipe(
       switchMap(contacts => this.term$.pipe(
-        map(term => this.doFilterContacts(contacts, term)),
-        tap(() => this.zone.run(() => {
-          console.log('done')
-        }))
+        map(term => this.doFilterContacts(contacts, term))
       ))
     )
   }
