@@ -1,8 +1,6 @@
 # Balnc
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/79c2730e3816489d9a9b10f506cc3ac5)](https://www.codacy.com/manual/xris-georgiou/balnc?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChristosGeorgiou/balnc&amp;utm_campaign=Badge_Grade)
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/085594e9-5f2e-4a4c-9dd4-148c0e889869/deploy-status)](https://app.netlify.com/sites/balnc/deploys)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/79c2730e3816489d9a9b10f506cc3ac5)](https://www.codacy.com/manual/xris-georgiou/balnc?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChristosGeorgiou/balnc&amp;utm_campaign=Badge_Grade) [![Netlify Status](https://api.netlify.com/api/v1/badges/085594e9-5f2e-4a4c-9dd4-148c0e889869/deploy-status)](https://app.netlify.com/sites/balnc/deploys)
 
 > WARNING: NOT FOR PRODUCTION USE
 > This is more of an experiment rather a working product. New and untested libraries are been used. Performance is subject to my mood and no security audit have been performed whatsoever. That been said, welcome to balnc...
@@ -11,7 +9,7 @@
 
 Balnc (balance) is an free open source business management suite for small companies and freelancers. It is a composition of business modules and also provides tools for extend them and build new ones.
 
-The main philosophy is that no one should be trusted as much as possible. Software should be open sourced and business data (and other) should be owned. If data are not required to be synced the they muat be kept inside and not be delegated to hosting or other providers. Securing ones own local pc is a must and the only job that should be considered. With the rise of distributed systems, distributed apps are the way to go if and only if is this required. 
+The main philosophy is that no one should be trusted as much as possible. Software should be open sourced and business data (and other) should be owned. If data are not required to be synced the they muat be kept inside and not be delegated to hosting or other providers. Securing ones own local pc is a must and the only job that should be considered. With the rise of distributed systems, distributed apps are the way to go if and only if is this required.
 
 > Having your customers in one pc? It stays in that pc. Want to share it with your coworkers? Connect to distributed network (ipfs) and transmit it mathematically securely p2p. Don't trust the developers (me)? Open the code and have a look.
 
