@@ -1,41 +1,47 @@
-
-  <section class="p-0">
-    <ng-container *ngIf="(issues$ | async) as issues; else loader">
-      <ng-container *ngIf="(issues | filterIssues:filters).length; else empty">
-        <pre>{{issues|json:2}}</pre>
-        <table class="table">
-          <thead>
-            <tr>
-              <th style="width:80px">Status</th>
-              <th>Issue</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let issue of issues | filterIssues:filters | slice:pStart:pEnd">
-              <td>
-                <span class="badge badge-dark w-100"
-                  [ngStyle]="{'background-color':getStatus(issue.status).color}">{{getStatus(issue.status).alias}}</span>
-              </td>
-              <td>
-                <div>
-                  <a [routerLink]="['/projects/project',issue.project,'issue',issue._id]">{{issue.title}}</a>
-                </div>
-                <small class="text-muted">
-                  {{issue._timestamp | dfnsFormatDistanceToNow}} ago by
-                  {{issue.user}}
-                </small>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </ng-container>
-    </ng-container>
-  </section>
-
+<ng-container *ngIf="project$ | async as project; else loader">
+  <ng-container *ngIf="project; else empty">
+    <app-content [sidebar]="true">
+      <div role="sidebar">
+        <dl>
+          <dt>Project
+            <button (click)="toggleMark(project._id)" class="btn btn-sm btn-link float-right">
+              <fa-icon icon="star" class="ml-2"
+                [ngClass]="{'text-warning':project._mark,'text-secondary':!project._mark}"></fa-icon>
+            </button>
+          </dt>
+          <dd>{{project.name}}</dd>
+          <ng-container *ngIf="project.description">
+            <dt>Description</dt>
+            <dd>{{project.description}}</dd>
+          </ng-container>
+          <ng-container *ngIf="project.tags">
+            <dt>Tags</dt>
+            <dd>{{project.tags.join(', ')}}</dd>
+          </ng-container>
+        </dl>
+        <hr>
+        <ng-container *ngFor="let g of menu">
+          <ul class="list-group list-group-customer-menu">
+            <ng-container *ngFor="let i of g.items">
+              <ng-container *ngIf="i.relative">
+                <a [routerLink]="['/business/projects',project._id,i.url]" routerLinkActive="active"
+                  class="list-group-item list-group-item-action">{{i.label}}</a>
+              </ng-container>
+              <ng-container *ngIf="!i.relative">
+                <a [routerLink]="[i.url,{project:project._id}]" routerLinkActive="active"
+                  class="list-group-item list-group-item-action">{{i.label}}</a>
+              </ng-container>
+            </ng-container>
+          </ul>
+        </ng-container>
+      </div>
+      <router-outlet></router-outlet>
+    </app-content>
+  </ng-container>
+</ng-container>
 
 <ng-template #empty>
-  <app-empty message="You don't have any issues" submessage="Click create to add your first one" icon="tasks">
-  </app-empty>
+  <app-empty message="Select a project or create a new one" icon="desktop"></app-empty>
 </ng-template>
 
 <ng-template #loader>

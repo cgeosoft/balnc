@@ -38,11 +38,6 @@ $appbar-width: 50px;
       transition: color 0.7s;
       color: $light;
 
-      fa-icon {
-        line-height: 1.2rem;
-        font-size: 1.2rem;
-      }
-
       &:hover {
         background: lighten($dark, 2%);
       }

@@ -21,12 +21,13 @@ export class DemoService {
         name: faker.commerce.productName(),
         description: faker.lorem.paragraph(),
         isArchived: Math.random() > .6,
-        isStarred: Math.random() > .3,
         tags: ['lorem', 'ispun'],
         features: {}
       }
       let project = await this.projectsRepo.add(pdata)
       console.log(`add project ${i}:${project._id}`)
+
+      await this.projectsRepo.mark(project._id)
 
       console.log(`generate ${size * 5} issues for ${project._id}`)
       for (let k = 0; k < size * 5; k++) {

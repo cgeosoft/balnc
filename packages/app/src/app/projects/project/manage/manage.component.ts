@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { Project } from '../@shared/models/all'
-import { IssuesRepo } from '../@shared/repos/issues.repo'
-import { PEventsRepo } from '../@shared/repos/pevents.repo'
-import { ProjectsRepo } from '../@shared/repos/projects.repo'
+import { Project } from '../../@shared/models/all'
+import { IssuesRepo } from '../../@shared/repos/issues.repo'
+import { PEventsRepo } from '../../@shared/repos/pevents.repo'
+import { ProjectsRepo } from '../../@shared/repos/projects.repo'
 
 @Component({
-  selector: 'app-project-manage',
-  templateUrl: './project-manage.component.html'
+  selector: 'app-manage',
+  templateUrl: './manage.component.html'
 })
 export class ProjectManageComponent implements OnInit {
 

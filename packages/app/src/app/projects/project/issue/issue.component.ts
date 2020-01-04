@@ -4,10 +4,10 @@ import { ActivatedRoute } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
-import { Issue, IssueStatus, IssueStatuses, PEvent, PEventType, Project } from '../@shared/models/all'
-import { IssuesRepo } from '../@shared/repos/issues.repo'
-import { PEventsRepo } from '../@shared/repos/pevents.repo'
-import { ProjectsRepo } from '../@shared/repos/projects.repo'
+import { Issue, IssueStatus, IssueStatuses, PEvent, PEventType, Project } from '../../@shared/models/all'
+import { IssuesRepo } from '../../@shared/repos/issues.repo'
+import { PEventsRepo } from '../../@shared/repos/pevents.repo'
+import { ProjectsRepo } from '../../@shared/repos/projects.repo'
 
 @Component({
   selector: 'app-projects-issue',

@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ConfigService } from '@balnc/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { IssueType } from '../@shared/models/all'
-import { IssuesRepo } from '../@shared/repos/issues.repo'
+import { IssueType } from '../../@shared/models/all'
+import { IssuesRepo } from '../../@shared/repos/issues.repo'
 
 @Component({
   selector: 'app-projects-issue-create',

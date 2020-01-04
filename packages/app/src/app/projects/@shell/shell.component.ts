@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { Observable, of } from 'rxjs'
-import { filter, switchMap, tap } from 'rxjs/operators'
+import { Observable } from 'rxjs'
+import { map } from 'rxjs/operators'
+import { PROJECTS_SIDEBAR } from '../@shared/constants/sidebar'
 import { Project } from '../@shared/models/all'
 import { ProjectsRepo } from '../@shared/repos/projects.repo'
 import { DemoService } from '../@shared/services/demo.service'
 import { CreateProjectComponent } from '../create-project/create-project.component'
-import { IssueCreateComponent } from '../issue-create/issue-create.component'
-import { ProjectManageComponent } from '../project-manage/project-manage.component'
+import { IssueCreateComponent } from '../project/issue-create/issue-create.component'
+import { ProjectManageComponent } from '../project/manage/manage.component'
 
 @Component({
   selector: 'app-projects-shell',
@@ -32,13 +33,7 @@ export class ShellComponent implements OnInit {
   filters: any
   showFilters = false
 
-  sidebar = {
-    title: 'Projects',
-    menu: [
-      { label: 'Overview' },
-      { label: 'Issues' }
-    ]
-  }
+  sidebar = PROJECTS_SIDEBAR
 
   constructor (
     private demoService: DemoService,
@@ -49,29 +44,20 @@ export class ShellComponent implements OnInit {
   ) { }
 
   async ngOnInit () {
-    this.projects$ = this.projectsRepo.all$()
-      .pipe(
-        tap((projects: Project[]) => projects.sort((a, b) => {
-          if (a.name < b.name) {
-            return -1
-          }
-          if (a.name > b.name) {
-            return 1
-          }
-          return 0
-        }
-        ))
-      )
-    this.route.firstChild.params.subscribe(params => this.loadProject(params['pid']))
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      switchMap(() => (this.route.firstChild && this.route.firstChild.params) || of({}))
-    )
-      .subscribe(params => this.loadProject(params['pid']))
-  }
 
-  private async loadProject (pid) {
-    this.project = await this.projectsRepo.one(pid)
+    this.sidebar.marked = {
+      data$: this.projectsRepo.all$(null, true).pipe(
+        map((contacts) => {
+          return contacts.map(p => {
+            return {
+              label: p.name,
+              icon: ['far','bookmark'],
+              url: ['/projects/projects', p._id]
+            }
+          })
+        })
+      )
+    }
   }
 
   setFilter (filter) {
