@@ -12,7 +12,7 @@ import { ProjectManageComponent } from '../project-manage/project-manage.compone
 
 @Component({
   selector: 'app-projects-shell',
-  templateUrl: './shell.component.html',
+  templateUrl: './shell.component.html'
 
 })
 export class ShellComponent implements OnInit {
@@ -31,6 +31,14 @@ export class ShellComponent implements OnInit {
   ]
   filters: any
   showFilters = false
+
+  sidebar = {
+    title:'Projects',
+    menu: [
+      { label: 'Overview' },
+      { label: 'Issues' }
+    ]
+  }
 
   constructor (
     private demoService: DemoService,
