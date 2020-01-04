@@ -1,7 +1,7 @@
 
-  <app-content-single [padding]="false">
+  <section class="full no-padding">
     <app-table [data$]="presentations$" [schema]="schema" [templates]="{files:files}"></app-table>
-  </app-content-single>
+  </section>
 
 
 <ng-template #files let-stats="item">

@@ -13,8 +13,7 @@ import { WebStorageModule } from 'ngx-store'
 import { ToastrModule } from 'ngx-toastr'
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component'
 import { ContentHeaderComponent } from './components/content-header/content-header.component'
-import { ContentSidebarComponent } from './components/content-sidebar/content-sidebar.component'
-import { ContentBodyComponent } from './components/content-single/content-single.component'
+import { ContentComponent } from './components/content/content.component'
 import { DebugComponent } from './components/debug/debug.component'
 import { EmptyComponent } from './components/empty/empty.component'
 import { FooterComponent } from './components/footer/footer.component'
@@ -45,7 +44,7 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     MarkdownModule.forChild()
   ],
   declarations: [
-    ContentBodyComponent,
+    ContentComponent,
     ConfirmDialogComponent,
     PageComponent,
     ContentHeaderComponent,
@@ -59,8 +58,7 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     DocVersionPipe,
     EllipsisPipe,
     PaginatePipe,
-    SearchPipe,
-    ContentSidebarComponent
+    SearchPipe
   ],
   entryComponents: [ConfirmDialogComponent],
   exports: [
@@ -81,7 +79,7 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     DocVersionPipe,
     EllipsisPipe,
 
-    ContentBodyComponent,
+    ContentComponent,
     ConfirmDialogComponent,
     PageComponent,
     ContentHeaderComponent,

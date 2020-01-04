@@ -1,12 +1,17 @@
-<app-content-single>
-  <div class="btn-toolbar">
-    <button class="btn btn-primary" (click)="createContact()">New Contact</button>
-  </div>
-</app-content-single>
+<app-content>
+  <section>
+    <div class="btn-toolbar">
+      <button class="btn btn-primary" (click)="createContact()">New Contact</button>
+      <button class="btn btn-outline-secondary">
+        <fa-icon icon="search"></fa-icon>
+      </button>
+    </div>
+  </section>
 
-<app-content-single [full]="true" [padding]="false">
-  <app-table [data$]="contacts$" [schema]="schema" [templates]="{t1:t1}"></app-table>
-</app-content-single>
+  <section class="full no-padding">
+    <app-table [data$]="contacts$" [schema]="schema" [templates]="{t1:t1}"></app-table>
+  </section>
+</app-content>
 
 <ng-template #t1 let-contact="item">
   <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user-circle':'building']" class="mr-2 text-muted">

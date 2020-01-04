@@ -7,14 +7,17 @@
     @extend .d-flex;
     @extend .flex-column;
     @extend .h-100;
+    @extend .border-top;
+    @extend .bg-light;
 
     .table-wrapper {
-      // @extend .h-100;
+      @extend .d-flex;
       @extend .w-100;
       @extend .flex-grow-1;
       @extend .overflow-auto;
 
       .table {
+        @extend .bg-white;
         position: relative;
         border-collapse: collapse;
         table-layout: fixed;
@@ -32,6 +35,7 @@
       @extend .py-2;
       @extend .px-3;
       @extend .bg-light;
+      @extend .border-top;
     }
   }
 }

@@ -1,0 +1,7 @@
+@import "theme";
+
+:host {
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .h-100;
+}

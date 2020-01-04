@@ -3,7 +3,7 @@
     <app-content-header [menu]="menu"></app-content-header>
 
     <ng-container *ngIf="menu.selected === 'overview'">
-      <app-content-single>
+      <section>
 
         <div class="row">
           <div class="col-lg-3">
@@ -112,11 +112,11 @@
           </div>
         </div>
 
-      </app-content-single>
+      </section>
     </ng-container>
 
     <ng-container *ngIf="menu.selected === 'slides'">
-      <app-content-single>
+      <section>
         <div class="btn-toolbar">
           <button class="btn btn-outline-primary" (click)="addImage()">
             <fa-layers class="fa-fw">
@@ -176,28 +176,28 @@
             </div>
           </div>
         </div>
-      </app-content-single>
+      </section>
 
       <ng-container *ngIf="(slides$ | async) as slides">
         <ng-container *ngIf="slides.length > 0; else noPages">
-          <app-content-single [padding]="false">
+          <section class="p-0">
             <img class="img-fluid" [src]="previews[active]">
             <div class="p-4">
               <div>{{slides[active].title || 'without title'}}</div>
               <small>{{slides[active].description || 'without title'}}</small>
             </div>
-          </app-content-single>
+          </section>
         </ng-container>
       </ng-container>
 
     </ng-container>
 
-    <app-content-single *ngIf="menu.selected === 'raw'">
+    <section *ngIf="menu.selected === 'raw'">
       <app-debug title="presentation" [data]="presentation"></app-debug>
       <ng-container *ngIf="(slides$ | async) as slides">
         <app-debug title="slides" [data]="slides"></app-debug>
       </ng-container>
-    </app-content-single>
+    </section>
 
 </ng-container>
 

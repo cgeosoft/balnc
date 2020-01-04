@@ -1,27 +1,25 @@
-
-  <app-content-single [padding]="true">
-    <ng-container *ngIf="transaction">
-      <div class="form-group">
-        <label>From</label>
-        <input class="form-control" [(ngModel)]="transaction.from" (change)="update()">
-      </div>
-      <div class="form-group">
-        <label>To</label>
-        <input class="form-control" [(ngModel)]="transaction.to" (change)="update()">
-      </div>
-      <div class="form-group">
-        <label>Amount</label>
-        <input class="form-control" [(ngModel)]="transaction.amount" (change)="update()">
-      </div>
-      <div class="form-group">
-        <label>executed</label>
-        <input class="form-control" [(ngModel)]="transaction.executed" (change)="update()">
-      </div>
-      <div class="form-group">
-        <label>planned</label>
-        <input class="form-control" [(ngModel)]="transaction.planned" (change)="update()">
-      </div>
-    </ng-container>
-    <pre>{{transaction|json:2}}</pre>
-  </app-content-single>
-
+<section>
+  <ng-container *ngIf="transaction">
+    <div class="form-group">
+      <label>From</label>
+      <input class="form-control" [(ngModel)]="transaction.from" (change)="update()">
+    </div>
+    <div class="form-group">
+      <label>To</label>
+      <input class="form-control" [(ngModel)]="transaction.to" (change)="update()">
+    </div>
+    <div class="form-group">
+      <label>Amount</label>
+      <input class="form-control" [(ngModel)]="transaction.amount" (change)="update()">
+    </div>
+    <div class="form-group">
+      <label>executed</label>
+      <input class="form-control" [(ngModel)]="transaction.executed" (change)="update()">
+    </div>
+    <div class="form-group">
+      <label>planned</label>
+      <input class="form-control" [(ngModel)]="transaction.planned" (change)="update()">
+    </div>
+  </ng-container>
+  <pre>{{transaction|json:2}}</pre>
+</section>

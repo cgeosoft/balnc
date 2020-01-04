@@ -47,6 +47,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   ngOnInit (): void {
     this.updateSettings()
+    if(!this.data$) return;
     this.data$.subscribe((data) => {
       this.dataLength = data.length
       this.calculatePages()

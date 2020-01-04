@@ -1,0 +1,6 @@
+<div *ngIf="sidebar" class="sidebar">
+  <ng-content select="div[role=sidebar]"></ng-content>
+</div>
+<div class="content">
+  <ng-content ></ng-content>
+</div>

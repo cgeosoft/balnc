@@ -1,0 +1,25 @@
+@import "theme";
+
+:host {
+  @extend .d-flex;
+  @extend .h-100;
+  @extend .w-100;
+
+  .sidebar {
+    @extend .p-3;
+    @extend .bg-light;
+    @extend .border-right;
+    @extend .h-100;
+    @extend .overflow-auto;
+    width: 250px;
+    min-width: 250px;
+  }
+
+  .content {
+    @extend .d-flex;
+    @extend .flex-column;
+    @extend .flex-grow-1;
+    @extend .h-100;
+    @extend .overflow-auto;
+  }
+}

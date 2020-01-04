@@ -7,7 +7,8 @@ import { CEventsRepo } from '../../@shared/repos/cevents.repo'
 
 @Component({
   selector: 'app-contact-timeline',
-  templateUrl: './contact-timeline.component.html'
+  templateUrl: './contact-timeline.component.html',
+  styleUrls: ['./contact-timeline.component.scss']
 })
 export class ContactTimelineComponent implements OnInit {
 

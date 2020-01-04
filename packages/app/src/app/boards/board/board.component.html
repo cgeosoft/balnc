@@ -1,6 +1,6 @@
 
   <ng-container *ngIf="(board$ | async) as board; else noboard">
-    <app-content-single [padding]="false">
+    <section class="p-0">
       <div class="card card-chat d-flex h-100">
         <div class="card-header d-flex align-items-center justify-content-between">
           <span>{{board.name}}</span>
@@ -90,7 +90,7 @@
         </div>
         <input #fileupload type="file" (change)="upload($event.target.files[0])" style="display: none;">
       </div>
-    </app-content-single>
+    </section>
   </ng-container>
 
 

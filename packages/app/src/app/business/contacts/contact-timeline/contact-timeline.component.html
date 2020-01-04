@@ -1,4 +1,4 @@
-<app-content-single [full]="true">
+<section class="full">
   <ng-container *ngIf="events$ | async as events; else loader">
     <ng-container *ngIf="events; else empty">
       <ng-container *ngFor="let e of events">
@@ -21,7 +21,7 @@
       </ng-container>
     </ng-container>
   </ng-container>
-</app-content-single>
+</section>
 <ng-template #empty>
   <app-empty message="Select a contact or create a new one" icon="desktop"></app-empty>
 </ng-template>

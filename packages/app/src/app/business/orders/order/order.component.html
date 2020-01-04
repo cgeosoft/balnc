@@ -10,17 +10,17 @@
       </div>
     </div>
     <app-content-header [menu]="menu"></app-content-header>
-    <app-content-single *ngIf="menu.selected === 'overview'">
+    <section *ngIf="menu.selected === 'overview'">
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. At aliquam repellendus id vero pariatur quis velit,
       non aliquid laboriosam iure, voluptas nostrum cumque dicta possimus tempore suscipit modi minus eum.
-    </app-content-single>
-    <app-content-single *ngIf="menu.selected === 'raw'">
+    </section>
+    <section *ngIf="menu.selected === 'raw'">
       <div class="card">
         <div class="card-body">
           <pre>{{order|json:2}}</pre>
         </div>
       </div>
-    </app-content-single>
+    </section>
   </ng-container>
 </ng-container>
 
