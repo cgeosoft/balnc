@@ -5,3 +5,5 @@ export * from './rxdb/repository'
 export * from './rxdb/rxdb.service'
 export * from './services/config.service'
 export * from './services/profile-guard.service'
+export * from './services/signal.service'
+

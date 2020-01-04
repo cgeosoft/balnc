@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
-import { ConfigService } from '@balnc/core'
+import { ConfigService, Signal, SignalService } from '@balnc/core'
 import { Profile } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { RemoteComponent } from '../remote/remote.component'
@@ -25,19 +25,28 @@ export class GeneralComponent implements OnInit {
   deleteData = false
   deleteDataRemote = false
   editName = false
+  genMessages$
 
   constructor (
     private router: Router,
     private http: HttpClient,
     private configService: ConfigService,
-    private modal: NgbModal
-  ) { }
+    private modal: NgbModal,
+    private signalService: SignalService
+  ) {
+    this.genMessages$ = this.signalService.messages$
+  }
 
   async ngOnInit () {
     this.profile = this.configService.profile
     if (this.profile.remote.key) {
       await this.getRemote()
     }
+  }
+
+  async generateDemoData () {
+    if (!confirm('Are you sure?')) return
+    this.signalService.broadcast(Signal.GENERATE_DEMO_DATA)
   }
 
   rename (newName) {

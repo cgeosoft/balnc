@@ -327,6 +327,7 @@ $sidebar-font: #666;
 
 
 :host ::ng-deep .page-content section {
+  @extend .w-100;
   @extend .p-4;
 
   &.divider &:after {

@@ -11,7 +11,6 @@ import { OrdersRepo } from './@shared/repos/orders.repo'
 import { RecordsRepo } from './@shared/repos/records.repo'
 import { TransactionsRepo } from './@shared/repos/transactions.repo'
 import { DemoService } from './@shared/services/demo.service'
-import { StateService } from './@shared/services/state.service'
 import { ShellComponent } from './@shell/shell.component'
 import { QuickSearchComponent } from './quick-search/quick-search.component'
 import { SearchComponent } from './search/search.component'
@@ -33,7 +32,6 @@ import { SettingsComponent } from './settings/settings.component'
     ContactsRepo,
     InvoicesRepo,
     OrdersRepo,
-    StateService,
     AgreementsRepo,
     DemoService,
     TransactionsRepo,

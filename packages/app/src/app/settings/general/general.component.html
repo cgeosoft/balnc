@@ -92,6 +92,14 @@
         Remove Profile
       </button>
     </section>
+    <section>
+      <h4>Generate Random Data</h4>
+      <p>This will generate random We suggest to generate random data in a non-production profile.</p>
+      <ng-container *ngIf="(genMessages$ | async) as messages">
+        <div>{{messages[0]}}</div>
+      </ng-container>
+      <button class="btn btn-primary" (click)="generateDemoData()">Generate</button>
+    </section>
   </app-content>
 </ng-container>
 

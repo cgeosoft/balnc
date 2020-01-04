@@ -7,7 +7,6 @@ import { CEvent, CEventType, CEventTypeBadges, Contact, ContactType } from '../.
 import { CEventsRepo } from '../../@shared/repos/cevents.repo'
 import { ContactsRepo } from '../../@shared/repos/contacts.repo'
 import { OrdersRepo } from '../../@shared/repos/orders.repo'
-import { StateService } from '../../@shared/services/state.service'
 
 @Component({
   selector: 'app-contacts-contact',
@@ -50,7 +49,6 @@ export class ContactComponent implements OnInit {
 
   constructor (
     private route: ActivatedRoute,
-    private stateService: StateService,
     private contactsRepo: ContactsRepo,
     private ceventsRepo: CEventsRepo,
     private ordersRepo: OrdersRepo,
@@ -68,23 +66,15 @@ export class ContactComponent implements OnInit {
       //   }
       // }),
       tap(async (contact) => {
+        console.log("load contact")
         if (!contact) {
           await this.router.navigate([`/business/contacts`])
           return
         }
-        this.stateService.add({
-          key: contact._id,
-          label: contact.name,
-          sublabel: contact._id,
-          image: contact.avatar,
-          route: [`/business/contacts`, contact._id],
-          type: ContactType[contact.type]
-        })
         this.cevents$ = this.ceventsRepo.all$().pipe(
           map((cevents: CEvent[]) => cevents.filter((cevent) => cevent.contact === contact._id)),
           tap((cevents: CEvent[]) => cevents.sort((a, b) => b._timestamp - a._timestamp))
         )
-
         this.route.snapshot.data.breadcrumb.label = contact.name
       })
     )

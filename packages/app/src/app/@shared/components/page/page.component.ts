@@ -1,4 +1,14 @@
 import { Component, Input } from '@angular/core'
+import { Observable } from 'rxjs'
+
+interface Sidebar {
+  title: string
+  menu: any[],
+  search: any,
+  marked?: {
+    data$: Observable<{label: string,url: string,icon: string[]}[]>
+  }
+}
 
 @Component({
   selector: 'app-page',
@@ -6,5 +16,5 @@ import { Component, Input } from '@angular/core'
   styleUrls: ['page.component.scss']
 })
 export class PageComponent {
-  @Input() sidebar = null
+  @Input() sidebar: Sidebar = null
 }

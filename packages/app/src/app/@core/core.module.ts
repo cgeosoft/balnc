@@ -9,6 +9,7 @@ import { MainResolver } from './resolver'
 import { RxDBService } from './rxdb/rxdb.service'
 import { ConfigService } from './services/config.service'
 import { ProfileGuardService } from './services/profile-guard.service'
+import { SignalService } from './services/signal.service'
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { ProfileGuardService } from './services/profile-guard.service'
     RxDBService,
     ConfigService,
     ProfileGuardService,
-    MainResolver
+    MainResolver,
+    SignalService
   ],
   exports: [
     RouterModule

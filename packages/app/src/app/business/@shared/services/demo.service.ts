@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { Signal, SignalService } from '@balnc/core'
 import * as faker from 'faker'
 import { AccountType } from '../models/account'
 import { AgreementStatus } from '../models/agreement'
@@ -15,55 +16,34 @@ const NO_OF_CUSTOMERS = 50
 @Injectable()
 export class DemoService {
 
-  generated = false
-
   constructor (
+    private signalService: SignalService,
     private accountsRepo: AccountsRepo,
     private transactionsRepo: TransactionsRepo,
     private recordsRepo: RecordsRepo,
     private contactsRepo: ContactsRepo,
     private agreementsRepo: AgreementsRepo
-  ) { }
-
-  async execute (id: string) {
-    console.log(`execute transaction ${id}`)
-    const t = await this.transactionsRepo.one(id)
-    if (!t) return
-
-    if (t.from) {
-      await this.recordsRepo.add({
-        transaction: t._id,
-        account: t.from,
-        amount: t.amount * -1
-      })
-    }
-
-    if (t.to) {
-      await this.recordsRepo.add({
-        transaction: t._id,
-        account: t.to,
-        amount: t.amount
-      })
-    }
+  ) {
+    this.signalService.events(Signal.GENERATE_DEMO_DATA).subscribe((x) => {
+      console.log(x)
+      this.generate()
+    })
   }
 
   async generate () {
+    console.log('Generate from contacts')
+    this.signalService.message(`Generate Own Account`)
 
-    if (this.generated) return
-
-    console.log(`Generate Own Account`)
-
-    console.log(Object.keys(AccountType))
     for (let p = 0; p < NO_OF_ACCOUNTS; p++) {
       const own = await this.accountsRepo.add({
         name: `${faker.finance.accountName()}`,
         type: AccountType.Cash
       })
-      console.log(`add account ${p}`)
+      this.signalService.message(`add account ${p}`)
 
       for (let k = 0; k < faker.random.number(5); k++) {
         const funds = faker.random.number({ min: 100, max: 1000, precision: 2 })
-        console.log(`add funds ${funds}`)
+        this.signalService.message(`add funds ${funds}`)
 
         const t = await this.transactionsRepo.add({
           from: null,
@@ -76,7 +56,7 @@ export class DemoService {
       }
     }
 
-    console.log(`clear old demo ${NO_OF_CUSTOMERS / 2} contacts`)
+    this.signalService.message(`clear old demo ${NO_OF_CUSTOMERS / 2} contacts`)
 
     const contacts = await this.contactsRepo.all()
     const contactIds = contacts.filter(o => o.tags.indexOf('demo') !== -1).map(c => c._id)
@@ -91,7 +71,7 @@ export class DemoService {
       ...agreementsProm
     ])
 
-    console.log(`generate ${NO_OF_CUSTOMERS / 2} persons`)
+    this.signalService.message(`generate ${NO_OF_CUSTOMERS / 2} persons`)
     for (let p = 0; p < NO_OF_CUSTOMERS / 2; p++) {
       const pd = await this.contactsRepo.add({
         name: `${faker.name.findName()}`,
@@ -105,14 +85,14 @@ export class DemoService {
           type: 'owner'
         }]
       }, null, faker.date.past(2).getTime())
-      console.log(`add person ${p}`)
+      this.signalService.message(`add person ${p}`)
 
       if (p < 5) {
         await this.contactsRepo.mark(pd._id)
       }
     }
 
-    console.log(`generate ${NO_OF_CUSTOMERS / 2} companies`)
+    this.signalService.message(`generate ${NO_OF_CUSTOMERS / 2} companies`)
     for (let c = 0; c < NO_OF_CUSTOMERS / 2; c++) {
       const cd = await this.contactsRepo.add({
         name: `${faker.company.companyName()}`,
@@ -133,7 +113,7 @@ export class DemoService {
           type: 'owner'
         }]
       }, null, faker.date.past(2).getTime())
-      console.log(`add company ${c}`)
+      this.signalService.message(`add company ${c}`)
 
       if (c < 5) {
         await this.contactsRepo.mark(cd._id)
@@ -141,10 +121,32 @@ export class DemoService {
 
     }
 
-    console.log(`generate ${NO_OF_CUSTOMERS} agreements`)
+    this.signalService.message(`generate ${NO_OF_CUSTOMERS} agreements`)
     await this.GenerateAggrements()
 
-    this.generated = true
+    this.signalService.message(`completed`)
+  }
+
+  private async execute (id: string) {
+    this.signalService.message(`execute transaction ${id}`)
+    const t = await this.transactionsRepo.one(id)
+    if (!t) return
+
+    if (t.from) {
+      await this.recordsRepo.add({
+        transaction: t._id,
+        account: t.from,
+        amount: t.amount * -1
+      })
+    }
+
+    if (t.to) {
+      await this.recordsRepo.add({
+        transaction: t._id,
+        account: t.to,
+        amount: t.amount
+      })
+    }
   }
 
   private async GenerateAggrements () {
@@ -156,7 +158,7 @@ export class DemoService {
         status: AgreementStatus.draft,
         content: `# Agreement ${Date.now()}\n\r${faker.lorem.paragraphs(5)}`
       }, contact._id, faker.date.past(1).getTime())
-      console.log(`add agreement to contact ${contact._id}`)
+      this.signalService.message(`add agreement to contact ${contact._id}`)
     }
   }
 }
