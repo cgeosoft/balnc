@@ -42,7 +42,7 @@ export class IssueCreateComponent implements OnInit {
       project: this.projectId,
       user: this.config.username,
       type: IssueType.issue
-    })
+    },this.projectId)
     this.activeModal.close(issueId)
   }
 }

@@ -1,14 +1,12 @@
-<app-content>
-  <section>
-    <div class="btn-toolbar">
-      <button class="btn btn-primary" (click)="create()">New Issue</button>
-      <button class="btn btn-outline-secondary">
-        <fa-icon icon="search"></fa-icon>
-      </button>
-    </div>
-  </section>
+<section>
+  <div class="btn-toolbar">
+    <button class="btn btn-primary" (click)="create()">New Issue</button>
+    <button class="btn btn-outline-secondary">
+      <fa-icon icon="search"></fa-icon>
+    </button>
+  </div>
+</section>
 
-  <section class="full no-padding">
-    <app-table [data$]="issues$" [schema]="schema"></app-table>
-  </section>
-</app-content>
+<section class="full no-padding">
+  <app-table [data$]="issues$" [schema]="schema"></app-table>
+</section>

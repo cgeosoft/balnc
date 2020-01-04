@@ -1,7 +1,11 @@
+@import "theme";
+
 :host {
-  display: flex;
-  width: 100%;
-  height: 100%;
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .h-100;
+  @extend .w-100;
+
   .issue-title {
     color: #111;
     font-weight: bold;
@@ -10,6 +14,7 @@
       text-decoration: none;
     }
   }
+
   markdown.comment {
     overflow-y: auto;
     height: 254px;
@@ -18,6 +23,7 @@
     background: #fafafa;
     padding: 1rem;
   }
+
   textarea {
     border: none;
   }

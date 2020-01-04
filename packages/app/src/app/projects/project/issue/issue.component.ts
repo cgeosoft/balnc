@@ -1,13 +1,12 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
-import { Issue, IssueStatus, IssueStatuses, PEvent, PEventType, Project } from '../../@shared/models/all'
+import { Issue, IssueStatus, IssueStatuses, PEvent, PEventType } from '../../@shared/models/all'
 import { IssuesRepo } from '../../@shared/repos/issues.repo'
 import { PEventsRepo } from '../../@shared/repos/pevents.repo'
-import { ProjectsRepo } from '../../@shared/repos/projects.repo'
 
 @Component({
   selector: 'app-projects-issue',
@@ -21,12 +20,10 @@ export class IssueComponent implements OnInit {
   @ViewChild('desc', { static: false }) desc: ElementRef
 
   commentPreview: boolean
-  projectId: string
   issueId: string
   comment: string = null
 
   issue$: Observable<Issue>
-  project$: Observable<Project>
   logs$: Observable<PEvent[]>
 
   form: FormGroup
@@ -41,29 +38,25 @@ export class IssueComponent implements OnInit {
   logType = PEventType
 
   ContentBreadcrumbComponent
-  project: Project
   breadcrumb
 
   constructor (
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private projectsRepo: ProjectsRepo,
     private peventsRepo: PEventsRepo,
     private issuesRepo: IssuesRepo,
-    private zone: NgZone,
     private config: ConfigService
   ) { }
 
   ngOnInit () {
     this.route
       .params
-      .subscribe(async (params) => {
-        this.projectId = params['pid']
+      .subscribe((params) => {
         this.issueId = params['iid']
         this.form = this.formBuilder.group({
           comment: ['', [Validators.required]]
         })
-        await this.setup()
+        this.load()
       })
   }
 
@@ -141,7 +134,7 @@ export class IssueComponent implements OnInit {
     })
   }
 
-  private async setup () {
+  private load () {
     this.issue$ = this.issuesRepo.one$(this.issueId)
     this.logs$ = this.peventsRepo
       .all$()
@@ -152,16 +145,6 @@ export class IssueComponent implements OnInit {
           this.scroll()
         })
       )
-
-    this.issue$.subscribe(async (issue) => {
-      this.project = await this.projectsRepo.one(issue.project)
-      this.breadcrumb = [
-        { label: 'Projects' },
-        { url: ['/projects/project', issue.project], label: 'Projects' },
-        { url: ['/projects/project', issue.project], label: 'Issues' },
-        { label: issue.title }
-      ]
-    })
   }
 
   private log (message: string) {

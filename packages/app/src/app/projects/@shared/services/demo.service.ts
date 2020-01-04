@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { ConfigService } from '@balnc/core'
 import * as faker from 'faker'
-import { Issue, IssueType, Project } from '../models/all'
+import { Issue, IssueStatus, IssueType, Project } from '../models/all'
 import { IssuesRepo } from '../repos/issues.repo'
 import { ProjectsRepo } from '../repos/projects.repo'
 
@@ -14,7 +14,7 @@ export class DemoService {
     private configService: ConfigService
   ) { }
 
-  async generate (size = 3) {
+  async generate (size = 1) {
     console.log(`generate ${size} projects`)
     for (let i = 0; i < size; i++) {
       const pdata: Partial<Project> = {
@@ -29,16 +29,17 @@ export class DemoService {
 
       await this.projectsRepo.mark(project._id)
 
-      console.log(`generate ${size * 5} issues for ${project._id}`)
-      for (let k = 0; k < size * 5; k++) {
+      console.log(`generate 5 issues for ${project._id}`)
+      for (let k = 0; k < 5; k++) {
         const idata: Partial<Issue> = {
           title: faker.hacker.phrase(),
           description: faker.lorem.paragraphs(),
           type: IssueType[IssueType[Math.floor(Math.random() * Object.keys(IssueType).length / 2)]],
           project: project._id,
-          user: this.configService.username
+          user: this.configService.username,
+          status: IssueStatus.pending
         }
-        const issue = await this.issuesRepo.add(idata)
+        const issue = await this.issuesRepo.add(idata,project._id,faker.date.past().getTime())
         console.log(`add issue ${k}:${issue._id} to project ${project._id}`)
       }
     }

@@ -1,4 +1,4 @@
-<ng-container *ngIf="contact$ | async as contact; else loader">
+<ng-container *ngIf="(contact$ | async) as contact; else loader">
   <ng-container *ngIf="contact; else empty">
     <app-content [sidebar]="true">
       <div role="sidebar">

@@ -24,7 +24,7 @@
           <ul class="list-group list-group-customer-menu">
             <ng-container *ngFor="let i of g.items">
               <ng-container *ngIf="i.relative">
-                <a [routerLink]="['/business/projects',project._id,i.url]" routerLinkActive="active"
+                <a [routerLink]="['/projects/projects',project._id,i.url]" routerLinkActive="active"
                   class="list-group-item list-group-item-action">{{i.label}}</a>
               </ng-container>
               <ng-container *ngIf="!i.relative">
