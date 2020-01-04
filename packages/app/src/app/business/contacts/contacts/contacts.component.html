@@ -17,4 +17,5 @@
   <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user-circle':'building']" class="mr-2 text-muted">
   </fa-icon>
   <a [routerLink]="['/business/contacts',contact._id]">{{contact.name}}</a>
+  <fa-icon *ngIf="contact._mark" icon="star" class="text-warning ml-2"></fa-icon>
 </ng-template>

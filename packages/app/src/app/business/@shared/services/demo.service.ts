@@ -10,7 +10,7 @@ import { RecordsRepo } from '../repos/records.repo'
 import { TransactionsRepo } from '../repos/transactions.repo'
 
 const NO_OF_ACCOUNTS = 5
-const NO_OF_CUSTOMERS = 200
+const NO_OF_CUSTOMERS = 50
 
 @Injectable()
 export class DemoService {
@@ -93,7 +93,7 @@ export class DemoService {
 
     console.log(`generate ${NO_OF_CUSTOMERS / 2} persons`)
     for (let p = 0; p < NO_OF_CUSTOMERS / 2; p++) {
-      await this.contactsRepo.add({
+      const pd = await this.contactsRepo.add({
         name: `${faker.name.findName()}`,
         type: ContactType.person,
         tags: ['demo'],
@@ -106,11 +106,15 @@ export class DemoService {
         }]
       }, null, faker.date.past(2).getTime())
       console.log(`add person ${p}`)
+
+      if (p < 5) {
+        await this.contactsRepo.mark(pd._id)
+      }
     }
 
     console.log(`generate ${NO_OF_CUSTOMERS / 2} companies`)
     for (let c = 0; c < NO_OF_CUSTOMERS / 2; c++) {
-      await this.contactsRepo.add({
+      const cd = await this.contactsRepo.add({
         name: `${faker.company.companyName()}`,
         type: ContactType.company,
         tags: ['demo'],
@@ -130,6 +134,11 @@ export class DemoService {
         }]
       }, null, faker.date.past(2).getTime())
       console.log(`add company ${c}`)
+
+      if (c < 5) {
+        await this.contactsRepo.mark(cd._id)
+      }
+
     }
 
     console.log(`generate ${NO_OF_CUSTOMERS} agreements`)

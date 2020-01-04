@@ -22,19 +22,25 @@ export class Repository<T> {
     this.entities = this.dbService.db.entities
   }
 
-  async all (group?: string): Promise<T[]> {
+  async all (group?: string, mark: boolean = false): Promise<T[]> {
     let q = this.entities.find().where('t').eq(this.entity)
     if (group) {
       q = q.where('g').eq(group)
+    }
+    if (mark) {
+      q = q.where('m').eq(mark)
     }
     const items = await q.exec()
     return this.mappedItems(items)
   }
 
-  all$ (group?: string): Observable<T[]> {
+  all$ (group?: string, mark: boolean = false): Observable<T[]> {
     let q = this.entities.find().where('t').eq(this.entity)
     if (group) {
       q = q.where('g').eq(group)
+    }
+    if (mark) {
+      q = q.where('m').eq(mark)
     }
     return q.$.pipe(
       map((items) => this.mappedItems(items)),
@@ -84,6 +90,17 @@ export class Repository<T> {
     })
   }
 
+  async mark (id: string): Promise<T> {
+    const item = await this.entities.findOne(id).exec()
+    if (!item) return null
+    const mark = !item.m
+    await item.update({
+      $set: {
+        m: mark
+      }
+    })
+  }
+
   async remove (id: string): Promise<void> {
     const obj = await this.entities.findOne(id).exec()
     await obj.remove()
@@ -113,6 +130,7 @@ export class Repository<T> {
         o._timestamp = i.d
         o._type = i.t
         o._group = i.g
+        o._mark = i.m
         return o as unknown as T
       })
     return r

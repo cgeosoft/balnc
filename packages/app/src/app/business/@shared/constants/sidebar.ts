@@ -1,6 +1,7 @@
 export const BUSINESS_SIDEBAR = {
   title: 'Business',
   search: null,
+  marked: null,
   menu: [
     {
       label: 'Overview',

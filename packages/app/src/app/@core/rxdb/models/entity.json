@@ -2,7 +2,7 @@
   "$id": "https://balnc.cgeosoft.com/schemas/entity",
   "$schema": "http://json-schema.org/draft-04/schema",
   "type": "object",
-  "version": 1,
+  "version": 2,
   "disableKeyCompression": true,
   "attachments": true,
   "properties": {
@@ -20,6 +20,9 @@
     },
     "c": {
       "type": "object"
+    },
+    "m": {
+      "type": "boolean"
     }
   }
 }

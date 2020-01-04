@@ -3,4 +3,5 @@ export interface Entity {
   _timestamp: number
   _type: string
   _group: string
+  _mark: boolean
 }

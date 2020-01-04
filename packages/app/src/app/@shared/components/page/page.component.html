@@ -6,6 +6,7 @@
       (selectItem)="sidebar.search.select($event)">
     <button *ngIf="sidebar.search.advanced" [routerLink]="sidebar.search.advanced">advanced search</button>
   </div>
+
   <div class="menu-wrapper">
     <div class="menu">
       <ng-container *ngFor="let i of sidebar.menu">
@@ -40,7 +41,23 @@
         </ng-container>
       </ng-container>
     </div>
+    <ng-container *ngIf="sidebar.marked">
+      <ng-container *ngIf="(sidebar.marked.data$ | async) as data;">
+        <ng-container *ngIf="data.length">
+          <div class="header">Bookmarked</div>
+          <div class="menu">
+            <ng-container *ngFor="let d of data">
+              <button [routerLink]="d.url" routerLinkActive="active">
+                <fa-icon [icon]="d.icon" class="icon"></fa-icon>
+                <span>{{d.label}}</span>
+              </button>
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
   </div>
+
 </div>
 <div class="page-content">
   <ng-content></ng-content>

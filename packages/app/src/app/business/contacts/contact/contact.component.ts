@@ -103,4 +103,8 @@ export class ContactComponent implements OnInit {
     })
     await this.router.navigate([`/business/orders`, order._id])
   }
+
+  async toggleMark (id: string) {
+    await this.contactsRepo.mark(id)
+  }
 }

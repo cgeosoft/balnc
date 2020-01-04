@@ -5,7 +5,13 @@
         <img style="width:217px;height:217px" class="rounded border img-fluid mb-3" [src]="contact.avatar"
           *ngIf="contact.avatar">
         <dl>
-          <dt>Name</dt>
+          <dt>Name
+
+            <button (click)="toggleMark(contact._id)" class="btn btn-sm btn-link float-right">
+              <fa-icon icon="star" class="ml-2" [ngClass]="{'text-warning':contact._mark,'text-secondary':!contact._mark}"></fa-icon>
+            </button>
+
+          </dt>
           <dd>{{contact.name}}</dd>
           <ng-container *ngIf="contact.description">
             <dt>Description</dt>

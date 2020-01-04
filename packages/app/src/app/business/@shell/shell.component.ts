@@ -1,7 +1,7 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators'
 import { BUSINESS_SIDEBAR } from '../@shared/constants/sidebar'
 import { Contact, ContactType } from '../@shared/models/contacts'
 import { ContactsRepo } from '../@shared/repos/contacts.repo'
@@ -11,7 +11,7 @@ import { ContactsRepo } from '../@shared/repos/contacts.repo'
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss']
 })
-export class ShellComponent {
+export class ShellComponent implements OnInit {
 
   contactType = ContactType
   generating = false
@@ -27,6 +27,22 @@ export class ShellComponent {
       typeaheadFn: this.typeaheadFn,
       formatter: this.formatter,
       select: this.select
+    }
+  }
+
+  ngOnInit () {
+    this.sidebar.marked = {
+      data$: this.contactsService.all$(null, true).pipe(
+        map((contacts) => {
+          return contacts.map(c => {
+            return {
+              label: c.name,
+              icon: ['fas',(c.type === ContactType.person) ? 'user-circle' : 'building'],
+              url: ['/business/contacts', c._id]
+            }
+          })
+        })
+      )
     }
   }
 
