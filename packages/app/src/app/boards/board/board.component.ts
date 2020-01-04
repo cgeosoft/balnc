@@ -13,7 +13,7 @@ const urlRegex = /(https?:\/\/[^\s]+)/g
 @Component({
   selector: 'app-boards-board',
   templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss'],
+  styleUrls: ['./board.component.scss']
 
 })
 export class BoardComponent implements OnInit {
@@ -114,11 +114,11 @@ export class BoardComponent implements OnInit {
   }
 
   async archiveBoard () {
-
+    // todo
   }
 
   async unarchiveBoard () {
-
+    // todo
   }
 
   async deleteBoard () {

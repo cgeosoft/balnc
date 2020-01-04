@@ -1,5 +1,5 @@
 <ng-container *ngIf="profile; else loading">
-  <app-content-body>
+  <app-content-single>
     <h4>Profile Information</h4>
     <dl class="row mb-0">
       <dt class="col-sm-3 text-right">Key:</dt>
@@ -12,8 +12,8 @@
       <dt class="col-sm-3 text-right">Created:</dt>
       <dd class="col-sm-9 text-monospace">{{profile.createdAt|date:"short"}}&nbsp;</dd>
     </dl>
-  </app-content-body>
-  <app-content-body>
+  </app-content-single>
+  <app-content-single>
     <h4>Remote</h4>
     <p>
       Use this option for make real-time backup of your data and access from multiple devices.
@@ -70,8 +70,8 @@
         </dd>
       </dl>
     </ng-container>
-  </app-content-body>
-  <app-content-body>
+  </app-content-single>
+  <app-content-single>
     <h4>Danger Zone</h4>
     <p>
       Deleting your profile, you immediately remove all local data. If you would like also
@@ -89,7 +89,7 @@
     <button class="btn btn-danger" [disabled]="!deleteData" (click)="delete()">
       Remove Profile
     </button>
-  </app-content-body>
+  </app-content-single>
 </ng-container>
 
 <ng-template #loading>

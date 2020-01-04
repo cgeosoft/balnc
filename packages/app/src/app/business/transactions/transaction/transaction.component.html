@@ -1,5 +1,5 @@
 
-  <app-content-body [padding]="true">
+  <app-content-single [padding]="true">
     <ng-container *ngIf="transaction">
       <div class="form-group">
         <label>From</label>
@@ -23,5 +23,5 @@
       </div>
     </ng-container>
     <pre>{{transaction|json:2}}</pre>
-  </app-content-body>
+  </app-content-single>
 

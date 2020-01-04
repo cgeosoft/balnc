@@ -1,12 +1,12 @@
 
   <ng-container *ngIf="(document$ | async) as document">
     <app-content-header [title]="document.name" icon="file"></app-content-header>
-    <app-content-body> <button (click)="addLine()">add line</button>
+    <app-content-single> <button (click)="addLine()">add line</button>
       <hr>
         <ng-container *ngFor="let line of lines">
           <app-documents-document-line [line]="line"></app-documents-document-line>
         </ng-container>
       <pre>{{document|json:2}}</pre>
-    </app-content-body>
+    </app-content-single>
   </ng-container>
 

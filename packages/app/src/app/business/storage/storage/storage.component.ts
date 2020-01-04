@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-storage',
@@ -6,9 +6,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StorageComponent implements OnInit {
 
-  constructor () { }
+  constructor () {
+    // todo
+  }
 
   ngOnInit () {
+    // todo
   }
 
 }

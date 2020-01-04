@@ -6,7 +6,7 @@ import { AccountsRepo } from '../../@shared/repos/accounts.repo'
 
 @Component({
   selector: 'app-account',
-  templateUrl: './account.component.html',
+  templateUrl: './account.component.html'
 
 })
 export class AccountComponent implements OnInit {

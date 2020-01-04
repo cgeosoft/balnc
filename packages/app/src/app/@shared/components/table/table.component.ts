@@ -40,12 +40,12 @@ export class TableComponent implements OnInit, AfterViewInit {
   @LocalStorage('table_settings') settings: any = {}
   emitted: any
 
-  constructor(
+  constructor (
     private zone: NgZone,
     private cd: ChangeDetectorRef
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.updateSettings()
     this.data$.subscribe((data) => {
       this.dataLength = data.length
@@ -55,7 +55,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.calculateProperties()
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit () {
     this.viewlimit = null
     this.calculatePagination()
     this.calculatePages()
@@ -84,7 +84,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     })
   }
 
-  scroll(): void {
+  scroll (): void {
     if (this.tableWrapper.nativeElement.offsetHeight + this.tableWrapper.nativeElement.scrollTop - this.table.nativeElement.offsetHeight > this.rowHeight * 2 * -1) {
       this.limit += this.viewlimit
       this.calculatePages()
@@ -92,14 +92,14 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private calculatePagination() {
+  private calculatePagination () {
     let tableHeight = this.wrapper.nativeElement.offsetHeight
     if (!this.viewlimit) tableHeight += 81
     this.tableWrapper.nativeElement.scrollTop = 0
     this.viewlimit = this.limit = Math.floor(((tableHeight - this.headerHeight - this.footerHeight) / this.rowHeight) + 5)
   }
 
-  updateSettings() {
+  updateSettings () {
     this.settings[this.schema.name] = this.settings[this.schema.name] || { visible: {} }
     this.schema.properties.forEach((p, i) => {
       this.settings[this.schema.name].visible[i] = this.settings[this.schema.name].visible[i] || !p.hidden
@@ -107,11 +107,11 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.settings.save()
   }
 
-  calculateProperties() {
+  calculateProperties () {
     this.properties = this.schema.properties.filter((p, i) => this.settings[this.schema.name].visible[i])
   }
 
-  calculatePages() {
+  calculatePages () {
     if (this.limit < 1) return
     let pages = Math.floor(this.dataLength / this.limit)
     pages += (this.dataLength % this.limit > 0) ? 1 : 0
@@ -120,7 +120,7 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.movePageWindow()
   }
 
-  movePageWindow() {
+  movePageWindow () {
     if (this.totalPages.length <= 5) {
       this.pages = this.totalPages
     } else if (this.page <= 2) {
@@ -144,37 +144,37 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  resetLimit(limit) {
+  resetLimit (limit) {
     this.page = 0
     this.limit = parseInt(limit, 10)
     this.calculatePages()
   }
 
-  previous() {
+  previous () {
     if (this.page > 0) {
       this.page -= 1
       this.movePageWindow()
     }
   }
 
-  next() {
+  next () {
     if (this.page < this.totalPages.length - 1) {
       this.page += 1
       this.movePageWindow()
     }
   }
 
-  first() {
+  first () {
     this.page = 0
     this.movePageWindow()
   }
 
-  last() {
+  last () {
     this.page = this.totalPages.length - 1
     this.movePageWindow()
   }
 
-  getBadge(badges: any[], badge: any) {
+  getBadge (badges: any[], badge: any) {
     if (badges[badge]) {
       return badges[badge]
     }

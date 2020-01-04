@@ -1,5 +1,5 @@
 
-  <app-content-body [padding]="false">
+  <app-content-single [padding]="false">
     <ng-container *ngIf="(issues$ | async) as issues; else loader">
       <ng-container *ngIf="(issues | filterIssues:filters).length; else empty">
         <pre>{{issues|json:2}}</pre>
@@ -30,7 +30,7 @@
         </table>
       </ng-container>
     </ng-container>
-  </app-content-body>
+  </app-content-single>
 
 
 <ng-template #empty>

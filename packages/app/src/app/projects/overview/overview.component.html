@@ -1,5 +1,5 @@
 
-  <app-content-body [padding]="false">
+  <app-content-single [padding]="false">
     <ng-container *ngIf="(logs$ | async) as logs; else loader">
       <ng-container *ngIf="logs.length; else nologs">
         <table class="table">
@@ -23,7 +23,7 @@
       </ng-container>
     </ng-container>
 
-  </app-content-body>
+  </app-content-single>
 
 
 

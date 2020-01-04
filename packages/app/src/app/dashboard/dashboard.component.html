@@ -1,5 +1,5 @@
 <app-page>
-  <app-content-body>
+  <app-content-single>
     <div class="row">
       <div class="col">
         <app-tile [icon]="['fas', 'balance-scale-right']" label="ispum" theme="red"></app-tile>
@@ -14,9 +14,9 @@
         <app-tile [icon]="['fas', 'exclamation-circle']" label="amet" theme="blue"></app-tile>
       </div>
     </div>
-  </app-content-body>
-  <app-content-body [full]="true">
+  </app-content-single>
+  <app-content-single [full]="true">
     <app-empty message="Dashboard is not avalable" submessage="select another module" icon="exclamation-circle">
     </app-empty>
-  </app-content-body>
+  </app-content-single>
 </app-page>

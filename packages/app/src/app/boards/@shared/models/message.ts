@@ -1,4 +1,4 @@
-import { Entity } from '@balnc/core';
+import { Entity } from '@balnc/core'
 
 export interface Message extends Entity {
   text?: string
@@ -34,4 +34,3 @@ export interface OgMetadata {
     alt: null
   }
 }
-

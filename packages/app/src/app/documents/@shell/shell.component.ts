@@ -7,7 +7,7 @@ import { DocumentsRepo } from '../@shared/repos/documents.repo'
 @Component({
   selector: 'app-shell',
   templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.scss'],
+  styleUrls: ['./shell.component.scss']
 
 })
 export class ShellComponent implements OnInit {

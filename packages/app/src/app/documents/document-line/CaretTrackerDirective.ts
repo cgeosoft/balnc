@@ -86,37 +86,40 @@ export class CaretTrackerDirective implements AfterViewInit {
     if (this._isTextarea()) {
       (this.$element as HTMLTextAreaElement).setSelectionRange(position, position)
     } else {
-      const selection = this._window.getSelection()
-      if (selection) {
-        let offset = 0, found = false, fn: Function
-        (fn = (pos: number, parent: HTMLElement) => {
-          const nodeList = Array.from(parent.childNodes), results = []
-          for (const node of nodeList) {
-            if (found) {
-              break
-            } else {
-              if (node.nodeType === Node.TEXT_NODE) {
-                if (offset + node['length'] >= pos) {
-                  found = true
-                  const range = this._document.createRange()
-                  range.setStart(node, pos - offset)
-                  selection.removeAllRanges()
-                  selection.addRange(range)
-                  break
-                } else {
-                  results.push(offset += node['length'])
-                }
-              } else {
-                results.push(fn(pos, node))
-              }
-            }
-          }
-          return results
-        })(position, this.$element)
-      }
+      // const selection = this._window.getSelection()
+      // if (selection) {
+      //   let offset = 0, found = false, fn: Function
+      //   ()(position, this.$element)
+      // }
     }
     return this
   }
+
+  // fn(pos: number, parent: HTMLElement) {
+  //   const nodeList = Array.from(parent.childNodes), results = []
+  //   for (const node of nodeList) {
+  //     if (found) {
+  //       break
+  //     } else {
+  //       if (node.nodeType === Node.TEXT_NODE) {
+  //         if (offset + node['length'] >= pos) {
+  //           found = true
+  //           const range = this._document.createRange()
+  //           range.setStart(node, pos - offset)
+  //           selection.removeAllRanges()
+  //           selection.addRange(range)
+  //           break
+  //         } else {
+  //           results.push(offset += node['length'])
+  //         }
+  //       } else {
+  //         results.push(fn(pos, node))
+  //       }
+  //     }
+  //   }
+  //   return results
+  // }
+
   getCaretPosition (): ICaretOffset {
     return this.getOrSetCaretPosition()
   }

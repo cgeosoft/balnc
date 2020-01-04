@@ -12,8 +12,9 @@ import { NgPipesModule } from 'ngx-pipes'
 import { WebStorageModule } from 'ngx-store'
 import { ToastrModule } from 'ngx-toastr'
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component'
-import { ContentBodyComponent } from './components/content-body/content-body.component'
 import { ContentHeaderComponent } from './components/content-header/content-header.component'
+import { ContentSidebarComponent } from './components/content-sidebar/content-sidebar.component'
+import { ContentBodyComponent } from './components/content-single/content-single.component'
 import { DebugComponent } from './components/debug/debug.component'
 import { EmptyComponent } from './components/empty/empty.component'
 import { FooterComponent } from './components/footer/footer.component'
@@ -58,11 +59,10 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     DocVersionPipe,
     EllipsisPipe,
     PaginatePipe,
-    SearchPipe
+    SearchPipe,
+    ContentSidebarComponent
   ],
-  entryComponents: [
-    ConfirmDialogComponent
-  ],
+  entryComponents: [ConfirmDialogComponent],
   exports: [
     FontAwesomeModule,
     RouterModule,
@@ -93,4 +93,4 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     SearchPipe
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -19,7 +19,7 @@ export class WrapperComponent implements OnInit {
   ) { }
 
   async ngOnInit () {
-    this.loadReports()
+    await this.loadReports()
   }
 
   async loadReports () {

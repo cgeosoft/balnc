@@ -1,9 +1,9 @@
 import { Component, HostBinding, Input } from '@angular/core'
 
 @Component({
-  selector: 'app-content-body',
-  templateUrl: './content-body.component.html',
-  styleUrls: ['content-body.component.scss']
+  selector: 'app-content-single',
+  templateUrl: './content-single.component.html',
+  styleUrls: ['content-single.component.scss']
 })
 export class ContentBodyComponent {
   @Input() @HostBinding('class.padding') padding: boolean = true

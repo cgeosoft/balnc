@@ -13,7 +13,7 @@ import { OverviewComponent } from './overview/overview.component'
 import { ProjectManageComponent } from './project-manage/project-manage.component'
 import { FilterIssuesPipe, ProjectComponent } from './project/project.component'
 import { ProjectsRoutes } from './projects.routes'
-import { SettingsComponent } from './settings/settings.component';
+import { SettingsComponent } from './settings/settings.component'
 import { IssuesComponent } from './issues/issues.component'
 
 @NgModule({

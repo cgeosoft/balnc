@@ -141,8 +141,8 @@ export class RemoteComponent implements OnInit {
           })
         this.remote.username = _username
         this.remote.token = _password
-        this.loadProfiles()
         this.wizard.active = 'link'
+        return this.loadProfiles()
       })
       .catch((response) => {
         this.toastr.error(response.error.reason, response.error.error)
@@ -164,7 +164,7 @@ export class RemoteComponent implements OnInit {
         dbs: string[],
         owner: string
       }) => {
-        this.login(this.remote.username, this.remote.token)
+        return this.login(this.remote.username, this.remote.token)
       })
       .catch((response) => {
         this.toastr.error(response.error.reason, response.error.error)

@@ -9,7 +9,7 @@ import { CreateComponent } from '../create/create.component'
 
 @Component({
   selector: 'app-presentations-shell',
-  templateUrl: './shell.component.html',
+  templateUrl: './shell.component.html'
 
 })
 export class ShellComponent implements OnInit {

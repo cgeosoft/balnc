@@ -1,8 +1,8 @@
-<app-content-body [full]="true" [padding]="false">
+<app-content-single [full]="true" [padding]="false">
   <app-table [data$]="transactions$" [schema]="schema"
     [templates]="{statusTpl:statusTpl,accountFromTpl:accountFromTpl,accountToTpl:accountToTpl}">
   </app-table>
-</app-content-body>
+</app-content-single>
 
 
 <ng-template #statusTpl let-transaction="item">

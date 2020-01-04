@@ -1,4 +1,4 @@
-import { Entity } from '@balnc/core';
+import { Entity } from '@balnc/core'
 
 export interface Slide extends Entity {
   title: string

@@ -94,7 +94,7 @@ export class IssueComponent implements OnInit {
 
   async updateStatus (status: IssueStatus) {
     await this.issuesRepo.update(this.issueId, { $set: { status: status } })
-    this.log(`status updated to ${status}`)
+    await this.log(`status updated to ${status}`)
   }
 
   async updateDesc (description) {
@@ -149,7 +149,6 @@ export class IssueComponent implements OnInit {
         map(i => i.filter(x => x.issueId === this.issueId)),
         tap((logs: PEvent[]) => logs.sort((a, b) => a._timestamp - b._timestamp)),
         tap((logs: PEvent[]) => {
-          this.zone.run(() => { })
           this.scroll()
         })
       )

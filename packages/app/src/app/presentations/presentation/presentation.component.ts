@@ -13,7 +13,7 @@ import { AddPageComponent } from '../add-page/add-page.component'
 @Component({
   selector: 'app-presentations-presentation',
   templateUrl: './presentation.component.html',
-  styleUrls: ['./presentation.component.scss'],
+  styleUrls: ['./presentation.component.scss']
 
 })
 export class PresentationComponent implements OnInit {

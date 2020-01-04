@@ -1,5 +1,5 @@
 
-    <app-content-body>
+    <app-content-single>
       <div>
         <h4>Generate Random Data</h4>
         <p>This will generate random We suggest to generate random data in a non-production profile.</p>
@@ -7,7 +7,7 @@
         <p class="text-center text-muted" *ngIf="generating"><fa-icon icon="cog" spin="true"></fa-icon> generating...</p>
         <p class="text-center text-success" *ngIf="generated">Random data generated at {{generated|date:'short'}}</p>
       </div>
-    </app-content-body>
+    </app-content-single>
 
 
   <ng-template #noProjects>

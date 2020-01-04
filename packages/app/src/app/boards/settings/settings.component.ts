@@ -3,7 +3,7 @@ import { DemoService } from '../@shared/services/demo.service'
 
 @Component({
   selector: 'app-settings',
-  templateUrl: './settings.component.html',
+  templateUrl: './settings.component.html'
 
 })
 export class SettingsComponent {

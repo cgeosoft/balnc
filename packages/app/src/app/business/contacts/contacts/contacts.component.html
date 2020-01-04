@@ -1,12 +1,12 @@
-<app-content-body>
+<app-content-single>
   <div class="btn-toolbar">
     <button class="btn btn-primary" (click)="createContact()">New Contact</button>
   </div>
-</app-content-body>
+</app-content-single>
 
-<app-content-body [full]="true" [padding]="false">
+<app-content-single [full]="true" [padding]="false">
   <app-table [data$]="contacts$" [schema]="schema" [templates]="{t1:t1}"></app-table>
-</app-content-body>
+</app-content-single>
 
 <ng-template #t1 let-contact="item">
   <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user-circle':'building']" class="mr-2 text-muted">

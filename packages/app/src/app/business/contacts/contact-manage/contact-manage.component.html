@@ -1,6 +1,6 @@
 <ng-container *ngIf="contact$ | async as contact; else loader">
   <ng-container *ngIf="contact; else empty">
-    <app-content-body>
+    <app-content-single>
       <h4>Connections</h4>
       <div class="list-group list-group-flush">
         <a href="" class="list-group-item list-group-item-action" *ngFor="let conn of contact.conns">
@@ -21,10 +21,10 @@
           <dd>{{contact.taxDetails.taxOffice || '-'}}</dd>
         </dl>
       </ng-container>
-    </app-content-body>
-    <app-content-body [full]="true">
+    </app-content-single>
+    <app-content-single [full]="true">
       <app-debug [data]="contact"></app-debug>
-    </app-content-body>
+    </app-content-single>
   </ng-container>
 </ng-container>
 

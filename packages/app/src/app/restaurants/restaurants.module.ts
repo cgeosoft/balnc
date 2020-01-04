@@ -9,10 +9,12 @@ import { SharedModule } from '@balnc/shared'
 })
 export class RestaurantsClientComponent implements OnInit {
 
-  constructor (
-  ) { }
+  constructor () {
+    // todo
+  }
 
   ngOnInit () {
+    // todo
   }
 }
 

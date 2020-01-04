@@ -33,7 +33,7 @@ export class ShellComponent implements OnInit {
   showFilters = false
 
   sidebar = {
-    title:'Projects',
+    title: 'Projects',
     menu: [
       { label: 'Overview' },
       { label: 'Issues' }

@@ -10,7 +10,7 @@ import { MessagesRepo } from '../@shared/repos/messages.repo'
 @Component({
   selector: 'app-boards-shell',
   templateUrl: './shell.component.html',
-  styleUrls: ['./shell.component.scss'],
+  styleUrls: ['./shell.component.scss']
 
 })
 export class ShellComponent implements OnInit {

@@ -1,5 +1,5 @@
 <ng-container *ngIf="(issue$ | async) as issue">
-  <app-content-body>
+  <app-content-single>
     <div class="btn-toolbar">
       <div class="btn-group">
         <button type="button" class="btn btn-sm" [ngStyle]="status(issue.status).style"
@@ -16,8 +16,8 @@
         </div>
       </div>
     </div>
-  </app-content-body>
-  <app-content-body [padding]="false">
+  </app-content-single>
+  <app-content-single [padding]="false">
     <div class="d-flex h-100">
       <div class="flex-grow-1 d-flex flex-column p-4">
         <h2 #title contenteditable="true" (blur)="updateTitle(title.innerText)" class="pb-2 border-bottom">
@@ -91,7 +91,7 @@
 
       </div>
     </div>
-  </app-content-body>
+  </app-content-single>
 </ng-container>
 
 <ng-template #emptyLogs>

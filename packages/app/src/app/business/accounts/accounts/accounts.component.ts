@@ -9,7 +9,7 @@ import { RecordsRepo } from '../../@shared/repos/records.repo'
 
 @Component({
   selector: 'app-accounts',
-  templateUrl: './accounts.component.html',
+  templateUrl: './accounts.component.html'
 
 })
 export class AccountsComponent implements OnInit {

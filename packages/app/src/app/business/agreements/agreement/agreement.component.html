@@ -1,12 +1,12 @@
 <ng-container *ngIf="agreement">
 
-    <app-content-body>
+    <app-content-single>
       <div class="btn-toolbar">
         <button class="btn btn-secondary" styleSheetFile="/assets/css/print.css" printSectionId="print-section"
           ngxPrint>Print</button>
       </div>
-    </app-content-body>
-    <app-content-body>
+    </app-content-single>
+    <app-content-single>
       <div class="row">
         <div class="col-4">
           <div><strong>Serial</strong></div>
@@ -21,13 +21,13 @@
           <div>{{agreement.updatedAt|date:"short"}}</div>
         </div>
       </div>
-    </app-content-body>
-    <app-content-body>
+    </app-content-single>
+    <app-content-single>
       <textarea #content *ngIf="editDesc" class="form-control h-100" style="box-shadow:none;background: #FAFAFA"
         placeholder="content..." [value]="agreement.content" (blur)="updateDesc(content.value)"></textarea>
       <div id="print-section" *ngIf="!editDesc" (click)="enableEdit()">
         <markdown [data]="agreement.content"></markdown>
       </div>
-    </app-content-body>
+    </app-content-single>
 
 </ng-container>
