@@ -82,10 +82,18 @@ export class Repository<T> {
 
   async update (id: string, data: any) {
     const item = await this.entities.findOne(id).exec()
-    const content = Object.assign(item.c, data)
+    const content = { ...item.c, ...data }
+
+    const filteredContent = Object.keys(content)
+      .filter(key => !key.startsWith('_'))
+      .reduce((obj, key) => {
+        obj[key] = content[key]
+        return obj
+      }, {})
+
     await item.update({
       $set: {
-        c: content
+        c: filteredContent
       }
     })
   }

@@ -47,7 +47,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   ngOnInit (): void {
     this.updateSettings()
-    if(!this.data$) return;
+    if (!this.data$) return
     this.data$.subscribe((data) => {
       this.dataLength = data.length
       this.calculatePages()
@@ -175,14 +175,23 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.movePageWindow()
   }
 
-  getBadge (badges: any[], badge: any) {
-    if (badges[badge]) {
-      return badges[badge]
-    }
-    return {
-      class: null,
+  getBadge (prop, item) {
+    let defaultBadge = {
       label: 'Unknown',
-      color: '#DDD'
+      class: 'default',
+      style: {
+        'background-color': '#DDD',
+        color: '#000'
+      }
     }
+    if (!prop.badges) {
+      return defaultBadge
+    }
+    const v = prop.val(item)
+    const b = prop.badges.find(x => x.key === v)
+    if (!b) {
+      return defaultBadge
+    }
+    return { ...defaultBadge, ...b }
   }
 }

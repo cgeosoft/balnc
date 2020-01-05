@@ -69,10 +69,10 @@ export const IssueTypeModel = [
 ]
 
 export const IssueStatuses = [
-  { key: IssueStatus.open, alias: 'Open', color: '#9E9E9E' },
-  { key: IssueStatus.pending, alias: 'Pending', color: '#607D8B' },
-  { key: IssueStatus.progress, alias: 'Progress', color: '#FF5722' },
-  { key: IssueStatus.completed, alias: 'Completed', color: '#2196F3' },
-  { key: IssueStatus.review, alias: 'Review', color: '#9C27B0' },
-  { key: IssueStatus.closed, alias: 'Closed', color: '#4CAF50' }
+  { key: IssueStatus.open, label: 'Open', style: { 'background-color': '#9E9E9E', color: '#FFF' } },
+  { key: IssueStatus.pending, label: 'Pending', style: { 'background-color': '#607D8B', color: '#FFF' } },
+  { key: IssueStatus.progress, label: 'In Progress', style: { 'background-color': '#FF5722', color: '#FFF' } },
+  { key: IssueStatus.completed, label: 'Completed', style: { 'background-color': '#2196F3', color: '#FFF' } },
+  { key: IssueStatus.review, label: 'Review', style: { 'background-color': '#9C27B0', color: '#FFF' } },
+  { key: IssueStatus.closed, label: 'Closed', style: { 'background-color': '#4CAF50', color: '#FFF' } }
 ]

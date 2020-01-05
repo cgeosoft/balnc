@@ -1,11 +1,9 @@
-<section>
-  <div class="btn-toolbar">
-    <button class="btn btn-primary" (click)="create()">New Issue</button>
-    <button class="btn btn-outline-secondary">
-      <fa-icon icon="search"></fa-icon>
-    </button>
-  </div>
-</section>
+<app-toolbar>
+  <button class="btn btn-primary" (click)="create()">New Issue</button>
+  <button class="btn btn-outline-secondary">
+    <fa-icon icon="search"></fa-icon>
+  </button>
+</app-toolbar>
 
 <section class="full no-padding">
   <app-table [data$]="issues$" [schema]="schema"></app-table>

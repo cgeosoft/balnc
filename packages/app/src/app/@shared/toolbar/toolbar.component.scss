@@ -1,0 +1,12 @@
+@import "theme";
+
+:host {
+  @extend .btn-toolbar;
+  @extend .p-3;
+  @extend .bg-light;
+}
+
+:host ::ng-deep > .btn {
+  @extend .btn-sm;
+  @extend .mr-2;
+}

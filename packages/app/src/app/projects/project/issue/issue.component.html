@@ -1,11 +1,10 @@
 <ng-container *ngIf="(issue$ | async) as issue; else loader">
   <ng-container *ngIf="issue; else empty">
     <div class="d-flex h-100">
-      <div class="flex-grow-1 d-flex flex-column p-4">
-
-        <div class="btn-toolbar mb-4">
+      <div class="flex-grow-1 d-flex flex-column">
+        <app-toolbar>
           <div class="btn-group">
-            <button type="button" class="btn btn-sm" [ngStyle]="status(issue.status).style"
+            <button type="button" class="btn" [ngStyle]="status(issue.status).style"
               (click)="nextStatus(issue.status)">
               {{status(issue.status).label}}
             </button>
@@ -13,26 +12,29 @@
               <button class="btn dropdown-toggle-split" [ngStyle]="status(issue.status).style"
                 ngbDropdownToggle></button>
               <div class="dropdown-menu" ngbDropdownMenu>
-                <button ngbDropdownItem *ngFor="let s of issueStatusModel" (click)="updateStatus(s.key)">
-                  <fa-icon [icon]="['fas','circle']" [ngStyle]="{color:s.color}"></fa-icon> {{s.alias}}
+                <button ngbDropdownItem *ngFor="let s of issueStatuses" (click)="updateStatus(s.key)">
+                  <fa-icon [icon]="['fas','circle']" [ngStyle]="{color:s.style['background-color']}"></fa-icon>
+                  {{s.label}}
                 </button>
               </div>
             </div>
           </div>
-        </div>
-        <h2 #title contenteditable="true" (blur)="updateTitle(title.innerText)" class="pb-2 border-bottom">
-          {{issue.title}}
-        </h2>
-        <div class="flex-grow-1 overflow-auto">
-          <textarea #desc *ngIf="editDesc" class="form-control h-100"
-            style="padding:10px;box-shadow:none;background: #FAFAFA" placeholder="description..."
-            [value]="issue.description" (blur)="updateDesc(desc.value)"></textarea>
-          <div style="padding:10px" *ngIf="!editDesc" (click)="enableEditDesc()">
-            <markdown [data]="issue.description"></markdown>
+        </app-toolbar>
+        <section class="full border-top d-flex flex-column">
+          <h2 #title contenteditable="true" (blur)="updateTitle(title.innerText)" class="pb-2 border-bottom">
+            {{issue.title}}
+          </h2>
+          <div class="flex-grow-1 overflow-auto">
+            <textarea #desc *ngIf="editDesc" class="form-control h-100"
+              style="padding:10px;box-shadow:none;background: #FAFAFA" placeholder="description..."
+              [value]="issue.description" (blur)="updateDesc(desc.value)"></textarea>
+            <div style="padding:10px" *ngIf="!editDesc" (click)="enableEditDesc()">
+              <markdown [data]="issue.description"></markdown>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
-      <div class="d-flex flex-column border-left bg-light h-100 ml-4 p-4" style="min-width:350px;width:350px">
+      <div class="d-flex flex-column border-left bg-light h-100 p-4" style="min-width:400px;width:400px">
         <div #timeline class="flex-grow-1 overflow-auto timeline">
           <ng-container *ngIf="(logs$ | async) as logs">
             <ng-container *ngIf="logs.length; else emptyLogs">
@@ -88,7 +90,6 @@
             </div>
           </form>
         </div>
-
       </div>
     </div>
   </ng-container>

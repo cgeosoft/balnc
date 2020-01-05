@@ -4,7 +4,7 @@ import { TableSchema } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs'
 import { mergeMap, tap } from 'rxjs/operators'
-import { Issue } from '../../@shared/models/all'
+import { Issue, IssueStatuses } from '../../@shared/models/all'
 import { IssuesRepo } from '../../@shared/repos/issues.repo'
 import { IssueCreateComponent } from '../issue-create/issue-create.component'
 
@@ -20,7 +20,19 @@ export class IssuesComponent implements OnInit {
   schema: TableSchema = {
     name: 'projects',
     properties: [
-      { label: 'Date', style: { width: '160px' }, type: 'date', val: (i: Issue) => i._timestamp },
+      {
+        label: 'Date',
+        style: { width: '140px' },
+        type: 'date',
+        val: (i: Issue) => i._timestamp
+      },
+      {
+        label: 'Status',
+        style: { width: '100px' },
+        type: 'badge',
+        badges: IssueStatuses,
+        val: (i: Issue) => i.status
+      },
       {
         label: 'Name',
         style: { 'min-width': '300px' },
@@ -47,7 +59,7 @@ export class IssuesComponent implements OnInit {
     this.issues$ = this.route.parent.params.pipe(
       tap(params => { this.pid = params['pid'] }),
       mergeMap(params => this.issuesRepo.all$(params['pid'])),
-      tap(issues => issues.sort((a,b) => b._timestamp - a._timestamp))
+      tap(issues => issues.sort((a, b) => b._timestamp - a._timestamp))
     )
   }
 

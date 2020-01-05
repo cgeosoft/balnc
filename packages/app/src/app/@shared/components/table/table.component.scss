@@ -7,14 +7,13 @@
     @extend .d-flex;
     @extend .flex-column;
     @extend .h-100;
-    @extend .border-top;
-    @extend .bg-light;
 
     .table-wrapper {
       @extend .d-flex;
       @extend .w-100;
       @extend .flex-grow-1;
       @extend .overflow-auto;
+      @extend .border-top;
 
       .table {
         @extend .bg-white;

@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { ToastrService } from 'ngx-toastr'
+import { Observable } from 'rxjs'
+import { mergeMap, tap } from 'rxjs/operators'
 import { Project } from '../../@shared/models/all'
 import { IssuesRepo } from '../../@shared/repos/issues.repo'
 import { PEventsRepo } from '../../@shared/repos/pevents.repo'
@@ -12,46 +14,44 @@ import { ProjectsRepo } from '../../@shared/repos/projects.repo'
 })
 export class ProjectManageComponent implements OnInit {
 
-  @Input() projectId
-  project: Project
-  loading = true
+  pid: string
+  project$: Observable<Project>
+  deleting: boolean
+  saving: boolean
 
   constructor (
-    private activeModal: NgbActiveModal,
     private projectsRepo: ProjectsRepo,
     private issuesRepo: IssuesRepo,
     private peventsRepo: PEventsRepo,
-    private router: Router
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) { }
 
-  get modal () {
-    return this.activeModal
-  }
-
   async ngOnInit () {
-    const p = await this.projectsRepo.one(this.projectId)
-    this.project = { ...p }
+    this.project$ = this.route.parent.params.pipe(
+      tap(params => {
+        this.pid = params['pid']
+        this.deleting = false
+      }),
+      mergeMap(params => this.projectsRepo.one$(params['pid']))
+    )
   }
 
-  async updateName () {
-    this.loading = true
-    const p = await this.projectsRepo.update(this.projectId, {
-      $set: {
-        name: this.project.name
-      }
-    })
-    this.activeModal.close()
+  async save (data) {
+    this.saving = true
+    await this.projectsRepo.update(this.pid, data)
+    this.saving = false
   }
 
-  async deleteProject () {
+  async delete () {
     if (!confirm('Are you sure?')) return
 
-    await this.projectsRepo.remove(this.projectId)
+    this.deleting = true
 
     const issues = await this.issuesRepo.all()
 
     const promiseIssues = issues
-      .filter(i => i.project === this.projectId)
+      .filter(i => i.project === this.pid)
       .map(i => this.issuesRepo.remove(i._id))
 
     await Promise.all(promiseIssues)
@@ -64,7 +64,8 @@ export class ProjectManageComponent implements OnInit {
       )
     await Promise.all(promisePEvents)
 
-    this.activeModal.close()
-    await this.router.navigate(['/projects/overview'])
+    await this.projectsRepo.remove(this.pid)
+
+    this.toastr.success('Project deleted')
   }
 }

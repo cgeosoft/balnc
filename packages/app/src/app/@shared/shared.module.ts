@@ -26,6 +26,7 @@ import { TableComponent } from './components/table/table.component'
 import { FontAwesomeModule } from './modules/font-awesome/font-awesome.module'
 import { DocVersionPipe } from './pipes/doc-version.pipe'
 import { EllipsisPipe } from './pipes/ellipsis.pipe'
+import { ToolbarComponent } from './toolbar/toolbar.component'
 
 @NgModule({
   imports: [
@@ -58,7 +59,8 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     DocVersionPipe,
     EllipsisPipe,
     PaginatePipe,
-    SearchPipe
+    SearchPipe,
+    ToolbarComponent
   ],
   entryComponents: [ConfirmDialogComponent],
   exports: [
@@ -88,6 +90,7 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     FooterComponent,
     SpinnerComponent,
     TableComponent,
+    ToolbarComponent,
     SearchPipe
   ]
 })

@@ -1,29 +1,35 @@
-<div class="modal-header">
-  <h4 class="modal-title">Projects</h4>
-  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<div class="modal-body" *ngIf="project; else loader">
-  <div class="form-group">
-    <label>Name
-      <small class="text-muted">required</small>
-    </label>
-    <div class="d-flex">
-      <input class="form-control" [(ngModel)]="project.name">
-      <button type="button" class="btn btn-success ml-2" (click)="updateName()">Update</button>
+<ng-container *ngIf="(project$ | async) as project">
+  <ng-container *ngIf="project">
+    <div class="sections container-md container-fixed-md">
+      <section>
+        <h4>Manage Details</h4>
+        <form #details="ngForm" (ngSubmit)="save(details.value)">
+          <div class="form-group">
+            <label>Name</label>
+            <input [disabled]="saving || deleting" class="form-control" [ngModel]="project.name" name="name">
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea [disabled]="saving || deleting" class="form-control" [ngModel]="project.description"
+              name="description" rows="5"></textarea>
+          </div>
+          <div class="form-grou text-right">
+            <button type="submit" class="btn btn-success" [disabled]="saving || deleting">Update</button>
+          </div>
+        </form>
+      </section>
+      <section>
+        <h4 class="text-danger">Danger Zone</h4>
+        <p class="text-danger">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem culpa iure nisi! Asperiores,
+          suscipit
+          blanditiis. Repellendus vitae tempore quo aliquid tempora voluptate error recusandae repellat ipsam
+          suscipit.
+          Culpa, at repellat.
+        </p>
+        <button class="btn btn-danger" [disabled]="deleting"
+          (click)="delete()">{{deleting ?'Deleting...':'Delete'}}</button>
+      </section>
     </div>
-  </div>
-  <div class="text-danger">
-    <h4>Delete project</h4>
-    <p>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem culpa iure nisi! Asperiores, suscipit
-      blanditiis. Repellendus vitae tempore quo aliquid tempora voluptate error recusandae repellat ipsam suscipit.
-      Culpa, at repellat.
-    </p>
-    <button class="btn btn-danger" (click)="deleteProject()">Delete</button>
-  </div>
-</div>
-<ng-template #loader>
-  <app-spinner></app-spinner>
-</ng-template>
+  </ng-container>
+</ng-container>

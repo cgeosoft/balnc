@@ -1,18 +1,10 @@
-
+<div class="container-md container-fixed-md">
   <section>
-    <div>
-      <h4>Generate Random Data</h4>
-      <p>You may generate some random data. A few projects will be created and some issues in each project. Keep in
-        mind that all data are permant. We suggest to generate random data in a non-production profile</p>
-      <button class="btn btn-primary" (click)="generateDemoData()">Generate</button>
-      <p class="text-success text-center" *ngIf="generated">Random data generated at {{generated|date:'short'}}</p>
-    </div>
+    <h4>Generate Random Data</h4>
+    <p>You may generate some random data. A few projects will be created and some issues in each project. Keep in
+      mind that all data are permant. We suggest to generate random data in a non-production profile</p>
+    <p class="text-success" *ngIf="generated">Random data generated at {{generated|date:'short'}}</p>
+    <button class="btn btn-primary" [disabled]="generating"
+      (click)="generateDemoData()">{{generating?'Generating...':'Generate Random Data'}}</button>
   </section>
-
-
-<ng-template #noProjects>
-  <app-empty message="No projects" icon="file-alt:regular"></app-empty>
-</ng-template>
-<ng-template #loader>
-  <app-spinner></app-spinner>
-</ng-template>
+</div>

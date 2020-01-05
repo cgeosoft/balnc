@@ -33,7 +33,7 @@ export class IssueComponent implements OnInit {
   editDesc = false
 
   statuses = IssueStatus
-  issueStatusModel = IssueStatuses
+  issueStatuses = IssueStatuses
 
   logType = PEventType
 
@@ -49,53 +49,44 @@ export class IssueComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    this.route
-      .params
-      .subscribe((params) => {
-        this.issueId = params['iid']
-        this.form = this.formBuilder.group({
-          comment: ['', [Validators.required]]
-        })
-        this.load()
+    this.route.params.subscribe((params) => {
+      this.issueId = params['iid']
+      this.form = this.formBuilder.group({
+        comment: ['', [Validators.required]]
       })
+      this.issue$ = this.issuesRepo.one$(this.issueId)
+      this.logs$ = this.peventsRepo.all$().pipe(
+        map(i => i.filter(x => x.issueId === this.issueId)),
+        tap((logs: PEvent[]) => logs.sort((a, b) => a._timestamp - b._timestamp)),
+        tap((logs: PEvent[]) => {
+          this.scroll()
+        })
+      )
+    })
   }
 
   status (status: IssueStatus) {
-    const s = this.issueStatusModel.find(x => x.key === status)
-    return {
-      style: {
-        backgroundColor: s.color,
-        color: '#FFF'
-      },
-      label: s.alias
-    }
+    return this.issueStatuses.find(x => x.key === status)
   }
 
   async nextStatus (currentStatus: IssueStatus) {
-    const i = this.issueStatusModel.findIndex(x => x.key === currentStatus)
-    if (i === -1 || i === this.issueStatusModel.length - 1) return
-    const next = this.issueStatusModel[i + 1].key
+    const i = this.issueStatuses.findIndex(x => x.key === currentStatus)
+    if (i === -1 || i === this.issueStatuses.length - 1) return
+    const next = this.issueStatuses[i + 1].key
     await this.updateStatus(next)
   }
 
   async updateTitle (title) {
-    const issue = await this.issuesRepo.one(this.issueId)
-    const _title = title.trim()
-    if (issue.title === _title) return
-    await this.issuesRepo.update(this.issueId, { $set: { title: _title } })
+    await this.issuesRepo.update(this.issueId, { title: title.trim() })
   }
 
   async updateStatus (status: IssueStatus) {
-    await this.issuesRepo.update(this.issueId, { $set: { status: status } })
+    await this.issuesRepo.update(this.issueId, { status: status })
     await this.log(`status updated to ${status}`)
   }
 
   async updateDesc (description) {
-    this.editDesc = false
-    const issue = await this.issuesRepo.one(this.issueId)
-    const _description = description.trim()
-    if (issue.description === _description) return
-    await this.issuesRepo.update(this.issueId, { $set: { description: _description } })
+    await this.issuesRepo.update(this.issueId, { description: description.trim() })
   }
 
   async submitComment () {
@@ -115,36 +106,11 @@ export class IssueComponent implements OnInit {
     this.postCommentLoading = false
   }
 
-  async changeStatus (status: string) {
-    await this.issuesRepo.update(this.issueId, {
-      $set: {
-        status: status,
-        updated: {
-          timestamp: Date.now(),
-          user: this.config.username
-        }
-      }
-    })
-  }
-
   enableEditDesc () {
     this.editDesc = true
     setTimeout(() => {
       this.desc.nativeElement.focus()
     })
-  }
-
-  private load () {
-    this.issue$ = this.issuesRepo.one$(this.issueId)
-    this.logs$ = this.peventsRepo
-      .all$()
-      .pipe(
-        map(i => i.filter(x => x.issueId === this.issueId)),
-        tap((logs: PEvent[]) => logs.sort((a, b) => a._timestamp - b._timestamp)),
-        tap((logs: PEvent[]) => {
-          this.scroll()
-        })
-      )
   }
 
   private log (message: string) {

@@ -24,9 +24,9 @@
 
                   <ng-container *ngIf="!prop.template" [ngSwitch]="prop.type">
                     <td *ngSwitchCase="'badge'" [ngStyle]='prop.style || {}'>
-                      <div class="badge badge-{{getBadge(prop.badges,prop.val(item)).class||'default'}} w-100"
-                        [ngStyle]='{"background-color":getBadge(prop.badges,prop.val(item)).color} || {}'>
-                        {{getBadge(prop.badges,prop.val(item)).label}}
+                      <div class="badge badge-{{getBadge(prop,item).class}} w-100"
+                        [ngStyle]='getBadge(prop,item).style'>
+                        {{getBadge(prop,item).label}}
                       </div>
                     </td>
                     <td *ngSwitchCase="'button'" [ngStyle]='prop.style || {}'>

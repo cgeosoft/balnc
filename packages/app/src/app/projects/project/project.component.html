@@ -4,15 +4,15 @@
       <div role="sidebar">
         <dl>
           <dt>Project
-            <button (click)="toggleMark(project._id)" class="btn btn-sm btn-link float-right">
+            <button (click)="toggleMark(project._id)" class="btn btn-sm btn-link float-right p-0">
               <fa-icon icon="star" class="ml-2"
                 [ngClass]="{'text-warning':project._mark,'text-secondary':!project._mark}"></fa-icon>
             </button>
           </dt>
-          <dd>{{project.name}}</dd>
+          <dd class="text-truncate">{{project.name}}</dd>
           <ng-container *ngIf="project.description">
             <dt>Description</dt>
-            <dd>{{project.description}}</dd>
+            <dd class="text-truncate">{{project.description}}</dd>
           </ng-container>
           <ng-container *ngIf="project.tags">
             <dt>Tags</dt>

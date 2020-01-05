@@ -1,4 +1,5 @@
 @import "theme";
+@import "components/sections";
 
 $sidebar-background: darken($body-bg, 5);
 $sidebar-font: #666;
@@ -323,32 +324,5 @@ $sidebar-font: #666;
   @extend .d-flex;
   @extend .flex-column;
   @extend .align-items-start;
-}
-
-
-:host ::ng-deep .page-content section {
-  @extend .w-100;
-  @extend .p-4;
-
-  &.divider &:after {
-    @extend .d-block;
-    @extend .mt-4;
-    @extend .mx-auto;
-    content: "";
-    width: 50%;
-    height: 1px;
-    background: #eee;
-  }
-
-  &.no-padding{
-    @extend .p-0;
-  }
-
-  &.full {
-    @extend .flex-grow-1;
-    @extend .overflow-auto;
-    &:after {
-      @extend .d-none;
-    }
-  }
+  @extend .sections;
 }

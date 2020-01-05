@@ -58,7 +58,8 @@ export class ProjectComponent implements OnInit {
       mergeMap(params => this.projectsRepo.one$(params['pid'])),
       tap(async (project) => {
         if (!project) {
-          await this.router.navigate([`/business/projects`])
+          await this.router.navigate([`/projects/projects`])
+          return
         }
         this.route.snapshot.data.breadcrumb.label = project.name
       })

@@ -139,3 +139,7 @@ thead {
     @extend .btn-sm;
   }
 }
+
+.container-fixed-md {
+  max-width: 720px !important;
+}
