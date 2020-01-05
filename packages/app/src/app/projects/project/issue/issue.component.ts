@@ -58,9 +58,7 @@ export class IssueComponent implements OnInit {
       this.logs$ = this.peventsRepo.all$().pipe(
         map(i => i.filter(x => x.issueId === this.issueId)),
         tap((logs: PEvent[]) => logs.sort((a, b) => a._timestamp - b._timestamp)),
-        tap((logs: PEvent[]) => {
-          this.scroll()
-        })
+        tap(() => this.scroll())
       )
     })
   }
@@ -127,5 +125,4 @@ export class IssueComponent implements OnInit {
       this.timeline.nativeElement.scrollTop = this.timeline.nativeElement.scrollHeight
     }, 100)
   }
-
 }

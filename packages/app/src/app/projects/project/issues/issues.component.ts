@@ -17,6 +17,16 @@ export class IssuesComponent implements OnInit {
 
   issues$: Observable<Issue[]>
 
+  typeFilterSelected = null
+  typeFilters = [
+    { label: 'Starred' },
+    { label: 'Active' },
+    { label: 'Archived' },
+    { label: 'Everything' }
+  ]
+  filters: any
+  showFilters = false
+
   schema: TableSchema = {
     name: 'projects',
     properties: [
@@ -69,6 +79,24 @@ export class IssuesComponent implements OnInit {
     const issueId = await m.result
     if (issueId) {
       await this.router.navigate(['/projects/project', this.pid, 'issue', issueId])
+    }
+  }
+
+  setFilter (filter) {
+    this.typeFilterSelected = filter
+    switch (filter) {
+      case 'Starred':
+        this.filters = { isStarred: { $eq: true } }
+        break
+      case 'Active':
+        this.filters = { isArchived: { $eq: false } }
+        break
+      case 'Archived':
+        this.filters = { isArchived: { $eq: true } }
+        break
+      case 'Everything':
+        this.filters = {}
+        break
     }
   }
 }
