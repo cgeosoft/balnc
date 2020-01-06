@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
+import { BOARDS_SIDEBAR } from '../@shared/constants/sidebar'
 import { Board } from '../@shared/models/board'
 import { BoardStats } from '../@shared/models/board-stats'
 import { BoardsRepo } from '../@shared/repos/boards.repo'
@@ -20,6 +21,7 @@ export class ShellComponent implements OnInit {
   nickname: string
   boardsStats: BoardStats[]
   unread = {}
+  sidebar = BOARDS_SIDEBAR
 
   constructor (
     private boardsRepo: BoardsRepo,

@@ -1,0 +1,9 @@
+<app-content>
+  <app-toolbar>
+    <button class="btn btn-primary" (click)="create()">New Board</button>
+  </app-toolbar>
+
+  <section class="full no-padding">
+    <app-table [data$]="boards$" [schema]="schema"></app-table>
+  </section>
+</app-content>

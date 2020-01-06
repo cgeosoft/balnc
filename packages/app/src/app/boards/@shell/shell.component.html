@@ -31,7 +31,10 @@
     </a>
   </div>
 </app-sidebar> -->
-<router-outlet></router-outlet>
+
+<app-page [sidebar]="sidebar">
+  <router-outlet></router-outlet>
+</app-page>
 
 <ng-template #empty>
   <app-empty></app-empty>
