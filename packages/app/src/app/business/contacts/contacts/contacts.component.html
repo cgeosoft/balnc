@@ -1,12 +1,10 @@
 <app-content>
-  <section>
-    <div class="btn-toolbar">
-      <button class="btn btn-primary" (click)="createContact()">New Contact</button>
-      <button class="btn btn-outline-secondary">
-        <fa-icon icon="search"></fa-icon>
-      </button>
-    </div>
-  </section>
+  <app-toolbar>
+    <button class="btn btn-primary" (click)="createContact()">New Contact</button>
+    <button class="btn btn-outline-secondary">
+      <fa-icon icon="search"></fa-icon>
+    </button>
+  </app-toolbar>
 
   <section class="full no-padding">
     <app-table [data$]="contacts$" [schema]="schema" [templates]="{t1:t1}"></app-table>

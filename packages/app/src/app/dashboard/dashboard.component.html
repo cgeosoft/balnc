@@ -1,22 +1,24 @@
 <app-page>
-  <section>
-    <div class="row">
-      <div class="col">
-        <app-tile [icon]="['fas', 'balance-scale-right']" label="ispum" theme="red"></app-tile>
+  <app-content>
+    <section>
+      <div class="row">
+        <div class="col">
+          <app-tile [icon]="['fas', 'balance-scale-right']" label="ispum" theme="red"></app-tile>
+        </div>
+        <div class="col">
+          <app-tile [icon]="['fas', 'balance-scale-left']" label="dolor" theme="green"></app-tile>
+        </div>
+        <div class="col">
+          <app-tile [icon]="['fas', 'balance-scale']" label="sit" theme="orange"></app-tile>
+        </div>
+        <div class="col">
+          <app-tile [icon]="['fas', 'exclamation-circle']" label="amet" theme="blue"></app-tile>
+        </div>
       </div>
-      <div class="col">
-        <app-tile [icon]="['fas', 'balance-scale-left']" label="dolor" theme="green"></app-tile>
-      </div>
-      <div class="col">
-        <app-tile [icon]="['fas', 'balance-scale']" label="sit" theme="orange"></app-tile>
-      </div>
-      <div class="col">
-        <app-tile [icon]="['fas', 'exclamation-circle']" label="amet" theme="blue"></app-tile>
-      </div>
-    </div>
-  </section>
-  <section class="full">
-    <app-empty message="Dashboard is not avalable" submessage="select another module" icon="exclamation-circle">
-    </app-empty>
-  </section>
+    </section>
+    <section class="full">
+      <app-empty message="Dashboard is not avalable" submessage="select another module" icon="exclamation-circle">
+      </app-empty>
+    </section>
+  </app-content>
 </app-page>

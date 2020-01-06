@@ -1,9 +1,9 @@
-<section>
-  <div class="btn-toolbar">
+<app-content>
+  <app-toolbar>
     <button class="btn btn-primary" (click)="createAccount()">New Account</button>
-  </div>
-</section>
+  </app-toolbar>
 
-<section class="full no-padding">
-  <app-table [data$]="accounts$" [schema]="schema"></app-table>
-</section>
+  <section class="full no-padding">
+    <app-table [data$]="accounts$" [schema]="schema"></app-table>
+  </section>
+</app-content>
