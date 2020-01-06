@@ -1,70 +1,68 @@
-{
-  "plugins": [
-    {
-      "id": "business",
-      "title": "Business",
-      "label": "business",
-      "description": "A basic contact management database. Include company and persons, custom fields and analytics.",
-      "icon": "fax",
-      "color": "#42A5F5"
-    },
-    {
-      "id": "documents",
-      "title": "Documents",
-      "label": "documents",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
-      "icon": "file",
-      "color": "#4DB6AC"
-    },
-    {
-      "id": "projects",
-      "title": "Projects",
-      "label": "projects",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
-      "icon": "project-diagram",
-      "color": "#9575CD"
-    },
-    {
-      "id": "boards",
-      "title": "Boards",
-      "label": "boards",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
-      "icon": "comments",
-      "color": "#F06292"
-    },
-    {
-      "id": "presentations",
-      "title": "Presentations",
-      "label": "present",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
-      "icon": "desktop",
-      "color": "#FF8A65"
-    },
-    {
-      "id": "analytics",
-      "title": "Analytics",
-      "label": "analytics",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
-      "icon": "chart-pie",
-      "color": "#9ccc65"
-    },
-    {
-      "id": "reports",
-      "title": "Reports",
-      "label": "reports",
-      "description": "A simple but full-feature team chat with customizable rooms",
-      "icon": "file-alt",
-      "color": "#ffa726",
-      "config": {
-        "server": {
-          "requireUser": {
-            "type": "boolean"
-          },
-          "host": {
-            "type": "string"
-          }
+[
+  {
+    "id": "business",
+    "title": "Business",
+    "label": "business",
+    "description": "A basic contact management database. Include company and persons, custom fields and analytics.",
+    "icon": "fax",
+    "color": "#42A5F5"
+  },
+  {
+    "id": "documents",
+    "title": "Documents",
+    "label": "documents",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "file",
+    "color": "#4DB6AC"
+  },
+  {
+    "id": "projects",
+    "title": "Projects",
+    "label": "projects",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "project-diagram",
+    "color": "#9575CD"
+  },
+  {
+    "id": "boards",
+    "title": "Boards",
+    "label": "boards",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "comments",
+    "color": "#F06292"
+  },
+  {
+    "id": "presentations",
+    "title": "Presentations",
+    "label": "present",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "desktop",
+    "color": "#FF8A65"
+  },
+  {
+    "id": "analytics",
+    "title": "Analytics",
+    "label": "analytics",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit et nam, iste tenetur repellendus quasi cupiditate.",
+    "icon": "chart-pie",
+    "color": "#9ccc65"
+  },
+  {
+    "id": "reports",
+    "title": "Reports",
+    "label": "reports",
+    "description": "A simple but full-feature team chat with customizable rooms",
+    "icon": "file-alt",
+    "color": "#ffa726",
+    "config": {
+      "server": {
+        "requireUser": {
+          "type": "boolean"
+        },
+        "host": {
+          "type": "string"
         }
       }
     }
-  ]
-}
+  }
+]

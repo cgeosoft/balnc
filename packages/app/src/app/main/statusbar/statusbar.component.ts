@@ -46,8 +46,13 @@ export class StatusbarComponent implements OnInit {
 
     return this.createBreadcrumbs(child, url, breadcrumbs)
   }
+
   get version () {
     return this.configService.version
+  }
+
+  get build () {
+    return this.configService.build
   }
 
   get profile () {

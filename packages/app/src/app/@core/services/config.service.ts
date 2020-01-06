@@ -11,6 +11,7 @@ export class ConfigService {
 
   version: string = environment.version
   plugins: Plugin[] = environment.plugins
+  build: any = environment.build
 
   @LocalStorage() isSidebarClosed: boolean = false
 

@@ -9,11 +9,12 @@
   </ul>
 </div>
 <div class="menu">
-  <div class="text-center px-0" style="width:90px;">v{{version}}</div>
-  <button *ngIf="profile.layout === 'container'" class="item" (click)="toggleLayout('container-fluid')">
+  <div class="item">v{{version}}</div>
+  <div class="item">{{build.timestamp | date:'short'}} - {{build.git.hash | slice:0:8}}</div>
+  <button *ngIf="profile.layout === 'box'" class="item" (click)="toggleLayout('fluid')">
     <fa-icon icon="compress-arrows-alt"></fa-icon> box
   </button>
-  <button *ngIf="profile.layout !== 'container'" class="item" (click)="toggleLayout('container')">
+  <button *ngIf="profile.layout !== 'box'" class="item" (click)="toggleLayout('box')">
     <fa-icon icon="expand-arrows-alt"></fa-icon> fluid
   </button>
   <div class="item">

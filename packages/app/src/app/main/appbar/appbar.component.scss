@@ -12,6 +12,7 @@ $appbar-width: 50px;
   min-width: $appbar-width;
   width: $appbar-width;
   transition: all 0.5s;
+  z-index: 20;
 
   .menu {
     @extend .bg-dark;

@@ -10,28 +10,30 @@
     @extend .h-100;
     overflow: hidden;
     background: darken($body-bg, 5);
-
-    .container,
-    .container-fluid{
-      @extend .p-0;
-    }
+    position: relative;
 
     .main-content {
       @extend .h-100;
       @extend .w-100;
-      position: relative;
+      @extend .container-fluid;
+      @extend .p-0;
 
-      .page-loader {
-        position: absolute;
-        opacity: 0.5;
-        background: #fff;
-        z-index: 100;
-        width: 100%;
-        height: 100%;
-        transition: opacity 1s;
-        left: 0;
-        top: 0;
+      &.box {
+        @extend .container;
+        max-width: 2160px;
       }
+    }
+
+    .page-loader {
+      position: absolute;
+      opacity: 0.3;
+      background: #fff;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      transition: opacity 1s;
+      left: 0;
+      top: 0;
     }
   }
 }
