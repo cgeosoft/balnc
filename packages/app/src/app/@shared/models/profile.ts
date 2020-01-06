@@ -6,7 +6,7 @@ export type Profile = {
   createdAt?: number
   remote: RemoteConfig
   plugins: { [key: string]: boolean }
-  layout?: 'container' | 'container-fluid'
+  layout?: 'box' | 'fluid'
 }
 
 export const DEMO_PROFILE: Profile = {
@@ -22,5 +22,5 @@ export const DEMO_PROFILE: Profile = {
     boards: true,
     presentations: true
   },
-  layout: 'container'
+  layout: 'fluid'
 }

@@ -14,8 +14,7 @@ export class StatusbarComponent implements OnInit {
   constructor (
     private configService: ConfigService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private config: ConfigService
+    private router: Router
   ) {
   }
 
