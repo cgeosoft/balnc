@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { Router } from '@angular/router'
 import { ConfigService, Signal, SignalService } from '@balnc/core'
 import { Profile } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { DemoService } from '../../business/@shared/services/demo.service'
 import { RemoteComponent } from '../remote/remote.component'
 
 @Component({
@@ -25,16 +25,17 @@ export class GeneralComponent implements OnInit {
   deleteData = false
   deleteDataRemote = false
   editName = false
-  genMessages$
+  signalLogs$
+  demo_working = false
 
   constructor (
-    private router: Router,
     private http: HttpClient,
     private configService: ConfigService,
     private modal: NgbModal,
-    private signalService: SignalService
+    private signalService: SignalService,
+    private demoService: DemoService
   ) {
-    this.genMessages$ = this.signalService.messages$
+    this.signalLogs$ = this.signalService.logs$
   }
 
   async ngOnInit () {
@@ -42,11 +43,24 @@ export class GeneralComponent implements OnInit {
     if (this.profile.remote.key) {
       await this.getRemote()
     }
+
+    this.signalService
+      .events(Signal.DEMO_COMPLETED)
+      .subscribe(() => {
+        this.demo_working = false
+      })
   }
 
   async generateDemoData () {
     if (!confirm('Are you sure?')) return
-    this.signalService.broadcast(Signal.GENERATE_DEMO_DATA)
+    this.demo_working = true
+    this.signalService.broadcast(Signal.DEMO_GENERATE)
+  }
+
+  async clearDemoData () {
+    if (!confirm('Are you sure?')) return
+    this.demo_working = true
+    this.signalService.broadcast(Signal.DEMO_CLEAR)
   }
 
   rename (newName) {

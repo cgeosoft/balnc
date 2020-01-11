@@ -11,6 +11,7 @@ import { filter } from 'rxjs/operators'
 export class StatusbarComponent implements OnInit {
 
   breadcrumbs = []
+  status = 'disabled'
   constructor (
     private configService: ConfigService,
     private activatedRoute: ActivatedRoute,

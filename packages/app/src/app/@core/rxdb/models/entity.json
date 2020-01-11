@@ -2,27 +2,33 @@
   "$id": "https://balnc.cgeosoft.com/schemas/entity",
   "$schema": "http://json-schema.org/draft-04/schema",
   "type": "object",
-  "version": 2,
+  "version": 0,
   "disableKeyCompression": true,
   "attachments": true,
   "properties": {
     "g": {
-      "type": [
-        "string",
-        "null"
-      ]
+      "type": "string",
+      "index": true
     },
     "d": {
-      "type": "number"
+      "type": "number",
+      "index": true
     },
     "t": {
-      "type": "string"
+      "type": "string",
+      "index": true
     },
     "c": {
       "type": "object"
     },
     "m": {
       "type": "boolean"
+    },
+    "s": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   }
 }

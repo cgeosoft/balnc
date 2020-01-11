@@ -2,17 +2,18 @@
   <div #tableWrapper class="table-wrapper">
     <ng-container *ngIf="(data$ | async) as data; else loader">
       <ng-container *ngIf="!showDebug">
-        <ng-container *ngIf="data.length; else empty">
+        <ng-container *ngIf="total; else empty">
           <table #table class="table mb-0">
             <thead class="thead-light">
               <tr>
-                <th *ngFor="let prop of properties" [ngStyle]='prop.style || {}'>
-                  {{prop.label}}&nbsp;
+                <th *ngFor="let prop of properties; let i = index" [ngStyle]='prop.style || {}' (click)="sort = prop; toggleDirection()">
+                  {{prop.label}}
+                  <fa-icon *ngIf="sort === prop" icon="sort"></fa-icon>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of data | paginate:page:limit" [id]="item._id">
+              <tr *ngFor="let item of data | paginate:page:limit:sort" [id]="item._id">
                 <ng-container *ngFor="let prop of properties; let i = index">
 
                   <ng-container *ngIf="prop.template">
@@ -69,51 +70,44 @@
     </ng-container>
   </div>
   <div class="table-footer">
-    <ng-container *ngIf="(data$ | async) as data">
-      <ng-container *ngIf="!showDebug">
-        <ng-container *ngIf="data.length">
-          <div class="d-flex align-items-center">
-            <span class="mr-2">Show</span>
-            <!-- <select class="mr-2 form-control form-control-sm" (change)="resetLimit($event.target.value)">
-            <option value="30" selected>30</option>
-            <option value="100">100</option>
-            <option value="250">250</option>
-          </select> -->
-            <strong class="mr-2">{{limit > data.length ? data.length: limit }}</strong>
-            <span class="mr-2">of</span>
-            <strong class="mr-2">{{data.length}}</strong>
-          </div>
-          <ul *ngIf="paggination && data.length > limit" class="pagination pagination-sm m-0">
-            <li class="page-item"><button class="page-link" (click)="first()">
-                <fa-icon [fixedWidth]="true" icon="angle-double-left"></fa-icon>
-              </button></li>
-            <li class="page-item"><button class="page-link" (click)="previous()">
-                <fa-icon [fixedWidth]="true" icon="angle-left"></fa-icon>
-              </button></li>
-            <ng-container *ngFor="let p of pages">
-              <li class="page-item" [ngClass]="{active:page === p}">
-                <button style="min-width:35px;" class="page-link" (click)="page = p">{{p+1}}</button>
-              </li>
-            </ng-container>
-            <li class="page-item"><button class="page-link" (click)="next()">
-                <fa-icon [fixedWidth]="true" icon="angle-right"></fa-icon>
-              </button></li>
-            <li class="page-item"><button class="page-link" (click)="last()">
-                <fa-icon [fixedWidth]="true" icon="angle-double-right"></fa-icon>
-              </button></li>
-          </ul>
-        </ng-container>
-        <ng-container *ngIf="!data.length">
-          <div class="d-flex align-items-center">
-            <strong class="mr-2">No items were found</strong>
-          </div>
-        </ng-container>
-      </ng-container>
-      <ng-container *ngIf="showDebug">
+    <ng-container *ngIf="!showDebug">
+      <ng-container *ngIf="total">
         <div class="d-flex align-items-center">
-          <strong class="mr-2">{{data.length}} items</strong>
+          <span class="mr-2">Show</span>
+          <strong class="mr-2">{{limit > total ? total: limit }}</strong>
+          <span class="mr-2">of</span>
+          <strong class="mr-2">{{total}}</strong>
+        </div>
+        <ul *ngIf="total > limit" class="pagination pagination-sm m-0 ml-auto">
+          <li class="page-item"><button class="page-link" (click)="first()">
+              <fa-icon [fixedWidth]="true" icon="angle-double-left"></fa-icon>
+            </button></li>
+          <li class="page-item"><button class="page-link" (click)="previous()">
+              <fa-icon [fixedWidth]="true" icon="angle-left"></fa-icon>
+            </button></li>
+          <ng-container *ngFor="let p of pages">
+            <li class="page-item" [ngClass]="{active:page === p}">
+              <button style="min-width:35px;" class="page-link" (click)="switch(p)">{{p+1}}</button>
+            </li>
+          </ng-container>
+          <li class="page-item"><button class="page-link" (click)="next()">
+              <fa-icon [fixedWidth]="true" icon="angle-right"></fa-icon>
+            </button></li>
+          <li class="page-item"><button class="page-link" (click)="last()">
+              <fa-icon [fixedWidth]="true" icon="angle-double-right"></fa-icon>
+            </button></li>
+        </ul>
+      </ng-container>
+      <ng-container *ngIf="!total">
+        <div class="d-flex align-items-center">
+          <strong class="mr-2">No items were found</strong>
         </div>
       </ng-container>
+    </ng-container>
+    <ng-container *ngIf="showDebug">
+      <div class="d-flex align-items-center">
+        <strong class="mr-2">{{total}} items</strong>
+      </div>
     </ng-container>
     <div ngbDropdown placement="top-right" container="body" class="d-inline-block ml-auto">
       <button class="btn btn-outline-secondary border-0" ngbDropdownToggle>
@@ -125,7 +119,7 @@
           <ng-container *ngFor="let prop of schema.properties;let i = index">
             <div class="custom-control custom-checkbox">
               <input type="checkbox" [disabled]="prop.locked" class="custom-control-input" [id]="i"
-                [(ngModel)]="settings[schema.name].visible[i]" (change)="calculateProperties()"
+                [(ngModel)]="settings[schema.name].visible[i]" (change)="updateSettings()"
                 [ngModelOptions]="{standalone: true}">
               <label class="custom-control-label" [for]="i">{{prop.label}}</label>
             </div>
@@ -141,7 +135,7 @@
 </div>
 
 <ng-template #loader>
-  <app-empty icon="sync-alt" [icon-spin]="true"></app-empty>
+  <app-empty icon="sync-alt" [icon-spin]="true" message="loading..."></app-empty>
 </ng-template>
 <ng-template #empty>
   <app-empty message="no data" icon="folder-open"></app-empty>

@@ -7,3 +7,4 @@ export * from './models/tabs-menu'
 export * from './pipes/doc-version.pipe'
 export * from './pipes/ellipsis.pipe'
 export * from './shared.module'
+

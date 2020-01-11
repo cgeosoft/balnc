@@ -27,8 +27,7 @@ export class ContactCreateComponent implements OnInit {
   async onSubmit () {
     const contact = await this.contactsService.add({
       name: this.form.value.name,
-      type: ContactType.person,
-      tags: []
+      type: ContactType.person
     })
     this.activeModal.close(contact)
   }

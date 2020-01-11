@@ -9,32 +9,36 @@
   </ul>
 </div>
 <div class="menu">
-  <div class="item">v{{version}}</div>
-  <div class="item">{{build.timestamp | date:'short'}} - {{build.git.hash | slice:0:8}}</div>
-  <button *ngIf="profile.layout === 'box'" class="item" (click)="toggleLayout('fluid')">
+  <div class="item" ngbTooltip="version">v{{version}}</div>
+  <div class="item" ngbTooltip="build date">{{build.timestamp | date:'yyyy-MM-dd HH:mm'}}</div>
+  <a class="item" ngbTooltip="git commit" target="_blank"
+    href="https://github.com/ChristosGeorgiou/balnc/commit/{{build.git.hash}}">
+    {{build.git.hash | slice:0:8}}</a>
+  <button ngbTooltip="toggle layout" *ngIf="profile.layout === 'box'" class="item" (click)="toggleLayout('fluid')">
     <fa-icon icon="compress-arrows-alt"></fa-icon> box
   </button>
-  <button *ngIf="profile.layout !== 'box'" class="item" (click)="toggleLayout('box')">
+  <button ngbTooltip="toggle layout" *ngIf="profile.layout !== 'box'" class="item" (click)="toggleLayout('box')">
     <fa-icon icon="expand-arrows-alt"></fa-icon> fluid
   </button>
-  <div class="item">
+  <div class="item" ngbTooltip="current profile">
     <fa-layers class="fa-fw">
       <fa-icon icon="swatchbook"></fa-icon>
     </fa-layers> {{profile.name}}
   </div>
-  <div class="item">
+  <div class="item" ngbTooltip="current user">
     <fa-layers class="fa-fw">
       <fa-icon icon="user"></fa-icon>
     </fa-layers> {{profile.remote.username || '- none -'}}
   </div>
   <div ngbDropdown placement="top-right" container="body">
-    <button class="item" id="dropdownBasic1" ngbDropdownToggle>
-      <ng-container [ngSwitch]="'disabled'">
-      <span *ngSwitchCase="'disabled'" class="indicator bg-muted"></span>
-      <span *ngSwitchCase="'syncing'" class="indicator bg-muted"></span>
-      <span *ngSwitchDefault class="indicator bg-muted"></span>
+    <button class="item" [ngbTooltip]="status" ngbDropdownToggle>
+      <ng-container [ngSwitch]="status">
+        <fa-icon *ngSwitchDefault icon="circle" class="text-muted"></fa-icon>
+        <fa-icon *ngSwitchCase="'active'" icon="circle" class="text-success"></fa-icon>
+        <fa-icon *ngSwitchCase="'error'" icon="circle" class="text-danger"></fa-icon>
+        <fa-icon *ngSwitchCase="'syncing'" icon="refresh" [spin]="true" class="text-white"></fa-icon>
+        <fa-icon *ngSwitchCase="'disabled'" icon="circle" class="text-muted"></fa-icon>
       </ng-container>
-      <fa-icon icon="square" class="text-danger border"></fa-icon>
     </button>
     <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
       <button ngbDropdownItem>Action - 1</button>

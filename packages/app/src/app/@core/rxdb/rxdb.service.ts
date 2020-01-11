@@ -39,7 +39,9 @@ RxDB.plugin(AdapterIdb)
 RxDB.plugin(RxDBUpdateModule)
 RxDB.plugin(RxDBReplicationGraphQL)
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RxDBService {
 
   db: RxDatabase
@@ -122,7 +124,7 @@ export class RxDBService {
           return {
             query: `
                 {
-                  feedForRxDBReplication(lastId: "${doc._id}", minUpdatedAt: ${doc._timestamp}, limit: 30) {
+                  feedForRxDBReplication(lastId: "${doc._id}", minUpdatedAt: ${doc._date}, limit: 30) {
                     _id
                     timestamp
                     deleted

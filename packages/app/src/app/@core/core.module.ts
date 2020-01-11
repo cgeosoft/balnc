@@ -5,11 +5,6 @@ import { SharedModule } from '@balnc/shared'
 import { DateFnsModule } from 'ngx-date-fns'
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
 import { ToastrModule } from 'ngx-toastr'
-import { MainResolver } from './resolver'
-import { RxDBService } from './rxdb/rxdb.service'
-import { ConfigService } from './services/config.service'
-import { ProfileGuardService } from './services/profile-guard.service'
-import { SignalService } from './services/signal.service'
 
 @NgModule({
   imports: [
@@ -34,13 +29,6 @@ import { SignalService } from './services/signal.service'
       }
     }),
     SharedModule
-  ],
-  providers: [
-    RxDBService,
-    ConfigService,
-    ProfileGuardService,
-    MainResolver,
-    SignalService
   ],
   exports: [
     RouterModule

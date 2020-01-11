@@ -32,7 +32,7 @@ export class ShellComponent implements OnInit {
   async ngOnInit () {
     this.nickname = 'chris'
     this.boards$ = this.boardsRepo.all$().pipe(
-      tap(boards => boards.sort((a, b) => a._timestamp - b._timestamp))
+      tap(boards => boards.sort((a, b) => a._date - b._date))
     )
     // await this.generate()
     // this.messagesService.all$().subscribe((messages) => {
@@ -49,7 +49,7 @@ export class ShellComponent implements OnInit {
     //       bs.push(bs1)
     //     }
 
-    //     if (m._timestamp > bs1.lastread && this.boardsService.selected !== m.board) {
+    //     if (m._date > bs1.lastread && this.boardsService.selected !== m.board) {
     //       bs1.unread++
     //     }
     //   })

@@ -34,7 +34,7 @@ export class IssuesComponent implements OnInit {
         label: 'Date',
         style: { width: '140px' },
         type: 'date',
-        val: (i: Issue) => i._timestamp
+        val: (i: Issue) => i._date
       },
       {
         label: 'Status',
@@ -69,7 +69,7 @@ export class IssuesComponent implements OnInit {
     this.issues$ = this.route.parent.params.pipe(
       tap(params => { this.pid = params['pid'] }),
       mergeMap(params => this.issuesRepo.all$(params['pid'])),
-      tap(issues => issues.sort((a, b) => b._timestamp - a._timestamp))
+      tap(issues => issues.sort((a, b) => b._date - a._date))
     )
   }
 

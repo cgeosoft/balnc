@@ -19,12 +19,12 @@ export class ShellComponent implements OnInit {
   async ngOnInit () {
 
     this.sidebar.marked = {
-      data$: this.projectsRepo.all$(null, true).pipe(
+      data$: this.projectsRepo.all$({ mark: true }).pipe(
         map((contacts) => {
           return contacts.map(p => {
             return {
               label: p.name,
-              icon: ['far','bookmark'],
+              icon: ['far', 'bookmark'],
               url: ['/projects/projects', p._id]
             }
           })

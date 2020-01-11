@@ -3,7 +3,9 @@ import { Repository } from '@balnc/core'
 import { CEventType, Contact } from '../models/contacts'
 import { CEventsRepo } from './cevents.repo'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ContactsRepo extends Repository<Contact> {
 
   constructor (

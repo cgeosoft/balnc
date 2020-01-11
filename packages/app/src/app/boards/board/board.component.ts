@@ -51,10 +51,10 @@ export class BoardComponent implements OnInit {
       if (!this.selected) return
       this.boardsRepo.selected = this.selected
       this.board$ = this.boardsRepo.one$(this.selected)
-      this.messages$ = this.messagesRepo.all$(this.selected).pipe(
+      this.messages$ = this.messagesRepo.all$({ group: this.selected }).pipe(
         map(messages => messages.filter(message => message.board === this.selected)),
         tap(messages => {
-          messages.sort((a, b) => a._timestamp - b._timestamp)
+          messages.sort((a, b) => a._date - b._date)
         }),
         tap(async (messages) => {
           const ps = messages.map(async (msg, i) => {
@@ -125,7 +125,7 @@ export class BoardComponent implements OnInit {
     if (!confirm('Are you sure? All message will be deleted')) return
     await this.boardsRepo.remove(this.selected)
 
-    const messages = await this.messagesRepo.all(this.selected)
+    const messages = await this.messagesRepo.all({ group: this.selected })
     const ps = messages.map(m => this.messagesRepo.remove(m._id))
     await Promise.all(ps)
 

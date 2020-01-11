@@ -4,8 +4,8 @@
       <ng-container *ngFor="let e of events">
         <div class="d-flex align-items-start mb-2">
           <div class="mr-2 text-center rounded border p-1" style="width:100px;min-width:100px">
-            {{e._timestamp|date:"dd MMM"}}<br>
-            {{e._timestamp|date:"HH:mm"}}
+            {{e._date|date:"dd MMM"}}<br>
+            {{e._date|date:"HH:mm"}}
           </div>
           <div class="flex-grow-1">
             <div class="card">

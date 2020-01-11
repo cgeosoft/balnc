@@ -6,7 +6,9 @@ import { LocalStorage } from 'ngx-store'
 import { environment } from '../../../environments/environment'
 import { Helpers } from '../../@shared/helpers'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ConfigService {
 
   version: string = environment.version

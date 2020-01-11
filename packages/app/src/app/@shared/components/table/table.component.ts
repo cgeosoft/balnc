@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnInit, ViewChild } from '@angular/core'
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { LocalStorage } from 'ngx-store'
 import { fromEvent, Observable, Subscription } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'
@@ -10,13 +10,12 @@ import { TableSchema } from './table-schema'
   styleUrls: ['table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent implements OnInit, AfterViewInit {
+export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() schema: TableSchema
-  @Input() data$: Observable<any[]>
+  @Input() data$: Observable<any[]> = new Observable<any[]>()
   @Input() debug: any
   @Input() templates: { [key: string]: ElementRef }
-  @Input() paggination = false
 
   @ViewChild('wrapper', { static: false }) wrapper: ElementRef
   @ViewChild('tableWrapper', { static: false }) tableWrapper: ElementRef
@@ -27,10 +26,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   totalPages: number[]
   pages: number[]
 
-  dataLength = 0
-  viewlimit = null
   limit = null
-  sub: Subscription
   properties: any
 
   headerHeight = 50
@@ -40,26 +36,20 @@ export class TableComponent implements OnInit, AfterViewInit {
   @LocalStorage('table_settings') settings: any = {}
   emitted: any
 
-  constructor (
+  dataSub: Subscription
+  total: number
+  sort: any
+  direction: 'ASC' | 'DESC'
+
+  dataview: any[]
+
+  constructor(
     private zone: NgZone,
     private cd: ChangeDetectorRef
   ) { }
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.updateSettings()
-    if (!this.data$) return
-    this.data$.subscribe((data) => {
-      this.dataLength = data.length
-      this.calculatePages()
-      this.cd.markForCheck()
-    })
-    this.calculateProperties()
-  }
-
-  ngAfterViewInit () {
-    this.viewlimit = null
-    this.calculatePagination()
-    this.calculatePages()
 
     this.zone.runOutsideAngular(() => {
       fromEvent(window, 'resize')
@@ -68,60 +58,110 @@ export class TableComponent implements OnInit, AfterViewInit {
         )
         .subscribe(() => {
           this.zone.run(() => {
-            this.calculatePagination()
-            this.calculatePages()
+            this.calcPages()
             this.cd.markForCheck()
-          })
-        })
-      fromEvent(this.tableWrapper.nativeElement, 'scroll')
-        .pipe(
-          debounceTime(200)
-        )
-        .subscribe(() => {
-          this.zone.run(() => {
-            this.scroll()
           })
         })
     })
   }
 
-  scroll (): void {
-    if (this.tableWrapper.nativeElement.offsetHeight + this.tableWrapper.nativeElement.scrollTop - this.table.nativeElement.offsetHeight > this.rowHeight * 2 * -1) {
-      this.limit += this.viewlimit
-      this.calculatePages()
-      this.cd.markForCheck()
-    }
+  ngAfterViewInit(): void {
+    this.dataSub = this.data$
+      .subscribe((data) => {
+        this.total = data.length
+        this.calcPages()
+        this.cd.markForCheck()
+      })
   }
 
-  private calculatePagination () {
-    let tableHeight = this.wrapper.nativeElement.offsetHeight
-    if (!this.viewlimit) tableHeight += 81
-    this.tableWrapper.nativeElement.scrollTop = 0
-    this.viewlimit = this.limit = Math.floor(((tableHeight - this.headerHeight - this.footerHeight) / this.rowHeight) + 5)
+  ngOnDestroy() {
+    this.dataSub.unsubscribe()
   }
 
-  updateSettings () {
+  updateSettings() {
     this.settings[this.schema.name] = this.settings[this.schema.name] || { visible: {} }
     this.schema.properties.forEach((p, i) => {
       this.settings[this.schema.name].visible[i] = this.settings[this.schema.name].visible[i] || !p.hidden
     })
     this.settings.save()
-  }
-
-  calculateProperties () {
     this.properties = this.schema.properties.filter((p, i) => this.settings[this.schema.name].visible[i])
+
+    if (this.schema.sort) {
+      this.sort = this.schema.properties.find(p => p.label === this.schema.sort.label)
+      this.direction = this.schema.sort.direction
+    }
   }
 
-  calculatePages () {
-    if (this.limit < 1) return
-    let pages = Math.floor(this.dataLength / this.limit)
-    pages += (this.dataLength % this.limit > 0) ? 1 : 0
-    this.totalPages = Array.from(Array(pages), (x, index) => index)
-    if (this.page >= pages && pages) this.page = pages - 1
+  toggleDirection() {
+    this.direction = (this.direction === 'ASC') ? 'DESC' : 'ASC'
+  }
+
+  switch(page) {
+    this.page = page
     this.movePageWindow()
   }
 
-  movePageWindow () {
+  previous() {
+    if (this.page > 0) {
+      this.page -= 1
+      this.movePageWindow()
+    }
+  }
+
+  next() {
+    if (this.page < this.totalPages.length - 1) {
+      this.page += 1
+      this.movePageWindow()
+    }
+  }
+
+  first() {
+    this.page = 0
+    this.movePageWindow()
+  }
+
+  last() {
+    this.page = this.totalPages.length - 1
+    this.movePageWindow()
+  }
+
+  getBadge(prop, item) {
+    let defaultBadge = {
+      label: 'Unknown',
+      class: 'default',
+      style: {
+        'background-color': '#DDD',
+        color: '#000'
+      }
+    }
+    if (!prop.badges) {
+      return defaultBadge
+    }
+    const v = prop.val(item)
+    const b = prop.badges.find(x => x.key === v)
+    if (!b) {
+      return defaultBadge
+    }
+    return { ...defaultBadge, ...b }
+  }
+
+  private calcPages() {
+    let tableHeight = this.wrapper.nativeElement.offsetHeight
+
+    this.tableWrapper.nativeElement.scrollTop = 0
+    this.limit = Math.floor((tableHeight - this.headerHeight - this.footerHeight) / this.rowHeight)
+
+    if (this.limit < 1) return
+
+    let pages = Math.floor(this.total / this.limit)
+    pages += (this.total % this.limit > 0) ? 1 : 0
+    this.totalPages = Array.from(Array(pages), (x, index) => index)
+    if (this.page >= pages && pages) this.page = pages - 1
+
+    this.movePageWindow()
+  }
+
+  private movePageWindow() {
     if (this.totalPages.length <= 5) {
       this.pages = this.totalPages
     } else if (this.page <= 2) {
@@ -143,55 +183,5 @@ export class TableComponent implements OnInit, AfterViewInit {
         this.page + 2
       ]
     }
-  }
-
-  resetLimit (limit) {
-    this.page = 0
-    this.limit = parseInt(limit, 10)
-    this.calculatePages()
-  }
-
-  previous () {
-    if (this.page > 0) {
-      this.page -= 1
-      this.movePageWindow()
-    }
-  }
-
-  next () {
-    if (this.page < this.totalPages.length - 1) {
-      this.page += 1
-      this.movePageWindow()
-    }
-  }
-
-  first () {
-    this.page = 0
-    this.movePageWindow()
-  }
-
-  last () {
-    this.page = this.totalPages.length - 1
-    this.movePageWindow()
-  }
-
-  getBadge (prop, item) {
-    let defaultBadge = {
-      label: 'Unknown',
-      class: 'default',
-      style: {
-        'background-color': '#DDD',
-        color: '#000'
-      }
-    }
-    if (!prop.badges) {
-      return defaultBadge
-    }
-    const v = prop.val(item)
-    const b = prop.badges.find(x => x.key === v)
-    if (!b) {
-      return defaultBadge
-    }
-    return { ...defaultBadge, ...b }
   }
 }

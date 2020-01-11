@@ -2,7 +2,9 @@ import { Injectable, Injector } from '@angular/core'
 import { Repository } from '@balnc/core'
 import { Invoice } from '../models/invoice'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class InvoicesRepo extends Repository<Invoice> {
 
   constructor (

@@ -14,12 +14,9 @@ export class SetupComponent implements OnInit {
   steps = [
     { label: 'Setup' },
     { label: 'Profile' },
-    { label: 'Plugins' },
-    { label: 'Finish' }
+    { label: 'Plugins' }
   ]
   stepIndex = 0
-
-  accepted: false
 
   profile: Profile = {
     remote: {
@@ -55,9 +52,10 @@ export class SetupComponent implements OnInit {
     this.configService.selectProfile(alias)
   }
 
-  addDemo () {
+  startDemo () {
     this.profile = DEMO_PROFILE
     this.stepIndex = this.steps.length - 1
+    this.finish()
   }
 
   importFile (file: ReadFile) {

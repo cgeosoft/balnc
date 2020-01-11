@@ -6,7 +6,9 @@ import { Agreement } from '../models/agreement'
 import { CEventType } from '../models/contacts'
 import { CEventsRepo } from './cevents.repo'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AgreementsRepo extends Repository<Agreement> {
 
   constructor (

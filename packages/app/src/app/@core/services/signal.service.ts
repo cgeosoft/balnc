@@ -3,7 +3,9 @@ import { Subject } from 'rxjs'
 import { filter } from 'rxjs/operators'
 
 export enum Signal {
-  GENERATE_DEMO_DATA
+  DEMO_GENERATE,
+  DEMO_COMPLETED,
+  DEMO_CLEAR
 }
 
 export interface SignalLog {
@@ -11,11 +13,13 @@ export interface SignalLog {
   message: string
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SignalService {
 
-  messages: SignalLog[] = []
-  messages$ = new Subject<SignalLog[]>()
+  logs: SignalLog[] = []
+  logs$ = new Subject<SignalLog[]>()
   events$ = new Subject<Signal>()
 
   // constructor () {
@@ -33,10 +37,10 @@ export class SignalService {
   }
 
   message (message: string) {
-    this.messages.unshift({
+    this.logs.unshift({
       message,
       date: Date.now()
     })
-    this.messages$.next(this.messages)
+    this.logs$.next(this.logs)
   }
 }

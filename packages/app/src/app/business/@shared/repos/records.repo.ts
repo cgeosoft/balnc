@@ -3,7 +3,9 @@ import { Injectable, Injector } from '@angular/core'
 import { Repository } from '@balnc/core'
 import { Record } from '../models/record'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RecordsRepo extends Repository<Record> {
 
   constructor (

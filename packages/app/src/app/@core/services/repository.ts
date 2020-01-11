@@ -2,8 +2,9 @@ import { Injector, NgZone } from '@angular/core'
 import { RxAttachment, RxCollection } from 'rxdb'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
-import { Entity } from './models/entity'
-import { RxDBService } from './rxdb.service'
+import { BulkObj, DbEntity, Entity } from '../rxdb/models/entity'
+import { RxDBService } from '../rxdb/rxdb.service'
+import { QueryParams } from './query-params'
 
 export class Repository<T> {
 
@@ -13,6 +14,9 @@ export class Repository<T> {
 
   private dbService: RxDBService
   private zone: NgZone
+  private defaultQueryParams: QueryParams = {
+    group: null, mark: null
+  }
 
   constructor (
     private injector: Injector
@@ -22,29 +26,33 @@ export class Repository<T> {
     this.entities = this.dbService.db.entities
   }
 
-  async all (group?: string, mark: boolean = false): Promise<T[]> {
-    let q = this.entities.find().where('t').eq(this.entity)
-    if (group) {
-      q = q.where('g').eq(group)
+  async all (params?: QueryParams): Promise<T[]> {
+    const p: QueryParams = { ...this.defaultQueryParams, ...params }
+    let q = this.entities.find()
+      .where('t')
+      .eq(this.entity)
+    if (p.group) {
+      q = q.where('g').eq(p.group)
     }
-    if (mark) {
-      q = q.where('m').eq(mark)
+    if (p.mark != null) {
+      q = q.where('m').eq(p.mark)
     }
     const items = await q.exec()
     return this.mappedItems(items)
   }
 
-  all$ (group?: string, mark: boolean = false): Observable<T[]> {
+  all$ (params?: QueryParams): Observable<T[]> {
+    const p: QueryParams = { ...this.defaultQueryParams, ...params }
     let q = this.entities.find().where('t').eq(this.entity)
-    if (group) {
-      q = q.where('g').eq(group)
+    if (p.group) {
+      q = q.where('g').eq(p.group)
     }
-    if (mark) {
-      q = q.where('m').eq(mark)
+    if (p.mark != null) {
+      q = q.where('m').eq(p.mark)
     }
     return q.$.pipe(
       map((items) => this.mappedItems(items)),
-      tap(() => {
+      tap((items) => {
         this.zone.run(() => {
           // empty run for ui update
         })
@@ -69,15 +77,31 @@ export class Repository<T> {
     )
   }
 
-  async add (data: Partial<T>, group?: string, ts?: number): Promise<T> {
+  async add (data: Partial<T>, group?: string, ts?: number, tags?: string[]): Promise<T> {
     const obj = {
       c: data,
       t: this.entity,
       d: ts || Date.now(),
-      g: group
+      s: tags,
+      g: group || ''
     }
     const doc = await this.entities.insert(obj)
     return this.mappedItems([doc])[0]
+  }
+
+  async bulk (data: BulkObj[]) {
+    const objs = data
+      .map((o) => {
+        return {
+          d: o.date || Date.now(),
+          t: this.entity,
+          g: o.group || '',
+          m: o.mark,
+          s: o.tags,
+          c: o.content
+        } as DbEntity
+      })
+    return this.entities.bulkInsert(objs)
   }
 
   async update (id: string, data: any) {
@@ -132,13 +156,14 @@ export class Repository<T> {
   private mappedItems (items) {
     const r = items
       .filter(i => i && i._id)
-      .map(i => {
+      .map((i: DbEntity) => {
         const o: Entity = i.c
         o._id = i._id
-        o._timestamp = i.d
+        o._date = i.d
         o._type = i.t
         o._group = i.g
         o._mark = i.m
+        o._tags = i.s
         return o as unknown as T
       })
     return r

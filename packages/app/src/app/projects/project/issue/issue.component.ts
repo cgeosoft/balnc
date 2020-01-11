@@ -57,7 +57,7 @@ export class IssueComponent implements OnInit {
       this.issue$ = this.issuesRepo.one$(this.issueId)
       this.logs$ = this.peventsRepo.all$().pipe(
         map(i => i.filter(x => x.issueId === this.issueId)),
-        tap((logs: PEvent[]) => logs.sort((a, b) => a._timestamp - b._timestamp)),
+        tap((logs: PEvent[]) => logs.sort((a, b) => a._date - b._date)),
         tap(() => this.scroll())
       )
     })

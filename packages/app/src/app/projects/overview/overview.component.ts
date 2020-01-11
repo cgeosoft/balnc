@@ -19,7 +19,7 @@ export class OverviewComponent implements OnInit {
   issuesSchema: TableSchema = {
     name: 'latest-issues',
     properties: [
-      { label: 'Date', style: { width: '160px' }, type: 'date', val: (i: Issue) => i._timestamp },
+      { label: 'Date', style: { width: '160px' }, type: 'date', val: (i: Issue) => i._date },
       {
         label: 'Name',
         style: { 'min-width': '300px' },
@@ -40,11 +40,11 @@ export class OverviewComponent implements OnInit {
 
   async ngOnInit () {
     this.logs$ = this.peventsRepo.all$().pipe(
-      tap((logs: PEvent[]) => logs.sort((a, b) => a._timestamp - b._timestamp)),
+      tap((logs: PEvent[]) => logs.sort((a, b) => a._date - b._date)),
       tap((logs: PEvent[]) => logs.reverse())
     )
     this.issues$ = this.issuesRepo.all$().pipe(
-      tap((issues: Issue[]) => issues.sort((a,b) => b._timestamp - a._timestamp)),
+      tap((issues: Issue[]) => issues.sort((a,b) => b._date - a._date)),
       take(10)
     )
   }

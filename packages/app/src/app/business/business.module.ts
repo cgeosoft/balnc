@@ -33,13 +33,13 @@ import { SettingsComponent } from './settings/settings.component'
     InvoicesRepo,
     OrdersRepo,
     AgreementsRepo,
-    DemoService,
     TransactionsRepo,
     AccountsRepo,
-    RecordsRepo
+    RecordsRepo,
+    DemoService
   ],
   entryComponents: [
     QuickSearchComponent
   ]
 })
-export class BusinessModule { }
+export class BusinessModule {}

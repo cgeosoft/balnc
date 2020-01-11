@@ -95,10 +95,18 @@
     <section>
       <h4>Generate Random Data</h4>
       <p>This will generate random We suggest to generate random data in a non-production profile.</p>
-      <ng-container *ngIf="(genMessages$ | async) as messages">
-        <div>{{messages[0]}}</div>
+      <button class="btn btn-primary mr-2" [disabled]="demo_working" (click)="generateDemoData()">Generate</button>
+      <button class="btn btn-link mr-2" [disabled]="demo_working" (click)="clearDemoData()">Clear demo data</button>
+      <ng-container *ngIf="(signalLogs$ | async) as logs">
+        <div class="card overflow-auto mt-4" style="height: 300px;">
+          <table class="table table-sm text-monospace">
+            <tr *ngFor="let log of logs">
+              <td style="width:200px">{{log.date|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+              <td>{{log.message}}</td>
+            </tr>
+          </table>
+        </div>
       </ng-container>
-      <button class="btn btn-primary" (click)="generateDemoData()">Generate</button>
     </section>
   </app-content>
 </ng-container>

@@ -13,7 +13,6 @@ export enum ContactType {
 export interface Contact extends Entity {
   name: string
   type: ContactType
-  tags: string[]
   avatar?: string
   description?: string
   phones?: string[]
