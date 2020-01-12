@@ -39,16 +39,16 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   dataSub: Subscription
   total: number
   sort: any
-  direction: 'ASC' | 'DESC'
+  direction: 'asc' | 'desc' = 'asc'
 
   dataview: any[]
 
-  constructor(
+  constructor (
     private zone: NgZone,
     private cd: ChangeDetectorRef
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit (): void {
     this.updateSettings()
 
     this.zone.runOutsideAngular(() => {
@@ -65,7 +65,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     })
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit (): void {
     this.dataSub = this.data$
       .subscribe((data) => {
         this.total = data.length
@@ -74,11 +74,11 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
       })
   }
 
-  ngOnDestroy() {
+  ngOnDestroy () {
     this.dataSub.unsubscribe()
   }
 
-  updateSettings() {
+  updateSettings () {
     this.settings[this.schema.name] = this.settings[this.schema.name] || { visible: {} }
     this.schema.properties.forEach((p, i) => {
       this.settings[this.schema.name].visible[i] = this.settings[this.schema.name].visible[i] || !p.hidden
@@ -87,45 +87,49 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.properties = this.schema.properties.filter((p, i) => this.settings[this.schema.name].visible[i])
 
     if (this.schema.sort) {
-      this.sort = this.schema.properties.find(p => p.label === this.schema.sort.label)
-      this.direction = this.schema.sort.direction
+      this.sort = this.schema.properties.find(p => p.label === this.schema.sort)
     }
   }
 
-  toggleDirection() {
-    this.direction = (this.direction === 'ASC') ? 'DESC' : 'ASC'
+  setSort (prop) {
+    if (this.sort !== prop) {
+      this.sort = prop
+      this.direction = 'asc'
+    } else {
+      this.direction = (this.direction === 'asc') ? 'desc' : 'asc'
+    }
   }
 
-  switch(page) {
+  switch (page) {
     this.page = page
     this.movePageWindow()
   }
 
-  previous() {
+  previous () {
     if (this.page > 0) {
       this.page -= 1
       this.movePageWindow()
     }
   }
 
-  next() {
+  next () {
     if (this.page < this.totalPages.length - 1) {
       this.page += 1
       this.movePageWindow()
     }
   }
 
-  first() {
+  first () {
     this.page = 0
     this.movePageWindow()
   }
 
-  last() {
+  last () {
     this.page = this.totalPages.length - 1
     this.movePageWindow()
   }
 
-  getBadge(prop, item) {
+  getBadge (prop, item) {
     let defaultBadge = {
       label: 'Unknown',
       class: 'default',
@@ -145,7 +149,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     return { ...defaultBadge, ...b }
   }
 
-  private calcPages() {
+  private calcPages () {
     let tableHeight = this.wrapper.nativeElement.offsetHeight
 
     this.tableWrapper.nativeElement.scrollTop = 0
@@ -161,7 +165,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
     this.movePageWindow()
   }
 
-  private movePageWindow() {
+  private movePageWindow () {
     if (this.totalPages.length <= 5) {
       this.pages = this.totalPages
     } else if (this.page <= 2) {

@@ -1,9 +1,6 @@
 export interface TableSchema {
   name: string
-  sort?: {
-    label: string,
-    direction: 'ASC' | 'DESC'
-  }
+  sort?: string
   properties: {
     label?: string
     val? (item: any): any

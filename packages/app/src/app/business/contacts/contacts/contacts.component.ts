@@ -16,10 +16,7 @@ export class ContactsComponent implements OnInit {
 
   schema: TableSchema = {
     name: 'contacts',
-    sort: {
-      label: 'Name',
-      direction: 'ASC'
-    },
+    sort: 'Name',
     properties: [
       { label: 'Name', style: { 'min-width': '300px' }, template: 't1', locked: true, val: (item: Contact) => item.name },
       { label: 'Phones', style: { width: '150px' }, val: (item: Contact) => item.phones },

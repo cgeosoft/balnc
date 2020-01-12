@@ -6,14 +6,15 @@
           <table #table class="table mb-0">
             <thead class="thead-light">
               <tr>
-                <th *ngFor="let prop of properties; let i = index" [ngStyle]='prop.style || {}' (click)="sort = prop; toggleDirection()">
+                <th *ngFor="let prop of properties; let i = index" [ngStyle]='prop.style || {}' (click)="setSort(prop)">
                   {{prop.label}}
-                  <fa-icon *ngIf="sort === prop" icon="sort"></fa-icon>
+                  <fa-icon *ngIf="sort === prop && direction==='asc'" icon="sort-up"></fa-icon>
+                  <fa-icon *ngIf="sort === prop && direction==='desc'" icon="sort-down"></fa-icon>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of data | paginate:page:limit:sort" [id]="item._id">
+              <tr *ngFor="let item of data | paginate:page:limit:sort:direction" [id]="item._id">
                 <ng-container *ngFor="let prop of properties; let i = index">
 
                   <ng-container *ngIf="prop.template">
