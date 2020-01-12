@@ -31,12 +31,6 @@ export class ShellComponent implements OnInit {
       icon: 'box',
       type: 'PAGE',
       label: 'Plugins'
-    },
-    {
-      url: '/settings/about',
-      icon: 'info-circle',
-      type: 'PAGE',
-      label: 'About'
     }]
   }
 

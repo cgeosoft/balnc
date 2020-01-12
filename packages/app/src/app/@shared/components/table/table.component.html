@@ -8,8 +8,8 @@
               <tr>
                 <th *ngFor="let prop of properties; let i = index" [ngStyle]='prop.style || {}' (click)="setSort(prop)">
                   {{prop.label}}
-                  <fa-icon *ngIf="sort === prop && direction==='asc'" icon="sort-up"></fa-icon>
-                  <fa-icon *ngIf="sort === prop && direction==='desc'" icon="sort-down"></fa-icon>
+                  <fa-icon *ngIf="sort === prop && direction==='asc'" icon="sort-up" class="ml-2"></fa-icon>
+                  <fa-icon *ngIf="sort === prop && direction==='desc'" icon="sort-down" class="ml-2"></fa-icon>
                 </th>
               </tr>
             </thead>

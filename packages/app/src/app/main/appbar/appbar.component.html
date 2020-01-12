@@ -2,9 +2,10 @@
   <button class="item" routerLinkActive="active" routerLink="/dashboard" ngbTooltip="Dashboard" placement="right" container="body">
     <fa-icon icon="home"></fa-icon>
   </button>
+  <div class="divider"></div>
   <ng-container *ngFor="let plugin of enabledPlugins">
     <button class="item" routerLinkActive="active" [routerLink]="['/',plugin.id]" [ngStyle]="{color:plugin.color}"
-      [ngbTooltip]="plugin.label" placement="right" container="body">
+      [ngbTooltip]="plugin.title" placement="right" container="body">
       <fa-icon [icon]="plugin.icon"></fa-icon>
     </button>
   </ng-container>
