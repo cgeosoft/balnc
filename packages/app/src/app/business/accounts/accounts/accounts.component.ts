@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Helpers, TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
 import { Account, AccountType, AccountTypeBadges } from '../../@shared/models/account'
 import { AccountsRepo } from '../../@shared/repos/accounts.repo'
 import { RecordsRepo } from '../../@shared/repos/records.repo'
@@ -21,7 +20,7 @@ export class AccountsComponent implements OnInit {
         label: 'Name', type: 'link', locked: true, val: (item: Account) => {
           return {
             label: item.name || '{unamed account}',
-            link: ['/business/payments/accounts', item._id]
+            link: ['/business/accounts', item._id]
           }
         }
       },
@@ -46,33 +45,22 @@ export class AccountsComponent implements OnInit {
   ) { }
 
   async ngOnInit () {
+    this.accounts$ = this.accountsRepo.all$().pipe()
+
     const records = await this.recordsRepo.all()
 
     this.totals = records.reduce((m, d) => {
       if (!m[d.account]) {
         m[d.account] = { amount: 0, records: 0 }
       }
-      if (d.account === 'zo6tkw9ffc:1574465509178') console.log(d.amount)
       m[d.account].amount += d.amount
       m[d.account].records += 1
       return m
     }, {})
-
-    this.accounts$ = this.accountsRepo.all$().pipe(
-      tap(accounts => accounts.sort((a, b) => {
-        if (a.name < b.name) {
-          return -1
-        }
-        if (a.name > b.name) {
-          return 1
-        }
-        return 0
-      }))
-    )
   }
 
   async createAccount () {
     const account = await this.accountsRepo.add({ name: `Account #${Helpers.uid()}` })
-    await this.router.navigate(['/business/payments/accounts', account._id])
+    await this.router.navigate(['/business/accounts', account._id])
   }
 }

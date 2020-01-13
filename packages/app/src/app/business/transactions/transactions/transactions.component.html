@@ -22,7 +22,7 @@
 
 <ng-template #accountFromTpl let-transaction="item">
   <ng-container *ngIf="transaction.from && accounts[transaction.from]">
-    <a [routerLink]="['/business/payments/accounts',accounts[transaction.from]._id]">
+    <a [routerLink]="['/business/accounts',accounts[transaction.from]._id]">
       {{accounts[transaction.from].name}}</a>
   </ng-container>
   <ng-container *ngIf="!transaction.from">
@@ -32,7 +32,7 @@
 
 <ng-template #accountToTpl let-transaction="item">
   <ng-container *ngIf="transaction.to && accounts[transaction.to]">
-    <a [routerLink]="['/business/payments/accounts',accounts[transaction.to]._id]">
+    <a [routerLink]="['/business/accounts',accounts[transaction.to]._id]">
       {{accounts[transaction.to].name}}</a>
   </ng-container>
 </ng-template>

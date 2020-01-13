@@ -24,7 +24,7 @@ export class TransactionsComponent implements OnInit {
       { label: 'Amount', style: { 'width': '120px', 'text-align': 'right' }, type: 'currency', val: (item: Transaction) => item.amount },
       {
         label: '', style: { 'width': '80px', 'text-align': 'center' },type: 'button', icon: 'bars', click: async (item: Transaction) => {
-          await this.router.navigate(['/business/payments/transactions', item._id])
+          await this.router.navigate(['/business/transactions', item._id])
         }
       }
     ]

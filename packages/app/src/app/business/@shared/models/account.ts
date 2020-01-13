@@ -16,9 +16,9 @@ export enum AccountType {
   Paypal
 }
 
-export const AccountTypeBadges = {
-  Cash: { label: 'Cash', color: '#FFAB91' },
-  Bank: { label: 'Bank', color: '#9FA8DA' },
-  Stripe: { label: 'Stripe', color: '#80DEEA' },
-  Paypal: { label: 'Paypal', color: '#81D4FA' }
-}
+export const AccountTypeBadges = [
+  { ey: 'cash', label: 'Cash', color: '#FFAB91' },
+  { ey: 'bank', label: 'Bank', color: '#9FA8DA' },
+  { ey: 'stripe', label: 'Stripe', color: '#80DEEA' },
+  { ey: 'paypal', label: 'Paypal', color: '#81D4FA' }
+]
