@@ -42,6 +42,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   direction: 'asc' | 'desc' = 'asc'
 
   dataview: any[]
+  data: any[]
 
   constructor (
     private zone: NgZone,
@@ -68,6 +69,7 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit (): void {
     this.dataSub = this.data$
       .subscribe((data) => {
+        this.data = data
         this.total = data.length
         this.calcPages()
         this.cd.markForCheck()

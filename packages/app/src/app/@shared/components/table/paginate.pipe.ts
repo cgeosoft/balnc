@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core'
+import { RepositoryHelpers } from 'src/app/@core/services/repository.helpers'
 import { TableProperty } from './table-schema'
 
 @Pipe({ name: 'paginate' })
@@ -6,8 +7,8 @@ export class PaginatePipe implements PipeTransform {
   transform (data: any[], page: number, limit: number, sortProp: TableProperty, direction: 'asc' | 'desc') {
     if (sortProp && sortProp.val) {
       data.sort((a, b) => {
-        let vala = sortProp.val(a)
-        let valb = sortProp.val(b)
+        let vala = sortProp.d(a)
+        let valb = sortProp.d(b)
         let tvala = ''
         let tvalb = ''
         switch (sortProp.type) {
@@ -29,6 +30,6 @@ export class PaginatePipe implements PipeTransform {
 
       })
     }
-    return data.slice(page * limit, page * limit + limit)
+    return data.slice(page * limit, page * limit + limit).map((d) => RepositoryHelpers.mapEntity(d))
   }
 }

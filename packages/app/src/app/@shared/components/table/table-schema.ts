@@ -1,5 +1,6 @@
 export interface TableProperty {
   label?: string
+  d? (i: any): any
   val? (item: any): any
   click? (item: any): any
   style?: any

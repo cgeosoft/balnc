@@ -8,7 +8,7 @@ import { ConfigService } from './config.service'
 export class ProfileGuardService implements CanActivate {
   constructor (public config: ConfigService, public router: Router) { }
   async canActivate () {
-    this.config.setup()
+    // this.config.setup()
     return !this.config.profile
   }
 }

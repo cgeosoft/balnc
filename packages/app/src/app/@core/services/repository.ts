@@ -2,7 +2,7 @@ import { Injector, NgZone } from '@angular/core'
 import { RxAttachment, RxCollection } from 'rxdb'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
-import { BulkObj, DbEntity, Entity } from '../rxdb/models/entity'
+import { BulkObj, DbEntity } from '../rxdb/models/entity'
 import { RxDBService } from '../rxdb/rxdb.service'
 import { QueryParams } from './query-params'
 
@@ -23,7 +23,17 @@ export class Repository<T> {
   ) {
     this.dbService = this.injector.get(RxDBService)
     this.zone = this.injector.get(NgZone)
+  }
+
+  async warm () {
+    console.log(`warming repo ${this.entity}`)
+    const warmingTs = Date.now()
     this.entities = this.dbService.db.entities
+    await this.entities.find()
+      .where('t')
+      .eq(this.entity)
+      .exec()
+    console.log(`   warmed in ${Date.now() - warmingTs}ms`)
   }
 
   async all (params?: QueryParams): Promise<T[]> {
@@ -50,14 +60,15 @@ export class Repository<T> {
     if (p.mark != null) {
       q = q.where('m').eq(p.mark)
     }
-    return q.$.pipe(
-      map((items) => this.mappedItems(items)),
-      tap((items) => {
-        this.zone.run(() => {
-          // empty run for ui update
-        })
-      })
-    )
+    return q.$
+    // .pipe(
+    //   map((items) => this.mappedItems(items)),
+    //   tap((items) => {
+    //     this.zone.run(() => {
+    //       // empty run for ui update
+    //     })
+    //   })
+    // )
   }
 
   async one (id: string): Promise<T> {
@@ -157,14 +168,15 @@ export class Repository<T> {
     const r = items
       .filter(i => i && i._id)
       .map((i: DbEntity) => {
-        const o: Entity = i.c
-        o._id = i._id
-        o._date = i.d
-        o._type = i.t
-        o._group = i.g
-        o._mark = i.m
-        o._tags = i.s
-        return o as unknown as T
+        return {
+          ...i.c,
+          _id: i._id,
+          _date: i.d,
+          _type: i.t,
+          _group: i.g,
+          _mark: i.m,
+          _tags: i.s
+        }
       })
     return r
   }

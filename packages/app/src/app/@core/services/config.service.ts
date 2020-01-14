@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core'
-import { Router } from '@angular/router'
 import { Plugin, Profile } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { LocalStorage } from 'ngx-store'
@@ -23,10 +22,6 @@ export class ConfigService {
   @LocalStorage() profiles: Profile[] = []
 
   menu: any
-
-  constructor (
-    private router: Router
-  ) { }
 
   get profile (): Profile {
     return this.profiles.find(p => p.key === this.selected)

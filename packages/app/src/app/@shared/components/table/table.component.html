@@ -1,6 +1,6 @@
 <div #wrapper class="wrapper">
   <div #tableWrapper class="table-wrapper">
-    <ng-container *ngIf="(data$ | async) as data; else loader">
+    <ng-container *ngIf="data; else loader">
       <ng-container *ngIf="!showDebug">
         <ng-container *ngIf="total; else empty">
           <table #table class="table mb-0">
