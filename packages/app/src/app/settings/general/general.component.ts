@@ -26,7 +26,7 @@ export class GeneralComponent implements OnInit {
   deleteDataRemote = false
   editName = false
   signalLogs$
-  demo_working = false
+  demoWorking = false
 
   constructor (
     private http: HttpClient,
@@ -47,19 +47,19 @@ export class GeneralComponent implements OnInit {
     this.signalService
       .events(Signal.DEMO_COMPLETED)
       .subscribe(() => {
-        this.demo_working = false
+        this.demoWorking = false
       })
   }
 
   async generateDemoData () {
     if (!confirm('Are you sure?')) return
-    this.demo_working = true
+    this.demoWorking = true
     this.signalService.broadcast(Signal.DEMO_GENERATE)
   }
 
   async clearDemoData () {
     if (!confirm('Are you sure?')) return
-    this.demo_working = true
+    this.demoWorking = true
     this.signalService.broadcast(Signal.DEMO_CLEAR)
   }
 

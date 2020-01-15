@@ -23,7 +23,10 @@ import { MainModule } from './main/main.module'
     ConfigService,
     RxDBService,
     {
-      provide: APP_INITIALIZER, multi: true, useFactory: initApp, deps: [
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: initApp,
+      deps: [
         ConfigService,
         RxDBService,
         ...REPOS

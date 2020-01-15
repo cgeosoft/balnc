@@ -136,7 +136,7 @@
 </div>
 
 <ng-template #loader>
-  <app-empty icon="sync-alt" [icon-spin]="true" message="loading..."></app-empty>
+  <app-empty icon="sync-alt" [icon-spin]="true" [message]="null"></app-empty>
 </ng-template>
 <ng-template #empty>
   <app-empty message="no data" icon="folder-open"></app-empty>

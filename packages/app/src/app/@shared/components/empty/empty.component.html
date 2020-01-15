@@ -1,5 +1,5 @@
 <div class="empty">
   <fa-icon [icon]="getIcon" [spin]="iconSpin"></fa-icon>
-  <div class="message">{{message}}</div>
-  <div class="submessage">{{submessage}}</div>
+  <div *ngIf="message" class="message">{{message}}</div>
+  <div *ngIf="submessage" class="submessage">{{submessage}}</div>
 </div>

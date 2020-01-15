@@ -27,6 +27,10 @@ export class Repository<T> {
 
   async warm () {
     console.log(`warming repo ${this.entity}`)
+    if (!this.dbService.db) {
+      console.log(`warming aborded: no db was found`)
+      return
+    }
     const warmingTs = Date.now()
     this.entities = this.dbService.db.entities
     await this.entities.find()
