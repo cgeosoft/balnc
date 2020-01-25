@@ -1,0 +1,179 @@
+@import "theme";
+
+$sidebar-font: #666;
+$sidebar-background: darken($body-bg, 5);
+
+:host {
+  > button,
+  > .submenu > a,
+  > .item,
+  > a {
+    @extend .d-flex;
+    @extend .flex-row;
+    @extend .align-items-center;
+    @extend .mb-1;
+    @extend .w-100;
+    @extend .btn;
+    background: none;
+    padding: 0.2rem;
+    border: none;
+    color: $sidebar-font;
+    text-align: left;
+    outline: none !important;
+    box-shadow: none !important;
+    color: $sidebar-font;
+
+    .thumb {
+      @extend .bg-dark;
+      @extend .rounded;
+      @extend .mr-2;
+      @extend .d-flex;
+      @extend .justify-content-center;
+      @extend .align-items-center;
+      @extend .border;
+      @extend .border-light;
+      position: relative;
+      height: 34px;
+      width: 34px;
+      min-width: 34px;
+
+      .thumb-img {
+        @extend .h-100;
+        @extend .w-100;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+
+        img {
+          @extend .img-fluid;
+          height: 34px;
+          width: 34px;
+        }
+      }
+
+      .indicator {
+        // @extend .border;
+        // @extend .border-light;
+        background: #222;
+        position: absolute;
+        bottom: -4px;
+        right: -4px;
+        height: 16px;
+        width: 16px;
+        line-height: 14px;
+        font-size: 0.6rem;
+        text-align: center;
+        border-radius: 8px;
+        color: #fff;
+        box-shadow: 1px 1px 3px #222;
+      }
+    }
+
+    > fa-icon:first-child,
+    .icon {
+      @extend .ml-1;
+      @extend .mr-2;
+      text-align: center;
+      width: 1.2rem;
+      min-width: 1.2rem;
+      font-size: 0.8rem;
+
+      &.icon-badge {
+        @extend .mr-0;
+        @extend .ml-auto;
+      }
+    }
+
+    > span {
+      @extend .d-block;
+      @extend .text-truncate;
+    }
+
+    .content {
+      @extend .d-flex;
+      @extend .flex-column;
+      @extend .flex-grow-1;
+      @extend .text-truncate;
+      line-height: 1rem;
+
+      span {
+        @extend .d-block;
+        @extend .text-truncate;
+      }
+
+      small {
+        @extend .d-block;
+        @extend .text-truncate;
+        font-size: 0.6rem;
+        line-height: 0.6rem;
+        margin-top: 0.1rem;
+        color: $sidebar-font;
+      }
+    }
+
+    &.primary {
+      @extend .btn-primary;
+      border-width: 1px;
+    }
+
+    &.success {
+      @extend .btn-success;
+      border-width: 1px;
+    }
+
+    &.danger {
+      @extend .btn-danger;
+      border-width: 1px;
+    }
+
+    &.active,
+    &:hover {
+      background: darken($sidebar-background, 5%);
+    }
+
+    &.disabled,
+    &:disabled {
+      cursor: not-allowed;
+      color: #666;
+      background: $sidebar-background;
+    }
+
+    &.media {
+      .img-thumbnail {
+        float: left;
+        margin: 0.3rem 0.3rem 0.3rem 0;
+        background: none;
+        width: 2rem;
+        text-align: center;
+        padding: 0;
+        border-radius: 2rem;
+        line-height: 2rem;
+
+        .fa {
+          font-size: 1rem;
+        }
+      }
+
+      small {
+        display: block;
+        font-size: 0.7rem;
+        color: darken($sidebar-font, 10);
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .submenu {
+    .menu {
+      @extend .pl-3;
+    }
+  }
+
+  .divider {
+    @extend .m-2;
+    background: darken($sidebar-background, 10);
+    height: 1px;
+  }
+}

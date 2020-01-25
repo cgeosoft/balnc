@@ -1,3 +1,24 @@
-<app-page [sidebar]="sidebar">
+<app-page>
+  <ng-container role="sidebar">
+    <div class="title">Business</div>
+    <div class="search">
+      <input class="form-control" placeholder="search..." [ngbTypeahead]="typeaheadFn" [(ngModel)]="term"
+        [resultFormatter]="formatter" (selectItem)="select($event)">
+      <a [routerLink]="['/business/search']">advanced search</a>
+    </div>
+    <div class="menu">
+      <app-sidemenu [menu]="menu"></app-sidemenu>
+      <ng-container *ngIf="marked$">
+        <ng-container *ngIf="(marked$ | async) as data;">
+          <ng-container *ngIf="data.length">
+            <div class="header">Bookmarked</div>
+            <app-sidemenu [menu]="data"></app-sidemenu>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+
   <router-outlet></router-outlet>
+
 </app-page>

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
+import { map, tap } from 'rxjs/operators'
 import { BOARDS_SIDEBAR } from '../@shared/constants/sidebar'
-import { Board } from '../@shared/models/board'
 import { BoardStats } from '../@shared/models/board-stats'
 import { BoardsRepo } from '../@shared/repos/boards.repo'
 import { MessagesRepo } from '../@shared/repos/messages.repo'
@@ -16,7 +15,7 @@ import { MessagesRepo } from '../@shared/repos/messages.repo'
 })
 export class ShellComponent implements OnInit {
 
-  boards$: Observable<Board[]>
+  boards$: Observable<Sidebar[]>
 
   nickname: string
   boardsStats: BoardStats[]
@@ -32,7 +31,17 @@ export class ShellComponent implements OnInit {
   async ngOnInit () {
     this.nickname = 'chris'
     this.boards$ = this.boardsRepo.all$().pipe(
-      tap(boards => boards.sort((a, b) => a._date - b._date))
+      tap(boards => boards.sort((a, b) => a._date - b._date)),
+      map((data) => {
+        return data.map(item => {
+          return {
+            label: item.c.name,
+            icon: ['fas', 'user-circle'],
+            url: ['/boards', item._id],
+            type: 'PAGE'
+          }
+        })
+      })
     )
     // await this.generate()
     // this.messagesService.all$().subscribe((messages) => {

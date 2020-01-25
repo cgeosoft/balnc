@@ -1,45 +1,45 @@
-.content {
-  width: 100%;
-  .content-tabs {
-    min-height: 33px;
-    height: 33px;
-    background: #fafafa;
-    position: relative;
-    padding-right: 0.8rem;
-    padding-left: 0.8rem;
-    border-color: #ccc;
-    margin-bottom: -1px;
-    .nav-link {
-      height: 33px; // color: #666;
-      border-radius: 0.3rem 0.3rem 0 0;
-      margin-right: 0.3rem;
-      padding: 0.2rem 1rem;
-      &.active {
-        border-color: #ccc;
-        border-bottom-color: #fff;
-        margin-bottom: -1px;
-        &:hover {
-          border-color: #ccc;
-          border-bottom-color: #fff;
-        }
-      }
-      &:hover {
-        border-color: #fafafa;
-        border-bottom-color: #ccc;
-      }
-    }
-  }
-  &.content-menu {
-    background: $dark;
-    color: #fff;
-    padding: 4rem;
-    .content-header {
-      background: inherit;
-      font-size: 3rem;
-      font-weight: 300;
-    }
-    .content-body {
-      border: none;
-    }
-  }
-}
+// .content {
+//   width: 100%;
+//   .content-tabs {
+//     min-height: 33px;
+//     height: 33px;
+//     background: #fafafa;
+//     position: relative;
+//     padding-right: 0.8rem;
+//     padding-left: 0.8rem;
+//     border-color: #ccc;
+//     margin-bottom: -1px;
+//     .nav-link {
+//       height: 33px; // color: #666;
+//       border-radius: 0.3rem 0.3rem 0 0;
+//       margin-right: 0.3rem;
+//       padding: 0.2rem 1rem;
+//       &.active {
+//         border-color: #ccc;
+//         border-bottom-color: #fff;
+//         margin-bottom: -1px;
+//         &:hover {
+//           border-color: #ccc;
+//           border-bottom-color: #fff;
+//         }
+//       }
+//       &:hover {
+//         border-color: #fafafa;
+//         border-bottom-color: #ccc;
+//       }
+//     }
+//   }
+//   &.content-menu {
+//     background: $dark;
+//     color: #fff;
+//     padding: 4rem;
+//     .content-header {
+//       background: inherit;
+//       font-size: 3rem;
+//       font-weight: 300;
+//     }
+//     .content-body {
+//       border: none;
+//     }
+//   }
+// }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component } from '@angular/core'
 import { Observable } from 'rxjs'
 
 interface Sidebar {
@@ -16,5 +16,4 @@ interface Sidebar {
   styleUrls: ['page.component.scss']
 })
 export class PageComponent {
-  @Input() sidebar: Sidebar = null
 }

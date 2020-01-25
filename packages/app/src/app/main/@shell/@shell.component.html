@@ -1,9 +1,9 @@
-<div class="main-wrapper">
+<div class="wrapper">
   <app-appbar></app-appbar>
-  <div class="main-content" [ngClass]="layout">
+  <div class="page-wrapper" [ngClass]="layout">
     <router-outlet></router-outlet>
   </div>
-  <div *ngIf="pageLoading" class="page-loader">
+  <div class="page-loader" *ngIf="pageLoading">
     <app-spinner></app-spinner>
   </div>
 </div>

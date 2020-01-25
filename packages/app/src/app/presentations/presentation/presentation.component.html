@@ -1,10 +1,7 @@
-<ng-container *ngIf="presentation; else emptyPresentation">
-
-    <app-content-header [menu]="menu"></app-content-header>
-
+<app-content>
+  <ng-container *ngIf="presentation; else emptyPresentation">
     <ng-container *ngIf="menu.selected === 'overview'">
       <section>
-
         <div class="row">
           <div class="col-lg-3">
 
@@ -199,21 +196,22 @@
       </ng-container>
     </section>
 
-</ng-container>
+  </ng-container>
 
-<div #presentElem class="present">
-  <div *ngIf="presenting">
-    <ng-container *ngIf="(slides$ | async) as slides">
-      <ng-container *ngIf="slides.legth > 0">
-        <swiper>
-          <div *ngFor="let img of slides" class="d-flex align-items-center justify-content-center">
-            <img [src]="img" class="img-fluid">
-          </div>
-        </swiper>
+  <div #presentElem class="present">
+    <div *ngIf="presenting">
+      <ng-container *ngIf="(slides$ | async) as slides">
+        <ng-container *ngIf="slides.legth > 0">
+          <swiper>
+            <div *ngFor="let img of slides" class="d-flex align-items-center justify-content-center">
+              <img [src]="img" class="img-fluid">
+            </div>
+          </swiper>
+        </ng-container>
       </ng-container>
-    </ng-container>
+    </div>
   </div>
-</div>
+</app-content>
 
 <ng-template #emptyPresentation>
   <app-empty message="Select a presentation or create a new one" icon="desktop"></app-empty>

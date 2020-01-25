@@ -1,5 +1,5 @@
-<ng-container *ngIf="profile; else loading">
-  <app-content>
+<app-content>
+  <ng-container *ngIf="profile; else loading">
     <section>
       <h4>Profile Information</h4>
       <dl class="row mb-0">
@@ -108,9 +108,8 @@
         </div>
       </ng-container>
     </section>
-  </app-content>
-</ng-container>
-
+  </ng-container>
+</app-content>
 <ng-template #loading>
   <app-spinner></app-spinner>
 </ng-template>

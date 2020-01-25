@@ -1,18 +1,20 @@
+<app-content>
+  <section>
+    <div>
+      <h4>Generate Random Data</h4>
+      <p>This will generate random We suggest to generate random data in a non-production profile.</p>
+      <button class="btn btn-primary" (click)="generate()" [disabled]="generating">Generate</button>
+      <p class="text-center text-muted" *ngIf="generating">
+        <fa-icon icon="cog" spin="true"></fa-icon> generating...
+      </p>
+      <p class="text-center text-success" *ngIf="generated">Random data generated at {{generated|date:'short'}}</p>
+    </div>
+  </section>
+</app-content>
 
-    <section>
-      <div>
-        <h4>Generate Random Data</h4>
-        <p>This will generate random We suggest to generate random data in a non-production profile.</p>
-        <button class="btn btn-primary" (click)="generate()" [disabled]="generating">Generate</button>
-        <p class="text-center text-muted" *ngIf="generating"><fa-icon icon="cog" spin="true"></fa-icon> generating...</p>
-        <p class="text-center text-success" *ngIf="generated">Random data generated at {{generated|date:'short'}}</p>
-      </div>
-    </section>
-
-
-  <ng-template #noProjects>
-    <app-empty message="No projects" icon="file-alt:regular"></app-empty>
-  </ng-template>
-  <ng-template #loader>
-    <app-spinner></app-spinner>
-  </ng-template>
+<ng-template #noProjects>
+  <app-empty message="No projects" icon="file-alt:regular"></app-empty>
+</ng-template>
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

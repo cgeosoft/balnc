@@ -4,6 +4,7 @@
   @extend .btn-toolbar;
   @extend .p-3;
   @extend .bg-light;
+  @extend .w-100;
 }
 
 :host ::ng-deep > .btn {

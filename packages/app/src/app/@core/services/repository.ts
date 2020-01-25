@@ -55,7 +55,7 @@ export class Repository<T> {
     return this.mappedItems(items)
   }
 
-  all$ (params?: QueryParams): Observable<T[]> {
+  all$ (params?: QueryParams): Observable<(T | any)[]> {
     const p: QueryParams = { ...this.defaultQueryParams, ...params }
     let q = this.entities.find().where('t').eq(this.entity)
     if (p.group) {

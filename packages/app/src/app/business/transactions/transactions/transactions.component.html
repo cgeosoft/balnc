@@ -1,8 +1,10 @@
-<section class="full no-padding">
-  <app-table [data$]="transactions$" [schema]="schema"
-    [templates]="{statusTpl:statusTpl,accountFromTpl:accountFromTpl,accountToTpl:accountToTpl}">
-  </app-table>
-</section>
+<app-content>
+  <section class="full no-padding">
+    <app-table [data$]="transactions$" [schema]="schema"
+      [templates]="{statusTpl:statusTpl,accountFromTpl:accountFromTpl,accountToTpl:accountToTpl}">
+    </app-table>
+  </section>
+</app-content>
 
 
 <ng-template #statusTpl let-transaction="item">

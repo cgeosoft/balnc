@@ -9,6 +9,14 @@
       @extend .p-0;
     }
 
+    &.title {
+      font-size: xx-large;
+      font-weight: lighter;
+      &:after {
+        width: 100%;
+      }
+    }
+
     &.full {
       @extend .flex-grow-1;
       @extend .overflow-auto;
@@ -27,7 +35,7 @@
       background: #eee;
     }
 
-    &:last-child{
+    &:last-child {
       &:after {
         @extend .d-none;
       }

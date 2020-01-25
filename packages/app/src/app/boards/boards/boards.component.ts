@@ -17,16 +17,16 @@ export class BoardsComponent implements OnInit {
     ]
   }
 
-  boards$: Observable<Board[]>
+  boards$: Observable<Board[]> = new Observable<Board[]>()
 
-  constructor (
+  constructor(
     private boardsRepo: BoardsRepo
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.boards$ = this.boardsRepo.all$()
   }
 
-  create () {}
+  create() { }
 
 }

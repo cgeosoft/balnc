@@ -12,22 +12,21 @@ import { NgPipesModule } from 'ngx-pipes'
 import { WebStorageModule } from 'ngx-store'
 import { ToastrModule } from 'ngx-toastr'
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component'
-import { ContentHeaderComponent } from './components/content-header/content-header.component'
 import { ContentComponent } from './components/content/content.component'
 import { DebugComponent } from './components/debug/debug.component'
 import { EmptyComponent } from './components/empty/empty.component'
 import { FooterComponent } from './components/footer/footer.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 import { PageComponent } from './components/page/page.component'
+import { SidemenuComponent } from './components/sidemenu/sidemenu.component'
 import { SpinnerComponent } from './components/spinner/spinner.component'
 import { PaginatePipe } from './components/table/paginate.pipe'
 import { SearchPipe } from './components/table/search.pipe'
 import { TableComponent } from './components/table/table.component'
+import { ToolbarComponent } from './components/toolbar/toolbar.component'
 import { FontAwesomeModule } from './modules/font-awesome/font-awesome.module'
 import { DocVersionPipe } from './pipes/doc-version.pipe'
 import { EllipsisPipe } from './pipes/ellipsis.pipe'
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component'
 
 @NgModule({
   imports: [
@@ -49,7 +48,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component'
     ContentComponent,
     ConfirmDialogComponent,
     PageComponent,
-    ContentHeaderComponent,
     DebugComponent,
     EmptyComponent,
     FooterComponent,
@@ -62,7 +60,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component'
     PaginatePipe,
     SearchPipe,
     ToolbarComponent,
-    SidebarComponent
+    SidemenuComponent
   ],
   entryComponents: [ConfirmDialogComponent],
   exports: [
@@ -82,18 +80,18 @@ import { SidebarComponent } from './components/sidebar/sidebar.component'
 
     DocVersionPipe,
     EllipsisPipe,
+    SearchPipe,
 
-    ContentComponent,
     ConfirmDialogComponent,
+    ContentComponent,
     PageComponent,
-    ContentHeaderComponent,
     DebugComponent,
     EmptyComponent,
     FooterComponent,
     SpinnerComponent,
     TableComponent,
     ToolbarComponent,
-    SearchPipe
+    SidemenuComponent
   ]
 })
 export class SharedModule {}

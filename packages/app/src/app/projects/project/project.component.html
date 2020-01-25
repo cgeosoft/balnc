@@ -1,6 +1,6 @@
 <ng-container *ngIf="project$ | async as project; else loader">
   <ng-container *ngIf="project; else empty">
-    <app-content [sidebar]="true">
+    <app-content>
       <div role="sidebar">
         <dl>
           <dt>Project

@@ -19,6 +19,6 @@ export const BOARDS_ROUTES = [{
       path: ':id',
       component: BoardComponent
     },
-    { path: '', redirectTo: 'contacts', pathMatch: 'full' }
+    { path: '', redirectTo: 'manage', pathMatch: 'full' }
   ]
 }]

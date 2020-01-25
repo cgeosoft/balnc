@@ -1,5 +1,7 @@
-<app-page [sidebar]="sidebar">
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
+<app-page>
+  <ng-container role="sidebar">
+    <div class="title">Settings</div>
+    <app-sidemenu [menu]="sidebar.menu"></app-sidemenu>
+  </ng-container>
+  <router-outlet></router-outlet>
 </app-page>

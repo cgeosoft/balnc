@@ -29,10 +29,12 @@
     </a>
   </div>
 </app-sidebar> -->
-<router-outlet></router-outlet>
-<ng-template #empty>
-  <app-empty></app-empty>
-</ng-template>
-<ng-template #noThumb>
-  <fa-icon [icon]="['fas','desktop']"></fa-icon>
-</ng-template>
+<app-page>
+  <ng-container role="sidebar">
+    <div class="title">Projects</div>
+    <div class="menu">
+      <app-sidemenu [menu]="[]"></app-sidemenu>
+    </div>
+  </ng-container>
+  <router-outlet></router-outlet>
+</app-page>

@@ -1,7 +1,7 @@
 <ng-container *ngIf="(contact$ | async) as contact; else loader">
   <ng-container *ngIf="contact; else empty">
-    <app-content [sidebar]="true">
-      <div role="sidebar">
+    <app-content>
+      <ng-container role="sidebar">
         <img style="width:217px;height:217px" class="rounded border img-fluid mb-3" [src]="contact.avatar"
           *ngIf="contact.avatar">
         <dl>
@@ -35,7 +35,7 @@
             </ng-container>
           </ul>
         </ng-container>
-      </div>
+      </ng-container>
       <router-outlet></router-outlet>
     </app-content>
   </ng-container>

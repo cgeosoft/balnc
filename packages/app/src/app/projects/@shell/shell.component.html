@@ -1,3 +1,11 @@
-<app-page [sidebar]="sidebar">
-  <router-outlet></router-outlet>
+<app-page>
+  <ng-container role="sidebar">
+    <div class="title">Projects</div>
+    <div class="menu">
+      <app-sidemenu [menu]="sidebar.menu"></app-sidemenu>
+    </div>
+  </ng-container>
+  <ng-container>
+    <router-outlet></router-outlet>
+  </ng-container>
 </app-page>

@@ -5,18 +5,18 @@
   @extend .flex-column;
   @extend .h-100;
 
-  .main-wrapper {
+  .wrapper {
     @extend .d-flex;
     @extend .h-100;
     overflow: hidden;
-    background: darken($body-bg, 5);
+    background: $body-bg;
     position: relative;
 
-    .main-content {
+    .page-wrapper {
       @extend .h-100;
       @extend .w-100;
       @extend .container-fluid;
-      @extend .p-0;
+      @extend .p-4;
 
       &.box {
         @extend .container;

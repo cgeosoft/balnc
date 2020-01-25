@@ -13,14 +13,17 @@
     @extend .overflow-auto;
     width: 250px;
     min-width: 250px;
+
+    &:empty {
+      display: none !important;
+    }
   }
 
-  .content {
+  .wrapper {
+    @extend .h-100;
+    @extend .flex-grow-1;
+    @extend .overflow-auto;
     @extend .d-flex;
     @extend .flex-column;
-    @extend .flex-grow-1;
-    @extend .w-100;
-    @extend .h-100;
-    @extend .overflow-auto;
   }
 }

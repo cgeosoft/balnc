@@ -1,44 +1,18 @@
-<!-- <app-sidebar>
-  <div class="title">Boards</div>
-  <div class="input-group input-group-sm mb-2">
-    <input #boardname class="form-control" placeholder="New board">
-    <div class="input-group-append">
-      <button class="btn btn-primary" type="button" (click)="create(boardname.value)">
-        <fa-layers class="fa-fw">
-          <fa-icon icon="plus-circle"></fa-icon>
-        </fa-layers>
-      </button>
-    </div>
-  </div>
-  <div class="menu overflow-auto">
-    <ng-container *ngIf="(boards$ | async) as boards; else loader">
-      <ng-container *ngIf="boards.length; else empty">
-        <ng-template ngFor let-board [ngForOf]="boards">
-          <a [routerLink]="['/boards',board._id]" routerLinkActive="active">
-            <fa-icon *ngIf="!board.pinned" icon="comments" class="icon"></fa-icon>
-            <fa-icon *ngIf="board.pinned" icon="comments" class="thumbtack"></fa-icon>
-            <span>{{board.name}}</span>
-            <span class="ml-auto badge badge-primary" *ngIf="unread[board._id]">{{unread[board._id]}}</span>
-          </a>
-        </ng-template>
-      </ng-container>
-    </ng-container>
-  </div>
-  <div class="menu mt-auto">
-    <a routerLink="/boards/settings" routerLinkActive="active">
-      <fa-icon icon="cog"></fa-icon>
-      <span>Settings</span>
-    </a>
-  </div>
-</app-sidebar> -->
+<app-page>
+  <ng-container role="sidebar">
+    <div class="title">Boards</div>
+    <div class="menu">
+      <app-sidemenu [menu]="sidebar.menu"></app-sidemenu>
 
-<app-page [sidebar]="sidebar">
+      <ng-container *ngIf="boards$">
+        <ng-container *ngIf="(boards$ | async) as data;">
+          <ng-container *ngIf="data.length">
+            <div class="header">Boards</div>
+            <app-sidemenu [menu]="data"></app-sidemenu>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
   <router-outlet></router-outlet>
 </app-page>
-
-<ng-template #empty>
-  <app-empty></app-empty>
-</ng-template>
-<ng-template #loader>
-  <app-spinner></app-spinner>
-</ng-template>
