@@ -2,12 +2,12 @@
   <ng-container role="sidebar">
     <div class="title">Boards</div>
     <div class="menu">
-      <app-sidemenu [menu]="sidebar.menu"></app-sidemenu>
+      <app-sidemenu [menu]="menu"></app-sidemenu>
 
       <ng-container *ngIf="boards$">
         <ng-container *ngIf="(boards$ | async) as data;">
           <ng-container *ngIf="data.length">
-            <div class="header">Boards</div>
+            <div class="header">Bookmarked</div>
             <app-sidemenu [menu]="data"></app-sidemenu>
           </ng-container>
         </ng-container>

@@ -15,7 +15,6 @@ $appbar-width: 50px;
   z-index: 20;
 
   .menu {
-    @extend .bg-dark;
     @extend .shadow-sm;
     @extend .d-flex;
     @extend .flex-column;
@@ -23,7 +22,8 @@ $appbar-width: 50px;
     @extend .w-100;
     @extend .py-2;
     @extend .px-2;
-    border-radius: 0 .5rem .5rem 0;
+    background-color: $dark;
+    border-radius: 0 0.5rem 0.5rem 0;
 
     .item {
       @extend .w-100;
@@ -33,23 +33,27 @@ $appbar-width: 50px;
       @extend .py-1;
       @extend .px-0;
       @extend .text-center;
-      background-color: $dark;
+      background: none;
       outline: none;
       transition: background-color 0.7s;
       transition: color 0.7s;
-      color: $light;
+      color: $body-bg;
 
       &:hover {
-        background: lighten($dark, 2%);
+        background: lighten($body-color, 2%);
       }
 
       &.active {
-        background: lighten($dark, 5%);
-        border-color: lighten($dark, 7%);
+        background: lighten($body-color, 5%);
+        border-color: lighten($body-color, 7%);
       }
 
       &:last-child {
         @extend .mb-0;
+      }
+
+      fa-icon{
+        text-shadow: $body-color;
       }
     }
 

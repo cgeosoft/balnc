@@ -67,17 +67,21 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit (): void {
-    this.dataSub = this.data$
-      .subscribe((data) => {
-        this.data = data
-        this.total = data.length
-        this.calcPages()
-        this.cd.markForCheck()
-      })
+    if (this.data$) {
+      this.dataSub = this.data$
+        .subscribe((data) => {
+          this.data = data
+          this.total = data.length
+          this.calcPages()
+          this.cd.markForCheck()
+        })
+    }
   }
 
   ngOnDestroy () {
-    this.dataSub.unsubscribe()
+    if (this.dataSub) {
+      this.dataSub.unsubscribe()
+    }
   }
 
   updateSettings () {

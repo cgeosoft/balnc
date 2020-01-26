@@ -1,98 +1,102 @@
-
-  <ng-container *ngIf="(board$ | async) as board; else noboard">
-    <section class="p-0">
-      <div class="card card-chat d-flex h-100">
-        <div class="card-header d-flex align-items-center justify-content-between">
-          <span>{{board.name}}</span>
-          <div ngbDropdown class="d-inline-block">
-            <button class="btn btn-link btn-sm text-muted" ngbDropdownToggle>
-              <fa-icon icon="cog"></fa-icon>
-            </button>
-            <div ngbDropdownMenu>
-              <button ngbDropdownItem *ngIf="!board.pinned" (click)="pinBoard()">Pin</button>
-              <button ngbDropdownItem *ngIf="board.pinned" (click)="unpinBoard()">Unpin</button>
-              <button ngbDropdownItem *ngIf="!board.archived" (click)="archiveBoard()">Archive</button>
-              <button ngbDropdownItem *ngIf="board.archived" (click)="unarchiveBoard()">Unarchive</button>
-              <div class="divider"></div>
-              <button ngbDropdownItem (click)="deleteBoard()">Delete</button>
-            </div>
-          </div>
-        </div>
-        <div #messageList class="card-body">
-          <ng-container *ngIf="(messages$ | async) as messages; else loader">
-            <ng-container *ngIf="messages.length else emptyMessages">
-              <ng-template ngFor let-m [ngForOf]="messages">
-                <ng-container [ngSwitch]="m.type">
-                  <ng-container *ngSwitchCase="'MESSAGE'">
-                    <div class="msg-item" [ngClass]="{'own':m.sender === nickname}">
-                      <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png"
-                        [ngbTooltip]="m.sender" placement="bottom" container="body">
-                      <div class="msg-body" [ngbTooltip]="m._timestamp | date:'medium'" placement="bottom"
-                        container="body">
-                        <div *ngIf="m.text" class="py-2 px-3" [innerHTML]="m.text"></div>
-                        <div *ngIf="m.file">
-                          <img *ngIf="previews[m._id].base64" [src]="previews[m._id].base64" alt="m.file"
-                            class="img-fluid mb-1" (load)="scrollToBottom()">
-                          <ul class="list-inline mb-0 p-2">
-                            <li class="list-inline-item text-primary">
-                              <fa-icon icon="arrow-alt-circle-down"></fa-icon>
-                            </li>
-                            <li class="list-inline-item">
-                              <a href="javascript:void" (click)="download(m)">{{m.file}}</a>
-                            </li>
-                            <li *ngIf="previews[m._id].file" class="list-inline-item">
-                              <small>{{previews[m._id].file.length | bytes:0}}</small>
-                            </li>
-                          </ul>
-                        </div>
-                        <div *ngIf="m.metadata" class="media px-3">
-                          <img *ngIf="m.metadata.ogImage.url" class="align-self-start img-thumbnail mr-3"
-                            [src]="m.metadata.ogImage.url" style="max-width: 120px;" alt="" (load)="scrollToBottom()">
-                          <div class="media-body">
-                            <div class="mb-1"><strong>{{m.metadata.ogTitle}}</strong></div>
-                            <div>{{m.metadata.ogDescription}}</div>
-                            <div><small class="text-muted">{{m.metadata.ogUrl}}</small></div>
-                          </div>
-                        </div>
+<ng-container *ngIf="(board$ | async) as board; else noboard">
+  <app-content>
+    <ng-container role="sidebar">
+      <dl>
+        <dt>Name
+          <button (click)="toggleMark(board._id)" class="btn btn-sm btn-link float-right">
+            <fa-icon icon="star" class="ml-2" [ngClass]="{'text-warning':board._mark,'text-secondary':!board._mark}">
+            </fa-icon>
+          </button>
+        </dt>
+        <dd>{{board.name}}</dd>
+        <ng-container *ngIf="board.description">
+          <dt>Description</dt>
+          <dd>{{board.description}}</dd>
+        </ng-container>
+        <ng-container>
+          <dt>Members</dt>
+          <dd>???</dd>
+        </ng-container>
+      </dl>
+      <hr>
+      <div class="menu">
+        <a [routerLink]="['/boards',board._id]" routerLinkActive="active">Timeline</a>
+        <a [routerLink]="['/boards',board._id,'manage']" routerLinkActive="active">Manage</a>
+        <a [routerLink]="['/boards',board._id,'files']" routerLinkActive="active">Files</a>
+      </div>
+    </ng-container>
+    <section #messageList class="full">
+      <ng-container *ngIf="(messages$ | async) as messages; else loader">
+        <ng-container *ngIf="messages.length else emptyMessages">
+          <ng-template ngFor let-m [ngForOf]="messages">
+            <ng-container [ngSwitch]="m.type">
+              <ng-container *ngSwitchCase="'MESSAGE'">
+                <div class="msg-item" [ngClass]="{'own':m.sender === nickname}">
+                  <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png"
+                    [ngbTooltip]="m.sender" placement="bottom" container="body">
+                  <div class="msg-body" [ngbTooltip]="m._timestamp | date:'medium'" placement="bottom" container="body">
+                    <div *ngIf="m.text" class="py-2 px-3" [innerHTML]="m.text"></div>
+                    <div *ngIf="m.file">
+                      <img *ngIf="previews[m._id].base64" [src]="previews[m._id].base64" alt="m.file"
+                        class="img-fluid mb-1" (load)="scrollToBottom()">
+                      <ul class="list-inline mb-0 p-2">
+                        <li class="list-inline-item text-primary">
+                          <fa-icon icon="arrow-alt-circle-down"></fa-icon>
+                        </li>
+                        <li class="list-inline-item">
+                          <a href="javascript:void" (click)="download(m)">{{m.file}}</a>
+                        </li>
+                        <li *ngIf="previews[m._id].file" class="list-inline-item">
+                          <small>{{previews[m._id].file.length | bytes:0}}</small>
+                        </li>
+                      </ul>
+                    </div>
+                    <div *ngIf="m.metadata" class="media px-3">
+                      <img *ngIf="m.metadata.ogImage.url" class="align-self-start img-thumbnail mr-3"
+                        [src]="m.metadata.ogImage.url" style="max-width: 120px;" alt="" (load)="scrollToBottom()">
+                      <div class="media-body">
+                        <div class="mb-1"><strong>{{m.metadata.ogTitle}}</strong></div>
+                        <div>{{m.metadata.ogDescription}}</div>
+                        <div><small class="text-muted">{{m.metadata.ogUrl}}</small></div>
                       </div>
                     </div>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="'CMD-CREATE'">
-                    <div class="msg-command">
-                      <strong>{{m.sender}}</strong> created
-                      <strong>{{m.board}}</strong> at
-                      <strong>{{m._timestamp|date:'medium'}}</strong>
-                    </div>
-                  </ng-container>
-                  <ng-container *ngSwitchDefault>
-                    <div class="msg-broke">
-                      Message can not be rendered
-                    </div>
-                  </ng-container>
-                </ng-container>
-              </ng-template>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'CMD-CREATE'">
+                <div class="msg-command">
+                  <strong>{{m.sender}}</strong> created
+                  <strong>{{m.board}}</strong> at
+                  <strong>{{m._timestamp|date:'medium'}}</strong>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchDefault>
+                <div class="msg-broke">
+                  Message can not be rendered
+                </div>
+              </ng-container>
             </ng-container>
-          </ng-container>
+          </ng-template>
+        </ng-container>
+      </ng-container>
+    </section>
+    <section class="no-border border-top bg-light">
+      <input #messageInput class="form-control" placeholder="type message..." [(ngModel)]="inputMessage"
+        (keydown.enter)="send()">
+      <div class="d-flex mt-2">
+        <div>
+          <button class="ml-auto btn btn-link" (click)="attach()">
+            <fa-icon [icon]="['fas','paperclip']"></fa-icon>
+          </button>
         </div>
-        <div class="card-footer">
-          <input #messageInput class="form-control" placeholder="type message..." [(ngModel)]="inputMessage"
-            (keydown.enter)="send()">
-          <div class="d-flex mt-2">
-            <div>
-              <button class="ml-auto btn btn-link" (click)="attach()">
-                <fa-icon [icon]="['fas','paperclip']"></fa-icon>
-              </button>
-            </div>
-            <button class="ml-auto btn btn-outline-primary" (click)="send()">
-              <fa-icon [icon]="['far','paper-plane']"></fa-icon> send
-            </button>
-          </div>
-        </div>
-        <input #fileupload type="file" (change)="upload($event.target.files[0])" style="display: none;">
+        <button class="ml-auto btn btn-outline-primary" (click)="send()">
+          <fa-icon [icon]="['far','paper-plane']"></fa-icon> send
+        </button>
       </div>
     </section>
-  </ng-container>
-
+    <input #fileupload type="file" (change)="upload($event.target.files[0])" style="display: none;">
+  </app-content>
+</ng-container>
 
 <ng-template #noboard>
   <app-empty message="No board selected" icon="comments:regular"></app-empty>

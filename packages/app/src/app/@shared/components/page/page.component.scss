@@ -1,7 +1,4 @@
 @import "theme";
-@import "components/sections";
-
-$sidebar-font: #666;
 
 :host {
   @extend .h-100;
@@ -17,7 +14,6 @@ $sidebar-font: #666;
     overflow: hidden;
     width: 180px;
     min-width: 180px;
-    background: $body-bg;
     transition: all 0.5s;
 
     &:empty {
@@ -38,19 +34,17 @@ $sidebar-font: #666;
 
 :host ::ng-deep > .page-content > *:last-child {
   @extend .d-flex;
-  @extend .sections;
   @extend .w-100;
   @extend .h-100;
 }
 
 :host ::ng-deep > .page-sidebar {
   .title {
-    color: $sidebar-font;
     margin-bottom: 0.7rem;
     font-size: 2rem;
     padding: 0 0 0.3rem;
     font-weight: 300;
-    border-bottom: solid 1px darken($body-bg, 5%);
+    border-bottom: $body-color;
   }
 
   .search {
@@ -58,15 +52,13 @@ $sidebar-font: #666;
 
     .form-control {
       background: none;
-      color: $sidebar-font;
-      border: solid 1px lighten($sidebar-font, 20%);
+      border: solid 1px $body-color;
       &:focus {
-        border: solid 1px lighten($sidebar-font, 10%);
+        border: solid 1px $body-color;
       }
     }
 
     a {
-      color: $sidebar-font;
       font-size: 0.8rem;
       padding: 0.2rem;
       float: right;
@@ -79,7 +71,7 @@ $sidebar-font: #666;
 
   .info {
     padding: 0.5rem;
-    border: solid 1px darken($body-bg, 5%);
+    border: solid 1px darken($body-bg, 10%);
     border-radius: 8px;
     margin-bottom: 0.5rem;
   }
@@ -88,10 +80,9 @@ $sidebar-font: #666;
     @extend .mb-2;
     @extend .d-flex;
     @extend .align-items-center;
-    border-bottom: solid 1px darken($body-bg, 5%);
+    border-bottom: solid 1px darken($body-bg, 10%);
     padding: 0.4rem 0;
     font-size: 1.2rem;
-    color: darken($sidebar-font, 7);
 
     > button {
       @extend .btn;
@@ -101,7 +92,7 @@ $sidebar-font: #666;
       box-shadow: none !important;
 
       &:hover {
-        background: lighten($body-bg, 10%);
+        background: $body-color;
       }
     }
 
@@ -122,7 +113,6 @@ $sidebar-font: #666;
 
   .empty {
     @extend .p-4;
-    color: darken($sidebar-font, 15) !important;
 
     fa-icon {
       font-size: 2rem !important;
@@ -143,7 +133,7 @@ $sidebar-font: #666;
 
   .divider {
     @extend .m-2;
-    background: darken($body-bg, 10%);
+    background: darken($body-bg,10%);
     height: 1px;
   }
 

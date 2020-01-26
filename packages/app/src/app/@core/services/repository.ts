@@ -5,6 +5,7 @@ import { map, tap } from 'rxjs/operators'
 import { BulkObj, DbEntity } from '../rxdb/models/entity'
 import { RxDBService } from '../rxdb/rxdb.service'
 import { QueryParams } from './query-params'
+import { RepositoryHelpers } from './repository.helpers'
 
 export class Repository<T> {
 
@@ -18,14 +19,14 @@ export class Repository<T> {
     group: null, mark: null
   }
 
-  constructor (
+  constructor(
     private injector: Injector
   ) {
     this.dbService = this.injector.get(RxDBService)
     this.zone = this.injector.get(NgZone)
   }
 
-  async warm () {
+  async warm() {
     console.log(`warming repo ${this.entity}`)
     if (!this.dbService.db) {
       console.log(`warming aborded: no db was found`)
@@ -40,7 +41,7 @@ export class Repository<T> {
     console.log(`   warmed in ${Date.now() - warmingTs}ms`)
   }
 
-  async all (params?: QueryParams): Promise<T[]> {
+  async all(params?: QueryParams): Promise<T[]> {
     const p: QueryParams = { ...this.defaultQueryParams, ...params }
     let q = this.entities.find()
       .where('t')
@@ -55,7 +56,7 @@ export class Repository<T> {
     return this.mappedItems(items)
   }
 
-  all$ (params?: QueryParams): Observable<(T | any)[]> {
+  all$(params?: QueryParams): Observable<(T | any)[]> {
     const p: QueryParams = { ...this.defaultQueryParams, ...params }
     let q = this.entities.find().where('t').eq(this.entity)
     if (p.group) {
@@ -75,13 +76,13 @@ export class Repository<T> {
     // )
   }
 
-  async one (id: string): Promise<T> {
+  async one(id: string): Promise<T> {
     const item = await this.entities.findOne(id).exec()
     if (!item) return null
     return this.mappedItems([item])[0]
   }
 
-  one$ (id: string): Observable<T> {
+  one$(id: string): Observable<T> {
     return this.entities.findOne(id).$.pipe(
       map((item) => this.mappedItems([item])[0]),
       tap(() => {
@@ -92,7 +93,7 @@ export class Repository<T> {
     )
   }
 
-  async add (data: Partial<T>, group?: string, ts?: number, tags?: string[]): Promise<T> {
+  async add(data: Partial<T>, group?: string, ts?: number, tags?: string[]): Promise<T> {
     const obj = {
       c: data,
       t: this.entity,
@@ -104,7 +105,7 @@ export class Repository<T> {
     return this.mappedItems([doc])[0]
   }
 
-  async bulk (data: BulkObj[]) {
+  async bulk(data: BulkObj[]) {
     const objs = data
       .map((o) => {
         return {
@@ -119,7 +120,7 @@ export class Repository<T> {
     return this.entities.bulkInsert(objs)
   }
 
-  async update (id: string, data: any) {
+  async update(id: string, data: any) {
     const item = await this.entities.findOne(id).exec()
     const content = { ...item.c, ...data }
 
@@ -137,7 +138,7 @@ export class Repository<T> {
     })
   }
 
-  async mark (id: string): Promise<T> {
+  async mark(id: string): Promise<T> {
     const item = await this.entities.findOne(id).exec()
     if (!item) return null
     const mark = !item.m
@@ -148,12 +149,12 @@ export class Repository<T> {
     })
   }
 
-  async remove (id: string): Promise<void> {
+  async remove(id: string): Promise<void> {
     const obj = await this.entities.findOne(id).exec()
     await obj.remove()
   }
 
-  async upload (id: string, file: File) {
+  async upload(id: string, file: File) {
     const obj = await this.entities.findOne(id).exec()
     await obj.putAttachment({
       id: file.name,
@@ -162,26 +163,16 @@ export class Repository<T> {
     })
   }
 
-  async getAttachment (id: string, file: string): Promise<RxAttachment<T>> {
+  async getAttachment(id: string, file: string): Promise<RxAttachment<T>> {
     const obj = await this.entities.findOne(id).exec()
     const attachment = obj.getAttachment(file)
     return attachment
   }
 
-  private mappedItems (items) {
+  private mappedItems(items) {
     const r = items
       .filter(i => i && i._id)
-      .map((i: DbEntity) => {
-        return {
-          ...i.c,
-          _id: i._id,
-          _date: i.d,
-          _type: i.t,
-          _group: i.g,
-          _mark: i.m,
-          _tags: i.s
-        }
-      })
+      .map((i: DbEntity) => RepositoryHelpers.mapEntity(i))
     return r
   }
 }

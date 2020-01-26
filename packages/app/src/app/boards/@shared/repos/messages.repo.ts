@@ -4,7 +4,9 @@ import { LocalStorage } from 'ngx-store'
 import { BoardStats } from '../models/board-stats'
 import { Message } from '../models/message'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MessagesRepo extends Repository<Message> {
 
   @LocalStorage() nickname: string = ''

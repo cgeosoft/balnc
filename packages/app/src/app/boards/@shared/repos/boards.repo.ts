@@ -4,7 +4,9 @@ import { LocalStorage } from 'ngx-store'
 import { Board } from '../models/board'
 import { BoardStats } from '../models/board-stats'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class BoardsRepo extends Repository<Board> {
 
   @LocalStorage() boardsStats: BoardStats[] = []

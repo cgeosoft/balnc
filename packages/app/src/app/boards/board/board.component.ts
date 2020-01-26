@@ -2,7 +2,8 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable, Subject } from 'rxjs'
-import { map, tap } from 'rxjs/operators'
+import { mergeMap, tap } from 'rxjs/operators'
+import { RepositoryHelpers } from 'src/app/@core/services/repository.helpers'
 import { Board } from '../@shared/models/board'
 import { Message, OgMetadata } from '../@shared/models/message'
 import { BoardsRepo } from '../@shared/repos/boards.repo'
@@ -51,38 +52,39 @@ export class BoardComponent implements OnInit {
       if (!this.selected) return
       this.boardsRepo.selected = this.selected
       this.board$ = this.boardsRepo.one$(this.selected)
-      this.messages$ = this.messagesRepo.all$({ group: this.selected }).pipe(
-        map(messages => messages.filter(message => message.board === this.selected)),
-        tap(messages => {
-          messages.sort((a, b) => a._date - b._date)
-        }),
-        tap(async (messages) => {
-          const ps = messages.map(async (msg, i) => {
-            if (!this.previews[msg._id]) {
-              this.previews[msg._id] = {}
-            }
-            if (msg.file && !this.previews[msg._id].file) {
-              this.previews[msg._id].file = await this.messagesRepo.getAttachment(msg._id, msg.file)
-              if (this.previews[msg._id].file) {
-                this.previews[msg._id].blob = await this.previews[msg._id].file.getData()
-                if (this.previews[msg._id].file.type.startsWith('image/')) {
-                  this.previews[msg._id].base64 = await this.getImage(this.previews[msg._id].blob, this.previews[msg._id].file.type)
+      this.messages$ = this.messagesRepo
+        .all$({ group: this.selected })
+        .pipe(
+          mergeMap(async (data) => {
+            const messages: Message[] = data.map(d => RepositoryHelpers.mapEntity(d))
+            messages.sort((a, b) => a._date - b._date)
+            const ps = messages.map(async (msg, i) => {
+              if (!this.previews[msg._id]) {
+                this.previews[msg._id] = {}
+              }
+              if (msg.file && !this.previews[msg._id].file) {
+                this.previews[msg._id].file = await this.messagesRepo.getAttachment(msg._id, msg.file)
+                if (this.previews[msg._id].file) {
+                  this.previews[msg._id].blob = await this.previews[msg._id].file.getData()
+                  if (this.previews[msg._id].file.type.startsWith('image/')) {
+                    this.previews[msg._id].base64 = await this.getImage(this.previews[msg._id].blob, this.previews[msg._id].file.type)
+                  }
                 }
               }
-            }
-            if (msg.text) {
-              msg.text = msg.text.replace(urlRegex, (url) => `<a target="_blank" href="${url}">${url}</a>`)
-            }
+              if (msg.text) {
+                msg.text = msg.text.replace(urlRegex, (url) => `<a target="_blank" href="${url}">${url}</a>`)
+              }
+            })
+            await Promise.all(ps)
+            return messages
+          }),
+          tap(() => {
+            setTimeout(() => {
+              this.scrollToBottom()
+              this.focusInput()
+            }, 100)
           })
-          await Promise.all(ps)
-        }),
-        tap(() => {
-          setTimeout(() => {
-            this.scrollToBottom()
-            this.focusInput()
-          }, 100)
-        })
-      )
+        )
     })
   }
 
@@ -165,7 +167,6 @@ export class BoardComponent implements OnInit {
     const data: Partial<Message> = {
       text: null,
       sender: 'anonymous',
-      board: this.selected,
       status: 'SEND',
       type: 'MESSAGE',
       file: file.name

@@ -20,22 +20,6 @@ export class ContactComponent implements OnInit {
 
   contact$: Observable<Contact>
 
-  menu = [
-    {
-      items: [
-        { label: 'Timeline', url: 'timeline', relative: true },
-        { label: 'Manage', url: 'manage', relative: true }
-      ]
-    },
-    {
-      items: [
-        { label: 'Agreements', url: '/business/agreements' },
-        { label: 'Orders', url: '/business/orders' },
-        { label: 'Invoices', url: '/business/invoices' }
-      ]
-    }
-  ]
-
   constructor (
     private route: ActivatedRoute,
     private contactsRepo: ContactsRepo,

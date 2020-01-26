@@ -1,11 +1,15 @@
 <app-content>
-  <section class="title">Frequently Answered Questions</section>
+  <section class="title">
+    <div class="container">Frequently Answered Questions</div>
+  </section>
   <section class="full">
-    <ng-container *ngFor="let q of questions">
-      <div>
-        <p><strong>{{q.question}}</strong></p>
-        <p>{{q.answer}}</p>
-      </div>
-    </ng-container>
+    <div class="container">
+      <ng-container *ngFor="let q of questions">
+        <div>
+          <p><strong>{{q.question}}</strong></p>
+          <p>{{q.answer}}</p>
+        </div>
+      </ng-container>
+    </div>
   </section>
 </app-content>

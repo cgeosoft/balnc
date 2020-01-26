@@ -20,7 +20,10 @@ export const DEMO_PROFILE: Profile = {
     business: true,
     projects: true,
     boards: true,
-    presentations: true
+    presentations: true,
+    documents: true,
+    analytics: true,
+    reports: true
   },
   layout: 'fluid'
 }

@@ -10,23 +10,29 @@ import { BoardsRepo } from '../@shared/repos/boards.repo'
 })
 export class BoardsComponent implements OnInit {
 
+  boards$: Observable<Board[]> = new Observable<Board[]>()
   schema: TableSchema = {
     name: 'boards',
     properties: [
-      { label: 'Name', val: (item: Board) => item.name }
+      {
+        label: 'Name', type: 'link', val: (item: Board) => {
+          return {
+            label: item.name,
+            link: ['/boards', item._id]
+          }
+        }
+      }
     ]
   }
 
-  boards$: Observable<Board[]> = new Observable<Board[]>()
-
-  constructor(
+  constructor (
     private boardsRepo: BoardsRepo
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.boards$ = this.boardsRepo.all$()
   }
 
-  create() { }
+  create () { }
 
 }

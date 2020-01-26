@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
 import { BUSINESS_ROUTES } from './@shared/constants/routes'
-import { DemoService } from './@shared/services/demo.service'
+import { BusinessDemoService } from './@shared/services/demo.service'
 import { ShellComponent } from './@shell/shell.component'
 import { QuickSearchComponent } from './quick-search/quick-search.component'
 import { SearchComponent } from './search/search.component'
@@ -20,7 +20,7 @@ import { SettingsComponent } from './settings/settings.component'
     SearchComponent
   ],
   providers: [
-    DemoService
+    BusinessDemoService
   ],
   entryComponents: [
     QuickSearchComponent

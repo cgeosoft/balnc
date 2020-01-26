@@ -1,8 +1,5 @@
 @import "theme";
 
-$sidebar-font: #666;
-$sidebar-background: darken($body-bg, 5);
-
 :host {
   > button,
   > .submenu > a,
@@ -17,11 +14,9 @@ $sidebar-background: darken($body-bg, 5);
     background: none;
     padding: 0.2rem;
     border: none;
-    color: $sidebar-font;
     text-align: left;
     outline: none !important;
     box-shadow: none !important;
-    color: $sidebar-font;
 
     .thumb {
       @extend .bg-dark;
@@ -107,7 +102,7 @@ $sidebar-background: darken($body-bg, 5);
         font-size: 0.6rem;
         line-height: 0.6rem;
         margin-top: 0.1rem;
-        color: $sidebar-font;
+        color: $body-color;
       }
     }
 
@@ -128,14 +123,14 @@ $sidebar-background: darken($body-bg, 5);
 
     &.active,
     &:hover {
-      background: darken($sidebar-background, 5%);
+      background: darken($body-bg, 5%);
     }
 
     &.disabled,
     &:disabled {
       cursor: not-allowed;
-      color: #666;
-      background: $sidebar-background;
+      color: lighten($body-color, 5%);
+      background: $body-bg;
     }
 
     &.media {
@@ -157,7 +152,6 @@ $sidebar-background: darken($body-bg, 5);
       small {
         display: block;
         font-size: 0.7rem;
-        color: darken($sidebar-font, 10);
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -173,7 +167,7 @@ $sidebar-background: darken($body-bg, 5);
 
   .divider {
     @extend .m-2;
-    background: darken($sidebar-background, 10);
+    background: darken($body-bg,10%);
     height: 1px;
   }
 }

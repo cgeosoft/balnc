@@ -17,7 +17,7 @@ const NO_OF_AGREEMENTS = 100
 @Injectable({
   providedIn: 'root'
 })
-export class DemoService {
+export class BusinessDemoService {
 
   constructor (
     private signalService: SignalService,

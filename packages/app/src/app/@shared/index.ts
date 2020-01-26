@@ -1,4 +1,5 @@
 export * from './components/confirm-dialog/confirm-dialog.component'
+export * from './components/sidemenu/menu-item'
 export * from './components/table/table-schema'
 export * from './helpers'
 export * from './models/plugin'

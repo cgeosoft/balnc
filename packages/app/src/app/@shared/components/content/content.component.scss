@@ -27,3 +27,68 @@
     @extend .flex-column;
   }
 }
+
+:host ::ng-deep .sidebar {
+  .menu {
+    @extend .list-group;
+    @extend .mb-3;
+    a {
+      @extend .list-group-item;
+      @extend .list-group-item-action;
+      @extend .py-2;
+      @extend .px-3;
+      &.active{
+        @extend .bg-dark;
+        @extend .border-dark;
+      }
+    }
+  }
+}
+
+:host ::ng-deep .wrapper section {
+  @extend .w-100;
+  @extend .p-4;
+
+  &.no-padding {
+    @extend .p-0;
+  }
+
+  &.no-border {
+    &:after {
+      @extend .d-none;
+    }
+  }
+
+  &.title {
+    @extend .pb-0;
+    font-size: xx-large;
+    font-weight: lighter;
+    &:after {
+      width: 100%;
+    }
+  }
+
+  &.full {
+    @extend .flex-grow-1;
+    @extend .overflow-auto;
+    &:after {
+      @extend .d-none;
+    }
+  }
+
+  &:after {
+    @extend .d-block;
+    @extend .mt-4;
+    @extend .mx-auto;
+    content: "";
+    width: 50%;
+    height: 1px;
+    background: #eee;
+  }
+
+  &:last-child {
+    &:after {
+      @extend .d-none;
+    }
+  }
+}

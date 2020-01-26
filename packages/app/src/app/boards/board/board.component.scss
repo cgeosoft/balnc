@@ -5,95 +5,71 @@
     margin-bottom: 1rem;
   }
 
-  .card-chat {
+  .nickname-avatar {
+    width: 31px;
+    height: 31px;
+    border-radius: 5px 0 0 5px;
+  }
+
+  .msg-broke {
+    @extend .p-2;
+    @extend .bg-light;
+    @extend .text-center;
+    @extend .mb-2;
+  }
+
+  .msg-command {
+    color: #ccc;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .msg-item {
     @extend .d-flex;
-    @extend .w-100;
-    @extend .h-100;
+    @extend .justify-content-start;
+    @extend .align-items-start;
+    @extend .mb-2;
 
-    .card-body {
-      @extend .h-100;
-      overflow-y: scroll;
-      height: 100%;
-      padding: 1rem;
+    .msg-avatar {
+      @extend .mr-2;
+      @extend .border;
+      @extend .rounded-circle;
+      width: 40px;
+      height: 40px;
+    }
 
-      .nickname-avatar {
-        width: 31px;
-        height: 31px;
-        border-radius: 5px 0 0 5px;
-      }
+    .msg-body {
+      @extend .rounded;
+      @extend .mr-2;
+      @extend .overflow-hidden;
+      background: #f6f6f6;
+      box-shadow: 0.1rem 0.1rem 0 #eee;
+      max-width: 80%;
+    }
 
-      .msg-broke {
-        @extend .p-2;
-        @extend .bg-light;
-        @extend .text-center;
-        @extend .mb-2;
-      }
+    .msg-time {
+      display: none;
+    }
 
-      .msg-command {
-        color: #ccc;
-        text-align: center;
-        padding: 2rem;
-      }
-
-      .msg-item {
-        @extend .d-flex;
-        @extend .justify-content-start;
-        @extend .align-items-start;
-        @extend .mb-2;
-
-        .msg-avatar {
-          @extend .mr-2;
-          @extend .border;
-          @extend .rounded-circle;
-          width: 40px;
-          height: 40px;
-        }
-
-        .msg-body {
-          @extend .rounded;
-          @extend .mr-2;
-          @extend .overflow-hidden;
-          background: #f6f6f6;
-          box-shadow: 0.1rem 0.1rem 0 #eee;
-          max-width: 80%;
-        }
-
-        .msg-time {
-          display: none;
-        }
-
-        &.own {
-          .msg-body {
-            background: $primary;
-            color: #fff;
-          }
-        }
-
-        &:hover {
-          .msg-time {
-            display: inline;
-          }
-        }
-      }
-
-      &::-webkit-scrollbar {
-        width: 5px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: #ccc;
+    &.own {
+      .msg-body {
+        background: $primary;
+        color: #fff;
       }
     }
 
-    .card-footer {
-      padding: 0.5rem;
-    }
-
-    .card-footer {
-      .form-control {
-        // border-radius: 1rem;
-        padding: 0.5rem 1rem;
+    &:hover {
+      .msg-time {
+        display: inline;
       }
     }
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
   }
 }

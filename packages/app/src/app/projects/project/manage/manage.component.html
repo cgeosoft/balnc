@@ -1,6 +1,6 @@
 <ng-container *ngIf="(project$ | async) as project">
   <ng-container *ngIf="project">
-    <div class="sections container-md container-fixed-md">
+    <div class="container-md container-fixed-md">
       <section>
         <h4>Manage Details</h4>
         <form #details="ngForm" (ngSubmit)="save(details.value)">

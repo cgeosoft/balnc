@@ -3,7 +3,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ConfigService, Signal, SignalService } from '@balnc/core'
 import { Profile } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { DemoService } from '../../business/@shared/services/demo.service'
+import { BoardsDemoService } from '../../boards/@shared/services/demo.service'
+import { BusinessDemoService } from '../../business/@shared/services/demo.service'
 import { RemoteComponent } from '../remote/remote.component'
 
 @Component({
@@ -33,7 +34,8 @@ export class GeneralComponent implements OnInit {
     private configService: ConfigService,
     private modal: NgbModal,
     private signalService: SignalService,
-    private demoService: DemoService
+    private businessDemoService: BusinessDemoService,
+    private boardsDemoService: BoardsDemoService
   ) {
     this.signalLogs$ = this.signalService.logs$
   }
