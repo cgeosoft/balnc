@@ -10,8 +10,8 @@
       </div>
 
       <div class="card-body overflow-hidden" *ngIf="steps[stepIndex].label=='Setup'">
-        <div class="alert alert-warning texxt-center mb-4">
-          <strong>UNDER DEVELOPMENT AND NOT READY FOR PRODUCTION USE</strong>
+        <div class="alert alert-warning text-center mb-4">
+          <strong>UNDER DEVELOPMENT - NOT FOR PRODUCTION USE</strong>
         </div>
         <h1 class="mb-4" style="font-weight: 300;">Balnc Setup</h1>
         <p>Balnc (balance) is an free open source business management suite for small companies and freelancers. It is
@@ -24,25 +24,23 @@
       </div>
 
       <div class="card-body" *ngIf="steps[stepIndex].label=='Profile'">
-        <div class="alert alert-info">
-          <h4>What is profile?</h4>
-          <p>
-            Profile is a group of settings and data. Every profile is like another setup of its own plugins and
+        <div class="p-5">
+          <div class="form-group">
+            <label for="">Profile Name</label> <button class="btn btn-link" ngbPopover="Profile is a group of settings and data. Every profile is like another setup of its own plugins and
             configuration. Your data are stored in the browser and are not synced to any server. You
-            should keep backups or enable sync mode with a backup server.
-          </p>
+            should keep backups or enable sync mode with a backup server." popoverTitle="What is profile?">
+              <fa-icon icon="info-circle"></fa-icon>
+            </button>
+            <input autocomplete="false" [(ngModel)]="profile.name" class="form-control form-control-lg"
+              placeholder="Enter a profile name...">
+          </div>
+          <ul class="list-unstyled text-center">
+            <li>
+              <a href="javascript:" ngxFilePicker accept="application/json" (filePick)="importFile($event)">Import</a>
+              from file</li>
+            <li><a href="javascript:" (click)="startDemo()">Start</a> with a demo profile</li>
+          </ul>
         </div>
-
-        <div class="form-group">
-          <input autocomplete="false" [(ngModel)]="profile.name" class="form-control form-control-lg"
-            placeholder="Enter a profile name...">
-        </div>
-        <ul class="list-unstyled text-center">
-          <li>
-            <a href="javascript:" ngxFilePicker accept="application/json" (filePick)="importFile($event)">Import</a>
-            from file</li>
-          <li><a href="javascript:" (click)="startDemo()">Start</a> with a demo profile</li>
-        </ul>
       </div>
 
       <div class="card-body" *ngIf="steps[stepIndex].label=='Plugins'">
