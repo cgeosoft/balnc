@@ -1,10 +1,22 @@
-import { RemoteConfig } from '../../@core/rxdb/models/config'
 
 export type Profile = {
-  key?: string
-  name?: string
+  key: string
+  name: string
   createdAt?: number
-  remote: RemoteConfig
+  data: {
+    persist: boolean
+  }
+  remote: {
+    enabled: boolean
+    key?: string
+    name?: string
+    server?: string
+    db?: string
+    username?: string
+    token?: string
+    owner?: string
+    members?: string[]
+  }
   plugins: { [key: string]: boolean }
   layout?: 'box' | 'fluid'
 }
@@ -12,6 +24,9 @@ export type Profile = {
 export const DEMO_PROFILE: Profile = {
   key: 'default',
   name: 'default',
+  data: {
+    persist: false
+  },
   remote: {
     enabled: false,
     username: 'John'

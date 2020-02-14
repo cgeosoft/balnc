@@ -56,32 +56,36 @@ export class ShellComponent implements OnInit {
   }
 
   clear () {
-    this.configService.clearAllProfiles()
+    this.configService.clearAll()
   }
 
   create () {
-    const alias = this.configService.saveProfile({
+    const alias = this.configService.save({
+      key: null,
       name: Helpers.generateName(),
+      data: {
+        persist: true
+      },
       remote: {
         enabled: false
       },
       plugins: {}
     })
-    this.configService.selectProfile(alias)
+    this.configService.select(alias)
   }
 
   async import (file: ReadFile) {
-    const profile = this.configService.importFile(file)
+    const profile = this.configService.import(file)
     if (!profile) {
       this.toastr.error('Import failed')
       return
     }
-    const alias = this.configService.saveProfile(profile)
-    this.configService.selectProfile(alias)
+    const alias = this.configService.save(profile)
+    this.configService.select(alias)
   }
 
   activate (profileId) {
-    this.configService.selectProfile(profileId)
+    this.configService.select(profileId)
   }
 
   async remove (profileId) {
@@ -89,26 +93,16 @@ export class ShellComponent implements OnInit {
     await this.modal.open(ConfirmDialogComponent, { size: 'sm' })
       .result
       .then(async () => {
-        this.configService.removeProfile(profileId)
-        await this.dbService.removeProfile(profileId)
+        this.configService.remove(profileId)
+        await this.dbService.remove(profileId)
       })
       .catch(() => {
         console.log('dismised')
       })
   }
 
-  createProfile () {
-    this.configService.saveProfile({
-      name: this.helperService.generateName(),
-      remote: {
-        enabled: false
-      },
-      plugins: {}
-    })
-  }
-
   createDemo () {
-    const demo = this.configService.saveProfile(DEMO_PROFILE)
+    const demo = this.configService.save(DEMO_PROFILE)
     this.activate(demo)
   }
 
@@ -118,8 +112,8 @@ export class ShellComponent implements OnInit {
       const data = file.content.split(',')[1]
       const profileStr = atob(data)
       const profile = JSON.parse(profileStr)
-      const alias = this.configService.saveProfile(profile)
-      this.configService.selectProfile(alias)
+      const alias = this.configService.save(profile)
+      this.configService.select(alias)
     } catch (error) {
       this.error = 'File is corrupted'
       console.log('[ProfileComponent]', 'Error' + error)

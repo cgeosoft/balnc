@@ -25,7 +25,7 @@ export class AppbarComponent {
   ) { }
 
   get enabledPlugins () {
-    return this.configService.enabledPlugins
+    return this.configService.enabled
   }
 
   get isClosed () {

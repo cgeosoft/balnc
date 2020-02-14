@@ -22,7 +22,7 @@ export class SetupComponent {
   }
 
   import (file: ReadFile) {
-    const profile = this.configService.importFile(file)
+    const profile = this.configService.import(file)
     if (!profile) {
       this.toastr.error('Import failed')
       return
@@ -31,7 +31,7 @@ export class SetupComponent {
   }
 
   load (profile) {
-    const alias = this.configService.saveProfile(profile)
-    this.configService.selectProfile(alias)
+    const alias = this.configService.save(profile)
+    this.configService.select(alias)
   }
 }

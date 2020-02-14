@@ -13,6 +13,7 @@ export class RawViewComponent implements OnInit {
 
   source: string
   options: any = { maxLines: 1000, printMargin: true }
+  err = false
 
   get modal () {
     return this.activeModal
@@ -30,10 +31,11 @@ export class RawViewComponent implements OnInit {
 
   save () {
     try {
+      this.err = false
       const profile = JSON.parse(this.source)
-      this.configService.saveProfile(profile)
+      this.configService.save(profile)
     } catch (err) {
-      // this.toastr.error('Profile is invalid')
+      this.err = true
     }
   }
 

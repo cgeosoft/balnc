@@ -69,23 +69,23 @@ export class GeneralComponent implements OnInit {
   rename (newName) {
     if (!newName) return
     this.profile.name = newName
-    this.configService.saveProfile(this.profile)
+    this.configService.save(this.profile)
   }
 
   activate () {
-    this.configService.selectProfile(this.profile.key)
+    this.configService.select(this.profile.key)
   }
 
   delete () {
     if (!confirm('Are you sure?')) return
-    this.configService.deleteProfile(this.profile.key)
+    this.configService.remove(this.profile.key)
     window.location.reload()
   }
 
   toggleRemote () {
     if (!confirm('Are you sure?')) return
     this.profile.remote.enabled = !this.profile.remote.enabled
-    this.configService.saveProfile(this.profile)
+    this.configService.save(this.profile)
     window.location.reload()
   }
 
@@ -100,7 +100,7 @@ export class GeneralComponent implements OnInit {
     m.componentInstance.profile = this.profile
     const remote = await m.result
     this.profile.remote = remote
-    this.configService.saveProfile(this.profile)
+    this.configService.save(this.profile)
     window.location.reload()
   }
 

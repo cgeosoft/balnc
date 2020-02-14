@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { Profile } from '@balnc/shared'
 import { ToastrService } from 'ngx-toastr'
 import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterIdb from 'pouchdb-adapter-idb'
+import * as AdapterMemory from 'pouchdb-adapter-memory'
 import { RxDatabase } from 'rxdb'
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
 import AttachmentsPlugin from 'rxdb/plugins/attachments'
@@ -18,7 +20,6 @@ import RxDBValidateModule from 'rxdb/plugins/validate'
 import environment from '../../../environments/environment'
 import { ConfigService } from '../services/config.service'
 import { Migrations } from './migrations'
-import { RemoteConfig } from './models/config'
 import schema from './models/entity.json'
 
 if (!environment.production) {
@@ -36,6 +37,7 @@ RxDB.plugin(AdapterCheckPlugin)
 RxDB.plugin(JsonDumpPlugin)
 RxDB.plugin(AdapterHttp)
 RxDB.plugin(AdapterIdb)
+RxDB.plugin(AdapterMemory)
 RxDB.plugin(RxDBUpdateModule)
 RxDB.plugin(RxDBReplicationGraphQL)
 
@@ -44,11 +46,9 @@ RxDB.plugin(RxDBReplicationGraphQL)
 })
 export class RxDBService {
 
-  db: RxDatabase
-  replicationState: RxGraphQLReplicationState
-
-  private config: RemoteConfig
-  private profileKey: string
+  public db: RxDatabase
+  private replicationState: RxGraphQLReplicationState
+  private profile: Profile
 
   constructor (
     private http: HttpClient,
@@ -56,23 +56,30 @@ export class RxDBService {
     private toastr: ToastrService
   ) {
     if (!configService.profile) return
-    this.profileKey = configService.profile.key
-    this.config = configService.profile.remote || {
-      enabled: false
+    this.profile = {
+      ...{
+        key: 'default',
+        data: {
+          persist: true
+        },
+        remote: {
+          enabled: false
+        }
+      }, ...configService.profile
     }
   }
 
   async setup () {
-    if (!this.configService.profile) {
+    if (!this.profile) {
       console.log('[DatabaseService]', `There is not a selected profile`)
       return
     }
 
-    console.log('[DatabaseService]', `Initializing DB: ${this.profileKey}`)
+    console.log('[DatabaseService]', `Initializing DB: ${this.profile.key}`)
 
     this.db = await RxDB.create({
-      name: `balnc_${this.profileKey}`,
-      adapter: 'idb'
+      name: `balnc_${this.profile.key}`,
+      adapter: this.profile.data.persist ? 'idb' : 'memory'
     })
 
     await this.db.collection({
@@ -83,7 +90,7 @@ export class RxDBService {
 
     console.log('[DatabaseService]', `Sync entities`)
 
-    if (!this.config.enabled) {
+    if (!this.profile.remote.enabled) {
       return
     }
 
@@ -149,7 +156,7 @@ export class RxDBService {
   }
 
   async authenticate (username: string, password: string) {
-    return this.http.post(`${this.config.db}/_session`, {
+    return this.http.post(`${this.profile.remote.db}/_session`, {
       name: username,
       password: password
     }, { withCredentials: true })
@@ -159,7 +166,9 @@ export class RxDBService {
       })
   }
 
-  async removeProfile (profileKey: string) {
-    await RxDB.removeDatabase(`balnc_${profileKey}`, 'idb')
+  async remove (profileKey: string) {
+    if (this.profile.data.persist) {
+      await RxDB.removeDatabase(`balnc_${profileKey}`, 'idb')
+    }
   }
 }

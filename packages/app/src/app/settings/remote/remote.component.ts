@@ -5,12 +5,12 @@ import { Profile } from '@balnc/shared'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
 import { environment } from '../../../environments/environment'
-import { RemoteConfig } from '../../@core/rxdb/models/config'
 
 interface RemoteStatus {
   started: Date
   db: string
 }
+
 interface RemoteProfile {
   key: string
   name?: string
@@ -43,7 +43,7 @@ export class RemoteComponent implements OnInit {
   }
   authView = 'login'
   servers = environment.servers
-  remote: RemoteConfig
+  remote: any
 
   constructor (
     private http: HttpClient,

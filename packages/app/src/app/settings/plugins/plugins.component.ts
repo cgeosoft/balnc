@@ -24,6 +24,6 @@ export class PluginsComponent implements OnInit {
 
   switchStatus (pluginId: string) {
     this.profile.plugins[pluginId] = !this.profile.plugins[pluginId]
-    this.configService.saveProfile(this.profile)
+    this.configService.save(this.profile)
   }
 }

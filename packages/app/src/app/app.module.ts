@@ -6,7 +6,9 @@ import { ConfigService, CoreModule, RxDBService } from '@balnc/core'
 import { AppComponent } from './app.component'
 import { initApp, REPOS } from './app.init'
 import { APP_ROUTES } from './app.routes'
-import { MainModule } from './main/main.module'
+import { MainModule } from './main/main.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment'
 
 @NgModule({
   imports: [
@@ -17,7 +19,8 @@ import { MainModule } from './main/main.module'
     RouterModule.forRoot(APP_ROUTES, {
       preloadingStrategy: PreloadAllModules
       // enableTracing: true
-    })
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     ConfigService,

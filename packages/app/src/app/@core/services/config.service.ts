@@ -32,7 +32,7 @@ export class ConfigService {
     return p.remote.username || 'anonymous'
   }
 
-  get enabledPlugins () {
+  get enabled () {
     return this.plugins
       .filter(m => {
         return this.profile.plugins &&
@@ -65,26 +65,17 @@ export class ConfigService {
     return this.profile.plugins[id]
   }
 
-  clearAllProfiles () {
+  clearAll () {
     this.selected = null
     window.location.reload()
   }
 
-  selectProfile (alias: string) {
+  select (alias: string) {
     this.selected = alias
     window.location.reload()
   }
 
-  removeProfile (profileId) {
-    let profiles = [...this.profiles]
-    let index = this.profiles.findIndex(p => p.key === profileId)
-    if (index !== -1) {
-      profiles.splice(index, 1)
-    }
-    this.profiles = profiles
-  }
-
-  saveProfile (profile: Profile): string {
+  save (profile: Profile): string {
     profile.key = profile.key || Helpers.uid()
     profile.createdAt = profile.createdAt || Date.now()
     let profiles = [...this.profiles]
@@ -97,14 +88,16 @@ export class ConfigService {
     return profile.key
   }
 
-  deleteProfile (alias: string) {
+  remove (key: string) {
     let profiles = [...this.profiles]
-    let index = this.profiles.findIndex(p => p.key === alias)
-    profiles.splice(index, 1)
+    let index = this.profiles.findIndex(p => p.key === key)
+    if (index !== -1) {
+      profiles.splice(index, 1)
+    }
     this.profiles = profiles
   }
 
-  importFile (file: ReadFile) {
+  import (file: ReadFile) {
     try {
       const data = file.content.split(',')[1]
       const profileStr = atob(data)
