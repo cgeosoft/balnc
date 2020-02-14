@@ -133,4 +133,12 @@ export class GeneralComponent implements OnInit {
       }).toPromise()
     await this.getRemote()
   }
+
+  exportProfile () {
+    let a = document.createElement('a')
+    let file = new Blob([JSON.stringify(this.profile, null, 2)], { type: 'application/json' })
+    a.href = URL.createObjectURL(file)
+    a.download = `${(new Date()).toDateString()} - ${this.profile.name}.json`
+    a.click()
+  }
 }
