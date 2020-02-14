@@ -1,74 +1,41 @@
-@import "theme";
-
 :host {
   display: flex;
   width: 100%;
   height: 100%;
+  align-items: center;
+  justify-content: center;
 
   .wrapper {
-    @extend .d-flex;
-    @extend .flex-column;
-    @extend .align-items-center;
-    @extend .justify-content-center;
-    @extend .w-100;
-    @extend .h-100;
-    @extend .mx-4;
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    max-width: 700px;
+    height: 100%;
+    width: 100%;
 
-    .box {
-      max-height: 500px;
-      max-width: 700px;
+    .card {
       height: 100%;
       width: 100%;
 
-      .card {
+      .card-body {
+        padding: 2rem;
         height: 100%;
-        width: 100%;
-
-        .card-body {
-          @extend .p-4;
-          height: 100%;
-          overflow-y: auto;
+        overflow-y: auto;
+        p:last-child {
+          margin: 0;
         }
+      }
 
-        .breadcrumb {
-          @extend .m-2;
-          min-height: 50px;
-
-          .breadcrumb-item {
-            &.active {
-              color: $primary;
-              font-weight: bold;
-            }
-          }
-        }
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
     }
 
     .footer {
-      @extend .d-none;
-      @extend .d-sm-block;
-      @extend .d-flex;
-      @extend .justify-content-center;
-      @extend .py-2;
-    }
-
-    .preview {
-      @extend .p-2;
-      @extend .rounded;
-      @extend .bg-primary;
-      @extend .text-light;
-      font-size: 0.7rem;
-    }
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: $light;
-      z-index: -1;
+      text-align: center;
+      padding-top: 1rem;
     }
   }
 }

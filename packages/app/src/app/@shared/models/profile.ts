@@ -10,8 +10,8 @@ export type Profile = {
 }
 
 export const DEMO_PROFILE: Profile = {
-  key: 'demo',
-  name: 'Demo',
+  key: 'default',
+  name: 'default',
   remote: {
     enabled: false,
     username: 'John'
@@ -25,5 +25,5 @@ export const DEMO_PROFILE: Profile = {
     analytics: true,
     reports: true
   },
-  layout: 'fluid'
+  layout: 'box'
 }

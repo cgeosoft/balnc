@@ -1,80 +1,24 @@
 <div class="wrapper">
-  <div class="box">
-    <div class="card">
-      <div class="breadcrumb" style="overflow-x:auto;" *ngIf="stepIndex != 0">
-        <div style="min-width: 350px;">
-          <span class="breadcrumb-item" *ngFor="let step of steps; let i = index;"
-            [ngClass]="{active: stepIndex === i }">
-            {{step.label}}</span>
-        </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="alert alert-warning text-center mb-4">
+        <strong>UNDER DEVELOPMENT - NOT FOR PRODUCTION USE</strong>
       </div>
-
-      <div class="card-body overflow-hidden" *ngIf="steps[stepIndex].label=='Setup'">
-        <div class="alert alert-warning text-center mb-4">
-          <strong>UNDER DEVELOPMENT - NOT FOR PRODUCTION USE</strong>
-        </div>
-        <h1 class="mb-4" style="font-weight: 300;">Balnc Setup</h1>
-        <p>Balnc (balance) is an free open source business management suite for small companies and freelancers. It is
-          included a collection of business modules and also provides the tools for extend them or build new ones.</p>
-        <p>All features and modules are running local at the users machine. This improves speed of loading any
-          part of the app to magnitute similar of the old buisness installable applications.</p>
-        <p> Even the data of the app is stored at the client, in a local database. It is not require a database
-          server for storing data. As so, data are store at the user's machine and are not visible to any third
-          parties and the speed is improved even more.</p>
-      </div>
-
-      <div class="card-body" *ngIf="steps[stepIndex].label=='Profile'">
-        <div class="p-5">
-          <div class="form-group">
-            <label for="">Profile Name</label> <button class="btn btn-link" ngbPopover="Profile is a group of settings and data. Every profile is like another setup of its own plugins and
-            configuration. Your data are stored in the browser and are not synced to any server. You
-            should keep backups or enable sync mode with a backup server." popoverTitle="What is profile?">
-              <fa-icon icon="info-circle"></fa-icon>
-            </button>
-            <input autocomplete="false" [(ngModel)]="profile.name" class="form-control form-control-lg"
-              placeholder="Enter a profile name...">
-          </div>
-          <ul class="list-unstyled text-center">
-            <li>
-              <a href="javascript:" ngxFilePicker accept="application/json" (filePick)="importFile($event)">Import</a>
-              from file</li>
-            <li><a href="javascript:" (click)="startDemo()">Start</a> with a demo profile</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="card-body" *ngIf="steps[stepIndex].label=='Plugins'">
-        <div class="list-settings">
-          <div class="list-settings-item" *ngFor="let p of plugins">
-            <div class="list-settings-icon">
-              <fa-icon [icon]="p.icon" [ngStyle]="{color:p.color}"></fa-icon>
-            </div>
-            <div class="list-settings-content">
-              <h5>{{p.title}}</h5>
-              <small class="text-muted">{{p.description}}</small>
-            </div>
-            <button class="btn btn-action"
-              [ngClass]="{'btn-outline-primary':!profile.plugins[p.id],'btn-outline-danger':profile.plugins[p.id]}"
-              (click)="switchStatus(p.id)">
-              {{profile.plugins[p.id]?'Deactivate':'Activate'}}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-footer p-2">
-        <button class="btn btn-light" (click)="back()" *ngIf="stepIndex != 0">
-          <fa-icon [icon]="['fas','angle-left']"></fa-icon>
-          Back
-        </button>
-        <button class="btn btn-primary float-right" (click)="next()" *ngIf="stepIndex !== steps.length - 1">
-          Next
-          <fa-icon [icon]="['fas','angle-right']"></fa-icon>
-        </button>
-        <button class="btn btn-primary float-right" (click)="finish()" *ngIf="stepIndex === steps.length - 1">
-          Finish
-        </button>
-      </div>
+      <h1 class="mb-4" style="font-weight: 300;">Balnc Setup</h1>
+      <p>Balnc (balance) is an free open source management suite for small businesses and freelancers. It has
+        a collection of pre-build modules and the tools for software developers to create new ones.</p>
+      <p>All modules are running local at the users machine/browser. This improves loading speed to a magnitute
+        similar of the old installable applications.</p>
+      <p>Your data may be configured to also be stored localy. It is not require a database server for storing them.
+        As so, they are not visible to any third parties and the speed is improved even more.</p>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-link" ngxFilePicker accept="application/json"
+      (filePick)="import($event)"><fa-icon icon="cloud-upload-alt"></fa-icon> Import
+        Profile</button>
+      <button class="btn btn-primary" (click)="start()">
+        Quick Start <fa-icon icon="arrow-circle-right"></fa-icon>
+      </button>
     </div>
   </div>
   <div class="footer">

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { ConfigService } from '@balnc/core'
-import { DEMO_PROFILE, Helpers, Plugin, Profile } from '@balnc/shared'
+import { DEMO_PROFILE } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { ToastrService } from 'ngx-toastr'
 
@@ -9,65 +9,29 @@ import { ToastrService } from 'ngx-toastr'
   templateUrl: './setup.component.html',
   styleUrls: ['./setup.component.scss']
 })
-export class SetupComponent implements OnInit {
-
-  steps = [
-    { label: 'Setup' },
-    { label: 'Profile' },
-    { label: 'Plugins' }
-  ]
-  stepIndex = 0
-
-  profile: Profile = {
-    remote: {
-      enabled: false
-    },
-    plugins: {}
-  }
-
-  plugins: Plugin[]
-
-  helperService = Helpers
+export class SetupComponent {
 
   constructor (
     public configService: ConfigService,
     private toastr: ToastrService
   ) { }
 
-  async ngOnInit () {
-    this.plugins = this.configService.plugins
+  start () {
+    const profile = { ...DEMO_PROFILE }
+    this.load(profile)
   }
 
-  back () {
-    this.stepIndex--
-  }
-
-  next () {
-    this.stepIndex++
-  }
-
-  finish () {
-    this.profile.name = this.profile.name || this.helperService.generateName()
-    const alias = this.configService.saveProfile(this.profile)
-    this.configService.selectProfile(alias)
-  }
-
-  startDemo () {
-    this.profile = DEMO_PROFILE
-    this.stepIndex = this.steps.length - 1
-    this.finish()
-  }
-
-  importFile (file: ReadFile) {
-    const profile: Profile = this.configService.importFile(file)
+  import (file: ReadFile) {
+    const profile = this.configService.importFile(file)
     if (!profile) {
       this.toastr.error('Import failed')
       return
     }
-    this.stepIndex = this.steps.length - 1
+    this.load(profile)
   }
 
-  switchStatus (pluginId: string) {
-    this.profile.plugins[pluginId] = !this.profile.plugins[pluginId]
+  load (profile) {
+    const alias = this.configService.saveProfile(profile)
+    this.configService.selectProfile(alias)
   }
 }
