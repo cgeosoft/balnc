@@ -28,7 +28,11 @@
             "styles": [
               "src/scss/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/ace-builds/src-min/ace.js",
+              "node_modules/ace-builds/src-min/mode-json.js",
+              "node_modules/ace-builds/src-min/theme-tomorrow.js"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "src/scss"

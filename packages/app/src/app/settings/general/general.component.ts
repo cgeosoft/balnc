@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { BoardsDemoService } from '../../boards/@shared/services/demo.service'
 import { BusinessDemoService } from '../../business/@shared/services/demo.service'
 import { RemoteComponent } from '../remote/remote.component'
+import { RawViewComponent } from './../raw-view/raw-view.component'
 
 @Component({
   selector: 'app-settings-general',
@@ -86,6 +87,12 @@ export class GeneralComponent implements OnInit {
     this.profile.remote.enabled = !this.profile.remote.enabled
     this.configService.saveProfile(this.profile)
     window.location.reload()
+  }
+
+  async editRaw () {
+    const m = this.modal.open(RawViewComponent, { backdrop: 'static' })
+    m.componentInstance.profile = this.profile
+    this.profile = await m.result
   }
 
   async setupRemote () {
