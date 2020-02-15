@@ -18,6 +18,13 @@
       @extend .py-1;
       @extend .px-2;
       font-size: small;
+
+      .breadcrumb-item{
+        padding-left: 0;
+        &::before{
+          padding-right: 0;
+        }
+      }
     }
 
     .item {
