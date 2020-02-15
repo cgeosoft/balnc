@@ -13,24 +13,33 @@
         As so, they are not visible to any third parties and the speed is improved even more.</p>
     </div>
     <div class="card-footer">
-      <button class="btn btn-link" ngxFilePicker accept="application/json"
-      (filePick)="import($event)"><fa-icon icon="cloud-upload-alt"></fa-icon> Import
-        Profile</button>
+      <button class="btn btn-link" ngxFilePicker accept="application/json" (filePick)="import($event)">
+        <fa-icon icon="cloud-upload-alt"></fa-icon> Import
+        Profile
+      </button>
       <button class="btn btn-primary" (click)="start()">
         Quick Start <fa-icon icon="arrow-circle-right"></fa-icon>
       </button>
     </div>
   </div>
   <div class="footer">
-    <ul class="list-inline m-0">
-      <li class="list-inline-item">Balnc v{{configService.version}}</li>
+    <ul class="list-inline m-0 text-muted">
+      <li class="list-inline-item">v{{version}}</li>
+      <li class="list-inline-item">
+        build: {{build.timestamp | date:'yyyy-MM-dd HH:mm'}}
+      </li>
+      <li class="list-inline-item">
+        commit: <a class="text-muted" target="_blank" rel="noopener"
+          href="https://github.com/christosgeorgiou/balnc/commit/{{build.git.hash}}">
+          {{build.git.hash | slice:0:8}}</a>
+      </li>
       <li class="list-inline-item">
         <a href="https://github.com/christosgeorgiou/balnc" target="_blank" rel="noopener" class="text-muted">
           source
         </a>
       </li>
       <li class="list-inline-item">
-        <a href="https://github.com/ChristosGeorgiou/balnc/blob/master/LICENSE" target="_blank" rel="noopener"
+        <a href="https://github.com/christosgeorgiou/balnc/blob/master/LICENSE" target="_blank" rel="noopener"
           class="text-muted">
           license
         </a>

@@ -11,6 +11,14 @@ import { ToastrService } from 'ngx-toastr'
 })
 export class SetupComponent {
 
+  get version () {
+    return this.configService.version
+  }
+
+  get build () {
+    return this.configService.build
+  }
+
   constructor (
     public configService: ConfigService,
     private toastr: ToastrService
