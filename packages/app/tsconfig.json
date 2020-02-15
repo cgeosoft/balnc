@@ -7,7 +7,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "module": "ES2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

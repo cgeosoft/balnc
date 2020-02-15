@@ -7,33 +7,30 @@ export const APP_ROUTES: Routes = [{
   path: '',
   component: MainShellComponent,
   canActivate: [MainGuard],
-  // resolve: {
-  //   MainResolver
-  // },
   children: [{
     path: 'dashboard',
-    loadChildren: './dashboard/dashboard.module#DashboardModule'
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   }, {
     path: 'settings',
-    loadChildren: './settings/settings.module#SettingsModule'
+    loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
   }, {
     path: 'support',
-    loadChildren: './support/support.module#SupportModule'
+    loadChildren: () => import('./support/support.module').then(m => m.SupportModule)
   }, {
     path: 'business',
-    loadChildren: './business/business.module#BusinessModule'
+    loadChildren: () => import('./business/business.module').then(m => m.BusinessModule)
   }, {
     path: 'documents',
-    loadChildren: './documents/documents.module#DocumentsModule'
+    loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule)
   }, {
     path: 'projects',
-    loadChildren: './projects/projects.module#ProjectsModule'
+    loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule)
   }, {
     path: 'presentations',
-    loadChildren: './presentations/presentations.module#PresentationsModule'
+    loadChildren: () => import('./presentations/presentations.module').then(m => m.PresentationsModule)
   }, {
     path: 'boards',
-    loadChildren: './boards/boards.module#BoardsModule'
+    loadChildren: () => import('./boards/boards.module').then(m => m.BoardsModule)
   }, {
     path: '',
     pathMatch: 'full',
@@ -41,7 +38,7 @@ export const APP_ROUTES: Routes = [{
   }]
 }, {
   path: 'setup',
-  loadChildren: './setup/setup.module#SetupModule'
+  loadChildren: () => import('./setup/setup.module').then(m => m.SetupModule)
 }, {
   path: 'error',
   component: ErrorComponent
