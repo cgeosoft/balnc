@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Profile } from '@balnc/shared'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { ToastrService } from 'ngx-toastr'
 import { ConfigService } from './../../@core/services/config.service'
 
 @Component({
@@ -21,15 +20,14 @@ export class RawViewComponent implements OnInit {
 
   constructor (
     private activeModal: NgbActiveModal,
-    private configService: ConfigService,
-    private toastr: ToastrService
+    private configService: ConfigService
   ) { }
 
   ngOnInit (): void {
     this.source = JSON.stringify(this.profile, null, 2)
   }
 
-  save () {
+  save ($event) {
     try {
       this.err = false
       const profile = JSON.parse(this.source)
