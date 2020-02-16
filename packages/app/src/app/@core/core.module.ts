@@ -54,10 +54,6 @@ export function init (
         RxDBService
       ]
     }
-  ],
-  exports: [
-    ConfigService,
-    RxDBService
   ]
 })
 export class CoreModule {

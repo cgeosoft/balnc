@@ -25,7 +25,7 @@ export const DEMO_PROFILE: Profile = {
   key: 'default',
   name: 'default',
   data: {
-    persist: false
+    persist: true
   },
   remote: {
     enabled: false,

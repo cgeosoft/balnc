@@ -17,11 +17,9 @@ import '@angular/localize/init';
  *
  * Learn more in https://angular.io/docs/ts/latest/guide/browser-support.html
  */
-
 /***************************************************************************************************
  * BROWSER POLYFILLS
  */
-
 /** IE9, IE10 and IE11 requires all of the following polyfills. **/
 // import 'core-js/es6/symbol';
 // import 'core-js/es6/object';
@@ -37,13 +35,10 @@ import '@angular/localize/init';
 // import 'core-js/es6/map';
 // import 'core-js/es6/weak-map';
 // import 'core-js/es6/set';
-
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
 // import 'classlist.js';  // Run `npm install --save classlist.js`.
-
 /** IE10 and IE11 requires the following for the Reflect API. */
 // import 'core-js/es6/reflect';
-
 /** Evergreen browsers require these. **/
 // Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
 // import 'core-js/es7/reflect';
@@ -69,17 +64,17 @@ import '@angular/localize/init';
  * Zone JS is required by default for Angular itself.
  */
 // (window as any).process.nextTick = setTimeout;
-import * as process from 'process'
-import 'zone.js/dist/zone' // Included with Angular CLI.
+import * as process from 'process';
+import 'zone.js/dist/zone'; // Included with Angular CLI.
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
 
 // PouchDB Polyfill
-(window as any).global = window
-
-window['process'] = process
+(window as any).global = window;
+(window as any).process = process;
+(window as any).process.nextTick = setTimeout;
 
 // @ts-ignore
-window.Buffer = window.Buffer || require('buffer').Buffer
+(window as any).Buffer = (window as any).Buffer || require('buffer').Buffer

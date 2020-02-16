@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr'
 import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterIdb from 'pouchdb-adapter-idb'
 import * as AdapterMemory from 'pouchdb-adapter-memory'
+// import { PouchFind } from 'pouchdb-find'
 import { RxDatabase } from 'rxdb'
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
 import AttachmentsPlugin from 'rxdb/plugins/attachments'
@@ -40,6 +41,7 @@ RxDB.plugin(AdapterIdb)
 RxDB.plugin(AdapterMemory)
 RxDB.plugin(RxDBUpdateModule)
 RxDB.plugin(RxDBReplicationGraphQL)
+// RxDB.plugin(PouchFind)
 
 @Injectable()
 export class RxDBService {
