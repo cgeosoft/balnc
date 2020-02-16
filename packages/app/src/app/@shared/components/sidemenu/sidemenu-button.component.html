@@ -1,0 +1,28 @@
+<div class="item">
+  <ng-container *ngIf="item.url">
+    <button [routerLink]="item.url" routerLinkActive="active" class="action">
+      <fa-icon [icon]="item.icon" class="icon"></fa-icon>
+      <span>{{item.label}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="item.action">
+    <button (click)="item.action" class="action">
+      <fa-icon [icon]="item.icon" class="icon"></fa-icon>
+      <span>{{item.label}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="!item.url && !item.action">
+    <div class="action">
+      <fa-icon [icon]="item.icon" class="icon"></fa-icon>
+      <span>{{item.label}}</span>
+    </div>
+  </ng-container>
+  <button *ngIf="item.items && item.items.length" (click)="item.expanded = !item.expanded" class="expand">
+    {{item.expanded ? "-":"+"}}
+  </button>
+</div>
+<div *ngIf="item.items" class="submenu" [ngClass]="{expanded:item.expanded}">
+  <ng-container *ngFor="let s of item.items">
+    <app-sidemenu-button [item]="s"></app-sidemenu-button>
+  </ng-container>
+</div>

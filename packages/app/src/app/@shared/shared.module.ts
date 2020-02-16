@@ -18,6 +18,7 @@ import { EmptyComponent } from './components/empty/empty.component'
 import { FooterComponent } from './components/footer/footer.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 import { PageComponent } from './components/page/page.component'
+import { SidemenuButtonComponent } from './components/sidemenu/sidemenu-button.component'
 import { SidemenuComponent } from './components/sidemenu/sidemenu.component'
 import { SpinnerComponent } from './components/spinner/spinner.component'
 import { PaginatePipe } from './components/table/paginate.pipe'
@@ -60,7 +61,8 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     PaginatePipe,
     SearchPipe,
     ToolbarComponent,
-    SidemenuComponent
+    SidemenuComponent,
+    SidemenuButtonComponent
   ],
   entryComponents: [ConfirmDialogComponent],
   exports: [

@@ -23,13 +23,13 @@ export class ShellComponent implements OnInit {
   menu = [
     {
       label: 'Boards',
-      type: 'PAGE',
+      type: 'button',
       icon: 'border-all',
       url: '/boards/manage'
     },
     {
       label: 'Settings',
-      type: 'PAGE',
+      type: 'button',
       icon: 'cog',
       url: '/boards/settings'
     }
@@ -53,7 +53,7 @@ export class ShellComponent implements OnInit {
               label: item.c.name,
               icon: ['fas', 'comments'],
               url: ['/boards', item._id],
-              type: 'PAGE'
+              type: 'button'
             }
           })
         })

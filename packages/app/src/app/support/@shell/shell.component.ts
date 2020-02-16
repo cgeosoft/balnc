@@ -11,19 +11,19 @@ export class ShellComponent implements OnInit {
     menu: [{
       url: '/support/faq',
       icon: ['far', 'question-circle'],
-      type: 'PAGE',
+      type: 'button',
       label: 'FAQ'
     },
     {
       url: '/support/live',
       icon: 'concierge-bell',
-      type: 'PAGE',
+      type: 'button',
       label: 'Live Chat'
     },
     {
       url: '/support/about',
       icon: 'info-circle',
-      type: 'PAGE',
+      type: 'button',
       label: 'About'
     }]
   }

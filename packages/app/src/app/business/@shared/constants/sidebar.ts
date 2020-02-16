@@ -1,65 +1,111 @@
-export const BUSINESS_SIDEBAR_MENU = [
+import { MenuItem } from '@balnc/shared'
+
+export const BUSINESS_SIDEBAR_MENU: MenuItem[] = [
   {
     label: 'Overview',
-    type: 'PAGE',
+    type: 'button',
     icon: 'border-all'
   },
   {
     label: 'Calendar',
-    type: 'PAGE',
+    type: 'button',
     icon: 'calendar-alt'
   },
   {
-    type: 'DIVIDER'
+    type: 'divider'
   },
   {
     label: 'Contacts',
-    type: 'PAGE',
+    type: 'button',
     icon: 'users',
     url: '/business/contacts'
   },
   {
     label: 'Agreements',
-    type: 'PAGE',
+    type: 'button',
     icon: 'signature',
     url: '/business/agreements'
   },
   {
     label: 'Orders',
-    type: 'PAGE',
+    type: 'button',
     icon: 'shopping-cart',
     url: '/business/orders'
   },
   {
     label: 'Invoices',
-    type: 'PAGE',
+    type: 'button',
     icon: 'file-invoice-dollar',
     url: '/business/invoices'
   },
   {
     label: 'Transactions',
-    type: 'PAGE',
+    type: 'button',
     icon: 'exchange-alt',
     url: '/business/transactions'
   },
   {
     label: 'Accounts',
-    type: 'PAGE',
+    type: 'button',
     icon: 'piggy-bank',
     url: '/business/accounts'
   },
   {
     label: 'Storage',
-    type: 'PAGE',
+    type: 'button',
     icon: 'warehouse',
     url: '/business/storage'
   },
   {
-    type: 'DIVIDER'
+    label: 'Test',
+    type: 'button',
+    icon: 'cube',
+    expanded: true,
+    items: [
+      {
+        label: 'Test',
+        type: 'button',
+        icon: 'cube'
+      },
+      {
+        label: 'Test',
+        type: 'button',
+        icon: 'cube',
+        expanded: true,
+        items: [
+          {
+            label: 'Test',
+            type: 'button',
+            icon: 'cube',
+            expanded: true,
+            items: [
+              {
+                label: 'Test',
+                type: 'button',
+                icon: 'cube'
+              },
+              {
+                label: 'Test',
+                type: 'button',
+                icon: 'cube'
+              }
+            ]
+          },
+          {
+            label: 'Test',
+            type: 'button',
+            icon: 'cube'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    type: 'divider'
   },
   {
     label: 'Settings',
-    type: 'PAGE',
+    type: 'button',
     icon: 'cog',
     url: '/business/settings'
   }

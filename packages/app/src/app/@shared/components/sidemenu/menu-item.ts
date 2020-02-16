@@ -1,7 +1,9 @@
 export interface MenuItem {
-  type: string
-  label: string
-  icon?: string[]
-  url?: string[]
+  type: 'divider' | 'button'
+  label?: string
+  icon?: string | string[]
+  url?: string | string[]
+  expanded?: boolean
+  action?: Function
   items?: MenuItem[]
 }

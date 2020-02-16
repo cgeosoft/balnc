@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
+import { MenuItem } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { Document } from '../@shared/models/document'
 import { DocumentsRepo } from '../@shared/repos/documents.repo'
@@ -11,6 +12,17 @@ import { DocumentsRepo } from '../@shared/repos/documents.repo'
 
 })
 export class ShellComponent implements OnInit {
+
+  menu: MenuItem[] = [
+    {
+      label: 'Overview',
+      type: 'button',
+      icon: 'border-all',
+      action: () => {
+        console.log('asfd')
+      }
+    }
+  ]
 
   documents$: Observable<Document[]>
 

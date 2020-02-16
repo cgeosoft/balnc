@@ -1,31 +1,21 @@
-<ng-container *ngFor="let i of menu">
-  <ng-container [ngSwitch]="i.type">
-    <ng-container *ngSwitchCase="'DIVIDER'">
+<ng-container *ngFor="let item of menu">
+  <ng-container [ngSwitch]="item.type">
+    <ng-container *ngSwitchCase="'divider'">
       <div class="divider"></div>
     </ng-container>
-    <ng-container *ngSwitchCase="'PAGE'">
-      <ng-container *ngIf="i.items">
-        <div class="item">
-          <fa-icon [icon]="i.icon" class="icon"></fa-icon>
-          <span>{{i.label}}</span>
-        </div>
-        <div class="submenu">
-          <div class="menu">
-            <ng-container *ngFor="let s of i.items">
-              <button [routerLink]="s.url" routerLinkActive="active">
-                <fa-icon [icon]="s.icon" class="icon"></fa-icon>
-                <span>{{s.label}}</span>
-              </button>
-            </ng-container>
-          </div>
-        </div>
+    <ng-container *ngSwitchCase="'button'">
+      <app-sidemenu-button [item]="item"></app-sidemenu-button>
+      <!-- <ng-container *ngIf="item.items">
+
       </ng-container>
       <ng-container *ngIf="!i.items">
         <button [routerLink]="i.url" routerLinkActive="active" [ngClass]="{disabled:!i.url}">
           <fa-icon [icon]="i.icon" class="icon"></fa-icon>
           <span>{{i.label}}</span>
         </button>
-      </ng-container>
+      </ng-container> -->
     </ng-container>
   </ng-container>
 </ng-container>
+
+<ng-template ></ng-template>

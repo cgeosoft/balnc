@@ -36,7 +36,7 @@ export class ShellComponent implements OnInit {
               label: item.c.name,
               icon: ['fas', (item.c.type === ContactType.person) ? 'user-circle' : 'building'],
               url: ['/business/contacts', item._id],
-              type: 'PAGE'
+              type: 'button'
             }
           })
         })

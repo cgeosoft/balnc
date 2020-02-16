@@ -5,30 +5,30 @@ export const PROJECTS_SIDEBAR = {
   menu: [
     {
       label: 'Overview',
-      type: 'PAGE',
+      type: 'button',
       icon: 'border-all',
       url: '/projects/overview'
     },
     {
       label: 'Projects',
-      type: 'PAGE',
+      type: 'button',
       icon: 'tasks',
       url: '/projects/projects'
     },
     {
-      type: 'DIVIDER'
+      type: 'divider'
     },
     {
       label: 'Latest Issues',
-      type: 'PAGE',
+      type: 'button',
       icon: 'ticket-alt'
     },
     {
-      type: 'DIVIDER'
+      type: 'divider'
     },
     {
       label: 'Settings',
-      type: 'PAGE',
+      type: 'button',
       icon: 'cog',
       url: '/projects/settings'
     }

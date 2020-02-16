@@ -23,13 +23,13 @@ export class ShellComponent implements OnInit {
     menu: [{
       url: '/settings/general',
       icon: 'cog',
-      type: 'PAGE',
+      type: 'button',
       label: 'General'
     },
     {
       url: '/settings/plugins',
       icon: 'box',
-      type: 'PAGE',
+      type: 'button',
       label: 'Plugins'
     }]
   }
