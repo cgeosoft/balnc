@@ -13,37 +13,21 @@ export class Repository<T> {
   observables: { [key: string]: Observable<any> } = {}
   entities: RxCollection
 
-  private dbService: RxDBService
-  private zone: NgZone
   private defaultQueryParams: QueryParams = {
     group: null, mark: null
   }
 
-  constructor(
+  get dbService () { return this.injector.get(RxDBService) }
+  get zone () { return this.injector.get(NgZone) }
+
+  constructor (
     private injector: Injector
   ) {
-    this.dbService = this.injector.get(RxDBService)
-    this.zone = this.injector.get(NgZone)
   }
 
-  async warm() {
-    console.log(`warming repo ${this.entity}`)
-    if (!this.dbService.db) {
-      console.log(`warming aborded: no db was found`)
-      return
-    }
-    const warmingTs = Date.now()
-    this.entities = this.dbService.db.entities
-    await this.entities.find()
-      .where('t')
-      .eq(this.entity)
-      .exec()
-    console.log(`   warmed in ${Date.now() - warmingTs}ms`)
-  }
-
-  async all(params?: QueryParams): Promise<T[]> {
+  async all (params?: QueryParams): Promise<T[]> {
     const p: QueryParams = { ...this.defaultQueryParams, ...params }
-    let q = this.entities.find()
+    let q = this.dbService.db.entities.find()
       .where('t')
       .eq(this.entity)
     if (p.group) {
@@ -56,9 +40,9 @@ export class Repository<T> {
     return this.mappedItems(items)
   }
 
-  all$(params?: QueryParams): Observable<(T | any)[]> {
+  all$ (params?: QueryParams): Observable<(T | any)[]> {
     const p: QueryParams = { ...this.defaultQueryParams, ...params }
-    let q = this.entities.find().where('t').eq(this.entity)
+    let q = this.dbService.db.entities.find().where('t').eq(this.entity)
     if (p.group) {
       q = q.where('g').eq(p.group)
     }
@@ -76,14 +60,14 @@ export class Repository<T> {
     // )
   }
 
-  async one(id: string): Promise<T> {
-    const item = await this.entities.findOne(id).exec()
+  async one (id: string): Promise<T> {
+    const item = await this.dbService.db.entities.findOne(id).exec()
     if (!item) return null
     return this.mappedItems([item])[0]
   }
 
-  one$(id: string): Observable<T> {
-    return this.entities.findOne(id).$.pipe(
+  one$ (id: string): Observable<T> {
+    return this.dbService.db.entities.findOne(id).$.pipe(
       map((item) => this.mappedItems([item])[0]),
       tap(() => {
         this.zone.run(() => {
@@ -93,7 +77,7 @@ export class Repository<T> {
     )
   }
 
-  async add(data: Partial<T>, group?: string, ts?: number, tags?: string[]): Promise<T> {
+  async add (data: Partial<T>, group?: string, ts?: number, tags?: string[]): Promise<T> {
     const obj = {
       c: data,
       t: this.entity,
@@ -101,11 +85,11 @@ export class Repository<T> {
       s: tags,
       g: group || ''
     }
-    const doc = await this.entities.insert(obj)
+    const doc = await this.dbService.db.entities.insert(obj)
     return this.mappedItems([doc])[0]
   }
 
-  async bulk(data: BulkObj[]) {
+  async bulk (data: BulkObj[]) {
     const objs = data
       .map((o) => {
         return {
@@ -117,11 +101,11 @@ export class Repository<T> {
           c: o.content
         } as DbEntity
       })
-    return this.entities.bulkInsert(objs)
+    return this.dbService.db.entities.bulkInsert(objs)
   }
 
-  async update(id: string, data: any) {
-    const item = await this.entities.findOne(id).exec()
+  async update (id: string, data: any) {
+    const item = await this.dbService.db.entities.findOne(id).exec()
     const content = { ...item.c, ...data }
 
     const filteredContent = Object.keys(content)
@@ -138,8 +122,8 @@ export class Repository<T> {
     })
   }
 
-  async mark(id: string): Promise<T> {
-    const item = await this.entities.findOne(id).exec()
+  async mark (id: string): Promise<T> {
+    const item = await this.dbService.db.entities.findOne(id).exec()
     if (!item) return null
     const mark = !item.m
     await item.update({
@@ -149,13 +133,13 @@ export class Repository<T> {
     })
   }
 
-  async remove(id: string): Promise<void> {
-    const obj = await this.entities.findOne(id).exec()
+  async remove (id: string): Promise<void> {
+    const obj = await this.dbService.db.entities.findOne(id).exec()
     await obj.remove()
   }
 
-  async upload(id: string, file: File) {
-    const obj = await this.entities.findOne(id).exec()
+  async upload (id: string, file: File) {
+    const obj = await this.dbService.db.entities.findOne(id).exec()
     await obj.putAttachment({
       id: file.name,
       data: file.slice(),
@@ -163,13 +147,13 @@ export class Repository<T> {
     })
   }
 
-  async getAttachment(id: string, file: string): Promise<RxAttachment<T>> {
-    const obj = await this.entities.findOne(id).exec()
+  async getAttachment (id: string, file: string): Promise<RxAttachment<T>> {
+    const obj = await this.dbService.db.entities.findOne(id).exec()
     const attachment = obj.getAttachment(file)
     return attachment
   }
 
-  private mappedItems(items) {
+  private mappedItems (items) {
     const r = items
       .filter(i => i && i._id)
       .map((i: DbEntity) => RepositoryHelpers.mapEntity(i))

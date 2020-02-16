@@ -26,4 +26,5 @@ import { SettingsComponent } from './settings/settings.component'
     QuickSearchComponent
   ]
 })
-export class BusinessModule {}
+export class BusinessModule { }
+

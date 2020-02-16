@@ -48,13 +48,6 @@ export class BusinessDemoService {
     await this.generateContacts()
     await this.generateAggrements()
 
-    this.message(`Rewarm repositories`)
-    await this.accountsRepo.warm()
-    await this.transactionsRepo.warm()
-    await this.recordsRepo.warm()
-    await this.contactsRepo.warm()
-    await this.agreementsRepo.warm()
-
     this.message(`Generation completed`)
     this.signalService.broadcast(Signal.DEMO_COMPLETED)
   }

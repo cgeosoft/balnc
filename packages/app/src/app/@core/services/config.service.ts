@@ -5,9 +5,7 @@ import { LocalStorage } from 'ngx-store'
 import { environment } from '../../../environments/environment'
 import { Helpers } from '../../@shared/helpers'
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ConfigService {
 
   version: string = environment.version
@@ -15,9 +13,7 @@ export class ConfigService {
   build: any = environment.build
 
   @LocalStorage() isSidebarClosed: boolean = false
-
   @LocalStorage() roles: string[] = []
-
   @LocalStorage() selected: string = ''
   @LocalStorage() profiles: Profile[] = []
 

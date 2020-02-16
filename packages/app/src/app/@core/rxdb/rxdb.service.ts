@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
+import { Injectable, Injector } from '@angular/core'
 import { Profile } from '@balnc/shared'
 import { ToastrService } from 'ngx-toastr'
 import * as AdapterHttp from 'pouchdb-adapter-http'
@@ -41,21 +41,29 @@ RxDB.plugin(AdapterMemory)
 RxDB.plugin(RxDBUpdateModule)
 RxDB.plugin(RxDBReplicationGraphQL)
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RxDBService {
 
   public db: RxDatabase
   private replicationState: RxGraphQLReplicationState
   private profile: Profile
 
+  get http () {
+    return this.injector.get(HttpClient)
+  }
+  get configService () {
+    return this.injector.get(ConfigService)
+  }
+  get toastr () {
+    return this.injector.get(ToastrService)
+  }
+
   constructor (
-    private http: HttpClient,
-    private configService: ConfigService,
-    private toastr: ToastrService
+    private injector: Injector
   ) {
-    if (!configService.profile) return
+  }
+
+  async setup () {
     this.profile = {
       ...{
         key: 'default',
@@ -65,11 +73,8 @@ export class RxDBService {
         remote: {
           enabled: false
         }
-      }, ...configService.profile
+      }, ...this.configService.profile
     }
-  }
-
-  async setup () {
     if (!this.profile) {
       console.log('[DatabaseService]', `There is not a selected profile`)
       return

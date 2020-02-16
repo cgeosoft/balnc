@@ -1,14 +1,12 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core'
+import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { PreloadAllModules, RouterModule } from '@angular/router'
-import { ConfigService, CoreModule, RxDBService } from '@balnc/core'
+import { CoreModule } from '@balnc/core'
 import { AppComponent } from './app.component'
-import { initApp, REPOS } from './app.init'
 import { APP_ROUTES } from './app.routes'
-import { MainModule } from './main/main.module';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment'
+import { BusinessDataModule } from './business/business.data.module'
+import { MainModule } from './main/main.module'
 
 @NgModule({
   imports: [
@@ -20,21 +18,7 @@ import { environment } from '../environments/environment'
       preloadingStrategy: PreloadAllModules
       // enableTracing: true
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
-  ],
-  providers: [
-    ConfigService,
-    RxDBService,
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      useFactory: initApp,
-      deps: [
-        ConfigService,
-        RxDBService,
-        ...REPOS
-      ]
-    }
+    BusinessDataModule
   ],
   declarations: [
     AppComponent

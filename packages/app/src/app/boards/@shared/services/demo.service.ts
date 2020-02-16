@@ -112,10 +112,6 @@ export class BoardsDemoService {
     this.message(`Saving ${NO_OF_MESSAGES} messages`)
     await this.messagesRepo.bulk(messages)
 
-    this.message(`Rewarm repositories`)
-    await this.boardsRepo.warm()
-    await this.messagesRepo.warm()
-
     this.message(`Generation completed`)
     this.signalService.broadcast(Signal.DEMO_COMPLETED)
   }
