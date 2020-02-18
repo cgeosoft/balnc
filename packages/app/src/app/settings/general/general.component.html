@@ -97,8 +97,8 @@
       <section>
         <h4>Generate Random Data</h4>
         <p>This will generate random We suggest to generate random data in a non-production profile.</p>
-        <button class="btn btn-primary mr-2" [disabled]="demo_working" (click)="generateDemoData()">Generate</button>
-        <button class="btn btn-link mr-2" [disabled]="demo_working" (click)="clearDemoData()">Clear demo data</button>
+        <button class="btn btn-primary mr-2" [disabled]="demoWorking" (click)="generateDemoData()">Generate</button>
+        <button class="btn btn-link mr-2" [disabled]="demoWorking" (click)="clearDemoData()">Clear demo data</button>
         <ng-container *ngIf="(signalLogs$ | async) as logs">
           <div class="card overflow-auto mt-4" style="height: 300px;">
             <table class="table table-sm text-monospace">
