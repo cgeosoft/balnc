@@ -15,7 +15,7 @@ export class DocumentLineComponent implements AfterViewInit {
 
   @Input() line: Line
 
-  @ViewChild('elem', { static: false }) elem: ElementRef
+  @ViewChild('elem') elem: ElementRef
 
   document$: Observable<Document>
   selected: string

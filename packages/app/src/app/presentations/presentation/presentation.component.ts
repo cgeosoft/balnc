@@ -18,7 +18,7 @@ import { AddPageComponent } from '../add-page/add-page.component'
 })
 export class PresentationComponent implements OnInit {
 
-  @ViewChild('presentElem', { static: false }) presentElem: ElementRef
+  @ViewChild('presentElem') presentElem: ElementRef
 
   active: number = 0
   previews: string[]

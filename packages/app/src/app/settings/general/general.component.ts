@@ -15,8 +15,8 @@ import { RawViewComponent } from './../raw-view/raw-view.component'
 })
 export class GeneralComponent implements OnInit {
 
-  @ViewChild('name', { static: false }) name: ElementRef
-  @ViewChild('alias', { static: false }) alias: ElementRef
+  @ViewChild('name') name: ElementRef
+  @ViewChild('alias') alias: ElementRef
 
   profileName: string
   profileAlias: string

@@ -16,8 +16,8 @@ import { PEventsRepo } from '../../@shared/repos/pevents.repo'
 })
 export class IssueComponent implements OnInit {
 
-  @ViewChild('timeline', { static: false }) timeline: ElementRef
-  @ViewChild('desc', { static: false }) desc: ElementRef
+  @ViewChild('timeline') timeline: ElementRef
+  @ViewChild('desc') desc: ElementRef
 
   commentPreview: boolean
   issueId: string

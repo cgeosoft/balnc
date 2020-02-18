@@ -11,7 +11,7 @@ import { AgreementsRepo } from '../../@shared/repos/agreements.repo'
 })
 export class AgreementComponent implements OnInit {
 
-  @ViewChild('content', { static: false }) private content: ElementRef
+  @ViewChild('content') private content: ElementRef
   editDesc = false
   agreementId: any
   agreement: Agreement

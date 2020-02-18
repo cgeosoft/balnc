@@ -19,9 +19,9 @@ const urlRegex = /(https?:\/\/[^\s]+)/g
 })
 export class BoardComponent implements OnInit {
 
-  @ViewChild('messageList', { static: false }) messageList: ElementRef
-  @ViewChild('messageInput', { static: false }) messageInput: ElementRef
-  @ViewChild('fileupload', { static: false }) fileupload: ElementRef
+  @ViewChild('messageList') messageList: ElementRef
+  @ViewChild('messageInput') messageInput: ElementRef
+  @ViewChild('fileupload') fileupload: ElementRef
 
   selected: string
   inputMessage: string

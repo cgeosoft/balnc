@@ -17,9 +17,9 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() debug: any
   @Input() templates: { [key: string]: ElementRef }
 
-  @ViewChild('wrapper', { static: false }) wrapper: ElementRef
-  @ViewChild('tableWrapper', { static: false }) tableWrapper: ElementRef
-  @ViewChild('table', { static: false }) table: ElementRef
+  @ViewChild('wrapper') wrapper: ElementRef
+  @ViewChild('tableWrapper') tableWrapper: ElementRef
+  @ViewChild('table') table: ElementRef
 
   showDebug = false
   page = 0
