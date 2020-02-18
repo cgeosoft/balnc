@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core'
-import { Plugin, Profile } from '@balnc/shared'
+import { BPlugin, EnvBuild, Helpers, Profile } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { LocalStorage } from 'ngx-store'
-import { environment } from '../../../environments/environment'
-import { Helpers } from '../../@shared/helpers'
+import { environment } from './../../../environments/environment'
 
 @Injectable()
 export class ConfigService {
-
-  version: string = environment.version
-  plugins: Plugin[] = environment.plugins
-  build: any = environment.build
 
   @LocalStorage() isSidebarClosed: boolean = false
   @LocalStorage() roles: string[] = []
@@ -18,6 +13,15 @@ export class ConfigService {
   @LocalStorage() profiles: Profile[] = []
 
   menu: any
+  plugins: BPlugin[]
+
+  get version (): string {
+    return environment.version
+  }
+
+  get build (): EnvBuild {
+    return environment.build
+  }
 
   get profile (): Profile {
     return this.profiles.find(p => p.key === this.selected)
@@ -40,7 +44,7 @@ export class ConfigService {
     console.log('[ConfigService]', 'Initializing with env:', environment)
     console.log('[ConfigService]', 'Profiles available:', this.profiles)
 
-    this.plugins = this.plugins.map(p => {
+    this.plugins = environment.plugins.map(p => {
       const v = { ...p }
       v.picon = Helpers.getIcon(v.icon)
       return v

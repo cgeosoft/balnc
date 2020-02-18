@@ -1,8 +1,9 @@
+import { Enviroment } from '@balnc/shared'
 import * as pkg from '../../package.json'
-import * as build from './build.json'
+import * as build from '../assets/build.json'
 import * as plugins from './plugins.json'
 
-export const environment = {
+export const environment: Enviroment = {
   production: true,
   plugins: plugins['default'],
   build: build['default'],

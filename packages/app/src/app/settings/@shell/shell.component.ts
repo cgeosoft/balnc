@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
 import { ConfigService, RxDBService } from '@balnc/core'
-import { ConfirmDialogComponent, DEMO_PROFILE, Helpers, Plugin, Profile } from '@balnc/shared'
+import { BPlugin, ConfirmDialogComponent, DEMO_PROFILE, Helpers, Profile } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ReadFile } from 'ngx-file-helpers'
 import { ToastrService } from 'ngx-toastr'
@@ -14,7 +13,7 @@ export class ShellComponent implements OnInit {
 
   error: string
   profile: Profile
-  plugins: Plugin[] = []
+  plugins: BPlugin[] = []
 
   helperService = Helpers
 
@@ -36,7 +35,6 @@ export class ShellComponent implements OnInit {
 
   constructor (
     public configService: ConfigService,
-    private router: Router,
     private toastr: ToastrService,
     private modal: NgbModal,
     private dbService: RxDBService

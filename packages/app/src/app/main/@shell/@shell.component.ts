@@ -1,7 +1,8 @@
 import { Component } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router'
-import { ConfigService } from '@balnc/core'
+import { ConfigService, UpdateService } from '@balnc/core'
 import { ToastrService } from 'ngx-toastr'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-main-shell',
@@ -21,14 +22,26 @@ export class MainShellComponent {
   plugins: Plugin[] = []
 
   menu: any[] = []
+  update$: Subscription
 
   constructor (
     private config: ConfigService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private update: UpdateService
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
       this._navigationInterceptor(event)
+    })
+    this.update$ = this.update.status$.subscribe((status) => {
+      if (status) {
+        this.update$.unsubscribe()
+        const toastrOptions = {
+          disableTimeOut: true
+        }
+        this.toastr.info(
+          'There is a new version of balnc. Please refresh to update.', 'Update', toastrOptions)
+      }
     })
   }
 

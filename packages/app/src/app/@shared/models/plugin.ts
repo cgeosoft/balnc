@@ -1,4 +1,4 @@
-export interface Plugin {
+export interface BPlugin {
   id: string
   title: string
   label: string

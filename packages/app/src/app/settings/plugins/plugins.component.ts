@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigService } from '@balnc/core'
-import { Plugin, Profile } from '@balnc/shared'
+import { BPlugin, Profile } from '@balnc/shared'
 
 @Component({
   selector: 'app-settings-plugins',
@@ -10,7 +10,7 @@ import { Plugin, Profile } from '@balnc/shared'
 })
 export class PluginsComponent implements OnInit {
 
-  plugins: Plugin[]
+  plugins: BPlugin[]
   profile: Profile
 
   constructor (

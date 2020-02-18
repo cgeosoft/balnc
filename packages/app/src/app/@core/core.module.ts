@@ -8,6 +8,7 @@ import { ToastrModule } from 'ngx-toastr'
 import environment from 'src/environments/environment'
 import { RxDBService } from './rxdb/rxdb.service'
 import { ConfigService } from './services/config.service'
+import { UpdateService } from './services/update.service'
 
 export function init (
   configService: ConfigService,
@@ -43,6 +44,7 @@ export function init (
     SharedModule
   ],
   providers: [
+    UpdateService,
     ConfigService,
     RxDBService,
     {

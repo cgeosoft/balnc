@@ -7,4 +7,5 @@ export * from './services/profile-guard.service'
 export * from './services/query-params'
 export * from './services/repository'
 export * from './services/signal.service'
+export * from './services/update.service'
 
