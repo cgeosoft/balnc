@@ -148,4 +148,8 @@ export class GeneralComponent implements OnInit {
     a.download = `${(new Date()).toDateString()} - ${this.profile.name}.json`
     a.click()
   }
+
+  save () {
+    this.configService.save(this.profile)
+  }
 }

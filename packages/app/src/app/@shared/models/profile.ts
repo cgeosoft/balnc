@@ -18,7 +18,8 @@ export type Profile = {
     members?: string[]
   }
   plugins: { [key: string]: boolean }
-  layout?: 'box' | 'fluid'
+  layout?: 'box' | 'fluid',
+  analytics?: boolean
 }
 
 export const DEMO_PROFILE: Profile = {
@@ -40,5 +41,6 @@ export const DEMO_PROFILE: Profile = {
     analytics: true,
     reports: true
   },
-  layout: 'box'
+  layout: 'box',
+  analytics: false
 }

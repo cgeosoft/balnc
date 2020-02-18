@@ -11,6 +11,11 @@
         similar of the old installable applications.</p>
       <p>Your data may be configured to also be stored localy. It is not require a database server for storing them.
         As so, they are not visible to any third parties and the speed is improved even more.</p>
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input id="analytics" [(ngModel)]="analytics" class="custom-control-input" type="checkbox">
+        <label for="analytics" class="custom-control-label">
+          <strong>Enable analytics to help development</strong></label>
+      </div>
     </div>
     <div class="card-footer">
       <button class="btn btn-link" ngxFilePicker accept="application/json" (filePick)="import($event)">

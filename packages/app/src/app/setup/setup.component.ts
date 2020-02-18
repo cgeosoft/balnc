@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr'
   styleUrls: ['./setup.component.scss']
 })
 export class SetupComponent {
+  analytics = false
 
   get version () {
     return this.configService.version
@@ -26,6 +27,7 @@ export class SetupComponent {
 
   start () {
     const profile = { ...DEMO_PROFILE }
+    profile.analytics = this.analytics
     this.load(profile)
   }
 
@@ -35,6 +37,7 @@ export class SetupComponent {
       this.toastr.error('Import failed')
       return
     }
+    profile.analytics = this.analytics
     this.load(profile)
   }
 

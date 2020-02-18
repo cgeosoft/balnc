@@ -21,6 +21,15 @@
         <button class="btn btn-primary" (click)="editRaw()">Edit Raw</button>
       </section>
       <section>
+        <h4>Analytics</h4>
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input id="analytics" [(ngModel)]="profile.analytics" (change)="save()" class="custom-control-input"
+            type="checkbox">
+          <label for="analytics" class="custom-control-label">
+            <strong>Enable analytics to help development</strong></label>
+        </div>
+      </section>
+      <section>
         <h4>Export</h4>
         <p>
           Export this profile for import in another machine. <strong>This do not backup your data.</strong>
