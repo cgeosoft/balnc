@@ -25,6 +25,7 @@ import { PaginatePipe } from './components/table/paginate.pipe'
 import { SearchPipe } from './components/table/search.pipe'
 import { TableComponent } from './components/table/table.component'
 import { ToolbarComponent } from './components/toolbar/toolbar.component'
+import { UndrawComponent } from './components/undraw/undraw.component'
 import { FontAwesomeModule } from './modules/font-awesome/font-awesome.module'
 import { DocVersionPipe } from './pipes/doc-version.pipe'
 import { EllipsisPipe } from './pipes/ellipsis.pipe'
@@ -62,7 +63,8 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     SearchPipe,
     ToolbarComponent,
     SidemenuComponent,
-    SidemenuButtonComponent
+    SidemenuButtonComponent,
+    UndrawComponent
   ],
   entryComponents: [ConfirmDialogComponent],
   exports: [
@@ -93,7 +95,8 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     SpinnerComponent,
     TableComponent,
     ToolbarComponent,
-    SidemenuComponent
+    SidemenuComponent,
+    UndrawComponent
   ]
 })
-export class SharedModule {}
+export class SharedModule { }

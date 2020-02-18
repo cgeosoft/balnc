@@ -1,6 +1,7 @@
 export * from './components/confirm-dialog/confirm-dialog.component'
 export * from './components/sidemenu/menu-item'
 export * from './components/table/table-schema'
+export * from './components/undraw/undraw.component'
 export * from './helpers'
 export * from './models/env-build'
 export * from './models/enviroment'

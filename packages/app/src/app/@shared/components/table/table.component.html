@@ -6,7 +6,8 @@
           <table #table class="table mb-0">
             <thead class="thead-light">
               <tr>
-                <th *ngFor="let prop of properties; let i = index" [ngStyle]='prop.style || {}' (click)="setSort(prop)">
+                <th *ngFor="let prop of properties; let i = index;" [ngStyle]='prop.style || {}'
+                  (click)="setSort(prop)">
                   {{prop.label}}
                   <fa-icon *ngIf="sort === prop && direction==='asc'" icon="sort-up" class="ml-2"></fa-icon>
                   <fa-icon *ngIf="sort === prop && direction==='desc'" icon="sort-down" class="ml-2"></fa-icon>
@@ -15,7 +16,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of data | paginate:page:limit:sort:direction" [id]="item._id">
-                <ng-container *ngFor="let prop of properties; let i = index">
+                <ng-container *ngFor="let prop of properties; let i = index;">
 
                   <ng-container *ngIf="prop.template">
                     <td [ngStyle]='prop.style || {}'>
@@ -86,8 +87,8 @@
           <li class="page-item"><button class="page-link" (click)="previous()">
               <fa-icon [fixedWidth]="true" icon="angle-left"></fa-icon>
             </button></li>
-          <ng-container *ngFor="let p of pages">
-            <li class="page-item" [ngClass]="{active:page === p}">
+          <ng-container *ngFor="let p of pages;">
+            <li class="page-item" [ngClass]="{active:(page === p)}">
               <button style="min-width:35px;" class="page-link" (click)="switch(p)">{{p+1}}</button>
             </li>
           </ng-container>
@@ -139,7 +140,7 @@
   <app-empty icon="sync-alt" [icon-spin]="true" [message]="null"></app-empty>
 </ng-template>
 <ng-template #empty>
-  <app-empty message="no data" icon="folder-open"></app-empty>
+  <app-undraw image="no-data"></app-undraw>
 </ng-template>
 <ng-template #link let-link="link" let-label="label">
   <a [routerLink]="link">{{label}}</a>
