@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "@balnc/lerna",
   "private": true,
   "scripts": {
     "start": "lerna run start --parallel --scope @balnc/app --scope @balnc/server",
