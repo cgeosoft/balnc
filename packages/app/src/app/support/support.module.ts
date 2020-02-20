@@ -7,11 +7,6 @@ import { FaqComponent } from './faq/faq.component'
 import { LiveComponent } from './live/live.component'
 
 @NgModule({
-  declarations: [
-    ShellComponent,
-    LiveComponent,
-    FaqComponent,
-    AboutComponent],
   imports: [
     SharedModule,
     RouterModule.forChild([{
@@ -57,6 +52,12 @@ import { LiveComponent } from './live/live.component'
         }
       ]
     }])
+  ],
+  declarations: [
+    ShellComponent,
+    LiveComponent,
+    FaqComponent,
+    AboutComponent
   ]
 })
 export class SupportModule { }

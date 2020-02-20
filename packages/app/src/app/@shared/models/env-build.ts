@@ -5,5 +5,6 @@ export interface EnvBuild {
     author: string;
     date: string;
     message: string;
+    branch: string;
   }
 }

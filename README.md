@@ -5,7 +5,7 @@
 > WARNING: NOT FOR PRODUCTION USE
 > This is more of an experiment rather a working product. New and untested libraries are been used. Performance is subject to my mood and no security audit have been performed whatsoever. That been said, welcome to balnc...
 
-![screenshot](docs/assets/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/ChristosGeorgiou/balnc/master/docs/assets/screenshot.png)
 
 Balnc (balance) is an free and open source business management suite for small companies and freelancers. The basic idea behind balnc is that if software and cloud providers can not be trusted the software should be open source and business data (and other) should be located in own storage. Everyone should securing his own local enviroment of computers and network as he also secure his doors and windows from thieves. With the rise of distributed systems, distributed apps with high security are the way to go.
 

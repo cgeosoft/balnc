@@ -32,10 +32,8 @@ export function init (
         provide: MarkedOptions,
         useValue: {
           gfm: true,
-          tables: true,
           breaks: true,
           pedantic: true,
-          sanitize: true,
           smartLists: true,
           smartypants: true
         }

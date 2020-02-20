@@ -1,4 +1,5 @@
 export * from './components/confirm-dialog/confirm-dialog.component'
+export * from './components/remote-page/remote-page.component'
 export * from './components/sidemenu/menu-item'
 export * from './components/table/table-schema'
 export * from './components/undraw/undraw.component'

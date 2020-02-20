@@ -21,15 +21,24 @@
             "assets": [
               "src/favicon.ico",
               "src/robots.txt",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*.md",
+                "input": "../../docs",
+                "output": "docs"
+              }
             ],
             "styles": [
-              "src/scss/styles.scss"
+              "src/scss/styles.scss",
+              "node_modules/prismjs/themes/prism-coy.css"
             ],
             "scripts": [
               "node_modules/ace-builds/src-min/ace.js",
               "node_modules/ace-builds/src-min/mode-json.js",
-              "node_modules/ace-builds/src-min/theme-tomorrow.js"
+              "node_modules/ace-builds/src-min/theme-tomorrow.js",
+              "node_modules/marked/lib/marked.js",
+              "node_modules/prismjs/prism.js",
+              "node_modules/prismjs/components/prism-bash.min.js"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

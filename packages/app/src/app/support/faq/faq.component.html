@@ -1,15 +1,7 @@
 <app-content>
-  <section class="title">
-    <div class="container">Frequently Answered Questions</div>
-  </section>
   <section class="full">
     <div class="container">
-      <ng-container *ngFor="let q of questions">
-        <div>
-          <p><strong>{{q.question}}</strong></p>
-          <p>{{q.answer}}</p>
-        </div>
-      </ng-container>
+      <app-remote-page page="faq"></app-remote-page>
     </div>
   </section>
 </app-content>

@@ -18,6 +18,7 @@ import { EmptyComponent } from './components/empty/empty.component'
 import { FooterComponent } from './components/footer/footer.component'
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component'
 import { PageComponent } from './components/page/page.component'
+import { RemotePageComponent } from './components/remote-page/remote-page.component'
 import { SidemenuButtonComponent } from './components/sidemenu/sidemenu-button.component'
 import { SidemenuComponent } from './components/sidemenu/sidemenu.component'
 import { SpinnerComponent } from './components/spinner/spinner.component'
@@ -64,7 +65,8 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     ToolbarComponent,
     SidemenuComponent,
     SidemenuButtonComponent,
-    UndrawComponent
+    UndrawComponent,
+    RemotePageComponent
   ],
   entryComponents: [ConfirmDialogComponent],
   exports: [
@@ -96,7 +98,8 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     TableComponent,
     ToolbarComponent,
     SidemenuComponent,
-    UndrawComponent
+    UndrawComponent,
+    RemotePageComponent
   ]
 })
 export class SharedModule { }
