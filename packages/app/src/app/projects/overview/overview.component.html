@@ -1,41 +1,37 @@
-<section class="full">
-  <div class="row h-100">
-    <div class="col-md-7 h-100">
-      <div class="card h-100">
-        <div class="card-header">
-          Activity
-        </div>
-        <div class="overflow-auto">
-          <ng-container *ngIf="(logs$ | async) as logs; else loader">
-            <ng-container *ngIf="logs.length; else nologs">
-              <table class="table table-bordered table-sm">
-                <tbody>
-                  <tr *ngFor="let log of logs | slice:0:30">
-                    <td style="width:160px">{{log._date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                    <td>{{log.user}}</td>
-                    <td>{{log.type}}</td>
-                    <td>{{log.text}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </ng-container>
+<app-content>
+  <section class="full">
+    <div class="row h-100">
+      <div class="col-md-7 h-100 overflow-auto">
+        <ng-container *ngIf="(logs$ | async) as logs; else loader">
+          <ng-container *ngIf="logs.length; else nologs">
+            <div class="list-group list-group-flush">
+              <ng-container *ngFor="let log of logs">
+                <div class="list-group-item d-flex align-items-center">
+                  <div>{{log._date | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                  <div>{{log.type}}</div>
+                  <div>
+                    <div>{{log.text}}</div>
+                    <div><small>{{log.user}}</small></div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
           </ng-container>
+        </ng-container>
+      </div>
+      <div class="col-md-5 h-100">
+        <div class="card" style="min-height:300px">
+          <div class="card-header">
+            Latest Issues
+          </div>
+          <div class="h-100">
+            <app-table [data$]="issues$" [schema]="issuesSchema"></app-table>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-5 h-100">
-      <div class="card" style="min-height:300px">
-        <div class="card-header">
-          Latest Issues
-        </div>
-
-        <div class="h-100">
-          <app-table [data$]="issues$" [schema]="issuesSchema"></app-table>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
+</app-content>
 
 <ng-template #nologs>
   <app-empty message="You don't have any logs yet" icon="file-alt:regular"></app-empty>

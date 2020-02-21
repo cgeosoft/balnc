@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { Project } from '../@shared/models/all'
 import { ProjectsRepo } from '../@shared/repos/projects.repo'
-import { ProjectManageComponent } from '../project/manage/manage.component'
+import { CreateProjectComponent } from '../create-project/create-project.component'
 
 @Component({
   selector: 'app-projects',
@@ -46,7 +46,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   create () {
-    this.modal.open(ProjectManageComponent)
+    this.modal.open(CreateProjectComponent)
   }
 
 }

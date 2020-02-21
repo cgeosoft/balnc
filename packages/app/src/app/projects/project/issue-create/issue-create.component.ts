@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ConfigService } from '@balnc/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { IssueType } from '../../@shared/models/all'
+import { IssueStatus, IssueType } from '../../@shared/models/all'
 import { IssuesRepo } from '../../@shared/repos/issues.repo'
 
 @Component({
@@ -41,8 +41,9 @@ export class IssueCreateComponent implements OnInit {
       description: formModel.description,
       project: this.projectId,
       user: this.config.username,
-      type: IssueType.issue
-    },this.projectId)
+      type: IssueType.issue,
+      status: IssueStatus.open
+    }, this.projectId)
     this.activeModal.close(issueId)
   }
 }

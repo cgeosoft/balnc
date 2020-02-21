@@ -76,9 +76,9 @@ export class IssuesComponent implements OnInit {
   async create () {
     const m = this.modal.open(IssueCreateComponent)
     m.componentInstance.projectId = this.pid
-    const issueId = await m.result
-    if (issueId) {
-      await this.router.navigate(['/projects/project', this.pid, 'issue', issueId])
+    const issue = await m.result as Issue
+    if (issue) {
+      await this.router.navigate(['/projects/projects', this.pid, 'issues', issue._id])
     }
   }
 

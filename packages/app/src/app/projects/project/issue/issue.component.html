@@ -1,15 +1,15 @@
-<ng-container *ngIf="(issue$ | async) as issue; else loader">
-  <ng-container *ngIf="issue; else empty">
+<ng-container *ngIf="(issue$ | async) as issue; else loader;">
+  <ng-container *ngIf="issue; else empty;">
     <div class="d-flex h-100">
       <div class="flex-grow-1 d-flex flex-column">
         <app-toolbar>
           <div class="btn-group">
-            <button type="button" class="btn" [ngStyle]="status(issue.status).style"
+            <button type="button" class="btn" [ngStyle]="status.style"
               (click)="nextStatus(issue.status)">
-              {{status(issue.status).label}}
+              {{status.label}}
             </button>
             <div class="btn-group btn-group-sm" ngbDropdown container="body">
-              <button class="btn dropdown-toggle-split" [ngStyle]="status(issue.status).style"
+              <button class="btn dropdown-toggle-split" [ngStyle]="status.style"
                 ngbDropdownToggle></button>
               <div class="dropdown-menu" ngbDropdownMenu>
                 <button ngbDropdownItem *ngFor="let s of issueStatuses" (click)="updateStatus(s.key)">
@@ -36,28 +36,28 @@
       </div>
       <div class="d-flex flex-column border-left bg-light h-100 p-4" style="min-width:400px;width:400px">
         <div #timeline class="flex-grow-1 overflow-auto timeline">
-          <ng-container *ngIf="(logs$ | async) as logs">
-            <ng-container *ngIf="logs.length; else emptyLogs">
-              <ng-container *ngFor="let log of logs">
-                <ng-container *ngIf="log.type===logType.comment">
+          <ng-container *ngIf="(pevents$ | async) as pevents;">
+            <ng-container *ngIf="pevents.length; else emptyLogs;">
+              <ng-container *ngFor="let pevent of pevents">
+                <ng-container *ngIf="pevent.type===peventTypes.comment">
                   <div class="timeline-item">
                     <div class="timeline-item-content">
                       <markdown ngPreserveWhitespaces>
-                        {{log.text}}
+                        {{pevent.text}}
                       </markdown>
                     </div>
                     <div class="timeline-item-footer">
-                      {{log.user}} - {{log._date | dfnsFormatDistanceToNow}}
+                      {{pevent.user}} - {{pevent._date | dfnsFormatDistanceToNow}}
                     </div>
                   </div>
                 </ng-container>
-                <ng-container *ngIf="log.type===logType.activity">
+                <ng-container *ngIf="pevent.type===peventTypes.activity">
                   <div class="timeline-item">
                     <div class="timeline-item-content">
-                      {{log.text}}
+                      {{pevent.text}}
                     </div>
                     <div class="timeline-item-footer">
-                      {{log.user}} - {{log._date | dfnsFormatDistanceToNow}}
+                      {{pevent.user}} - {{pevent._date | dfnsFormatDistanceToNow}}
                     </div>
                   </div>
                 </ng-container>

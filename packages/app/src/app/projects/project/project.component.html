@@ -2,14 +2,14 @@
   <ng-container *ngIf="project; else empty">
     <app-content>
       <div role="sidebar">
+        <div class="d-flex justify-content-between">
+          <strong>{{project.name}}</strong>
+          <button (click)="toggleMark(project._id)" class="btn btn-sm btn-link float-right p-0">
+            <fa-icon icon="star" class="ml-2"
+              [ngClass]="{'text-warning':project._mark,'text-secondary':!project._mark}"></fa-icon>
+          </button>
+        </div>
         <dl>
-          <dt>Project
-            <button (click)="toggleMark(project._id)" class="btn btn-sm btn-link float-right p-0">
-              <fa-icon icon="star" class="ml-2"
-                [ngClass]="{'text-warning':project._mark,'text-secondary':!project._mark}"></fa-icon>
-            </button>
-          </dt>
-          <dd class="text-truncate">{{project.name}}</dd>
           <ng-container *ngIf="project.description">
             <dt>Description</dt>
             <dd class="text-truncate">{{project.description}}</dd>

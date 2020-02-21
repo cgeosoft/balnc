@@ -50,14 +50,13 @@ export class Repository<T> {
       q = q.where('m').eq(p.mark)
     }
     return q.$
-    // .pipe(
-    //   map((items) => this.mappedItems(items)),
-    //   tap((items) => {
-    //     this.zone.run(() => {
-    //       // empty run for ui update
-    //     })
-    //   })
-    // )
+  }
+
+  allm$ (params?: QueryParams): Observable<(T | any)[]> {
+    return this.all$(params)
+      .pipe(
+        map((items) => this.mappedItems(items))
+      )
   }
 
   async one (id: string): Promise<T> {

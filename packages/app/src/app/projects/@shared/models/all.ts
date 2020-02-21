@@ -34,7 +34,6 @@ export interface Issue extends Entity, Meta {
 }
 
 export interface PEvent extends Entity, Meta {
-  issueId: string
   text?: string
   type: PEventType
 }

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { Observable } from 'rxjs'
-import { map, tap } from 'rxjs/operators'
+import { tap } from 'rxjs/operators'
 import { Issue, IssueStatus, IssueStatuses, PEvent, PEventType } from '../../@shared/models/all'
 import { IssuesRepo } from '../../@shared/repos/issues.repo'
 import { PEventsRepo } from '../../@shared/repos/pevents.repo'
@@ -24,7 +24,7 @@ export class IssueComponent implements OnInit {
   comment: string = null
 
   issue$: Observable<Issue>
-  logs$: Observable<PEvent[]>
+  pevents$: Observable<PEvent[]>
 
   form: FormGroup
 
@@ -35,10 +35,12 @@ export class IssueComponent implements OnInit {
   statuses = IssueStatus
   issueStatuses = IssueStatuses
 
-  logType = PEventType
+  peventTypes = PEventType
 
   ContentBreadcrumbComponent
   breadcrumb
+
+  status
 
   constructor (
     private route: ActivatedRoute,
@@ -54,17 +56,19 @@ export class IssueComponent implements OnInit {
       this.form = this.formBuilder.group({
         comment: ['', [Validators.required]]
       })
-      this.issue$ = this.issuesRepo.one$(this.issueId)
-      this.logs$ = this.peventsRepo.all$().pipe(
-        map(i => i.filter(x => x.issueId === this.issueId)),
-        tap((logs: PEvent[]) => logs.sort((a, b) => a._date - b._date)),
+      this.issue$ = this.issuesRepo.one$(this.issueId).pipe(
+        tap((issue) => {
+          this.status = this.issueStatuses.find(x => x.key === issue.status) || {
+            label: 'Unknown',
+            style: { 'background-color': '#9E9E9E', color: '#FFF' }
+          }
+        })
+      )
+      this.pevents$ = this.peventsRepo.allm$({ group: this.issueId }).pipe(
+        tap((pevents: PEvent[]) => pevents.sort((a, b) => a._date - b._date)),
         tap(() => this.scroll())
       )
     })
-  }
-
-  status (status: IssueStatus) {
-    return this.issueStatuses.find(x => x.key === status)
   }
 
   async nextStatus (currentStatus: IssueStatus) {
@@ -95,10 +99,9 @@ export class IssueComponent implements OnInit {
     const event: Partial<PEvent> = {
       text: formModel.comment,
       user: this.config.username,
-      type: PEventType.comment,
-      issueId: this.issueId
+      type: PEventType.comment
     }
-    await this.peventsRepo.add(event)
+    await this.peventsRepo.add(event,this.issueId)
 
     this.form.reset()
     this.postCommentLoading = false

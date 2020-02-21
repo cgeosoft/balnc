@@ -1,7 +1,3 @@
-# FAQ
-
----
-
 ## How are my data stored?
 
 Your data are store at locations depenting of your profile configuration.
