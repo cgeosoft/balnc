@@ -18,7 +18,7 @@ export class UpdateService {
   constructor (
     private http: HttpClient
   ) {
-    this.status$ = interval(5000).pipe(
+    this.status$ = interval(this.interval).pipe(
       switchMap(() => {
         return this.http.get<EnvBuild>(this.url).pipe(
           catchError(() => null)

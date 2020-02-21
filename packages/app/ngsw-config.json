@@ -3,10 +3,15 @@
   "assetGroups": [{
     "name": "app",
     "installMode": "prefetch",
-    "updateMode": "prefetch",
     "resources": {
       "files": [
-        "/**/*.*"
+        "/docs/**/*.*",
+        "/assets/**/*.*",
+        "!/assets/build.json",
+        "/*.js",
+        "/*.js.map",
+        "/robots.txt",
+        "/favicon.ico"
       ]
     }
   }]
