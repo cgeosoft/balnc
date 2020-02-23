@@ -26,9 +26,7 @@ import { CreateComponent } from './create/create.component'
       {
         path: ':id',
         data: {
-          breadcrumb: {
-            label: '#Agreement'
-          }
+          title: '#Agreement'
         },
         component: AgreementComponent
       }

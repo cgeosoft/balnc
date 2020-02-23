@@ -101,7 +101,7 @@ export class IssueComponent implements OnInit {
       user: this.config.username,
       type: PEventType.comment
     }
-    await this.peventsRepo.add(event,this.issueId)
+    await this.peventsRepo.add(event, this.issueId)
 
     this.form.reset()
     this.postCommentLoading = false
@@ -116,11 +116,10 @@ export class IssueComponent implements OnInit {
 
   private log (message: string) {
     return this.peventsRepo.add({
-      issueId: this.issueId,
       type: PEventType.activity,
       text: message,
       user: this.config.username
-    })
+    }, this.issueId)
   }
 
   private scroll (): void {

@@ -36,7 +36,7 @@ export class ContactComponent implements OnInit {
         if (!contact) {
           await this.router.navigate([`/business/contacts`])
         }
-        this.route.snapshot.data.breadcrumb.label = contact.name
+        this.route.snapshot.data.breadcrumb = contact.name
       })
     )
   }

@@ -27,4 +27,3 @@ import { SettingsComponent } from './settings/settings.component'
   ]
 })
 export class BusinessModule { }
-

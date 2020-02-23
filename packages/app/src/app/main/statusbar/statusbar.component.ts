@@ -10,7 +10,7 @@ import { filter } from 'rxjs/operators'
 })
 export class StatusbarComponent implements OnInit {
 
-  breadcrumbs = []
+  breadcrumbs: { url: string, label: string }[] = []
   status = 'disabled'
   constructor (
     private configService: ConfigService,
@@ -40,8 +40,8 @@ export class StatusbarComponent implements OnInit {
 
     }
     // console.log(route, child.snapshot.data.breadcrumb)
-    if (child.snapshot.data.breadcrumb) {
-      breadcrumbs.push({ label: child.snapshot.data.breadcrumb.label, url })
+    if (child.snapshot.data.title) {
+      breadcrumbs.push({ label: child.snapshot.data.title, url })
     }
 
     return this.createBreadcrumbs(child, url, breadcrumbs)

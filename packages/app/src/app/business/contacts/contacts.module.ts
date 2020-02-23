@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
-import { RouterModule } from '@angular/router'
+import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
+import { ContactsRepo } from '../@shared/repos/contacts.repo'
 import { ContactCreateComponent } from './contact-create/contact-create.component'
 import { ContactManageComponent } from './contact-manage/contact-manage.component'
 import { ContactTimelineComponent } from './contact-timeline/contact-timeline.component'
@@ -24,34 +25,28 @@ import { ContactsComponent } from './contacts/contacts.component'
       {
         path: '',
         data: {
-          breadcrumb: false
+          title: false
         },
         component: ContactsComponent
       },
       {
         path: ':id',
-        data: {
-          breadcrumb: {
-            label: '#Contact'
-          }
+        resolve: {
+          title: 'contactTitleResolver'
         },
         component: ContactComponent,
         children: [
           {
             path: 'timeline',
             data: {
-              breadcrumb: {
-                label: 'Timeline'
-              }
+              title: 'Timeline'
             },
             component: ContactTimelineComponent
           },
           {
             path: 'manage',
             data: {
-              breadcrumb: {
-                label: 'Manage'
-              }
+              title: 'Manage'
             },
             component: ContactManageComponent
           },
@@ -59,6 +54,13 @@ import { ContactsComponent } from './contacts/contacts.component'
         ]
       }
     ])
+  ],
+  providers: [
+    {
+      provide: 'contactTitleResolver',
+      useFactory: (repo: ContactsRepo) => (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => repo.one(route.paramMap.get('id')).then(contact => contact.name),
+      deps: [ContactsRepo]
+    }
   ]
 })
 export class ContactsModule { }

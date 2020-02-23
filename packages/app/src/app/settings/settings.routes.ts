@@ -6,17 +6,13 @@ export const SettingsRoutes = [{
   path: '',
   component: ShellComponent,
   data: {
-    breadcrumb: {
-      label: 'Settings'
-    }
+    title: 'Settings'
   },
   children: [
     {
       path: 'general',
       data: {
-        breadcrumb: {
-          label: 'General'
-        }
+        title: 'General'
       },
       component: GeneralComponent
     },
@@ -24,9 +20,7 @@ export const SettingsRoutes = [{
       path: 'plugins',
 
       data: {
-        breadcrumb: {
-          label: 'Plugins'
-        }
+        title: 'Plugins'
       },
       component: PluginsComponent
     },

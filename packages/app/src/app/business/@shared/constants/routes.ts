@@ -5,9 +5,7 @@ import { SettingsComponent } from '../../settings/settings.component'
 export const BUSINESS_ROUTES = [{
   path: '',
   data: {
-    breadcrumb: {
-      label: 'Business'
-    }
+    title: 'Business'
   },
   component: ShellComponent,
   children: [
@@ -18,67 +16,51 @@ export const BUSINESS_ROUTES = [{
     {
       path: 'settings',
       data: {
-        breadcrumb: {
-          label: 'Settings'
-        }
+        title: 'Settings'
       },
       component: SettingsComponent
     },
     {
       path: 'contacts',
-      loadChildren: () => import('../../contacts/contacts.module').then(m => m.ContactsModule),
       data: {
-        breadcrumb: {
-          label: 'Contacts'
-        }
-      }
+        title: 'Contacts'
+      },
+      loadChildren: () => import('../../contacts/contacts.module').then(m => m.ContactsModule)
     }, {
       path: 'transactions',
       loadChildren: () => import('../../transactions/transactions.module').then(m => m.TransactionsModule),
       data: {
-        breadcrumb: {
-          label: 'Transactions'
-        }
+        title: 'Transactions'
       }
     }, {
       path: 'accounts',
       loadChildren: () => import('../../accounts/accounts.module').then(m => m.AccountsModule),
       data: {
-        breadcrumb: {
-          label: 'Accounts'
-        }
+        title: 'Accounts'
       }
     }, {
       path: 'agreements',
       loadChildren: () => import('../../agreements/agreements.module').then(m => m.AgreementsModule),
       data: {
-        breadcrumb: {
-          label: 'Agreements'
-        }
+        title: 'Agreements'
       }
     }, {
       path: 'orders',
       loadChildren: () => import('../../orders/orders.module').then(m => m.OrdersModule),
       data: {
-        breadcrumb: {
-          label: 'Orders'
-        }
+        title: 'Orders'
       }
     }, {
       path: 'invoices',
       loadChildren: () => import('../../invoices/invoices.module').then(m => m.InvoicesModule),
       data: {
-        breadcrumb: {
-          label: 'Invoices'
-        }
+        title: 'Invoices'
       }
     }, {
       path: 'storage',
       loadChildren: () => import('../../storage/storage.module').then(m => m.StorageModule),
       data: {
-        breadcrumb: {
-          label: 'Storage'
-        }
+        title: 'Storage'
       }
     },
     { path: '', redirectTo: 'contacts', pathMatch: 'full' }

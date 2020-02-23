@@ -11,35 +11,27 @@ export const PROJECTS_ROUTES = [{
   path: '',
   component: ShellComponent,
   data: {
-    breadcrumb: {
-      label: 'Projects'
-    }
+    title: 'Projects'
   },
   children: [
     {
       path: 'overview',
       component: OverviewComponent,
       data: {
-        breadcrumb: {
-          label: 'Overview'
-        }
+        title: 'Overview'
       }
     },
     {
       path: 'settings',
       component: SettingsComponent,
       data: {
-        breadcrumb: {
-          label: 'Settings'
-        }
+        title: 'Settings'
       }
     },
     {
       path: 'projects',
       data: {
-        breadcrumb: {
-          label: 'Projects'
-        }
+        title: 'Projects'
       },
       children: [
         {
@@ -50,36 +42,28 @@ export const PROJECTS_ROUTES = [{
           path: ':pid',
           component: ProjectComponent,
           data: {
-            breadcrumb: {
-              label: 'Project#'
-            }
+            title: 'Project#'
           },
           children: [
             {
               path: 'manage',
               component: ProjectManageComponent,
               data: {
-                breadcrumb: {
-                  label: 'Manage'
-                }
+                title: 'Manage'
               }
             },
             {
               path: 'issues',
               component: IssuesComponent,
               data: {
-                breadcrumb: {
-                  label: 'Issues'
-                }
+                title: 'Issues'
               }
             },
             {
               path: 'issues/:iid',
               component: IssueComponent,
               data: {
-                breadcrumb: {
-                  label: 'Issue#'
-                }
+                title: 'Issue#'
               }
             },
             { path: '', redirectTo: 'issues', pathMatch: 'full' }

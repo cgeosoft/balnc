@@ -17,10 +17,9 @@ export class IssuesRepo extends Repository<Issue> {
   async add (data: Partial<Issue>, group?: string, ts?: number): Promise<Issue> {
     const issue = await super.add(data, group, ts)
     await this.peventsService.add({
-      issueId: issue._id,
       text: 'issue created',
       type: PEventType.activity
-    })
+    }, issue._id)
     return issue
   }
 }

@@ -13,35 +13,27 @@ import { LiveComponent } from './live/live.component'
       path: '',
       component: ShellComponent,
       data: {
-        breadcrumb: {
-          label: 'Support'
-        }
+        title: 'Support'
       },
       children: [
         {
           path: 'faq',
           data: {
-            breadcrumb: {
-              label: 'FAQ'
-            }
+            title: 'FAQ'
           },
           component: FaqComponent
         },
         {
           path: 'live',
           data: {
-            breadcrumb: {
-              label: 'Live Chat'
-            }
+            title: 'Live Chat'
           },
           component: LiveComponent
         },
         {
           path: 'about',
           data: {
-            breadcrumb: {
-              label: 'About '
-            }
+            title: 'About '
           },
           component: AboutComponent
         },
