@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common'
 import { APP_INITIALIZER, NgModule, Optional, SkipSelf } from '@angular/core'
-import { ServiceWorkerModule } from '@angular/service-worker'
 import { SharedModule } from '@balnc/shared'
 import { DateFnsModule } from 'ngx-date-fns'
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
 import { ToastrModule } from 'ngx-toastr'
-import environment from 'src/environments/environment'
 import { RxDBService } from './rxdb/rxdb.service'
 import { ConfigService } from './services/config.service'
 import { UpdateService } from './services/update.service'
@@ -22,7 +20,7 @@ export function init (
 @NgModule({
   imports: [
     CommonModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
