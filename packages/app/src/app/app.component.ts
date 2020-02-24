@@ -22,7 +22,6 @@ export class AppComponent {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         let title = this.getTitle(this.router.routerState, this.router.routerState.root).join(' - ')
-        // console.log('title', title)
         this.titleService.setTitle(`Balnc${title ? ` - ${title}` : ''}`)
       }
     })
@@ -31,14 +30,12 @@ export class AppComponent {
   getTitle (state, parent) {
     let data = []
     if (parent && parent.snapshot.data && parent.snapshot.data.title) {
-      console.log(parent,parent.snapshot.data, parent.snapshot.data.title)
       data.push(parent.snapshot.data.title)
     }
 
     if (state && parent) {
       data.push(...this.getTitle(state, state.firstChild(parent)))
     }
-    // console.log(data)
     return data
   }
 
