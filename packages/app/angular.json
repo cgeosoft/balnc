@@ -64,7 +64,7 @@
               "extractLicenses": true,
               "vendorChunk": true,
               "buildOptimizer": true,
-              "serviceWorker": false,
+              "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
             },
             "desktop": {
