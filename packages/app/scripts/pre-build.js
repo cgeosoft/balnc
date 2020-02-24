@@ -21,7 +21,6 @@ nodegit.Repository
     build.git.message = commit.message()
     build.git.hash = commit.sha()
     build.git.branch = branch.shorthand()
-    console.log(build)
     fs.writeFileSync(
       path.join(__dirname, "../src/assets/build.json"),
       JSON.stringify(build, " ", 2))
