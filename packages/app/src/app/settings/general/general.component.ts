@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { ConfigService, Signal, SignalService } from '@balnc/core'
+import { Router } from '@angular/router'
+import { ConfigService, RxDBService, Signal, SignalService } from '@balnc/core'
 import { Profile } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { BoardsDemoService } from '../../boards/@shared/services/demo.service'
-import { BusinessDemoService } from '../../business/@shared/services/demo.service'
 import { RemoteComponent } from '../remote/remote.component'
 import { RawViewComponent } from './../raw-view/raw-view.component'
 
@@ -35,8 +34,8 @@ export class GeneralComponent implements OnInit {
     private configService: ConfigService,
     private modal: NgbModal,
     private signalService: SignalService,
-    private businessDemoService: BusinessDemoService,
-    private boardsDemoService: BoardsDemoService
+    private router: Router,
+    private rxdbService: RxDBService
   ) {
     this.signalLogs$ = this.signalService.logs$
   }
@@ -76,17 +75,24 @@ export class GeneralComponent implements OnInit {
     this.configService.select(this.profile.key)
   }
 
-  delete () {
+  async delete () {
     if (!confirm('Are you sure?')) return
     this.configService.remove(this.profile.key)
-    window.location.reload()
+    this.configService.selected = null
+
+    if (!this.configService.profiles.length) {
+      await this.router.navigate(['/setup'])
+      return false
+    }
+    this.configService.setup()
+    await this.rxdbService.setup()
   }
 
-  toggleRemote () {
+  async toggleRemote () {
     if (!confirm('Are you sure?')) return
     this.profile.remote.enabled = !this.profile.remote.enabled
     this.configService.save(this.profile)
-    window.location.reload()
+    await this.router.navigateByUrl('/')
   }
 
   async editRaw () {
@@ -101,7 +107,7 @@ export class GeneralComponent implements OnInit {
     const remote = await m.result
     this.profile.remote = remote
     this.configService.save(this.profile)
-    window.location.reload()
+    await this.router.navigateByUrl('/')
   }
 
   async getRemote () {

@@ -1,0 +1,21 @@
+<app-content>
+  <section class="title">
+    <div class="container">Profiles</div>
+  </section>
+  <section class="full">
+    <div class="container">
+
+      <app-toolbar>
+        <button class="btn btn-primary" (click)="create()">New Profile</button>
+      </app-toolbar>
+      <ul class="list-group list-group-flush mt-4">
+        <ng-container *ngFor="let p of profiles">
+          <li class="list-group-item d-flex justify-content-between">
+            <span>{{p.name}}</span>
+            <button class="btn btn-sm btn-primary" (click)="activate(p)">Activate</button>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </section>
+</app-content>

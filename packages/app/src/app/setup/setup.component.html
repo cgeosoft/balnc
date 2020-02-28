@@ -1,31 +1,33 @@
 <div class="wrapper">
   <div class="card">
-    <div class="card-body">
-      <div class="alert alert-warning text-center mb-4">
-        <strong>UNDER DEVELOPMENT - NOT FOR PRODUCTION USE</strong>
+    <ng-container *ngIf="!loading;else loader">
+      <div class="card-body">
+        <div class="alert alert-warning text-center mb-4">
+          <strong>UNDER DEVELOPMENT - NOT FOR PRODUCTION USE</strong>
+        </div>
+        <h1 class="mb-4" style="font-weight: 300;">Balnc Setup</h1>
+        <p>Balnc (balance) is an free open source management suite for small businesses and freelancers. It has
+          a collection of pre-build modules and the tools for software developers to create new ones.</p>
+        <p>All modules are running local at the users machine/browser. This improves loading speed to a magnitute
+          similar of the old installable applications.</p>
+        <p>Your data may be configured to also be stored localy. It is not require a database server for storing them.
+          As so, they are not visible to any third parties and the speed is improved even more.</p>
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input id="analytics" [(ngModel)]="analytics" class="custom-control-input" type="checkbox">
+          <label for="analytics" class="custom-control-label">
+            <strong>Enable analytics to help development</strong></label>
+        </div>
       </div>
-      <h1 class="mb-4" style="font-weight: 300;">Balnc Setup</h1>
-      <p>Balnc (balance) is an free open source management suite for small businesses and freelancers. It has
-        a collection of pre-build modules and the tools for software developers to create new ones.</p>
-      <p>All modules are running local at the users machine/browser. This improves loading speed to a magnitute
-        similar of the old installable applications.</p>
-      <p>Your data may be configured to also be stored localy. It is not require a database server for storing them.
-        As so, they are not visible to any third parties and the speed is improved even more.</p>
-      <div class="custom-control custom-checkbox custom-control-inline">
-        <input id="analytics" [(ngModel)]="analytics" class="custom-control-input" type="checkbox">
-        <label for="analytics" class="custom-control-label">
-          <strong>Enable analytics to help development</strong></label>
+      <div class="card-footer">
+        <button class="btn btn-link" ngxFilePicker accept="application/json" (filePick)="import($event)">
+          <fa-icon icon="cloud-upload-alt"></fa-icon> Import
+          Profile
+        </button>
+        <button class="btn btn-primary" (click)="start()">
+          Quick Start <fa-icon icon="arrow-circle-right"></fa-icon>
+        </button>
       </div>
-    </div>
-    <div class="card-footer">
-      <button class="btn btn-link" ngxFilePicker accept="application/json" (filePick)="import($event)">
-        <fa-icon icon="cloud-upload-alt"></fa-icon> Import
-        Profile
-      </button>
-      <button class="btn btn-primary" (click)="start()">
-        Quick Start <fa-icon icon="arrow-circle-right"></fa-icon>
-      </button>
-    </div>
+    </ng-container>
   </div>
   <div class="footer">
     <ul class="list-inline m-0 text-muted">
@@ -52,3 +54,7 @@
     </ul>
   </div>
 </div>
+
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

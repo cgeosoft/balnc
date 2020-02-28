@@ -30,6 +30,12 @@ export class ShellComponent implements OnInit {
       icon: 'box',
       type: 'button',
       label: 'Plugins'
+    },
+    {
+      url: '/settings/profiles',
+      icon: 'swatchbook',
+      type: 'button',
+      label: 'Profiles'
     }]
   }
 
@@ -58,7 +64,7 @@ export class ShellComponent implements OnInit {
   }
 
   create () {
-    const alias = this.configService.save({
+    const key = this.configService.save({
       key: null,
       name: Helpers.generateName(),
       data: {
@@ -69,7 +75,7 @@ export class ShellComponent implements OnInit {
       },
       plugins: {}
     })
-    this.configService.select(alias)
+    this.configService.select(key)
   }
 
   async import (file: ReadFile) {
@@ -78,8 +84,8 @@ export class ShellComponent implements OnInit {
       this.toastr.error('Import failed')
       return
     }
-    const alias = this.configService.save(profile)
-    this.configService.select(alias)
+    const key = this.configService.save(profile)
+    this.configService.select(key)
   }
 
   activate (profileId) {
@@ -110,7 +116,7 @@ export class ShellComponent implements OnInit {
       const data = file.content.split(',')[1]
       const profileStr = atob(data)
       const profile = JSON.parse(profileStr)
-      const alias = this.configService.save(profile)
+      const key = this.configService.save(profile)
       this.configService.select(alias)
     } catch (error) {
       this.error = 'File is corrupted'

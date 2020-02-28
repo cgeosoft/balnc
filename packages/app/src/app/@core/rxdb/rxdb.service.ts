@@ -84,10 +84,16 @@ export class RxDBService {
 
     console.log('[DatabaseService]', `Initializing DB: ${this.profile.key}`)
 
-    this.db = await RxDB.create({
-      name: `balnc_${this.profile.key}`,
-      adapter: this.profile.data.persist ? 'idb' : 'memory'
-    })
+    // if (this.db && this.db.name === `balnc_${this.profile.key}`) return
+
+    try {
+      this.db = await RxDB.create({
+        name: `balnc_${this.profile.key}`,
+        adapter: this.profile.data.persist ? 'idb' : 'memory'
+      })
+    } catch (err) {
+      return
+    }
 
     await this.db.collection({
       name: 'entities',

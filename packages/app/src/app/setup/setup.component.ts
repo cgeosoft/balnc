@@ -1,4 +1,5 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { DEMO_PROFILE } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
@@ -9,9 +10,9 @@ import { ToastrService } from 'ngx-toastr'
   templateUrl: './setup.component.html',
   styleUrls: ['./setup.component.scss']
 })
-export class SetupComponent {
+export class SetupComponent implements OnInit {
   analytics = false
-
+  loading = false
   get version () {
     return this.configService.version
   }
@@ -20,29 +21,36 @@ export class SetupComponent {
     return this.configService.build
   }
 
+  ngOnInit (): void {
+    this.loading = false
+  }
+
   constructor (
+    private router: Router,
     public configService: ConfigService,
     private toastr: ToastrService
   ) { }
 
-  start () {
+  async start () {
     const profile = { ...DEMO_PROFILE }
     profile.analytics = this.analytics
-    this.load(profile)
+    await this.load(profile)
   }
 
-  import (file: ReadFile) {
+  async import (file: ReadFile) {
     const profile = this.configService.import(file)
     if (!profile) {
       this.toastr.error('Import failed')
       return
     }
     profile.analytics = this.analytics
-    this.load(profile)
+    await this.load(profile)
   }
 
-  load (profile) {
-    const alias = this.configService.save(profile)
-    this.configService.select(alias)
+  async load (profile) {
+    this.loading = true
+    const key = this.configService.save(profile)
+    this.configService.select(key)
+    await this.router.navigateByUrl('/')
   }
 }

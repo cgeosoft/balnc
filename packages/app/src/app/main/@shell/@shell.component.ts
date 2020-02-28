@@ -46,7 +46,11 @@ export class MainShellComponent {
   }
 
   get layout () {
-    return this.config.profile.layout
+    switch (this.config.profile.layout) {
+      case 'box': return 'container'
+      case 'fluid': return 'container-fluid'
+      default: return 'container'
+    }
   }
 
   private _navigationInterceptor (event: RouterEvent): void {

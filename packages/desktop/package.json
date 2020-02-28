@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --dir",
+    "build-desktop": "electron-builder --dir",
     "test": "snyk test",
     "dist": "electron-builder"
   },

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { APP_INITIALIZER, NgModule, Optional, SkipSelf } from '@angular/core'
+import { NgModule, Optional, SkipSelf } from '@angular/core'
 import { SharedModule } from '@balnc/shared'
 import { DateFnsModule } from 'ngx-date-fns'
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
@@ -8,15 +8,6 @@ import { RxDBService } from './rxdb/rxdb.service'
 import { ConfigService } from './services/config.service'
 import { UpdateService } from './services/update.service'
 
-export function init (
-  configService: ConfigService,
-  rxdbService: RxDBService
-) {
-  return async () => {
-    configService.setup()
-    await rxdbService.setup()
-  }
-}
 @NgModule({
   imports: [
     CommonModule,
@@ -42,16 +33,7 @@ export function init (
   providers: [
     UpdateService,
     ConfigService,
-    RxDBService,
-    {
-      provide: APP_INITIALIZER,
-      multi: true,
-      useFactory: init,
-      deps: [
-        ConfigService,
-        RxDBService
-      ]
-    }
+    RxDBService
   ]
 })
 export class CoreModule {

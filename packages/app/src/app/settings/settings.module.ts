@@ -5,6 +5,8 @@ import { AceEditorModule } from 'ng2-ace-editor'
 import { ShellComponent } from './@shell/shell.component'
 import { GeneralComponent } from './general/general.component'
 import { PluginsComponent } from './plugins/plugins.component'
+import { CreateProfileComponent } from './profiles/create-profile/create-profile.component'
+import { ProfilesComponent } from './profiles/profiles.component'
 import { RawViewComponent } from './raw-view/raw-view.component'
 import { RemoteComponent } from './remote/remote.component'
 import { SettingsRoutes } from './settings.routes'
@@ -20,11 +22,14 @@ import { SettingsRoutes } from './settings.routes'
     GeneralComponent,
     PluginsComponent,
     RemoteComponent,
-    RawViewComponent
+    RawViewComponent,
+    ProfilesComponent,
+    CreateProfileComponent
   ],
   entryComponents: [
     RemoteComponent,
-    RawViewComponent
+    RawViewComponent,
+    CreateProfileComponent
   ]
 })
 export class SettingsModule { }

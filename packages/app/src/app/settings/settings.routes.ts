@@ -1,6 +1,7 @@
 import { ShellComponent } from './@shell/shell.component'
 import { GeneralComponent } from './general/general.component'
 import { PluginsComponent } from './plugins/plugins.component'
+import { ProfilesComponent } from './profiles/profiles.component'
 
 export const SettingsRoutes = [{
   path: '',
@@ -18,11 +19,17 @@ export const SettingsRoutes = [{
     },
     {
       path: 'plugins',
-
       data: {
         title: 'Plugins'
       },
       component: PluginsComponent
+    },
+    {
+      path: 'profiles',
+      data: {
+        title: 'Profiles'
+      },
+      component: ProfilesComponent
     },
     {
       path: '',

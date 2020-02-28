@@ -42,6 +42,12 @@ export class ConfigService {
 
   setup () {
     console.log('[ConfigService]', 'Initializing with env:', environment)
+
+    if (!this.profiles.length) {
+      console.log('[ConfigService]', 'No profiles are available. Abording!')
+      return
+    }
+
     console.log('[ConfigService]', 'Profiles available:', this.profiles)
 
     this.plugins = environment.plugins.map(p => {
@@ -50,14 +56,14 @@ export class ConfigService {
       return v
     })
 
-    if (!this.profiles.length) {
-      // await this.router.navigate(['/setup'])
-      return
+    if (!this.selected) {
+      console.log('[ConfigService]', 'No selected profile. Auto select first', this.profiles[0].name)
+      this.select(this.profiles[0].key)
     }
 
-    const profileIndex = this.profiles.findIndex(p => p.key === this.selected)
-    if (!this.selected || profileIndex === -1) {
-      this.selected = this.profiles[0].key
+    if (this.profiles.findIndex(p => p.key === this.selected) === -1) {
+      console.log('[ConfigService]', 'Selected profile not exist. Auto select first', this.profiles[0].name)
+      this.select(this.profiles[0].key)
     }
   }
 
@@ -67,12 +73,10 @@ export class ConfigService {
 
   clearAll () {
     this.selected = null
-    window.location.reload()
   }
 
-  select (alias: string) {
-    this.selected = alias
-    window.location.reload()
+  select (key: string) {
+    this.selected = key
   }
 
   save (profile: Profile): string {
