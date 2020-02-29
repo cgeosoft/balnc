@@ -38,7 +38,7 @@
                     <div *ngIf="m.text" class="py-2 px-3" [innerHTML]="m.text"></div>
                     <div *ngIf="m.file">
                       <img *ngIf="previews[m._id].base64" [src]="previews[m._id].base64" alt="m.file"
-                        class="img-fluid mb-1" (load)="scrollToBottom()">
+                        class="img-fluid img-preview mb-1" (load)="scrollToBottom()">
                       <ul class="list-inline mb-0 p-2">
                         <li class="list-inline-item text-primary">
                           <fa-icon icon="arrow-alt-circle-down"></fa-icon>
