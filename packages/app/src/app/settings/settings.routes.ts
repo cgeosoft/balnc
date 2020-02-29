@@ -1,4 +1,5 @@
 import { ShellComponent } from './@shell/shell.component'
+import { DebugComponent } from './debug/debug.component'
 import { GeneralComponent } from './general/general.component'
 import { PluginsComponent } from './plugins/plugins.component'
 import { ProfilesComponent } from './profiles/profiles.component'
@@ -30,6 +31,12 @@ export const SettingsRoutes = [{
         title: 'Profiles'
       },
       component: ProfilesComponent
+    },    {
+      path: 'debug',
+      data: {
+        title: 'Debug'
+      },
+      component: DebugComponent
     },
     {
       path: '',

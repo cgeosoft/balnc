@@ -3,7 +3,6 @@ import { ConfigService, RxDBService } from '@balnc/core'
 import { BPlugin, ConfirmDialogComponent, Helpers, Profile } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ReadFile } from 'ngx-file-helpers'
-import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-settings-shell',
@@ -36,12 +35,19 @@ export class ShellComponent implements OnInit {
       icon: 'swatchbook',
       type: 'button',
       label: 'Profiles'
+    },{
+      type: 'divider'
+    },
+    {
+      url: '/settings/debug',
+      icon: 'code',
+      type: 'button',
+      label: 'Debug'
     }]
   }
 
   constructor (
     public configService: ConfigService,
-    private toastr: ToastrService,
     private modal: NgbModal,
     private dbService: RxDBService
   ) { }

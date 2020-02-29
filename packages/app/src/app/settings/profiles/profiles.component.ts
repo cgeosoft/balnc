@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr'
 import { CreateProfileComponent } from './create-profile/create-profile.component'
 
 @Component({
-  selector: 'app-profiles',
+  selector: 'app-settings-profiles',
   templateUrl: './profiles.component.html'
 })
 export class ProfilesComponent {

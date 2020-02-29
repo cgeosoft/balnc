@@ -4,7 +4,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService } from './../../@core/services/config.service'
 
 @Component({
-  selector: 'app-raw-view',
+  selector: 'app-settings-raw-view',
   templateUrl: './raw-view.component.html'
 })
 export class RawViewComponent implements OnInit {
