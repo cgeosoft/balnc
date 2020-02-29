@@ -4,8 +4,8 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body p-0">
+<div class="modal-body p-0 border" [ngClass]="{'border-danger':err}">
   <ace-editor [(text)]="source" [mode]="'json'" [theme]="'tomorrow'" [options]="options" [readOnly]="false"
-    [autoUpdateContent]="true" [durationBeforeCallback]="1000" (textChanged)="save($event)"
+    [autoUpdateContent]="true" [durationBeforeCallback]="1000" (textChanged)="save()"
     style="min-height: 200px; width:100%; overflow: auto;"></ace-editor>
 </div>

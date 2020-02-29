@@ -27,7 +27,7 @@ export class RawViewComponent implements OnInit {
     this.source = JSON.stringify(this.profile, null, 2)
   }
 
-  save ($event) {
+  save () {
     try {
       this.err = false
       const profile = JSON.parse(this.source)

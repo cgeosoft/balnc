@@ -29,7 +29,7 @@ export class ConfigService {
 
   get username (): string {
     const p = this.profile
-    return p.remote.username || 'anonymous'
+    return p.db ? p.db.username : null
   }
 
   get enabled () {

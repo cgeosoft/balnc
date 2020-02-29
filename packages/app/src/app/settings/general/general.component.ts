@@ -42,10 +42,6 @@ export class GeneralComponent implements OnInit {
 
   async ngOnInit () {
     this.profile = this.configService.profile
-    if (this.profile.remote.key) {
-      // await this.getRemote()
-    }
-
     this.signalService
       .events(Signal.DEMO_COMPLETED)
       .subscribe(() => {
@@ -77,6 +73,7 @@ export class GeneralComponent implements OnInit {
 
   async delete () {
     if (!confirm('Are you sure?')) return
+    await this.rxdbService.remove(this.profile.key)
     this.configService.remove(this.profile.key)
     this.configService.selected = null
 
@@ -90,7 +87,7 @@ export class GeneralComponent implements OnInit {
 
   async toggleRemote () {
     if (!confirm('Are you sure?')) return
-    this.profile.remote.enabled = !this.profile.remote.enabled
+    this.profile.db.remote = !this.profile.db.remote
     this.configService.save(this.profile)
     await this.router.navigateByUrl('/')
   }
@@ -105,30 +102,30 @@ export class GeneralComponent implements OnInit {
     const m = this.modal.open(RemoteComponent, { backdrop: 'static' })
     m.componentInstance.profile = this.profile
     const remote = await m.result
-    this.profile.remote = remote
+    this.profile.db = remote
     this.configService.save(this.profile)
     await this.router.navigateByUrl('/')
   }
 
   // async getRemote () {
   //   const manifest = await this.http
-  //     .get<{ members: string[] }>(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
-  //       headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.token) }
+  //     .get<{ members: string[] }>(`${this.profile.data.server}/profiles/${this.profile.data.key}`, {
+  //       headers: { Authorization: 'Basic ' + btoa(this.profile.data.username + ':' + this.profile.data.token) }
   //     }).toPromise()
-  //   this.profile.remote.members = manifest.members
+  //   this.profile.data.members = manifest.members
   // }
 
   // async addMember (username) {
   //   if (!username) return
   //   if (!confirm('Are you sure?')) return
-  //   this.profile.remote.members.push(username)
-  //   this.profile.remote.members = this.profile.remote.members.filter((v, i) => this.profile.remote.members.indexOf(v) === i)
+  //   this.profile.data.members.push(username)
+  //   this.profile.data.members = this.profile.data.members.filter((v, i) => this.profile.data.members.indexOf(v) === i)
   //   await this.http
-  //     .put(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
-  //       name: this.profile.remote.name,
-  //       members: this.profile.remote.members
+  //     .put(`${this.profile.data.server}/profiles/${this.profile.data.key}`, {
+  //       name: this.profile.data.name,
+  //       members: this.profile.data.members
   //     }, {
-  //       headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.token) }
+  //       headers: { Authorization: 'Basic ' + btoa(this.profile.data.username + ':' + this.profile.data.token) }
   //     }).toPromise()
   //   await this.getRemote()
   // }
@@ -136,13 +133,13 @@ export class GeneralComponent implements OnInit {
   // async removeMember (username) {
   //   if (!username) return
   //   if (!confirm('Are you sure?')) return
-  //   this.profile.remote.members = this.profile.remote.members.filter((v, i) => v !== username)
+  //   this.profile.data.members = this.profile.data.members.filter((v, i) => v !== username)
   //   await this.http
-  //     .put(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
-  //       name: this.profile.remote.name,
-  //       members: this.profile.remote.members
+  //     .put(`${this.profile.data.server}/profiles/${this.profile.data.key}`, {
+  //       name: this.profile.data.name,
+  //       members: this.profile.data.members
   //     }, {
-  //       headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.token) }
+  //       headers: { Authorization: 'Basic ' + btoa(this.profile.data.username + ':' + this.profile.data.token) }
   //     }).toPromise()
   //   await this.getRemote()
   // }

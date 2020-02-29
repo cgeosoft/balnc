@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { Component, OnInit } from '@angular/core'
+import { Component, HostBinding, OnInit } from '@angular/core'
 import { ConfigService } from '@balnc/core'
 import { Profile } from '@balnc/shared'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
@@ -24,6 +24,7 @@ interface RemoteProfile {
   templateUrl: './remote.component.html'
 })
 export class RemoteComponent implements OnInit {
+  @HostBinding('class') errorClass
 
   profile: Profile
   profiles: RemoteProfile[] = []
@@ -68,7 +69,7 @@ export class RemoteComponent implements OnInit {
 
   ngOnInit () {
     this.remote = {
-      ...this.config.profile.remote,
+      ...this.config.profile.db,
       ...{
         enabled: false,
         server: null,

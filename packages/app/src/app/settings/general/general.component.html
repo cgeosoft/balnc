@@ -43,40 +43,17 @@
           Some modules may require this option for them to work.
         </p>
         <button class="btn btn-primary" (click)="setupRemote()">Setup</button>
-        <ng-container *ngIf="profile.remote.key">
+        <ng-container *ngIf="profile.db">
           <dl class="row">
             <dt class="col-sm-3 text-right">Username:</dt>
-            <dd class="col-sm-9 text-monospace">{{profile.remote.username || ' - '}}&nbsp;</dd>
-            <dt class="col-sm-3 text-right">Name:</dt>
-            <dd class="col-sm-9 text-monospace">{{profile.remote.name || ' - '}} <small>owner:
-                {{profile.remote.owner}}</small>
-            </dd>
+            <dd class="col-sm-9 text-monospace">{{profile.db.username || ' - '}}&nbsp;</dd>
             <dt class="col-sm-3 text-right">Server:</dt>
-            <dd class="col-sm-9 text-monospace">{{profile.remote.server || ' - '}}&nbsp;</dd>
+            <dd class="col-sm-9 text-monospace">{{profile.db.host || ' - '}}&nbsp;</dd>
             <dt class="col-sm-3 text-right">Database:</dt>
-            <dd class="col-sm-9 text-monospace">{{profile.remote.db || ' - '}}/{{profile.remote.key}}&nbsp;</dd>
-
-            <dt class="col-sm-3 text-right">Members:</dt>
-            <dd class="col-sm-9 text-monospace">
-              <ul class="list-unstyled mb-0">
-                <li class="d-flex" *ngFor="let member of profile.remote.members">
-                  <div class="flex-grow-1">
-                    {{member}}
-                  </div>
-                  <fa-icon (click)="removeMember(member)" icon="trash-alt" class="ml-2 text-danger">
-                  </fa-icon>
-                </li>
-                <li class="d-flex">
-                  <span #newmember class="bg-light rounded d-block flex-grow-1 pl-1" contenteditable="true"></span>
-                  <fa-icon (click)="addMember(newmember.innerText);newmember.innerText=''" icon="plus-circle"
-                    class="ml-2 text-success">
-                  </fa-icon>
-                </li>
-              </ul>
-            </dd>
+            <dd class="col-sm-9 text-monospace">{{profile.db.key || ' - '}}&nbsp;</dd>
             <dt class="col-sm-3 text-right">Sync:</dt>
             <dd class="col-sm-9 mb-0">
-              <ng-container [ngSwitch]="profile.remote.enabled">
+              <ng-container [ngSwitch]="profile.db.remote">
                 <div *ngSwitchCase="true" class="d-flex align-items-center">
                   <div>
                     Remote sync is <span class="badge badge-success">ENABLED</span><br>

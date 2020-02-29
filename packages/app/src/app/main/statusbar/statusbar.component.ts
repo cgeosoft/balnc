@@ -51,6 +51,10 @@ export class StatusbarComponent implements OnInit {
     return this.configService.version
   }
 
+  get username () {
+    return this.configService.username || 'anon'
+  }
+
   get build () {
     return this.configService.build
   }

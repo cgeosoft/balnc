@@ -6,11 +6,12 @@ import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterIdb from 'pouchdb-adapter-idb'
 import * as AdapterMemory from 'pouchdb-adapter-memory'
 // import { PouchFind } from 'pouchdb-find'
-import { RxDatabase } from 'rxdb'
+import { RxCollection, RxDatabase } from 'rxdb'
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
 import AttachmentsPlugin from 'rxdb/plugins/attachments'
 import RxDB from 'rxdb/plugins/core'
 import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages'
+import InMemoryPlugin from 'rxdb/plugins/in-memory'
 import JsonDumpPlugin from 'rxdb/plugins/json-dump'
 import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
 import RxDBReplicationModule from 'rxdb/plugins/replication'
@@ -41,23 +42,31 @@ RxDB.plugin(AdapterIdb)
 RxDB.plugin(AdapterMemory)
 RxDB.plugin(RxDBUpdateModule)
 RxDB.plugin(RxDBReplicationGraphQL)
+RxDB.plugin(InMemoryPlugin)
 // RxDB.plugin(PouchFind)
 
 @Injectable()
 export class RxDBService {
 
   public db: RxDatabase
-  private replicationState: RxGraphQLReplicationState
-  private profile: Profile
+  private repStateGQL: RxGraphQLReplicationState
+  repStateCouch: any
+  entities: RxCollection
 
   get http () {
     return this.injector.get(HttpClient)
   }
+
   get configService () {
     return this.injector.get(ConfigService)
   }
+
   get toastr () {
     return this.injector.get(ToastrService)
+  }
+
+  get profile (): Profile {
+    return { ...{ db: {} }, ...this.configService.profile }
   }
 
   constructor (
@@ -66,19 +75,9 @@ export class RxDBService {
   }
 
   async setup () {
-    this.profile = {
-      ...{
-        key: 'default',
-        data: {
-          persist: true
-        },
-        remote: {
-          enabled: false
-        }
-      }, ...this.configService.profile
-    }
+
     if (!this.profile) {
-      console.log('[DatabaseService]', `There is not a selected profile`)
+      console.log('[DatabaseService]', `There is not a selected profile. Abord!`)
       return
     }
 
@@ -89,9 +88,10 @@ export class RxDBService {
     try {
       this.db = await RxDB.create({
         name: `balnc_${this.profile.key}`,
-        adapter: 'memory'
+        adapter: 'idb'
       })
     } catch (err) {
+      console.log('[DatabaseService]', `Database exist: balnc_${this.profile.key}`)
       return
     }
 
@@ -101,19 +101,39 @@ export class RxDBService {
       migrationStrategies: Migrations
     })
 
-    console.log('[DatabaseService]', `Sync entities`)
-
-    if (!this.profile.remote.enabled) {
-      return
+    if (this.profile.db.remote) {
+      console.log('[DatabaseService]', `Sync entities`)
+      this.enableRemote()
     }
 
-    // if (this.config.username) {
-    //   await this.authenticate(this.config.username, this.config.password)
-    // }
+    if (this.profile.db.cache) {
+      console.log('[DatabaseService]', `Enable cache mode`)
+      this.entities = await this.db.entities.inMemory()
+    } else {
+      this.entities = this.db.entities
+    }
+  }
 
+  enableRemote () {
+    if (this.profile.db.type === 'graphql') {
+      this.enableRemoteGraphql()
+    } else if (this.profile.db.type === 'couch') {
+      this.enableRemoteCouch()
+    } else {
+      console.log('[DatabaseService]', `Could not sync with data type ${this.profile.db.type}`)
+    }
+  }
+
+  enableRemoteCouch () {
+    this.repStateCouch = this.db.entities.sync({
+      remote: `${this.profile.db.host}/balnc_${this.profile.db.key}`
+    })
+  }
+
+  enableRemoteGraphql () {
     console.log('sync with syncGraphQL')
 
-    this.replicationState = this.db.entities.syncGraphQL({
+    this.repStateGQL = this.db.entities.syncGraphQL({
       url: 'http://127.0.0.1:10102/graphql',
       push: {
         batchSize: 5,
@@ -168,9 +188,15 @@ export class RxDBService {
     })
   }
 
-  async authenticate (username: string, password: string) {
-    return this.http.post(`${this.profile.remote.host}/_session`, {
-      name: username,
+  needAuthenticate () {
+    if (!this.profile.db.remote) return
+    if (!this.profile.db.username || !this.profile.db.host) return
+    return true
+  }
+
+  async authenticate (password: string) {
+    return this.http.post(`${this.profile.db.host}/_session`, {
+      name: this.profile.db.username,
       password: password
     }, { withCredentials: true })
       .toPromise()
@@ -180,8 +206,6 @@ export class RxDBService {
   }
 
   async remove (profileKey: string) {
-    if (this.profile.cache) {
-      await RxDB.removeDatabase(`balnc_${profileKey}`, 'idb')
-    }
+    await RxDB.removeDatabase(`balnc_${profileKey}`, 'idb')
   }
 }

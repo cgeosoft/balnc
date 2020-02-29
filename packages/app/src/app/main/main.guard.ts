@@ -16,6 +16,12 @@ export class MainGuard implements CanActivate {
       return false
     }
     this.configService.setup()
+
+    if (this.rxdbService.needAuthenticate()) {
+      const password = prompt('remote data password')
+      await this.rxdbService.authenticate(password)
+    }
+
     await this.rxdbService.setup()
     return true
   }

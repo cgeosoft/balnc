@@ -28,7 +28,7 @@
   <div class="item" ngbTooltip="current user">
     <fa-layers class="fa-fw">
       <fa-icon icon="user"></fa-icon>
-    </fa-layers> {{profile.remote.username || '- none -'}}
+    </fa-layers> {{username || '- none -'}}
   </div>
   <div ngbDropdown placement="top-right" container="body">
     <button class="item" [ngbTooltip]="status" ngbDropdownToggle>
