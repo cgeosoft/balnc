@@ -5,19 +5,20 @@ import { ConfigService, RxDBService } from '@balnc/core'
 @Injectable()
 export class MainGuard implements CanActivate {
 
-  constructor (
+  constructor(
     private rxdbService: RxDBService,
     private configService: ConfigService,
     private router: Router) { }
 
-  async canActivate () {
+  async canActivate() {
     if (!this.configService.profiles.length) {
       await this.router.navigate(['/setup'])
       return false
     }
     this.configService.setup()
 
-    if (this.rxdbService.needAuthenticate()) {
+    const needAuthenticate = await this.rxdbService.needAuthenticate()
+    if (needAuthenticate) {
       const password = prompt('remote data password')
       await this.rxdbService.authenticate(password)
     }

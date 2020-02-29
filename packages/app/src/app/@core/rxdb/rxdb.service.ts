@@ -188,9 +188,23 @@ export class RxDBService {
     })
   }
 
-  needAuthenticate () {
+  async needAuthenticate () {
     if (!this.profile.db.remote) return
     if (!this.profile.db.username || !this.profile.db.host) return
+    if (this.profile.db.type === 'graphql') {
+      // todo
+    } else if (this.profile.db.type === 'couch') {
+      const resp = await this.http.get(`${this.profile.db.host}/_session`,{ withCredentials: true }).toPromise().catch(() => false)
+      console.log(resp)
+      if (!resp) {
+        console.log(`No response from ${this.profile.db.host}/_session. Disable remote`)
+        return false
+      }
+      if (resp['userCtx'].name) {
+        console.log(`Already authenticated`)
+        return false
+      }
+    }
     return true
   }
 
