@@ -34,7 +34,7 @@
                 <div class="msg-item" [ngClass]="{'own':m.sender === nickname}">
                   <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png"
                     [ngbTooltip]="m.sender" placement="bottom" container="body">
-                  <div class="msg-body" [ngbTooltip]="m._timestamp | date:'medium'" placement="bottom" container="body">
+                  <div class="msg-body" [ngbTooltip]="m._date | date:'medium'" placement="top" container="body">
                     <div *ngIf="m.text" class="py-2 px-3" [innerHTML]="m.text"></div>
                     <div *ngIf="m.file">
                       <img *ngIf="previews[m._id].base64" [src]="previews[m._id].base64" alt="m.file"
@@ -66,8 +66,8 @@
               <ng-container *ngSwitchCase="'CMD-CREATE'">
                 <div class="msg-command">
                   <strong>{{m.sender}}</strong> created
-                  <strong>{{m.board}}</strong> at
-                  <strong>{{m._timestamp|date:'medium'}}</strong>
+                  <strong>{{m._group}}</strong> at
+                  <strong>{{m._date|date:'medium'}}</strong>
                 </div>
               </ng-container>
               <ng-container *ngSwitchDefault>

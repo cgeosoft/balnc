@@ -1,9 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Observable, Subject } from 'rxjs'
-import { mergeMap, tap } from 'rxjs/operators'
-import { RepositoryHelpers } from 'src/app/@core/services/repository.helpers'
+import { Observable, Subject, Subscription } from 'rxjs'
+import { mergeMap } from 'rxjs/operators'
 import { Board } from '../@shared/models/board'
 import { Message, OgMetadata } from '../@shared/models/message'
 import { BoardsRepo } from '../@shared/repos/boards.repo'
@@ -17,7 +16,7 @@ const urlRegex = /(https?:\/\/[^\s]+)/g
   styleUrls: ['./board.component.scss']
 
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy  {
 
   @ViewChild('messageList') messageList: ElementRef
   @ViewChild('messageInput') messageInput: ElementRef
@@ -37,13 +36,16 @@ export class BoardComponent implements OnInit {
       blob?: Blob
     }
   } = {}
+  sub: Subscription
 
   constructor (
     private boardsRepo: BoardsRepo,
     private messagesRepo: MessagesRepo,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private zone: NgZone,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit () {
@@ -53,10 +55,9 @@ export class BoardComponent implements OnInit {
       this.boardsRepo.selected = this.selected
       this.board$ = this.boardsRepo.one$(this.selected)
       this.messages$ = this.messagesRepo
-        .all$({ group: this.selected })
+        .allm$({ group: this.selected })
         .pipe(
-          mergeMap(async (data) => {
-            const messages: Message[] = data.map(d => RepositoryHelpers.mapEntity(d))
+          mergeMap(async (messages) => {
             messages.sort((a, b) => a._date - b._date)
             const ps = messages.map(async (msg, i) => {
               if (!this.previews[msg._id]) {
@@ -77,15 +78,21 @@ export class BoardComponent implements OnInit {
             })
             await Promise.all(ps)
             return messages
-          }),
-          tap(() => {
-            setTimeout(() => {
-              this.scrollToBottom()
-              this.focusInput()
-            }, 100)
           })
         )
+
+      this.sub = this.messages$.subscribe(() => {
+        setTimeout(() => {
+          this.cdr.detectChanges()
+          this.scrollToBottom()
+          this.focusInput()
+        }, 100)
+      })
     })
+  }
+
+  ngOnDestroy () {
+    this.sub.unsubscribe()
   }
 
   // selectBoard(boardId) {
@@ -210,6 +217,10 @@ export class BoardComponent implements OnInit {
     if (!confirm('Are you sure?')) return
     await this.boardsRepo.remove(this.selected)
     await this.router.navigate(['/boards'])
+  }
+
+  async toggleMark (id: string) {
+    await this.boardsRepo.mark(id)
   }
 
   scrollToBottom (): void {
