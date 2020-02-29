@@ -3,19 +3,14 @@ export type Profile = {
   key: string
   name: string
   createdAt?: number
-  data: {
-    persist: boolean
-  }
-  remote: {
-    enabled: boolean
+  cache?: boolean
+  remote?: {
+    enabled?: boolean
+    host?: string
     key?: string
-    name?: string
-    server?: string
-    db?: string
+    type?: 'couch' | 'graphql'
     username?: string
     token?: string
-    owner?: string
-    members?: string[]
   }
   plugins: { [key: string]: boolean }
   layout?: 'box' | 'fluid',
@@ -25,13 +20,7 @@ export type Profile = {
 export const DEMO_PROFILE: Profile = {
   key: 'default',
   name: 'default',
-  data: {
-    persist: true
-  },
-  remote: {
-    enabled: false,
-    username: 'John'
-  },
+  cache: true,
   plugins: {
     business: true,
     projects: true,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigService, RxDBService } from '@balnc/core'
-import { BPlugin, ConfirmDialogComponent, DEMO_PROFILE, Helpers, Profile } from '@balnc/shared'
+import { BPlugin, ConfirmDialogComponent, Helpers, Profile } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ReadFile } from 'ngx-file-helpers'
 import { ToastrService } from 'ngx-toastr'
@@ -63,35 +63,6 @@ export class ShellComponent implements OnInit {
     this.configService.clearAll()
   }
 
-  create () {
-    const key = this.configService.save({
-      key: null,
-      name: Helpers.generateName(),
-      data: {
-        persist: true
-      },
-      remote: {
-        enabled: false
-      },
-      plugins: {}
-    })
-    this.configService.select(key)
-  }
-
-  async import (file: ReadFile) {
-    const profile = this.configService.import(file)
-    if (!profile) {
-      this.toastr.error('Import failed')
-      return
-    }
-    const key = this.configService.save(profile)
-    this.configService.select(key)
-  }
-
-  activate (profileId) {
-    this.configService.select(profileId)
-  }
-
   async remove (profileId) {
 
     await this.modal.open(ConfirmDialogComponent, { size: 'sm' })
@@ -105,11 +76,6 @@ export class ShellComponent implements OnInit {
       })
   }
 
-  createDemo () {
-    const demo = this.configService.save(DEMO_PROFILE)
-    this.activate(demo)
-  }
-
   onFilePicked (file: ReadFile) {
     this.error = null
     try {
@@ -117,7 +83,7 @@ export class ShellComponent implements OnInit {
       const profileStr = atob(data)
       const profile = JSON.parse(profileStr)
       const key = this.configService.save(profile)
-      this.configService.select(alias)
+      this.configService.select(key)
     } catch (error) {
       this.error = 'File is corrupted'
       console.log('[ProfileComponent]', 'Error' + error)

@@ -43,7 +43,7 @@ export class GeneralComponent implements OnInit {
   async ngOnInit () {
     this.profile = this.configService.profile
     if (this.profile.remote.key) {
-      await this.getRemote()
+      // await this.getRemote()
     }
 
     this.signalService
@@ -110,42 +110,42 @@ export class GeneralComponent implements OnInit {
     await this.router.navigateByUrl('/')
   }
 
-  async getRemote () {
-    const manifest = await this.http
-      .get<{ members: string[] }>(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
-        headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.token) }
-      }).toPromise()
-    this.profile.remote.members = manifest.members
-  }
+  // async getRemote () {
+  //   const manifest = await this.http
+  //     .get<{ members: string[] }>(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
+  //       headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.token) }
+  //     }).toPromise()
+  //   this.profile.remote.members = manifest.members
+  // }
 
-  async addMember (username) {
-    if (!username) return
-    if (!confirm('Are you sure?')) return
-    this.profile.remote.members.push(username)
-    this.profile.remote.members = this.profile.remote.members.filter((v, i) => this.profile.remote.members.indexOf(v) === i)
-    await this.http
-      .put(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
-        name: this.profile.remote.name,
-        members: this.profile.remote.members
-      }, {
-        headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.token) }
-      }).toPromise()
-    await this.getRemote()
-  }
+  // async addMember (username) {
+  //   if (!username) return
+  //   if (!confirm('Are you sure?')) return
+  //   this.profile.remote.members.push(username)
+  //   this.profile.remote.members = this.profile.remote.members.filter((v, i) => this.profile.remote.members.indexOf(v) === i)
+  //   await this.http
+  //     .put(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
+  //       name: this.profile.remote.name,
+  //       members: this.profile.remote.members
+  //     }, {
+  //       headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.token) }
+  //     }).toPromise()
+  //   await this.getRemote()
+  // }
 
-  async removeMember (username) {
-    if (!username) return
-    if (!confirm('Are you sure?')) return
-    this.profile.remote.members = this.profile.remote.members.filter((v, i) => v !== username)
-    await this.http
-      .put(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
-        name: this.profile.remote.name,
-        members: this.profile.remote.members
-      }, {
-        headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.token) }
-      }).toPromise()
-    await this.getRemote()
-  }
+  // async removeMember (username) {
+  //   if (!username) return
+  //   if (!confirm('Are you sure?')) return
+  //   this.profile.remote.members = this.profile.remote.members.filter((v, i) => v !== username)
+  //   await this.http
+  //     .put(`${this.profile.remote.server}/profiles/${this.profile.remote.key}`, {
+  //       name: this.profile.remote.name,
+  //       members: this.profile.remote.members
+  //     }, {
+  //       headers: { Authorization: 'Basic ' + btoa(this.profile.remote.username + ':' + this.profile.remote.token) }
+  //     }).toPromise()
+  //   await this.getRemote()
+  // }
 
   exportProfile () {
     let a = document.createElement('a')

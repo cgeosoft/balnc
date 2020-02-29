@@ -7,11 +7,19 @@
 
       <app-toolbar>
         <button class="btn btn-primary" (click)="create()">New Profile</button>
+        <button class="btn btn-secondary" (click)="import()">Import</button>
       </app-toolbar>
       <ul class="list-group list-group-flush mt-4">
         <ng-container *ngFor="let p of profiles">
-          <li class="list-group-item d-flex justify-content-between">
-            <span>{{p.name}}</span>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <div>
+                <strong>{{p.name}}</strong>
+              </div>
+              <div>
+             <small> {{p.createdAt|date}}</small>
+              </div>
+            </div>
             <button class="btn btn-sm btn-primary" (click)="activate(p)">Activate</button>
           </li>
         </ng-container>

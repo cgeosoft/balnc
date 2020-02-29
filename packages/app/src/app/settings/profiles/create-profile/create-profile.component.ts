@@ -21,17 +21,7 @@ export class CreateProfileComponent {
 
   save () {
     this.configService.save({
-      key: null,
-      data: {
-        persist: true
-      },
-      name: this.name,
-      remote: {
-        enabled: false
-      },
-      plugins: {
-
-      }
+      name: this.name
     })
     this.activeModal.close()
   }

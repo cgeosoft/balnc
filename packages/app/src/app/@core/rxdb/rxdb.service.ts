@@ -89,7 +89,7 @@ export class RxDBService {
     try {
       this.db = await RxDB.create({
         name: `balnc_${this.profile.key}`,
-        adapter: this.profile.data.persist ? 'idb' : 'memory'
+        adapter: 'memory'
       })
     } catch (err) {
       return
@@ -169,7 +169,7 @@ export class RxDBService {
   }
 
   async authenticate (username: string, password: string) {
-    return this.http.post(`${this.profile.remote.db}/_session`, {
+    return this.http.post(`${this.profile.remote.host}/_session`, {
       name: username,
       password: password
     }, { withCredentials: true })
@@ -180,7 +180,7 @@ export class RxDBService {
   }
 
   async remove (profileKey: string) {
-    if (this.profile.data.persist) {
+    if (this.profile.cache) {
       await RxDB.removeDatabase(`balnc_${profileKey}`, 'idb')
     }
   }

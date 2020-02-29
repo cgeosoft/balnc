@@ -79,7 +79,7 @@ export class ConfigService {
     this.selected = key
   }
 
-  save (profile: Profile): string {
+  save (profile: Partial<Profile>): string {
     profile.key = profile.key || Helpers.uid()
     profile.createdAt = profile.createdAt || Date.now()
     let profiles = [...this.profiles]
@@ -87,7 +87,7 @@ export class ConfigService {
     if (index !== -1) {
       profiles.splice(index, 1)
     }
-    profiles.push(profile)
+    profiles.push(profile as Profile)
     this.profiles = profiles
     return profile.key
   }
