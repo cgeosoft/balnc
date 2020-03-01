@@ -7,9 +7,12 @@ import { InvoicesRepo } from './@shared/repos/invoices.repo'
 import { OrdersRepo } from './@shared/repos/orders.repo'
 import { RecordsRepo } from './@shared/repos/records.repo'
 import { TransactionsRepo } from './@shared/repos/transactions.repo'
+import { BusinessDemoService } from './@shared/services/demo.service'
 
 @NgModule({
   providers: [
+    BusinessDemoService,
+
     CEventsRepo,
     ContactsRepo,
     InvoicesRepo,

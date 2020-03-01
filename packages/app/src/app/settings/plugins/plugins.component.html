@@ -1,24 +1,22 @@
 <app-content>
-  <section class="title">
-    <div class="container">Plugins</div>
+  <section class="title container">
+    Manage Plugins
   </section>
-  <section class="full">
-    <div class="container">
-      <div class="list-settings">
-        <div class="list-settings-item" *ngFor="let p of plugins">
-          <div class="list-settings-icon">
-            <fa-icon [icon]="p.icon" [ngStyle]="{color:p.color}"></fa-icon>
-          </div>
-          <div class="list-settings-content">
-            <h5>{{p.title}}</h5>
-            <small class="text-muted">{{p.description}}</small>
-          </div>
-          <button class="btn btn-action"
-            [ngClass]="{'btn-outline-primary':!profile.plugins[p.id],'btn-outline-danger':profile.plugins[p.id]}"
-            (click)="switchStatus(p.id)">
-            {{profile.plugins[p.id]?'Deactivate':'Activate'}}
-          </button>
+  <section class="full container">
+    <div class="list-settings">
+      <div class="list-settings-item" *ngFor="let p of plugins">
+        <div class="list-settings-icon">
+          <fa-icon [icon]="p.icon" [ngStyle]="{color:p.color}"></fa-icon>
         </div>
+        <div class="list-settings-content">
+          <h5>{{p.title}}</h5>
+          <small class="text-muted">{{p.description}}</small>
+        </div>
+        <button class="btn btn-action"
+          [ngClass]="{'btn-outline-primary':!profile.plugins[p.id],'btn-outline-danger':profile.plugins[p.id]}"
+          (click)="switchStatus(p.id)">
+          {{profile.plugins[p.id]?'Deactivate':'Activate'}}
+        </button>
       </div>
     </div>
   </section>

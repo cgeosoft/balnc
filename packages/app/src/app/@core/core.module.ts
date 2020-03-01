@@ -6,6 +6,7 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
 import { ToastrModule } from 'ngx-toastr'
 import { RxDBService } from './rxdb/rxdb.service'
 import { ConfigService } from './services/config.service'
+import { SignalService } from './services/signal.service'
 import { UpdateService } from './services/update.service'
 
 @NgModule({
@@ -31,6 +32,7 @@ import { UpdateService } from './services/update.service'
     SharedModule
   ],
   providers: [
+    SignalService,
     UpdateService,
     ConfigService,
     RxDBService

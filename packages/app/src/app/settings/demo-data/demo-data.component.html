@@ -1,0 +1,30 @@
+<app-content>
+  <section class="title container">
+    Generate Random Data
+  </section>
+  <section class="no-border container">
+    <div class="alert alert-info">
+      <strong>This will generate random data.</strong><br>
+      We suggest to generate random data in a non-production
+      profile.
+    </div>
+    <app-toolbar>
+      <button class="btn btn-primary mr-2" [disabled]="demoWorking" (click)="generateDemoData()">Generate</button>
+      <button class="btn btn-link mr-2" [disabled]="demoWorking" (click)="clearDemoData()">Clear demo data</button>
+    </app-toolbar>
+  </section>
+  <section class="full container">
+    <ng-container *ngIf="(signalLogs$ | async) as logs; else noLogs">
+      <table class="table table-sm text-monospace">
+        <tr *ngFor="let log of logs">
+          <td style="width:200px">{{log.date|date:"yyyy-MM-dd HH:mm:ss"}}</td>
+          <td>{{log.message}}</td>
+        </tr>
+      </table>
+    </ng-container>
+  </section>
+</app-content>
+
+<ng-template #noLogs>
+  <app-empty message="No Logs"></app-empty>
+</ng-template>

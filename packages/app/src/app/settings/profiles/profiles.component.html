@@ -1,31 +1,32 @@
 <app-content>
-  <section class="title">
-    <div class="container">Profiles</div>
+  <section class="title container">
+    Manage Profiles
   </section>
-  <section class="full">
-    <div class="container">
-
-      <app-toolbar>
-        <button class="btn btn-primary" (click)="create()">
-          <fa-icon icon="plus"></fa-icon> Create</button>
-        <button class="btn btn-link" ngxFilePicker accept="application/json" (filePick)="import($event)">
-          <fa-icon icon="cloud-upload-alt"></fa-icon> Import</button>
-      </app-toolbar>
-      <ul class="list-group list-group-flush mt-4">
-        <ng-container *ngFor="let p of profiles">
-          <li class="list-group-item d-flex justify-content-between align-items-center">
+  <section class="container no-border">
+    <app-toolbar>
+      <button class="btn btn-primary" (click)="create()">
+        <fa-icon icon="plus"></fa-icon> Create
+      </button>
+      <button class="btn btn-link" ngxFilePicker accept="application/json" (filePick)="import($event)">
+        <fa-icon icon="cloud-upload-alt"></fa-icon> Import
+      </button>
+    </app-toolbar>
+  </section>
+  <section class="full container">
+    <ul class="list-group list-group-flush">
+      <ng-container *ngFor="let p of profiles">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
             <div>
-              <div>
-                <strong>{{p.name}}</strong>
-              </div>
-              <div>
-             <small> {{p.createdAt|date}}</small>
-              </div>
+              <strong>{{p.name}}</strong>
             </div>
-            <button class="btn btn-sm btn-primary" (click)="activate(p)">Activate</button>
-          </li>
-        </ng-container>
-      </ul>
-    </div>
+            <div>
+              <small> {{p.createdAt|date}}</small>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-primary" (click)="activate(p)">Activate</button>
+        </li>
+      </ng-container>
+    </ul>
   </section>
 </app-content>

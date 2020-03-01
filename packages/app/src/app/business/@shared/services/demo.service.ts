@@ -37,7 +37,7 @@ export class BusinessDemoService {
       .subscribe(async () => {
         await this.clear()
       })
-    this.message('demo service loaded')
+    this.message('business demo service loaded')
   }
 
   private async generate () {

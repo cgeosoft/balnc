@@ -22,27 +22,34 @@ export class ShellComponent implements OnInit {
       url: '/settings/general',
       icon: 'cog',
       type: 'button',
-      label: 'General'
-    },
-    {
+      label: 'General Options'
+    }, {
       url: '/settings/plugins',
       icon: 'box',
       type: 'button',
-      label: 'Plugins'
-    },
-    {
+      label: 'Manage Plugins'
+    }, {
+      url: '/settings/remote',
+      icon: 'cog',
+      type: 'button',
+      label: 'Remote Options'
+    }, {
+      url: '/settings/demo-data',
+      icon: 'cog',
+      type: 'button',
+      label: 'Demo Data'
+    }, {
+      type: 'divider'
+    }, {
       url: '/settings/profiles',
       icon: 'swatchbook',
       type: 'button',
-      label: 'Profiles'
-    },{
-      type: 'divider'
-    },
-    {
-      url: '/settings/debug',
+      label: 'Manage Profiles'
+    }, {
+      url: '/settings/developer',
       icon: 'code',
       type: 'button',
-      label: 'Debug'
+      label: 'Developer'
     }]
   }
 

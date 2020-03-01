@@ -3,7 +3,8 @@ import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
 import { AceEditorModule } from 'ng2-ace-editor'
 import { ShellComponent } from './@shell/shell.component'
-import { DebugComponent } from './debug/debug.component'
+import { DemoDataComponent } from './demo-data/demo-data.component'
+import { DeveloperComponent } from './developer/developer.component'
 import { GeneralComponent } from './general/general.component'
 import { PluginsComponent } from './plugins/plugins.component'
 import { CreateProfileComponent } from './profiles/create-profile/create-profile.component'
@@ -26,10 +27,10 @@ import { SettingsRoutes } from './settings.routes'
     RawViewComponent,
     ProfilesComponent,
     CreateProfileComponent,
-    DebugComponent
+    DeveloperComponent,
+    DemoDataComponent
   ],
   entryComponents: [
-    RemoteComponent,
     RawViewComponent,
     CreateProfileComponent
   ]

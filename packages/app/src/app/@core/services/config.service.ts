@@ -28,8 +28,7 @@ export class ConfigService {
   }
 
   get username (): string {
-    const p = this.profile
-    return p.db ? p.db.username : null
+    return this.profile?.db?.remote?.username
   }
 
   get enabled () {

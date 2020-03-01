@@ -4,16 +4,19 @@ export type Profile = {
   name: string
   createdAt?: number
   plugins: { [key: string]: boolean }
-  layout?: 'box' | 'fluid',
-  analytics?: boolean,
+  layout?: 'box' | 'fluid'
+  errorReport?: boolean
+  analytics?: boolean
   db?: {
     cache?: boolean
-    remote?: boolean
-    host?: string
-    key?: string
-    type?: 'couch' | 'graphql'
-    username?: string
-    token?: string
+    remote?: {
+      type?: 'local' | 'couch' | 'graphql'
+      enabled?: boolean
+      host?: string
+      key?: string
+      username?: string
+      token?: string
+    }
   }
 }
 
@@ -30,5 +33,6 @@ export const DEMO_PROFILE: Profile = {
     reports: true
   },
   layout: 'box',
+  errorReport: false,
   analytics: false
 }

@@ -1,8 +1,10 @@
 import { ShellComponent } from './@shell/shell.component'
-import { DebugComponent } from './debug/debug.component'
+import { DemoDataComponent } from './demo-data/demo-data.component'
+import { DeveloperComponent } from './developer/developer.component'
 import { GeneralComponent } from './general/general.component'
 import { PluginsComponent } from './plugins/plugins.component'
 import { ProfilesComponent } from './profiles/profiles.component'
+import { RemoteComponent } from './remote/remote.component'
 
 export const SettingsRoutes = [{
   path: '',
@@ -10,38 +12,45 @@ export const SettingsRoutes = [{
   data: {
     title: 'Settings'
   },
-  children: [
-    {
-      path: 'general',
-      data: {
-        title: 'General'
-      },
-      component: GeneralComponent
+  children: [{
+    path: 'general',
+    data: {
+      title: 'General'
     },
-    {
-      path: 'plugins',
-      data: {
-        title: 'Plugins'
-      },
-      component: PluginsComponent
+    component: GeneralComponent
+  }, {
+    path: 'plugins',
+    data: {
+      title: 'Plugins'
     },
-    {
-      path: 'profiles',
-      data: {
-        title: 'Profiles'
-      },
-      component: ProfilesComponent
-    },    {
-      path: 'debug',
-      data: {
-        title: 'Debug'
-      },
-      component: DebugComponent
+    component: PluginsComponent
+  }, {
+    path: 'profiles',
+    data: {
+      title: 'Profiles'
     },
-    {
-      path: '',
-      pathMatch: 'full',
-      redirectTo: '/settings/general'
-    }
-  ]
+    component: ProfilesComponent
+  }, {
+    path: 'developer',
+    data: {
+      title: 'Debug'
+    },
+    component: DeveloperComponent
+  }, {
+    path: 'demo-data',
+    data: {
+      title: 'Demo Data'
+    },
+    component: DemoDataComponent
+  }, {
+    path: 'remote',
+    data: {
+      title: 'remote'
+    },
+    component: RemoteComponent
+  }, {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/settings/general'
+  }]
 }]

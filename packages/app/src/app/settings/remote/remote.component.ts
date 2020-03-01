@@ -1,23 +1,8 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, HostBinding, OnInit } from '@angular/core'
-import { ConfigService } from '@balnc/core'
-import { Profile } from '@balnc/shared'
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { ConfigService, RxDBService } from '@balnc/core'
 import { ToastrService } from 'ngx-toastr'
 import { environment } from '../../../environments/environment'
-
-interface RemoteStatus {
-  started: Date
-  db: string
-}
-
-interface RemoteProfile {
-  key: string
-  name?: string
-  created?: number
-  owner?: string
-  members?: string[]
-}
 
 @Component({
   selector: 'app-settings-remote',
@@ -26,9 +11,8 @@ interface RemoteProfile {
 export class RemoteComponent implements OnInit {
   @HostBinding('class') errorClass
 
-  profile: Profile
-  profiles: RemoteProfile[] = []
-
+  // profiles: RemoteProfile[] = []
+  seperator
   wizard = {
     active: 'server',
     steps: [
@@ -44,76 +28,80 @@ export class RemoteComponent implements OnInit {
   }
   authView = 'login'
   servers = environment.servers
-  remote: any
 
-  constructor (
-    private http: HttpClient,
-    private activeModal: NgbActiveModal,
-    private toastr: ToastrService,
-    private config: ConfigService
-  ) { }
+  remote: any = {}
 
-  get localProfile () {
-    return this.config.profile
-  }
-
-  get remoteProfile () {
-    if (!this.remote.key) return {}
-    return this.profiles.find(p => p.key === this.remote.key)
+  get profile () {
+    return this.configService.profile
   }
 
   get isDemo () {
+    if (!this.remote?.host) return false
     const demoServer = environment.servers.find(s => s.label === 'Demo Server')
-    return demoServer.url === this.remote.server
+    return demoServer.url === this.remote?.host
   }
+
+  constructor (
+    private http: HttpClient,
+    private toastr: ToastrService,
+    private configService: ConfigService,
+    private rxdbService: RxDBService
+  ) { }
 
   ngOnInit () {
-    this.remote = {
-      ...this.config.profile.db,
-      ...{
-        enabled: false,
-        server: null,
-        username: null,
-        token: null
-      }
-    }
+    this.remote = { ...this.profile.db?.remote || {} }
   }
 
-  save () {
-    this.activeModal.close(this.remote)
+  async apply () {
+    this.configService.profile.db.remote = { ...this.remote }
+    this.configService.save(this.profile)
+    this.remote = { ...this.profile.db?.remote || {} }
+    await this.rxdbService.setup()
   }
 
-  dismiss () {
-    this.activeModal.dismiss()
+  async toggleStatus () {
+    if (!confirm('Are you sure?')) return
+    this.configService.profile.db.remote.enabled = !this.remote.enabled
+    this.configService.save(this.profile)
+    this.remote = { ...this.profile.db?.remote || {} }
+    await this.rxdbService.setup()
   }
 
-  async verify (server) {
-    this.loading.verifing = true
-    const _server = server.trim().replace(/\/$/, '')
-    await this.http
-      .get(`${_server}/status`)
-      .toPromise()
-      .then((result: RemoteStatus) => {
-        this.remote.db = result.db
-        this.wizard.active = 'auth'
-      })
-      .catch((err) => {
-        this.toastr.error(err.message)
-      })
-    this.loading.verifing = false
+  async setupRemote () {
+    // const m = this.modal.open(RemoteComponent, { backdrop: 'static' })
+    // m.componentInstance.profile = this.profile
+    // const remote = await m.result
+    // this.profile.db = remote
+    // this.configService.save(this.profile)
+    // await this.router.navigateByUrl('/')
   }
+  // async verify (server) {
+  //   this.loading.verifing = true
+  //   const _server = server.trim().replace(/\/$/, '')
+  //   await this.http
+  //     .get(`${_server}/status`)
+  //     .toPromise()
+  //     .then((result: RemoteStatus) => {
+  //       this.profile.db.host = result.db
+  //       this.wizard.active = 'auth'
+  //     })
+  //     .catch((err) => {
+  //       this.toastr.error(err.message)
+  //     })
+  //   this.loading.verifing = false
+  // }
 
-  async register (username, password) {
+  async registerCouchDB (username, password) {
     this.loading.auth = true
     const _username = username.trim()
     const _password = password.trim()
     await this.http
-      .put(`${this.remote.db}/_users/org.couchdb.user:${_username}`,
+      .put(`${this.profile.db}/_users/org.couchdb.user:${_username}`,
         { name: _username, password: _password, roles: [], type: 'user' }
       )
       .toPromise()
       .then(async () => {
-        await this.login(_username, _password)
+        // await this.login(_username, _password)
         this.authView = 'login'
       })
       .catch((response) => {
@@ -122,100 +110,96 @@ export class RemoteComponent implements OnInit {
     this.loading.auth = false
   }
 
-  async login (username, password) {
-    this.loading.auth = true
+  // async login (username, password) {
+  //   this.loading.auth = true
 
-    const _username = username.trim()
-    const _password = password.trim()
+  //   const _username = username.trim()
+  //   const _password = password.trim()
 
-    await this.http
-      .get(`${this.remote.server}/profiles`, {
-        headers: { Authorization: 'Basic ' + btoa(_username + ':' + _password) }
-      })
-      .toPromise()
-      .then((response: { profiles: string[] }) => {
-        this.profiles = response.profiles
-          .map(p => {
-            return {
-              key: p
-            }
-          })
-        this.remote.username = _username
-        this.remote.token = _password
-        this.wizard.active = 'link'
-        return this.loadProfiles()
-      })
-      .catch((response) => {
-        this.toastr.error(response.error.reason, response.error.error)
-      })
-    this.loading.auth = false
-  }
+  //   await this.http
+  //     .get(`${this.profile.server}/profiles`, {
+  //       headers: { Authorization: 'Basic ' + btoa(_username + ':' + _password) }
+  //     })
+  //     .toPromise()
+  //     .then((response: { profiles: string[] }) => {
+  //       this.profiles = response.profiles
+  //         .map(p => {
+  //           return {
+  //             key: p
+  //           }
+  //         })
+  //       this.profile.username = _username
+  //       this.profile.token = _password
+  //       this.wizard.active = 'link'
+  //       return this.loadProfiles()
+  //     })
+  //     .catch((response) => {
+  //       this.toastr.error(response.error.reason, response.error.error)
+  //     })
+  //   this.loading.auth = false
+  // }
 
-  async createProfile (name) {
-    this.loading.auth = true
-    await this.http
-      .post(`${this.remote.server}/profiles`, {
-        name
-      }, {
-        headers: { Authorization: 'Basic ' + btoa(this.remote.username + ':' + this.remote.token) }
-      })
-      .toPromise()
-      .then((response: {
-        key: string,
-        dbs: string[],
-        owner: string
-      }) => {
-        return this.login(this.remote.username, this.remote.token)
-      })
-      .catch((response) => {
-        this.toastr.error(response.error.reason, response.error.error)
-      })
-    this.loading.auth = false
-  }
+  // async createProfile (name) {
+  //   this.loading.auth = true
+  //   await this.http
+  //     .post(`${this.profile.server}/profiles`, {
+  //       name
+  //     }, {
+  //       headers: { Authorization: 'Basic ' + btoa(this.profile.username + ':' + this.profile.token) }
+  //     })
+  //     .toPromise()
+  //     .then((response: {
+  //       key: string,
+  //       dbs: string[],
+  //       owner: string
+  //     }) => {
+  //       return this.login(this.profile.username, this.profile.token)
+  //     })
+  //     .catch((response) => {
+  //       this.toastr.error(response.error.reason, response.error.error)
+  //     })
+  //   this.loading.auth = false
+  // }
 
-  async loadProfiles () {
-    const loads = []
-    this.profiles.forEach(profile => {
-      const n = this.http
-        .get(`${this.remote.server}/profiles/${profile.key}`, {
-          headers: { Authorization: 'Basic ' + btoa(this.remote.username + ':' + this.remote.token) }
-        })
-        .toPromise()
-        .then((response: RemoteProfile) => {
-          profile = Object.assign(profile, response)
-        })
-      loads.push(n)
-    })
-    await Promise.all(loads)
-      .catch((response) => {
-        this.toastr.error(response.error.reason, response.error.error)
-      })
+  // async loadProfiles () {
+  //   const loads = []
+  //   this.profiles.forEach(profile => {
+  //     const n = this.http
+  //       .get(`${this.profile.server}/profiles/${profile.key}`, {
+  //         headers: { Authorization: 'Basic ' + btoa(this.profile.username + ':' + this.profile.token) }
+  //       })
+  //       .toPromise()
+  //       .then((response: RemoteProfile) => {
+  //         profile = Object.assign(profile, response)
+  //       })
+  //     loads.push(n)
+  //   })
+  //   await Promise.all(loads)
+  //     .catch((response) => {
+  //       this.toastr.error(response.error.reason, response.error.error)
+  //     })
 
-    this.profiles = this.profiles.sort((a, b) => b.created - a.created)
-  }
+  //   this.profiles = this.profiles.sort((a, b) => b.created - a.created)
+  // }
 
-  async removeProfile (profile: RemoteProfile) {
-    if (!confirm(`Are you sure you want to delete profile ${profile.name} and all data? This is not reversible. Please make some backups first.`)) return
-    await this.http
-      .delete(`${this.remote.server}/profiles/${profile.key}`, {
-        headers: { Authorization: 'Basic ' + btoa(this.remote.username + ':' + this.remote.token) }
-      })
-      .toPromise()
-      .catch((response) => {
-        this.toastr.error(response.error.reason, response.error.error)
-      })
-    this.loading.auth = false
-    await this.login(this.remote.username, this.remote.token)
-  }
+  // async removeProfile (profile: RemoteProfile) {
+  //   if (!confirm(`Are you sure you want to delete profile ${profile.name} and all data? This is not reversible. Please make some backups first.`)) return
+  //   await this.http
+  //     .delete(`${this.profile.server}/profiles/${profile.key}`, {
+  //       headers: { Authorization: 'Basic ' + btoa(this.profile.username + ':' + this.profile.token) }
+  //     })
+  //     .toPromise()
+  //     .catch((response) => {
+  //       this.toastr.error(response.error.reason, response.error.error)
+  //     })
+  //   this.loading.auth = false
+  //   await this.login(this.remote.username, this.remote.token)
+  // }
 
-  linkRemote (profile: RemoteProfile) {
-    this.remote.key = profile.key
-    this.remote.name = profile.name
-    this.remote.owner = profile.owner
-    this.remote.members = profile.members
-  }
-
-  async finish () {
-    this.activeModal.close(this.remote)
-  }
+  // linkRemote (profile: RemoteProfile) {
+  //   this.remote.key = profile.key
+  //   this.remote.name = profile.name
+  //   this.remote.owner = profile.owner
+  //   this.remote.members = profile.members
+  // }
 }
