@@ -5,7 +5,7 @@ import { PreloadAllModules, RouterModule } from '@angular/router'
 import { CoreModule } from '@balnc/core'
 import * as Sentry from '@sentry/browser'
 import { Angulartics2Module } from 'angulartics2'
-import environment from 'src/environments/environment'
+import environment from '../environments/environment'
 import { AppComponent } from './app.component'
 import { APP_ROUTES } from './app.routes'
 import { BusinessDataModule } from './business/business.data.module'
@@ -13,6 +13,7 @@ import { MainModule } from './main/main.module'
 
 if (environment.production) {
   Sentry.init({
+    release: environment.build.git.hash,
     dsn: 'https://9710c0dc35d14a62a8725d354e9e915e@sentry.io/3249691'
   })
 }
