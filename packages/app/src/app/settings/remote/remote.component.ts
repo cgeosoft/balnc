@@ -53,7 +53,10 @@ export class RemoteComponent implements OnInit {
   }
 
   async apply () {
-    this.configService.profile.db.remote = { ...this.remote }
+    this.configService.profile.db = {
+      ...this.configService.profile.db,
+      ...{ remote: { ...this.remote } }
+    }
     this.configService.save(this.profile)
     this.remote = { ...this.profile.db?.remote || {} }
     await this.rxdbService.setup()
