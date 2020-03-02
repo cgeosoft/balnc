@@ -5,8 +5,8 @@
   <section class="full container">
     <div class="list-settings">
       <div class="list-settings-item" *ngFor="let p of plugins">
-        <div class="list-settings-icon">
-          <fa-icon [icon]="p.icon" [ngStyle]="{color:p.color}"></fa-icon>
+        <div class="list-settings-icon" [ngStyle]="{background:p.color}">
+          <fa-icon [icon]="p.icon"></fa-icon>
         </div>
         <div class="list-settings-content">
           <h5>{{p.title}}</h5>
