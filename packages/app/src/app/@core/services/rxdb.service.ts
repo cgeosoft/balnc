@@ -181,7 +181,7 @@ export class RxDBService {
       return
     }
     this.repStateCouch = this.db.entities.sync({
-      remote: `${this.remote.host}/balnc_${this.remote.key}`
+      remote: `${this.remote.host}/${this.remote.key}`
     })
   }
 
