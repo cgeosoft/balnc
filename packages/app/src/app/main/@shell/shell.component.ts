@@ -6,8 +6,8 @@ import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-main-shell',
-  templateUrl: './@shell.component.html',
-  styleUrls: ['./@shell.component.scss']
+  templateUrl: './shell.component.html',
+  styleUrls: ['./shell.component.scss']
 })
 export class MainShellComponent {
 

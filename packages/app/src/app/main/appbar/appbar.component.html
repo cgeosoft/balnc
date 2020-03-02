@@ -4,7 +4,7 @@
   </button>
   <div class="divider"></div>
   <ng-container *ngFor="let plugin of enabledPlugins">
-    <button class="item" routerLinkActive="active" [routerLink]="['/',plugin.id]"
+    <button class="item" routerLinkActive="active" [routerLink]="['/',plugin.key]"
       [ngbTooltip]="plugin.title" placement="right" container="body">
       <fa-icon [icon]="plugin.icon"></fa-icon>
     </button>

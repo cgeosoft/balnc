@@ -2,15 +2,15 @@
   <section class="title container">
     Remote Options
   </section>
-  <section class="container">
+  <section class="full container">
     <p>
       Use this feature for make real-time backup of your data and access from multiple devices.
       Some modules may require this option for them to work.
     </p>
     <div style="max-width: 500px;">
       <div class="form-group row">
-        <label class="col-md-3 col-form-label text-right">Type:</label>
-        <div class="col-sm-9">
+        <label class="col-md-3 col-form-label">Type:</label>
+        <div class="col-md-9">
           <select [(ngModel)]="remote.type" class="form-control">
             <option selected>Choose...</option>
             <option value="local" disabled>Local PouchDB (desktop)</option>
@@ -20,20 +20,20 @@
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-md-3 col-form-label text-right">Host:</label>
-        <div class="col-sm-9">
+        <label class="col-md-3 col-form-label">Host:</label>
+        <div class="col-md-9">
           <input [(ngModel)]="remote.host" class="form-control" placeholder="https://mycouch.mydomain.com:5984">
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-md-3 col-form-label text-right">Database:</label>
-        <div class="col-sm-9">
+        <label class="col-md-3 col-form-label">Database:</label>
+        <div class="col-md-9">
           <input [(ngModel)]="remote.key" class="form-control">
         </div>
       </div>
       <div class="form-group row">
-        <label class="col-md-3 col-form-label text-right">Username:</label>
-        <div class="col-sm-9">
+        <label class="col-md-3 col-form-label">Username:</label>
+        <div class="col-md-9">
           <input [(ngModel)]="remote.username" class="form-control">
         </div>
       </div>
@@ -41,8 +41,7 @@
         <button class="btn btn-primary" (click)="apply()">Apply</button>
       </div>
     </div>
-  </section>
-  <section class="container">
+
     <h4>Toggle Sync</h4>
     <p>You may switch on/off the synchronization between local and remote database</p>
     <p>Current status:

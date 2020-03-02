@@ -13,9 +13,9 @@
           <small class="text-muted">{{p.description}}</small>
         </div>
         <button class="btn btn-action"
-          [ngClass]="{'btn-outline-primary':!profile.plugins[p.id],'btn-outline-danger':profile.plugins[p.id]}"
-          (click)="switchStatus(p.id)">
-          {{profile.plugins[p.id]?'Deactivate':'Activate'}}
+          [ngClass]="{'btn-outline-primary':!profile.plugins[p.key],'btn-outline-danger':profile.plugins[p.key]}"
+          (click)="switch(p.key)">
+          {{profile.plugins[p.key]?'Deactivate':'Activate'}}
         </button>
       </div>
     </div>

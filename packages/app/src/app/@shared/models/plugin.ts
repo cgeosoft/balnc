@@ -1,9 +1,9 @@
 export interface BPlugin {
-  id: string
+  key: string
   title: string
-  label: string
-  description: string
-  icon: string
-  picon: string[]
+  description?: string
+  icon?: string[] | string
+  color?: string
   config?: any
+  disabled?: boolean
 }

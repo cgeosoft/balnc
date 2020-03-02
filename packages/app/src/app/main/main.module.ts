@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
-import { MainShellComponent } from './@shell/@shell.component'
+import { MainShellComponent } from './@shell/shell.component'
 import { AppbarComponent } from './appbar/appbar.component'
 import { ErrorComponent } from './error/error.component'
 import { MainGuard } from './main.guard'

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigService, RxDBService } from '@balnc/core'
-import { BPlugin, ConfirmDialogComponent, Helpers, Profile } from '@balnc/shared'
+import { ConfirmDialogComponent, Helpers, Profile } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ReadFile } from 'ngx-file-helpers'
+import environment from 'src/environments/environment'
 
 @Component({
   selector: 'app-settings-shell',
@@ -12,7 +13,6 @@ export class ShellComponent implements OnInit {
 
   error: string
   profile: Profile
-  plugins: BPlugin[] = []
 
   helperService = Helpers
 
@@ -53,12 +53,6 @@ export class ShellComponent implements OnInit {
     }]
   }
 
-  constructor (
-    public configService: ConfigService,
-    private modal: NgbModal,
-    private dbService: RxDBService
-  ) { }
-
   get profiles () {
     return this.configService.profiles
   }
@@ -67,9 +61,18 @@ export class ShellComponent implements OnInit {
     return this.configService.selected
   }
 
+  get plugins () {
+    return environment.plugins
+  }
+
+  constructor (
+    public configService: ConfigService,
+    private modal: NgbModal,
+    private dbService: RxDBService
+  ) { }
+
   ngOnInit () {
     this.profile = this.configService.profile
-    this.plugins = this.configService.plugins
   }
 
   clear () {

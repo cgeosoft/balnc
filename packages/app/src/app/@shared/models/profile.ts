@@ -29,8 +29,8 @@ export const DEMO_PROFILE: Profile = {
     boards: true,
     presentations: true,
     documents: true,
-    analytics: true,
-    reports: true
+    analytics: false,
+    reports: false
   },
   layout: 'box',
   errorReport: false,

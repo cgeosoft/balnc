@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { BPlugin, EnvBuild, Helpers, Profile } from '@balnc/shared'
+import { EnvBuild, Helpers, Profile } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { LocalStorage } from 'ngx-store'
 import { environment } from './../../../environments/environment'
@@ -13,7 +13,6 @@ export class ConfigService {
   @LocalStorage() profiles: Profile[] = []
 
   menu: any
-  plugins: BPlugin[]
 
   get version (): string {
     return environment.version
@@ -32,10 +31,10 @@ export class ConfigService {
   }
 
   get enabled () {
-    return this.plugins
+    return environment.plugins
       .filter(m => {
         return this.profile.plugins &&
-          this.profile.plugins[m.id]
+          this.profile.plugins[m.key]
       })
   }
 
@@ -48,12 +47,6 @@ export class ConfigService {
     }
 
     console.log('[ConfigService]', 'Profiles available:', this.profiles)
-
-    this.plugins = environment.plugins.map(p => {
-      const v = { ...p }
-      v.picon = Helpers.getIcon(v.icon)
-      return v
-    })
 
     if (!this.selected) {
       console.log('[ConfigService]', 'No selected profile. Auto select first', this.profiles[0].name)

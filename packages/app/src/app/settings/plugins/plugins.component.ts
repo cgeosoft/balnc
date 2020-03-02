@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigService } from '@balnc/core'
-import { BPlugin, Profile } from '@balnc/shared'
+import { Profile } from '@balnc/shared'
+import environment from '../../../environments/environment'
 
 @Component({
   selector: 'app-settings-plugins',
@@ -10,8 +11,11 @@ import { BPlugin, Profile } from '@balnc/shared'
 })
 export class PluginsComponent implements OnInit {
 
-  plugins: BPlugin[]
   profile: Profile
+
+  get plugins () {
+    return environment.plugins.filter(p => !p.disabled)
+  }
 
   constructor (
     private configService: ConfigService
@@ -19,11 +23,10 @@ export class PluginsComponent implements OnInit {
 
   ngOnInit () {
     this.profile = this.configService.profile
-    this.plugins = this.configService.plugins
   }
 
-  switchStatus (pluginId: string) {
-    this.profile.plugins[pluginId] = !this.profile.plugins[pluginId]
+  switch (key: string) {
+    this.profile.plugins[key] = !this.profile.plugins[key]
     this.configService.save(this.profile)
   }
 }

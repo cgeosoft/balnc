@@ -1,11 +1,11 @@
 import { Enviroment } from '@balnc/shared'
 import * as pkg from '../../package.json'
 import * as build from '../assets/build.json'
-import * as plugins from './plugins.json'
+import { plugins } from './plugins'
 
 export const environment: Enviroment = {
   production: true,
-  plugins: plugins['default'],
+  plugins: plugins,
   build: build['default'],
   version: pkg['version'],
   servers: [

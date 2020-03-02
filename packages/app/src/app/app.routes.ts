@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router'
-import { MainShellComponent } from './main/@shell/@shell.component'
+import { MainShellComponent } from './main/@shell/shell.component'
 import { ErrorComponent } from './main/error/error.component'
 import { MainGuard } from './main/main.guard'
 
