@@ -4,7 +4,7 @@ import * as build from '../assets/build.json'
 import * as plugins from './plugins.json'
 
 export const environment: Enviroment = {
-  production: false,
+  production: true,
   plugins: plugins['default'],
   build: build['default'],
   version: pkg['version'],

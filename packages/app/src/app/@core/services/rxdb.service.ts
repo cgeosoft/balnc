@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr'
 import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterIdb from 'pouchdb-adapter-idb'
 import * as AdapterMemory from 'pouchdb-adapter-memory'
-// import { PouchFind } from 'pouchdb-find'
 import { RxCollection, RxDatabase } from 'rxdb'
 import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
 import AttachmentsPlugin from 'rxdb/plugins/attachments'
@@ -19,9 +18,9 @@ import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
 import RxDBUpdateModule from 'rxdb/plugins/update'
 import RxDBValidateModule from 'rxdb/plugins/validate'
 import environment from '../../../environments/environment'
+import { Migrations } from '../migrations'
+import schema from '../models/entity.json'
 import { ConfigService } from '../services/config.service'
-import { Migrations } from './migrations'
-import schema from './models/entity.json'
 
 if (!environment.production) {
   console.log('[DatabaseService]', 'In debug')
@@ -42,7 +41,6 @@ RxDB.plugin(AdapterMemory)
 RxDB.plugin(RxDBUpdateModule)
 RxDB.plugin(RxDBReplicationGraphQL)
 RxDB.plugin(InMemoryPlugin)
-// RxDB.plugin(PouchFind)
 
 @Injectable()
 export class RxDBService {
@@ -138,11 +136,46 @@ export class RxDBService {
     }
   }
 
-  enableLocalPouch () {
+  async needAuthenticate () {
+    if (!this.remote?.enabled) return false
+    if (!this.remote?.type) return false
+    if (this.remote.type === 'graphql') {
+      // todo
+    } else if (this.remote.type === 'couch') {
+      const resp = await this.http.get(`${this.remote.host}/_session`, { withCredentials: true }).toPromise().catch(() => false)
+      console.log(resp)
+      if (!resp) {
+        console.log(`No response from ${this.remote.host}/_session. Disable remote`)
+        return false
+      }
+      if (resp['userCtx'].name) {
+        console.log(`Already authenticated`)
+        return false
+      }
+    }
+    return true
+  }
+
+  async authenticate (password: string) {
+    return this.http.post(`${this.remote.host}/_session`, {
+      name: this.remote.username,
+      password: password
+    }, { withCredentials: true })
+      .toPromise()
+      .catch((res) => {
+        this.toastr.error('Could not auto-login with db server. Check your internet connection.', '[Database] Load Failed')
+      })
+  }
+
+  async remove (profileKey: string) {
+    await RxDB.removeDatabase(`balnc_${profileKey}`, 'idb')
+  }
+
+  private enableLocalPouch () {
     // todo
   }
 
-  enableRemoteCouch () {
+  private enableRemoteCouch () {
     if (!this.remote?.host || !this.remote?.key) {
       console.log('[DatabaseService]', `Remote for couch is not configured`)
       return
@@ -152,7 +185,7 @@ export class RxDBService {
     })
   }
 
-  enableRemoteGraphql () {
+  private enableRemoteGraphql () {
     console.log('sync with syncGraphQL')
 
     this.repStateGQL = this.db.entities.syncGraphQL({
@@ -208,40 +241,5 @@ export class RxDBService {
       liveInterval: 1000 * 2,
       deletedFlag: 'deleted'
     })
-  }
-
-  async needAuthenticate () {
-    if (!this.remote?.enabled) return false
-    if (!this.remote?.type) return false
-    if (this.remote.type === 'graphql') {
-      // todo
-    } else if (this.remote.type === 'couch') {
-      const resp = await this.http.get(`${this.remote.host}/_session`, { withCredentials: true }).toPromise().catch(() => false)
-      console.log(resp)
-      if (!resp) {
-        console.log(`No response from ${this.remote.host}/_session. Disable remote`)
-        return false
-      }
-      if (resp['userCtx'].name) {
-        console.log(`Already authenticated`)
-        return false
-      }
-    }
-    return true
-  }
-
-  async authenticate (password: string) {
-    return this.http.post(`${this.remote.host}/_session`, {
-      name: this.remote.username,
-      password: password
-    }, { withCredentials: true })
-      .toPromise()
-      .catch((res) => {
-        this.toastr.error('Could not auto-login with db server. Check your internet connection.', '[Database] Load Failed')
-      })
-  }
-
-  async remove (profileKey: string) {
-    await RxDB.removeDatabase(`balnc_${profileKey}`, 'idb')
   }
 }

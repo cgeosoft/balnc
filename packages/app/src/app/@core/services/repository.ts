@@ -2,10 +2,10 @@ import { Injector, NgZone } from '@angular/core'
 import { RxAttachment, RxCollection } from 'rxdb'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
-import { BulkObj, DbEntity } from '../rxdb/models/entity'
-import { RxDBService } from '../rxdb/rxdb.service'
-import { QueryParams } from './query-params'
+import { BulkObj, DbEntity } from '../models/entity'
+import { QueryParams } from '../models/query-params'
 import { RepositoryHelpers } from './repository.helpers'
+import { RxDBService } from './rxdb.service'
 
 export class Repository<T> {
 

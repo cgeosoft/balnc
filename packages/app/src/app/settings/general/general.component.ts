@@ -3,6 +3,8 @@ import { Router } from '@angular/router'
 import { ConfigService, RxDBService } from '@balnc/core'
 import { Profile } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import * as Sentry from '@sentry/browser'
+import { Angulartics2 } from 'angulartics2'
 import { RawViewComponent } from './../raw-view/raw-view.component'
 
 @Component({
@@ -25,25 +27,26 @@ export class GeneralComponent implements OnInit {
   deleteDataRemote = false
   editName = false
 
-  constructor (
+  constructor(
     private configService: ConfigService,
     private modal: NgbModal,
     private router: Router,
-    private rxdbService: RxDBService
+    private rxdbService: RxDBService,
+    private angulartics2: Angulartics2
   ) {
   }
 
-  async ngOnInit () {
+  ngOnInit() {
     this.profile = this.configService.profile
   }
 
-  rename (newName) {
+  rename(newName) {
     if (!newName) return
     this.profile.name = newName
     this.configService.save(this.profile)
   }
 
-  async delete () {
+  async delete() {
     if (!confirm('Are you sure?')) return
     await this.rxdbService.remove(this.profile.key)
     this.configService.remove(this.profile.key)
@@ -57,13 +60,13 @@ export class GeneralComponent implements OnInit {
     await this.rxdbService.setup()
   }
 
-  async editRaw () {
+  async editRaw() {
     const m = this.modal.open(RawViewComponent, { backdrop: 'static' })
     m.componentInstance.profile = this.profile
     this.profile = await m.result
   }
 
-  export () {
+  export() {
     let a = document.createElement('a')
     let file = new Blob([JSON.stringify(this.profile, null, 2)], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
@@ -71,7 +74,9 @@ export class GeneralComponent implements OnInit {
     a.click()
   }
 
-  save () {
-    this.configService.save(this.profile)
+  save() {
+    this.configService.save({ ...this.profile })
+    this.angulartics2.settings.developerMode = !this.configService.profile?.analytics
+    Sentry.getCurrentHub().getClient().getOptions().enabled = this.configService.profile?.errorReport
   }
 }

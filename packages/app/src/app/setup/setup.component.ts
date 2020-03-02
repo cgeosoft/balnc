@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
-import { DEMO_PROFILE } from '@balnc/shared'
+import { DEMO_PROFILE, Profile } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { ToastrService } from 'ngx-toastr'
 
@@ -11,8 +11,9 @@ import { ToastrService } from 'ngx-toastr'
   styleUrls: ['./setup.component.scss']
 })
 export class SetupComponent implements OnInit {
-  analytics = false
   loading = false
+  profile: Profile = { ...DEMO_PROFILE }
+
   get version () {
     return this.configService.version
   }
@@ -32,19 +33,16 @@ export class SetupComponent implements OnInit {
   ) { }
 
   async start () {
-    const profile = { ...DEMO_PROFILE }
-    profile.analytics = this.analytics
-    await this.load(profile)
+    await this.load(this.profile)
   }
 
   async import (file: ReadFile) {
-    const profile = this.configService.import(file)
-    if (!profile) {
+    this.profile = this.configService.import(file)
+    if (!this.profile) {
       this.toastr.error('Import failed')
       return
     }
-    profile.analytics = this.analytics
-    await this.load(profile)
+    await this.load(this.profile)
   }
 
   async load (profile) {

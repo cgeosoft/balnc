@@ -1,60 +1,58 @@
-<div class="wrapper">
-  <div class="card">
-    <ng-container *ngIf="!loading;else loader">
-      <div class="card-body">
-        <div class="alert alert-warning text-center mb-4">
-          <strong>UNDER DEVELOPMENT - NOT FOR PRODUCTION USE</strong>
-        </div>
-        <h1 class="mb-4" style="font-weight: 300;">Balnc Setup</h1>
-        <p>Balnc (balance) is an free open source management suite for small businesses and freelancers. It has
-          a collection of pre-build modules and the tools for software developers to create new ones.</p>
-        <p>All modules are running local at the users machine/browser. This improves loading speed to a magnitute
-          similar of the old installable applications.</p>
-        <p>Your data may be configured to also be stored localy. It is not require a database server for storing them.
-          As so, they are not visible to any third parties and the speed is improved even more.</p>
-        <div class="custom-control custom-checkbox custom-control-inline">
-          <input id="analytics" [(ngModel)]="analytics" class="custom-control-input" type="checkbox">
-          <label for="analytics" class="custom-control-label">
-            <strong>Enable analytics to help development</strong></label>
-        </div>
-      </div>
-      <div class="card-footer">
-        <button class="btn btn-link" ngxFilePicker accept="application/json" (filePick)="import($event)">
-          <fa-icon icon="cloud-upload-alt"></fa-icon> Import
-          Profile
-        </button>
-        <button class="btn btn-primary" (click)="start()">
-          Quick Start <fa-icon icon="arrow-circle-right"></fa-icon>
-        </button>
-      </div>
-    </ng-container>
+<div class="card" [ngClass]="{loading:loading}">
+  <div class="card-body">
+    <app-spinner *ngIf="loading"></app-spinner>
+    <div class="alert alert-warning text-center mb-4">
+      <strong>UNDER DEVELOPMENT - NOT FOR PRODUCTION USE</strong>
+    </div>
+    <h1 class="mb-4" style="font-weight: 300;">Balnc Setup</h1>
+    <p>Balnc (balance) is an free open source management suite for small businesses and freelancers. It has
+      a collection of pre-build modules and the tools for software developers to create new ones.</p>
+    <p>All modules are running local at the users machine/browser. This improves loading speed to a magnitute
+      similar of the old installable applications.</p>
+    <p>Your data may be configured to also be stored localy. It is not require a database server for storing them.
+      As so, they are not visible to any third parties and the speed is improved even more.</p>
+    <div class="custom-control custom-checkbox custom-control-inline">
+      <input id="errorReport" [(ngModel)]="profile.errorReport" class="custom-control-input" type="checkbox">
+      <label for="errorReport" class="custom-control-label">
+        Send error data. <small class="text-muted">This helps us further development.</small></label>
+    </div>
+    <div class="custom-control custom-checkbox custom-control-inline">
+      <input id="analytics" [(ngModel)]="profile.analytics" class="custom-control-input" type="checkbox">
+      <label for="analytics" class="custom-control-label">
+        Send usage data. <small class="text-muted">This helps us to design better new features.</small></label>
+    </div>
   </div>
-  <div class="footer">
-    <ul class="list-inline m-0 text-muted">
-      <li class="list-inline-item">v{{version}}</li>
-      <li class="list-inline-item">
-        build: {{build.timestamp | date:'yyyy-MM-dd HH:mm'}}
-      </li>
-      <li class="list-inline-item">
-        commit: <a class="text-muted" target="_blank" rel="noopener"
-          href="https://github.com/christosgeorgiou/balnc/commit/{{build.git.hash}}">
-          {{build.git.hash | slice:0:8}}</a>
-      </li>
-      <li class="list-inline-item">
-        <a href="https://github.com/christosgeorgiou/balnc" target="_blank" rel="noopener" class="text-muted">
-          source
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a href="https://github.com/christosgeorgiou/balnc/blob/master/LICENSE" target="_blank" rel="noopener"
-          class="text-muted">
-          license
-        </a>
-      </li>
-    </ul>
+  <div class="card-footer">
+    <button class="btn btn-link" ngxFilePicker accept="application/json" (filePick)="import($event)">
+      <fa-icon icon="cloud-upload-alt"></fa-icon> Import
+      Profile
+    </button>
+    <button class="btn btn-primary" (click)="start()">
+      Quick Start <fa-icon icon="arrow-circle-right"></fa-icon>
+    </button>
   </div>
 </div>
-
-<ng-template #loader>
-  <app-spinner></app-spinner>
-</ng-template>
+<div class="footer">
+  <ul class="list-inline m-0 text-muted">
+    <li class="list-inline-item">v{{version}}</li>
+    <li class="list-inline-item">
+      build: {{build.timestamp | date:'yyyy-MM-dd HH:mm'}}
+    </li>
+    <li class="list-inline-item">
+      commit: <a class="text-muted" target="_blank" rel="noopener"
+        href="https://github.com/christosgeorgiou/balnc/commit/{{build.git.hash}}">
+        {{build.git.hash | slice:0:8}}</a>
+    </li>
+    <li class="list-inline-item">
+      <a href="https://github.com/christosgeorgiou/balnc" target="_blank" rel="noopener" class="text-muted">
+        source
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a href="https://github.com/christosgeorgiou/balnc/blob/master/LICENSE" target="_blank" rel="noopener"
+        class="text-muted">
+        license
+      </a>
+    </li>
+  </ul>
+</div>

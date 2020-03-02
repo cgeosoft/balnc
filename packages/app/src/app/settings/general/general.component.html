@@ -33,20 +33,20 @@
             href="https://sentry.io">sentry.io</a>. This will
           help further development as we may resolve issues faster.</div>
         <div class="custom-control custom-checkbox custom-control-inline">
-          <input id="analytics" [(ngModel)]="profile.errorReport" (change)="save()" class="custom-control-input"
+          <input id="errorReport" [(ngModel)]="profile.errorReport" (change)="save()" class="custom-control-input"
             type="checkbox">
-          <label for="analytics" class="custom-control-label">
-            Enable debug report</label>
+          <label for="errorReport" class="custom-control-label">
+            Send debug error data</label>
         </div>
       </div>
       <div class="mb-3">
-        <div> Navigation analytics help us to better understand how blanc have been used, so we may improve it. We use
+        <div>Analytics help us to better understand how blanc have been used, so we may improve it. We use
           <a target="_blank" href="https://woopra.com">woopra.com</a> for this.</div>
         <div class="custom-control custom-checkbox custom-control-inline">
           <input id="analytics" [(ngModel)]="profile.analytics" (change)="save()" class="custom-control-input"
             type="checkbox">
           <label for="analytics" class="custom-control-label">
-            Enable analytics</label>
+            Send analytics data</label>
         </div>
       </div>
     </section>

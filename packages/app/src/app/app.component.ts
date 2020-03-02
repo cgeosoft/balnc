@@ -1,6 +1,8 @@
 import { Component } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 import { NavigationEnd, Router } from '@angular/router'
+import * as Sentry from '@sentry/browser'
+import { Angulartics2 } from 'angulartics2'
 import { Angulartics2Woopra } from 'angulartics2/woopra'
 import { ConfigService } from './@core'
 
@@ -13,11 +15,14 @@ export class AppComponent {
     private analytics: Angulartics2Woopra,
     private configService: ConfigService,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private angulartics2: Angulartics2
   ) {
-    if (this.configService.profile && this.configService.profile.analytics) {
-      this.analytics.startTracking()
-    }
+
+    this.analytics.startTracking()
+
+    this.angulartics2.settings.developerMode = !this.configService.profile?.analytics
+    Sentry.getCurrentHub().getClient().getOptions().enabled = this.configService.profile?.errorReport
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common'
-import { NgModule, Optional, SkipSelf } from '@angular/core'
+import { ErrorHandler, NgModule, Optional, SkipSelf } from '@angular/core'
 import { SharedModule } from '@balnc/shared'
 import { DateFnsModule } from 'ngx-date-fns'
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
 import { ToastrModule } from 'ngx-toastr'
-import { RxDBService } from './rxdb/rxdb.service'
+import { SentryErrorHandler } from './handlers/sentry-error.handler'
 import { ConfigService } from './services/config.service'
+import { RxDBService } from './services/rxdb.service'
 import { SignalService } from './services/signal.service'
 import { UpdateService } from './services/update.service'
 
@@ -35,7 +36,8 @@ import { UpdateService } from './services/update.service'
     SignalService,
     UpdateService,
     ConfigService,
-    RxDBService
+    RxDBService,
+    { provide: ErrorHandler, useClass: SentryErrorHandler }
   ]
 })
 export class CoreModule {
