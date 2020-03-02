@@ -7,7 +7,6 @@ import { ToastrModule } from 'ngx-toastr'
 import { SentryErrorHandler } from './handlers/sentry-error.handler'
 import { ConfigService } from './services/config.service'
 import { RxDBService } from './services/rxdb.service'
-import { SignalService } from './services/signal.service'
 import { UpdateService } from './services/update.service'
 
 @NgModule({
@@ -33,7 +32,6 @@ import { UpdateService } from './services/update.service'
     SharedModule
   ],
   providers: [
-    SignalService,
     UpdateService,
     ConfigService,
     RxDBService,

@@ -6,6 +6,7 @@ import { CoreModule } from '@balnc/core'
 import { Angulartics2Module } from 'angulartics2'
 import { AppComponent } from './app.component'
 import { APP_ROUTES } from './app.routes'
+import { BoardsDataModule } from './boards/boards.data.module'
 import { BusinessDataModule } from './business/business.data.module'
 import { MainModule } from './main/main.module'
 
@@ -24,7 +25,8 @@ import { MainModule } from './main/main.module'
       preloadingStrategy: PreloadAllModules
       // enableTracing: true
     }),
-    BusinessDataModule
+    BusinessDataModule,
+    BoardsDataModule
   ],
   declarations: [
     AppComponent

@@ -1,45 +1,59 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
-import { Signal, SignalService } from '@balnc/core'
-import { Subscription } from 'rxjs'
+import { Component, OnInit } from '@angular/core'
+import { merge } from 'rxjs'
+import { scan } from 'rxjs/operators'
+import { BoardsDemoService } from '../../boards/@shared/services/demo.service'
 import { BusinessDemoService } from '../../business/@shared/services/demo.service'
 
 @Component({
   selector: 'app-demo-data',
   templateUrl: './demo-data.component.html'
 })
-export class DemoDataComponent implements OnInit, OnDestroy {
-  demoWorking: boolean
-  signalLogs$: any
-  sub: Subscription
+export class DemoDataComponent implements OnInit {
+  loading: boolean
+  logs: any[] = []
+  logs$: any
 
   constructor (
-    private signalService: SignalService,
-    private v: BusinessDemoService
+    private businessDemoService: BusinessDemoService,
+    private boardDemoService: BoardsDemoService
   ) {
-    this.signalLogs$ = this.signalService.logs$
   }
 
   ngOnInit () {
-    this.sub = this.signalService
-      .events(Signal.DEMO_COMPLETED)
-      .subscribe(() => {
-        this.demoWorking = false
-      })
+    this.logs$ = merge(
+      this.businessDemoService.logs$,
+      this.boardDemoService.logs$
+    ).pipe(
+      scan((logs, msg) => {
+        logs.unshift({
+          msg,
+          date: Date.now()
+        })
+        return logs
+      }, []
+      )
+    )
+    // ).subscribe((msg) => {
+    //   this.logs.unshift({
+    //     msg,
+    //     date: Date.now()
+    //   })
+    // })
   }
 
-  ngOnDestroy () {
-    this.sub.unsubscribe()
-  }
-
-  async generateDemoData () {
+  async generate () {
     if (!confirm('Are you sure?')) return
-    this.demoWorking = true
-    this.signalService.broadcast(Signal.DEMO_GENERATE)
+    this.loading = true
+    await this.businessDemoService.generate()
+    await this.boardDemoService.generate()
+    this.loading = false
   }
 
-  async clearDemoData () {
+  async clear () {
     if (!confirm('Are you sure?')) return
-    this.demoWorking = true
-    this.signalService.broadcast(Signal.DEMO_CLEAR)
+    this.loading = true
+    await this.businessDemoService.clear()
+    await this.boardDemoService.clear()
+    this.loading = false
   }
 }

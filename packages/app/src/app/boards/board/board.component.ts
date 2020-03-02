@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable, Subject, Subscription } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
@@ -16,7 +16,7 @@ const urlRegex = /(https?:\/\/[^\s]+)/g
   styleUrls: ['./board.component.scss']
 
 })
-export class BoardComponent implements OnInit, OnDestroy  {
+export class BoardComponent implements OnInit, OnDestroy {
 
   @ViewChild('messageList') messageList: ElementRef
   @ViewChild('messageInput') messageInput: ElementRef
@@ -44,7 +44,6 @@ export class BoardComponent implements OnInit, OnDestroy  {
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private zone: NgZone,
     private cdr: ChangeDetectorRef
   ) { }
 

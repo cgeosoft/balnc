@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
-import { BulkObj, Signal, SignalService } from '@balnc/core'
+import { BulkObj } from '@balnc/core'
 import * as faker from 'faker'
+import { Subject } from 'rxjs'
 import { AccountType } from '../models/account'
 import { AgreementStatus } from '../models/agreement'
 import { ContactType } from '../models/contacts'
@@ -19,37 +20,51 @@ const NO_OF_AGREEMENTS = 100
 })
 export class BusinessDemoService {
 
+  logs$ = new Subject<string>()
+
   constructor (
-    private signalService: SignalService,
     private accountsRepo: AccountsRepo,
     private transactionsRepo: TransactionsRepo,
     private recordsRepo: RecordsRepo,
     private contactsRepo: ContactsRepo,
     private agreementsRepo: AgreementsRepo
   ) {
-    this.signalService
-      .events(Signal.DEMO_GENERATE)
-      .subscribe(async () => {
-        await this.generate()
-      })
-    this.signalService
-      .events(Signal.DEMO_CLEAR)
-      .subscribe(async () => {
-        await this.clear()
-      })
-    this.message('business demo service loaded')
   }
 
-  private async generate () {
-
+  async generate () {
     this.message('Start demo data generation')
-
     await this.generateAccounts()
     await this.generateContacts()
     await this.generateAggrements()
-
     this.message(`Generation completed`)
-    this.signalService.broadcast(Signal.DEMO_COMPLETED)
+  }
+
+  async clear () {
+    this.message(`Calculate old demo data`)
+    const contacts = await this.contactsRepo.all()
+    const contactIds = contacts.filter(o => o._tags.indexOf('demo') !== -1).map(c => c._id)
+    this.message(`Will remove ${contactIds.length} contacts`)
+    const contactsProm = contactIds.map((id, i) => {
+      if (i % 100 === 0) {
+        this.message(`Removed ${i}/${NO_OF_CUSTOMERS} contacts`)
+      }
+      return this.contactsRepo.remove(id)
+    })
+    const agreements = await this.agreementsRepo.all()
+    const agreementIds = agreements.filter(o => o._tags.indexOf('demo') !== -1).map(a => a._id)
+    this.message(`Will remove ${agreementIds.length} agreements`)
+    const agreementsProm = agreementIds.map((id, i) => {
+      if (i % 100 === 0) {
+        this.message(`Removed ${i}/${NO_OF_AGREEMENTS} agreements`)
+      }
+      return this.agreementsRepo.remove(id)
+    })
+    this.message(`Remove old demo data`)
+    await Promise.all([
+      ...contactsProm,
+      ...agreementsProm
+    ])
+    this.message(`Old demo data removed`)
   }
 
   private async generateContacts () {
@@ -107,35 +122,6 @@ export class BusinessDemoService {
     }
     this.message(`Saving ${NO_OF_CUSTOMERS} contacts`)
     await this.contactsRepo.bulk(customers)
-  }
-
-  private async clear () {
-    this.message(`Calculate old demo data`)
-    const contacts = await this.contactsRepo.all()
-    const contactIds = contacts.filter(o => o._tags.indexOf('demo') !== -1).map(c => c._id)
-    this.message(`Will remove ${contactIds.length} contacts`)
-    const contactsProm = contactIds.map((id, i) => {
-      if (i % 100 === 0) {
-        this.message(`Removed ${i}/${NO_OF_CUSTOMERS} contacts`)
-      }
-      return this.contactsRepo.remove(id)
-    })
-    const agreements = await this.agreementsRepo.all()
-    const agreementIds = agreements.filter(o => o._tags.indexOf('demo') !== -1).map(a => a._id)
-    this.message(`Will remove ${agreementIds.length} agreements`)
-    const agreementsProm = agreementIds.map((id, i) => {
-      if (i % 100 === 0) {
-        this.message(`Removed ${i}/${NO_OF_AGREEMENTS} agreements`)
-      }
-      return this.agreementsRepo.remove(id)
-    })
-    this.message(`Remove old demo data`)
-    await Promise.all([
-      ...contactsProm,
-      ...agreementsProm
-    ])
-    this.message(`Old demo data removed`)
-    this.signalService.broadcast(Signal.DEMO_COMPLETED)
   }
 
   private async generateAccounts () {
@@ -207,6 +193,6 @@ export class BusinessDemoService {
   }
 
   private message (message) {
-    this.signalService.message(`[Business] ${message}`)
+    this.logs$.next(`[Business] ${message}`)
   }
 }

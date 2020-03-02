@@ -5,7 +5,6 @@ import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
 import { BoardStats } from '../@shared/models/board-stats'
 import { BoardsRepo } from '../@shared/repos/boards.repo'
-import { MessagesRepo } from '../@shared/repos/messages.repo'
 
 @Component({
   selector: 'app-boards-shell',
@@ -37,7 +36,6 @@ export class ShellComponent implements OnInit {
 
   constructor (
     private boardsRepo: BoardsRepo,
-    private messagesRepo: MessagesRepo,
     private router: Router
   ) { }
 

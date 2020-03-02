@@ -33,6 +33,8 @@ export class BoardsComponent implements OnInit {
     this.boards$ = this.boardsRepo.all$()
   }
 
-  create () { }
+  create () {
+    // todo
+  }
 
 }

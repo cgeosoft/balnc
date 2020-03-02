@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
-import { BulkObj, Signal, SignalService } from '@balnc/core'
+import { BulkObj } from '@balnc/core'
 import * as faker from 'faker'
+import { Subject } from 'rxjs'
 import { BoardsRepo } from '../repos/boards.repo'
 import { MessagesRepo } from '../repos/messages.repo'
 
@@ -13,26 +14,14 @@ const NO_OF_USERS = 20
 })
 export class BoardsDemoService {
 
+  logs$ = new Subject<string>()
+
   constructor (
-    private signalService: SignalService,
     private boardsRepo: BoardsRepo,
     private messagesRepo: MessagesRepo
-  ) {
+  ) { }
 
-    this.signalService
-      .events(Signal.DEMO_GENERATE)
-      .subscribe(async () => {
-        await this.generate()
-      })
-    this.signalService
-      .events(Signal.DEMO_CLEAR)
-      .subscribe(async () => {
-        await this.clear()
-      })
-    this.message('demo service loaded')
-  }
-
-  private async clear () {
+  async clear () {
     this.message(`Calculate old demo data`)
     const boards = await this.boardsRepo.all()
     const boardIds = boards.filter(o => o._tags.indexOf('demo') !== -1).map(c => c._id)
@@ -58,11 +47,10 @@ export class BoardsDemoService {
       ...messagesProm
     ])
     this.message(`Old demo data removed`)
-    this.signalService.broadcast(Signal.DEMO_COMPLETED)
   }
 
   private message (message) {
-    this.signalService.message(`[Boards] ${message}`)
+    this.logs$.next(`[Boards] ${message}`)
   }
 
   async generate () {
@@ -113,6 +101,5 @@ export class BoardsDemoService {
     await this.messagesRepo.bulk(messages)
 
     this.message(`Generation completed`)
-    this.signalService.broadcast(Signal.DEMO_COMPLETED)
   }
 }
