@@ -2,7 +2,7 @@
   "name": "blnc",
   "short_name": "blnc",
   "description": "An offline-first business application",
-  "theme_color": "#3F51B5",
+  "theme_color": "#6f42c1",
   "background_color": "#222222",
   "display": "standalone",
   "scope": "/",
