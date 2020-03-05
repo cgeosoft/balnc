@@ -19,7 +19,6 @@ export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('wrapper') wrapper: ElementRef
   @ViewChild('tableWrapper') tableWrapper: ElementRef
-  @ViewChild('table') table: ElementRef
 
   showDebug = false
   page = 0

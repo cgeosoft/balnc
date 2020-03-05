@@ -51,7 +51,7 @@ export class ProjectManageComponent implements OnInit {
     const issues = await this.issuesRepo.all()
 
     const promiseIssues = issues
-      .filter(i => i.project === this.pid)
+      .filter(i => i._group === this.pid)
       .map(i => this.issuesRepo.remove(i._id))
 
     await Promise.all(promiseIssues)

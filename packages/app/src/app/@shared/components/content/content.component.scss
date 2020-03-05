@@ -25,25 +25,19 @@
     @extend .d-flex;
     @extend .flex-column;
 
+    .title {
+      border-bottom: solid 1px #eee;
+    }
+
     .content {
       @extend .flex-grow-1;
+      @extend .d-flex;
+      @extend .flex-column;
       @extend .overflow-auto;
+      &.container {
+        @extend .p-0;
+      }
     }
-  }
-}
-
-:host ::ng-deep .title {
-  border-bottom: solid 1px #eee;
-  section {
-    padding: 1rem 2rem !important;
-    font-size: xx-large;
-    font-weight: lighter;
-  }
-  .container{
-    padding: 0 !important;
-  }
-  &:empty {
-    display: none !important;
   }
 }
 
@@ -64,40 +58,69 @@
   }
 }
 
-:host ::ng-deep .wrapper section {
-  @extend .w-100;
-  @extend .p-4;
-  position: relative;
-
-  .app-toolbar {
-    @extend .rounded;
-  }
-
-  &.no-padding {
-    @extend .p-0;
-  }
-
-  &.no-border {
-    &:after {
-      @extend .d-none;
+:host ::ng-deep .wrapper {
+  .title {
+    section {
+      @extend .px-4;
+      @extend .py-3;
+      font-size: x-large;
+      font-weight: lighter;
+    }
+    .container {
+      padding: 0 !important;
+    }
+    &:empty {
+      display: none !important;
     }
   }
+  .content {
+    section {
+      @extend .w-100;
+      @extend .p-4;
+      position: relative;
 
-  &:after {
-    @extend .d-block;
-    @extend .mt-4;
-    @extend .mx-auto;
-    position: absolute;
-    content: "";
-    width: 400px;
-    left: calc(50% - 200px);
-    height: 1px;
-    background: #eee;
-  }
+      &.no-padding {
+        @extend .p-0;
+      }
 
-  &:last-child {
-    &:after {
-      @extend .d-none;
+      &.full {
+        @extend .flex-grow-1;
+        @extend .overflow-auto;
+      }
+
+      &.no-border {
+        &:after {
+          @extend .d-none;
+        }
+      }
+
+      &:after {
+        @extend .d-block;
+        @extend .mt-4;
+        @extend .mx-auto;
+        position: absolute;
+        content: "";
+        width: 400px;
+        left: calc(50% - 200px);
+        height: 1px;
+        background: #eee;
+      }
+
+      &:last-child {
+        &:after {
+          @extend .d-none;
+        }
+      }
+    }
+    &.container {
+      section{
+        &.no-padding{
+          @extend .px-4;
+        }
+      }
+      app-toolbar {
+        @extend .rounded;
+      }
     }
   }
 }

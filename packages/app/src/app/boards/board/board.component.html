@@ -25,7 +25,7 @@
         <a [routerLink]="['/boards',board._id,'files']" routerLinkActive="active">Files</a>
       </div>
     </ng-container>
-    <section #messageList class="full">
+    <section #messageList class="no-border full">
       <ng-container *ngIf="(messages$ | async) as messages; else loader">
         <ng-container *ngIf="messages.length else emptyMessages">
           <ng-template ngFor let-m [ngForOf]="messages">
@@ -99,10 +99,10 @@
 </ng-container>
 
 <ng-template #noboard>
-  <app-empty message="No board selected" icon="comments:regular"></app-empty>
+  <app-empty message="No Board"></app-empty>
 </ng-template>
 <ng-template #emptyMessages>
-  <app-empty message="No messages yet" icon="comments:regular"></app-empty>
+  <app-empty message="No Messages" undraw="chat"></app-empty>
 </ng-template>
 <ng-template #loader>
   <app-spinner></app-spinner>

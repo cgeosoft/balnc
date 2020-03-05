@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { Board } from '../@shared/models/board'
@@ -26,15 +27,19 @@ export class BoardsComponent implements OnInit {
   }
 
   constructor (
-    private boardsRepo: BoardsRepo
+    private boardsRepo: BoardsRepo,
+    private router: Router
   ) { }
 
   ngOnInit () {
     this.boards$ = this.boardsRepo.all$()
   }
 
-  create () {
-    // todo
+  async create () {
+    const board = await this.boardsRepo.add({
+      name: 'New Board'
+    })
+    await this.router.navigate(['/boards', board._id])
   }
 
 }

@@ -39,7 +39,6 @@ export class IssueCreateComponent implements OnInit {
     const issueId = await this.issuesRepo.add({
       title: formModel.title,
       description: formModel.description,
-      project: this.projectId,
       user: this.config.username,
       type: IssueType.issue,
       status: IssueStatus.open

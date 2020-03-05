@@ -1,11 +1,11 @@
 <app-content>
-  <section class="no-padding">
+  <section role="title">Transactions</section>
+  <section class="full no-padding">
     <app-table [data$]="transactions$" [schema]="schema"
       [templates]="{statusTpl:statusTpl,accountFromTpl:accountFromTpl,accountToTpl:accountToTpl}">
     </app-table>
   </section>
 </app-content>
-
 
 <ng-template #statusTpl let-transaction="item">
   <ng-container *ngIf="transaction.executed">

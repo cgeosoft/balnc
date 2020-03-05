@@ -1,12 +1,14 @@
 <app-content>
-  <app-toolbar>
+  <section role="title">Projects</section>
+  <section class="no-border no-padding">
+    <app-toolbar>
       <button class="btn btn-primary" (click)="create()">New Project</button>
       <button class="btn btn-outline-secondary">
         <fa-icon icon="search"></fa-icon>
       </button>
-  </app-toolbar>
-
-  <section class="no-padding">
+    </app-toolbar>
+  </section>
+  <section class="full no-padding">
     <app-table [data$]="projects$" [schema]="schema"></app-table>
   </section>
 </app-content>

@@ -10,10 +10,9 @@
           </button>
         </div>
         <dl>
-          <ng-container *ngIf="project.description">
-            <dt>Description</dt>
-            <dd class="text-truncate">{{project.description}}</dd>
-          </ng-container>
+          <small *ngIf="project.description" class="tex-muted">
+            {{project.description}}
+          </small>
           <ng-container *ngIf="project.tags">
             <dt>Tags</dt>
             <dd>{{project.tags.join(', ')}}</dd>

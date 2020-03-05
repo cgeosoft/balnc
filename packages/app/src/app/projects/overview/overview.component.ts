@@ -27,7 +27,7 @@ export class OverviewComponent implements OnInit {
         val: (item: Issue) => {
           return {
             label: item.title,
-            link: ['/projects/projects', item.project, 'issues', item._id]
+            link: ['/projects/projects', item._group, 'issues', item._id]
           }
         }
       }
@@ -39,12 +39,12 @@ export class OverviewComponent implements OnInit {
   ) { }
 
   async ngOnInit () {
-    this.logs$ = this.peventsRepo.all$().pipe(
+    this.logs$ = this.peventsRepo.allm$().pipe(
       tap((logs: PEvent[]) => logs.sort((a, b) => a._date - b._date)),
       tap((logs: PEvent[]) => logs.reverse())
     )
     this.issues$ = this.issuesRepo.all$().pipe(
-      tap((issues: Issue[]) => issues.sort((a,b) => b._date - a._date)),
+      tap((issues: Issue[]) => issues.sort((a, b) => b._date - a._date)),
       take(10)
     )
   }

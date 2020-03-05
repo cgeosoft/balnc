@@ -50,7 +50,7 @@ export class IssuesComponent implements OnInit {
         val: (item: Issue) => {
           return {
             label: item.title,
-            link: ['/projects/projects', item.project, 'issues', item._id]
+            link: ['/projects/projects', item._group, 'issues', item._id]
           }
         }
       }

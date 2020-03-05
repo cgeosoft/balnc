@@ -17,7 +17,6 @@ export interface Meta {
 }
 
 export interface Issue extends Entity, Meta {
-  project: string
   type: IssueType
   title: string
   description?: string

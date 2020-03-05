@@ -1,10 +1,6 @@
-<app-content>
-  <section role="title">
-    <div class="container">About</div>
-  </section>
-  <section>
-    <div class="container">
-      <app-remote-page page="about"></app-remote-page>
-    </div>
+<app-content [box]="true">
+  <section role="title">About</section>
+  <section class="full">
+    <app-remote-page page="about"></app-remote-page>
   </section>
 </app-content>

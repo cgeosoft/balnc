@@ -13,8 +13,4 @@ export class SearchComponent {
   constructor (
     private contactsService: ContactsRepo
   ) { }
-
-  get contacts$ () {
-    return this.contactsService.all$()
-  }
 }

@@ -35,7 +35,6 @@ export class DemoService {
           title: faker.hacker.phrase(),
           description: faker.lorem.paragraphs(),
           type: IssueType[IssueType[Math.floor(Math.random() * Object.keys(IssueType).length / 2)]],
-          project: project._id,
           user: this.configService.username,
           status: IssueStatus.pending
         }

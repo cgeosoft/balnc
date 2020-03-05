@@ -3,7 +3,7 @@
     <ng-container *ngIf="data; else loader">
       <ng-container *ngIf="!showDebug">
         <ng-container *ngIf="total; else empty">
-          <table #table class="table mb-0">
+          <table class="table mb-0">
             <thead class="thead-light">
               <tr>
                 <th *ngFor="let prop of properties; let i = index;" [ngStyle]='prop.style || {}'
