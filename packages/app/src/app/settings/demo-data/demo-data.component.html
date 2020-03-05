@@ -1,8 +1,6 @@
-<app-content>
-  <section class="title container">
-    Generate Random Data
-  </section>
-  <section class="no-border container">
+<app-content [box]="true">
+  <section role="title">Generate Random Data</section>
+  <section class="no-border">
     <div class="alert alert-info">
       <strong>This will generate random data.</strong><br>
       We suggest to generate random data in a non-production
@@ -13,7 +11,7 @@
       <button class="btn btn-link mr-2" [disabled]="loading" (click)="clear()">Clear demo data</button>
     </app-toolbar>
   </section>
-  <section class="full container">
+  <section>
     <ng-container *ngIf="(logs$ | async) as logs; else noLogs">
       <table class="table table-sm text-monospace">
         <tr *ngFor="let log of logs">

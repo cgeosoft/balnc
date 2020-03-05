@@ -22,9 +22,28 @@
   .wrapper {
     @extend .h-100;
     @extend .flex-grow-1;
-    @extend .overflow-auto;
     @extend .d-flex;
     @extend .flex-column;
+
+    .content {
+      @extend .flex-grow-1;
+      @extend .overflow-auto;
+    }
+  }
+}
+
+:host ::ng-deep .title {
+  border-bottom: solid 1px #eee;
+  section {
+    padding: 1rem 2rem !important;
+    font-size: xx-large;
+    font-weight: lighter;
+  }
+  .container{
+    padding: 0 !important;
+  }
+  &:empty {
+    display: none !important;
   }
 }
 
@@ -50,28 +69,15 @@
   @extend .p-4;
   position: relative;
 
+  .app-toolbar {
+    @extend .rounded;
+  }
+
   &.no-padding {
     @extend .p-0;
   }
 
   &.no-border {
-    &:after {
-      @extend .d-none;
-    }
-  }
-
-  &.title {
-    font-size: xx-large;
-    font-weight: lighter;
-    &:after {
-      width: 100%;
-      left: 0;
-    }
-  }
-
-  &.full {
-    @extend .flex-grow-1;
-    @extend .overflow-auto;
     &:after {
       @extend .d-none;
     }
@@ -87,16 +93,6 @@
     left: calc(50% - 200px);
     height: 1px;
     background: #eee;
-  }
-
-  &.container {
-    &:after {
-      width: calc(100% - 2rem);
-      left: 1rem;
-    }
-    .app-toolbar{
-      @extend .rounded;
-    }
   }
 
   &:last-child {

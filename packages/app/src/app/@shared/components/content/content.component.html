@@ -2,5 +2,12 @@
   <ng-content select="[role=sidebar]"></ng-content>
 </div>
 <div class="wrapper">
-  <ng-content></ng-content>
+  <div class="title">
+    <div [ngClass]="{'container':box}">
+      <ng-content select="[role=title]"></ng-content>
+    </div>
+  </div>
+  <div class="content" [ngClass]="{'container':box}">
+    <ng-content></ng-content>
+  </div>
 </div>

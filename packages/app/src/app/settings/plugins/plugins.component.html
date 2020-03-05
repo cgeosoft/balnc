@@ -1,8 +1,6 @@
-<app-content>
-  <section class="title container">
-    Manage Plugins
-  </section>
-  <section class="full container">
+<app-content [box]="true">
+  <section role="title">Manage Plugins</section>
+  <section>
     <div class="list-settings">
       <div class="list-settings-item" *ngFor="let p of plugins">
         <div class="list-settings-icon" [ngStyle]="{background:p.color}">

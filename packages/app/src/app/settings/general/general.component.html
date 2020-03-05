@@ -1,75 +1,70 @@
-<app-content>
-  <ng-container *ngIf="profile; else loading">
-    <section class="title container">
-      General Options
-    </section>
-    <section class="container">
-      <h4>Profile Information</h4>
-      <dl class="row mb-0">
-        <dt class="col-sm-3 text-right">Key:</dt>
-        <dd class="col-sm-9 text-monospace">{{profile.key}}&nbsp;</dd>
-        <dt class="col-sm-3 text-right">Name:</dt>
-        <dd class="col-sm-9 text-monospace d-flex">
-          <span #newname class="bg-light rounded d-block flex-grow-1 pl-1"
-            contenteditable="true">{{profile.name}}</span>
-          <fa-icon (click)="rename(newname.innerText)" icon="save" class="ml-2 text-primary"></fa-icon>
-        </dd>
-        <dt class="col-sm-3 text-right">Created:</dt>
-        <dd class="col-sm-9 text-monospace">{{profile.createdAt|date:"short"}}&nbsp;</dd>
-      </dl>
-      <button class="btn btn-primary" (click)="editRaw()">Edit Raw</button>
-    </section>
-    <section class="container">
-      <h4>Export</h4>
-      <p>
-        Export this profile for import in another machine. <strong>This do not backup your data.</strong>
-      </p>
-      <button class="btn btn-primary" (click)="export()">Export Profile</button>
-    </section>
-    <section class="container">
-      <h4>Telemetry</h4>
-      <div class="mb-3">
-        <div>When an error is occured, a debug event is send to <a target="_blank"
-            href="https://sentry.io">sentry.io</a>. This will
-          help further development as we may resolve issues faster.</div>
-        <div class="custom-control custom-checkbox custom-control-inline">
-          <input id="errorReport" [(ngModel)]="profile.errorReport" (change)="save()" class="custom-control-input"
-            type="checkbox">
-          <label for="errorReport" class="custom-control-label">
-            Send debug error data</label>
-        </div>
+<app-content [box]="true">
+  <section role="title">General Options</section>
+  <section>
+    <h4>Profile Information</h4>
+    <dl class="row mb-0">
+      <dt class="col-sm-3 text-right">Key:</dt>
+      <dd class="col-sm-9 text-monospace">{{profile.key}}&nbsp;</dd>
+      <dt class="col-sm-3 text-right">Name:</dt>
+      <dd class="col-sm-9 text-monospace d-flex">
+        <span #newname class="bg-light rounded d-block flex-grow-1 pl-1" contenteditable="true">{{profile.name}}</span>
+        <fa-icon (click)="rename(newname.innerText)" icon="save" class="ml-2 text-primary"></fa-icon>
+      </dd>
+      <dt class="col-sm-3 text-right">Created:</dt>
+      <dd class="col-sm-9 text-monospace">{{profile.createdAt|date:"short"}}&nbsp;</dd>
+    </dl>
+    <button class="btn btn-primary" (click)="editRaw()">Edit Raw</button>
+  </section>
+  <section>
+    <h4>Export</h4>
+    <p>
+      Export this profile for import in another machine. <strong>This do not backup your data.</strong>
+    </p>
+    <button class="btn btn-primary" (click)="export()">Export Profile</button>
+  </section>
+  <section>
+    <h4>Telemetry</h4>
+    <div class="mb-3">
+      <div>When an error is occured, a debug event is send to <a target="_blank" href="https://sentry.io">sentry.io</a>.
+        This will
+        help further development as we may resolve issues faster.</div>
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input id="errorReport" [(ngModel)]="profile.errorReport" (change)="save()" class="custom-control-input"
+          type="checkbox">
+        <label for="errorReport" class="custom-control-label">
+          Send debug error data</label>
       </div>
-      <div class="mb-3">
-        <div>Analytics help us to better understand how blanc have been used, so we may improve it. We use
-          <a target="_blank" href="https://woopra.com">woopra.com</a> for this.</div>
-        <div class="custom-control custom-checkbox custom-control-inline">
-          <input id="analytics" [(ngModel)]="profile.analytics" (change)="save()" class="custom-control-input"
-            type="checkbox">
-          <label for="analytics" class="custom-control-label">
-            Send analytics data</label>
-        </div>
+    </div>
+    <div class="mb-3">
+      <div>Analytics help us to better understand how blanc have been used, so we may improve it. We use
+        <a target="_blank" href="https://woopra.com">woopra.com</a> for this.</div>
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input id="analytics" [(ngModel)]="profile.analytics" (change)="save()" class="custom-control-input"
+          type="checkbox">
+        <label for="analytics" class="custom-control-label">
+          Send analytics data</label>
       </div>
-    </section>
-    <section class="container">
-      <h4 class="text-danger">Danger Zone</h4>
-      <p>
-        Deleting your profile, you immediately remove all local data. If you would like also
-        to delete the remote data please check the appropriate option below. If you do not delete remote data, all
-        data will be synced once again if profile is recreated or imported.
-      </p>
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="deleteData" [(ngModel)]="deleteData">
-        <label class="form-check-label" for="deleteData">Ι understand that this is not reversable</label>
-      </div>
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="deleteDataRemote" [(ngModel)]="deleteDataRemote">
-        <label class="form-check-label" for="deleteDataRemote">Also delete remote data</label>
-      </div>
-      <button class="btn btn-danger" [disabled]="!deleteData" (click)="delete()">
-        Remove Profile
-      </button>
-    </section>
-  </ng-container>
+    </div>
+  </section>
+  <section>
+    <h4 class="text-danger">Danger Zone</h4>
+    <p>
+      Deleting your profile, you immediately remove all local data. If you would like also
+      to delete the remote data please check the appropriate option below. If you do not delete remote data, all
+      data will be synced once again if profile is recreated or imported.
+    </p>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="deleteData" [(ngModel)]="deleteData">
+      <label class="form-check-label" for="deleteData">Ι understand that this is not reversable</label>
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="deleteDataRemote" [(ngModel)]="deleteDataRemote">
+      <label class="form-check-label" for="deleteDataRemote">Also delete remote data</label>
+    </div>
+    <button class="btn btn-danger" [disabled]="!deleteData" (click)="delete()">
+      Remove Profile
+    </button>
+  </section>
 </app-content>
 <ng-template #loading>
   <app-spinner></app-spinner>

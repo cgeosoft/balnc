@@ -1,4 +1,4 @@
-<section class="full">
+<section>
   <ng-container *ngIf="events$ | async as events; else loader">
     <ng-container *ngIf="events; else empty">
       <ng-container *ngFor="let e of events">
