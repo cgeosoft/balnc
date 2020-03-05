@@ -1,17 +1,17 @@
 <app-page>
   <app-content>
-    <section>
+    <section class="no-border">
       <div class="row">
-        <div class="col-lg-3 mb-2">
+        <div class="col-lg-3 col-md-6 mb-4">
           <app-tile [icon]="['fas', 'users']" label="contacts" theme="red" [value]="(contacts$ | async)"></app-tile>
         </div>
-        <div class="col-lg-3 mb-2">
+        <div class="col-lg-3 col-md-6 mb-4">
           <app-tile [icon]="['fas', 'balance-scale-left']" label="dolor" theme="green"></app-tile>
         </div>
-        <div class="col-lg-3 mb-2">
+        <div class="col-lg-3 col-md-6 mb-4">
           <app-tile [icon]="['fas', 'balance-scale']" label="sit" theme="orange"></app-tile>
         </div>
-        <div class="col-lg-3 mb-2">
+        <div class="col-lg-3 col-md-6 mb-4">
           <app-tile [icon]="['fas', 'exclamation-circle']" label="amet" theme="blue"></app-tile>
         </div>
       </div>
