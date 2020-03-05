@@ -1,15 +1,13 @@
-@import "theme";
-
 :host {
-  @extend .w-100;
-  @extend .d-flex;
-  @extend .align-items-center;
-  @extend .justify-content-center;
+  justify-content: center;
+  align-items: center;
   color: #999;
+  display: flex;
+  width: 100%;
 
   .empty {
-    max-width: 300px;
-    @extend .text-center;
+    max-width: 350px;
+    text-align: center;
 
     fa-icon {
       font-size: 3rem;
@@ -19,10 +17,10 @@
     }
 
     .message {
-      font-size: 1.5rem;
+      font-size: 2rem;
       font-weight: 300;
       padding: 0;
-      margin: 0;
+      margin: 1rem 0 0;
     }
 
     .submessage {

@@ -100,11 +100,7 @@
             </button></li>
         </ul>
       </ng-container>
-      <ng-container *ngIf="!total">
-        <div class="d-flex align-items-center">
-          <strong class="mr-2">No items were found</strong>
-        </div>
-      </ng-container>
+      <ng-container *ngIf="!total">&nbsp;</ng-container>
     </ng-container>
     <ng-container *ngIf="showDebug">
       <div class="d-flex align-items-center">
@@ -137,10 +133,10 @@
 </div>
 
 <ng-template #loader>
-  <app-empty icon="sync-alt" [icon-spin]="true" [message]="null"></app-empty>
+  <app-spinner></app-spinner>
 </ng-template>
 <ng-template #empty>
-  <app-undraw image="no-data"></app-undraw>
+  <app-empty></app-empty>
 </ng-template>
 <ng-template #link let-link="link" let-label="label">
   <a [routerLink]="link">{{label}}</a>

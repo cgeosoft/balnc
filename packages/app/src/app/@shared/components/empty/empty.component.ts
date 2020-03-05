@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core'
-import { Helpers } from '../../helpers'
 
 @Component({
   selector: 'app-empty',
@@ -7,13 +6,7 @@ import { Helpers } from '../../helpers'
   styleUrls: ['empty.component.scss']
 })
 export class EmptyComponent {
-
-  @Input() message = 'no items'
+  @Input() message = 'No Data'
   @Input() submessage = null
-  @Input() icon = 'expand'
-  @Input('icon-spin') iconSpin = false
-
-  get getIcon () {
-    return Helpers.getIcon(this.icon)
-  }
+  @Input() undraw = 'no-data'
 }
