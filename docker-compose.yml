@@ -15,14 +15,6 @@ services:
     image: couchdb
     ports:
       - "5984:5984"
-    volumes:
-      - couchdb_data:/opt/couchdb/data
-      - couchdb_config:/opt/couchdb/etc/local.d
-    networks: 
-      - backend
-volumes:
-  couchdb_data:
-  couchdb_config:
 networks:
   backend:
     driver: "bridge"

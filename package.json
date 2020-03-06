@@ -4,9 +4,9 @@
   "scripts": {
     "start": "lerna run start --parallel --scope @balnc/app --scope @balnc/server",
     "build": "lerna run start --parallel --scope @balnc/app --scope @balnc/server",
-    "build-desktop": "lerna run build-desktop --scope @balnc/app --scope @balnc/desktop"    
+    "build-desktop": "lerna run build-desktop --scope @balnc/app --scope @balnc/desktop"
   },
   "devDependencies": {
-    "lerna": "^3.20.0"
+    "lerna": "^3.20.2"
   }
 }
