@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>Balnc</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
 
   <meta charset="UTF-8">
   <meta name="description" content="An offline-first business application">
@@ -106,7 +106,7 @@
       mutateObjects: true, // default: true
     };
   </script>
-  <!-- Start of Woopra Code -->
+  <!-- Start of Woopra -->
   <script>
     (function () {
       var t, i, e, n = window, o = document, a = arguments, s = "script", r = ["config", "track", "identify", "visit", "push", "call", "trackForm", "trackClick"], c = function () { var t, i = this; for (i._e = [], t = 0; r.length > t; t++)(function (t) { i[t] = function () { return i._e.push([t].concat(Array.prototype.slice.call(arguments, 0))), i } })(r[t]) }; for (n._w = n._w || {}, t = 0; a.length > t; t++)n._w[a[t]] = n[a[t]] = n[a[t]] || new c; i = o.createElement(s), i.async = 1, i.src = "//static.woopra.com/js/w.js", e = o.getElementsByTagName(s)[0], e.parentNode.insertBefore(i, e)
@@ -116,9 +116,7 @@
       domain: 'balnc.cgeosoft.com'
     });
   </script>
-  <!-- End of Woopra Code -->
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1976d2">
+  <!-- End of Woopra -->
 </head>
 
 <body>
@@ -135,6 +133,20 @@
       Sorry, but app is not available without javascript
     </h3>
   </noscript>
+
+  <!-- Start of Crisp -->
+  <script type="text/javascript">
+    window.$crisp = [];
+    window.CRISP_WEBSITE_ID = "5978eab8-71b3-413d-9963-67a946a97ca5";
+    (function () {
+      d = document;
+      s = d.createElement("script");
+      s.src = "https://client.crisp.chat/l.js";
+      s.async = 1;
+      d.getElementsByTagName("head")[0].appendChild(s);
+    })();
+  </script>
+  <!--End of Crisp-->
 </body>
 
 </html>
