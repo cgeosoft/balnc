@@ -10,27 +10,36 @@
 </div>
 <div class="menu">
   <div class="item" ngbTooltip="version">v{{version}}</div>
-  <div class="item" ngbTooltip="build date">{{build.timestamp | date:'yyyy-MM-dd HH:mm'}}</div>
   <a class="item" ngbTooltip="git commit" target="_blank"
     href="https://github.com/ChristosGeorgiou/balnc/commit/{{build.git.hash}}">
-    {{build.git.hash | slice:0:8}}</a>
+    {{build.timestamp | date:'yyyy-MM-dd HH:mm'}}</a>
   <button ngbTooltip="toggle layout" *ngIf="profile.layout === 'box'" class="item" (click)="toggleLayout('fluid')">
     <fa-icon icon="compress-arrows-alt"></fa-icon> box
   </button>
   <button ngbTooltip="toggle layout" *ngIf="profile.layout !== 'box'" class="item" (click)="toggleLayout('box')">
     <fa-icon icon="expand-arrows-alt"></fa-icon> fluid
   </button>
-  <div class="item" ngbTooltip="current profile">
+  <button ngbTooltip="profile" class="item" routerLink="/settings">
     <fa-layers class="fa-fw">
       <fa-icon icon="swatchbook"></fa-icon>
-    </fa-layers> {{profile.name}}
+    </fa-layers> {{profile.name}} / {{username}}
+  </button>
+  <!-- <button ngbTooltip="chat with support" class="item" onclick="$crisp.push(['do', 'chat:open'])">
+    <fa-icon icon="comment-dots"></fa-icon>
+  </button> -->
+  <button ngbTooltip="chat with support" class="item" routerLink="/support/live">
+    <fa-icon icon="comment-dots"></fa-icon>
+  </button>
+  <div class="item" ngbTooltip="sync">
+    <ng-container [ngSwitch]="status">
+      <fa-icon *ngSwitchDefault icon="circle" class="text-muted"></fa-icon>
+      <fa-icon *ngSwitchCase="'active'" icon="circle" class="text-success"></fa-icon>
+      <fa-icon *ngSwitchCase="'error'" icon="circle" class="text-danger"></fa-icon>
+      <fa-icon *ngSwitchCase="'syncing'" icon="refresh" [spin]="true" class="text-white"></fa-icon>
+      <fa-icon *ngSwitchCase="'disabled'" icon="circle" class="text-muted"></fa-icon>
+    </ng-container>
   </div>
-  <div class="item" ngbTooltip="current user">
-    <fa-layers class="fa-fw">
-      <fa-icon icon="user"></fa-icon>
-    </fa-layers> {{username || '- none -'}}
-  </div>
-  <div ngbDropdown placement="top-right" container="body">
+  <!-- <div ngbDropdown placement="top-right" container="body">
     <button class="item" [ngbTooltip]="status" ngbDropdownToggle>
       <ng-container [ngSwitch]="status">
         <fa-icon *ngSwitchDefault icon="circle" class="text-muted"></fa-icon>
@@ -45,5 +54,5 @@
       <button ngbDropdownItem>Another Action</button>
       <button ngbDropdownItem>Something else is here</button>
     </div>
-  </div>
+  </div> -->
 </div>

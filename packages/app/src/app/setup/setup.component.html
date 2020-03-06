@@ -35,14 +35,14 @@
 <div class="footer">
   <ul class="list-inline m-0 text-muted">
     <li class="list-inline-item">v{{version}}</li>
+    <li class="list-inline-item">-</li>
     <li class="list-inline-item">
-      build: {{build.timestamp | date:'yyyy-MM-dd HH:mm'}}
-    </li>
-    <li class="list-inline-item">
-      commit: <a class="text-muted" target="_blank" rel="noopener"
+      <a class="text-muted" target="_blank" rel="noopener"
         href="https://github.com/christosgeorgiou/balnc/commit/{{build.git.hash}}">
-        {{build.git.hash | slice:0:8}}</a>
+        {{build.timestamp | date:'yyyy-MM-dd HH:mm'}}
+      </a>
     </li>
+    <li class="list-inline-item">|</li>
     <li class="list-inline-item">
       <a href="https://github.com/christosgeorgiou/balnc" target="_blank" rel="noopener" class="text-muted">
         source

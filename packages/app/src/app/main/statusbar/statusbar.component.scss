@@ -19,9 +19,9 @@
       @extend .px-2;
       font-size: small;
 
-      .breadcrumb-item{
+      .breadcrumb-item {
         padding-left: 0;
-        &::before{
+        &::before {
           padding-right: 0;
         }
       }
@@ -42,6 +42,11 @@
       &:hover {
         background: darken($primary, 10%);
         text-decoration: none;
+        outline: none;
+      }
+
+      &:focus,
+      &:active {
         outline: none;
       }
     }
