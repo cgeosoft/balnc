@@ -18,6 +18,11 @@ export type Profile = {
       token?: string
     }
   }
+  integrations?: {
+    stripe?: {
+      key: string
+    }
+  }
 }
 
 export const DEMO_PROFILE: Profile = {

@@ -11,7 +11,8 @@ import { CreateProfileComponent } from './profiles/create-profile/create-profile
 import { ProfilesComponent } from './profiles/profiles.component'
 import { RawViewComponent } from './raw-view/raw-view.component'
 import { RemoteComponent } from './remote/remote.component'
-import { SettingsRoutes } from './settings.routes'
+import { SettingsRoutes } from './settings.routes';
+import { IntegrationsComponent } from './integrations/integrations.component'
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { SettingsRoutes } from './settings.routes'
     ProfilesComponent,
     CreateProfileComponent,
     DeveloperComponent,
-    DemoDataComponent
+    DemoDataComponent,
+    IntegrationsComponent
   ],
   entryComponents: [
     RawViewComponent,

@@ -29,6 +29,13 @@ export class ShellComponent implements OnInit {
       type: 'button',
       label: 'Manage Plugins'
     }, {
+      url: '/settings/integrations',
+      icon: 'box',
+      type: 'button',
+      label: 'Integrations'
+    }, {
+      type: 'divider'
+    }, {
       url: '/settings/remote',
       icon: 'cog',
       type: 'button',

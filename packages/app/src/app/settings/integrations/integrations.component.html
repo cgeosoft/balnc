@@ -1,0 +1,51 @@
+<app-content [box]="true">
+  <section role="title">Integrations</section>
+  <section>
+    <h4>Stripe</h4>
+    <p>
+      Enter your stripe secret key <em>sk_live_xxxx...xxxx</em>.
+    </p>
+    <div class="d-flex align-items-center">
+      <input [(ngModel)]="integrations.stripe.key" class="form-control">
+      <button class="btn btn-primary ml-2" (click)="applyStripe()">Apply</button>
+    </div>
+    <ng-container *ngIf="balance">
+      <hr>
+      <h5>Balance <span *ngIf="!balance.livemode" class="badge badge-warning">TEST MODE</span></h5>
+      <table class="table table-sm">
+        <tr>
+          <th>Available</th>
+          <td>
+            <ng-container *ngFor="let available of balance.available">
+              <span>{{available.currency}} {{available.amount / 100}}</span>
+            </ng-container>
+          </td>
+        </tr>
+        <tr>
+          <th>Pending</th>
+          <td>
+            <ng-container *ngFor="let pending of balance.pending">
+              <span>{{pending.currency}} {{pending.amount / 100}}</span>
+            </ng-container>
+          </td>
+        </tr>
+      </table>
+      <h5>Latest Payments</h5>
+      <ng-container *ngIf="paymentIntents">
+        <table class="table table-sm">
+          <ng-container *ngFor="let pi of paymentIntents.data">
+            <tr>
+              <th>{{pi.id}}</th>
+              <td>{{pi.created | date}}</td>
+              <td>{{pi.description}}</td>
+              <td>{{pi.amount}}</td>
+            </tr>
+          </ng-container>
+        </table>
+      </ng-container>
+    </ng-container>
+  </section>
+</app-content>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>
