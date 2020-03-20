@@ -9,7 +9,7 @@
   </ul>
 </div>
 <div class="menu">
-  <div class="item" ngbTooltip="version">v{{version}}</div>
+  <button class="item" ngbTooltip="changelog" (click)="openChangelog()">v{{version}}</button>
   <a class="item" ngbTooltip="git commit" target="_blank"
     href="https://github.com/ChristosGeorgiou/balnc/commit/{{build.git.hash}}">
     {{build.timestamp | date:'yyyy-MM-dd HH:mm'}}</a>

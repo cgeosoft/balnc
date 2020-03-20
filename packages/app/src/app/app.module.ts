@@ -8,7 +8,9 @@ import { AppComponent } from './app.component'
 import { APP_ROUTES } from './app.routes'
 import { BoardsDataModule } from './boards/boards.data.module'
 import { BusinessDataModule } from './business/business.data.module'
-import { MainModule } from './main/main.module'
+import { MainModule } from './main/main.module';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'
 
 @NgModule({
   imports: [
@@ -26,7 +28,8 @@ import { MainModule } from './main/main.module'
       // enableTracing: true
     }),
     BusinessDataModule,
-    BoardsDataModule
+    BoardsDataModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
   declarations: [
     AppComponent

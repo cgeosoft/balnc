@@ -1,23 +1,54 @@
 <app-page>
   <app-content>
-    <section class="no-border">
+    <section role="title">Dashboard</section>
+    <section class="full">
       <div class="row">
-        <div class="col-lg-3 col-md-6 mb-4">
-          <app-tile [icon]="['fas', 'users']" label="contacts" theme="red" [value]="(contacts$ | async)"></app-tile>
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header">Events</div>
+            <mwl-calendar-month-view [viewDate]="currentDate" [events]="calEvents">
+            </mwl-calendar-month-view>
+            <div class="overflow-auto" style="max-height:300px">
+              <table class="table table-sm mb-0">
+                <ng-container *ngFor="let e of calEvents">
+                  <tr>
+                    <td>
+                      <div>{{e.title}}</div>
+                      <div><small class="text-muted">{{e.start|date}}</small></div>
+                    </td>
+                  </tr>
+                </ng-container>
+              </table>
+            </div>
+          </div>
         </div>
-        <div class="col-lg-3 col-md-6 mb-4">
-          <app-tile [icon]="['fas', 'balance-scale-left']" label="dolor" theme="green"></app-tile>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-4">
-          <app-tile [icon]="['fas', 'balance-scale']" label="sit" theme="orange"></app-tile>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-4">
-          <app-tile [icon]="['fas', 'exclamation-circle']" label="amet" theme="blue"></app-tile>
+        <div class="col-md-4">
+          <div class="alert alert-info">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt pariatur
+            reiciendis labore ratione, unde ducimus consectetur inventore voluptatibus, obcaecati magnam commodi.
+            Mollitia vitae sapiente esse officia eius beatae quos soluta!</div>
+          <div class="alert alert-danger">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt pariatur
+            reiciendis labore ratione, unde ducimus consectetur inventore voluptatibus, obcaecati magnam commodi.
+            Mollitia vitae sapiente esse officia eius beatae quos soluta!</div>
+          <div class="alert alert-danger">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt pariatur
+            reiciendis labore ratione, unde ducimus consectetur inventore voluptatibus, obcaecati magnam commodi.
+            Mollitia vitae sapiente esse officia eius beatae quos soluta!</div>
+          <div class="alert alert-warning">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt pariatur
+            reiciendis labore ratione, unde ducimus consectetur inventore voluptatibus, obcaecati magnam commodi.
+            Mollitia vitae sapiente esse officia eius beatae quos soluta!</div>
+          <div class="mb-2">
+            <app-tile [icon]="['fas', 'users']" label="contacts" theme="red" [value]="(contacts$ | async)"></app-tile>
+          </div>
+          <div class="mb-2">
+            <app-tile [icon]="['fas', 'balance-scale-left']" label="dolor" theme="green"></app-tile>
+          </div>
+          <div class="mb-2">
+            <app-tile [icon]="['fas', 'balance-scale']" label="sit" theme="orange"></app-tile>
+          </div>
+          <div class="mb-2">
+            <app-tile [icon]="['fas', 'exclamation-circle']" label="amet" theme="blue"></app-tile>
+          </div>
         </div>
       </div>
-    </section>
-    <section class="full">
-      <app-empty undraw="under-construction" message="Under Construction"></app-empty>
     </section>
   </app-content>
 </app-page>

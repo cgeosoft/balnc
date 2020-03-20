@@ -4,7 +4,7 @@
     <router-outlet></router-outlet>
   </div>
   <div class="page-loader" *ngIf="pageLoading">
-    <app-spinner></app-spinner>
+    <app-spinner [label]="routeLabel"></app-spinner>
   </div>
 </div>
 <app-statusbar></app-statusbar>

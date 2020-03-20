@@ -31,7 +31,8 @@
             ],
             "styles": [
               "src/scss/styles.scss",
-              "node_modules/prismjs/themes/prism-coy.css"
+              "node_modules/prismjs/themes/prism-coy.css",
+              "node_modules/angular-calendar/css/angular-calendar.css"
             ],
             "scripts": [
               "node_modules/ace-builds/src-min/ace.js",
@@ -116,6 +117,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
+              "node_modules/angular-calendar/css/angular-calendar.css",
               "src/styles.scss"
             ],
             "assets": [

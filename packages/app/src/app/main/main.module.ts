@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
 import { MainShellComponent } from './@shell/shell.component'
 import { AppbarComponent } from './appbar/appbar.component'
+import { ChangelogComponent } from './changelog/changelog.component'
 import { ErrorComponent } from './error/error.component'
 import { MainGuard } from './main.guard'
 import { StatusbarComponent } from './statusbar/statusbar.component'
@@ -16,7 +17,8 @@ import { StatusbarComponent } from './statusbar/statusbar.component'
     AppbarComponent,
     ErrorComponent,
     MainShellComponent,
-    StatusbarComponent
+    StatusbarComponent,
+    ChangelogComponent
   ],
   providers: [
     MainGuard
@@ -24,6 +26,9 @@ import { StatusbarComponent } from './statusbar/statusbar.component'
   exports: [
     ErrorComponent,
     MainShellComponent
+  ],
+  entryComponents: [
+    ChangelogComponent
   ]
 })
 export class MainModule { }

@@ -18,13 +18,14 @@ export class MainShellComponent {
   isOnline = false
 
   pageLoading = false
+  routeLabel = null
 
   plugins: Plugin[] = []
 
   menu: any[] = []
   update$: Subscription
 
-  constructor (
+  constructor(
     private config: ConfigService,
     private router: Router,
     private toastr: ToastrService,
@@ -45,7 +46,7 @@ export class MainShellComponent {
     })
   }
 
-  get layout () {
+  get layout() {
     switch (this.config.profile.layout) {
       case 'box': return 'container'
       case 'fluid': return 'container-fluid'
@@ -53,9 +54,10 @@ export class MainShellComponent {
     }
   }
 
-  private _navigationInterceptor (event: RouterEvent): void {
+  private _navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.pageLoading = true
+      this.routeLabel = event.url
     }
     if (event instanceof NavigationEnd) {
       this._hideSpinner()
@@ -69,7 +71,7 @@ export class MainShellComponent {
     }
   }
 
-  private _hideSpinner (): void {
+  private _hideSpinner(): void {
     this.pageLoading = false
   }
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { filter } from 'rxjs/operators'
+import { ChangelogComponent } from '../changelog/changelog.component'
 
 @Component({
   selector: 'app-statusbar',
@@ -15,7 +17,8 @@ export class StatusbarComponent implements OnInit {
   constructor (
     private configService: ConfigService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private modal: NgbModal
   ) {
   }
 
@@ -67,5 +70,9 @@ export class StatusbarComponent implements OnInit {
     const profile = { ...this.configService.profile }
     profile.layout = layout
     this.configService.save(profile)
+  }
+
+  openChangelog () {
+    this.modal.open(ChangelogComponent, { size: 'lg', centered: true, scrollable: true })
   }
 }
