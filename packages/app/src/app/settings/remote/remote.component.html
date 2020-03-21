@@ -1,194 +1,77 @@
 <app-content [box]="true">
-  <section role="title">Remote Options</section>
+  <section role="title">Remote Configuration</section>
   <section>
+    <h4>Server</h4>
+    <p> User the <b>Balnc Server</b> to enchanse features and activate intergrations. </p>
+    <ul>
+      <li>Enable intergrations</li>
+      <li>Enable automations</li>
+    </ul>
+    <div class="form-group">
+      <select [(ngModel)]="serverConfig.type" class="form-control">
+        <option [ngValue]="null">Server Disabled - Data are stored in browser storage (small dataset)</option>
+        <option value="local" disabled>Desktop app - Data are stored in server running in your pc (large dataset)
+        </option>
+        <option value="remote">Remote Server - Data re stored in remote server owned by you (large dataset)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="prefixId">Host</span>
+        </div>
+        <input [disabled]="!profile.server?.type" [(ngModel)]="serverConfig.host" class="form-control"
+          placeholder="https://myhost:3100">
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" (click)="applyServer()">Apply Configuration</button>
+    </div>
+  </section>
+  <section>
+    <h4>Database</h4>
     <p>
       Use this feature for make real-time backup of your data and access from multiple devices.
       Some modules may require this option for them to work.
     </p>
-    <div style="max-width: 700px;">
-      <div class="form-group">
-        <label>Type</label>
-        <select [(ngModel)]="remote.type" class="form-control">
-          <option selected>Choose...</option>
-          <option value="local" disabled>Local PouchDB (desktop)</option>
-          <option value="couch">CouchDB</option>
-          <option value="graphql" disabled>GraphQL (future balnc-server)</option>
-        </select>
+    <div class="form-group">
+      <select [(ngModel)]="dbConfig.type" class="form-control">
+        <option [ngValue]="null">Disable Remote Database</option>
+        <option value="couch">CouchDB / PouchDB</option>
+        <option value="graphql" disabled>GraphQL (future balnc-server)</option>
+      </select>
+    </div>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="prefixId">Host</span>
+          </div>
+          <input [disabled]="!profile.db?.type" [(ngModel)]="dbConfig.host" class="form-control"
+            placeholder="https://mycouch.mydomain.com:5984">
+        </div>
       </div>
-      <div class="form-group">
-        <label>Host</label>
-        <input [(ngModel)]="remote.host" class="form-control" placeholder="https://mycouch.mydomain.com:5984">
-      </div>
-      <div class="form-group">
-        <label>Database</label>
-        <input [(ngModel)]="remote.key" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>Username</label>
-        <input [(ngModel)]="remote.username" class="form-control">
-      </div>
-      <div class="form-group text-right">
-        <button class="btn btn-primary" (click)="apply()">Apply</button>
+      <div class="col-lg-6">
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="prefixId">Database</span>
+          </div>
+          <input [disabled]="!profile.db?.type" [(ngModel)]="dbConfig.key" class="form-control">
+        </div>
       </div>
     </div>
-
-    <h4>Toggle Sync</h4>
-    <p>You may switch on/off the synchronization between local and remote database</p>
-    <p>Current status:
-      <span *ngIf="remote.enabled" class="text-success">enabled</span>
-      <span *ngIf="!remote.enabled" class="text-danger">disabled</span></p>
-    <button class="btn btn-primary" (click)="toggleStatus()">Toggle sync</button>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="prefixId">Username</span>
+          </div>
+          <input [disabled]="!profile.db?.type" [(ngModel)]="dbConfig.username" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary" (click)="applyDb()">Apply Configuration</button>
+    </div>
   </section>
-  <!-- <section class="container">
-    <div class="breadcrumb">
-      <small class="breadcrumb-item" *ngFor="let step of wizard.steps"
-        [ngClass]="{active: wizard.active === step.key }">
-        {{step.label}}</small>
-    </div>
-    <ng-container *ngIf="wizard.active==='server'">
-      <p>
-        Please follow <a href="https://github.com/ChristosGeorgiou/balnc/tree/master/docs/server-setup.md"
-          target="_blank">this
-          guide</a> for
-        more information about setup your own remote server.
-      </p>
-      <div class="form-group">
-        <div class="input-group">
-          <input #server autofocus [disabled]="loading.verifing" placeholder="https://balnc.mycompany.com"
-            class="form-control form-control-lg" [value]="remote.server" (keyup)="remote.server = server.value">
-          <span ngbDropdown class="input-group-append" placement="bottom-right">
-            <button ngbDropdownToggle class="btn btn-outline-primary">
-            </button>
-            <div ngbDropdownMenu>
-              <ng-container *ngFor="let server of servers">
-                <a href="javascript:" ngbDropdownItem (click)="remote.server=server.url">{{server.label}} -
-                  {{server.url}}</a>
-              </ng-container>
-            </div>
-          </span>
-        </div>
-      </div>
-      <div class="alert alert-warning" *ngIf="isDemo">
-        <strong>Warning</strong><br>
-        Use demo server for demonstration purposes only. Please note that this server is
-        NOT hardened and so your
-        data are not guaranteed that will be
-        not visible to others.
-      </div>
-      <div class="text-right">
-        <button [disabled]="loading.verifing" class="btn btn-primary" (click)="verify(server.value)">Verify
-          Remote</button>
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="wizard.active==='auth'">
-      <div class="alert alert-info">
-        <dl class="row m-0">
-          <dt class="col-3 text-right">Demo:</dt>
-          <dd class="col-9 p-0 m-0">
-            <span *ngIf="isDemo" class="badge badge-danger">YES</span>
-            <span *ngIf="!isDemo" class="badge badge-success">NO</span>
-          </dd>
-          <dt class="col-3 text-right">Server:</dt>
-          <dd class="col-9 p-0 m-0">{{remote.server}}&nbsp;</dd>
-          <dt class="col-3 text-right">DB:</dt>
-          <dd class="col-9 p-0 m-0">{{remote.db}}&nbsp;</dd>
-        </dl>
-      </div>
-      <ng-container *ngIf="authView==='login'">
-
-        <div class="form-group">
-          <label class="form-label">Username</label>
-          <input #username [disabled]="loading.auth" class="form-control" [value]="remote.username">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input #password [disabled]="loading.auth" class="form-control" type="password" [value]="remote.password">
-        </div>
-        <div class="text-right">
-          <button class="btn btn-light mr-2" (click)="wizard.active='server'">back</button>
-          <button class="btn btn-primary" [disabled]="loading.auth"
-            (click)="login(username.value,password.value)">login</button>
-        </div>
-        <ng-container *ngTemplateOutlet="seperator"></ng-container>
-        <div class="text-center">
-          <a href="javascript:" (click)="authView='register'">Register</a> an new account
-        </div>
-      </ng-container>
-      <ng-container *ngIf="authView==='register'">
-        <p>Register a new account at <strong>{{remote.db}}</strong>. Make sure that the host provider allows
-          anonymous
-          user registration.
-        </p>
-        <div class="form-group">
-          <label class="form-label">Username</label>
-          <input #reg_username [disabled]="loading.auth" class="form-control">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input #reg_password [disabled]="loading.auth" class="form-control" type="password">
-        </div>
-        <div class="text-right">
-          <button class="btn btn-light mr-2" (click)="wizard.active='server'">back</button>
-          <button class="btn btn-primary" [disabled]="loading.auth"
-            (click)="register(reg_username.value,reg_password.value)">register</button>
-        </div>
-        <ng-container *ngTemplateOutlet="seperator"></ng-container>
-        <div class="text-center">
-          having already an account? <a href="javascript:" (click)="authView='login'">login</a> instead
-        </div>
-      </ng-container>
-    </ng-container>
-
-    <ng-container *ngIf="wizard.active==='link'">
-      <h5>Create a new remote profile</h5>
-      <p>This will create a new profile, generate all remote databases and set you as an owner</p>
-      <div class="form-group d-flex mb-4">
-        <input #newProfileName class="form-control" placeholder="Remote profile name" [value]="localProfile.name">
-        <button class="btn btn-primary ml-2" (click)="createProfile(newProfileName.value)">Create</button>
-      </div>
-      <ng-container *ngIf="profiles.length">
-        <h5>Existing remote profiles</h5>
-        <div class="list-group list-group-flush mb-4">
-          <ng-container *ngFor="let p of profiles">
-            <div class="list-group-item d-flex align-items-center px-0">
-              <div class="flex-grow-1">
-                <div>{{p.name || "no name"}} <small class="text-muted"> - #{{p.key}}</small>
-                  <a href="javascript:" (click)="removeProfile(p)" class="mr-2" *ngIf="remote.username === p.owner">
-                    <fa-icon icon='trash-alt' class="text-danger"></fa-icon>
-                  </a>
-                </div>
-                <div class="text-muted">created by {{p.owner}} at {{p.created|date:'short'}}</div>
-              </div>
-              <button class="btn btn-sm btn-outline-primary" [ngClass]="{active:remote.key === p.key}"
-                (click)="linkRemote(p)">Link</button>
-            </div>
-          </ng-container>
-        </div>
-      </ng-container>
-      <div class="text-right">
-        <button class="btn btn-light mr-2" (click)="wizard.active='auth'">back</button>
-        <button class="btn btn-primary" [disabled]="!remote.key" (click)="wizard.active = 'finish'">Finish</button>
-      </div>
-    </ng-container>
-
-    <ng-container *ngIf="wizard.active==='finish'">
-      <p>Remote link completed</p>
-      <div class="d-flex">
-        <div class="flex-grow-1 text-right">
-          <div><strong>Local</strong></div>
-          <div>{{localProfile.name}}</div>
-          <div class="text-muted">{{localProfile.key}}</div>
-        </div>
-        <div class="p-4">
-          <fa-icon icon="exchange-alt" size="lg"></fa-icon>
-        </div>
-        <div class="flex-grow-1">
-          <div><strong>Remote</strong></div>
-          <div>{{remoteProfile.name}}</div>
-          <div class="text-muted">{{remoteProfile.key}}</div>
-        </div>
-      </div>
-    </ng-container>
-  </section> -->
 </app-content>

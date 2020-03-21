@@ -11,7 +11,7 @@
         <fa-icon (click)="rename(newname.innerText)" icon="save" class="ml-2 text-primary"></fa-icon>
       </dd>
       <dt class="col-sm-3 text-right">Created:</dt>
-      <dd class="col-sm-9 text-monospace">{{profile.createdAt|date:"short"}}&nbsp;</dd>
+      <dd class="col-sm-9 text-monospace">{{profile.created|date:"short"}}&nbsp;</dd>
     </dl>
     <button class="btn btn-primary" (click)="editRaw()">Edit Raw</button>
   </section>

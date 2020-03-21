@@ -22,27 +22,27 @@ export class ShellComponent implements OnInit {
       url: '/settings/general',
       icon: 'cog',
       type: 'button',
-      label: 'General Options'
+      label: 'General'
     }, {
       url: '/settings/plugins',
-      icon: 'box',
+      icon: 'boxes',
       type: 'button',
-      label: 'Manage Plugins'
+      label: 'Plugins'
     }, {
       url: '/settings/integrations',
-      icon: 'box',
+      icon: 'puzzle-piece',
       type: 'button',
       label: 'Integrations'
     }, {
       type: 'divider'
     }, {
       url: '/settings/remote',
-      icon: 'cog',
+      icon: 'server',
       type: 'button',
-      label: 'Remote Options'
+      label: 'Remote'
     }, {
       url: '/settings/demo-data',
-      icon: 'cog',
+      icon: 'exchange-alt',
       type: 'button',
       label: 'Demo Data'
     }, {
@@ -51,7 +51,7 @@ export class ShellComponent implements OnInit {
       url: '/settings/profiles',
       icon: 'swatchbook',
       type: 'button',
-      label: 'Manage Profiles'
+      label: 'Profiles'
     }, {
       url: '/settings/developer',
       icon: 'code',

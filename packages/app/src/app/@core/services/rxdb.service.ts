@@ -66,8 +66,8 @@ export class RxDBService {
     return this.configService.profile
   }
 
-  get remote () {
-    return this.configService.profile?.db?.remote || {}
+  get config () {
+    return this.configService.profile?.db || {}
   }
 
   constructor (
@@ -107,28 +107,24 @@ export class RxDBService {
   }
 
   setupRemote () {
-    switch (this.remote?.type) {
-      case 'local':
-        this.enableLocalPouch()
-        break
+    switch (this.config?.type) {
       case 'couch':
-        if (this.remote?.enabled) {
-          this.enableRemoteCouch()
-        } else if (this.repStateCouch) {
-          this.repStateCouch.cancel()
-        }
+        this.enableRemoteCouch()
         break
       case 'graphql':
         this.enableRemoteGraphql()
         break
       default:
+        if (this.repStateCouch) {
+          this.repStateCouch.cancel()
+        }
         console.log('[DatabaseService]', `Remote is disabled`)
         break
     }
   }
 
   async setupCache () {
-    if (this.profile.db?.cache) {
+    if (this.profile.cache) {
       console.log('[DatabaseService]', `Enable cache mode`)
       this.entities = await this.db.entities.inMemory()
     } else {
@@ -137,15 +133,14 @@ export class RxDBService {
   }
 
   async needAuthenticate () {
-    if (!this.remote?.enabled) return false
-    if (!this.remote?.type) return false
-    if (this.remote.type === 'graphql') {
+    if (!this.config?.type) return false
+    if (this.config.type === 'graphql') {
       // todo
-    } else if (this.remote.type === 'couch') {
-      const resp = await this.http.get(`${this.remote.host}/_session`, { withCredentials: true }).toPromise().catch(() => false)
+    } else if (this.config.type === 'couch') {
+      const resp = await this.http.get(`${this.config.host}/_session`, { withCredentials: true }).toPromise().catch(() => false)
       console.log(resp)
       if (!resp) {
-        console.log(`No response from ${this.remote.host}/_session. Disable remote`)
+        console.log(`No response from ${this.config.host}/_session. Disable remote`)
         return false
       }
       if (resp['userCtx'].name) {
@@ -157,8 +152,8 @@ export class RxDBService {
   }
 
   async authenticate (password: string) {
-    return this.http.post(`${this.remote.host}/_session`, {
-      name: this.remote.username,
+    return this.http.post(`${this.config.host}/_session`, {
+      name: this.config.username,
       password: password
     }, { withCredentials: true })
       .toPromise()
@@ -171,17 +166,13 @@ export class RxDBService {
     await RxDB.removeDatabase(`balnc_${profileKey}`, 'idb')
   }
 
-  private enableLocalPouch () {
-    // todo
-  }
-
   private enableRemoteCouch () {
-    if (!this.remote?.host || !this.remote?.key) {
+    if (!this.config?.host || !this.config?.key) {
       console.log('[DatabaseService]', `Remote for couch is not configured`)
       return
     }
     this.repStateCouch = this.db.entities.sync({
-      remote: `${this.remote.host}/${this.remote.key}`
+      remote: `${this.config.host}/${this.config.key}`
     })
   }
 

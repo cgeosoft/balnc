@@ -27,7 +27,7 @@ export class ConfigService {
   }
 
   get username (): string {
-    return this.profile?.db?.remote?.username
+    return this.profile?.db?.username
   }
 
   get enabled () {
@@ -73,7 +73,7 @@ export class ConfigService {
 
   save (profile: Partial<Profile>): string {
     profile.key = profile.key || Helpers.uid()
-    profile.createdAt = profile.createdAt || Date.now()
+    profile.created = profile.created || Date.now()
     let profiles = [...this.profiles]
     let index = this.profiles.findIndex(p => p.key === profile.key)
     if (index !== -1) {

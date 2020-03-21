@@ -79,6 +79,11 @@
       @extend .p-4;
       position: relative;
 
+      h4{
+        font-size: 1.4rem;
+        font-weight: 300;
+      }
+
       &.no-padding {
         @extend .p-0;
       }
@@ -101,7 +106,7 @@
         position: absolute;
         content: "";
         width: 400px;
-        left: calc(50% - 200px);
+        left: 1rem;//calc(50% - 200px);
         height: 1px;
         background: #eee;
       }

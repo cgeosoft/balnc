@@ -1,6 +1,20 @@
 @import "theme";
 
 :host {
+  .icon {
+    @extend .rounded-circle;
+    @extend .mr-4;
+    @extend .text-center;
+    width: 60px;
+    min-width: 60px;
+    height: 60px;
+    min-height: 60px;
+    line-height: 60px;
+    fa-icon {
+      font-size: 2rem;
+      color: white;
+    }
+  }
   .list-settings {
     @extend .list-group;
     @extend .list-group-flush;

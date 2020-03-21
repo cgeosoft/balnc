@@ -1,14 +1,14 @@
 <app-content [box]="true">
   <section role="title">Manage Plugins</section>
-  <section>
-    <div class="list-settings">
-      <div class="list-settings-item" *ngFor="let p of plugins">
-        <div class="list-settings-icon" [ngStyle]="{background:p.color}">
+  <ng-container *ngFor="let p of plugins">
+    <section>
+      <div class="d-flex align-items-start">
+        <div class="icon" [ngStyle]="{background:p.color}">
           <fa-icon [icon]="p.icon"></fa-icon>
         </div>
-        <div class="list-settings-content">
-          <h5>{{p.title}}</h5>
-          <small class="text-muted">{{p.description}}</small>
+        <div class="flex-grow-1">
+          <h4>{{p.title}}</h4>
+          <p class="text-muted">{{p.description}}</p>
         </div>
         <button class="btn btn-action"
           [ngClass]="{'btn-outline-primary':!profile.plugins[p.key],'btn-outline-danger':profile.plugins[p.key]}"
@@ -16,6 +16,6 @@
           {{profile.plugins[p.key]?'Deactivate':'Activate'}}
         </button>
       </div>
-    </div>
-  </section>
+    </section>
+  </ng-container>
 </app-content>

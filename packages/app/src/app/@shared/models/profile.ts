@@ -2,27 +2,32 @@
 export type Profile = {
   key: string
   name: string
-  createdAt?: number
+  created?: number
   plugins: { [key: string]: boolean }
   layout?: 'box' | 'fluid'
   errorReport?: boolean
   analytics?: boolean
-  db?: {
-    cache?: boolean
-    remote?: {
-      type?: 'local' | 'couch' | 'graphql'
-      enabled?: boolean
-      host?: string
-      key?: string
-      username?: string
-      token?: string
-    }
-  }
+  cache?: boolean
+  server?: ServerConfig
+  db?: DbConfig
   integrations?: {
     stripe?: {
       key: string
     }
   }
+}
+
+export type ServerConfig = {
+  type?: 'local' | 'remote'
+  host?: string
+}
+
+export type DbConfig = {
+  type?: 'couch' | 'graphql'
+  host?: string
+  key?: string
+  username?: string
+  token?: string
 }
 
 export const DEMO_PROFILE: Profile = {

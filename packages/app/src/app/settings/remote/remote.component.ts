@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, HostBinding, OnInit } from '@angular/core'
 import { ConfigService, RxDBService } from '@balnc/core'
+import { DbConfig, ServerConfig } from '@balnc/shared'
 import { ToastrService } from 'ngx-toastr'
 import { environment } from '../../../environments/environment'
 
@@ -11,7 +12,6 @@ import { environment } from '../../../environments/environment'
 export class RemoteComponent implements OnInit {
   @HostBinding('class') errorClass
 
-  // profiles: RemoteProfile[] = []
   seperator
   wizard = {
     active: 'server',
@@ -29,16 +29,17 @@ export class RemoteComponent implements OnInit {
   authView = 'login'
   servers = environment.servers
 
-  remote: any = {}
+  serverConfig: ServerConfig = {}
+  dbConfig: DbConfig = {}
 
   get profile () {
     return this.configService.profile
   }
 
   get isDemo () {
-    if (!this.remote?.host) return false
+    if (!this.dbConfig?.host) return false
     const demoServer = environment.servers.find(s => s.label === 'Demo Server')
-    return demoServer.url === this.remote?.host
+    return demoServer.url === this.dbConfig?.host
   }
 
   constructor (
@@ -49,50 +50,35 @@ export class RemoteComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    this.remote = { ...this.profile.db?.remote || {} }
+    this.serverConfig = {
+      ...this.profile.server,
+      ...{
+        type: null
+      }
+    }
+    this.dbConfig = {
+      ...this.profile.db,
+      ...{
+        type: null
+      }
+    }
   }
 
-  async apply () {
-    this.configService.profile.db = {
-      ...this.configService.profile.db,
-      ...{ remote: { ...this.remote } }
+  async applyServer () {
+    this.profile.server = {
+      ...this.serverConfig
     }
     this.configService.save(this.profile)
-    this.remote = { ...this.profile.db?.remote || {} }
     await this.rxdbService.setup()
   }
 
-  async toggleStatus () {
-    if (!confirm('Are you sure?')) return
-    this.configService.profile.db.remote.enabled = !this.remote.enabled
+  async applyDb () {
+    this.profile.db = {
+      ...this.dbConfig
+    }
     this.configService.save(this.profile)
-    this.remote = { ...this.profile.db?.remote || {} }
     await this.rxdbService.setup()
   }
-
-  async setupRemote () {
-    // const m = this.modal.open(RemoteComponent, { backdrop: 'static' })
-    // m.componentInstance.profile = this.profile
-    // const remote = await m.result
-    // this.profile.db = remote
-    // this.configService.save(this.profile)
-    // await this.router.navigateByUrl('/')
-  }
-  // async verify (server) {
-  //   this.loading.verifing = true
-  //   const _server = server.trim().replace(/\/$/, '')
-  //   await this.http
-  //     .get(`${_server}/status`)
-  //     .toPromise()
-  //     .then((result: RemoteStatus) => {
-  //       this.profile.db.host = result.db
-  //       this.wizard.active = 'auth'
-  //     })
-  //     .catch((err) => {
-  //       this.toastr.error(err.message)
-  //     })
-  //   this.loading.verifing = false
-  // }
 
   async registerCouchDB (username, password) {
     this.loading.auth = true
