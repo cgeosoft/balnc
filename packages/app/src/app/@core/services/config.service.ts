@@ -23,9 +23,7 @@ export class ConfigService {
   }
 
   get profile (): Profile {
-    const profile = this.profiles.find(p => p.key === this.selected)
-    profile.modules = profile.modules || {}
-    return profile
+    return this.profiles.find(p => p.key === this.selected)
   }
 
   get username (): string {
