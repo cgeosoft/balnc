@@ -5,7 +5,7 @@
   @extend .justify-content-between;
   @extend .bg-primary;
   color: #eee;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 
   .menu {
     @extend .d-flex;
@@ -17,7 +17,6 @@
       @extend .m-0;
       @extend .py-1;
       @extend .px-2;
-      font-size: small;
 
       .breadcrumb-item {
         padding-left: 0;
