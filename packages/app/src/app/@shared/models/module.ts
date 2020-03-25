@@ -1,5 +1,6 @@
-export interface BPlugin {
+export interface Module {
   key: string
+  type: 'CORE' | 'INTERGRATION'
   title: string
   description?: string
   icon?: string[] | string

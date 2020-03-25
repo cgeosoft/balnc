@@ -3,18 +3,13 @@ export type Profile = {
   key: string
   name: string
   created?: number
-  plugins: { [key: string]: boolean }
   layout?: 'box' | 'fluid'
   errorReport?: boolean
   analytics?: boolean
   cache?: boolean
   server?: ServerConfig
   db?: DbConfig
-  integrations?: {
-    stripe?: {
-      key: string
-    }
-  }
+  modules: { [key: string]: PluginConfig & any}
 }
 
 export type ServerConfig = {
@@ -33,16 +28,20 @@ export type DbConfig = {
 export const DEMO_PROFILE: Profile = {
   key: 'default',
   name: 'default',
-  plugins: {
-    business: true,
-    projects: true,
-    boards: true,
-    presentations: true,
-    documents: true,
-    analytics: false,
-    reports: false
+  modules: {
+    business: { enabled: true },
+    projects: { enabled: true },
+    boards: { enabled: true },
+    presentations: { enabled: true },
+    documents: { enabled: true },
+    analytics: { enabled: false },
+    reports: { enabled: false }
   },
   layout: 'box',
   errorReport: false,
   analytics: false
+}
+
+export type PluginConfig = {
+  enabled: boolean
 }

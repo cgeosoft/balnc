@@ -6,13 +6,14 @@ import { ShellComponent } from './@shell/shell.component'
 import { DemoDataComponent } from './demo-data/demo-data.component'
 import { DeveloperComponent } from './developer/developer.component'
 import { GeneralComponent } from './general/general.component'
-import { PluginsComponent } from './plugins/plugins.component'
+import { MailgunComponent } from './modules/integrations/mailgun/mailgun.component'
+import { StripeComponent } from './modules/integrations/stripe/stripe.component'
+import { ModulesComponent } from './modules/modules.component'
 import { CreateProfileComponent } from './profiles/create-profile/create-profile.component'
 import { ProfilesComponent } from './profiles/profiles.component'
 import { RawViewComponent } from './raw-view/raw-view.component'
 import { RemoteComponent } from './remote/remote.component'
-import { SettingsRoutes } from './settings.routes';
-import { IntegrationsComponent } from './integrations/integrations.component'
+import { SettingsRoutes } from './settings.routes'
 
 @NgModule({
   imports: [
@@ -23,14 +24,15 @@ import { IntegrationsComponent } from './integrations/integrations.component'
   declarations: [
     ShellComponent,
     GeneralComponent,
-    PluginsComponent,
+    ModulesComponent,
     RemoteComponent,
     RawViewComponent,
     ProfilesComponent,
     CreateProfileComponent,
     DeveloperComponent,
     DemoDataComponent,
-    IntegrationsComponent
+    MailgunComponent,
+    StripeComponent
   ],
   entryComponents: [
     RawViewComponent,

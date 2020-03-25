@@ -4,10 +4,10 @@ import { ConfigService } from '@balnc/core'
 import * as Stripe from 'stripe'
 
 @Component({
-  selector: 'app-integrations',
-  templateUrl: './integrations.component.html'
+  selector: 'app-stripe',
+  templateUrl: './stripe.component.html'
 })
-export class IntegrationsComponent implements OnInit {
+export class StripeComponent implements OnInit {
 
   balance: Stripe.balance.IBalance
   paymentIntents: Stripe.IList<Stripe.paymentIntents.IPaymentIntent>
@@ -18,8 +18,7 @@ export class IntegrationsComponent implements OnInit {
         stripe: {
           key: null
         }
-      },
-      ...this.configService.profile.integrations
+      }
     }
   }
 

@@ -24,15 +24,10 @@ export class ShellComponent implements OnInit {
       type: 'button',
       label: 'General'
     }, {
-      url: '/settings/plugins',
+      url: '/settings/modules',
       icon: 'boxes',
       type: 'button',
-      label: 'Plugins'
-    }, {
-      url: '/settings/integrations',
-      icon: 'puzzle-piece',
-      type: 'button',
-      label: 'Integrations'
+      label: 'Modules'
     }, {
       type: 'divider'
     }, {
@@ -69,7 +64,7 @@ export class ShellComponent implements OnInit {
   }
 
   get plugins () {
-    return environment.plugins
+    return environment.modules
   }
 
   constructor (

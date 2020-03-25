@@ -1,9 +1,9 @@
 import { EnvBuild } from './env-build'
-import { BPlugin } from './plugin'
+import { Module } from './module'
 
 export interface Enviroment {
   production: boolean
-  plugins: BPlugin[]
+  modules: Module[]
   build: EnvBuild
   version: string
   servers: any[]

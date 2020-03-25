@@ -1,19 +1,24 @@
 <div class="menu">
-  <button class="item" routerLinkActive="active" routerLink="/dashboard" ngbTooltip="Dashboard" placement="right" container="body">
+  <button class="item" routerLinkActive="active" routerLink="/dashboard" ngbTooltip="Dashboard" placement="right"
+    container="body">
     <fa-icon icon="home"></fa-icon>
   </button>
-  <div class="divider"></div>
-  <ng-container *ngFor="let plugin of enabledPlugins">
-    <button class="item" routerLinkActive="active" [routerLink]="['/',plugin.key]"
-      [ngbTooltip]="plugin.title" placement="right" container="body">
-      <fa-icon [icon]="plugin.icon"></fa-icon>
-    </button>
+  <ng-container *ngIf="modules.length">
+    <div class="divider"></div>
+    <ng-container *ngFor="let module of modules">
+      <button class="item" routerLinkActive="active" [routerLink]="['/',module.key]" [ngbTooltip]="module.title"
+        placement="right" container="body">
+        <fa-icon [icon]="module.icon"></fa-icon>
+      </button>
+    </ng-container>
   </ng-container>
   <div class="divider"></div>
-  <button class="item" routerLink="/settings" routerLinkActive="active" ngbTooltip="Settings" placement="right" container="body">
+  <button class="item" routerLink="/settings" routerLinkActive="active" ngbTooltip="Settings" placement="right"
+    container="body">
     <fa-icon icon="cog"></fa-icon>
   </button>
-  <button class="item" routerLink="/support" routerLinkActive="active" ngbTooltip="Support" placement="right" container="body">
+  <button class="item" routerLink="/support" routerLinkActive="active" ngbTooltip="Support" placement="right"
+    container="body">
     <fa-icon icon="life-ring"></fa-icon>
   </button>
 </div>

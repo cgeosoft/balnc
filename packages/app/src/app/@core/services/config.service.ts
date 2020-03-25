@@ -23,18 +23,21 @@ export class ConfigService {
   }
 
   get profile (): Profile {
-    return this.profiles.find(p => p.key === this.selected)
+    const profile = this.profiles.find(p => p.key === this.selected)
+    profile.modules = profile.modules || {}
+    return profile
   }
 
   get username (): string {
     return this.profile?.db?.username
   }
 
-  get enabled () {
-    return environment.plugins
+  get modules () {
+    return environment.modules
       .filter(m => {
-        return this.profile.plugins &&
-          this.profile.plugins[m.key]
+        return this.profile.modules &&
+          this.profile.modules[m.key] &&
+          this.profile.modules[m.key].enabled
       })
   }
 
@@ -60,7 +63,7 @@ export class ConfigService {
   }
 
   getPackageConfig (id: string) {
-    return this.profile.plugins[id]
+    return this.profile.modules[id]
   }
 
   clearAll () {

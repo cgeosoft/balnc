@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { ConfigService } from '@balnc/core'
-import { BPlugin } from '@balnc/shared'
+import { Module } from '@balnc/shared'
 
 @Component({
   selector: 'app-appbar',
@@ -16,7 +16,7 @@ export class AppbarComponent {
 
   pageLoading = false
 
-  plugins: BPlugin[] = []
+  plugins: Module[] = []
 
   menu: any[] = []
 
@@ -24,8 +24,8 @@ export class AppbarComponent {
     private configService: ConfigService
   ) { }
 
-  get enabledPlugins () {
-    return this.configService.enabled
+  get modules () {
+    return this.configService.modules
   }
 
   get isClosed () {
