@@ -19,7 +19,6 @@ export class ShellComponent implements OnInit {
       type: 'button',
       icon: 'border-all',
       action: () => {
-        console.log('asfd')
       }
     }
   ]

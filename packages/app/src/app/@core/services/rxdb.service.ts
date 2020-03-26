@@ -138,13 +138,12 @@ export class RxDBService {
       // todo
     } else if (this.config.type === 'couch') {
       const resp = await this.http.get(`${this.config.host}/_session`, { withCredentials: true }).toPromise().catch(() => false)
-      console.log(resp)
       if (!resp) {
-        console.log(`No response from ${this.config.host}/_session. Disable remote`)
+        console.log('[DatabaseService]', `No response from ${this.config.host}/_session. Disable remote`)
         return false
       }
       if (resp['userCtx'].name) {
-        console.log(`Already authenticated`)
+        console.log('[DatabaseService]', `Already authenticated`)
         return false
       }
     }
@@ -177,7 +176,7 @@ export class RxDBService {
   }
 
   private enableRemoteGraphql () {
-    console.log('sync with syncGraphQL')
+    console.log('[DatabaseService]', 'sync with syncGraphQL')
 
     this.repStateGQL = this.db.entities.syncGraphQL({
       url: 'http://127.0.0.1:10102/graphql',
