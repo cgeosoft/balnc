@@ -69,4 +69,17 @@ export const modules: Module[] = [{
       label: 'Private Key'
     }
   }
+}, {
+  key: 'mailerlite',
+  title: 'MailerLite',
+  type: 'INTERGRATION',
+  icon: ['fas', 'comment-alt'],
+  color: '#00a154',
+  description: 'Create advanced email marketing campaigns with features like automation, landing pages and surveys',
+  disabled: true,
+  config: {
+    key: {
+      label: 'Private Key'
+    }
+  }
 }]
