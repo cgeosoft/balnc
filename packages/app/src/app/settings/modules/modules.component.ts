@@ -23,6 +23,7 @@ export class ModulesComponent {
   }
 
   get active () {
+    if (!this.profile.modules) this.profile.modules = {}
     return Object.keys(this.profile.modules).reduce((l, k) => {
       l[k] = this.profile.modules[k].enabled
       return l
@@ -39,7 +40,6 @@ export class ModulesComponent {
       this.profile.modules[key] = {
         enabled: !this.profile.modules[key]?.enabled
       }
-      console.log(this.profile.modules, key)
       this.configService.save(this.profile)
     }
   }

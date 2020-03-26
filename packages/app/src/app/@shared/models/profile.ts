@@ -9,7 +9,7 @@ export type Profile = {
   cache?: boolean
   server?: ServerConfig
   db?: DbConfig
-  modules: { [key: string]: PluginConfig & any}
+  modules?: { [key: string]: PluginConfig & any}
 }
 
 export type ServerConfig = {
