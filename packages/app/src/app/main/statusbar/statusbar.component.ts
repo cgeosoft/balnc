@@ -62,14 +62,14 @@ export class StatusbarComponent implements OnInit {
     return this.configService.build
   }
 
-  get profile () {
-    return this.configService.profile
+  get workspace () {
+    return this.configService.workspace
   }
 
   toggleLayout (layout) {
-    const profile = { ...this.configService.profile }
-    profile.layout = layout
-    this.configService.save(profile)
+    const workspace = { ...this.configService.workspace }
+    workspace.layout = layout
+    this.configService.save(workspace)
   }
 
   openChangelog () {

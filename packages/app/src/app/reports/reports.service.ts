@@ -30,7 +30,7 @@ export class ReportsService extends Repository<Report> {
         return report.roles
       })
       .filter(report => {
-        // return report.roles.some(role => super.profileService.roles.indexOf(role) >= 0)
+        // return report.roles.some(role => super.workspaceService.roles.indexOf(role) >= 0)
       })
       .sort((a, b) => {
         if (a.name < b.name) { return -1 }
@@ -133,7 +133,7 @@ export class ReportsService extends Repository<Report> {
   }
 
   idReportAdmin () {
-    // return super.profileService.roles.indexOf(this.reportAdminRole) >= 0
+    // return super.workspaceService.roles.indexOf(this.reportAdminRole) >= 0
   }
 
   private generateHeaders () {

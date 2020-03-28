@@ -19,9 +19,9 @@ export class AppComponent {
     private angulartics2: Angulartics2
   ) {
 
-    this.angulartics2.settings.developerMode = !this.configService.profile?.analytics
+    this.angulartics2.settings.developerMode = !this.configService.workspace?.analytics
     this.analytics.startTracking()
-    Sentry.getCurrentHub().getClient().getOptions().enabled = this.configService.profile?.errorReport
+    Sentry.getCurrentHub().getClient().getOptions().enabled = this.configService.workspace?.errorReport
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

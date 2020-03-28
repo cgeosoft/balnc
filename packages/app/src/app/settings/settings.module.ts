@@ -9,11 +9,10 @@ import { GeneralComponent } from './general/general.component'
 import { MailgunComponent } from './modules/integrations/mailgun/mailgun.component'
 import { StripeComponent } from './modules/integrations/stripe/stripe.component'
 import { ModulesComponent } from './modules/modules.component'
-import { CreateProfileComponent } from './profiles/create-profile/create-profile.component'
-import { ProfilesComponent } from './profiles/profiles.component'
 import { RawViewComponent } from './raw-view/raw-view.component'
 import { RemoteComponent } from './remote/remote.component'
 import { SettingsRoutes } from './settings.routes'
+import { WorkspacesComponent } from './workspaces/workspaces.component'
 
 @NgModule({
   imports: [
@@ -27,16 +26,14 @@ import { SettingsRoutes } from './settings.routes'
     ModulesComponent,
     RemoteComponent,
     RawViewComponent,
-    ProfilesComponent,
-    CreateProfileComponent,
+    WorkspacesComponent,
     DeveloperComponent,
     DemoDataComponent,
     MailgunComponent,
     StripeComponent
   ],
   entryComponents: [
-    RawViewComponent,
-    CreateProfileComponent
+    RawViewComponent
   ]
 })
 export class SettingsModule { }

@@ -10,8 +10,8 @@ import { environment } from 'src/environments/environment'
 })
 export class ModulesComponent {
 
-  get profile () {
-    return this.configService.profile
+  get workspace () {
+    return this.configService.workspace
   }
 
   get core () {
@@ -23,9 +23,9 @@ export class ModulesComponent {
   }
 
   get active () {
-    if (!this.profile.modules) this.profile.modules = {}
-    return Object.keys(this.profile.modules).reduce((l, k) => {
-      l[k] = this.profile.modules[k].enabled
+    if (!this.workspace.modules) this.workspace.modules = {}
+    return Object.keys(this.workspace.modules).reduce((l, k) => {
+      l[k] = this.workspace.modules[k].enabled
       return l
     }, {})
   }
@@ -37,10 +37,10 @@ export class ModulesComponent {
   setup (key: string) {
     const module = environment.modules.find(x => x.key === key)
     if (!module.config) {
-      this.profile.modules[key] = {
-        enabled: !this.profile.modules[key]?.enabled
+      this.workspace.modules[key] = {
+        enabled: !this.workspace.modules[key]?.enabled
       }
-      this.configService.save(this.profile)
+      this.configService.save(this.workspace)
     }
   }
 }

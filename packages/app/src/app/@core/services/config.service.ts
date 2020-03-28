@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { EnvBuild, Helpers, Profile } from '@balnc/shared'
+import { EnvBuild, Helpers, Workspace } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { LocalStorage } from 'ngx-store'
 import { environment } from './../../../environments/environment'
@@ -9,8 +9,8 @@ export class ConfigService {
 
   @LocalStorage() isSidebarClosed: boolean = false
   @LocalStorage() roles: string[] = []
-  @LocalStorage() selected: string = ''
-  @LocalStorage() profiles: Profile[] = []
+  @LocalStorage() activated: string = ''
+  @LocalStorage() workspaces: Workspace[] = []
 
   menu: any
 
@@ -22,86 +22,85 @@ export class ConfigService {
     return environment.build
   }
 
-  get profile (): Profile {
-    return this.profiles.find(p => p.key === this.selected)
+  get workspace (): Workspace {
+    return this.workspaces.find(p => p.key === this.activated)
   }
 
   get username (): string {
-    return this.profile?.db?.username
+    return this.workspace?.db?.username
   }
 
   get modules () {
     return environment.modules
       .filter(m => {
-        return this.profile.modules &&
-          this.profile.modules[m.key] &&
-          this.profile.modules[m.key].enabled
+        return this.workspace.modules &&
+          this.workspace.modules[m.key] &&
+          this.workspace.modules[m.key].enabled
       })
   }
 
   setup () {
     console.log('[ConfigService]', 'Initializing with env:', environment)
 
-    if (!this.profiles.length) {
-      console.log('[ConfigService]', 'No profiles are available. Abording!')
+    if (!this.workspaces.length) {
+      console.log('[ConfigService]', 'No workspaces are available. Abording!')
       return
     }
 
-    console.log('[ConfigService]', 'Profiles available:', this.profiles)
+    console.log('[ConfigService]', 'Workspaces available:', this.workspaces)
 
-    if (!this.selected) {
-      console.log('[ConfigService]', 'No selected profile. Auto select first', this.profiles[0].name)
-      this.select(this.profiles[0].key)
+    if (!this.activated) {
+      console.log('[ConfigService]', 'No selected workspace. Auto select first', this.workspaces[0].name)
+      this.activate(this.workspaces[0].key)
     }
 
-    if (this.profiles.findIndex(p => p.key === this.selected) === -1) {
-      console.log('[ConfigService]', 'Selected profile not exist. Auto select first', this.profiles[0].name)
-      this.select(this.profiles[0].key)
+    if (this.workspaces.findIndex(p => p.key === this.activated) === -1) {
+      console.log('[ConfigService]', 'Selected workspace not exist. Auto select first', this.workspaces[0].name)
+      this.activate(this.workspaces[0].key)
     }
   }
 
   getPackageConfig (id: string) {
-    return this.profile.modules[id]
+    return this.workspace.modules[id]
   }
 
   clearAll () {
-    this.selected = null
+    this.activated = null
   }
 
-  select (key: string) {
-    this.selected = key
+  activate (key: string) {
+    this.activated = key
   }
 
-  save (profile: Partial<Profile>): string {
-    profile.key = profile.key || Helpers.uid()
-    profile.created = profile.created || Date.now()
-    let profiles = [...this.profiles]
-    let index = this.profiles.findIndex(p => p.key === profile.key)
+  save (workspace: Partial<Workspace>): string {
+    workspace.key = workspace.key || Helpers.uid()
+    workspace.created = workspace.created || Date.now()
+    let workspaces = [...this.workspaces]
+    let index = this.workspaces.findIndex(p => p.key === workspace.key)
     if (index !== -1) {
-      profiles.splice(index, 1)
+      workspaces.splice(index, 1)
     }
-    profiles.push(profile as Profile)
-    this.profiles = profiles
-    return profile.key
+    workspaces.push(workspace as Workspace)
+    this.workspaces = workspaces
+    return workspace.key
   }
 
   remove (key: string) {
-    let profiles = [...this.profiles]
-    let index = this.profiles.findIndex(p => p.key === key)
+    let workspaces = [...this.workspaces]
+    let index = this.workspaces.findIndex(p => p.key === key)
     if (index !== -1) {
-      profiles.splice(index, 1)
+      workspaces.splice(index, 1)
     }
-    this.profiles = profiles
+    this.workspaces = workspaces
   }
 
   import (file: ReadFile) {
     try {
       const data = file.content.split(',')[1]
-      const profileStr = atob(data)
-      const profile: Profile = JSON.parse(profileStr)
-      return profile
+      const workspaceStr = atob(data)
+      const workspace: Workspace = JSON.parse(workspaceStr)
+      return workspace
     } catch (error) {
-      console.log('[ProfileComponent]', 'Error' + error)
       return null
     }
   }

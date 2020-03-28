@@ -62,12 +62,12 @@ export class RxDBService {
     return this.injector.get(ToastrService)
   }
 
-  get profile () {
-    return this.configService.profile
+  get workspace () {
+    return this.configService.workspace
   }
 
   get config () {
-    return this.configService.profile?.db || {}
+    return this.configService.workspace?.db || {}
   }
 
   constructor (
@@ -77,22 +77,22 @@ export class RxDBService {
 
   async setup () {
 
-    if (!this.profile) {
-      console.log('[DatabaseService]', `There is not a selected profile. Abord!`)
+    if (!this.workspace) {
+      console.log('[DatabaseService]', `There is not a selected workspace. Abord!`)
       return
     }
 
-    console.log('[DatabaseService]', `Initializing DB: ${this.profile.key}`)
+    console.log('[DatabaseService]', `Initializing DB: ${this.workspace.key}`)
 
-    // if (this.db && this.db.name === `balnc_${this.profile.key}`) return
+    // if (this.db && this.db.name === `balnc_${this.workspace.key}`) return
 
     try {
       this.db = await RxDB.create({
-        name: `balnc_${this.profile.key}`,
+        name: `balnc_${this.workspace.key}`,
         adapter: 'idb'
       })
     } catch (err) {
-      console.log('[DatabaseService]', `Database exist: balnc_${this.profile.key}`)
+      console.log('[DatabaseService]', `Database exist: balnc_${this.workspace.key}`)
       return
     }
 
@@ -124,7 +124,7 @@ export class RxDBService {
   }
 
   async setupCache () {
-    if (this.profile.cache) {
+    if (this.workspace.cache) {
       console.log('[DatabaseService]', `Enable cache mode`)
       this.entities = await this.db.entities.inMemory()
     } else {
@@ -161,8 +161,8 @@ export class RxDBService {
       })
   }
 
-  async remove (profileKey: string) {
-    await RxDB.removeDatabase(`balnc_${profileKey}`, 'idb')
+  async remove (workspaceKey: string) {
+    await RxDB.removeDatabase(`balnc_${workspaceKey}`, 'idb')
   }
 
   private enableRemoteCouch () {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigService, RxDBService } from '@balnc/core'
-import { ConfirmDialogComponent, Helpers, Profile } from '@balnc/shared'
+import { ConfirmDialogComponent, Helpers, MenuItem, Workspace } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ReadFile } from 'ngx-file-helpers'
 import environment from 'src/environments/environment'
@@ -12,99 +12,95 @@ import environment from 'src/environments/environment'
 export class ShellComponent implements OnInit {
 
   error: string
-  profile: Profile
+  workspace: Workspace
 
   helperService = Helpers
 
-  sidebar = {
-    title: 'Settings',
-    menu: [{
-      url: '/settings/general',
-      icon: 'cog',
-      type: 'button',
-      label: 'General'
-    }, {
-      url: '/settings/modules',
-      icon: 'boxes',
-      type: 'button',
-      label: 'Modules'
-    }, {
-      type: 'divider'
-    }, {
-      url: '/settings/remote',
-      icon: 'server',
-      type: 'button',
-      label: 'Remote'
-    }, {
-      url: '/settings/demo-data',
-      icon: 'exchange-alt',
-      type: 'button',
-      label: 'Demo Data'
-    }, {
-      type: 'divider'
-    }, {
-      url: '/settings/profiles',
-      icon: 'swatchbook',
-      type: 'button',
-      label: 'Profiles'
-    }, {
-      url: '/settings/developer',
-      icon: 'code',
-      type: 'button',
-      label: 'Developer'
-    }]
+  menu: MenuItem[] = [{
+    url: '/settings/general',
+    icon: 'cog',
+    type: 'button',
+    label: 'General'
+  }, {
+    url: '/settings/modules',
+    icon: 'boxes',
+    type: 'button',
+    label: 'Modules'
+  }, {
+    type: 'divider'
+  }, {
+    url: '/settings/remote',
+    icon: 'server',
+    type: 'button',
+    label: 'Remote'
+  }, {
+    url: '/settings/demo-data',
+    icon: 'exchange-alt',
+    type: 'button',
+    label: 'Demo Data'
+  }]
+
+  extra: MenuItem[] = [{
+    url: '/settings/workspaces',
+    icon: 'swatchbook',
+    type: 'button',
+    label: 'Workspaces'
+  }, {
+    url: '/settings/developer',
+    icon: 'code',
+    type: 'button',
+    label: 'Developer'
+  }]
+
+  get workspaces() {
+    return this.configService.workspaces
   }
 
-  get profiles () {
-    return this.configService.profiles
+  get activated() {
+    return this.configService.activated
   }
 
-  get selected () {
-    return this.configService.selected
-  }
-
-  get plugins () {
+  get plugins() {
     return environment.modules
   }
 
-  constructor (
+  constructor(
     public configService: ConfigService,
     private modal: NgbModal,
     private dbService: RxDBService
   ) { }
 
-  ngOnInit () {
-    this.profile = this.configService.profile
+  ngOnInit() {
+    this.workspace = this.configService.workspace
   }
 
-  clear () {
+  clear() {
     this.configService.clearAll()
   }
 
-  async remove (profileId) {
-
+  async remove(workspaceId) {
     await this.modal.open(ConfirmDialogComponent, { size: 'sm' })
       .result
       .then(async () => {
-        this.configService.remove(profileId)
-        await this.dbService.remove(profileId)
+        this.configService.remove(workspaceId)
+        await this.dbService.remove(workspaceId)
       })
       .catch(() => {
         console.log('dismised')
       })
   }
 
-  onFilePicked (file: ReadFile) {
+  onFilePicked(file: ReadFile) {
     this.error = null
     try {
       const data = file.content.split(',')[1]
-      const profileStr = atob(data)
-      const profile = JSON.parse(profileStr)
-      const key = this.configService.save(profile)
-      this.configService.select(key)
+      const workspaceStr = atob(data)
+      const workspace = JSON.parse(workspaceStr)
+      const key = this.configService.save(workspace)
+      this.configService.activate(key)
     } catch (error) {
       this.error = 'File is corrupted'
-      console.log('[ProfileComponent]', 'Error' + error)
+      console.log('[WorkspaceComponent]', 'Error' + error)
     }
   }
 }

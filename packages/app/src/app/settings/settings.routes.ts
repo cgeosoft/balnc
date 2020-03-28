@@ -3,8 +3,8 @@ import { DemoDataComponent } from './demo-data/demo-data.component'
 import { DeveloperComponent } from './developer/developer.component'
 import { GeneralComponent } from './general/general.component'
 import { ModulesComponent } from './modules/modules.component'
-import { ProfilesComponent } from './profiles/profiles.component'
 import { RemoteComponent } from './remote/remote.component'
+import { WorkspacesComponent } from './workspaces/workspaces.component'
 
 export const SettingsRoutes = [{
   path: '',
@@ -25,11 +25,11 @@ export const SettingsRoutes = [{
     },
     component: ModulesComponent
   }, {
-    path: 'profiles',
+    path: 'workspaces',
     data: {
-      title: 'Profiles'
+      title: 'Workspaces'
     },
-    component: ProfilesComponent
+    component: WorkspacesComponent
   }, {
     path: 'developer',
     data: {

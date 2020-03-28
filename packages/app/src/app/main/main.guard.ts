@@ -5,13 +5,13 @@ import { ConfigService, RxDBService } from '@balnc/core'
 @Injectable()
 export class MainGuard implements CanActivate {
 
-  constructor(
+  constructor (
     private rxdbService: RxDBService,
     private configService: ConfigService,
     private router: Router) { }
 
-  async canActivate() {
-    if (!this.configService.profiles.length) {
+  async canActivate () {
+    if (!this.configService.workspaces.length) {
       await this.router.navigate(['/setup'])
       return false
     }

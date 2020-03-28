@@ -13,7 +13,7 @@ import { ContactsRepo } from '../business/@shared/repos/contacts.repo'
 })
 export class DashboardComponent implements OnInit {
   menu: any
-  profile: any
+  workspace: any
 
   data = {
     customers: [{ name: 'customers', value: 55403 }]
@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    this.profile = this.configService.profile
+    this.workspace = this.configService.workspace
     this.contacts$ = this.contactsRepo.all$().pipe(
       map(contacts => contacts.length)
     )

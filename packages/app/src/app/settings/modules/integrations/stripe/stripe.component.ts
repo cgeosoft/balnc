@@ -33,7 +33,7 @@ export class StripeComponent implements OnInit {
 
   async applyStripe () {
     this.configService.save({
-      ...this.configService.profile,
+      ...this.configService.workspace,
       ...{
         integrations: {
           stripe: this.integrations.stripe

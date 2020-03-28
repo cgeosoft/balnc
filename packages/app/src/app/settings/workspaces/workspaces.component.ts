@@ -1,18 +1,22 @@
 import { Component } from '@angular/core'
 import { ConfigService, RxDBService } from '@balnc/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import * as faker from 'faker'
 import { ReadFile } from 'ngx-file-helpers'
 import { ToastrService } from 'ngx-toastr'
-import { CreateProfileComponent } from './create-profile/create-profile.component'
 
 @Component({
-  selector: 'app-settings-profiles',
-  templateUrl: './profiles.component.html'
+  selector: 'app-settings-workspaces',
+  templateUrl: './workspaces.component.html'
 })
-export class ProfilesComponent {
+export class WorkspacesComponent {
 
-  get profiles () {
-    return this.configService.profiles
+  get workspaces () {
+    return this.configService.workspaces
+  }
+
+  get activated () {
+    return this.configService.activated
   }
 
   constructor (
@@ -23,23 +27,26 @@ export class ProfilesComponent {
   ) { }
 
   async create () {
-    this.modal.open(CreateProfileComponent)
+    const key = this.configService.save({
+      name: faker.hacker.noun()
+    })
+    this.configService.activate(key)
   }
 
   async import (file: ReadFile) {
-    const profile = this.configService.import(file)
-    if (!profile) {
+    const workspace = this.configService.import(file)
+    if (!workspace) {
       this.toastr.error('Import failed')
       return
     }
-    const key = this.configService.save(profile)
-    this.configService.select(key)
+    const key = this.configService.save(workspace)
+    this.configService.activate(key)
     this.configService.setup()
     await this.rxdbService.setup()
   }
 
-  async activate (profile) {
-    this.configService.select(profile.key)
+  async activate (workspace) {
+    this.configService.activate(workspace.key)
     this.configService.setup()
     await this.rxdbService.setup()
   }

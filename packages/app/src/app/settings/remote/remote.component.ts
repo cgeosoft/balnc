@@ -32,8 +32,8 @@ export class RemoteComponent implements OnInit {
   serverConfig: ServerConfig = {}
   dbConfig: DbConfig = {}
 
-  get profile () {
-    return this.configService.profile
+  get workspace () {
+    return this.configService.workspace
   }
 
   get isDemo () {
@@ -51,13 +51,13 @@ export class RemoteComponent implements OnInit {
 
   ngOnInit () {
     this.serverConfig = {
-      ...this.profile.server,
+      ...this.workspace.server,
       ...{
         type: null
       }
     }
     this.dbConfig = {
-      ...this.profile.db,
+      ...this.workspace.db,
       ...{
         type: null
       }
@@ -65,18 +65,18 @@ export class RemoteComponent implements OnInit {
   }
 
   async applyServer () {
-    this.profile.server = {
+    this.workspace.server = {
       ...this.serverConfig
     }
-    this.configService.save(this.profile)
+    this.configService.save(this.workspace)
     await this.rxdbService.setup()
   }
 
   async applyDb () {
-    this.profile.db = {
+    this.workspace.db = {
       ...this.dbConfig
     }
-    this.configService.save(this.profile)
+    this.configService.save(this.workspace)
     await this.rxdbService.setup()
   }
 
@@ -85,7 +85,7 @@ export class RemoteComponent implements OnInit {
     const _username = username.trim()
     const _password = password.trim()
     await this.http
-      .put(`${this.profile.db}/_users/org.couchdb.user:${_username}`,
+      .put(`${this.workspace.db}/_users/org.couchdb.user:${_username}`,
         { name: _username, password: _password, roles: [], type: 'user' }
       )
       .toPromise()
@@ -106,21 +106,21 @@ export class RemoteComponent implements OnInit {
   //   const _password = password.trim()
 
   //   await this.http
-  //     .get(`${this.profile.server}/profiles`, {
+  //     .get(`${this.workspace.server}/workspaces`, {
   //       headers: { Authorization: 'Basic ' + btoa(_username + ':' + _password) }
   //     })
   //     .toPromise()
-  //     .then((response: { profiles: string[] }) => {
-  //       this.profiles = response.profiles
+  //     .then((response: { workspaces: string[] }) => {
+  //       this.workspaces = response.workspaces
   //         .map(p => {
   //           return {
   //             key: p
   //           }
   //         })
-  //       this.profile.username = _username
-  //       this.profile.token = _password
+  //       this.workspace.username = _username
+  //       this.workspace.token = _password
   //       this.wizard.active = 'link'
-  //       return this.loadProfiles()
+  //       return this.loadWorkspaces()
   //     })
   //     .catch((response) => {
   //       this.toastr.error(response.error.reason, response.error.error)
@@ -128,13 +128,13 @@ export class RemoteComponent implements OnInit {
   //   this.loading.auth = false
   // }
 
-  // async createProfile (name) {
+  // async createWorkspace (name) {
   //   this.loading.auth = true
   //   await this.http
-  //     .post(`${this.profile.server}/profiles`, {
+  //     .post(`${this.workspace.server}/workspaces`, {
   //       name
   //     }, {
-  //       headers: { Authorization: 'Basic ' + btoa(this.profile.username + ':' + this.profile.token) }
+  //       headers: { Authorization: 'Basic ' + btoa(this.workspace.username + ':' + this.workspace.token) }
   //     })
   //     .toPromise()
   //     .then((response: {
@@ -142,7 +142,7 @@ export class RemoteComponent implements OnInit {
   //       dbs: string[],
   //       owner: string
   //     }) => {
-  //       return this.login(this.profile.username, this.profile.token)
+  //       return this.login(this.workspace.username, this.workspace.token)
   //     })
   //     .catch((response) => {
   //       this.toastr.error(response.error.reason, response.error.error)
@@ -150,16 +150,16 @@ export class RemoteComponent implements OnInit {
   //   this.loading.auth = false
   // }
 
-  // async loadProfiles () {
+  // async loadWorkspaces () {
   //   const loads = []
-  //   this.profiles.forEach(profile => {
+  //   this.workspaces.forEach(workspace => {
   //     const n = this.http
-  //       .get(`${this.profile.server}/profiles/${profile.key}`, {
-  //         headers: { Authorization: 'Basic ' + btoa(this.profile.username + ':' + this.profile.token) }
+  //       .get(`${this.workspace.server}/workspaces/${workspace.key}`, {
+  //         headers: { Authorization: 'Basic ' + btoa(this.workspace.username + ':' + this.workspace.token) }
   //       })
   //       .toPromise()
-  //       .then((response: RemoteProfile) => {
-  //         profile = Object.assign(profile, response)
+  //       .then((response: RemoteWorkspace) => {
+  //         workspace = Object.assign(workspace, response)
   //       })
   //     loads.push(n)
   //   })
@@ -168,14 +168,14 @@ export class RemoteComponent implements OnInit {
   //       this.toastr.error(response.error.reason, response.error.error)
   //     })
 
-  //   this.profiles = this.profiles.sort((a, b) => b.created - a.created)
+  //   this.workspaces = this.workspaces.sort((a, b) => b.created - a.created)
   // }
 
-  // async removeProfile (profile: RemoteProfile) {
-  //   if (!confirm(`Are you sure you want to delete profile ${profile.name} and all data? This is not reversible. Please make some backups first.`)) return
+  // async removeWorkspace (workspace: RemoteWorkspace) {
+  //   if (!confirm(`Are you sure you want to delete workspace ${workspace.name} and all data? This is not reversible. Please make some backups first.`)) return
   //   await this.http
-  //     .delete(`${this.profile.server}/profiles/${profile.key}`, {
-  //       headers: { Authorization: 'Basic ' + btoa(this.profile.username + ':' + this.profile.token) }
+  //     .delete(`${this.workspace.server}/workspaces/${workspace.key}`, {
+  //       headers: { Authorization: 'Basic ' + btoa(this.workspace.username + ':' + this.workspace.token) }
   //     })
   //     .toPromise()
   //     .catch((response) => {
@@ -185,10 +185,10 @@ export class RemoteComponent implements OnInit {
   //   await this.login(this.remote.username, this.remote.token)
   // }
 
-  // linkRemote (profile: RemoteProfile) {
-  //   this.remote.key = profile.key
-  //   this.remote.name = profile.name
-  //   this.remote.owner = profile.owner
-  //   this.remote.members = profile.members
+  // linkRemote (workspace: RemoteWorkspace) {
+  //   this.remote.key = workspace.key
+  //   this.remote.name = workspace.name
+  //   this.remote.owner = workspace.owner
+  //   this.remote.members = workspace.members
   // }
 }

@@ -1,5 +1,5 @@
 
-export type Profile = {
+export type Workspace = {
   key: string
   name: string
   created?: number
@@ -25,7 +25,7 @@ export type DbConfig = {
   token?: string
 }
 
-export const DEMO_PROFILE: Profile = {
+export const DEFAULT_WORKSPACE: Workspace = {
   key: 'default',
   name: 'default',
   modules: {

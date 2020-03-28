@@ -1,26 +1,30 @@
 <app-content [box]="true">
   <section role="title">General Options</section>
   <section>
-    <h4>Profile Information</h4>
-    <dl class="row mb-0">
-      <dt class="col-sm-3 text-right">Key:</dt>
-      <dd class="col-sm-9 text-monospace">{{profile.key}}&nbsp;</dd>
-      <dt class="col-sm-3 text-right">Name:</dt>
-      <dd class="col-sm-9 text-monospace d-flex">
-        <span #newname class="bg-light rounded d-block flex-grow-1 pl-1" contenteditable="true">{{profile.name}}</span>
-        <fa-icon (click)="rename(newname.innerText)" icon="save" class="ml-2 text-primary"></fa-icon>
-      </dd>
-      <dt class="col-sm-3 text-right">Created:</dt>
-      <dd class="col-sm-9 text-monospace">{{profile.created|date:"short"}}&nbsp;</dd>
-    </dl>
-    <button class="btn btn-primary" (click)="editRaw()">Edit Raw</button>
+    <h4>Name</h4>
+    <div class="form-group input-group">
+      <input #name [value]="workspace.name" class="form-control">
+      <div class="input-group-append">
+        <button class="btn btn-primary" (click)="rename(name.value)">Update</button>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h4>Raw Workspace</h4>
+    <div class="rounded border mb-2">
+      <ace-editor [(text)]="source" [mode]="'json'" [theme]="'tomorrow'" [options]="options" [readOnly]="false"
+        [autoUpdateContent]="true" [durationBeforeCallback]="500" (textChanged)="validate()"
+        style="min-height: 200px; width:100%; overflow: auto;"></ace-editor>
+    </div>
+    <button [disabled]="rawErr" class="btn btn-primary" (click)="updateRaw()">Update Raw</button> <span
+      class="ml-4 text-danger" *ngIf="rawErr">There is a syntax error</span>
   </section>
   <section>
     <h4>Export</h4>
     <p>
-      Export this profile for import in another machine. <strong>This do not backup your data.</strong>
+      Export this workspace for import in another machine. <strong>This do not backup your data.</strong>
     </p>
-    <button class="btn btn-primary" (click)="export()">Export Profile</button>
+    <button class="btn btn-primary" (click)="export()">Export Workspace</button>
   </section>
   <section>
     <h4>Telemetry</h4>
@@ -29,7 +33,7 @@
         This will
         help further development as we may resolve issues faster.</div>
       <div class="custom-control custom-checkbox custom-control-inline">
-        <input id="errorReport" [(ngModel)]="profile.errorReport" (change)="save()" class="custom-control-input"
+        <input id="errorReport" [(ngModel)]="workspace.errorReport" (change)="save()" class="custom-control-input"
           type="checkbox">
         <label for="errorReport" class="custom-control-label">
           Send debug error data</label>
@@ -39,7 +43,7 @@
       <div>Analytics help us to better understand how blanc have been used, so we may improve it. We use
         <a target="_blank" href="https://woopra.com">woopra.com</a> for this.</div>
       <div class="custom-control custom-checkbox custom-control-inline">
-        <input id="analytics" [(ngModel)]="profile.analytics" (change)="save()" class="custom-control-input"
+        <input id="analytics" [(ngModel)]="workspace.analytics" (change)="save()" class="custom-control-input"
           type="checkbox">
         <label for="analytics" class="custom-control-label">
           Send analytics data</label>
@@ -49,9 +53,9 @@
   <section>
     <h4 class="text-danger">Danger Zone</h4>
     <p>
-      Deleting your profile, you immediately remove all local data. If you would like also
+      Deleting your workspace, you immediately remove all local data. If you would like also
       to delete the remote data please check the appropriate option below. If you do not delete remote data, all
-      data will be synced once again if profile is recreated or imported.
+      data will be synced once again if workspace is recreated or imported.
     </p>
     <div class="form-group form-check">
       <input type="checkbox" class="form-check-input" id="deleteData" [(ngModel)]="deleteData">
@@ -62,7 +66,7 @@
       <label class="form-check-label" for="deleteDataRemote">Also delete remote data</label>
     </div>
     <button class="btn btn-danger" [disabled]="!deleteData" (click)="delete()">
-      Remove Profile
+      Remove Workspace
     </button>
   </section>
 </app-content>

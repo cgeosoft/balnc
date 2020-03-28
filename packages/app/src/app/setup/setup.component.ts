@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
-import { DEMO_PROFILE, Profile } from '@balnc/shared'
+import { DEFAULT_WORKSPACE, Workspace } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { ToastrService } from 'ngx-toastr'
 
@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr'
 })
 export class SetupComponent implements OnInit {
   loading = false
-  profile: Profile = { ...DEMO_PROFILE }
+  workspace: Workspace = { ...DEFAULT_WORKSPACE }
 
   get version () {
     return this.configService.version
@@ -33,22 +33,22 @@ export class SetupComponent implements OnInit {
   ) { }
 
   async start () {
-    await this.load(this.profile)
+    await this.load(this.workspace)
   }
 
   async import (file: ReadFile) {
-    this.profile = this.configService.import(file)
-    if (!this.profile) {
+    this.workspace = this.configService.import(file)
+    if (!this.workspace) {
       this.toastr.error('Import failed')
       return
     }
-    await this.load(this.profile)
+    await this.load(this.workspace)
   }
 
-  async load (profile) {
+  async load (workspace) {
     this.loading = true
-    const key = this.configService.save(profile)
-    this.configService.select(key)
+    const key = this.configService.save(workspace)
+    this.configService.activate(key)
     await this.router.navigateByUrl('/')
   }
 }

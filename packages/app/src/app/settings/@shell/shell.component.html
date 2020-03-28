@@ -1,7 +1,10 @@
 <app-page>
   <ng-container role="sidebar">
     <div class="title">Settings</div>
-    <app-sidemenu [menu]="sidebar.menu"></app-sidemenu>
+    <div class="header">{{workspace.name}}</div>
+    <app-sidemenu [menu]="menu"></app-sidemenu>
+    <div class="header">Manage</div>
+    <app-sidemenu [menu]="extra"></app-sidemenu>
   </ng-container>
   <router-outlet></router-outlet>
 </app-page>

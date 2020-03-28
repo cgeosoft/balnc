@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
 import { ConfigService, RxDBService } from '@balnc/core'
-import { Profile } from '@balnc/shared'
+import { Workspace } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import * as Sentry from '@sentry/browser'
 import { Angulartics2 } from 'angulartics2'
@@ -17,17 +17,21 @@ export class GeneralComponent implements OnInit {
   @ViewChild('name') name: ElementRef
   @ViewChild('alias') alias: ElementRef
 
-  profileName: string
-  profileAlias: string
+  workspaceName: string
+  workspaceAlias: string
 
   selected: string
-  profile: Profile
+  workspace: Workspace
 
   deleteData = false
   deleteDataRemote = false
   editName = false
 
-  constructor(
+  source: string
+  options: any = { maxLines: 1000, printMargin: true }
+  rawErr = false
+
+  constructor (
     private configService: ConfigService,
     private modal: NgbModal,
     private router: Router,
@@ -36,23 +40,37 @@ export class GeneralComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    this.profile = this.configService.profile
+  ngOnInit () {
+    this.workspace = this.configService.workspace
+    this.source = JSON.stringify(this.workspace, null, 2)
   }
 
-  rename(newName) {
+  validate () {
+    try {
+      this.rawErr = false
+      JSON.parse(this.source)
+    } catch (err) {
+      this.rawErr = true
+    }
+  }
+
+  updateRaw () {
+    this.configService.save(JSON.parse(this.source))
+  }
+
+  rename (newName) {
     if (!newName) return
-    this.profile.name = newName
-    this.configService.save(this.profile)
+    this.workspace.name = newName
+    this.configService.save(this.workspace)
   }
 
-  async delete() {
+  async delete () {
     if (!confirm('Are you sure?')) return
-    await this.rxdbService.remove(this.profile.key)
-    this.configService.remove(this.profile.key)
-    this.configService.selected = null
+    await this.rxdbService.remove(this.workspace.key)
+    this.configService.remove(this.workspace.key)
+    this.configService.activated = null
 
-    if (!this.configService.profiles.length) {
+    if (!this.configService.workspaces.length) {
       await this.router.navigate(['/setup'])
       return false
     }
@@ -60,23 +78,23 @@ export class GeneralComponent implements OnInit {
     await this.rxdbService.setup()
   }
 
-  async editRaw() {
+  async editRaw () {
     const m = this.modal.open(RawViewComponent, { backdrop: 'static' })
-    m.componentInstance.profile = this.profile
-    this.profile = await m.result
+    m.componentInstance.workspace = this.workspace
+    this.workspace = await m.result
   }
 
-  export() {
+  export () {
     let a = document.createElement('a')
-    let file = new Blob([JSON.stringify(this.profile, null, 2)], { type: 'application/json' })
+    let file = new Blob([JSON.stringify(this.workspace, null, 2)], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
-    a.download = `${(new Date()).toDateString()} - ${this.profile.name}.json`
+    a.download = `${(new Date()).toDateString()} - ${this.workspace.name}.json`
     a.click()
   }
 
-  save() {
-    this.configService.save({ ...this.profile })
-    this.angulartics2.settings.developerMode = !this.configService.profile?.analytics
-    Sentry.getCurrentHub().getClient().getOptions().enabled = this.configService.profile?.errorReport
+  save () {
+    this.configService.save({ ...this.workspace })
+    this.angulartics2.settings.developerMode = !this.configService.workspace?.analytics
+    Sentry.getCurrentHub().getClient().getOptions().enabled = this.configService.workspace?.errorReport
   }
 }
