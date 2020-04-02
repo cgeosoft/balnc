@@ -1,6 +1,7 @@
 @import "theme";
 
-$appbar-width: 50px;
+$appbar-compact-width: 50px;
+$appbar-normal-width: 75px;
 
 :host {
   @extend .d-flex;
@@ -9,10 +10,23 @@ $appbar-width: 50px;
   @extend .text-center;
   @extend .bg-transparent;
   @extend .overflow-hidden;
-  min-width: $appbar-width;
-  width: $appbar-width;
+  min-width: $appbar-normal-width;
+  width: $appbar-normal-width;
   transition: all 0.5s;
   z-index: 20;
+
+  &.compact{
+    min-width: $appbar-compact-width;
+    width: $appbar-compact-width;
+    .menu{
+      .item{
+        .label{
+          height: 0px;
+          opacity: 0;
+        }
+      }
+    }
+  }
 
   .menu {
     @extend .shadow-sm;
@@ -20,10 +34,12 @@ $appbar-width: 50px;
     @extend .flex-column;
     @extend .justify-content-start;
     @extend .w-100;
-    @extend .py-2;
-    @extend .px-2;
+    @extend .py-1;
+    @extend .px-1;
     background-color: $dark;
     border-radius: 0 0.5rem 0.5rem 0;
+    overflow: auto;
+    margin: 1rem 0;
 
     .item {
       @extend .w-100;
@@ -40,12 +56,12 @@ $appbar-width: 50px;
       color: $body-bg;
 
       &:hover {
-        background: lighten($body-color, 2%);
+        background: lighten($dark, 2%);
       }
 
       &.active {
-        background: lighten($body-color, 5%);
-        border-color: lighten($body-color, 7%);
+        background: lighten($dark, 5%);
+        border-color: lighten($dark, 7%);
       }
 
       &:last-child {
@@ -54,6 +70,15 @@ $appbar-width: 50px;
 
       fa-icon{
         text-shadow: $body-color;
+      }
+
+      .label{
+        transition: all 0.5s;
+        font-size:.7rem;
+        overflow: hidden;
+        height: 16px;
+        opacity: .8;
+        display: block;
       }
     }
 

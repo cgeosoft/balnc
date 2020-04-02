@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
+import { ConfigService } from '@balnc/core'
 import { Observable, Subject, Subscription } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
 import { Board } from '../@shared/models/board'
@@ -38,7 +39,12 @@ export class BoardComponent implements OnInit, OnDestroy {
   } = {}
   sub: Subscription
 
+  get nickname () {
+    return this.configService.username
+  }
+
   constructor (
+    private configService: ConfigService,
     private boardsRepo: BoardsRepo,
     private messagesRepo: MessagesRepo,
     private http: HttpClient,

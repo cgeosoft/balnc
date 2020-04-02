@@ -24,7 +24,8 @@ export class ReportComponent implements OnInit {
   loading = false
   maxPage: number
   pdfData: any = null
-
+  execExport () {}
+  showQuery
   constructor (
     private reportService: ReportsService,
     private route: ActivatedRoute,

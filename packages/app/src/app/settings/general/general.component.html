@@ -10,6 +10,45 @@
     </div>
   </section>
   <section>
+    <h4>Layout & Theme</h4>
+    <div class="form-group">
+      <label class="mr-2">Content Layout:</label>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="layout_fluid" name="layout" (change)="save()" [(ngModel)]="workspace.layout"
+          value="fluid" class="custom-control-input">
+        <label class="custom-control-label" for="layout_fluid">Fluid</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="layout_box" name="layout" (change)="save()" [(ngModel)]="workspace.layout" value="box"
+          class="custom-control-input">
+        <label class="custom-control-label" for="layout_box">Box</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="mr-2">Menu Size:</label>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="menu_size_compact" name="menu_size" (change)="save()" [(ngModel)]="workspace.menuSize"
+          value="compact" class="custom-control-input">
+        <label class="custom-control-label" for="menu_size_compact">Compact</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="menu_size_normal" name="menu_size" (change)="save()" [(ngModel)]="workspace.menuSize"
+          value="normal" class="custom-control-input">
+        <label class="custom-control-label" for="menu_size_normal">Normal</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="mr-2">Show Menu Items:</label>
+      <ng-container *ngFor="let item of menu">
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" class="custom-control-input" id="{{'menuItem'+item.label}}" (change)="save()"
+            [(ngModel)]="showMenuItems[item.label]">
+          <label class="custom-control-label" for="{{'menuItem'+item.label}}">{{item.label}}</label>
+        </div>
+      </ng-container>
+    </div>
+  </section>
+  <section>
     <h4>Raw Workspace</h4>
     <div class="rounded border mb-2">
       <ace-editor [(text)]="source" [mode]="'json'" [theme]="'tomorrow'" [options]="options" [readOnly]="false"

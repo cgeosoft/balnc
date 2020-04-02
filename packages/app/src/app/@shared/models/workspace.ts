@@ -4,6 +4,8 @@ export type Workspace = {
   name: string
   created?: number
   layout?: 'box' | 'fluid'
+  menuSize?: 'normal' | 'compact'
+  menuHideItems?: string[]
   errorReport?: boolean
   analytics?: boolean
   cache?: boolean
@@ -30,6 +32,7 @@ export const DEFAULT_WORKSPACE: Workspace = {
   name: 'default',
   integrations: {},
   layout: 'box',
+  menuSize: 'normal',
   errorReport: false,
   analytics: false
 }

@@ -1,22 +1,26 @@
 <div class="menu">
-  <button class="item" routerLinkActive="active" routerLink="/dashboard" ngbTooltip="Dashboard" placement="right"
-    container="body">
+  <button class="item" routerLinkActive="active" routerLink="/dashboard" [ngbTooltip]="compact ? 'Dashboard':null"
+    placement="right" container="body">
     <fa-icon icon="home"></fa-icon>
+    <span class="label">Dashboard</span>
   </button>
   <div class="divider"></div>
   <ng-container *ngFor="let item of menu">
-    <button class="item" routerLinkActive="active" [routerLink]="item.route" [ngbTooltip]="item.label"
-      placement="right" container="body">
-      <fa-icon [icon]="item.icon" [ngStyle]="{color:item.color}"></fa-icon>
+    <button *ngIf="!item.hide" class="item" routerLinkActive="active" [routerLink]="item.route" [ngbTooltip]="compact ? item.label : null"
+      placement="right" container="body" [ngStyle]="{color:item.color}">
+      <fa-icon [icon]="item.icon"></fa-icon>
+      <span class="label">{{item.label}}</span>
     </button>
   </ng-container>
   <div class="divider"></div>
-  <button class="item" routerLink="/settings" routerLinkActive="active" ngbTooltip="Settings" placement="right"
-    container="body">
+  <button class="item" routerLink="/settings" routerLinkActive="active" [ngbTooltip]="compact ? 'Settings':null"
+    placement="right" container="body">
     <fa-icon icon="cog"></fa-icon>
+    <span class="label">Settings</span>
   </button>
-  <button class="item" routerLink="/support" routerLinkActive="active" ngbTooltip="Support" placement="right"
-    container="body">
+  <button class="item" routerLink="/support" routerLinkActive="active" [ngbTooltip]="compact ? 'Support':null"
+    placement="right" container="body">
     <fa-icon icon="life-ring"></fa-icon>
+    <span class="label">Support</span>
   </button>
 </div>

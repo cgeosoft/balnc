@@ -5,6 +5,7 @@ import { Workspace } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import * as Sentry from '@sentry/browser'
 import { Angulartics2 } from 'angulartics2'
+import { MENU } from 'src/app/@core/models/menu'
 import { RawViewComponent } from './../raw-view/raw-view.component'
 
 @Component({
@@ -31,7 +32,10 @@ export class GeneralComponent implements OnInit {
   options: any = { maxLines: 1000, printMargin: true }
   rawErr = false
 
-  constructor (
+  menu: any[] = MENU
+  showMenuItems: { [key: string]: boolean }
+
+  constructor(
     private configService: ConfigService,
     private modal: NgbModal,
     private router: Router,
@@ -40,12 +44,16 @@ export class GeneralComponent implements OnInit {
   ) {
   }
 
-  ngOnInit () {
+  ngOnInit() {
     this.workspace = this.configService.workspace
-    this.source = JSON.stringify(this.workspace, null, 2)
+    this.loadRaw()
+    this.showMenuItems = this.menu.reduce((l, x) => {
+      l[x.label] = (this.workspace.menuHideItems || []).indexOf(x.label) === -1
+      return l
+    }, {})
   }
 
-  validate () {
+  validate() {
     try {
       this.rawErr = false
       JSON.parse(this.source)
@@ -54,17 +62,22 @@ export class GeneralComponent implements OnInit {
     }
   }
 
-  updateRaw () {
+  loadRaw() {
+    this.source = JSON.stringify(this.workspace, null, 2)
+  }
+
+  updateRaw() {
     this.configService.save(JSON.parse(this.source))
   }
 
-  rename (newName) {
+  rename(newName) {
     if (!newName) return
     this.workspace.name = newName
     this.configService.save(this.workspace)
+    this.loadRaw()
   }
 
-  async delete () {
+  async delete() {
     if (!confirm('Are you sure?')) return
     await this.rxdbService.remove(this.workspace.key)
     this.configService.remove(this.workspace.key)
@@ -78,13 +91,13 @@ export class GeneralComponent implements OnInit {
     await this.rxdbService.setup()
   }
 
-  async editRaw () {
+  async editRaw() {
     const m = this.modal.open(RawViewComponent, { backdrop: 'static' })
     m.componentInstance.workspace = this.workspace
     this.workspace = await m.result
   }
 
-  export () {
+  export() {
     let a = document.createElement('a')
     let file = new Blob([JSON.stringify(this.workspace, null, 2)], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
@@ -92,9 +105,14 @@ export class GeneralComponent implements OnInit {
     a.click()
   }
 
-  save () {
+  save() {
+    this.workspace.menuHideItems = this.menu
+      .map(m => m.label)
+      .filter(x => !this.showMenuItems[x])
     this.configService.save({ ...this.workspace })
     this.angulartics2.settings.developerMode = !this.configService.workspace?.analytics
     Sentry.getCurrentHub().getClient().getOptions().enabled = this.configService.workspace?.errorReport
+    this.loadRaw()
+
   }
 }
