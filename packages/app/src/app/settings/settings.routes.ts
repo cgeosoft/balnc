@@ -2,7 +2,7 @@ import { ShellComponent } from './@shell/shell.component'
 import { DemoDataComponent } from './demo-data/demo-data.component'
 import { DeveloperComponent } from './developer/developer.component'
 import { GeneralComponent } from './general/general.component'
-import { ModulesComponent } from './modules/modules.component'
+import { IntegrationsComponent } from './integrations/integrations.component'
 import { RemoteComponent } from './remote/remote.component'
 import { WorkspacesComponent } from './workspaces/workspaces.component'
 
@@ -19,11 +19,11 @@ export const SettingsRoutes = [{
     },
     component: GeneralComponent
   }, {
-    path: 'modules',
+    path: 'integrations',
     data: {
-      title: 'Modules'
+      title: 'Integrations'
     },
-    component: ModulesComponent
+    component: IntegrationsComponent
   }, {
     path: 'workspaces',
     data: {

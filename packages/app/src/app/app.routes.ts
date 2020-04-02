@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router'
-import { MainShellComponent } from './main/@shell/shell.component'
-import { ErrorComponent } from './main/error/error.component'
-import { MainGuard } from './main/main.guard'
+import { MainShellComponent } from './@main/@shell/shell.component'
+import { ErrorComponent } from './@main/error/error.component'
+import { MainGuard } from './@main/main.guard'
 
 export const APP_ROUTES: Routes = [{
   path: '',
@@ -17,8 +17,47 @@ export const APP_ROUTES: Routes = [{
     path: 'support',
     loadChildren: () => import('./support/support.module').then(m => m.SupportModule)
   }, {
-    path: 'business',
-    loadChildren: () => import('./business/business.module').then(m => m.BusinessModule)
+    path: 'contacts',
+    data: {
+      title: 'Contacts'
+    },
+    loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule)
+  }, {
+    path: 'transactions',
+    loadChildren: () => import('./transactions/transactions.module').then(m => m.TransactionsModule),
+    data: {
+      title: 'Transactions'
+    }
+  }, {
+    path: 'accounts',
+    loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule),
+    data: {
+      title: 'Accounts'
+    }
+  }, {
+    path: 'agreements',
+    loadChildren: () => import('./agreements/agreements.module').then(m => m.AgreementsModule),
+    data: {
+      title: 'Agreements'
+    }
+  }, {
+    path: 'orders',
+    loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
+    data: {
+      title: 'Orders'
+    }
+  }, {
+    path: 'invoices',
+    loadChildren: () => import('./invoices/invoices.module').then(m => m.InvoicesModule),
+    data: {
+      title: 'Invoices'
+    }
+  }, {
+    path: 'storage',
+    loadChildren: () => import('./storage/storage.module').then(m => m.StorageModule),
+    data: {
+      title: 'Storage'
+    }
   }, {
     path: 'documents',
     loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule)

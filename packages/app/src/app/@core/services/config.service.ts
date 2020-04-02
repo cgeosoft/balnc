@@ -30,15 +30,6 @@ export class ConfigService {
     return this.workspace?.db?.username
   }
 
-  get modules () {
-    return environment.modules
-      .filter(m => {
-        return this.workspace.modules &&
-          this.workspace.modules[m.key] &&
-          this.workspace.modules[m.key].enabled
-      })
-  }
-
   setup () {
     console.log('[ConfigService]', 'Initializing with env:', environment)
 
@@ -61,7 +52,7 @@ export class ConfigService {
   }
 
   getPackageConfig (id: string) {
-    return this.workspace.modules[id]
+    return this.workspace.integrations[id]
   }
 
   clearAll () {

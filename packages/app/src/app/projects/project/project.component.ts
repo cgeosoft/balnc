@@ -40,9 +40,9 @@ export class ProjectComponent implements OnInit {
     },
     {
       items: [
-        // { label: 'Agreements', url: '/business/agreements' },
-        // { label: 'Orders', url: '/business/orders' },
-        // { label: 'Invoices', url: '/business/invoices' }
+        // { label: 'Agreements', url: '/agreements' },
+        // { label: 'Orders', url: '/orders' },
+        // { label: 'Invoices', url: '/invoices' }
       ]
     }
   ]

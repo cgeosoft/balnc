@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { MenuItem } from '@balnc/shared'
 import { Observable } from 'rxjs'
-import { Document } from '../@shared/models/document'
-import { DocumentsRepo } from '../@shared/repos/documents.repo'
+import { Document } from '../@shared/document'
+import { DocumentsRepo } from '../@shared/documents.repo'
 
 @Component({
   selector: 'app-shell',

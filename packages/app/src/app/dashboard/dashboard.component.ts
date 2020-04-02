@@ -5,7 +5,7 @@ import { CalendarEvent } from 'angular-calendar'
 import * as faker from 'faker'
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
-import { ContactsRepo } from '../business/@shared/repos/contacts.repo'
+import { ContactsRepo } from '../contacts/@shared/contacts.repo'
 @Component({
   selector: 'app-core-dashboard',
   templateUrl: './dashboard.component.html',

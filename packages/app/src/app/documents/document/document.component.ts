@@ -1,10 +1,10 @@
 import { Component, NgZone, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable } from 'rxjs'
-import { Document } from '../@shared/models/document'
-import { Line } from '../@shared/models/line'
-import { DocumentsRepo } from '../@shared/repos/documents.repo'
-import { LinesRepo } from '../@shared/repos/lines.repo'
+import { Document } from '../@shared/document'
+import { DocumentsRepo } from '../@shared/documents.repo'
+import { Line } from '../@shared/line'
+import { LinesRepo } from '../@shared/lines.repo'
 
 @Component({
   selector: 'app-documents-document',

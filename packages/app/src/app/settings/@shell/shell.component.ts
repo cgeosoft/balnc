@@ -3,7 +3,6 @@ import { ConfigService, RxDBService } from '@balnc/core'
 import { ConfirmDialogComponent, Helpers, MenuItem, Workspace } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ReadFile } from 'ngx-file-helpers'
-import environment from 'src/environments/environment'
 
 @Component({
   selector: 'app-settings-shell',
@@ -17,68 +16,64 @@ export class ShellComponent implements OnInit {
   helperService = Helpers
 
   menu: MenuItem[] = [{
-    url: '/settings/general',
+    route: '/settings/general',
     icon: 'cog',
     type: 'button',
     label: 'General'
   }, {
-    url: '/settings/modules',
+    route: '/settings/integrations',
     icon: 'boxes',
     type: 'button',
-    label: 'Modules'
+    label: 'Integrations'
   }, {
     type: 'divider'
   }, {
-    url: '/settings/remote',
+    route: '/settings/remote',
     icon: 'server',
     type: 'button',
     label: 'Remote'
   }, {
-    url: '/settings/demo-data',
+    route: '/settings/demo-data',
     icon: 'exchange-alt',
     type: 'button',
     label: 'Demo Data'
   }]
 
   extra: MenuItem[] = [{
-    url: '/settings/workspaces',
+    route: '/settings/workspaces',
     icon: 'swatchbook',
     type: 'button',
     label: 'Workspaces'
   }, {
-    url: '/settings/developer',
+    route: '/settings/developer',
     icon: 'code',
     type: 'button',
     label: 'Developer'
   }]
 
-  get workspaces() {
+  get workspaces () {
     return this.configService.workspaces
   }
 
-  get activated() {
+  get activated () {
     return this.configService.activated
   }
 
-  get plugins() {
-    return environment.modules
-  }
-
-  constructor(
+  constructor (
     public configService: ConfigService,
     private modal: NgbModal,
     private dbService: RxDBService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.workspace = this.configService.workspace
   }
 
-  clear() {
+  clear () {
     this.configService.clearAll()
   }
 
-  async remove(workspaceId) {
+  async remove (workspaceId) {
     await this.modal.open(ConfirmDialogComponent, { size: 'sm' })
       .result
       .then(async () => {
@@ -90,7 +85,7 @@ export class ShellComponent implements OnInit {
       })
   }
 
-  onFilePicked(file: ReadFile) {
+  onFilePicked (file: ReadFile) {
     this.error = null
     try {
       const data = file.content.split(',')[1]

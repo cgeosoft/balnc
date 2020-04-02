@@ -1,0 +1,48 @@
+<ng-container *ngIf="(contact$ | async) as contact; else loader">
+  <ng-container *ngIf="contact; else empty">
+    <app-content>
+      <ng-container role="sidebar">
+        <img style="width:217px;height:217px" class="rounded border img-fluid mb-3" [src]="contact.avatar"
+          *ngIf="contact.avatar">
+        <dl>
+          <dt>Name
+            <button (click)="toggleMark(contact._id)" class="btn btn-sm btn-link float-right">
+              <fa-icon icon="star" class="ml-2"
+                [ngClass]="{'text-warning':contact._mark,'text-secondary':!contact._mark}"></fa-icon>
+            </button>
+          </dt>
+          <dd>{{contact.name}}</dd>
+          <ng-container *ngIf="contact.description">
+            <dt>Description</dt>
+            <dd>{{contact.description}}</dd>
+          </ng-container>
+          <ng-container *ngIf="contact.tags">
+            <dt>Tags</dt>
+            <dd>{{contact.tags.join(', ')}}</dd>
+          </ng-container>
+        </dl>
+        <hr>
+
+        <div class="menu">
+          <a [routerLink]="['/contacts',contact._id,'timeline']" routerLinkActive="active">Timeline</a>
+          <a [routerLink]="['/contacts',contact._id,'manage']" routerLinkActive="active">Manage</a>
+        </div>
+
+        <div class="menu">
+          <a [routerLink]="['/agreements']">Agreements</a>
+          <a [routerLink]="['/orders']">Orders</a>
+          <a [routerLink]="['/invoices']">Invoices</a>
+        </div>
+      </ng-container>
+      <router-outlet></router-outlet>
+    </app-content>
+  </ng-container>
+</ng-container>
+
+<ng-template #empty>
+  <app-empty message="Select a contact or create a new one" icon="desktop"></app-empty>
+</ng-template>
+
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

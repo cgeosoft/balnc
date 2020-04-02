@@ -1,6 +1,6 @@
 <div class="item">
-  <ng-container *ngIf="item.url">
-    <button [routerLink]="item.url" routerLinkActive="active" class="action">
+  <ng-container *ngIf="item.route">
+    <button [routerLink]="item.route" routerLinkActive="active" class="action">
       <fa-icon [icon]="item.icon" class="icon"></fa-icon>
       <span>{{item.label}}</span>
     </button>
@@ -11,7 +11,7 @@
       <span>{{item.label}}</span>
     </button>
   </ng-container>
-  <ng-container *ngIf="!item.url && !item.action">
+  <ng-container *ngIf="!item.route && !item.action">
     <div class="action">
       <fa-icon [icon]="item.icon" class="icon"></fa-icon>
       <span>{{item.label}}</span>

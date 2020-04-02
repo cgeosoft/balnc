@@ -1,0 +1,22 @@
+<div class="menu">
+  <button class="item" routerLinkActive="active" routerLink="/dashboard" ngbTooltip="Dashboard" placement="right"
+    container="body">
+    <fa-icon icon="home"></fa-icon>
+  </button>
+  <div class="divider"></div>
+  <ng-container *ngFor="let item of menu">
+    <button class="item" routerLinkActive="active" [routerLink]="item.route" [ngbTooltip]="item.label"
+      placement="right" container="body">
+      <fa-icon [icon]="item.icon" [ngStyle]="{color:item.color}"></fa-icon>
+    </button>
+  </ng-container>
+  <div class="divider"></div>
+  <button class="item" routerLink="/settings" routerLinkActive="active" ngbTooltip="Settings" placement="right"
+    container="body">
+    <fa-icon icon="cog"></fa-icon>
+  </button>
+  <button class="item" routerLink="/support" routerLinkActive="active" ngbTooltip="Support" placement="right"
+    container="body">
+    <fa-icon icon="life-ring"></fa-icon>
+  </button>
+</div>

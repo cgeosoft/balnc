@@ -6,9 +6,9 @@ import { ShellComponent } from './@shell/shell.component'
 import { DemoDataComponent } from './demo-data/demo-data.component'
 import { DeveloperComponent } from './developer/developer.component'
 import { GeneralComponent } from './general/general.component'
-import { MailgunComponent } from './modules/integrations/mailgun/mailgun.component'
-import { StripeComponent } from './modules/integrations/stripe/stripe.component'
-import { ModulesComponent } from './modules/modules.component'
+import { IntegrationsComponent } from './integrations/integrations.component'
+import { MailgunComponent } from './integrations/integrations/mailgun/mailgun.component'
+import { StripeComponent } from './integrations/integrations/stripe/stripe.component'
 import { RawViewComponent } from './raw-view/raw-view.component'
 import { RemoteComponent } from './remote/remote.component'
 import { SettingsRoutes } from './settings.routes'
@@ -23,7 +23,7 @@ import { WorkspacesComponent } from './workspaces/workspaces.component'
   declarations: [
     ShellComponent,
     GeneralComponent,
-    ModulesComponent,
+    IntegrationsComponent,
     RemoteComponent,
     RawViewComponent,
     WorkspacesComponent,

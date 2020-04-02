@@ -9,7 +9,7 @@ export type Workspace = {
   cache?: boolean
   server?: ServerConfig
   db?: DbConfig
-  modules?: { [key: string]: PluginConfig & any}
+  integrations?: { [key: string]: IntegrationConfig & any }
 }
 
 export type ServerConfig = {
@@ -28,20 +28,12 @@ export type DbConfig = {
 export const DEFAULT_WORKSPACE: Workspace = {
   key: 'default',
   name: 'default',
-  modules: {
-    business: { enabled: true },
-    projects: { enabled: true },
-    boards: { enabled: true },
-    presentations: { enabled: true },
-    documents: { enabled: true },
-    analytics: { enabled: false },
-    reports: { enabled: false }
-  },
+  integrations: {},
   layout: 'box',
   errorReport: false,
   analytics: false
 }
 
-export type PluginConfig = {
+export type IntegrationConfig = {
   enabled: boolean
 }
