@@ -1,15 +1,20 @@
 FROM node:alpine as builder
+
+COPY ./ /app
+
 WORKDIR /app
-COPY . /app
 RUN npm install
 RUN npm run build
 
 FROM node:alpine as server
+
+COPY --from=builder /app/dist /app
+COPY ./package.json /app
+
 WORKDIR /app
-COPY --from=builder /app/dist /app/dist
-COPY package.json /app
 ENV NODE_ENV=production
 RUN npm install
 
 EXPOSE 3000
+
 CMD [ "node", "app.js" ]
