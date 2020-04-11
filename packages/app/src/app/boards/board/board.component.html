@@ -39,16 +39,12 @@
                     <div *ngIf="m.file">
                       <img *ngIf="previews[m._id].base64" [src]="previews[m._id].base64" alt="m.file"
                         class="img-fluid img-preview mb-1" (load)="scrollToBottom()">
-                      <ul class="list-inline mb-0 p-2">
-                        <li class="list-inline-item text-primary">
-                          <fa-icon icon="arrow-alt-circle-down"></fa-icon>
-                        </li>
-                        <li class="list-inline-item">
-                          <a href="javascript:void" (click)="download(m)">{{m.file}}</a>
-                        </li>
-                        <li *ngIf="previews[m._id].file" class="list-inline-item">
+                      <ul class="ld-flex align-items-center mb-0 p-2">
+                        <fa-icon icon="arrow-alt-circle-down" class="mr-2"></fa-icon>
+                        <a href="javascript:void" (click)="download(m)" class="mr-2">{{m.file}}</a>
+                        <ng-container *ngIf="previews[m._id].file">
                           <small>{{previews[m._id].file.length | bytes:0}}</small>
-                        </li>
+                        </ng-container>
                       </ul>
                     </div>
                     <div *ngIf="m.metadata" class="media px-3">

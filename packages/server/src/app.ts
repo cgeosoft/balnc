@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import PouchDB from 'pouchdb';
 import winston from 'winston';
 import { build } from './build';
+import { routes } from './commons/routes';
 
 const logger = winston.createLogger({
     level: 'info',
@@ -48,6 +49,7 @@ app.use("/db", cors(pouchdbCorsParams), pouchDB);
 
 app.use(helmet());
 app.use("/", cors());
+app.use('/api', cors(), routes);
 
 app.get("/", (req, res) => {
     res.json({

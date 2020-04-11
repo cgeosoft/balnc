@@ -161,13 +161,13 @@ export class BoardComponent implements OnInit, OnDestroy {
 
     this.inputMessage = null
     const urls = data.text.match(urlRegex)
-    if (urls) {
+    if (urls && this.configService.workspace.server?.type) {
       const params = new HttpParams().set('q', urls[0])
-      const res = await this.http.get<{ data: OgMetadata }>('http://localhost:3000/api/og', { params }).toPromise()
+      const res = await this.http
+        .get<{ data: OgMetadata }>(`${this.configService.workspace.server.host}/og`, { params })
+        .toPromise()
       message.metadata = res.data
-      await this.messagesRepo.update(message._id, {
-        $set: { c: message }
-      })
+      await this.messagesRepo.update(message._id, message)
     }
   }
 
