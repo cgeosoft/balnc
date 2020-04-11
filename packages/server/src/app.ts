@@ -31,11 +31,11 @@ var whitelist = ['http://localhost:4200', 'http://localhost:8000', 'https://baln
 const app = express();
 const pouchdbCorsParams = {
     credentials: true,
-    origin: (origin: any, callback: any) => {
-        if (whitelist.indexOf(origin) !== -1) {
+    origin: (requestOrigin: any, callback: any) => {
+        if (whitelist.indexOf(requestOrigin) !== -1 || !requestOrigin) {
             callback(null, true)
         } else {
-            callback(new Error(`Not allowed by CORS [${origin}]`))
+            callback(new Error(`Not allowed by CORS [${requestOrigin}]`))
         }
     },
     allowedHeaders: "accept, authorization, content-type, origin, referer",
