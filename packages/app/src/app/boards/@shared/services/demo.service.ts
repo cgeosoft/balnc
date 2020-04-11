@@ -22,9 +22,9 @@ export class BoardsDemoService {
   ) { }
 
   async clear () {
-    this.message(`Calculate old demo data`)
+    this.message(`Calculate boards demo data`)
     const boards = await this.boardsRepo.all()
-    const boardIds = boards.filter(o => o._tags.indexOf('demo') !== -1).map(c => c._id)
+    const boardIds = boards.filter(o => o._tags && o._tags.indexOf('demo') !== -1).map(c => c._id)
     this.message(`Will remove ${boardIds.length} boards`)
     const boardsProm = boardIds.map((id, i) => {
       if (i % 100 === 0) {
@@ -32,8 +32,9 @@ export class BoardsDemoService {
       }
       return this.boardsRepo.remove(id)
     })
+    this.message(`Calculate messages demo data`)
     const messages = await this.messagesRepo.all()
-    const messageIds = messages.filter(o => o._tags.indexOf('demo') !== -1).map(a => a._id)
+    const messageIds = messages.filter(o => o._tags && o._tags.indexOf('demo') !== -1).map(a => a._id)
     this.message(`Will remove ${messageIds.length} messages`)
     const messagesProm = messageIds.map((id, i) => {
       if (i % 100 === 0) {

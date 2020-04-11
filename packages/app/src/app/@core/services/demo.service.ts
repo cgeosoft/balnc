@@ -42,7 +42,7 @@ export class DemoService {
   async clear () {
     this.message(`Calculate old demo data`)
     const contacts = await this.contactsRepo.all()
-    const contactIds = contacts.filter(o => o._tags.indexOf('demo') !== -1).map(c => c._id)
+    const contactIds = contacts.filter(o => o._tags && o._tags.indexOf('demo') !== -1).map(c => c._id)
     this.message(`Will remove ${contactIds.length} contacts`)
     const contactsProm = contactIds.map((id, i) => {
       if (i % 100 === 0) {
@@ -51,7 +51,7 @@ export class DemoService {
       return this.contactsRepo.remove(id)
     })
     const agreements = await this.agreementsRepo.all()
-    const agreementIds = agreements.filter(o => o._tags.indexOf('demo') !== -1).map(a => a._id)
+    const agreementIds = agreements.filter(o => o._tags && o._tags.indexOf('demo') !== -1).map(a => a._id)
     this.message(`Will remove ${agreementIds.length} agreements`)
     const agreementsProm = agreementIds.map((id, i) => {
       if (i % 100 === 0) {
