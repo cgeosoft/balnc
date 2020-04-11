@@ -1,4 +1,5 @@
 import express from "express";
+import helmet from 'helmet';
 import PouchDB from 'pouchdb';
 
 const expressPouchdb = require("express-pouchdb");
@@ -7,6 +8,8 @@ const app = express();
 const pouchDB = expressPouchdb(PouchDB.defaults({
     prefix: './data/'
 }))
+
+app.use(helmet());
 
 app.use('/db', pouchDB);
 
