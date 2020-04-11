@@ -2,6 +2,7 @@
 export type Workspace = {
   key: string
   name: string
+  nickname?: string
   created?: number
   layout?: 'box' | 'fluid'
   menuSize?: 'normal' | 'compact'
@@ -30,6 +31,7 @@ export type DbConfig = {
 export const DEFAULT_WORKSPACE: Workspace = {
   key: 'default',
   name: 'default',
+  nickname: 'john',
   integrations: {},
   layout: 'box',
   menuSize: 'normal',

@@ -50,24 +50,15 @@ export class RemoteComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    this.serverConfig = {
-      ...this.workspace.server,
-      ...{
-        type: null
-      }
-    }
-    this.dbConfig = {
-      ...this.workspace.db,
-      ...{
-        type: null
-      }
-    }
+    this.serverConfig = { ...this.workspace.server }
+    this.serverConfig.type = this.serverConfig.type || null
+
+    this.dbConfig = { ...this.workspace.db }
+    this.dbConfig.type = this.dbConfig.type || null
   }
 
   async applyServer () {
-    this.workspace.server = {
-      ...this.serverConfig
-    }
+    this.workspace.server = { ...this.serverConfig }
     this.configService.save(this.workspace)
     await this.rxdbService.setup()
   }

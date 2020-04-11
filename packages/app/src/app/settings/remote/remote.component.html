@@ -17,9 +17,9 @@
     </div>
     <div class="form-group input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="prefixId">Host</span>
+        <span class="input-group-text">Host</span>
       </div>
-      <input [disabled]="!workspace.server?.type" [(ngModel)]="serverConfig.host" class="form-control"
+      <input [disabled]="!serverConfig?.type" [(ngModel)]="serverConfig.host" class="form-control"
         placeholder="https://myhost:3100">
     </div>
     <div class="form-group">
@@ -43,18 +43,18 @@
       <div class="col-lg-6">
         <div class="form-group input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="prefixId">Host</span>
+            <span class="input-group-text">Host</span>
           </div>
-          <input [disabled]="!workspace.db?.type" [(ngModel)]="dbConfig.host" class="form-control"
+          <input [disabled]="!dbConfig?.type" [(ngModel)]="dbConfig.host" class="form-control"
             placeholder="https://mycouch.mydomain.com:5984">
         </div>
       </div>
       <div class="col-lg-6">
         <div class="form-group input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="prefixId">Database</span>
+            <span class="input-group-text">Database</span>
           </div>
-          <input [disabled]="!workspace.db?.type" [(ngModel)]="dbConfig.key" class="form-control">
+          <input [disabled]="!dbConfig?.type" [(ngModel)]="dbConfig.key" class="form-control">
         </div>
       </div>
     </div>
@@ -62,9 +62,9 @@
       <div class="col-lg-6">
         <div class="form-group input-group">
           <div class="input-group-prepend">
-            <span class="input-group-text" id="prefixId">Username</span>
+            <span class="input-group-text">Username</span>
           </div>
-          <input [disabled]="!workspace.db?.type" [(ngModel)]="dbConfig.username" class="form-control">
+          <input [disabled]="!dbConfig?.type" [(ngModel)]="dbConfig.username" class="form-control">
         </div>
       </div>
     </div>

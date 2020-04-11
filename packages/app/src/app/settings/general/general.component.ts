@@ -35,7 +35,7 @@ export class GeneralComponent implements OnInit {
   menu: any[] = MENU
   showMenuItems: { [key: string]: boolean }
 
-  constructor(
+  constructor (
     private configService: ConfigService,
     private modal: NgbModal,
     private router: Router,
@@ -44,7 +44,7 @@ export class GeneralComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.workspace = this.configService.workspace
     this.loadRaw()
     this.showMenuItems = this.menu.reduce((l, x) => {
@@ -53,7 +53,7 @@ export class GeneralComponent implements OnInit {
     }, {})
   }
 
-  validate() {
+  validate () {
     try {
       this.rawErr = false
       JSON.parse(this.source)
@@ -62,22 +62,15 @@ export class GeneralComponent implements OnInit {
     }
   }
 
-  loadRaw() {
+  loadRaw () {
     this.source = JSON.stringify(this.workspace, null, 2)
   }
 
-  updateRaw() {
+  updateRaw () {
     this.configService.save(JSON.parse(this.source))
   }
 
-  rename(newName) {
-    if (!newName) return
-    this.workspace.name = newName
-    this.configService.save(this.workspace)
-    this.loadRaw()
-  }
-
-  async delete() {
+  async delete () {
     if (!confirm('Are you sure?')) return
     await this.rxdbService.remove(this.workspace.key)
     this.configService.remove(this.workspace.key)
@@ -91,13 +84,13 @@ export class GeneralComponent implements OnInit {
     await this.rxdbService.setup()
   }
 
-  async editRaw() {
+  async editRaw () {
     const m = this.modal.open(RawViewComponent, { backdrop: 'static' })
     m.componentInstance.workspace = this.workspace
     this.workspace = await m.result
   }
 
-  export() {
+  export () {
     let a = document.createElement('a')
     let file = new Blob([JSON.stringify(this.workspace, null, 2)], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
@@ -105,7 +98,7 @@ export class GeneralComponent implements OnInit {
     a.click()
   }
 
-  save() {
+  save () {
     this.workspace.menuHideItems = this.menu
       .map(m => m.label)
       .filter(x => !this.showMenuItems[x])

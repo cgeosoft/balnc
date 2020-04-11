@@ -1,13 +1,29 @@
 <app-content [box]="true">
   <section role="title">General Options</section>
   <section>
-    <h4>Name</h4>
+    <h4>Workspace</h4>
     <div class="form-group input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Workspace name</span>
+      </div>
       <input #name [value]="workspace.name" class="form-control">
       <div class="input-group-append">
-        <button class="btn btn-primary" (click)="rename(name.value)">Update</button>
+        <button class="btn btn-primary" (click)="workspace.name = name.value; save()">Update</button>
       </div>
     </div>
+  </section>
+  <section>
+    <h4>User's nickname</h4>
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">User's nickname</span>
+      </div>
+      <input #nickname [value]="workspace.nickname || ''" class="form-control">
+      <div class="input-group-append">
+        <button class="btn btn-primary" (click)="workspace.nickname = nickname.value; save()">Update</button>
+      </div>
+    </div>
+    <div class="text-muted"><small>Used in tag content. Use your own name in a shared database.</small></div>
   </section>
   <section>
     <h4>Layout & Theme</h4>

@@ -40,7 +40,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   sub: Subscription
 
   get nickname () {
-    return this.configService.username
+    return this.configService.workspace.nickname
   }
 
   constructor (
@@ -151,7 +151,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
     const data = {
       text: this.inputMessage,
-      sender: 'anonymous',
+      sender: this.nickname,
       board: this.selected,
       status: 'SEND',
       type: 'MESSAGE'
@@ -178,7 +178,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   async upload (file: File) {
     const data: Partial<Message> = {
       text: null,
-      sender: 'anonymous',
+      sender: this.nickname,
       status: 'SEND',
       type: 'MESSAGE',
       file: file.name
