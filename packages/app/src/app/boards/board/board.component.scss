@@ -46,7 +46,7 @@
       box-shadow: 0.1rem 0.1rem 0 #eee;
       max-width: 80%;
 
-      .img-preview{
+      .img-preview {
         max-width: 300px;
       }
     }
@@ -76,4 +76,9 @@
   &::-webkit-scrollbar-thumb {
     background: #ccc;
   }
+}
+
+:host ::ng-deep .msg-item.own a{
+  color: #fff !important;
+  text-decoration: underline;
 }
