@@ -1,4 +1,4 @@
-FROM node as builder
+FROM node:12 as builder
 
 COPY ./ /app
 
@@ -6,7 +6,7 @@ WORKDIR /app
 RUN npm install
 RUN npm run build
 
-FROM node:alpine as server
+FROM node:12-alpine as server
 
 COPY --from=builder /app/dist /app
 COPY ./package.json /app
