@@ -19,18 +19,18 @@ export class ShellComponent implements OnInit {
   nickname: string
   boardsStats: BoardStats[]
   unread = {}
-  menu = [
+  menu: MenuItem[] = [
     {
       label: 'Boards',
       type: 'button',
       icon: 'border-all',
-      url: '/boards/manage'
+      route: '/boards/manage'
     },
     {
       label: 'Settings',
       type: 'button',
       icon: 'cog',
-      url: '/boards/settings'
+      route: '/boards/settings'
     }
   ]
 
@@ -50,7 +50,7 @@ export class ShellComponent implements OnInit {
             return {
               label: item.c.name,
               icon: ['fas', 'comments'],
-              url: ['/boards', item._id],
+              route: ['/boards', item._id],
               type: 'button'
             }
           })
