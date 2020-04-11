@@ -2,7 +2,24 @@ import cors from 'cors';
 import express from "express";
 import helmet from 'helmet';
 import PouchDB from 'pouchdb';
+import winston from 'winston';
 import { build } from './build';
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  defaultMeta: { service: 'user-service' },
+  transports: [
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' })
+  ]
+});
+
+if (process.env.NODE_ENV !== 'production') {
+  logger.add(new winston.transports.Console({
+    format: winston.format.simple()
+  }));
+}
 
 const expressPouchdb = require("express-pouchdb");
 const pouchDB = expressPouchdb(PouchDB.defaults({
