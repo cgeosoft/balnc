@@ -11,7 +11,7 @@ const pouchDB = expressPouchdb(PouchDB.defaults({
 app.use('/db', pouchDB);
 
 app.get("/", (req, res) => {
-    res.send("Hello World2")
+    res.send("server online")
 })
 
 const PORT = process.env.PORT || 3000;
