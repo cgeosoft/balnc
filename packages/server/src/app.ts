@@ -6,19 +6,19 @@ import winston from 'winston';
 import { build } from './build';
 
 const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  defaultMeta: { service: 'user-service' },
-  transports: [
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' })
-  ]
+    level: 'info',
+    format: winston.format.json(),
+    defaultMeta: { service: 'user-service' },
+    transports: [
+        new winston.transports.File({ filename: 'error.log', level: 'error' }),
+        new winston.transports.File({ filename: 'combined.log' })
+    ]
 });
 
 if (process.env.NODE_ENV !== 'production') {
-  logger.add(new winston.transports.Console({
-    format: winston.format.simple()
-  }));
+    logger.add(new winston.transports.Console({
+        format: winston.format.simple()
+    }));
 }
 
 const expressPouchdb = require("express-pouchdb");
@@ -35,7 +35,7 @@ const pouchdbCorsParams = {
         if (whitelist.indexOf(origin) !== -1) {
             callback(null, true)
         } else {
-            callback(new Error('Not allowed by CORS'))
+            callback(new Error(`Not allowed by CORS [${origin}]`))
         }
     },
     allowedHeaders: "accept, authorization, content-type, origin, referer",
