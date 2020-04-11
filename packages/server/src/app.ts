@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from "express";
 import helmet from 'helmet';
 import PouchDB from 'pouchdb';
+import { build } from './build';
 
 const expressPouchdb = require("express-pouchdb");
 const pouchDB = expressPouchdb(PouchDB.defaults({
@@ -32,7 +33,10 @@ app.use(helmet());
 app.use("/", cors());
 
 app.get("/", (req, res) => {
-    res.send("server online")
+    res.json({
+        message: "server online",
+        ...build
+    })
 })
 
 const PORT = process.env.PORT || 3000;

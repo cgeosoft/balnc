@@ -16,6 +16,7 @@
   "scripts": {
     "start": "node --inspect=5858 -r ts-node/register ./src/app.ts",
     "start:watch": "nodemon",
+    "prebuild": "node ./scripts/prebuild.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,6 +28,7 @@
     "express": "^4.17.1",
     "express-pouchdb": "^4.2.0",
     "helmet": "^3.22.0",
+    "nodegit": "^0.26.5",
     "pouchdb": "^7.2.1"
   },
   "devDependencies": {
