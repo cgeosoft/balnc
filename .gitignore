@@ -1,6 +1,9 @@
-dist/
 node_modules/
+dist/
+
 .env*
-!.env.template
-log.*
 config.json
+log.*
+*.log
+!.env.template
+!/**/.gitkeep
