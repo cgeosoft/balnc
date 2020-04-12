@@ -30,6 +30,7 @@ import { UndrawComponent } from './components/undraw/undraw.component'
 import { FontAwesomeModule } from './modules/font-awesome/font-awesome.module'
 import { DocVersionPipe } from './pipes/doc-version.pipe'
 import { EllipsisPipe } from './pipes/ellipsis.pipe'
+import { SafePipe } from './pipes/safe.pipe'
 
 @NgModule({
   imports: [
@@ -62,6 +63,8 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     EllipsisPipe,
     PaginatePipe,
     SearchPipe,
+    SafePipe,
+
     ToolbarComponent,
     SidemenuComponent,
     SidemenuButtonComponent,
@@ -87,6 +90,7 @@ import { EllipsisPipe } from './pipes/ellipsis.pipe'
     DocVersionPipe,
     EllipsisPipe,
     SearchPipe,
+    SafePipe,
 
     ConfirmDialogComponent,
     ContentComponent,

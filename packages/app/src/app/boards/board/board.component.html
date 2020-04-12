@@ -47,14 +47,40 @@
                         </ng-container>
                       </ul>
                     </div>
-                    <div *ngIf="m.metadata" class="media px-3">
-                      <img *ngIf="m.metadata.ogImage.url" class="align-self-start img-thumbnail mr-3"
-                        [src]="m.metadata.ogImage.url" style="max-width: 120px;" alt="" (load)="scrollToBottom()">
-                      <div class="media-body">
-                        <div class="mb-1"><strong>{{m.metadata.ogTitle}}</strong></div>
-                        <div>{{m.metadata.ogDescription}}</div>
-                        <div><small class="text-muted">{{m.metadata.ogUrl}}</small></div>
-                      </div>
+                    <ng-container *ngIf="m.metadata">
+                      <ng-container [ngSwitch]="m.metadata.ogType">
+                        <ng-container *ngSwitchCase="'video.other'">
+                          <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" [src]="m.metadata.ogVideo.url | safe:'resourceUrl'"
+                              (load)="scrollToBottom()" allowfullscreen></iframe>
+                          </div>
+                          <div class="m-3">
+                            <div class="mb-1"><strong>{{m.metadata.ogTitle}}</strong></div>
+                            <div>{{m.metadata.ogDescription}}</div>
+                          </div>
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                          <div class="media p-3 border-top">
+                            <img *ngIf="m.metadata.ogImage.url" class="align-self-start img-thumbnail mr-3"
+                              [src]="m.metadata.ogImage.url" style="max-width: 200px;" alt="" (load)="scrollToBottom()">
+                            <div class="media-body">
+                              <div class="mb-1"><strong>{{m.metadata.ogTitle}}</strong></div>
+                              <div>{{m.metadata.ogDescription}}</div>
+                              <div><small class="text-muted">{{m.metadata.ogUrl}}</small></div>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </ng-container>
+                    </ng-container>
+                  </div>
+                  <div ngbDropdown>
+                    <button class="btn btn-sm border-light-outline border-0" ngbDropdownToggle>
+                      <fa-icon icon="bars"></fa-icon>
+                    </button>
+                    <div ngbDropdownMenu>
+                      <button ngbDropdownItem>Re-parse</button>
+                      <button ngbDropdownItem>Remove</button>
+                      <button ngbDropdownItem>Mention</button>
                     </div>
                   </div>
                 </div>
