@@ -3,9 +3,9 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/79c2730e3816489d9a9b10f506cc3ac5)](https://www.codacy.com/manual/xris-georgiou/balnc?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ChristosGeorgiou/balnc&amp;utm_campaign=Badge_Grade) [![Netlify Status](https://api.netlify.com/api/v1/badges/085594e9-5f2e-4a4c-9dd4-148c0e889869/deploy-status)](https://app.netlify.com/sites/balnc/deploys)
 
 > WARNING: NOT FOR PRODUCTION USE
-> This is more of an experiment rather a working product. New and untested libraries are been used. Nno security audit have been done. 
+> This is more of an experiment rather than a working product. New and untested libraries are been used and no security audit have been done.
 
-![screenshot](https://raw.githubusercontent.com/ChristosGeorgiou/balnc/master/docs/assets/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/ChristosGeorgiou/balnc/master/docs/assets/screenshot.jpg)
 
 Balnc (balance) is an free and open source business management suite for small organizations and freelancers.
 The primary feature of balnc is the offline first approach as it may run fully at user's browser or be downloaded in all major operating systems.
@@ -19,8 +19,6 @@ Data are stored ether at browser local database or in user's own infrastracture 
 - All data may be stored in a **browser database** without requiring a database server
 - Optional **server** is provided for support of syncing data over the networ for backup and multi-user enviroments
 
-## Modules
-
 | Name          | Description                                                                                 |
 | ------------- | ------------------------------------------------------------------------------------------- |
 | Business      | Manage customers, orders, invoices and other daily task for small business and freelancers. |
@@ -31,7 +29,7 @@ Data are stored ether at browser local database or in user's own infrastracture 
 
 ## Try It
 
-You may use the latest unstable version (develop) at [https://balnc.cgeosoft.com](https://balnc.cgeosoft.com)
+You may use the latest develop version at [https://balnc.cgeosoft.com](https://balnc.cgeosoft.com)
 
 If you want to try it local:
 
