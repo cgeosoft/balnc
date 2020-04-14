@@ -49,6 +49,34 @@
       .img-preview {
         max-width: 300px;
       }
+
+      .msg-image {
+        background-color: #bbb;
+      }
+
+      .msg-quote {
+        @extend .d-flex;
+        @extend .m-2;
+        @extend .rounded;
+        @extend .p-3;
+        background-color: rgba(255, 253, 253, 0.192);
+        div {
+          @extend .mx-2;
+          font-size: small;
+        }
+        fa-icon {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .msg-menu {
+      margin: 0.3rem;
+      .dropdown-toggle {
+        &:after {
+          content: none;
+        }
+      }
     }
 
     .msg-time {

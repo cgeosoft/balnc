@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap'
 import { Observable, Subject, Subscription } from 'rxjs'
-import { debounceTime, distinctUntilChanged, mergeMap } from 'rxjs/operators'
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
 import { Board } from '../@shared/models/board'
 import { Message, OgMetadata } from '../@shared/models/message'
 import { BoardsRepo } from '../@shared/repos/boards.repo'
@@ -17,7 +17,6 @@ const urlRegex = /(https?:\/\/[^\s]+)/g
   selector: 'app-boards-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
-
 })
 export class BoardComponent implements OnInit, OnDestroy {
 
@@ -29,7 +28,8 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   selected: string
 
-  messages$: Observable<Message[]>
+  // messages$: Observable<Message[]>
+  messages: Message[]
   filteredMessages$: Subject<Message[]>
 
   board$: Observable<Board>
@@ -44,7 +44,9 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   emojiGroupSelect = 0
 
-  giphyResults = []
+  giphyResults: any[]
+  messagesSubscriber$: Observable<any[]>
+  quote: Message
 
   get nickname () {
     return this.configService.workspace.nickname
@@ -72,42 +74,56 @@ export class BoardComponent implements OnInit, OnDestroy {
       if (!this.selected) return
       this.boardsRepo.selected = this.selected
       this.board$ = this.boardsRepo.one$(this.selected)
-      this.messages$ = this.messagesRepo
+      this.messages = null
+      this.sub = this.messagesRepo
         .allm$({ group: this.selected })
-        .pipe(
-          mergeMap(async (messages) => {
-            messages.sort((a, b) => a._date - b._date)
-            const ps = messages.map(async (msg, i) => {
-              if (!this.previews[msg._id]) {
-                this.previews[msg._id] = {}
-              }
-              if (msg.file && !this.previews[msg._id].file) {
-                this.previews[msg._id].file = await this.messagesRepo.getAttachment(msg._id, msg.file)
-                if (this.previews[msg._id].file) {
-                  this.previews[msg._id].blob = await this.previews[msg._id].file.getData()
-                  if (this.previews[msg._id].file.type.startsWith('image/')) {
-                    this.previews[msg._id].base64 = await this.getImage(this.previews[msg._id].blob, this.previews[msg._id].file.type)
-                  }
+        .subscribe(async (messages) => {
+          this.messages = messages
+          this.messages.sort((a, b) => a._date - b._date)
+          const ps = this.messages.map(async (msg, i) => {
+            if (!this.previews[msg._id]) {
+              this.previews[msg._id] = {}
+            }
+            if (msg.file && !this.previews[msg._id].file) {
+              this.previews[msg._id].file = await this.messagesRepo.getAttachment(msg._id, msg.file)
+              if (this.previews[msg._id].file) {
+                this.previews[msg._id].blob = await this.previews[msg._id].file.getData()
+                if (this.previews[msg._id].file.type.startsWith('image/')) {
+                  this.previews[msg._id].base64 = await this.getImage(this.previews[msg._id].blob, this.previews[msg._id].file.type)
                 }
               }
-              if (msg.text) {
-                msg.text = msg.text.replace(urlRegex, (url) => `<a target="_blank" href="${url}">${url}</a>`)
-              }
-            })
-            await Promise.all(ps)
-            console.log(messages)
-            return messages
+            }
+            if (msg.text) {
+              msg.text = msg.text.replace(urlRegex, (url) => `<a target="_blank" href="${url}">${url}</a>`)
+            }
           })
-        )
+          await Promise.all(ps)
+          // console.log(messages)
+          // return messages
 
-      this.sub = this.messages$.subscribe(() => {
-        setTimeout(() => {
-          this.cdr.detectChanges()
-          this.scrollToBottom()
           this.focusInput()
-        }, 100)
-      })
+          this.scrollToBottom()
+        })
     })
+
+    this.giphySearch$
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap((q: string) => {
+          const giphyApiUrl = 'https://api.giphy.com/v1/gifs'
+          const apiKey = 'bDXpdRko9snSlf2EfHSWcB7gZ8XsYVMz'
+          const url = `${giphyApiUrl}/search?api_key=${apiKey}&q=${q}&limit=10&offset=0&rating=R&lang=en`
+          return this.http.get<{ data: any[] }>(url)
+        })
+      )
+      .subscribe((res) => {
+        this.giphyResults = res.data
+      })
+  }
+
+  trackByMessages (index: number, el: Message) {
+    return el._id
   }
 
   ngOnDestroy () {
@@ -170,11 +186,15 @@ export class BoardComponent implements OnInit, OnDestroy {
   async send () {
     if (!this.messageInput.nativeElement.value) { return }
 
-    const data = {
+    const data: Partial<Message> = {
       text: this.messageInput.nativeElement.value,
       sender: this.nickname,
       status: 'SEND',
       type: 'MESSAGE'
+    }
+
+    if (this.quote) {
+      data.quote = this.quote
     }
 
     const message = await this.messagesRepo.add(data, this.selected)
@@ -238,10 +258,20 @@ export class BoardComponent implements OnInit, OnDestroy {
     })
   }
 
+  quoteMessage (m: Message) {
+    this.quote = m
+    this.messageInput.nativeElement.focus()
+  }
+
   async delete () {
     if (!confirm('Are you sure?')) return
     await this.boardsRepo.remove(this.selected)
     await this.router.navigate(['/boards'])
+  }
+
+  async deleteMessage (m: Message) {
+    if (!confirm('Are you sure?')) return
+    await this.messagesRepo.remove(m._id)
   }
 
   async toggleMark (id: string) {
@@ -250,7 +280,9 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   scrollToBottom (): void {
     if (this.messageList) {
-      this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
+      setTimeout(() => {
+        this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
+      }, 100)
     }
   }
 
@@ -259,8 +291,6 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.messageInput.nativeElement.focus()
     }
   }
-
-  giphySearch$
 
   async giphyAdd (event, giphy) {
     event.preventDefault()
@@ -278,21 +308,12 @@ export class BoardComponent implements OnInit, OnDestroy {
     await this.messagesRepo.add(data, this.selected)
     this.messageInput.nativeElement.focus()
     this.giphyP.close()
+    this.giphyResults = []
   }
 
+  giphySearch$ = new Subject<string>()
+
   giphySearch (event) {
-    if (!this.giphySearch$) {
-      this.giphySearch$ = new Observable()
-        .pipe(debounceTime(300)) // wait 300ms after the last event before emitting last event
-        .pipe(distinctUntilChanged()) // only emit if value is different from previous value
-        .subscribe(async (q) => {
-          const apiKey = 'bDXpdRko9snSlf2EfHSWcB7gZ8XsYVMz'
-          const resp = await this.http.get<any>(`https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${q}&limit=25&offset=0&rating=R&lang=en`).toPromise()
-          this.zone.run(() => {
-            this.giphyResults = resp.data
-          })
-        })
-    }
     this.giphySearch$.next(event.target.value)
   }
 }

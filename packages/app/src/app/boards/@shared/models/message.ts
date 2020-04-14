@@ -6,6 +6,7 @@ export interface Message extends Entity {
   status: string
   type: string
   file?: string
+  quote?: Message
   image?: {
     alt?: string
     url?: string

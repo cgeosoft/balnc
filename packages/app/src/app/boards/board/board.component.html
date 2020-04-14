@@ -26,15 +26,24 @@
       </div>
     </ng-container>
     <section #messageList class="no-border full">
-      <ng-container *ngIf="(messages$ | async) as messages; else loader">
+      <ng-container *ngIf="messages; else loader">
         <ng-container *ngIf="messages.length else emptyMessages">
-          <ng-container *ngFor="let m of messages">
+          <ng-container *ngFor="let m of messages; trackBy: trackByMessages">
             <ng-container [ngSwitch]="m.type">
               <ng-container *ngSwitchCase="'MESSAGE'">
                 <div class="msg-item" [ngClass]="{'own':m.sender === nickname}">
                   <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png"
                     [ngbTooltip]="m.sender" placement="bottom" container="body">
                   <div class="msg-body" [ngbTooltip]="m._date | date:'medium'" placement="top" container="body">
+                    <div *ngIf="m.quote" class="msg-quote">
+                      <fa-icon icon="quote-left" class="align-self-start"></fa-icon>
+                      <div>
+                        <div><strong>{{m.quote.sender}}</strong></div>
+                        <div [innerHTML]="m.quote.text"></div>
+                        <div><em>{{m.quote._date | date:'medium'}}</em></div>
+                      </div>
+                      <fa-icon icon="quote-right" class="align-self-end"></fa-icon>
+                    </div>
                     <div *ngIf="m.text" class="py-2 px-3" [innerHTML]="m.text"></div>
                     <div *ngIf="m.file">
                       <img *ngIf="previews[m._id].base64" [src]="previews[m._id].base64" alt="m.file"
@@ -47,10 +56,9 @@
                         </ng-container>
                       </ul>
                     </div>
-                    <div *ngIf="m.image">
-                      <img *ngIf="m.image.url" class="img-fluid"
-                        [src]="m.image.url | safe:'resourceUrl'" [alt]="m.image.alt"
-                        (load)="scrollToBottom()">
+                    <div *ngIf="m.image" class="msg-image">
+                      <img *ngIf="m.image.url" class="img-fluid" [width]="m.image.width" [height]="m.image.height"
+                        [src]="m.image.url | safe:'resourceUrl'" [alt]="m.image.alt" (load)="scrollToBottom()">
                     </div>
                     <ng-container *ngIf="m.metadata">
                       <ng-container [ngSwitch]="m.metadata.ogType">
@@ -78,14 +86,17 @@
                       </ng-container>
                     </ng-container>
                   </div>
-                  <div ngbDropdown>
+                  <div class="msg-menu" ngbDropdown>
                     <button class="btn btn-sm border-light-outline border-0" ngbDropdownToggle>
                       <fa-icon icon="bars"></fa-icon>
                     </button>
                     <div ngbDropdownMenu>
-                      <button ngbDropdownItem>Re-parse</button>
-                      <button ngbDropdownItem>Remove</button>
-                      <button ngbDropdownItem>Mention</button>
+                      <button ngbDropdownItem (click)="quoteMessage(m)">
+                        <fa-icon icon="quote-right"></fa-icon> Quote
+                      </button>
+                      <button ngbDropdownItem class="text-danger" (click)="deleteMessage(m)">
+                        <fa-icon icon="trash"></fa-icon> Remove
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -108,6 +119,20 @@
       </ng-container>
     </section>
     <section class="no-border border-top bg-light">
+      <ng-container *ngIf="quote">
+        <div class="d-flex mb-3">
+          <fa-icon icon="quote-left" class="text-muted align-self-start"></fa-icon>
+          <div class="text-muted mx-2">
+            <div><small><strong>{{quote.sender}}</strong></small></div>
+            <div class="overflow-hidden" style="max-height:100px"><small>{{quote.text||'no text'}}</small></div>
+          </div>
+          <fa-icon icon="quote-right" class="text-muted align-self-end"></fa-icon>
+          <button class="btn btn-outline-danger border-0 ml-4 ml-auto" (click)="quote=null">
+            <fa-icon icon="times"></fa-icon>
+          </button>
+        </div>
+      </ng-container>
+
       <input #messageInput class="form-control" placeholder="type message..." (keydown.enter)="send()">
       <div class="d-flex mt-2">
         <div>
@@ -159,19 +184,21 @@
 
 <ng-template #giphyContent>
   <div class="giphy-search">
-    <input (change)="giphySearch($event)" placeholder="Search for gifs...">
+    <input (input)="giphySearch($event)" placeholder="Search for gifs...">
   </div>
   <div class="giphy-container">
-    <ng-container *ngIf="giphyResults; else giphyEmptyTmpl">
-      <ng-container *ngFor="let giphy of giphyResults">
-        <img (click)="giphyAdd($event, giphy)" [src]="giphy.images.fixed_width.url | safe:'resourceUrl'">
+    <ng-container *ngIf="giphyResults">
+      <ng-container *ngIf="giphyResults.length; else giphyNoFoundTmpl">
+        <ng-container *ngFor="let giphy of giphyResults">
+          <img (click)="giphyAdd($event, giphy)" [src]="giphy.images.fixed_width.url | safe:'resourceUrl'">
+        </ng-container>
       </ng-container>
     </ng-container>
   </div>
 </ng-template>
 
-<ng-template #giphyEmptyTmpl>
+<ng-template #giphyNoFoundTmpl>
   <div class="p-4 text-center text-muted">
-    search for gifs
+    no gifs found
   </div>
 </ng-template>
