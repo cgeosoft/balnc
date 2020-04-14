@@ -80,19 +80,17 @@
     }
 
     .msg-time {
-      display: none;
+      color: #666;
+      font-size: .8rem;
+      min-width: 34px;
+      margin: .2rem .5rem 0 0;
+      font-family: monospace;
     }
 
     &.own {
       .msg-body {
         background: lighten($primary, 15%);
         color: #fff;
-      }
-    }
-
-    &:hover {
-      .msg-time {
-        display: inline;
       }
     }
   }

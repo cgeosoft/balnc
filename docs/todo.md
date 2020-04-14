@@ -29,6 +29,7 @@
 - [ ] Custom database should enable database config
 - [ ] Demo data should move into developer
 - [ ] User avatar
+- [x] Better integrations
 
 ### Boards
 
@@ -53,24 +54,25 @@
   - [ ] Board picture
   - [ ] Topic
 - [ ] Improve message and timeline
-  - [ ] Edit/delete message
+  - [ ] Edit message
   - [ ] Messages date seperator
-  - [ ] Box avatars
-  - [ ] Time before avatar
   - [ ] Message grouping
-  - [ ] Quick emoji
   - [ ] Edit last message with keyboard up
   - [ ] Embed metadata should fetched at message load and be cashed at server
   - [ ] Markdown
+  - [x] Time before avatar
+  - [x] Delete message
+  - [x] Box avatars
+  - [x] Improve performance
 - [ ] Message features
   - [ ] Mention user
-  - [ ] Quote message
-  - [ ] quick emoji
-  - [ ] Reactions
-  - [ ] Giphy
+  - [ ] Quick emoji
+  - [ ] Reactions (emoji)
   - [ ] Poll
-  - [ ] Embed balnc objects / ex. project's task
-  - [x] Emojisshould create a quick subtask management in timeline
+  - [ ] Embed balnc objects / ex. project's task should create a quick subtask management in timeline
+  - [x] Emojis
+  - [x] Giphy
+  - [x] Quote message
 
 ### Invoices
 

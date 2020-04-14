@@ -32,9 +32,10 @@
             <ng-container [ngSwitch]="m.type">
               <ng-container *ngSwitchCase="'MESSAGE'">
                 <div class="msg-item" [ngClass]="{'own':m.sender === nickname}">
+                  <div class="msg-time">{{m._date|date:'hh:mm'}}</div>
                   <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png"
                     [ngbTooltip]="m.sender" placement="bottom" container="body">
-                  <div class="msg-body" [ngbTooltip]="m._date | date:'medium'" placement="top" container="body">
+                  <div class="msg-body">
                     <div *ngIf="m.quote" class="msg-quote">
                       <fa-icon icon="quote-left" class="align-self-start"></fa-icon>
                       <div>
