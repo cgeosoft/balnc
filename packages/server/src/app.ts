@@ -6,10 +6,12 @@ import { build } from './build';
 import { logger } from './commons/logger';
 import { routes } from './commons/routes';
 
-const expressPouchdb = require("express-pouchdb");
-const pouchDB = expressPouchdb(PouchDB.defaults({
+const db = require("express-pouchdb")(PouchDB.defaults({
     prefix: './data/'
-}))
+}),{
+    configPath: './config/config.json',
+    logPath: './config/log.txt',
+})
 
 var whitelist = ['http://localhost:4200', 'http://localhost:8000', 'https://balnc.cgeosoft.com']
 
@@ -29,7 +31,7 @@ const pouchdbCorsParams = {
     optionsSuccessStatus: 204
 }
 
-app.use("/db", cors(pouchdbCorsParams), pouchDB);
+app.use("/db", cors(pouchdbCorsParams), db);
 
 app.use(helmet());
 app.use("/", cors());
