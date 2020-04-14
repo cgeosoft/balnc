@@ -28,7 +28,7 @@
     <section #messageList class="no-border full">
       <ng-container *ngIf="(messages$ | async) as messages; else loader">
         <ng-container *ngIf="messages.length else emptyMessages">
-          <ng-template ngFor let-m [ngForOf]="messages">
+          <ng-container *ngFor="let m of messages">
             <ng-container [ngSwitch]="m.type">
               <ng-container *ngSwitchCase="'MESSAGE'">
                 <div class="msg-item" [ngClass]="{'own':m.sender === nickname}">
@@ -46,6 +46,11 @@
                           <small>{{previews[m._id].file.length | bytes:0}}</small>
                         </ng-container>
                       </ul>
+                    </div>
+                    <div *ngIf="m.image">
+                      <img *ngIf="m.image.url" class="img-fluid"
+                        [src]="m.image.url | safe:'resourceUrl'" [alt]="m.image.alt"
+                        (load)="scrollToBottom()">
                     </div>
                     <ng-container *ngIf="m.metadata">
                       <ng-container [ngSwitch]="m.metadata.ogType">
@@ -98,7 +103,7 @@
                 </div>
               </ng-container>
             </ng-container>
-          </ng-template>
+          </ng-container>
         </ng-container>
       </ng-container>
     </section>
@@ -106,12 +111,16 @@
       <input #messageInput class="form-control" placeholder="type message..." (keydown.enter)="send()">
       <div class="d-flex mt-2">
         <div>
-          <button class="btn btn-link" (click)="attach()">
+          <button class="btn btn-link" ngbTooltip="attach file" (click)="attach()">
             <fa-icon [icon]="['fas','paperclip']"></fa-icon>
           </button>
-          <button class="btn btn-link" [ngbPopover]="emojiContent" #emojiP="ngbPopover" autoClose="outside"
-            popoverClass="popover-emojis" container="body">
+          <button class="btn btn-link" ngbTooltip="emoji" [ngbPopover]="emojiContent" #emojiP="ngbPopover"
+            autoClose="outside" popoverClass="popover-emojis" container="body">
             <fa-icon [icon]="['far','smile']"></fa-icon>
+          </button>
+          <button class="btn btn-link" ngbTooltip="gif" [ngbPopover]="giphyContent" #giphyP="ngbPopover"
+            autoClose="outside" popoverClass="popover-giphy" container="body">
+            <fa-icon [icon]="['fas','cat']"></fa-icon>
           </button>
         </div>
         <button class="ml-auto btn btn-outline-primary" (click)="send()">
@@ -144,5 +153,25 @@
       <button [ngbTooltip]="g.label" container="body"
         (click)="emojiGroupSelect = i; $event.preventDefault()">{{g.items[0].char}}</button>
     </ng-container>
+  </div>
+</ng-template>
+
+
+<ng-template #giphyContent>
+  <div class="giphy-search">
+    <input (change)="giphySearch($event)" placeholder="Search for gifs...">
+  </div>
+  <div class="giphy-container">
+    <ng-container *ngIf="giphyResults; else giphyEmptyTmpl">
+      <ng-container *ngFor="let giphy of giphyResults">
+        <img (click)="giphyAdd($event, giphy)" [src]="giphy.images.fixed_width.url | safe:'resourceUrl'">
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #giphyEmptyTmpl>
+  <div class="p-4 text-center text-muted">
+    search for gifs
   </div>
 </ng-template>

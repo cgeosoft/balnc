@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap'
 import { Observable, Subject, Subscription } from 'rxjs'
-import { mergeMap } from 'rxjs/operators'
+import { debounceTime, distinctUntilChanged, mergeMap } from 'rxjs/operators'
 import { Board } from '../@shared/models/board'
 import { Message, OgMetadata } from '../@shared/models/message'
 import { BoardsRepo } from '../@shared/repos/boards.repo'
@@ -24,6 +24,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   @ViewChild('messageList') messageList: ElementRef
   @ViewChild('messageInput') messageInput: ElementRef
   @ViewChild('fileupload') fileupload: ElementRef
+  @ViewChild('giphyP') giphyP: NgbPopover
   @ViewChild('emojiP') emojiP: NgbPopover
 
   selected: string
@@ -43,6 +44,8 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   emojiGroupSelect = 0
 
+  giphyResults = []
+
   get nickname () {
     return this.configService.workspace.nickname
   }
@@ -59,7 +62,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private emojisService: EmojisService
+    private emojisService: EmojisService,
+    private zone: NgZone
   ) { }
 
   ngOnInit () {
@@ -91,6 +95,7 @@ export class BoardComponent implements OnInit, OnDestroy {
               }
             })
             await Promise.all(ps)
+            console.log(messages)
             return messages
           })
         )
@@ -168,7 +173,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     const data = {
       text: this.messageInput.nativeElement.value,
       sender: this.nickname,
-      board: this.selected,
       status: 'SEND',
       type: 'MESSAGE'
     }
@@ -254,5 +258,41 @@ export class BoardComponent implements OnInit, OnDestroy {
     if (this.messageInput) {
       this.messageInput.nativeElement.focus()
     }
+  }
+
+  giphySearch$
+
+  async giphyAdd (event, giphy) {
+    event.preventDefault()
+    const data: Partial<Message> = {
+      sender: this.nickname,
+      status: 'SEND',
+      type: 'MESSAGE',
+      image: {
+        alt: giphy.title,
+        url: giphy.images.original.url,
+        width: giphy.images.original.width,
+        height: giphy.images.original.height
+      }
+    }
+    await this.messagesRepo.add(data, this.selected)
+    this.messageInput.nativeElement.focus()
+    this.giphyP.close()
+  }
+
+  giphySearch (event) {
+    if (!this.giphySearch$) {
+      this.giphySearch$ = new Observable()
+        .pipe(debounceTime(300)) // wait 300ms after the last event before emitting last event
+        .pipe(distinctUntilChanged()) // only emit if value is different from previous value
+        .subscribe(async (q) => {
+          const apiKey = 'bDXpdRko9snSlf2EfHSWcB7gZ8XsYVMz'
+          const resp = await this.http.get<any>(`https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${q}&limit=25&offset=0&rating=R&lang=en`).toPromise()
+          this.zone.run(() => {
+            this.giphyResults = resp.data
+          })
+        })
+    }
+    this.giphySearch$.next(event.target.value)
   }
 }

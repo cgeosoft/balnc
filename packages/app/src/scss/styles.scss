@@ -40,3 +40,23 @@
     }
   }
 }
+.popover-giphy {
+  .popover-body {
+    @extend .d-flex;
+    @extend .flex-column;
+    @extend .p-2;
+    height: 350px;
+    width: 200px;
+    input{
+      @extend .form-control;
+      @extend .mb-1;
+    }
+    .giphy-container {
+      @extend .flex-grow-1;
+      @extend .overflow-auto;
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

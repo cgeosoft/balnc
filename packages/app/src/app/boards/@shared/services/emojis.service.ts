@@ -30,7 +30,6 @@ export class EmojisService {
         group.items.push(i)
         return l
       }, [])
-      console.log(this.emojis)
     })
   }
 }
