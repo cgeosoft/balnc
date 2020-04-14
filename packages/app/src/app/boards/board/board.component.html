@@ -103,12 +103,15 @@
       </ng-container>
     </section>
     <section class="no-border border-top bg-light">
-      <input #messageInput class="form-control" placeholder="type message..." [(ngModel)]="inputMessage"
-        (keydown.enter)="send()">
+      <input #messageInput class="form-control" placeholder="type message..." (keydown.enter)="send()">
       <div class="d-flex mt-2">
         <div>
-          <button class="ml-auto btn btn-link" (click)="attach()">
+          <button class="btn btn-link" (click)="attach()">
             <fa-icon [icon]="['fas','paperclip']"></fa-icon>
+          </button>
+          <button class="btn btn-link" [ngbPopover]="emojiContent" #emojiP="ngbPopover" autoClose="outside"
+            popoverClass="popover-emojis" container="body">
+            <fa-icon [icon]="['far','smile']"></fa-icon>
           </button>
         </div>
         <button class="ml-auto btn btn-outline-primary" (click)="send()">
@@ -128,4 +131,18 @@
 </ng-template>
 <ng-template #loader>
   <app-spinner></app-spinner>
+</ng-template>
+
+<ng-template #emojiContent>
+  <div class="emoji-container">
+    <ng-container *ngFor="let e of emojis[emojiGroupSelect].items">
+      <button (click)="addEmoji($event, e)">{{e.char}}</button>
+    </ng-container>
+  </div>
+  <div class="emoji-groups">
+    <ng-container *ngFor="let g of emojis; let i = index">
+      <button [ngbTooltip]="g.label" container="body"
+        (click)="emojiGroupSelect = i; $event.preventDefault()">{{g.items[0].char}}</button>
+    </ng-container>
+  </div>
 </ng-template>

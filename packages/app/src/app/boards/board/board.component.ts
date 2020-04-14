@@ -2,12 +2,14 @@ import { HttpClient, HttpParams } from '@angular/common/http'
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
+import { NgbPopover } from '@ng-bootstrap/ng-bootstrap'
 import { Observable, Subject, Subscription } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
 import { Board } from '../@shared/models/board'
 import { Message, OgMetadata } from '../@shared/models/message'
 import { BoardsRepo } from '../@shared/repos/boards.repo'
 import { MessagesRepo } from '../@shared/repos/messages.repo'
+import { Emoji, EmojisService } from './../@shared/services/emojis.service'
 
 const urlRegex = /(https?:\/\/[^\s]+)/g
 
@@ -22,9 +24,9 @@ export class BoardComponent implements OnInit, OnDestroy {
   @ViewChild('messageList') messageList: ElementRef
   @ViewChild('messageInput') messageInput: ElementRef
   @ViewChild('fileupload') fileupload: ElementRef
+  @ViewChild('emojiP') emojiP: NgbPopover
 
   selected: string
-  inputMessage: string
 
   messages$: Observable<Message[]>
   filteredMessages$: Subject<Message[]>
@@ -39,8 +41,14 @@ export class BoardComponent implements OnInit, OnDestroy {
   } = {}
   sub: Subscription
 
+  emojiGroupSelect = 0
+
   get nickname () {
     return this.configService.workspace.nickname
+  }
+
+  get emojis () {
+    return this.emojisService.emojis
   }
 
   constructor (
@@ -50,7 +58,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private emojisService: EmojisService
   ) { }
 
   ngOnInit () {
@@ -100,6 +109,13 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe()
   }
 
+  addEmoji (event, e: Emoji) {
+    event.preventDefault()
+    this.messageInput.nativeElement.value += `${e.char} `
+    this.messageInput.nativeElement.focus()
+    this.emojiP.close()
+  }
+
   // selectBoard(boardId) {
   // const bs1 = this.boardsStats.find(x => x.id === boardId)
   //   if (!bs1) {
@@ -147,10 +163,10 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   async send () {
-    if (!this.inputMessage) { return }
+    if (!this.messageInput.nativeElement.value) { return }
 
     const data = {
-      text: this.inputMessage,
+      text: this.messageInput.nativeElement.value,
       sender: this.nickname,
       board: this.selected,
       status: 'SEND',
@@ -159,7 +175,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
     const message = await this.messagesRepo.add(data, this.selected)
 
-    this.inputMessage = null
+    this.messageInput.nativeElement.value = null
     const urls = data.text.match(urlRegex)
     if (urls && this.configService.workspace.server?.type) {
       const params = new HttpParams().set('q', urls[0])

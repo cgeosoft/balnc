@@ -65,11 +65,12 @@
 - [ ] Message features
   - [ ] Mention user
   - [ ] Quote message
-  - [ ] Emojis / quick emoji
-  - [ ] Reactions / emoji
+  - [ ] quick emoji
+  - [ ] Reactions
   - [ ] Giphy
   - [ ] Poll
-  - [ ] Embed balnc objects / ex. project's task should create a quick subtask management in timeline
+  - [ ] Embed balnc objects / ex. project's task
+  - [x] Emojisshould create a quick subtask management in timeline
 
 ### Invoices
 

@@ -5,3 +5,38 @@
 @import "components/all";
 
 @import "~ngx-toastr/toastr-bs4-alert";
+
+.popover-emojis {
+  .popover-body {
+    @extend .d-flex;
+    @extend .flex-column;
+    @extend .p-2;
+    height: 300px;
+    width: 322px;
+    button {
+      padding: 0.2rem;
+      background: none;
+      border: none;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      border-radius: 50%;
+      &:hover {
+        box-shadow: 0 0 2px #999;
+      }
+    }
+    .emoji-groups {
+      @extend .d-flex;
+      @extend .flex-nowrap;
+      @extend .overflow-auto;
+      @extend .border-top;
+      @extend .pt-1;
+      @extend .mt-1;
+      min-height: 35px;
+    }
+    .emoji-container {
+      @extend .flex-grow-1;
+      @extend .overflow-auto;
+    }
+  }
+}
