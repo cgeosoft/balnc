@@ -4,7 +4,7 @@ export interface Integration {
   description?: string
   icon?: string[] | string
   color?: string
-  config?: any
+  config?: any[]
   disabled?: boolean
 }
 
@@ -15,11 +15,12 @@ export const INTEGRATIONS: Integration[] = [{
   color: '#5433FF',
   description: 'Stripe allows you to make and receive payments over the Internet',
   disabled: true,
-  config: {
-    key: {
+  config: [
+    {
+      key: 'apiKey',
       label: 'Private Key'
     }
-  }
+  ]
 }, {
   key: 'mailgun',
   title: 'Mailgun',
@@ -27,11 +28,12 @@ export const INTEGRATIONS: Integration[] = [{
   color: '#bb1419',
   description: 'Transactional Email APIs that enable you to send, receive, and track emails',
   disabled: true,
-  config: {
-    key: {
+  config: [
+    {
+      key: 'apiKey',
       label: 'Private Key'
     }
-  }
+  ]
 }, {
   key: 'mailerlite',
   title: 'MailerLite',
@@ -39,9 +41,23 @@ export const INTEGRATIONS: Integration[] = [{
   color: '#00a154',
   description: 'Create advanced email marketing campaigns with features like automation, landing pages and surveys',
   disabled: true,
-  config: {
-    key: {
+  config: [
+    {
+      key: 'apiKey',
       label: 'Private Key'
     }
-  }
+  ]
+}, {
+  key: 'giphy',
+  title: 'Giphy',
+  icon: ['far', 'file'],
+  color: '#6157ff',
+  description: 'Search gifs and add them to boards projects ets',
+  disabled: false,
+  config: [
+    {
+      key: 'apiKey',
+      label: 'Private Key'
+    }
+  ]
 }]

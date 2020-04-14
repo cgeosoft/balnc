@@ -1,61 +1,25 @@
 @import "theme";
 
 :host {
-  .card-module{
+  .card-integration{
+    .icon {
+      @extend .rounded-circle;
+      @extend .mr-3;
+      @extend .text-center;
+      background-color: $primary;
+      width: 40px;
+      min-width: 40px;
+      height: 40px;
+      min-height: 40px;
+      line-height: 40px;
+      fa-icon {
+        font-size: 1.2rem;
+        color: white;
+      }
+    }
     &:hover{
       @extend .shadow-sm;
       cursor: pointer;
-    }
-  }
-  .icon {
-    @extend .rounded-circle;
-    @extend .mr-3;
-    @extend .text-center;
-    background-color: $primary;
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
-    min-height: 40px;
-    line-height: 40px;
-    fa-icon {
-      font-size: 1.2rem;
-      color: white;
-    }
-  }
-  .list-settings {
-    @extend .list-group;
-    @extend .list-group-flush;
-    @extend .mx-auto;
-    .list-settings-item {
-      @extend .d-flex;
-      @extend .align-items-center;
-      @extend .py-2;
-      .list-settings-icon {
-        @extend .rounded-circle;
-        @extend .mr-4;
-        @extend .text-center;
-        width: 60px;
-        min-width: 60px;
-        height: 60px;
-        min-height: 60px;
-        line-height: 60px;
-        fa-icon {
-          font-size: 2rem;
-          color: white;
-        }
-      }
-      .list-settings-content {
-        @extend .flex-grow-1;
-        h5 {
-          @extend .mb-1;
-          font-size: 1rem;
-        }
-      }
-      .btn-action {
-        @extend .btn-sm;
-        @extend .ml-4;
-        min-width: 100px;
-      }
     }
   }
 }

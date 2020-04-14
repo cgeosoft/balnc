@@ -1,6 +1,8 @@
 import { Component } from '@angular/core'
 import { ConfigService } from '@balnc/core'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { INTEGRATIONS } from './@shared/integration.model'
+import { ConfigureIntegrationComponent } from './configure-integration/configure-integration.component'
 
 @Component({
   selector: 'app-settings-integrations',
@@ -25,16 +27,17 @@ export class IntegrationsComponent {
   }
 
   constructor (
-    private configService: ConfigService
+    private configService: ConfigService,
+    private modal: NgbModal
   ) { }
 
-  setup (key: string) {
-    const module = INTEGRATIONS.find(x => x.key === key)
-    if (!module.config) {
-      this.workspace.integrations[key] = {
-        enabled: !this.workspace.integrations[key]?.enabled
-      }
+  configure (key: string) {
+    const integration = INTEGRATIONS.find(x => x.key === key)
+    const config = this.modal.open(ConfigureIntegrationComponent)
+    config.componentInstance.integration = integration
+    config.result.then((config) => {
+      this.workspace.integrations[key] = config
       this.configService.save(this.workspace)
-    }
+    }).catch(() => {})
   }
 }

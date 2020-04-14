@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h4 class="modal-title">Configure {{integration.title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="custom-control custom-switch">
+    <input [(ngModel)]="config.enabled" type="checkbox" class="custom-control-input" id="customSwitch1">
+    <label class="custom-control-label" for="customSwitch1">Enable this integration</label>
+  </div>
+  <hr>
+  <ng-container *ngFor="let i of schema">
+    <div class="form-group">
+      <label for="exampleInputEmail1">{{i.label}}</label>
+      <input class="form-control" [(ngModel)]="config[i.key]">
+    </div>
+  </ng-container>
+</div>
+<div class="modal-footer d-flex">
+  <button class="btn btn-success" (click)="save()">Save</button>
+</div>

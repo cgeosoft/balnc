@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { ChangeDetectorRef, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap'
@@ -12,6 +12,7 @@ import { MessagesRepo } from '../@shared/repos/messages.repo'
 import { Emoji, EmojisService } from './../@shared/services/emojis.service'
 
 const urlRegex = /(https?:\/\/[^\s]+)/g
+const giphyApiUrl = 'https://api.giphy.com/v1/gifs'
 
 @Component({
   selector: 'app-boards-board',
@@ -56,6 +57,11 @@ export class BoardComponent implements OnInit, OnDestroy {
     return this.emojisService.emojis
   }
 
+  get giphyEnabled () {
+    return this.configService.workspace.integrations.giphy?.enabled &&
+      this.configService.workspace.integrations.giphy?.apiKey
+  }
+
   constructor (
     private configService: ConfigService,
     private boardsRepo: BoardsRepo,
@@ -63,9 +69,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private cdr: ChangeDetectorRef,
-    private emojisService: EmojisService,
-    private zone: NgZone
+    private emojisService: EmojisService
   ) { }
 
   ngOnInit () {
@@ -98,28 +102,26 @@ export class BoardComponent implements OnInit, OnDestroy {
             }
           })
           await Promise.all(ps)
-          // console.log(messages)
-          // return messages
-
           this.focusInput()
           this.scrollToBottom()
         })
     })
 
-    this.giphySearch$
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        switchMap((q: string) => {
-          const giphyApiUrl = 'https://api.giphy.com/v1/gifs'
-          const apiKey = 'bDXpdRko9snSlf2EfHSWcB7gZ8XsYVMz'
-          const url = `${giphyApiUrl}/search?api_key=${apiKey}&q=${q}&limit=10&offset=0&rating=R&lang=en`
-          return this.http.get<{ data: any[] }>(url)
+    if (this.giphyEnabled) {
+      const apiKey = this.configService.workspace.integrations.giphy?.apiKey
+      this.giphySearch$
+        .pipe(
+          debounceTime(500),
+          distinctUntilChanged(),
+          switchMap((q: string) => {
+            const url = `${giphyApiUrl}/search?api_key=${apiKey}&q=${q}&limit=10&offset=0&rating=R&lang=en`
+            return this.http.get<{ data: any[] }>(url)
+          })
+        )
+        .subscribe((res) => {
+          this.giphyResults = res.data
         })
-      )
-      .subscribe((res) => {
-        this.giphyResults = res.data
-      })
+    }
   }
 
   trackByMessages (index: number, el: Message) {
