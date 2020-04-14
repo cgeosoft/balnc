@@ -48,6 +48,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   giphyResults: any[]
   messagesSubscriber$: Observable<any[]>
   quote: Message
+  msgSeperatorDates = {}
 
   get nickname () {
     return this.configService.workspace.nickname
@@ -84,6 +85,13 @@ export class BoardComponent implements OnInit, OnDestroy {
         .subscribe(async (messages) => {
           this.messages = messages
           this.messages.sort((a, b) => a._date - b._date)
+          this.msgSeperatorDates = this.messages.reduce((l, i) => {
+            let d = new Date(i._date)
+            let df = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()
+            let msg = Object.keys(l).find(x => l[x] === df)
+            if (!msg) l[i._id] = df
+            return l
+          }, {})
           const ps = this.messages.map(async (msg, i) => {
             if (!this.previews[msg._id]) {
               this.previews[msg._id] = {}

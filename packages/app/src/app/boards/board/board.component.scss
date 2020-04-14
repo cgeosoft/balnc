@@ -24,6 +24,14 @@
     padding: 2rem;
   }
 
+  .date-saperator{
+    text-align: center;
+    font-size: .8rem;
+    font-family: monospace;
+    margin: 2rem 0 1rem;
+    color: #666;
+  }
+
   .msg-item {
     @extend .d-flex;
     @extend .justify-content-start;

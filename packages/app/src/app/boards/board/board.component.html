@@ -28,7 +28,10 @@
     <section #messageList class="no-border full">
       <ng-container *ngIf="messages; else loader">
         <ng-container *ngIf="messages.length else emptyMessages">
-          <ng-container *ngFor="let m of messages; trackBy: trackByMessages">
+          <ng-container *ngFor="let m of messages;let i = index; trackBy: trackByMessages">
+            <div *ngIf="msgSeperatorDates[m._id]" class="date-saperator">
+              {{msgSeperatorDates[m._id]|date:'longDate'}}
+            </div>
             <ng-container [ngSwitch]="m.type">
               <ng-container *ngSwitchCase="'MESSAGE'">
                 <div class="msg-item" [ngClass]="{'own':m.sender === nickname}">

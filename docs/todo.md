@@ -55,11 +55,11 @@
   - [ ] Topic
 - [ ] Improve message and timeline
   - [ ] Edit message
-  - [ ] Messages date seperator
   - [ ] Message grouping
   - [ ] Edit last message with keyboard up
   - [ ] Embed metadata should fetched at message load and be cashed at server
   - [ ] Markdown
+  - [x] Messages date seperator
   - [x] Time before avatar
   - [x] Delete message
   - [x] Box avatars
