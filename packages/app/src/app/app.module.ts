@@ -11,6 +11,7 @@ import { AppComponent } from './app.component'
 import { APP_ROUTES } from './app.routes'
 import { BoardsDataModule } from './boards/boards.data.module'
 import { ContactsDataModule } from './contacts/contacts.data.module'
+import { ProjectsDataModule } from './projects/projects.data.module'
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { ContactsDataModule } from './contacts/contacts.data.module'
     }),
     ContactsDataModule,
     BoardsDataModule,
+    ProjectsDataModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
   declarations: [

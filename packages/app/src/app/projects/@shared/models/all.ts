@@ -4,7 +4,6 @@ export interface Project extends Entity {
   name: string
   description?: string
   features?: { [key: string]: boolean }
-  tags?: any[]
   isArchived?: boolean
 }
 

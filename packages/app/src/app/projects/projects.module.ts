@@ -3,10 +3,6 @@ import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
 import { PROJECTS_ROUTES } from './@shared/constants/routes'
 import { FilterIssuesPipe } from './@shared/pipes/FilterIssuesPipe'
-import { IssuesRepo } from './@shared/repos/issues.repo'
-import { PEventsRepo } from './@shared/repos/pevents.repo'
-import { ProjectsRepo } from './@shared/repos/projects.repo'
-import { DemoService } from './@shared/services/demo.service'
 import { ShellComponent } from './@shell/shell.component'
 import { CreateProjectComponent } from './create-project/create-project.component'
 import { OverviewComponent } from './overview/overview.component'
@@ -36,12 +32,6 @@ import { SettingsComponent } from './settings/settings.component'
     ProjectManageComponent,
     IssuesComponent,
     ProjectsComponent
-  ],
-  providers: [
-    PEventsRepo,
-    IssuesRepo,
-    ProjectsRepo,
-    DemoService
   ],
   entryComponents: [
     IssueCreateComponent,
