@@ -9,6 +9,7 @@
 - [ ] Export workspace as url link - same config, ask for username
 - [ ] Themes light/dark, accent color
 - [ ] Show db sync status in statusbar
+- [x] Better demo data generator
 - [x] Manage layout from profile
 - [x] Add support page. About faq crisp chat
 - [x] Fix couch synchronization
