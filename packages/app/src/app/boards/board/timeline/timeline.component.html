@@ -122,11 +122,11 @@
         autoClose="outside" popoverClass="popover-emojis" container="body">
         <fa-icon [icon]="['far','smile']"></fa-icon>
       </button>
-      <button *ngIf="giphyEnabled" class="btn btn-link" ngbTooltip="gif" [ngbPopover]="giphyContent"
+      <button *ngIf="giphy?.enabled" class="btn btn-link" ngbTooltip="gif" [ngbPopover]="giphyContent"
         #giphyP="ngbPopover" autoClose="outside" popoverClass="popover-giphy" container="body">
         <fa-icon [icon]="['fas','cat']"></fa-icon>
       </button>
-      <button *ngIf="!giphyEnabled" class="btn btn-link" ngbPopover="Go to setting > integrations > giphy enable it"
+      <button *ngIf="!giphy?.enabled" class="btn btn-link" ngbPopover="Go to setting > integrations > giphy enable it"
         popoverTitle="Giphy integration is disabled" container="body">
         <fa-icon class="text-muted" [icon]="['fas','cat']"></fa-icon>
       </button>

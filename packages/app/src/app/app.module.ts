@@ -34,7 +34,7 @@ import { ProjectsDataModule } from './projects/projects.data.module'
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   bootstrap: [AppComponent]
 })

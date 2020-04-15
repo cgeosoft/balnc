@@ -14,6 +14,7 @@ export class StatusbarComponent implements OnInit {
 
   breadcrumbs: { url: string, label: string }[] = []
   status = 'disabled'
+
   constructor (
     private configService: ConfigService,
     private activatedRoute: ActivatedRoute,
@@ -54,8 +55,8 @@ export class StatusbarComponent implements OnInit {
     return this.configService.version
   }
 
-  get username () {
-    return this.configService.username || 'anon'
+  get user () {
+    return this.configService.user
   }
 
   get build () {
@@ -67,9 +68,9 @@ export class StatusbarComponent implements OnInit {
   }
 
   toggleLayout (layout) {
-    const workspace = { ...this.configService.workspace }
-    workspace.layout = layout
-    this.configService.save(workspace)
+    // const workspace = { ...this.configService.workspace }
+    // workspace..layout = layout
+    // this.configService.save(workspace)
   }
 
   openChangelog () {

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable, Injector } from '@angular/core'
+import { ServerIntegrationConfig, User } from '@balnc/shared'
 import { ToastrService } from 'ngx-toastr'
 import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterIdb from 'pouchdb-adapter-idb'
@@ -42,13 +43,16 @@ RxDB.plugin(RxDBUpdateModule)
 RxDB.plugin(RxDBReplicationGraphQL)
 RxDB.plugin(InMemoryPlugin)
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class RxDBService {
 
   public db: RxDatabase
   private repStateGQL: RxGraphQLReplicationState
-  repStateCouch: any
+  repStateCouch$: any
   entities: RxCollection
+  workspace$
 
   get http () {
     return this.injector.get(HttpClient)
@@ -66,10 +70,6 @@ export class RxDBService {
     return this.configService.workspace
   }
 
-  get config () {
-    return this.configService.workspace?.db || {}
-  }
-
   constructor (
     private injector: Injector
   ) {
@@ -83,9 +83,6 @@ export class RxDBService {
     }
 
     console.log('[DatabaseService]', `Initializing DB: ${this.workspace.key}`)
-
-    // if (this.db && this.db.name === `balnc_${this.workspace.key}`) return
-
     try {
       this.db = await RxDB.create({
         name: `balnc_${this.workspace.key}`,
@@ -102,57 +99,90 @@ export class RxDBService {
       migrationStrategies: Migrations
     })
 
-    this.setupRemote()
+    await this.setupDefaults()
+
     await this.setupCache()
   }
 
-  setupRemote () {
-    switch (this.config?.type) {
-      case 'couch':
-        this.enableRemoteCouch()
-        break
-      case 'graphql':
-        this.enableRemoteGraphql()
-        break
-      default:
-        if (this.repStateCouch) {
-          this.repStateCouch.cancel()
-        }
-        console.log('[DatabaseService]', `Remote is disabled`)
-        break
+  async setupDefaults () {
+    this.workspace$ = this.db.entities.findOne('workspace').$
+    const workspace = await this.db.entities.findOne('workspace').exec()
+    if (!workspace) {
+      const workspace = {
+        _id: 'workspace',
+        t: 'system',
+        c: { users: [], integrations: {} },
+        d: Date.now(),
+        s: []
+      }
+      await this.db.entities.insert(workspace)
     }
   }
 
-  async setupCache () {
-    if (this.workspace.cache) {
-      console.log('[DatabaseService]', `Enable cache mode`)
-      this.entities = await this.db.entities.inMemory()
+  async upsetUser (user: User) {
+    const workspace = await this.db.entities.findOne('workspace').exec()
+    const content = { ...workspace.c }
+    const i = content.users.findIndex(u => u.username === user.username)
+    if (i === -1) {
+      content.users.push(user)
     } else {
-      this.entities = this.db.entities
+      content.users[i] = user
+    }
+
+    await workspace.update({
+      $set: {
+        c: content
+      }
+    })
+  }
+
+  async updateIntergration (key, config) {
+    const workspace = await this.db.entities.findOne('workspace').exec()
+    const content = { ...workspace.c }
+    content.integrations[key] = config
+    console.log("content",content)
+    await workspace.update({
+      $set: {
+        c: content
+      }
+    })
+  }
+
+  enableRemoteDB () {
+    const config = this.configService.integrations.server as ServerIntegrationConfig
+    let host = config.dbHost || `${config.host}/db`
+    this.repStateCouch$ = this.db.entities.sync({
+      remote: `${host}/${config.dbName}`
+    })
+  }
+
+  disableRemoteDB () {
+    console.log('[DatabaseService]', `Remote db is disabled`)
+    if (this.repStateCouch$) {
+      this.repStateCouch$.cancel()
     }
   }
 
-  async needAuthenticate () {
-    if (!this.config?.type) return false
-    if (this.config.type === 'graphql') {
-      // todo
-    } else if (this.config.type === 'couch') {
-      const resp = await this.http.get(`${this.config.host}/_session`, { withCredentials: true }).toPromise().catch(() => false)
-      if (!resp) {
-        console.log('[DatabaseService]', `No response from ${this.config.host}/_session. Disable remote`)
-        return false
-      }
-      if (resp['userCtx'].name) {
-        console.log('[DatabaseService]', `Already authenticated`)
-        return false
-      }
+  async needAuthentication () {
+    const config = this.configService.integrations.server as ServerIntegrationConfig
+    const host = config.dbHost || `${config.host}/db`
+    const resp = await this.http.get(`${host}/_session`, { withCredentials: true }).toPromise().catch(() => false)
+    if (!resp) {
+      console.log('[DatabaseService]', `No response from ${host}/_session. Disable remote`)
+      return false
+    }
+    if (resp['userCtx'].name) {
+      console.log('[DatabaseService]', `Already authenticated`)
+      return false
     }
     return true
   }
 
-  async authenticate (password: string) {
-    return this.http.post(`${this.config.host}/_session`, {
-      name: this.config.username,
+  async authenticate (username: string, password: string) {
+    const config = this.configService.integrations.server as ServerIntegrationConfig
+    const host = config.dbHost || `${config.host}/db`
+    return this.http.post(`${host}/_session`, {
+      name: username,
       password: password
     }, { withCredentials: true })
       .toPromise()
@@ -161,75 +191,84 @@ export class RxDBService {
       })
   }
 
+  async setupCache () {
+    if (this.workspace.config?.cache) {
+      console.log('[DatabaseService]', `Enable cache mode`)
+      this.entities = await this.db.entities.inMemory()
+    } else {
+      this.entities = this.db.entities
+    }
+  }
+
   async remove (workspaceKey: string) {
     await RxDB.removeDatabase(`balnc_${workspaceKey}`, 'idb')
   }
 
-  private enableRemoteCouch () {
-    if (!this.config?.host || !this.config?.key) {
-      console.log('[DatabaseService]', `Remote for couch is not configured`)
-      return
-    }
-    this.repStateCouch = this.db.entities.sync({
-      remote: `${this.config.host}/${this.config.key}`
-    })
-  }
+  // private enableRemoteCouch () {
+  //   if (!this.config?.host || !this.config?.key) {
+  //     console.log('[DatabaseService]', `Remote for couch is not configured`)
+  //     return
+  //   }
+  //   this.repStateCouch = this.db.entities.sync({
+  //     remote: `${this.config.host}/${this.config.key}`
+  //   })
+  // }
 
-  private enableRemoteGraphql () {
-    console.log('[DatabaseService]', 'sync with syncGraphQL')
+  // private enableRemoteGraphql () {
+  //   console.log('[DatabaseService]', 'sync with syncGraphQL')
 
-    this.repStateGQL = this.db.entities.syncGraphQL({
-      url: 'http://127.0.0.1:10102/graphql',
-      push: {
-        batchSize: 5,
-        queryBuilder: (doc) => {
-          return {
-            query: `
-              mutation EntityCreate($doc: EntityInput) {
-                setEntity(doc: $doc) {
-                  _id,
-                  timestamp
-                }
-              }
-            `,
-            variables: {
-              doc
-            }
-          }
-        }
-      },
-      pull: {
-        queryBuilder: (doc) => {
-          if (!doc) {
-            doc = {
-              id: '',
-              updatedAt: 0
-            }
-          }
-          return {
-            query: `
-                {
-                  feedForRxDBReplication(lastId: "${doc._id}", minUpdatedAt: ${doc._date}, limit: 30) {
-                    _id
-                    timestamp
-                    deleted
-                    type
-                    data
-                  }
-                }`
-            ,
-            variables: {}
-          }
-        }
-      },
-      live: true,
-      /**
-       * TODO
-       * we have to set this to a low value, because the subscription-trigger
-       * does not work sometimes. See below at the SubscriptionClient
-       */
-      liveInterval: 1000 * 2,
-      deletedFlag: 'deleted'
-    })
-  }
+  //   this.repStateGQL = this.db.entities.syncGraphQL({
+  //     url: 'http://127.0.0.1:10102/graphql',
+  //     push: {
+  //       batchSize: 5,
+  //       queryBuilder: (doc) => {
+  //         return {
+  //           query: `
+  //             mutation EntityCreate($doc: EntityInput) {
+  //               setEntity(doc: $doc) {
+  //                 _id,
+  //                 timestamp
+  //               }
+  //             }
+  //           `,
+  //           variables: {
+  //             doc
+  //           }
+  //         }
+  //       }
+  //     },
+  //     pull: {
+  //       queryBuilder: (doc) => {
+  //         if (!doc) {
+  //           doc = {
+  //             id: '',
+  //             updatedAt: 0
+  //           }
+  //         }
+  //         return {
+  //           query: `
+  //               {
+  //                 feedForRxDBReplication(lastId: "${doc._id}", minUpdatedAt: ${doc._date}, limit: 30) {
+  //                   _id
+  //                   timestamp
+  //                   deleted
+  //                   type
+  //                   data
+  //                 }
+  //               }`
+  //           ,
+  //           variables: {}
+  //         }
+  //       }
+  //     },
+  //     live: true,
+  //     /**
+  //      * TODO
+  //      * we have to set this to a low value, because the subscription-trigger
+  //      * does not work sometimes. See below at the SubscriptionClient
+  //      */
+  //     liveInterval: 1000 * 2,
+  //     deletedFlag: 'deleted'
+  //   })
+  // }
 }

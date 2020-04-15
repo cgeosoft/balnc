@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { ConfigService } from '@balnc/core'
+import { ConfigService, RxDBService } from '@balnc/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { Integration } from '../@shared/integration.model'
+import { IntegrationConfig } from './../../../@shared/models/workspace'
 
 @Component({
   selector: 'app-configure-integration',
@@ -10,8 +11,7 @@ import { Integration } from '../@shared/integration.model'
 export class ConfigureIntegrationComponent implements OnInit {
 
   @Input() integration: Integration
-  config: any
-  schema: any
+  config: IntegrationConfig
 
   get modal () {
     return this.activeModal
@@ -19,16 +19,18 @@ export class ConfigureIntegrationComponent implements OnInit {
 
   constructor (
     private activeModal: NgbActiveModal,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private dbService: RxDBService
   ) { }
 
   ngOnInit () {
-    this.schema = this.integration.config
-    this.config = { ...this.configService.workspace.integrations[this.integration.key] }
+    this.config = { ...this.configService.integrations[this.integration.key] }
   }
 
-  save () {
-    this.activeModal.close(this.config)
+  async save () {
+    console.log('Save', this.config)
+    await this.dbService.updateIntergration(this.integration.key, this.config)
+    this.activeModal.close()
   }
 
 }

@@ -6,15 +6,12 @@
 </div>
 <div class="modal-body">
   <div class="custom-control custom-switch">
-    <input [(ngModel)]="config.enabled" type="checkbox" class="custom-control-input" id="customSwitch1">
-    <label class="custom-control-label" for="customSwitch1">Enable this integration</label>
+    <input [(ngModel)]="config.enabled" type="checkbox" class="custom-control-input" id="switchEnable">
+    <label class="custom-control-label" for="switchEnable">Enable this integration</label>
   </div>
   <hr>
-  <ng-container *ngFor="let i of schema">
-    <div class="form-group">
-      <label for="exampleInputEmail1">{{i.label}}</label>
-      <input class="form-control" [(ngModel)]="config[i.key]">
-    </div>
+  <ng-container [ngSwitch]="integration.key">
+    <app-integration-server *ngSwitchCase="'server'" [config]="config"></app-integration-server>
   </ng-container>
 </div>
 <div class="modal-footer d-flex">

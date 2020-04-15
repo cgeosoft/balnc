@@ -8,7 +8,6 @@ import { ConfigService } from './config.service'
 export class WorkspaceGuard implements CanActivate {
   constructor (public config: ConfigService, public router: Router) { }
   async canActivate () {
-    // this.config.setup()
     return !this.config.workspace
   }
 }

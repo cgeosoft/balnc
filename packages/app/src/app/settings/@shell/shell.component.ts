@@ -70,7 +70,7 @@ export class ShellComponent implements OnInit {
   }
 
   clear () {
-    this.configService.clearAll()
+    this.configService.activated = null
   }
 
   async remove (workspaceId) {
@@ -92,7 +92,7 @@ export class ShellComponent implements OnInit {
       const workspaceStr = atob(data)
       const workspace = JSON.parse(workspaceStr)
       const key = this.configService.save(workspace)
-      this.configService.activate(key)
+      this.configService.activated = key
     } catch (error) {
       this.error = 'File is corrupted'
       console.log('[WorkspaceComponent]', 'Error' + error)

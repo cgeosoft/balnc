@@ -1,7 +1,6 @@
 import { Component } from '@angular/core'
 import { ConfigService, RxDBService } from '@balnc/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import * as faker from 'faker'
+import { DEFAULT_WORKSPACE } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { ToastrService } from 'ngx-toastr'
 
@@ -21,16 +20,14 @@ export class WorkspacesComponent {
 
   constructor (
     private configService: ConfigService,
-    private modal: NgbModal,
     private toastr: ToastrService,
-    private rxdbService: RxDBService
+    private dbService: RxDBService
   ) { }
 
   async create () {
-    const key = this.configService.save({
-      name: faker.hacker.noun()
-    })
-    this.configService.activate(key)
+    const key = this.configService.save({ ...DEFAULT_WORKSPACE })
+    this.configService.activated = key
+    await this.activate({ key })
   }
 
   async import (file: ReadFile) {
@@ -40,14 +37,14 @@ export class WorkspacesComponent {
       return
     }
     const key = this.configService.save(workspace)
-    this.configService.activate(key)
-    this.configService.setup()
-    await this.rxdbService.setup()
+    workspace.key = key
+    await this.activate(workspace)
   }
 
   async activate (workspace) {
-    this.configService.activate(workspace.key)
+    this.configService.activated = workspace.key
     this.configService.setup()
-    await this.rxdbService.setup()
+    await this.dbService.setup()
+    window.location.reload()
   }
 }

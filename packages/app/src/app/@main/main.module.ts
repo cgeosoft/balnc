@@ -5,7 +5,9 @@ import { MainShellComponent } from './@shell/shell.component'
 import { AppbarComponent } from './appbar/appbar.component'
 import { ChangelogComponent } from './changelog/changelog.component'
 import { ErrorComponent } from './error/error.component'
+import { LoginComponent } from './login/login.component'
 import { MainGuard } from './main.guard'
+import { ProfileComponent } from './profile/profile.component'
 import { StatusbarComponent } from './statusbar/statusbar.component'
 
 @NgModule({
@@ -18,7 +20,9 @@ import { StatusbarComponent } from './statusbar/statusbar.component'
     ErrorComponent,
     MainShellComponent,
     StatusbarComponent,
-    ChangelogComponent
+    ChangelogComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   providers: [
     MainGuard
@@ -28,7 +32,9 @@ import { StatusbarComponent } from './statusbar/statusbar.component'
     MainShellComponent
   ],
   entryComponents: [
-    ChangelogComponent
+    ChangelogComponent,
+    LoginComponent,
+    ProfileComponent
   ]
 })
 export class MainModule { }

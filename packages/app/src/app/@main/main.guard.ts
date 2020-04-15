@@ -12,18 +12,17 @@ export class MainGuard implements CanActivate {
 
   async canActivate () {
     if (!this.configService.workspaces.length) {
-      await this.router.navigate(['/setup'])
-      return false
+      return this.router.parseUrl('/setup')
     }
+
     this.configService.setup()
 
-    const needAuthenticate = await this.rxdbService.needAuthenticate()
-    if (needAuthenticate) {
-      const password = prompt('remote data password')
-      await this.rxdbService.authenticate(password)
+    if (!this.configService.workspace) {
+      return this.router.parseUrl('/setup')
     }
 
     await this.rxdbService.setup()
+
     return true
   }
 }

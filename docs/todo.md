@@ -6,7 +6,10 @@
 
 - [ ] Better appbar - grouping?
 - [ ] Rightbar - Docked item, bookmarks, latest
-- [ ] Export workspace as url link - same config, ask for username
+- [ ] Refactor workspace config schema
+- [ ] Sync workspace
+- [ ] Export workspace as url link - users as members
+  - [ ] Invite users with this link
 - [ ] Themes light/dark, accent color
 - [ ] Show db sync status in statusbar
 - [x] Better demo data generator

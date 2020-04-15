@@ -1,0 +1,15 @@
+<div class="form-group">
+  <label>Host</label>
+  <input [(ngModel)]="config.host" [disabled]="!config.enabled" class="form-control" placeholder="https://myhost:3100">
+</div>
+<div class="form-group">
+  <div class="custom-control custom-switch">
+    <input [(ngModel)]="config.dbEnable" [disabled]="!config.enabled || !config.host" type="checkbox"
+      class="custom-control-input" id="switchDbEnable">
+    <label class="custom-control-label" for="switchDbEnable">Enable data synchronization</label>
+  </div>
+</div>
+<div class="form-group">
+  <label>Database Name</label>
+  <input [(ngModel)]="config.dbName" [disabled]="!config.enabled || !config.host" class="form-control">
+</div>

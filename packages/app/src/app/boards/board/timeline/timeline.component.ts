@@ -10,6 +10,7 @@ import { Message, OgMetadata } from '../../@shared/models/message'
 import { BoardsRepo } from '../../@shared/repos/boards.repo'
 import { MessagesRepo } from '../../@shared/repos/messages.repo'
 import { Emoji, EmojisService } from '../../@shared/services/emojis.service'
+import { GiphyIntegrationConfig } from './../../../@shared/models/workspace'
 
 const urlRegex = /(https?:\/\/[^\s]+)/g
 const giphyApiUrl = 'https://api.giphy.com/v1/gifs'
@@ -53,16 +54,15 @@ export class TimelineComponent implements OnInit {
   msgSeperatorDates = {}
 
   get nickname () {
-    return this.configService.workspace.nickname
+    return this.configService.user.username
   }
 
   get emojis () {
     return this.emojisService.emojis
   }
 
-  get giphyEnabled () {
-    return this.configService.workspace.integrations.giphy?.enabled &&
-      this.configService.workspace.integrations.giphy?.apiKey
+  get giphy () {
+    return this.configService.integrations?.giphy as GiphyIntegrationConfig
   }
 
   constructor (
@@ -125,14 +125,13 @@ export class TimelineComponent implements OnInit {
         })
     })
 
-    if (this.giphyEnabled) {
-      const apiKey = this.configService.workspace.integrations.giphy?.apiKey
+    if (this.giphy?.enabled && this.giphy?.apiKey) {
       this.giphySearch$
         .pipe(
           debounceTime(500),
           distinctUntilChanged(),
           switchMap((q: string) => {
-            const url = `${giphyApiUrl}/search?api_key=${apiKey}&q=${q}&limit=10&offset=0&rating=R&lang=en`
+            const url = `${giphyApiUrl}/search?api_key=${this.giphy.apiKey}&q=${q}&limit=10&offset=0&rating=R&lang=en`
             return this.http.get<{ data: any[] }>(url)
           })
         )
@@ -199,10 +198,10 @@ export class TimelineComponent implements OnInit {
     this.messageInput.nativeElement.value = null
     this.quote = null
     const urls = data.text.match(urlRegex)
-    if (urls && this.configService.workspace.server?.type) {
+    if (urls && this.configService.integrations.server?.enabled) {
       const params = new HttpParams().set('q', urls[0])
       const res = await this.http
-        .get<{ data: OgMetadata }>(`${this.configService.workspace.server.host}/og`, { params })
+        .get<{ data: OgMetadata }>(`${this.configService.integrations.server['host']}/og`, { params })
         .toPromise()
       message.metadata = res.data
       await this.messagesRepo.update(message._id, message)

@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr'
 })
 export class SetupComponent implements OnInit {
   loading = false
-  workspace: Workspace = { ...DEFAULT_WORKSPACE }
+  workspace: Partial<Workspace> = { ...DEFAULT_WORKSPACE }
 
   get version () {
     return this.configService.version
@@ -28,7 +28,7 @@ export class SetupComponent implements OnInit {
 
   constructor (
     private router: Router,
-    public configService: ConfigService,
+    private configService: ConfigService,
     private toastr: ToastrService
   ) { }
 
@@ -48,7 +48,7 @@ export class SetupComponent implements OnInit {
   async load (workspace) {
     this.loading = true
     const key = this.configService.save(workspace)
-    this.configService.activate(key)
+    this.configService.activated = key
     await this.router.navigateByUrl('/')
   }
 }

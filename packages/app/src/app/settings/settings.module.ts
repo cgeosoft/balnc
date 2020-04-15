@@ -10,9 +10,9 @@ import { ConfigureIntegrationComponent } from './integrations/configure-integrat
 import { GiphyComponent } from './integrations/giphy/giphy.component'
 import { IntegrationsComponent } from './integrations/integrations.component'
 import { MailgunComponent } from './integrations/mailgun/mailgun.component'
+import { ServerComponent } from './integrations/server/server.component'
 import { StripeComponent } from './integrations/stripe/stripe.component'
 import { RawViewComponent } from './raw-view/raw-view.component'
-import { RemoteComponent } from './remote/remote.component'
 import { SettingsRoutes } from './settings.routes'
 import { WorkspacesComponent } from './workspaces/workspaces.component'
 
@@ -26,7 +26,6 @@ import { WorkspacesComponent } from './workspaces/workspaces.component'
     ShellComponent,
     GeneralComponent,
     IntegrationsComponent,
-    RemoteComponent,
     RawViewComponent,
     WorkspacesComponent,
     DeveloperComponent,
@@ -34,7 +33,8 @@ import { WorkspacesComponent } from './workspaces/workspaces.component'
     MailgunComponent,
     StripeComponent,
     GiphyComponent,
-    ConfigureIntegrationComponent
+    ConfigureIntegrationComponent,
+    ServerComponent
   ],
   entryComponents: [
     RawViewComponent,

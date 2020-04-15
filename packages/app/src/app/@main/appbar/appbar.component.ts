@@ -11,9 +11,8 @@ import { MENU } from '../../@core/models/menu'
 })
 export class AppbarComponent {
 
-  @HostBinding('class.compact')
-  get compact () {
-    return this.configService.workspace.menuSize === 'compact'
+  @HostBinding('class.compact') get compact () {
+    return this.configService.user?.config?.menu?.size === 'compact'
   }
 
   username: string
@@ -31,7 +30,7 @@ export class AppbarComponent {
 
   get menu () {
     return this._menu.map((x) => {
-      x.hide = (this.configService.workspace.menuHideItems || []).indexOf(x.label) !== -1
+      x.hide = (this.configService.user?.config?.menu?.items || []).indexOf(x.label) !== -1
       return x
     })
   }

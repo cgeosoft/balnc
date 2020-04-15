@@ -3,6 +3,7 @@ import { EnvBuild, Helpers, Workspace } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { LocalStorage } from 'ngx-store'
 import { environment } from './../../../environments/environment'
+import { IntegrationConfig, User, WORKSPACE_VERSION } from './../../@shared/models/workspace'
 
 @Injectable()
 export class ConfigService {
@@ -11,6 +12,10 @@ export class ConfigService {
   @LocalStorage() roles: string[] = []
   @LocalStorage() activated: string = ''
   @LocalStorage() workspaces: Workspace[] = []
+  @LocalStorage() username: string = null
+
+  users: User[]
+  integrations?: { [key: string]: IntegrationConfig }
 
   menu: any
 
@@ -26,8 +31,12 @@ export class ConfigService {
     return this.workspaces.find(p => p.key === this.activated)
   }
 
-  get username (): string {
-    return this.workspace?.db?.username
+  get user (): User {
+    return this.users?.find(u => u.username === this.username)
+  }
+
+  constructor () {
+    this.workspaces = this.workspaces.filter(x => x.version || x.version > WORKSPACE_VERSION)
   }
 
   setup () {
@@ -41,26 +50,14 @@ export class ConfigService {
     console.log('[ConfigService]', 'Workspaces available:', this.workspaces)
 
     if (!this.activated) {
-      console.log('[ConfigService]', 'No selected workspace. Auto select first', this.workspaces[0].name)
-      this.activate(this.workspaces[0].key)
+      console.log('[ConfigService]', 'No selected workspace. Auto select first', this.workspaces[0].key)
+      this.activated = this.workspaces[0].key
     }
 
     if (this.workspaces.findIndex(p => p.key === this.activated) === -1) {
-      console.log('[ConfigService]', 'Selected workspace not exist. Auto select first', this.workspaces[0].name)
-      this.activate(this.workspaces[0].key)
+      console.log('[ConfigService]', 'Selected workspace not exist. Auto select first', this.workspaces[0].key)
+      this.activated = this.workspaces[0].key
     }
-  }
-
-  getPackageConfig (id: string) {
-    return this.workspace.integrations[id]
-  }
-
-  clearAll () {
-    this.activated = null
-  }
-
-  activate (key: string) {
-    this.activated = key
   }
 
   save (workspace: Partial<Workspace>): string {

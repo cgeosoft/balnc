@@ -4,67 +4,72 @@
     <h4>Workspace</h4>
     <div class="form-group input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text">Workspace name</span>
+        <span class="input-group-text">Workspace key</span>
       </div>
-      <input #name [value]="workspace.name" class="form-control">
+      <input #name [value]="workspace.key" class="form-control">
       <div class="input-group-append">
         <button class="btn btn-primary" (click)="workspace.name = name.value; save()">Update</button>
       </div>
     </div>
+    <small class="text-muted">Don't change this unless you know what are you doing.</small>
   </section>
   <section>
-    <h4>User's nickname</h4>
+    <h4>User</h4>
     <div class="form-group input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text">User's nickname</span>
+        <span class="input-group-text">Username</span>
       </div>
-      <input #nickname [value]="workspace.nickname || ''" class="form-control">
+      <input #nickname [value]="user.username || ''" class="form-control">
       <div class="input-group-append">
-        <button class="btn btn-primary" (click)="workspace.nickname = nickname.value; save()">Update</button>
+        <button class="btn btn-primary" (click)="user.username = nickname.value; saveUser()">Update</button>
       </div>
     </div>
-    <div class="text-muted"><small>Used in tag content. Use your own name in a shared database.</small></div>
+    <small class="text-muted">Used in tag content. Use your own name in a shared database.</small>
   </section>
   <section>
     <h4>Layout & Theme</h4>
     <div class="form-group">
       <label class="mr-2">Content Layout:</label>
       <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="layout_fluid" name="layout" (change)="save()" [(ngModel)]="workspace.layout"
+        <input type="radio" id="layout_fluid" name="layout" (change)="saveUser()" [(ngModel)]="user.config.layout"
           value="fluid" class="custom-control-input">
         <label class="custom-control-label" for="layout_fluid">Fluid</label>
       </div>
       <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="layout_box" name="layout" (change)="save()" [(ngModel)]="workspace.layout" value="box"
-          class="custom-control-input">
+        <input type="radio" id="layout_box" name="layout" (change)="saveUser()" [(ngModel)]="user.config.layout"
+          value="box" class="custom-control-input">
         <label class="custom-control-label" for="layout_box">Box</label>
       </div>
     </div>
     <div class="form-group">
       <label class="mr-2">Menu Size:</label>
       <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="menu_size_compact" name="menu_size" (change)="save()" [(ngModel)]="workspace.menuSize"
-          value="compact" class="custom-control-input">
+        <input type="radio" id="menu_size_compact" name="menu_size" (change)="saveUser()"
+          [(ngModel)]="user.config.menu.size" value="compact" class="custom-control-input">
         <label class="custom-control-label" for="menu_size_compact">Compact</label>
       </div>
       <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="menu_size_normal" name="menu_size" (change)="save()" [(ngModel)]="workspace.menuSize"
-          value="normal" class="custom-control-input">
+        <input type="radio" id="menu_size_normal" name="menu_size" (change)="saveUser()"
+          [(ngModel)]="user.config.menu.size" value="normal" class="custom-control-input">
         <label class="custom-control-label" for="menu_size_normal">Normal</label>
       </div>
     </div>
     <div class="form-group">
       <label class="mr-2">Show Menu Items:</label>
-      <ng-container *ngFor="let item of menu">
-        <div class="custom-control custom-checkbox custom-control-inline">
-          <input type="checkbox" class="custom-control-input" id="{{'menuItem'+item.label}}" (change)="save()"
-            [(ngModel)]="showMenuItems[item.label]">
-          <label class="custom-control-label" for="{{'menuItem'+item.label}}">{{item.label}}</label>
-        </div>
-      </ng-container>
+      <div class="row">
+        <ng-container *ngFor="let item of menu">
+          <div class="col-md-3">
+            <div class="custom-control custom-checkbox custom-control-inline">
+              <input type="checkbox" class="custom-control-input" id="{{'menuItem'+item.label}}" (change)="save()"
+                [(ngModel)]="showMenuItems[item.label]">
+              <label class="custom-control-label" for="{{'menuItem'+item.label}}">{{item.label}}</label>
+            </div>
+          </div>
+        </ng-container>
+      </div>
     </div>
   </section>
-  <section>
+  <!-- <section>
     <h4>Raw Workspace</h4>
     <div class="rounded border mb-2">
       <ace-editor [(text)]="source" [mode]="'json'" [theme]="'tomorrow'" [options]="options" [readOnly]="false"
@@ -73,7 +78,7 @@
     </div>
     <button [disabled]="rawErr" class="btn btn-primary" (click)="updateRaw()">Update Raw</button> <span
       class="ml-4 text-danger" *ngIf="rawErr">There is a syntax error</span>
-  </section>
+  </section> -->
   <section>
     <h4>Export</h4>
     <p>
@@ -88,7 +93,7 @@
         This will
         help further development as we may resolve issues faster.</div>
       <div class="custom-control custom-checkbox custom-control-inline">
-        <input id="errorReport" [(ngModel)]="workspace.errorReport" (change)="save()" class="custom-control-input"
+        <input id="errorReport" [(ngModel)]="workspace.config.errors" (change)="save()" class="custom-control-input"
           type="checkbox">
         <label for="errorReport" class="custom-control-label">
           Send debug error data</label>
@@ -98,7 +103,7 @@
       <div>Analytics help us to better understand how blanc have been used, so we may improve it. We use
         <a target="_blank" href="https://woopra.com">woopra.com</a> for this.</div>
       <div class="custom-control custom-checkbox custom-control-inline">
-        <input id="analytics" [(ngModel)]="workspace.analytics" (change)="save()" class="custom-control-input"
+        <input id="analytics" [(ngModel)]="workspace.config.analytics" (change)="save()" class="custom-control-input"
           type="checkbox">
         <label for="analytics" class="custom-control-label">
           Send analytics data</label>

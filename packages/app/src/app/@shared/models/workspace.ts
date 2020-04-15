@@ -1,44 +1,64 @@
-
-export type Workspace = {
+export interface Workspace {
   key: string
-  name: string
-  nickname?: string
-  created?: number
-  layout?: 'box' | 'fluid'
-  menuSize?: 'normal' | 'compact'
-  menuHideItems?: string[]
-  errorReport?: boolean
-  analytics?: boolean
-  cache?: boolean
-  server?: ServerConfig
-  db?: DbConfig
-  integrations?: { [key: string]: IntegrationConfig & any }
+  created: number
+  version: number
+  config: {
+    errors?: boolean
+    analytics?: boolean
+    cache?: boolean
+  }
 }
 
-export type ServerConfig = {
-  type?: 'local' | 'remote'
-  host?: string
+export interface User {
+  username: string
+  email?: string
+  avatar?: string
+  owner?: boolean
+  config?: {
+    theme: 'light' | 'dark'
+    layout?: 'box' | 'fluid'
+    menu?: {
+      size?: 'normal' | 'compact'
+      items?: string[]
+    }
+  }
 }
 
-export type DbConfig = {
-  type?: 'couch' | 'graphql'
-  host?: string
-  key?: string
-  username?: string
-  token?: string
-}
-
-export const DEFAULT_WORKSPACE: Workspace = {
-  key: 'default',
-  name: 'default',
-  nickname: 'john',
-  integrations: {},
-  layout: 'box',
-  menuSize: 'normal',
-  errorReport: false,
-  analytics: false
-}
-
-export type IntegrationConfig = {
+export interface IntegrationConfig {
   enabled: boolean
+}
+
+export interface GiphyIntegrationConfig extends IntegrationConfig {
+  apiKey: string
+}
+
+export interface ServerIntegrationConfig extends IntegrationConfig {
+  host: string
+  dbEnable?: boolean
+  dbName?: string
+  dbHost?: string
+}
+
+export const DEFAULT_USER: User = {
+  username: 'john',
+  owner: false,
+  config: {
+    theme: 'light',
+    layout: 'box',
+    menu: {
+      size: 'compact',
+      items: null
+    }
+  }
+}
+export const WORKSPACE_VERSION = 2
+
+export const DEFAULT_WORKSPACE: Partial<Workspace> = {
+  version: WORKSPACE_VERSION,
+  created: Date.now(),
+  config: {
+    errors: false,
+    analytics: false,
+    cache: false
+  }
 }
