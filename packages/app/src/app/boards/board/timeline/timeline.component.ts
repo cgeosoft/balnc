@@ -1,25 +1,25 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap'
 import { Observable, Subject, Subscription } from 'rxjs'
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
-import { Board } from '../@shared/models/board'
-import { Message, OgMetadata } from '../@shared/models/message'
-import { BoardsRepo } from '../@shared/repos/boards.repo'
-import { MessagesRepo } from '../@shared/repos/messages.repo'
-import { Emoji, EmojisService } from './../@shared/services/emojis.service'
+import { Board } from '../../@shared/models/board'
+import { Message, OgMetadata } from '../../@shared/models/message'
+import { BoardsRepo } from '../../@shared/repos/boards.repo'
+import { MessagesRepo } from '../../@shared/repos/messages.repo'
+import { Emoji, EmojisService } from '../../@shared/services/emojis.service'
 
 const urlRegex = /(https?:\/\/[^\s]+)/g
 const giphyApiUrl = 'https://api.giphy.com/v1/gifs'
 
 @Component({
-  selector: 'app-boards-board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss']
+  selector: 'app-timeline',
+  templateUrl: './timeline.component.html',
+  styleUrls: ['./timeline.component.scss']
 })
-export class BoardComponent implements OnInit, OnDestroy {
+export class TimelineComponent implements OnInit {
 
   @ViewChild('messageList') messageList: ElementRef
   @ViewChild('messageInput') messageInput: ElementRef
@@ -74,7 +74,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit () {
-    this.route.params.subscribe(async (params) => {
+    this.route.parent.params.subscribe(async (params) => {
       this.selected = params['id']
       if (!this.selected) return
       this.boardsRepo.selected = this.selected
@@ -165,17 +165,6 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   async unarchiveBoard () {
     // todo
-  }
-
-  async deleteBoard () {
-    if (!confirm('Are you sure? All message will be deleted')) return
-    await this.boardsRepo.remove(this.selected)
-
-    const messages = await this.messagesRepo.all({ group: this.selected })
-    const ps = messages.map(m => this.messagesRepo.remove(m._id))
-    await Promise.all(ps)
-
-    await this.router.navigateByUrl('/boards')
   }
 
   async send () {

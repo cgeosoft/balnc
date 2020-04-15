@@ -33,6 +33,12 @@ export interface OgMetadata {
     height?: number
     type?: any
   },
+  ogVideo?: {
+    url?: string
+    width?: number
+    height?: number
+    type?: any
+  },
   twitterImage?: {
     url?: string
     width?: null,

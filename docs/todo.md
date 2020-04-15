@@ -48,11 +48,12 @@
   - [ ] Sidebar type: normal/contenced
   - [ ] Show last message in sidebar if type is normal
 - [ ] Board management
-  - [ ] Edit/delete board
+  - [ ] Edit board
   - [ ] Board color
   - [ ] Archive boards
   - [ ] Board picture
   - [ ] Topic
+  - [x] Delete board
 - [ ] Improve message and timeline
   - [ ] Edit message
   - [ ] Message grouping

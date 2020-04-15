@@ -10,6 +10,7 @@ import { AgreementsRepo } from '../../agreements/@shared/agreements.repo'
 import { ContactType } from '../../contacts/@shared/contacts'
 import { ContactsRepo } from '../../contacts/@shared/contacts.repo'
 import { TransactionsRepo } from '../../transactions/@shared/transactions.repo'
+import { RxDBService } from './rxdb.service'
 
 const NO_OF_ACCOUNTS = 5
 const NO_OF_CUSTOMERS = 500
@@ -27,7 +28,8 @@ export class DemoService {
     private transactionsRepo: TransactionsRepo,
     private recordsRepo: RecordsRepo,
     private contactsRepo: ContactsRepo,
-    private agreementsRepo: AgreementsRepo
+    private agreementsRepo: AgreementsRepo,
+    private dbService: RxDBService
   ) {
   }
 
@@ -40,31 +42,20 @@ export class DemoService {
   }
 
   async clear () {
-    this.message(`Calculate old demo data`)
-    const contacts = await this.contactsRepo.all()
-    const contactIds = contacts.filter(o => o._tags && o._tags.indexOf('demo') !== -1).map(c => c._id)
-    this.message(`Will remove ${contactIds.length} contacts`)
-    const contactsProm = contactIds.map((id, i) => {
-      if (i % 100 === 0) {
-        this.message(`Removed ${i}/${NO_OF_CUSTOMERS} contacts`)
-      }
-      return this.contactsRepo.remove(id)
-    })
-    const agreements = await this.agreementsRepo.all()
-    const agreementIds = agreements.filter(o => o._tags && o._tags.indexOf('demo') !== -1).map(a => a._id)
-    this.message(`Will remove ${agreementIds.length} agreements`)
-    const agreementsProm = agreementIds.map((id, i) => {
-      if (i % 100 === 0) {
-        this.message(`Removed ${i}/${NO_OF_AGREEMENTS} agreements`)
-      }
-      return this.agreementsRepo.remove(id)
-    })
-    this.message(`Remove old demo data`)
-    await Promise.all([
-      ...contactsProm,
-      ...agreementsProm
-    ])
-    this.message(`Old demo data removed`)
+    this.message(`Calculate demo data`)
+
+    const q = this.dbService.entities.find()
+    const items = await q.exec()
+    const demoItems = items.filter(i => i.s && i.s.indexOf('demo') !== -1)
+
+    this.message(`Found ${demoItems.length} demo data of ${items.length}`)
+    const proms = demoItems.map((item, i) => item.remove().then(() => {
+      if (i % 100 === 0) this.message(`Removed ${i} docs`)
+    }))
+
+    this.message(`Remove demo data`)
+    await Promise.all(proms)
+    this.message(`Demo data removed`)
   }
 
   private async generateContacts () {
@@ -193,6 +184,6 @@ export class DemoService {
   }
 
   private message (message) {
-    this.logs$.next(`[Business] ${message}`)
+    this.logs$.next(message)
   }
 }

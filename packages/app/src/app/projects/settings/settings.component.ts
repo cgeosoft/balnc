@@ -12,13 +12,13 @@ export class SettingsComponent {
   generated: number
 
   constructor (
-    private projectsService: DemoService
+    private demoService: DemoService
   ) { }
 
   async generateDemoData () {
     if (!confirm('Are you sure?')) return
     this.generating = true
-    await this.projectsService.generate()
+    await this.demoService.generate()
     this.generated = Date.now()
     this.generating = false
   }

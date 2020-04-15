@@ -53,7 +53,6 @@ export class DemoDataComponent implements OnInit {
     if (!confirm('Are you sure?')) return
     this.loading = true
     await this.demoService.clear()
-    await this.boardDemoService.clear()
     this.loading = false
   }
 }
