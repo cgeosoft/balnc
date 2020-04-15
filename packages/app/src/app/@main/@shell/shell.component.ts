@@ -60,28 +60,30 @@ export class MainShellComponent {
       }
     })
 
-    this.dbService.workspace$.subscribe(async (workspace) => {
-      this.configService.users = workspace['c'].users
-      if (!this.configService.user) {
-        this.modal.open(ProfileComponent)
-      }
-
-      this.configService.integrations = workspace['c'].integrations
-      const server = this.configService.integrations?.server as ServerIntegrationConfig
-      if (server?.enabled) {
-        if (server?.dbEnable) {
-          const needAuth = await this.dbService.needAuthentication()
-          if (needAuth) {
-            const login = this.modal.open(LoginComponent)
-            const { username, password } = await login.result
-            await this.dbService.authenticate(username, password)
-          }
-          this.dbService.enableRemoteDB()
-        } else {
-          this.dbService.disableRemoteDB()
+    setTimeout(() => {
+      this.dbService.workspace$.subscribe(async (workspace) => {
+        this.configService.users = workspace['c'].users
+        if (!this.configService.user) {
+          this.modal.open(ProfileComponent)
         }
-      }
-    })
+
+        this.configService.integrations = workspace['c'].integrations
+        const server = this.configService.integrations?.server as ServerIntegrationConfig
+        if (server?.enabled) {
+          if (server?.dbEnable) {
+            const needAuth = await this.dbService.needAuthentication()
+            if (needAuth) {
+              const login = this.modal.open(LoginComponent)
+              const { username, password } = await login.result
+              await this.dbService.authenticate(username, password)
+            }
+            this.dbService.enableRemoteDB()
+          } else {
+            this.dbService.disableRemoteDB()
+          }
+        }
+      })
+    }, 100)
   }
 
   private _navigationInterceptor (event: RouterEvent): void {

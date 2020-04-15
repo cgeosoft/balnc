@@ -140,7 +140,6 @@ export class RxDBService {
     const workspace = await this.db.entities.findOne('workspace').exec()
     const content = { ...workspace.c }
     content.integrations[key] = config
-    console.log("content",content)
     await workspace.update({
       $set: {
         c: content
@@ -196,6 +195,7 @@ export class RxDBService {
       console.log('[DatabaseService]', `Enable cache mode`)
       this.entities = await this.db.entities.inMemory()
     } else {
+      console.log('[DatabaseService]', `Cache mode disabled`)
       this.entities = this.db.entities
     }
   }

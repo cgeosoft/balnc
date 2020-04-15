@@ -51,6 +51,8 @@
         @extend .rounded;
         @extend .border;
         width: 100%;
+        opacity: 1;
+        transition: all .2s ease;
       }
     }
 
@@ -93,7 +95,8 @@
     }
 
     .msg-menu {
-      display: none;
+      transition: all .7s ease;
+      opacity: 0;
       margin-left: 0.3rem;
       .dropdown-toggle {
         &:after {
@@ -119,7 +122,7 @@
 
     &:hover {
       .msg-menu {
-        display: block;
+        opacity: 1;
       }
     }
 
@@ -127,7 +130,14 @@
       @extend .mb-1;
       .msg-avatar {
         img {
-          display: none;
+          opacity: 0;
+        }
+      }
+      &:hover {
+        .msg-avatar {
+          img {
+            opacity: 1;
+          }
         }
       }
     }

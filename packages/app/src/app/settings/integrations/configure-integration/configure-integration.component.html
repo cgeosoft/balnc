@@ -12,6 +12,7 @@
   <hr>
   <ng-container [ngSwitch]="integration.key">
     <app-integration-server *ngSwitchCase="'server'" [config]="config"></app-integration-server>
+    <app-integration-giphy *ngSwitchCase="'giphy'" [config]="config"></app-integration-giphy>
   </ng-container>
 </div>
 <div class="modal-footer d-flex">

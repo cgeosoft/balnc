@@ -25,18 +25,6 @@ export class ShellComponent implements OnInit {
     icon: 'boxes',
     type: 'button',
     label: 'Integrations'
-  }, {
-    type: 'divider'
-  }, {
-    route: '/settings/remote',
-    icon: 'server',
-    type: 'button',
-    label: 'Remote'
-  }, {
-    route: '/settings/demo-data',
-    icon: 'exchange-alt',
-    type: 'button',
-    label: 'Demo Data'
   }]
 
   extra: MenuItem[] = [{

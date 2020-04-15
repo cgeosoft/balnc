@@ -101,7 +101,6 @@ export class TimelineComponent implements OnInit {
             }
             return l
           }, {})
-          console.log(this.merged)
           const ps = this.messages.map(async (msg, i) => {
             if (!this.previews[msg._id]) {
               this.previews[msg._id] = {}
