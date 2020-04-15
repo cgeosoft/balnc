@@ -181,9 +181,13 @@ export class TimelineComponent implements OnInit {
       data.quote = this.quote
     }
 
+    this.messages.push(data as Message)
+    this.scrollToBottom()
+
     const message = await this.messagesRepo.add(data, this.selected)
 
     this.messageInput.nativeElement.value = null
+    this.quote = null
     const urls = data.text.match(urlRegex)
     if (urls && this.configService.workspace.server?.type) {
       const params = new HttpParams().set('q', urls[0])
@@ -263,11 +267,10 @@ export class TimelineComponent implements OnInit {
   }
 
   scrollToBottom (): void {
-    if (this.messageList) {
-      setTimeout(() => {
-        this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
-      }, 100)
-    }
+    if (!this.messageList) return
+    setTimeout(() => {
+      this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
+    }, 100)
   }
 
   focusInput (): void {
