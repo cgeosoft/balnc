@@ -7,10 +7,12 @@
         </div>
         <ng-container [ngSwitch]="m.type">
           <ng-container *ngSwitchCase="'MESSAGE'">
-            <div class="msg-item" [ngClass]="{'own':m.sender === nickname}">
+            <div class="msg-item" [ngClass]="{'own':m.sender === nickname,'merged':merged[m._id]}">
               <div class="msg-time">{{m._date|date:'hh:mm'}}</div>
-              <img class="msg-avatar" src="https://api.adorable.io/avatars/30/{{m.sender}}.png" [ngbTooltip]="m.sender"
-                placement="bottom" container="body">
+              <div class="msg-avatar">
+                <img src="https://api.adorable.io/avatars/30/{{m.sender}}.png" [ngbTooltip]="m.sender"
+                  placement="bottom" container="body">
+              </div>
               <div class="msg-body">
                 <div *ngIf="m.quote" class="msg-quote">
                   <fa-icon icon="quote-left" class="align-self-start"></fa-icon>

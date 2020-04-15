@@ -33,6 +33,8 @@ export class TimelineComponent implements OnInit {
   messages: Message[]
   filteredMessages$: Subject<Message[]>
 
+  merged = {}
+
   board$: Observable<Board>
   previews: {
     [key: string]: {
@@ -92,6 +94,14 @@ export class TimelineComponent implements OnInit {
             if (!msg) l[i._id] = df
             return l
           }, {})
+          this.merged = this.messages.reduce((l, i, x) => {
+            if (this.messages[x - 1] &&
+              this.messages[x - 1].sender === this.messages[x].sender) {
+              l[this.messages[x - 1]._id] = true
+            }
+            return l
+          }, {})
+          console.log(this.merged)
           const ps = this.messages.map(async (msg, i) => {
             if (!this.previews[msg._id]) {
               this.previews[msg._id] = {}

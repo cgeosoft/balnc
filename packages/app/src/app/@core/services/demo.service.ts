@@ -82,7 +82,7 @@ export class DemoService {
     for (let b = 0; b < NO_OF_BOARDS; b++) {
       projects.push({
         date: faker.date.past(2).getTime(),
-        mark: faker.random.number(100) === 1,
+        mark: faker.random.number(NO_OF_BOARDS / 2) === 1,
         tags: ['demo'],
         content: {
           name: faker.commerce.productName(),
@@ -123,14 +123,14 @@ export class DemoService {
     for (let b = 0; b < NO_OF_BOARDS; b++) {
       boards.push({
         date: faker.date.past(2).getTime(),
-        mark: faker.random.number(100) === 1,
+        mark: faker.random.number(NO_OF_BOARDS / 2) === 1,
         tags: ['demo'],
         content: {
           name: `${faker.hacker.ingverb()} ${faker.hacker.noun()}`
         }
       })
       if (b % 500 === 0) {
-        this.logs$.next(`Generate ${b}/${NO_OF_BOARDS} messages`)
+        this.logs$.next(`Generate ${b}/${NO_OF_BOARDS} boards`)
       }
     }
     this.logs$.next(`Saving ${NO_OF_BOARDS} boards`)
@@ -141,12 +141,13 @@ export class DemoService {
       users.push(faker.internet.userName())
     }
 
+    this.logs$.next(`Generate ${NO_OF_MESSAGES} messages`)
     const messages: BulkObj[] = []
     const boardSaved = await this.boardsRepo.all()
     const boardIds = boardSaved.map(b => b._id)
     for (let c = 0; c < NO_OF_MESSAGES; c++) {
       messages.push({
-        date: faker.date.past(2).getTime(),
+        date: faker.date.between((new Date()).setDate((new Date()).getDate() - 7),new Date()).getTime(),
         mark: faker.random.number(100) === 1,
         tags: ['demo'],
         group: boardIds[faker.random.number(boardIds.length - 1)],

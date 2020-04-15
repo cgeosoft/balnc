@@ -57,10 +57,10 @@
   - [x] Delete board
 - [ ] Improve message and timeline
   - [ ] Edit message
-  - [ ] Message grouping
   - [ ] Edit last message with keyboard up
   - [ ] Embed metadata should fetched at message load and be cashed at server
   - [ ] Markdown
+  - [x] Message grouping
   - [x] Messages date seperator
   - [x] Time before avatar
   - [x] Delete message

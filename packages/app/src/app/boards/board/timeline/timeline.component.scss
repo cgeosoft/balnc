@@ -45,10 +45,13 @@
 
     .msg-avatar {
       @extend .mr-2;
-      @extend .border;
-      @extend .rounded;
       width: 30px;
       height: 30px;
+      img {
+        @extend .rounded;
+        @extend .border;
+        width: 100%;
+      }
     }
 
     .msg-body {
@@ -113,9 +116,19 @@
         color: #fff;
       }
     }
+
     &:hover {
       .msg-menu {
         display: block;
+      }
+    }
+
+    &.merged {
+      @extend .mb-1;
+      .msg-avatar {
+        img {
+          display: none;
+        }
       }
     }
   }
