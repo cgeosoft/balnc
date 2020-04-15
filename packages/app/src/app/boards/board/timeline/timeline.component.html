@@ -9,7 +9,7 @@
           <ng-container *ngSwitchCase="'MESSAGE'">
             <div class="msg-item" [ngClass]="{'own':m.sender === nickname}">
               <div class="msg-time">{{m._date|date:'hh:mm'}}</div>
-              <img class="msg-avatar" src="https://api.adorable.io/avatars/40/{{m.sender}}.png" [ngbTooltip]="m.sender"
+              <img class="msg-avatar" src="https://api.adorable.io/avatars/30/{{m.sender}}.png" [ngbTooltip]="m.sender"
                 placement="bottom" container="body">
               <div class="msg-body">
                 <div *ngIf="m.quote" class="msg-quote">
@@ -21,7 +21,7 @@
                   </div>
                   <fa-icon icon="quote-right" class="align-self-end"></fa-icon>
                 </div>
-                <div *ngIf="m.text" class="py-2 px-3" [innerHTML]="m.text"></div>
+                <div *ngIf="m.text" class="msg-text" [innerHTML]="m.text"></div>
                 <div *ngIf="m.file">
                   <img *ngIf="previews[m._id].base64" [src]="previews[m._id].base64" alt="m.file"
                     class="img-fluid img-preview mb-1" (load)="scrollToBottom()">
