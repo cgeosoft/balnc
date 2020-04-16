@@ -18,7 +18,7 @@
             <div class="msg-item" [ngClass]="{'own':m.sender === nickname,'merged':merged[m._id]}">
               <div class="msg-time">{{m._date|date:'hh:mm'}}</div>
               <div class="msg-avatar">
-                <img src="https://api.adorable.io/avatars/30/{{m.sender}}.png" [ngbTooltip]="m.sender"
+                <img [src]="avatars[m.sender] || '/assets/images/no-avatar.png'" [ngbTooltip]="m.sender"
                   placement="bottom" container="body">
               </div>
               <div class="msg-body">
@@ -120,7 +120,7 @@
     </div>
   </ng-container>
 
-  <input #messageInput class="form-control" placeholder="type message..." (keydown.enter)="send()">
+  <input #messageInput class="form-control" placeholder="type your message..." (keydown.enter)="send()">
   <div class="d-flex mt-2">
     <div>
       <button class="btn btn-link" ngbTooltip="attach file" (click)="attach()">

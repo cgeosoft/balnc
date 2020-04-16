@@ -55,6 +55,13 @@ export class TimelineComponent implements OnInit {
 
   commands = ['topic']
 
+  get avatars () {
+    return this.configService.users.reduce((l, i) => {
+      l[i.username] = i.avatar
+      return l
+    }, {})
+  }
+
   get nickname () {
     return this.configService.user.username
   }
@@ -215,10 +222,10 @@ export class TimelineComponent implements OnInit {
 
   async isCommand () {
     const text: string[] = this.messageInput.nativeElement.value.split(' ')
-    this.messageInput.nativeElement.value = null
     const command: string = text[0].substr(1)
     if (this.commands.indexOf(command) === -1) return false
 
+    this.messageInput.nativeElement.value = null
     switch (command) {
       case 'topic':
         await this.setTopic(text.slice(1).join(' '))
