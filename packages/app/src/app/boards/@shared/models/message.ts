@@ -4,9 +4,10 @@ export interface Message extends Entity {
   text?: string
   sender: string
   status: string
-  type: string
+  type: 'MESSAGE' | 'EVENT'
   file?: string
   quote?: Message
+  reactions?: Reaction[]
   image?: {
     alt?: string
     url?: string
@@ -14,6 +15,11 @@ export interface Message extends Entity {
     height?: string
   }
   metadata?: OgMetadata
+}
+
+export interface Reaction {
+  emoji: string
+  username: string
 }
 
 export interface OgMetadata {

@@ -63,7 +63,7 @@
   - [ ] Edit message
   - [ ] Edit last message with keyboard up
   - [ ] Embed metadata should fetched at message load and be cashed at server
-  - [ ] Markdown
+  - [x] User avatars
   - [x] Message grouping
   - [x] Messages date seperator
   - [x] Time before avatar
@@ -71,6 +71,7 @@
   - [x] Box avatars
   - [x] Improve performance
 - [ ] Message features
+  - [ ] Markdown
   - [ ] Mention user
   - [ ] Quick emoji
   - [ ] Reactions (emoji)

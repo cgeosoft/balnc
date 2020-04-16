@@ -105,6 +105,8 @@ export class TimelineComponent implements OnInit {
           }, {})
           this.merged = this.messages.reduce((l, i, x) => {
             if (this.messages[x - 1] &&
+              this.messages[x - 1].type === 'MESSAGE' &&
+              this.messages[x].type === 'MESSAGE' &&
               this.messages[x - 1].sender === this.messages[x].sender) {
               l[this.messages[x - 1]._id] = true
             }
@@ -228,7 +230,14 @@ export class TimelineComponent implements OnInit {
     this.messageInput.nativeElement.value = null
     switch (command) {
       case 'topic':
-        await this.setTopic(text.slice(1).join(' '))
+        const topic = text.slice(1).join(' ')
+        await this.setTopic(topic)
+        await this.messagesRepo.add({
+          text: `Topic changed to "${topic}"`,
+          sender: this.nickname,
+          status: 'SEND',
+          type: 'EVENT'
+        }, this.selected)
         break
     }
     return true

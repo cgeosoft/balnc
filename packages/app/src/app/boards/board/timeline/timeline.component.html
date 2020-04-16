@@ -5,7 +5,8 @@
   <ng-container *ngIf="messages; else loader">
     <div *ngIf="messages.length<10" class="intro">
       <h2>Welcome to {{(board$|async)?.name}}</h2>
-      <div class="text-muted mb-1">Created at {{(board$|async)?._date|date:"short"}} by {{(board$|async)?.creator || 'some mysterious guy'}}</div>
+      <div class="text-muted mb-1">Created at {{(board$|async)?._date|date:"short"}} by
+        {{(board$|async)?.creator || 'some mysterious guy'}}</div>
       <div>Post your messages here and please be polite unless you don't have to be! This dump intro text is dump.</div>
     </div>
     <ng-container *ngIf="messages.length else emptyMessages">
@@ -73,26 +74,30 @@
                   </ng-container>
                 </ng-container>
               </div>
-              <div class="msg-menu" ngbDropdown>
-                <button class="btn btn-sm border-light-outline border-0" ngbDropdownToggle>
-                  <fa-icon icon="bars"></fa-icon>
+              <div class="msg-menu">
+                <button class="btn btn-sm border-light-outline border-0">
+                  <fa-icon icon="smile"></fa-icon>
                 </button>
-                <div ngbDropdownMenu>
-                  <button ngbDropdownItem (click)="quoteMessage(m)">
-                    <fa-icon icon="quote-right"></fa-icon> Quote
+                <div ngbDropdown>
+                  <button class="btn btn-sm border-light-outline border-0" ngbDropdownToggle>
+                    <fa-icon icon="bars"></fa-icon>
                   </button>
-                  <button ngbDropdownItem class="text-danger" (click)="deleteMessage(m)">
-                    <fa-icon icon="trash"></fa-icon> Remove
-                  </button>
+                  <div ngbDropdownMenu>
+                    <button ngbDropdownItem (click)="quoteMessage(m)">
+                      <fa-icon icon="quote-right"></fa-icon> Quote
+                    </button>
+                    <button ngbDropdownItem class="text-danger" (click)="deleteMessage(m)">
+                      <fa-icon icon="trash"></fa-icon> Remove
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </ng-container>
-          <ng-container *ngSwitchCase="'CMD-CREATE'">
-            <div class="msg-command">
-              <strong>{{m.sender}}</strong> created
-              <strong>{{m._group}}</strong> at
-              <strong>{{m._date|date:'medium'}}</strong>
+          <ng-container *ngSwitchCase="'EVENT'">
+            <div class="event-item">
+              <div class="event-time">{{m._date|date:'hh:mm'}}</div>
+              <div class="event-text">{{m.text}} <small>~{{m.sender}}</small></div>
             </div>
           </ng-container>
           <ng-container *ngSwitchDefault>
