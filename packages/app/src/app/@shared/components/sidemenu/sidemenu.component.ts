@@ -8,6 +8,6 @@ import { MenuItem } from './menu-item'
 })
 export class SidemenuComponent {
 
-  @Input('menu') menu: MenuItem[]
+  @Input() menu: MenuItem[]
 
 }

@@ -6,7 +6,7 @@
     </button>
   </ng-container>
   <ng-container *ngIf="item.action">
-    <button (click)="item.action" class="action">
+    <button (click)="item.action()" class="action">
       <fa-icon [icon]="item.icon" class="icon"></fa-icon>
       <span>{{item.label}}</span>
     </button>

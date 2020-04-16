@@ -56,6 +56,7 @@ export const WORKSPACE_VERSION = 2
 
 export const DEFAULT_WORKSPACE: Partial<Workspace> = {
   version: WORKSPACE_VERSION,
+  name: 'defailt',
   created: Date.now(),
   config: {
     errors: false,

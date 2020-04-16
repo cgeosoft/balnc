@@ -188,4 +188,15 @@
       height: auto;
     }
   }
+
+  &.highlight {
+    .item {
+      button {
+        @extend .btn-primary;
+        &:hover {
+          background-color: lighten($primary, 10%);
+        }
+      }
+    }
+  }
 }

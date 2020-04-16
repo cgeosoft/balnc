@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, HostBinding, Input } from '@angular/core'
 import { MenuItem } from './menu-item'
 
 @Component({
@@ -8,6 +8,9 @@ import { MenuItem } from './menu-item'
 })
 export class SidemenuButtonComponent {
 
-  @Input() item: MenuItem
+  @HostBinding('class.highlight') get highlight () {
+    return this.item.highlight
+  }
 
+  @Input() item: MenuItem
 }

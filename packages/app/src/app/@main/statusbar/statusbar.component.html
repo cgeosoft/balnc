@@ -13,7 +13,8 @@
   <a class="item" ngbTooltip="git commit" target="_blank"
     href="https://github.com/ChristosGeorgiou/balnc/commit/{{build.git.hash}}">
     {{build.timestamp | date:'yyyy-MM-dd HH:mm'}}</a>
-  <button ngbTooltip="toggle layout" *ngIf="user?.config?.layout === 'box'" class="item" (click)="toggleLayout('fluid')">
+  <button ngbTooltip="toggle layout" *ngIf="user?.config?.layout === 'box'" class="item"
+    (click)="toggleLayout('fluid')">
     <fa-icon icon="compress-arrows-alt"></fa-icon> box
   </button>
   <button ngbTooltip="toggle layout" *ngIf="user?.config?.layout !== 'box'" class="item" (click)="toggleLayout('box')">
@@ -22,7 +23,7 @@
   <button ngbTooltip="workspace" class="item" routerLink="/settings">
     <fa-layers class="fa-fw">
       <fa-icon icon="swatchbook"></fa-icon>
-    </fa-layers> {{workspace.key}} / {{user?.username}}
+    </fa-layers> {{workspace.name}} / {{user?.username}}
   </button>
   <!-- <button ngbTooltip="chat with support" class="item" onclick="$crisp.push(['do', 'chat:open'])">
     <fa-icon icon="comment-dots"></fa-icon>

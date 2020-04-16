@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
+import { ConfigService } from '@balnc/core'
 import { MenuItem } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
@@ -16,33 +17,27 @@ export class ShellComponent implements OnInit {
 
   boards$: Observable<MenuItem[]>
 
-  nickname: string
   boardsStats: BoardStats[]
   unread = {}
-  menu: MenuItem[] = [
-    {
-      label: 'Boards',
-      type: 'button',
-      icon: 'border-all',
-      route: '/boards/manage'
-    },
-    {
-      label: 'Settings',
-      type: 'button',
-      icon: 'cog',
-      route: '/boards/settings'
+  menu: MenuItem[] = [{
+    label: 'Create New Board',
+    type: 'button',
+    highlight: true,
+    icon: 'plus-circle',
+    action: () => {
+      return this.create()
     }
-  ]
+  }]
 
   constructor (
     private boardsRepo: BoardsRepo,
-    private router: Router
+    private router: Router,
+    private configService: ConfigService
   ) { }
 
-  async ngOnInit () {
-    this.nickname = 'chris'
+  ngOnInit () {
     this.boards$ = this.boardsRepo
-      .all$({ mark: true })
+      .all$()
       .pipe(
         tap(boards => boards.sort((a, b) => a._date - b._date)),
         map((data) => {
@@ -84,12 +79,12 @@ export class ShellComponent implements OnInit {
   //   return s ? s.unread : 0
   // }
 
-  async create (name: string) {
-    if (!name) return
+  async create () {
+    console.log('create board')
     const board = await this.boardsRepo.add({
-      name
+      name: 'New Board',
+      creator: this.configService.username
     })
-    name = null
     await this.router.navigate(['/boards', board._id])
   }
 }
