@@ -5,8 +5,8 @@
   <ng-container *ngIf="messages; else loader">
     <div *ngIf="messages.length<10" class="intro">
       <h2>Welcome to {{(board$|async)?.name}}</h2>
-      <h4>Create at {{(board$|async)?._date|date}} by {{(board$|async)?.creator || 'some mysterious guy'}}</h4>
-      Post your messages here and please be polite unless you don't have to be! This dump intro text is dump.
+      <div class="text-muted mb-1">Created at {{(board$|async)?._date|date:"short"}} by {{(board$|async)?.creator || 'some mysterious guy'}}</div>
+      <div>Post your messages here and please be polite unless you don't have to be! This dump intro text is dump.</div>
     </div>
     <ng-container *ngIf="messages.length else emptyMessages">
       <ng-container *ngFor="let m of messages;let i = index; trackBy: trackByMessages">

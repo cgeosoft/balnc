@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
+import { ConfigService } from '@balnc/core'
 import { TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { Board } from '../@shared/models/board'
@@ -27,6 +28,7 @@ export class BoardsComponent implements OnInit {
   }
 
   constructor (
+    private configService: ConfigService,
     private boardsRepo: BoardsRepo,
     private router: Router
   ) { }
@@ -37,7 +39,8 @@ export class BoardsComponent implements OnInit {
 
   async create () {
     const board = await this.boardsRepo.add({
-      name: 'New Board'
+      name: 'New Board',
+      creator: this.configService.username
     })
     await this.router.navigate(['/boards', board._id])
   }
