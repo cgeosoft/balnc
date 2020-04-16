@@ -1,5 +1,6 @@
 export interface Workspace {
   key: string
+  name: string
   created: number
   version: number
   config: {

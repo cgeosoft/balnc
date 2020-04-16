@@ -4,9 +4,9 @@
     <h4>Workspace</h4>
     <div class="form-group input-group">
       <div class="input-group-prepend">
-        <span class="input-group-text">Workspace key</span>
+        <span class="input-group-text">Workspace Name</span>
       </div>
-      <input #name [value]="workspace.key" class="form-control">
+      <input #name [value]="workspace.name" class="form-control">
       <div class="input-group-append">
         <button class="btn btn-primary" (click)="workspace.name = name.value; save()">Update</button>
       </div>
