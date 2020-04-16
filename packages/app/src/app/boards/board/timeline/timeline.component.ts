@@ -53,6 +53,8 @@ export class TimelineComponent implements OnInit {
   quote: Message
   msgSeperatorDates = {}
 
+  commands = ['topic']
+
   get nickname () {
     return this.configService.user.username
   }
@@ -178,6 +180,10 @@ export class TimelineComponent implements OnInit {
   async send () {
     if (!this.messageInput.nativeElement.value) { return }
 
+    if (await this.isCommand()) {
+      return
+    }
+
     const data: Partial<Message> = {
       text: this.messageInput.nativeElement.value,
       sender: this.nickname,
@@ -205,6 +211,26 @@ export class TimelineComponent implements OnInit {
       message.metadata = res.data
       await this.messagesRepo.update(message._id, message)
     }
+  }
+
+  async isCommand () {
+    const text: string[] = this.messageInput.nativeElement.value.split(' ')
+    this.messageInput.nativeElement.value = null
+    const command: string = text[0].substr(1)
+    if (this.commands.indexOf(command) === -1) return false
+
+    switch (command) {
+      case 'topic':
+        await this.setTopic(text.slice(1).join(' '))
+        break
+    }
+    return true
+  }
+
+  setTopic (topic: string) {
+    return this.boardsRepo.update(this.selected, {
+      topic
+    })
   }
 
   async attach () {

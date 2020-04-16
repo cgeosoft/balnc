@@ -56,7 +56,8 @@
   - [ ] Board color
   - [ ] Archive boards
   - [ ] Board picture
-  - [ ] Topic
+  - [x] Topic
+  - [x] Intro
   - [x] Delete board
 - [ ] Improve message and timeline
   - [ ] Edit message

@@ -6,6 +6,25 @@
   @extend .d-flex;
   @extend .flex-column;
 
+  .intro{
+    font-size: 1.2rem;
+    font-style: italic;
+    color: $body-color;
+    padding: 1rem;
+    font-weight: 300;
+  }
+
+  .topic{
+    background-color: $primary;
+    color: $primary-color;
+    padding: 1rem 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    fa-icon{
+      margin-right: 1rem;
+    }
+  }
+
   .media {
     margin-bottom: 1rem;
   }

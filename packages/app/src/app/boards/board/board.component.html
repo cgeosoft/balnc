@@ -3,7 +3,7 @@
     <ng-container role="sidebar">
       <dl>
         <dt>Name
-          <button (click)="toggleMark(board._id)" class="btn btn-sm btn-link float-right">
+          <button (click)="toggleMark()" class="btn btn-sm btn-link float-right">
             <fa-icon icon="star" class="ml-2" [ngClass]="{'text-warning':board._mark,'text-secondary':!board._mark}">
             </fa-icon>
           </button>

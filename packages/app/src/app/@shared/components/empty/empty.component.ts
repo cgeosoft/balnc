@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core'
   styleUrls: ['empty.component.scss']
 })
 export class EmptyComponent {
-  @Input() message = 'No Data'
-  @Input() submessage = null
+  @Input() message
+  @Input() submessage
   @Input() undraw = 'no-data'
 }

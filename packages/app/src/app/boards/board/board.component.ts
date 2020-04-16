@@ -1,13 +1,10 @@
-import { HttpClient } from '@angular/common/http'
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
 import { ConfigService } from '@balnc/core'
-import { NgbPopover } from '@ng-bootstrap/ng-bootstrap'
 import { Observable, Subject, Subscription } from 'rxjs'
 import { Board } from '../@shared/models/board'
 import { Message } from '../@shared/models/message'
 import { BoardsRepo } from '../@shared/repos/boards.repo'
-import { MessagesRepo } from '../@shared/repos/messages.repo'
 import { EmojisService } from './../@shared/services/emojis.service'
 
 const urlRegex = /(https?:\/\/[^\s]+)/g
@@ -18,13 +15,7 @@ const giphyApiUrl = 'https://api.giphy.com/v1/gifs'
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent implements OnInit, OnDestroy {
-
-  @ViewChild('messageList') messageList: ElementRef
-  @ViewChild('messageInput') messageInput: ElementRef
-  @ViewChild('fileupload') fileupload: ElementRef
-  @ViewChild('giphyP') giphyP: NgbPopover
-  @ViewChild('emojiP') emojiP: NgbPopover
+export class BoardComponent implements OnInit {
 
   selected: string
 
@@ -60,10 +51,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   constructor (
     private configService: ConfigService,
     private boardsRepo: BoardsRepo,
-    private messagesRepo: MessagesRepo,
-    private http: HttpClient,
     private route: ActivatedRoute,
-    private router: Router,
     private emojisService: EmojisService
   ) { }
 
@@ -75,10 +63,6 @@ export class BoardComponent implements OnInit, OnDestroy {
       this.board$ = this.boardsRepo.one$(this.selected)
     })
   }
-
-  ngOnDestroy () {
-  }
-
   async pinBoard () {
     await this.boardsRepo.update(this.selected, {
       pinned: true
@@ -97,5 +81,9 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   async unarchiveBoard () {
     // todo
+  }
+
+  async toggleMark () {
+    await this.boardsRepo.mark(this.selected)
   }
 }

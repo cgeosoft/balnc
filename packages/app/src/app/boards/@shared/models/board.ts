@@ -2,7 +2,9 @@ import { Entity } from '@balnc/core';
 
 export interface Board extends Entity {
   name: string
-  description: string
+  description?: string
+  topic?: string
+  creator?: string
   members?: {
     [k: string]: any;
   }[]
