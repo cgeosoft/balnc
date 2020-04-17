@@ -1,18 +1,18 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
 import { ConfigService, DEFAULT_USER, RxDBService, User, UsersRepo, Workspace } from '@balnc/core'
 import { MENU } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import * as Sentry from '@sentry/browser'
 import { Angulartics2 } from 'angulartics2'
-import { Observable } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-settings-general',
   templateUrl: './general.component.html'
 
 })
-export class GeneralComponent implements OnInit {
+export class GeneralComponent implements OnInit, OnDestroy {
 
   @ViewChild('name') name: ElementRef
   @ViewChild('alias') alias: ElementRef
@@ -32,11 +32,12 @@ export class GeneralComponent implements OnInit {
   rawErr = false
 
   menu: any[] = MENU
-  showMenuItems: { [key: string]: boolean }
+  showMenuItems: { [key: string]: boolean } = {}
   user: User
 
   sharableUrl
   users$: Observable<User[]>
+  sub: Subscription
 
   get username () {
     return this.configService.username
@@ -55,11 +56,19 @@ export class GeneralComponent implements OnInit {
   ngOnInit () {
     this.workspace = this.configService.workspace
     this.user = { ...DEFAULT_USER, ...this.configService.user }
-    this.showMenuItems = this.menu.reduce((l, x) => {
-      l[x.label] = (this.configService.user?.config?.menu?.items || []).indexOf(x.label) === -1
-      return l
-    }, {})
+    this.sub = this.usersRepo.allm$().subscribe((users) => {
+      const user = users.find(x => x.username === this.configService.username)
+      this.user = { ...DEFAULT_USER, ...user }
+      this.showMenuItems = this.menu.reduce((l, x) => {
+        l[x.label] = (this.configService.user?.config?.menu?.items || []).indexOf(x.label) === -1
+        return l
+      }, {})
+    })
     this.users$ = this.usersRepo.allm$()
+  }
+
+  ngOnDestroy (): void {
+    this.sub.unsubscribe()
   }
 
   async delete () {
@@ -88,6 +97,10 @@ export class GeneralComponent implements OnInit {
     this.configService.username = username
   }
 
+  removeUser (userId) {
+    return this.usersRepo.remove(userId)
+  }
+
   async createUser (username: string) {
     await this.usersRepo.add({
       username
@@ -101,10 +114,9 @@ export class GeneralComponent implements OnInit {
     Sentry.getCurrentHub().getClient().getOptions().enabled = this.configService.workspace?.config.errors
   }
 
-  saveUserConfig () {
-    this.configService.user.config.menu.items = this.menu
-      .map(m => m.label)
-      .filter(x => !this.showMenuItems[x])
+  async saveUser () {
+    this.user.config.menu.items = this.menu.map(m => m.label).filter(x => !this.showMenuItems[x])
+    await this.usersRepo.update(this.user._id, this.user)
   }
 
 }

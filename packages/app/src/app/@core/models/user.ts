@@ -1,4 +1,6 @@
-export interface User {
+import { Entity } from './entity'
+
+export interface User extends Entity {
   username: string
   email?: string
   avatar?: string
@@ -13,9 +15,7 @@ export interface User {
   }
 }
 
-export const DEFAULT_USER: User = {
-  username: 'john',
-  owner: false,
+export const DEFAULT_USER: Partial<User> = {
   config: {
     theme: 'light',
     layout: 'box',
