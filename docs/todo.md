@@ -38,22 +38,22 @@
 ### Boards
 
 - [ ] Create header view with tabs - bg color of board, tabs Messages, Files, Manage
-- [ ] Better performance of many messages in timeline
-- [ ] Last read datetime - board users array - unread counter, user have read inticator, last read placeholder
 - [ ] Notifications
-- [ ] Show board path in statusbar
 - [ ] Video/Audio Call
+- [x] Better performance of many messages in timeline
+- [x] Last read datetime - board users array - unread counter, user have read inticator, last read placeholder
+- [x] Show board path in statusbar
 - [ ] Boards Global Settings
   - [ ] Metadata peview - Enable / Disable
   - [ ] Notifications - Enable / Disable
-  - [ ] Messages size - Normal / Compact
+  - [x] ~~Messages size - Normal / Compact~~
 - [ ] Improve sidebar
-  - [ ] Sidebar with all boards - Add Board, Bookmarked, Boards, Archived
   - [ ] Sidebar type: normal/contenced
-  - [ ] Show last message in sidebar if type is normal
+  - [x] Sidebar with all boards - Add Board, Bookmarked, Boards, Archived
+  - [x] Show last message in sidebar if type is normal
 - [ ] Board management
   - [ ] Archive boards
-  - [ ] Board picture
+  - [x] ~~Board picture~~
   - [x] Edit board
   - [x] Board color
   - [x] Topic
