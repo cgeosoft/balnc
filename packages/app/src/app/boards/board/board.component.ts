@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { Observable, Subject, Subscription } from 'rxjs'
+import { map } from 'rxjs/operators'
 import { Board } from '../@shared/models/board'
+import { BUser } from '../@shared/models/buser'
 import { Message } from '../@shared/models/message'
 import { BoardsRepo } from '../@shared/repos/boards.repo'
+import { BUsersRepo } from '../@shared/repos/buser.repo'
 import { EmojisService } from './../@shared/services/emojis.service'
 
 const urlRegex = /(https?:\/\/[^\s]+)/g
@@ -48,9 +51,12 @@ export class BoardComponent implements OnInit {
     return this.emojisService.emojis
   }
 
+  activeUsers$: Observable<BUser[]>
+
   constructor (
     private configService: ConfigService,
     private boardsRepo: BoardsRepo,
+    private busersRepo: BUsersRepo,
     private route: ActivatedRoute,
     private emojisService: EmojisService
   ) { }
@@ -61,6 +67,8 @@ export class BoardComponent implements OnInit {
       if (!this.selected) return
       this.boardsRepo.selected = this.selected
       this.board$ = this.boardsRepo.one$(this.selected)
+      this.activeUsers$ = this.busersRepo.allm$()
+        .pipe(map((ub: BUser[]) => ub.filter(x => x._group && x.board === this.selected)))
     })
   }
   async pinBoard () {

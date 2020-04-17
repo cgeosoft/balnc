@@ -17,12 +17,14 @@ export class Repository<T> {
     group: null, mark: null
   }
 
-  get dbService () { return this.injector.get(RxDBService) }
-  get zone () { return this.injector.get(NgZone) }
+  protected dbService
+  zone
 
   constructor (
     private injector: Injector
   ) {
+    this.dbService = this.injector.get(RxDBService)
+    this.zone = this.injector.get(NgZone)
   }
 
   async all (params?: QueryParams): Promise<T[]> {

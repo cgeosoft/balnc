@@ -9,7 +9,6 @@ import { FilesComponent } from './board/files/files.component'
 import { ManageComponent } from './board/manage/manage.component'
 import { MessageComponent } from './board/timeline/message/message.component'
 import { TimelineComponent } from './board/timeline/timeline.component'
-import { BoardsComponent } from './boards/boards.component'
 import { SettingsComponent } from './settings/settings.component'
 
 @NgModule({
@@ -21,7 +20,6 @@ import { SettingsComponent } from './settings/settings.component'
     ShellComponent,
     BoardComponent,
     SettingsComponent,
-    BoardsComponent,
     TimelineComponent,
     MessageComponent,
     ManageComponent,

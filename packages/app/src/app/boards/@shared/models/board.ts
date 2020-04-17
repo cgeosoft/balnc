@@ -5,6 +5,7 @@ export interface Board extends Entity {
   description?: string
   topic?: string
   creator?: string
+  color?: string
   members?: {
     [k: string]: any;
   }[]

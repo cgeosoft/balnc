@@ -12,26 +12,27 @@ export class ManageComponent implements OnInit {
 
   board: Board
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private router: Router,
     private boardsRepo: BoardsRepo,
     private messagesRepo: MessagesRepo
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.route.parent.params.subscribe(async (params) => {
       this.board = await this.boardsRepo.one(params['id'])
     })
   }
 
-  async save() {
+  async save () {
     await this.boardsRepo.update(this.board._id, {
-      name: this.board.name
+      name: this.board.name,
+      color: this.board.color
     })
   }
 
-  async deleteBoard() {
+  async deleteBoard () {
     if (!confirm('Are you sure? All message will be deleted')) return
     await this.boardsRepo.remove(this.board._id)
 

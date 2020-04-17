@@ -1,21 +1,20 @@
 <ng-container *ngIf="(board$ | async) as board; else loader">
   <app-content>
-    <ng-container role="sidebar">
+    <ng-container role="rightbar">
+      <h4 class="header">{{board.name}}</h4>
       <dl>
-        <dt>Name
-          <button (click)="toggleMark()" class="btn btn-sm btn-link float-right">
-            <fa-icon icon="star" class="ml-2" [ngClass]="{'text-warning':board._mark,'text-secondary':!board._mark}">
-            </fa-icon>
-          </button>
-        </dt>
-        <dd>{{board.name}}</dd>
         <ng-container *ngIf="board.description">
-          <dt>Description</dt>
-          <dd>{{board.description}}</dd>
+          <div><strong>Description</strong></div>
+          <div>{{board.description}}</div>
+          <hr>
         </ng-container>
         <ng-container>
-          <dt>Members</dt>
-          <dd>???</dd>
+          <div><strong>Members</strong></div>
+          <ng-container *ngIf="(activeUsers$ |async)as activeUsers">
+            <ng-container *ngFor="let au of activeUsers">
+              <div><small class="text-monospace mr-1">{{au.lastread|date:"HH:mm:ss"}}</small> {{au._group}}</div>
+            </ng-container>
+          </ng-container>
         </ng-container>
       </dl>
       <hr>

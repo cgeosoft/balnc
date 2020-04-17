@@ -12,7 +12,9 @@ import { MENU } from '../../@core/models/menu'
 export class AppbarComponent {
 
   @HostBinding('class.compact') get compact () {
-    return this.configService.user?.config?.menu?.size === 'compact'
+    return this.configService.user?.config?.menu?.size
+      ? this.configService.user?.config?.menu?.size === 'compact'
+      : true
   }
 
   username: string

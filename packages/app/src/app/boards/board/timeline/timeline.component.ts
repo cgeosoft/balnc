@@ -4,10 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap'
 import { Observable, Subject, Subscription } from 'rxjs'
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators'
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators'
 import { Board } from '../../@shared/models/board'
+import { BUser } from '../../@shared/models/buser'
 import { Message, OgMetadata } from '../../@shared/models/message'
 import { BoardsRepo } from '../../@shared/repos/boards.repo'
+import { BUsersRepo } from '../../@shared/repos/buser.repo'
 import { MessagesRepo } from '../../@shared/repos/messages.repo'
 import { Emoji, EmojisService } from '../../@shared/services/emojis.service'
 import { GiphyIntegrationConfig } from './../../../@shared/models/workspace'
@@ -54,6 +56,7 @@ export class TimelineComponent implements OnInit {
   msgSeperatorDates = {}
 
   commands = ['topic']
+  activeUsers$: Observable<BUser[]>
 
   get avatars () {
     return this.configService.users.reduce((l, i) => {
@@ -78,63 +81,23 @@ export class TimelineComponent implements OnInit {
     private configService: ConfigService,
     private boardsRepo: BoardsRepo,
     private messagesRepo: MessagesRepo,
+    private busersRepo: BUsersRepo,
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
     private emojisService: EmojisService
   ) { }
 
-  ngOnInit () {
-    this.route.parent.params.subscribe(async (params) => {
-      this.selected = params['id']
-      if (!this.selected) return
-      this.boardsRepo.selected = this.selected
-      this.board$ = this.boardsRepo.one$(this.selected)
-      this.messages = null
-      this.sub = this.messagesRepo
-        .allm$({ group: this.selected })
-        .subscribe(async (messages) => {
-          this.messages = messages
-          this.messages.sort((a, b) => a._date - b._date)
-          this.msgSeperatorDates = this.messages.reduce((l, i) => {
-            let d = new Date(i._date)
-            let df = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()
-            let msg = Object.keys(l).find(x => l[x] === df)
-            if (!msg) l[i._id] = df
-            return l
-          }, {})
-          this.merged = this.messages.reduce((l, i, x) => {
-            if (this.messages[x - 1] &&
-              this.messages[x - 1].type === 'MESSAGE' &&
-              this.messages[x].type === 'MESSAGE' &&
-              this.messages[x - 1].sender === this.messages[x].sender) {
-              l[this.messages[x - 1]._id] = true
-            }
-            return l
-          }, {})
-          const ps = this.messages.map(async (msg, i) => {
-            if (!this.previews[msg._id]) {
-              this.previews[msg._id] = {}
-            }
-            if (msg.file && !this.previews[msg._id].file) {
-              this.previews[msg._id].file = await this.messagesRepo.getAttachment(msg._id, msg.file)
-              if (this.previews[msg._id].file) {
-                this.previews[msg._id].blob = await this.previews[msg._id].file.getData()
-                if (this.previews[msg._id].file.type.startsWith('image/')) {
-                  this.previews[msg._id].base64 = await this.getImage(this.previews[msg._id].blob, this.previews[msg._id].file.type)
-                }
-              }
-            }
-            if (msg.text) {
-              msg.text = msg.text.replace(urlRegex, (url) => `<a target="_blank" href="${url}">${url}</a>`)
-            }
-          })
-          await Promise.all(ps)
-          this.focusInput()
-          this.scrollToBottom()
-        })
-    })
+  async ngOnInit () {
+    this.sub = this.route.parent.params.pipe(
+      map(params => params['id']),
+      switchMap(id => this.feedMessages(id))
+    ).subscribe()
 
+    this.enableGiphy()
+  }
+
+  enableGiphy () {
     if (this.giphy?.enabled && this.giphy?.apiKey) {
       this.giphySearch$
         .pipe(
@@ -151,11 +114,62 @@ export class TimelineComponent implements OnInit {
     }
   }
 
+  feedMessages (id) {
+    this.selected = id
+    if (!this.selected) return
+    this.boardsRepo.selected = this.selected
+    this.board$ = this.boardsRepo.one$(this.selected)
+    this.messages = null
+    return this.messagesRepo.allm$({ group: this.selected }).pipe(
+      map(async (messages) => {
+        await this.busersRepo.join(this.selected)
+        this.messages = messages
+        this.messages.sort((a, b) => a._date - b._date)
+        this.msgSeperatorDates = this.messages.reduce((l, i) => {
+          let d = new Date(i._date)
+          let df = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()
+          let msg = Object.keys(l).find(x => l[x] === df)
+          if (!msg) l[i._id] = df
+          return l
+        }, {})
+        this.merged = this.messages.reduce((l, i, x) => {
+          if (this.messages[x - 1] &&
+            this.messages[x - 1].type === 'MESSAGE' &&
+            this.messages[x].type === 'MESSAGE' &&
+            this.messages[x - 1].sender === this.messages[x].sender) {
+            l[this.messages[x - 1]._id] = true
+          }
+          return l
+        }, {})
+        const ps = this.messages.map(async (msg, i) => {
+          if (!this.previews[msg._id]) {
+            this.previews[msg._id] = {}
+          }
+          if (msg.file && !this.previews[msg._id].file) {
+            this.previews[msg._id].file = await this.messagesRepo.getAttachment(msg._id, msg.file)
+            if (this.previews[msg._id].file) {
+              this.previews[msg._id].blob = await this.previews[msg._id].file.getData()
+              if (this.previews[msg._id].file.type.startsWith('image/')) {
+                this.previews[msg._id].base64 = await this.getImage(this.previews[msg._id].blob, this.previews[msg._id].file.type)
+              }
+            }
+          }
+          if (msg.text) {
+            msg.text = msg.text.replace(urlRegex, (url) => `<a target="_blank" href="${url}">${url}</a>`)
+          }
+        })
+        await Promise.all(ps)
+        this.focusInput()
+        this.scrollToBottom()
+      }))
+  }
+
   trackByMessages (index: number, el: Message) {
     return el._id
   }
 
-  ngOnDestroy () {
+  async ngOnDestroy () {
+    // await this.buserRepo.leave(this.selected)
     this.sub.unsubscribe()
   }
 
@@ -204,7 +218,11 @@ export class TimelineComponent implements OnInit {
       data.quote = this.quote
     }
 
-    this.messages.push(data as Message)
+    this.messages.push({
+      ...data, ...{
+        _date: Date.now()
+      }
+    } as Message)
     this.scrollToBottom()
 
     const message = await this.messagesRepo.add(data, this.selected)

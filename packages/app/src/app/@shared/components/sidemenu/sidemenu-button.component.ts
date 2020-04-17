@@ -9,8 +9,8 @@ import { MenuItem } from './menu-item'
 export class SidemenuButtonComponent {
 
   @HostBinding('class.highlight') get highlight () {
-    return this.item.highlight
+    return this.i.highlight
   }
 
-  @Input() item: MenuItem
+  @Input('item') i: MenuItem
 }

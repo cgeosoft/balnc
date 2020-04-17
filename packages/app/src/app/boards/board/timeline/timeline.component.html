@@ -17,7 +17,7 @@
         <ng-container [ngSwitch]="m.type">
           <ng-container *ngSwitchCase="'MESSAGE'">
             <div class="msg-item" [ngClass]="{'own':m.sender === nickname,'merged':merged[m._id]}">
-              <div class="msg-time">{{m._date|date:'hh:mm'}}</div>
+              <div class="msg-time">{{m._date|date:'HH:mm:ss'}}</div>
               <div class="msg-avatar">
                 <img [src]="avatars[m.sender] || '/assets/images/no-avatar.png'" [ngbTooltip]="m.sender"
                   placement="bottom" container="body">
@@ -96,7 +96,7 @@
           </ng-container>
           <ng-container *ngSwitchCase="'EVENT'">
             <div class="event-item">
-              <div class="event-time">{{m._date|date:'hh:mm'}}</div>
+              <div class="event-time">{{m._date|date:'HH:mm:ss'}}</div>
               <div class="event-text">{{m.text}} <small>~{{m.sender}}</small></div>
             </div>
           </ng-container>

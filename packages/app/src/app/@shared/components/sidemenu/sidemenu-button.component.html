@@ -1,28 +1,40 @@
 <div class="item">
-  <ng-container *ngIf="item.route">
-    <button [routerLink]="item.route" routerLinkActive="active" class="action">
-      <fa-icon [icon]="item.icon" class="icon"></fa-icon>
-      <span>{{item.label}}</span>
+  <ng-container *ngIf="i.route">
+    <button [routerLink]="i.route" routerLinkActive="active" class="action" [ngClass]="i.cssClass">
+      <fa-icon [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
+      <span class="content">
+        <span>{{i.label}}</span>
+        <small>{{i.sublabel}}</small>
+      </span>
+      <span class="note" *ngIf="i.note">{{i.note}}</span>
     </button>
   </ng-container>
-  <ng-container *ngIf="item.action">
-    <button (click)="item.action()" class="action">
-      <fa-icon [icon]="item.icon" class="icon"></fa-icon>
-      <span>{{item.label}}</span>
+  <ng-container *ngIf="i.action">
+    <button (click)="i.action()" class="action" [ngClass]="i.cssClass">
+      <fa-icon [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
+      <span class="content">
+        <span>{{i.label}}</span>
+        <small>{{i.sublabel}}</small>
+      </span>
+      <span class="note" *ngIf="i.note">{{i.note}}</span>
     </button>
   </ng-container>
-  <ng-container *ngIf="!item.route && !item.action">
-    <div class="action">
-      <fa-icon [icon]="item.icon" class="icon"></fa-icon>
-      <span>{{item.label}}</span>
+  <ng-container *ngIf="!i.route && !i.action">
+    <div class="action" [ngClass]="i.cssClass">
+      <fa-icon [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
+      <span class="content">
+        <span>{{i.label}}</span>
+        <small>{{i.sublabel}}</small>
+      </span>
+      <span class="note" *ngIf="i.note">{{i.note}}</span>
     </div>
   </ng-container>
-  <button *ngIf="item.items && item.items.length" (click)="item.expanded = !item.expanded" class="expand">
-    {{item.expanded ? "-":"+"}}
+  <button *ngIf="i.items && i.items.length" (click)="i.expanded = !i.expanded" class="expand">
+    {{i.expanded ? "-":"+"}}
   </button>
 </div>
-<div *ngIf="item.items" class="submenu" [ngClass]="{expanded:item.expanded}">
-  <ng-container *ngFor="let s of item.items">
+<div *ngIf="i.items" class="submenu" [ngClass]="{expanded:i.expanded}">
+  <ng-container *ngFor="let s of i.items">
     <app-sidemenu-button [item]="s"></app-sidemenu-button>
   </ng-container>
 </div>
