@@ -64,7 +64,7 @@ export class MainShellComponent {
     this.usersRepo.allm$().subscribe((users: User[]) => {
       this.configService.users = users
       if (!this.configService.user) {
-        this.modal.open(UserFormComponent, { size: 'md', centered: true })
+        this.modal.open(UserFormComponent, { size: 'sm', centered: true })
       }
     })
 

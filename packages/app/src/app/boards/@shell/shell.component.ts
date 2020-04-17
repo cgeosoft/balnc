@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
-import { MenuItem } from '@balnc/shared'
+import { Helpers, MenuItem } from '@balnc/shared'
 import { combineLatest, Observable } from 'rxjs'
 import { map, tap } from 'rxjs/operators'
 import { BoardStats } from '../@shared/models/board-stats'
@@ -58,7 +58,7 @@ export class ShellComponent implements OnInit {
       })
     )
 
-    const lastRead$ = this.buserRepo.allm$({ group: this.configService.username }).pipe(
+    const lastRead$ = this.buserRepo.allm$({ group: this.configService.userId }).pipe(
       map((busers: BUser[]) => {
         return busers.reduce((l, i) => {
           l[i.board] = i.lastread
@@ -78,10 +78,10 @@ export class ShellComponent implements OnInit {
         const unread = messages
           .filter(m =>
             m._date > lastread &&
-            m.sender !== this.configService.username).length
+            m.sender !== this.configService.userId).length
         return {
           label: board.name,
-          sublabel: messages[0]?.text ?? 'no messages',
+          sublabel: messages[0]?.text ?? '...',
           icon: ['fas', 'comments'],
           iconColor: board.color,
           route: ['/boards', board._id],
@@ -106,8 +106,8 @@ export class ShellComponent implements OnInit {
   async create () {
     console.log('create board')
     const board = await this.boardsRepo.add({
-      name: 'New Board',
-      creator: this.configService.username
+      name: Helpers.generateName(),
+      creator: this.configService.userId
     })
     await this.router.navigate(['/boards', board._id])
   }

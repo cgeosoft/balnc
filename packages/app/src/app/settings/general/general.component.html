@@ -15,39 +15,10 @@
   </section>
   <section>
     <h4>Users</h4>
-
-    <p>All user accounts are available for switching</p>
-
-    <div class="form-group">
-      <label for="">Create New User</label>
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Username</span>
-        </div>
-        <input #newUserUsername class="form-control">
-        <div class="input-group-append">
-          <button class="btn btn-primary" (click)="createUser(newUserUsername.value)">Create</button>
-        </div>
-      </div>
-    </div>
-
-    <ng-container *ngIf="(users$ |async) as users">
-      <table class="table table-sm">
-        <ng-container *ngFor="let user of users">
-          <tr>
-            <td>{{user.username}} <span *ngIf="user.owner">owner</span></td>
-            <td style="width:70px">
-              <div *ngIf="user.username === username" class="text-center text-success">active</div>
-              <button *ngIf="user.username !== username" class="btn btn-outline-primary btn-sm btn-block"
-                (click)="switchUser(user.username)">switch</button>
-              <button *ngIf="user.username !== username" class="btn btn-outline-danger btn-sm btn-block"
-                (click)="removeUser(user._id)"><fa-icon icon="trash"></fa-icon> </button>
-            </td>
-          </tr>
-        </ng-container>
-      </table>
-    </ng-container>
-
+    <p>You may have more than own user in a workspace. You may freely swich between user or create new one.</p>
+    <p>Current user: <strong>{{user.username}}</strong>  <small class="text-muted text-monospace">{{user._id}}</small></p>
+    <button class="btn btn-primary" (click)="createUser()">Create / Switch</button>
+    <button class="btn btn-outline-danger ml-2" (click)="removeUser()">Delete current user</button>
   </section>
   <section>
     <h4>Layout & Theme</h4>
@@ -81,7 +52,7 @@
       <label class="mr-2">Show Menu Items:</label>
       <div class="row">
         <ng-container *ngFor="let item of menu">
-          <div class="col-md-3">
+          <div class="col-md-2">
             <div class="custom-control custom-checkbox custom-control-inline">
               <input type="checkbox" class="custom-control-input" id="{{'menuItem'+item.label}}" (change)="saveUser()"
                 [(ngModel)]="showMenuItems[item.label]">
@@ -138,7 +109,7 @@
       <input type="checkbox" class="form-check-input" id="deleteDataRemote" [(ngModel)]="deleteDataRemote">
       <label class="form-check-label" for="deleteDataRemote">Also delete remote data</label>
     </div>
-    <button class="btn btn-danger" [disabled]="!deleteData" (click)="delete()">
+    <button class="btn btn-danger" [disabled]="!deleteData" (click)="deleteWorkspace()">
       Remove Workspace
     </button>
   </section>

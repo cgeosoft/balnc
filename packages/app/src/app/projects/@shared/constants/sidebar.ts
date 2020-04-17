@@ -7,13 +7,13 @@ export const PROJECTS_SIDEBAR = {
       label: 'Overview',
       type: 'button',
       icon: 'border-all',
-      url: '/projects/overview'
+      route: '/projects/overview'
     },
     {
       label: 'Projects',
       type: 'button',
       icon: 'tasks',
-      url: '/projects/projects'
+      route: '/projects/projects'
     },
     {
       type: 'divider'
@@ -30,7 +30,7 @@ export const PROJECTS_SIDEBAR = {
       label: 'Settings',
       type: 'button',
       icon: 'cog',
-      url: '/projects/settings'
+      route: '/projects/settings'
     }
   ]
 }

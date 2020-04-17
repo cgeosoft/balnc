@@ -65,7 +65,7 @@ export class TimelineComponent implements OnInit {
   }
 
   get nickname () {
-    return this.configService.user.username
+    return this.configService.user?.username
   }
 
   get emojis () {
@@ -240,8 +240,6 @@ export class TimelineComponent implements OnInit {
     })
     await this.messagesRepo.add({
       text: `Topic changed to "${topic}"`,
-      sender: this.nickname,
-      status: 'SEND',
       type: 'EVENT'
     }, this.selected)
   }

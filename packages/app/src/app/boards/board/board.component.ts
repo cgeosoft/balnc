@@ -44,7 +44,14 @@ export class BoardComponent implements OnInit {
   msgSeperatorDates = {}
 
   get nickname () {
-    return this.configService.user.username
+    return this.configService.user?.username
+  }
+
+  get usernames () {
+    return this.configService.users.reduce((l, i) => {
+      l[i._id] = i.username
+      return l
+    }, {})
   }
 
   get emojis () {

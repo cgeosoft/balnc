@@ -155,6 +155,7 @@ export class Repository<T> {
   }
 
   private mappedItems (items) {
+    if (!items) return []
     const r = items
       .filter(i => i && i._id)
       .map((i: DbEntity) => RepositoryHelpers.mapEntity(i))

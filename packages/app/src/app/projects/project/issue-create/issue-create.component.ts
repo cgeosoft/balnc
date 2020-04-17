@@ -19,7 +19,7 @@ export class IssueCreateComponent implements OnInit {
     private activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private issuesRepo: IssuesRepo,
-    private config: ConfigService
+    private configService: ConfigService
   ) { }
 
   get modal () {
@@ -39,7 +39,7 @@ export class IssueCreateComponent implements OnInit {
     const issueId = await this.issuesRepo.add({
       title: formModel.title,
       description: formModel.description,
-      user: this.config.username,
+      user: this.configService.userId,
       type: IssueType.issue,
       status: IssueStatus.open
     }, this.projectId)

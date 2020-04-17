@@ -21,6 +21,9 @@
     color: $primary-color;
     padding: 1rem 2rem;
     font-size: 1.2rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 5px #999;
     fa-icon {
       margin-right: 1rem;
     }
@@ -43,42 +46,46 @@
     @extend .mb-2;
   }
 
-  .event-item {
+  .event-time,
+  .msg-time {
+    color: #999;
+    font-size: 0.8rem;
+    min-width: 50px;
+    margin-right: 0.7rem;
+    font-family: monospace;
+    line-height: 30px;
+    height: 30px;
+  }
+
+  .event-item,
+  .msg-item {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 1rem;
+    align-items: flex-start;
+    margin-bottom: 0.4rem;
+  }
 
-    .event-time {
-      color: #666;
-      font-size: 0.8rem;
-      min-width: 34px;
-      margin-right: 1rem;
-      font-family: monospace;
-    }
+  .event-item {
     .event-text {
       font-size: 0.9rem;
       font-family: monospace;
-      margin: .4rem 0;
-      color: $body-color;
+      margin-left: .5rem;
+      color: lighten($body-color,10%);
       font-style: italic;
+      line-height: 30px;
+      height: 30px;
     }
   }
 
   .date-saperator {
     text-align: center;
-    font-size: .8rem;
+    font-size: 0.8rem;
     font-family: monospace;
-    margin: .3rem;
-    color: #666;
+    margin: 0.4rem 0;
+    color: #999;
   }
 
   .msg-item {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 1rem;
-
     .msg-avatar {
       @extend .mr-2;
       width: 30px;
@@ -110,8 +117,7 @@
       }
 
       .msg-text {
-        @extend .py-1;
-        @extend .px-2;
+        padding: .2rem .5rem;
       }
 
       .msg-quote {
@@ -143,39 +149,15 @@
       }
     }
 
-    .msg-time {
-      color: #666;
-      font-size: 0.8rem;
-      min-width: 34px;
-      margin-right: 0.5rem;
-      font-family: monospace;
-    }
-
     &.own {
       .msg-body {
-        background: #d6d6d6;
+        background: #ececec;
       }
     }
 
     &:hover {
       .msg-menu {
         opacity: 1;
-      }
-    }
-
-    &.merged {
-      @extend .mb-1;
-      .msg-avatar {
-        img {
-          opacity: 0;
-        }
-      }
-      &:hover {
-        .msg-avatar {
-          img {
-            opacity: 1;
-          }
-        }
       }
     }
   }

@@ -1,16 +1,15 @@
-import { Component } from '@angular/core'
-import { ConfigService, DEFAULT_USER, UsersRepo } from '@balnc/core'
+import { Component, OnInit } from '@angular/core'
+import { ConfigService, DEFAULT_USER, User, UsersRepo } from '@balnc/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html'
 })
-export class UserFormComponent {
+export class UserFormComponent implements OnInit {
 
-  get users () {
-    return this.configService.users
-  }
+  users$: Observable<User[]>
 
   get activeModal () {
     return this.modal
@@ -22,18 +21,17 @@ export class UserFormComponent {
     private usersRepo: UsersRepo
   ) { }
 
-  select (username) {
-    this.configService.username = username
+  ngOnInit () {
+    this.users$ = this.usersRepo.allm$()
+  }
+
+  select (userId) {
+    this.configService.userId = userId
     this.activeModal.close()
   }
 
   async create (username) {
-    if (this.users.find(x => x.username === username)) {
-      this.select(username)
-      return
-    }
-    const owner = !!this.configService.users?.length
-    await this.usersRepo.add({ ...DEFAULT_USER, ...{ username, owner } })
+    await this.usersRepo.add({ ...DEFAULT_USER, ...{ username } })
     this.select(username)
   }
 

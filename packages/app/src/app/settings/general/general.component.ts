@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import * as Sentry from '@sentry/browser'
 import { Angulartics2 } from 'angulartics2'
 import { Observable, Subscription } from 'rxjs'
+import { UserFormComponent } from 'src/app/@main/user-form/user-form.component'
 
 @Component({
   selector: 'app-settings-general',
@@ -40,7 +41,7 @@ export class GeneralComponent implements OnInit, OnDestroy {
   sub: Subscription
 
   get username () {
-    return this.configService.username
+    return this.configService.user?.username
   }
 
   constructor (
@@ -57,7 +58,7 @@ export class GeneralComponent implements OnInit, OnDestroy {
     this.workspace = this.configService.workspace
     this.user = { ...DEFAULT_USER, ...this.configService.user }
     this.sub = this.usersRepo.allm$().subscribe((users) => {
-      const user = users.find(x => x.username === this.configService.username)
+      const user = users.find(x => x._id === this.configService.userId)
       this.user = { ...DEFAULT_USER, ...user }
       this.showMenuItems = this.menu.reduce((l, x) => {
         l[x.label] = (this.configService.user?.config?.menu?.items || []).indexOf(x.label) === -1
@@ -71,7 +72,7 @@ export class GeneralComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe()
   }
 
-  async delete () {
+  async deleteWorkspace () {
     if (!confirm('Are you sure?')) return
     await this.dbService.remove(this.workspace.key)
     this.configService.remove(this.workspace.key)
@@ -93,19 +94,12 @@ export class GeneralComponent implements OnInit, OnDestroy {
     a.click()
   }
 
-  switchUser (username: string) {
-    this.configService.username = username
+  removeUser () {
+    return this.usersRepo.remove(this.user._id)
   }
 
-  removeUser (userId) {
-    return this.usersRepo.remove(userId)
-  }
-
-  async createUser (username: string) {
-    await this.usersRepo.add({
-      username
-    })
-    this.configService.username = username
+  createUser () {
+    this.modal.open(UserFormComponent, { size: 'sm', centered: true })
   }
 
   saveWorkspace () {

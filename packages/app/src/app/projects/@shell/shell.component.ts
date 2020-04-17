@@ -25,7 +25,7 @@ export class ShellComponent implements OnInit {
             return {
               label: p.name,
               icon: ['far', 'bookmark'],
-              url: ['/projects/projects', p._id]
+              route: ['/projects/projects', p._id]
             }
           })
         })

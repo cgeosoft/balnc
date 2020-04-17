@@ -12,7 +12,7 @@
           <div><strong>Members</strong></div>
           <ng-container *ngIf="(activeUsers$ |async)as activeUsers">
             <ng-container *ngFor="let au of activeUsers">
-              <div><small class="text-monospace mr-1">{{au.lastread|date:"HH:mm:ss"}}</small> {{au._group}}</div>
+              <div><small class="text-monospace mr-1">{{au.lastread|date:"HH:mm:ss"}}</small> {{usernames[au._group]}}</div>
             </ng-container>
           </ng-container>
         </ng-container>

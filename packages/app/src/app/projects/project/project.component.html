@@ -1,7 +1,7 @@
 <ng-container *ngIf="project$ | async as project; else loader">
   <ng-container *ngIf="project; else empty">
     <app-content>
-      <div role="sidebar">
+      <div role="leftbar">
         <div class="d-flex justify-content-between">
           <strong>{{project.name}}</strong>
           <button (click)="toggleMark(project._id)" class="btn btn-sm btn-link float-right p-0">

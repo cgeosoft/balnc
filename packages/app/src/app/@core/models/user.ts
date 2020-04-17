@@ -4,7 +4,6 @@ export interface User extends Entity {
   username: string
   email?: string
   avatar?: string
-  owner?: boolean
   config?: {
     theme: 'light' | 'dark';
     layout?: 'box' | 'fluid';

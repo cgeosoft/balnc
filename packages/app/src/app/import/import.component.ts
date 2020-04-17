@@ -38,7 +38,6 @@ export class ImportComponent implements OnInit {
   async start () {
     this.loading = true
     const key = this.configService.save({ ...DEFAULT_WORKSPACE })
-    this.configService.username = this.username
     this.configService.activated = key
     await this.dbService.setup()
     const config: Partial<ServerIntegration> = {

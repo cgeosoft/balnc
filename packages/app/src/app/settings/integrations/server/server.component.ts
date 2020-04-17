@@ -11,6 +11,7 @@ export class ServerComponent {
   @Output() configChange = new EventEmitter<ServerIntegration>()
 
   get shareable () {
+    if (!this.config.enabled) return
     const config = {
       h: this.config.host,
       d: this.config.dbName

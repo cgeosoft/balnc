@@ -47,7 +47,7 @@ export class IssueComponent implements OnInit {
     private formBuilder: FormBuilder,
     private peventsRepo: PEventsRepo,
     private issuesRepo: IssuesRepo,
-    private config: ConfigService
+    private configService: ConfigService
   ) { }
 
   ngOnInit () {
@@ -98,7 +98,7 @@ export class IssueComponent implements OnInit {
 
     const event: Partial<PEvent> = {
       text: formModel.comment,
-      user: this.config.username,
+      user: this.configService.userId,
       type: PEventType.comment
     }
     await this.peventsRepo.add(event, this.issueId)
@@ -118,7 +118,7 @@ export class IssueComponent implements OnInit {
     return this.peventsRepo.add({
       type: PEventType.activity,
       text: message,
-      user: this.config.username
+      user: this.configService.userId
     }, this.issueId)
   }
 

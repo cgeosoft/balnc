@@ -16,7 +16,7 @@ export class ConfigService {
   @LocalStorage() roles: string[] = []
   @LocalStorage() activated: string = ''
   @LocalStorage() workspaces: Workspace[] = []
-  @LocalStorage() username: string = null
+  @LocalStorage() userId: string = null
 
   users: User[]
   integrations?: { [key: string]: Integration }
@@ -36,7 +36,7 @@ export class ConfigService {
   }
 
   get user (): User {
-    return this.users?.find(u => u.username === this.username)
+    return this.users?.find(u => u._id === this.userId)
   }
 
   constructor () {

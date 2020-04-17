@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core'
-import { RouterModule } from '@angular/router'
+import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
 import { BOARDS_ROUTES } from './@shared/constants/routes'
+import { BoardsRepo } from './@shared/repos/boards.repo'
 import { EmojisService } from './@shared/services/emojis.service'
 import { ShellComponent } from './@shell/shell.component'
 import { BoardComponent } from './board/board.component'
@@ -26,7 +27,13 @@ import { SettingsComponent } from './settings/settings.component'
     FilesComponent
   ],
   providers: [
-    EmojisService
+    EmojisService,
+    {
+      provide: 'boardNameResolver',
+      useFactory: (repo: BoardsRepo) => (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
+        repo.one(route.paramMap.get('id')).then(x => x.name),
+      deps: [BoardsRepo]
+    }
   ]
 })
 export class BoardsModule { }

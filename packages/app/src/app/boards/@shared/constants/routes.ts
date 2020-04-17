@@ -3,35 +3,40 @@ import { BoardComponent } from '../../board/board.component'
 import { FilesComponent } from '../../board/files/files.component'
 import { ManageComponent } from '../../board/manage/manage.component'
 import { TimelineComponent } from '../../board/timeline/timeline.component'
-import { SettingsComponent } from '../../settings/settings.component'
 
 export const BOARDS_ROUTES = [{
   path: '',
   component: ShellComponent,
+  data: {
+    title: 'boards'
+  },
   children: [
-    // {
-    //   path: 'manage',
-    //   component: BoardsComponent
-    // },
-    {
-      path: 'settings',
-      component: SettingsComponent
-    },
     {
       path: ':id',
       component: BoardComponent,
+      resolve: {
+        title: 'boardNameResolver'
+      },
       children: [{
         path: 'timeline',
-        component: TimelineComponent
+        component: TimelineComponent,
+        data: {
+          title: 'timeline'
+        }
       }, {
         path: 'manage',
-        component: ManageComponent
+        component: ManageComponent,
+        data: {
+          title: 'manage'
+        }
       }, {
         path: 'files',
-        component: FilesComponent
+        component: FilesComponent,
+        data: {
+          title: 'files'
+        }
       },
       { path: '', redirectTo: 'timeline', pathMatch: 'full' }]
-    },
-    // { path: '', redirectTo: 'manage', pathMatch: 'full' }
+    }
   ]
 }]
