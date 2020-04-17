@@ -10,6 +10,11 @@
         <pre class="mb-0">{{config|json:2}}</pre>
       </div>
     </div>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" class="form-control" [(ngModel)]="username">
+      <small class="form-text text-muted">If username exists in remote server, all your settings will be synced</small>
+    </div>
   </div>
   <div class="card-footer">
     <span>&nbsp;</span>

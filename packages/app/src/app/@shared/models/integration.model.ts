@@ -1,4 +1,4 @@
-export interface Integration {
+export interface IntegrationView {
   key: string
   title: string
   description?: string
@@ -8,7 +8,7 @@ export interface Integration {
   disabled?: boolean
 }
 
-export const INTEGRATIONS: Integration[] = [{
+export const INTEGRATIONS: IntegrationView[] = [{
   key: 'server',
   title: 'Balnc Server',
   icon: ['far', 'smile'],

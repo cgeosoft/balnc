@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ConfigService } from '../@core/services/config.service'
-import { RxDBService } from '../@core/services/rxdb.service'
-import { DEFAULT_WORKSPACE } from '../@shared/models/workspace'
+import { ConfigService, DEFAULT_WORKSPACE, IntegrationsRepo, RxDBService, ServerIntegration } from '@balnc/core'
 
 @Component({
   selector: 'app-import',
@@ -12,7 +10,8 @@ import { DEFAULT_WORKSPACE } from '../@shared/models/workspace'
 export class ImportComponent implements OnInit {
 
   loading = false
-  config
+  config: any
+  username: string
 
   get version () {
     return this.configService.version
@@ -26,7 +25,8 @@ export class ImportComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private dbService: RxDBService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private integrationRepo: IntegrationsRepo
   ) { }
 
   ngOnInit (): void {
@@ -38,10 +38,16 @@ export class ImportComponent implements OnInit {
   async start () {
     this.loading = true
     const key = this.configService.save({ ...DEFAULT_WORKSPACE })
+    this.configService.username = this.username
     this.configService.activated = key
-    this.configService.setup()
     await this.dbService.setup()
-    await this.dbService.updateIntergration('server', this.config)
+    const config: Partial<ServerIntegration> = {
+      enabled: true,
+      host: this.config.h,
+      dbEnable: true,
+      dbName: this.config.d
+    }
+    await this.integrationRepo.add(config, 'server')
     await this.router.navigateByUrl('/')
   }
 

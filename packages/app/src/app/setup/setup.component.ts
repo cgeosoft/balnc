@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { ConfigService } from '@balnc/core'
-import { DEFAULT_WORKSPACE, Workspace } from '@balnc/shared'
+import { ConfigService, DEFAULT_WORKSPACE, Workspace } from '@balnc/core'
 import { ReadFile } from 'ngx-file-helpers'
 import { ToastrService } from 'ngx-toastr'
 

@@ -1,7 +1,7 @@
 import { Component, HostBinding } from '@angular/core'
 import { ConfigService } from '@balnc/core'
-import { COLORS, Integration } from '@balnc/shared'
-import { MENU } from '../../@core/models/menu'
+import { COLORS, IntegrationView } from '@balnc/shared'
+import { MENU } from '../../@shared/models/menu'
 
 @Component({
   selector: 'app-appbar',
@@ -24,7 +24,7 @@ export class AppbarComponent {
 
   pageLoading = false
 
-  plugins: Integration[] = []
+  plugins: IntegrationView[] = []
 
   colors = COLORS
   _menu: any[] = MENU

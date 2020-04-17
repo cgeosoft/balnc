@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { EnvBuild } from '@balnc/shared'
 import { interval, Observable } from 'rxjs'
 import { catchError, map, switchMap } from 'rxjs/operators'
-import { environment } from 'src/environments/environment'
+import { environment } from '../../../environments/environment'
+import { EnvBuild } from '../../@shared/models/env-build'
 
 @Injectable({
   providedIn: 'root'

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { Workspace } from '@balnc/shared'
+import { Workspace } from '@balnc/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { ConfigService } from './../../@core/services/config.service'
 

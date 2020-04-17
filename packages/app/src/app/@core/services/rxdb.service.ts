@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable, Injector } from '@angular/core'
-import { ServerIntegrationConfig, User } from '@balnc/shared'
 import { ToastrService } from 'ngx-toastr'
 import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterIdb from 'pouchdb-adapter-idb'
@@ -21,6 +20,7 @@ import RxDBValidateModule from 'rxdb/plugins/validate'
 import environment from '../../../environments/environment'
 import { Migrations } from '../migrations'
 import schema from '../models/entity.json'
+import { ServerIntegration } from '../models/integration'
 import { ConfigService } from '../services/config.service'
 
 if (!environment.production) {
@@ -52,7 +52,7 @@ export class RxDBService {
   private repStateGQL: RxGraphQLReplicationState
   repStateCouch$: any
   entities: RxCollection
-  workspace$
+  // workspace$
 
   get http () {
     return this.injector.get(HttpClient)
@@ -82,7 +82,7 @@ export class RxDBService {
       return
     }
 
-    console.log('[DatabaseService]', `Initializing DB: ${this.workspace.key}`)
+    console.log('[DatabaseService]', `Initializing DB: balnc_${this.workspace.key}`)
     try {
       this.db = await RxDB.create({
         name: `balnc_${this.workspace.key}`,
@@ -99,56 +99,11 @@ export class RxDBService {
       migrationStrategies: Migrations
     })
 
-    await this.setupDefaults()
-
     await this.setupCache()
   }
 
-  async setupDefaults () {
-    this.workspace$ = this.db.entities.findOne('workspace').$
-    const workspace = await this.db.entities.findOne('workspace').exec()
-    if (!workspace) {
-      const workspace = {
-        _id: 'workspace',
-        t: 'system',
-        c: { users: [], integrations: {} },
-        d: Date.now(),
-        s: []
-      }
-      await this.db.entities.insert(workspace)
-    }
-  }
-
-  async upsetUser (user: User) {
-    const workspace = await this.db.entities.findOne('workspace').exec()
-    const content = { ...workspace.c }
-    const i = content.users.findIndex(u => u.username === user.username)
-    if (i === -1) {
-      content.users.push(user)
-    } else {
-      content.users[i] = user
-    }
-
-    await workspace.update({
-      $set: {
-        c: content
-      }
-    })
-  }
-
-  async updateIntergration (key, config) {
-    const workspace = await this.db.entities.findOne('workspace').exec()
-    const content = { ...workspace.c }
-    content.integrations[key] = config
-    await workspace.update({
-      $set: {
-        c: content
-      }
-    })
-  }
-
   enableRemoteDB () {
-    const config = this.configService.integrations.server as ServerIntegrationConfig
+    const config = this.configService.integrations.server as ServerIntegration
     let host = config.dbHost || `${config.host}/db`
     this.repStateCouch$ = this.db.entities.sync({
       remote: `${host}/${config.dbName}`
@@ -163,7 +118,7 @@ export class RxDBService {
   }
 
   async needAuthentication () {
-    const config = this.configService.integrations.server as ServerIntegrationConfig
+    const config = this.configService.integrations.server as ServerIntegration
     const host = config.dbHost || `${config.host}/db`
     const resp = await this.http.get(`${host}/_session`, { withCredentials: true }).toPromise().catch(() => false)
     if (!resp) {
@@ -178,7 +133,7 @@ export class RxDBService {
   }
 
   async authenticate (username: string, password: string) {
-    const config = this.configService.integrations.server as ServerIntegrationConfig
+    const config = this.configService.integrations.server as ServerIntegration
     const host = config.dbHost || `${config.host}/db`
     return this.http.post(`${host}/_session`, {
       name: username,

@@ -7,8 +7,8 @@ import { ChangelogComponent } from './changelog/changelog.component'
 import { ErrorComponent } from './error/error.component'
 import { LoginComponent } from './login/login.component'
 import { MainGuard } from './main.guard'
-import { ProfileComponent } from './profile/profile.component'
 import { StatusbarComponent } from './statusbar/statusbar.component'
+import { UserFormComponent } from './user-form/user-form.component'
 
 @NgModule({
   imports: [
@@ -22,7 +22,7 @@ import { StatusbarComponent } from './statusbar/statusbar.component'
     StatusbarComponent,
     ChangelogComponent,
     LoginComponent,
-    ProfileComponent
+    UserFormComponent
   ],
   providers: [
     MainGuard
@@ -34,7 +34,7 @@ import { StatusbarComponent } from './statusbar/statusbar.component'
   entryComponents: [
     ChangelogComponent,
     LoginComponent,
-    ProfileComponent
+    UserFormComponent
   ]
 })
 export class MainModule { }

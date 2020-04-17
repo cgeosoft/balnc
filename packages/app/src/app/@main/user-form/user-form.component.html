@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title">Setup user</h4>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="create(username.value)">
+    <div class="form-group">
+      <label>Username</label>
+      <div class="d-flex">
+        <input #username required class="form-control">
+        <button type="button" class="btn btn-success ml-2" type="submit">Create</button>
+      </div>
+    </div>
+  </form>
+  <ng-container *ngIf="users.length">
+    <form (ngSubmit)="select(existing.value)">
+      <hr>
+      <div class="form-group">
+        <label>Or one select one of the existing ones</label>
+        <div class="d-flex">
+          <select #existing class="form-control">
+            <option *ngFor="let u of users" [value]="u.username">{{u.username}}</option>
+          </select>
+          <button type="button" class="btn btn-primary ml-2" type="submit">Select</button>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</div>

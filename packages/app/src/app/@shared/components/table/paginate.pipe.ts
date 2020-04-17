@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core'
-import { RepositoryHelpers } from 'src/app/@core/services/repository.helpers'
+import { RepositoryHelpers } from '@balnc/core'
 import { TableProperty } from './table-schema'
 
 @Pipe({ name: 'paginate' })

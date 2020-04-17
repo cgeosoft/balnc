@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common'
 import { ErrorHandler, NgModule, Optional, SkipSelf } from '@angular/core'
-import { SharedModule } from '@balnc/shared'
 import { DateFnsModule } from 'ngx-date-fns'
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
 import { ToastrModule } from 'ngx-toastr'
@@ -28,8 +27,7 @@ import { UpdateService } from './services/update.service'
           smartypants: true
         }
       }
-    }),
-    SharedModule
+    })
   ],
   providers: [
     UpdateService,

@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { GiphyIntegrationConfig } from '@balnc/shared'
+import { GiphyIntegration } from '@balnc/core'
 
 @Component({
   selector: 'app-integration-giphy',
   templateUrl: './giphy.component.html'
 })
 export class GiphyComponent {
-  @Input() config: GiphyIntegrationConfig
-  @Output() configChange = new EventEmitter<GiphyIntegrationConfig>()
+  @Input() config: GiphyIntegration
+  @Output() configChange = new EventEmitter<GiphyIntegration>()
 
 }

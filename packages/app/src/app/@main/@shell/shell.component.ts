@@ -1,12 +1,11 @@
 import { Component } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router'
-import { ConfigService, RxDBService, UpdateService } from '@balnc/core'
-import { ServerIntegrationConfig } from '@balnc/shared'
+import { ConfigService, Integration, IntegrationsRepo, RxDBService, ServerIntegration, UpdateService, User, UsersRepo } from '@balnc/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
 import { Subscription } from 'rxjs'
 import { LoginComponent } from '../../@main/login/login.component'
-import { ProfileComponent } from '../../@main/profile/profile.component'
+import { UserFormComponent } from '../user-form/user-form.component'
 
 @Component({
   selector: 'app-main-shell',
@@ -43,6 +42,8 @@ export class MainShellComponent {
     private toastr: ToastrService,
     private update: UpdateService,
     private dbService: RxDBService,
+    private usersRepo: UsersRepo,
+    private integrationsRepo: IntegrationsRepo,
     private modal: NgbModal
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
@@ -60,30 +61,48 @@ export class MainShellComponent {
       }
     })
 
-    setTimeout(() => {
-      this.dbService.workspace$.subscribe(async (workspace) => {
-        this.configService.users = workspace['c'].users
-        if (!this.configService.user) {
-          this.modal.open(ProfileComponent)
-        }
+    this.usersRepo.allm$().subscribe((users: User[]) => {
+      this.configService.users = users
+      if (!this.configService.user) {
+        this.modal.open(UserFormComponent, { size: 'md', centered: true })
+      }
+    })
 
-        this.configService.integrations = workspace['c'].integrations
-        const server = this.configService.integrations?.server as ServerIntegrationConfig
-        if (server?.enabled) {
-          if (server?.dbEnable) {
-            const needAuth = await this.dbService.needAuthentication()
-            if (needAuth) {
-              const login = this.modal.open(LoginComponent)
-              const { username, password } = await login.result
-              await this.dbService.authenticate(username, password)
-            }
-            this.dbService.enableRemoteDB()
-          } else {
-            this.dbService.disableRemoteDB()
-          }
-        }
+    this.integrationsRepo.allm$().subscribe(async (integrations: Integration[]) => {
+      integrations.sort((a, b) => a._date - b._date)
+      this.configService.integrations = integrations.reduce((l, i) => {
+        l[i._group] = i
+        return l
+      }, {})
+      await this.configureServer()
+    })
+  }
+
+  private async configureServer () {
+    const server = this.configService.integrations?.server as ServerIntegration
+    if (!server?.enabled) {
+      this.dbService.disableRemoteDB()
+      return
+    }
+
+    const needAuth = await this.dbService.needAuthentication()
+    if (!needAuth) {
+      this.dbService.enableRemoteDB()
+      return
+    }
+
+    const login = this.modal.open(LoginComponent, { size: 'sm', centered: true })
+    const { username, password } = await login.result
+
+    await this.dbService
+      .authenticate(username, password)
+      .then(() => {
+        this.toastr.success('Login to remote database. Data will sync...')
+        this.dbService.enableRemoteDB()
       })
-    }, 100)
+      .catch(() => {
+        return this.integrationsRepo.update(server._id, { dbEnable: false })
+      })
   }
 
   private _navigationInterceptor (event: RouterEvent): void {

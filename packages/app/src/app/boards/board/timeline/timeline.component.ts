@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ConfigService } from '@balnc/core'
+import { ConfigService, GiphyIntegration } from '@balnc/core'
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap'
 import { Observable, Subject, Subscription } from 'rxjs'
 import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators'
@@ -12,7 +12,6 @@ import { BoardsRepo } from '../../@shared/repos/boards.repo'
 import { BUsersRepo } from '../../@shared/repos/buser.repo'
 import { MessagesRepo } from '../../@shared/repos/messages.repo'
 import { Emoji, EmojisService } from '../../@shared/services/emojis.service'
-import { GiphyIntegrationConfig } from './../../../@shared/models/workspace'
 
 const urlRegex = /(https?:\/\/[^\s]+)/g
 const giphyApiUrl = 'https://api.giphy.com/v1/gifs'
@@ -74,7 +73,7 @@ export class TimelineComponent implements OnInit {
   }
 
   get giphy () {
-    return this.configService.integrations?.giphy as GiphyIntegrationConfig
+    return this.configService.integrations?.giphy as GiphyIntegration
   }
 
   constructor (

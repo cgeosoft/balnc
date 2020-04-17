@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { ServerIntegrationConfig } from '@balnc/shared'
+import { ServerIntegration } from '@balnc/core'
 
 @Component({
   selector: 'app-integration-server',
@@ -7,11 +7,15 @@ import { ServerIntegrationConfig } from '@balnc/shared'
 })
 export class ServerComponent {
 
-  @Input() config: ServerIntegrationConfig
-  @Output() configChange = new EventEmitter<ServerIntegrationConfig>()
+  @Input() config: ServerIntegration
+  @Output() configChange = new EventEmitter<ServerIntegration>()
 
   get shareable () {
-    return `https://balnc.cgeosoft.com/import?d=${btoa(JSON.stringify(this.config))}`
+    const config = {
+      h: this.config.host,
+      d: this.config.dbName
+    }
+    return `${window.location.protocol}//${window.location.host}/import?d=${btoa(JSON.stringify(config))}`
   }
 
   copy (event) {

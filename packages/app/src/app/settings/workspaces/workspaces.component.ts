@@ -1,6 +1,5 @@
 import { Component } from '@angular/core'
-import { ConfigService, RxDBService } from '@balnc/core'
-import { DEFAULT_WORKSPACE } from '@balnc/shared'
+import { ConfigService, DEFAULT_WORKSPACE, RxDBService } from '@balnc/core'
 import { ReadFile } from 'ngx-file-helpers'
 import { ToastrService } from 'ngx-toastr'
 

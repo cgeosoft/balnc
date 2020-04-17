@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core'
-import { EnvBuild, Helpers, Workspace } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { LocalStorage } from 'ngx-store'
 import { v4 as uuidv4 } from 'uuid'
+import { Helpers } from '../../@shared/helpers'
+import { EnvBuild } from '../../@shared/models/env-build'
+import { Integration } from '../models/integration'
+import { User } from '../models/user'
+import { Workspace, WORKSPACE_VERSION } from '../models/workspace'
 import { environment } from './../../../environments/environment'
-import { IntegrationConfig, User, WORKSPACE_VERSION } from './../../@shared/models/workspace'
+
 @Injectable()
 export class ConfigService {
 
@@ -15,7 +19,7 @@ export class ConfigService {
   @LocalStorage() username: string = null
 
   users: User[]
-  integrations?: { [key: string]: IntegrationConfig }
+  integrations?: { [key: string]: Integration }
 
   menu: any
 

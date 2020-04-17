@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { ConfigService, RxDBService } from '@balnc/core'
-import { ConfirmDialogComponent, Helpers, MenuItem, Workspace } from '@balnc/shared'
+import { ConfigService, RxDBService, Workspace } from '@balnc/core'
+import { ConfirmDialogComponent, Helpers, MenuItem } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ReadFile } from 'ngx-file-helpers'
 

@@ -1,13 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
-import { ConfigService, RxDBService } from '@balnc/core'
-import { Workspace } from '@balnc/shared'
+import { ConfigService, DEFAULT_USER, RxDBService, User, UsersRepo, Workspace } from '@balnc/core'
+import { MENU } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import * as Sentry from '@sentry/browser'
 import { Angulartics2 } from 'angulartics2'
-import { MENU } from 'src/app/@core/models/menu'
-import { DEFAULT_USER, User } from './../../@shared/models/workspace'
-import { RawViewComponent } from './../raw-view/raw-view.component'
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'app-settings-general',
@@ -38,12 +36,18 @@ export class GeneralComponent implements OnInit {
   user: User
 
   sharableUrl
+  users$: Observable<User[]>
+
+  get username () {
+    return this.configService.username
+  }
 
   constructor (
     private configService: ConfigService,
     private modal: NgbModal,
     private router: Router,
     private dbService: RxDBService,
+    private usersRepo: UsersRepo,
     private angulartics2: Angulartics2
   ) {
   }
@@ -51,28 +55,11 @@ export class GeneralComponent implements OnInit {
   ngOnInit () {
     this.workspace = this.configService.workspace
     this.user = { ...DEFAULT_USER, ...this.configService.user }
-    this.loadRaw()
     this.showMenuItems = this.menu.reduce((l, x) => {
       l[x.label] = (this.configService.user?.config?.menu?.items || []).indexOf(x.label) === -1
       return l
     }, {})
-  }
-
-  validate () {
-    try {
-      this.rawErr = false
-      JSON.parse(this.source)
-    } catch (err) {
-      this.rawErr = true
-    }
-  }
-
-  loadRaw () {
-    this.source = JSON.stringify(this.workspace, null, 2)
-  }
-
-  updateRaw () {
-    this.configService.save(JSON.parse(this.source))
+    this.users$ = this.usersRepo.allm$()
   }
 
   async delete () {
@@ -89,12 +76,6 @@ export class GeneralComponent implements OnInit {
     await this.dbService.setup()
   }
 
-  async editRaw () {
-    const m = this.modal.open(RawViewComponent, { backdrop: 'static' })
-    m.componentInstance.workspace = this.workspace
-    this.workspace = await m.result
-  }
-
   export () {
     let a = document.createElement('a')
     let file = new Blob([JSON.stringify(this.workspace, null, 2)], { type: 'application/json' })
@@ -103,18 +84,27 @@ export class GeneralComponent implements OnInit {
     a.click()
   }
 
-  async saveUser () {
-    await this.dbService.upsetUser(this.user)
+  switchUser (username: string) {
+    this.configService.username = username
   }
 
-  save () {
-    this.configService.user.config.menu.items = this.menu
-      .map(m => m.label)
-      .filter(x => !this.showMenuItems[x])
+  async createUser (username: string) {
+    await this.usersRepo.add({
+      username
+    })
+    this.configService.username = username
+  }
+
+  saveWorkspace () {
     this.configService.save({ ...this.workspace })
     this.angulartics2.settings.developerMode = !this.configService.workspace?.config.analytics
     Sentry.getCurrentHub().getClient().getOptions().enabled = this.configService.workspace?.config.errors
-    this.loadRaw()
-
   }
+
+  saveUserConfig () {
+    this.configService.user.config.menu.items = this.menu
+      .map(m => m.label)
+      .filter(x => !this.showMenuItems[x])
+  }
+
 }
