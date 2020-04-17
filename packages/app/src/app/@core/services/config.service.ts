@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core'
 import { EnvBuild, Helpers, Workspace } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import { LocalStorage } from 'ngx-store'
+import { v4 as uuidv4 } from 'uuid'
 import { environment } from './../../../environments/environment'
 import { IntegrationConfig, User, WORKSPACE_VERSION } from './../../@shared/models/workspace'
-
 @Injectable()
 export class ConfigService {
 
@@ -61,7 +61,8 @@ export class ConfigService {
   }
 
   save (workspace: Partial<Workspace>): string {
-    workspace.key = workspace.key || Helpers.uid()
+    workspace.key = workspace.key || uuidv4().replace(/-/g,'')
+    workspace.name = workspace.name || Helpers.generateName()
     workspace.created = workspace.created || Date.now()
     let workspaces = [...this.workspaces]
     let index = this.workspaces.findIndex(p => p.key === workspace.key)

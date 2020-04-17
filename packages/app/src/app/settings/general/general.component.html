@@ -69,22 +69,12 @@
       </div>
     </div>
   </section>
-  <!-- <section>
-    <h4>Raw Workspace</h4>
-    <div class="rounded border mb-2">
-      <ace-editor [(text)]="source" [mode]="'json'" [theme]="'tomorrow'" [options]="options" [readOnly]="false"
-        [autoUpdateContent]="true" [durationBeforeCallback]="500" (textChanged)="validate()"
-        style="min-height: 200px; width:100%; overflow: auto;"></ace-editor>
-    </div>
-    <button [disabled]="rawErr" class="btn btn-primary" (click)="updateRaw()">Update Raw</button> <span
-      class="ml-4 text-danger" *ngIf="rawErr">There is a syntax error</span>
-  </section> -->
   <section>
     <h4>Export</h4>
     <p>
       Export this workspace for import in another machine. <strong>This do not backup your data.</strong>
     </p>
-    <button class="btn btn-primary" (click)="export()">Export Workspace</button>
+    <button class="btn btn-primary" (click)="export()">Export to file</button>
   </section>
   <section>
     <h4>Telemetry</h4>

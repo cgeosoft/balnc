@@ -21,7 +21,7 @@ export class ShellComponent implements OnInit {
   boardsStats: BoardStats[]
   unread = {}
   menu: MenuItem[] = [{
-    label: 'Create New Board',
+    label: 'Create Board',
     type: 'button',
     highlight: true,
     icon: 'plus-circle',

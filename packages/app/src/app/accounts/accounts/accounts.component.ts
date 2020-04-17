@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
-import { Helpers, TableSchema } from '@balnc/shared'
+import { TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
+import { v4 as uuidv4 } from 'uuid'
 import { Account, AccountType, AccountTypeBadges } from '../@shared/account'
 import { AccountsRepo } from '../@shared/accounts.repo'
 import { RecordsRepo } from '../@shared/records.repo'
@@ -60,7 +61,8 @@ export class AccountsComponent implements OnInit {
   }
 
   async createAccount () {
-    const account = await this.accountsRepo.add({ name: `Account #${Helpers.uid()}` })
+    const uuid = uuidv4().replace(/-/g,"")
+    const account = await this.accountsRepo.add({ name: `Account ${uuid}` })
     await this.router.navigate(['/accounts', account._id])
   }
 }

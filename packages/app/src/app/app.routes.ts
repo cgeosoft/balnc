@@ -79,6 +79,9 @@ export const APP_ROUTES: Routes = [{
   path: 'setup',
   loadChildren: () => import('./setup/setup.module').then(m => m.SetupModule)
 }, {
+  path: 'import',
+  loadChildren: () => import('./import/import.module').then(m => m.ImportModule)
+}, {
   path: 'error',
   component: ErrorComponent
 }]

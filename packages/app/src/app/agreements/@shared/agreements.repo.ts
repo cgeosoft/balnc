@@ -1,7 +1,6 @@
-
 import { Injectable, Injector } from '@angular/core'
 import { Repository } from '@balnc/core'
-import { Helpers } from '@balnc/shared'
+import { v4 as uuidv4 } from 'uuid'
 import { CEventsRepo } from '../../contacts/@shared/cevents.repo'
 import { CEventType } from '../../contacts/@shared/contacts'
 import { Agreement } from './agreement'
@@ -20,7 +19,7 @@ export class AgreementsRepo extends Repository<Agreement> {
   }
 
   async add (data: Partial<Agreement>, group?: string, ts?: number): Promise<Agreement> {
-    data.serial = Helpers.uid()
+    data.serial = uuidv4().replace(/-/g,"")
     const agreement = await super.add(data, group, ts)
     await this.ceventsService.add({
       contact: agreement.contact,

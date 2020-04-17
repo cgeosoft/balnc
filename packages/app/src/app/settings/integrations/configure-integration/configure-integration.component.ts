@@ -28,7 +28,6 @@ export class ConfigureIntegrationComponent implements OnInit {
   }
 
   async save () {
-    console.log('Save', this.config)
     await this.dbService.updateIntergration(this.integration.key, this.config)
     this.activeModal.close()
   }

@@ -1,0 +1,44 @@
+<div class="card" [ngClass]="{loading:loading}">
+  <div class="card-body">
+    <app-spinner *ngIf="loading"></app-spinner>
+    <div class="alert alert-warning text-center mb-4">
+      <strong>UNDER DEVELOPMENT - NOT FOR PRODUCTION USE</strong>
+    </div>
+    <h1 class="mb-4" style="font-weight: 300;">Import Workspace</h1>
+    <div class="card bg-light">
+      <div class="card-body">
+        <pre class="mb-0">{{config|json:2}}</pre>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span>&nbsp;</span>
+    <button class="btn btn-primary" (click)="start()">
+      Import <fa-icon icon="arrow-circle-right"></fa-icon>
+    </button>
+  </div>
+</div>
+<div class="footer">
+  <ul class="list-inline m-0 text-muted">
+    <li class="list-inline-item">v{{version}}</li>
+    <li class="list-inline-item">-</li>
+    <li class="list-inline-item">
+      <a class="text-muted" target="_blank" rel="noopener"
+        href="https://github.com/christosgeorgiou/balnc/commit/{{build.git.hash}}">
+        {{build.timestamp | date:'yyyy-MM-dd HH:mm'}}
+      </a>
+    </li>
+    <li class="list-inline-item">|</li>
+    <li class="list-inline-item">
+      <a href="https://github.com/christosgeorgiou/balnc" target="_blank" rel="noopener" class="text-muted">
+        source
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a href="https://github.com/christosgeorgiou/balnc/blob/master/LICENSE" target="_blank" rel="noopener"
+        class="text-muted">
+        license
+      </a>
+    </li>
+  </ul>
+</div>

@@ -37,6 +37,8 @@ export class GeneralComponent implements OnInit {
   showMenuItems: { [key: string]: boolean }
   user: User
 
+  sharableUrl
+
   constructor (
     private configService: ConfigService,
     private modal: NgbModal,

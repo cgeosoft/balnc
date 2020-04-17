@@ -180,26 +180,6 @@ export class TimelineComponent implements OnInit {
     this.emojiP.close()
   }
 
-  async pinBoard () {
-    await this.boardsRepo.update(this.selected, {
-      pinned: true
-    })
-  }
-
-  async unpinBoard () {
-    await this.boardsRepo.update(this.selected, {
-      pinned: false
-    })
-  }
-
-  async archiveBoard () {
-    // todo
-  }
-
-  async unarchiveBoard () {
-    // todo
-  }
-
   async send () {
     if (!this.messageInput.nativeElement.value) { return }
 
@@ -250,21 +230,21 @@ export class TimelineComponent implements OnInit {
       case 'topic':
         const topic = text.slice(1).join(' ')
         await this.setTopic(topic)
-        await this.messagesRepo.add({
-          text: `Topic changed to "${topic}"`,
-          sender: this.nickname,
-          status: 'SEND',
-          type: 'EVENT'
-        }, this.selected)
         break
     }
     return true
   }
 
-  setTopic (topic: string) {
-    return this.boardsRepo.update(this.selected, {
+  async setTopic (topic: string) {
+    await this.boardsRepo.update(this.selected, {
       topic
     })
+    await this.messagesRepo.add({
+      text: `Topic changed to "${topic}"`,
+      sender: this.nickname,
+      status: 'SEND',
+      type: 'EVENT'
+    }, this.selected)
   }
 
   async attach () {

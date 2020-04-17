@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Helpers } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { mergeMap, tap } from 'rxjs/operators'
+import { v4 as uuidv4 } from 'uuid'
 import { OrdersRepo } from '../../orders/@shared/orders.repo'
 import { CEventsRepo } from '../@shared/cevents.repo'
 import { CEventType, Contact, ContactType } from '../@shared/contacts'
@@ -43,7 +43,7 @@ export class ContactComponent implements OnInit {
 
   async createOrder () {
     const order = await this.ordersRepo.add({
-      serial: Helpers.uid(),
+      serial: uuidv4().replace('-', ''),
       customer: this.route.snapshot.params['id']
     })
     await this.ceventsRepo.add({

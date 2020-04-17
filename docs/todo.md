@@ -52,10 +52,10 @@
   - [ ] Sidebar type: normal/contenced
   - [ ] Show last message in sidebar if type is normal
 - [ ] Board management
-  - [ ] Edit board
-  - [ ] Board color
   - [ ] Archive boards
   - [ ] Board picture
+  - [x] Edit board
+  - [x] Board color
   - [x] Topic
   - [x] Intro
   - [x] Delete board
