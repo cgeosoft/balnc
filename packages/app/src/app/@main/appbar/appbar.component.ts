@@ -1,7 +1,6 @@
 import { Component, HostBinding } from '@angular/core'
 import { ConfigService } from '@balnc/core'
-import { Integration } from '@balnc/shared'
-import { COLORS } from '../../@core/models/colors'
+import { COLORS, Integration } from '@balnc/shared'
 import { MENU } from '../../@core/models/menu'
 
 @Component({

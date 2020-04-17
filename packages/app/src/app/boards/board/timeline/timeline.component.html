@@ -1,4 +1,4 @@
-<div *ngIf="(board$|async)?.topic as topic" class="topic">
+<div *ngIf="(board$|async)?.topic as topic" class="topic" [ngStyle]="{backgroundColor:(board$|async)?.color || '#333'}">
   <fa-icon icon="icons"></fa-icon> {{topic}}
 </div>
 <section #messageList class="no-border full">

@@ -1,17 +1,27 @@
 <app-content *ngIf="board" [box]="true">
   <section>
     <h4>Board Details</h4>
-    <div class="form-group input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">Name</span>
-      </div>
+    <div class="form-group">
+      <label for="">Name</label>
       <input [(ngModel)]="board.name" class="form-control">
     </div>
-    <div class="form-group input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">Color</span>
+    <div class="form-group">
+      <label for="">Color</label>
+      <div class="colorpicker">
+        <div class="colorline" *ngFor="let g of colorsMap">
+          <span *ngFor="let v of g.variations" class="coloritem" (click)="this.board.color = colors[g.basic][v]"
+            [ngStyle]="{backgroundColor:colors[g.basic][v]}"
+            [ngClass]="{active:this.board.color === colors[g.basic][v]}"></span>
+        </div>
       </div>
-      <input [(ngModel)]="board.color" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="">Topic</label>
+      <input [(ngModel)]="board.topic" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="">Description</label>
+      <textarea [(ngModel)]="board.description" class="form-control"></textarea>
     </div>
     <div class="form-group">
       <button class="btn btn-success" (click)="save()">save</button>
@@ -20,7 +30,9 @@
   <section>
     <h4>Delete Board</h4>
     <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis expedita inventore consequuntur vel saepe, pariatur laborum veritatis reiciendis nam possimus fuga temporibus quo sunt? Similique laudantium sapiente ipsa quod excepturi.
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perferendis expedita inventore consequuntur vel saepe,
+      pariatur laborum veritatis reiciendis nam possimus fuga temporibus quo sunt? Similique laudantium sapiente ipsa
+      quod excepturi.
     </p>
     <button class="btn btn-danger" (click)="deleteBoard()">Delete</button>
   </section>
