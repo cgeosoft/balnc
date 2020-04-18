@@ -1,7 +1,7 @@
 {
   "name": "@balnc/server",
   "description": "An offline-first application for managing small business",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "license": "MIT",
   "author": {
     "name": "Christos Georgiou",
