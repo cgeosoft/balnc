@@ -13,9 +13,9 @@
           <small *ngIf="project.description" class="tex-muted">
             {{project.description}}
           </small>
-          <ng-container *ngIf="project.tags">
+          <ng-container *ngIf="project._tags">
             <dt>Tags</dt>
-            <dd>{{project.tags.join(', ')}}</dd>
+            <dd>{{project._tags.join(', ')}}</dd>
           </ng-container>
         </dl>
         <hr>

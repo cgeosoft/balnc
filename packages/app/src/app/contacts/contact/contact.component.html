@@ -16,9 +16,9 @@
             <dt>Description</dt>
             <dd>{{contact.description}}</dd>
           </ng-container>
-          <ng-container *ngIf="contact.tags">
+          <ng-container *ngIf="contact._tags">
             <dt>Tags</dt>
-            <dd>{{contact.tags.join(', ')}}</dd>
+            <dd>{{contact._tags.join(', ')}}</dd>
           </ng-container>
         </dl>
         <hr>

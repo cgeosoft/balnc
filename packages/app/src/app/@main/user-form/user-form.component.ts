@@ -31,8 +31,8 @@ export class UserFormComponent implements OnInit {
   }
 
   async create (username) {
-    await this.usersRepo.add({ ...DEFAULT_USER, ...{ username } })
-    this.select(username)
+    const user = await this.usersRepo.add({ ...DEFAULT_USER, ...{ username } })
+    this.select(user._id)
   }
 
 }

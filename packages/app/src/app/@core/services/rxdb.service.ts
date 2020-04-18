@@ -146,7 +146,7 @@ export class RxDBService {
   }
 
   async setupCache () {
-    if (this.workspace.config?.cache) {
+    if (this.workspace.cache) {
       console.log('[DatabaseService]', `Enable cache mode`)
       this.entities = await this.db.entities.inMemory()
     } else {

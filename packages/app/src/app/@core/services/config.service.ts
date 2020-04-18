@@ -22,6 +22,14 @@ export class ConfigService {
   integrations?: { [key: string]: Integration }
 
   menu: any
+  userAvatars: { [key: string]: string }
+
+  get usernames () {
+    return this.users.reduce((l, i) => {
+      l[i._id] = i.username
+      return l
+    }, {})
+  }
 
   get version (): string {
     return environment.version
@@ -64,18 +72,26 @@ export class ConfigService {
     }
   }
 
-  save (workspace: Partial<Workspace>): string {
-    workspace.key = workspace.key || uuidv4().replace(/-/g,'')
-    workspace.name = workspace.name || Helpers.generateName()
-    workspace.created = workspace.created || Date.now()
-    let workspaces = [...this.workspaces]
-    let index = this.workspaces.findIndex(p => p.key === workspace.key)
-    if (index !== -1) {
-      workspaces.splice(index, 1)
+  create (data: Partial<Workspace>): string {
+    const ws: Partial<Workspace> = {
+      ...{
+        key: uuidv4().replace(/-/g, ''),
+        name: Helpers.generateName(),
+        created: Date.now()
+      },
+      ...data
     }
-    workspaces.push(workspace as Workspace)
-    this.workspaces = workspaces
-    return workspace.key
+    this.workspaces.push(ws as Workspace)
+    this.workspaces = [...this.workspaces]
+    return ws.key
+  }
+
+  update (data: Partial<Workspace>): string {
+    let i = this.workspaces.findIndex(p => p.key === data.key)
+    this.workspaces[i] = data as Workspace
+    this.workspaces = [...this.workspaces]
+    console.log(this.workspaces)
+    return data.key
   }
 
   remove (key: string) {
@@ -96,6 +112,14 @@ export class ConfigService {
     } catch (error) {
       return null
     }
+  }
+
+  export () {
+    let a = document.createElement('a')
+    let file = new Blob([JSON.stringify(this.workspace, null, 2)], { type: 'application/json' })
+    a.href = URL.createObjectURL(file)
+    a.download = `${(new Date()).toDateString()} - ${this.workspace.key}.json`
+    a.click()
   }
 
 }

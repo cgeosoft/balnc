@@ -31,7 +31,7 @@ export class RawViewComponent implements OnInit {
     try {
       this.err = false
       const workspace = JSON.parse(this.source)
-      this.configService.save(workspace)
+      this.configService.update(workspace)
     } catch (err) {
       this.err = true
     }

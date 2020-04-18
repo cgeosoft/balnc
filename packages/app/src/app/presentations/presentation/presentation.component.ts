@@ -151,7 +151,7 @@ export class PresentationComponent implements OnInit {
     }
 
     const slideDoc = await this.slidesRepo.add(slide)
-    await this.slidesRepo.upload(slideDoc._id, file)
+    await this.slidesRepo.attach(slideDoc._id, file)
   }
 
   async deletePage (index) {

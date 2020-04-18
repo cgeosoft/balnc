@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router'
 import { ConfigService, Integration, IntegrationsRepo, RxDBService, ServerIntegration, UpdateService, User, UsersRepo } from '@balnc/core'
+import { Helpers } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
 import { Subscription } from 'rxjs'
@@ -13,6 +14,27 @@ import { UserFormComponent } from '../user-form/user-form.component'
   styleUrls: ['./shell.component.scss']
 })
 export class MainShellComponent {
+
+  async setUsers (users: User[]) {
+    const promises = users.map(async (user) => {
+      const res = {
+        id: user._id,
+        avatar: null
+      }
+      const attachment = await this.usersRepo.getAttachment(user._id, 'avatar')
+      if (attachment) {
+        const blob = await attachment.getData()
+        res.avatar = await Helpers.getImage(blob, attachment.type)
+      }
+      return res
+    })
+    const avatars = await Promise.all(promises)
+    this.configService.userAvatars = avatars.reduce((l, i) => {
+      l[i.id] = i.avatar
+      return l
+    }, {})
+    this.configService.users = users
+  }
 
   username: string
 
@@ -61,8 +83,8 @@ export class MainShellComponent {
       }
     })
 
-    this.usersRepo.allm$().subscribe((users: User[]) => {
-      this.configService.users = users
+    this.usersRepo.allm$().subscribe(async (users: User[]) => {
+      await this.setUsers(users)
       if (!this.configService.user) {
         this.modal.open(UserFormComponent, { size: 'sm', centered: true })
       }

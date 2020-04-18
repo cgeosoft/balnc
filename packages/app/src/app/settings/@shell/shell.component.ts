@@ -79,7 +79,7 @@ export class ShellComponent implements OnInit {
       const data = file.content.split(',')[1]
       const workspaceStr = atob(data)
       const workspace = JSON.parse(workspaceStr)
-      const key = this.configService.save(workspace)
+      const key = this.configService.update(workspace)
       this.configService.activated = key
     } catch (error) {
       this.error = 'File is corrupted'

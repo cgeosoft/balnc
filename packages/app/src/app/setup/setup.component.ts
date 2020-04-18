@@ -46,7 +46,7 @@ export class SetupComponent implements OnInit {
 
   async load (workspace) {
     this.loading = true
-    const key = this.configService.save(workspace)
+    const key = this.configService.update(workspace)
     this.configService.activated = key
     await this.router.navigateByUrl('/')
   }

@@ -58,14 +58,7 @@ export class TimelineComponent implements OnInit {
   activeUsers$: Observable<BUser[]>
 
   get avatars () {
-    return this.configService.users.reduce((l, i) => {
-      l[i.username] = i.avatar
-      return l
-    }, {})
-  }
-
-  get nickname () {
-    return this.configService.user?.username
+    return this.configService.userAvatars
   }
 
   get emojis () {
@@ -74,6 +67,14 @@ export class TimelineComponent implements OnInit {
 
   get giphy () {
     return this.configService.integrations?.giphy as GiphyIntegration
+  }
+
+  get user () {
+    return this.configService.user
+  }
+
+  get usernames () {
+    return this.configService.usernames
   }
 
   constructor (
@@ -188,7 +189,7 @@ export class TimelineComponent implements OnInit {
 
     const data: Partial<Message> = {
       text: this.messageInput.nativeElement.value,
-      sender: this.nickname,
+      sender: this.user._id,
       status: 'SEND',
       type: 'MESSAGE'
     }
@@ -251,13 +252,13 @@ export class TimelineComponent implements OnInit {
   async upload (file: File) {
     const data: Partial<Message> = {
       text: null,
-      sender: this.nickname,
+      sender: this.user._id,
       status: 'SEND',
       type: 'MESSAGE',
       file: file.name
     }
     const msg = await this.messagesRepo.add(data, this.selected)
-    await this.messagesRepo.upload(msg._id, file)
+    await this.messagesRepo.attach(msg._id, file)
   }
 
   async download (msg: Message) {
@@ -327,7 +328,7 @@ export class TimelineComponent implements OnInit {
   async giphyAdd (event, giphy) {
     event.preventDefault()
     const data: Partial<Message> = {
-      sender: this.nickname,
+      sender: this.user._id,
       status: 'SEND',
       type: 'MESSAGE',
       image: {

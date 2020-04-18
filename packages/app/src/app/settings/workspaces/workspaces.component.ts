@@ -24,7 +24,7 @@ export class WorkspacesComponent {
   ) { }
 
   async create () {
-    const key = this.configService.save({ ...DEFAULT_WORKSPACE })
+    const key = this.configService.update({ ...DEFAULT_WORKSPACE })
     this.configService.activated = key
     await this.activate({ key })
   }
@@ -35,7 +35,7 @@ export class WorkspacesComponent {
       this.toastr.error('Import failed')
       return
     }
-    const key = this.configService.save(workspace)
+    const key = this.configService.update(workspace)
     workspace.key = key
     await this.activate(workspace)
   }

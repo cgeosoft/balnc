@@ -3,20 +3,16 @@ export interface Workspace {
   name: string
   created: number
   version: number
-  config: {
-    errors?: boolean
-    analytics?: boolean
-    cache?: boolean
-  }
+  errors?: boolean
+  analytics?: boolean
+  cache?: boolean
 }
 
 export const WORKSPACE_VERSION = 2
 
 export const DEFAULT_WORKSPACE: Partial<Workspace> = {
   version: WORKSPACE_VERSION,
-  config: {
-    errors: false,
-    analytics: false,
-    cache: false
-  }
+  errors: false,
+  analytics: false,
+  cache: false
 }

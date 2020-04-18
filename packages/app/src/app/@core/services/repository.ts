@@ -139,13 +139,19 @@ export class Repository<T> {
     await obj.remove()
   }
 
-  async upload (id: string, file: File) {
+  async attach (id: string, file: File, filename?: string) {
     const obj = await this.dbService.entities.findOne(id).exec()
-    await obj.putAttachment({
-      id: file.name,
+    const d = {
+      id: filename || file.name,
       data: file.slice(),
       type: file.type
-    })
+    }
+    await obj.putAttachment(d)
+  }
+
+  async detach (id: string, file: string) {
+    const attachment = await this.getAttachment(id, file)
+    await attachment.remove()
   }
 
   async getAttachment (id: string, file: string): Promise<RxAttachment<T>> {

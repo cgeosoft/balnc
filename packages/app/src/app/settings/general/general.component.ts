@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
-import { ConfigService, DEFAULT_USER, RxDBService, User, UsersRepo, Workspace } from '@balnc/core'
+import { ConfigService, RxDBService, User, UsersRepo, Workspace } from '@balnc/core'
 import { MENU } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import * as Sentry from '@sentry/browser'
@@ -10,7 +10,8 @@ import { UserFormComponent } from 'src/app/@main/user-form/user-form.component'
 
 @Component({
   selector: 'app-settings-general',
-  templateUrl: './general.component.html'
+  templateUrl: './general.component.html',
+  styleUrls: ['./general.component.scss']
 
 })
 export class GeneralComponent implements OnInit, OnDestroy {
@@ -34,14 +35,22 @@ export class GeneralComponent implements OnInit, OnDestroy {
 
   menu: any[] = MENU
   showMenuItems: { [key: string]: boolean } = {}
-  user: User
 
   sharableUrl
   users$: Observable<User[]>
   sub: Subscription
+  avatarPreview: any
 
   get username () {
     return this.configService.user?.username
+  }
+
+  get user () {
+    return this.configService.user
+  }
+
+  get avatar () {
+    return this.configService.userAvatars[this.user._id]
   }
 
   constructor (
@@ -56,10 +65,7 @@ export class GeneralComponent implements OnInit, OnDestroy {
 
   ngOnInit () {
     this.workspace = this.configService.workspace
-    this.user = { ...DEFAULT_USER, ...this.configService.user }
-    this.sub = this.usersRepo.allm$().subscribe((users) => {
-      const user = users.find(x => x._id === this.configService.userId)
-      this.user = { ...DEFAULT_USER, ...user }
+    this.sub = this.usersRepo.allm$().subscribe(async (users: User[]) => {
       this.showMenuItems = this.menu.reduce((l, x) => {
         l[x.label] = (this.configService.user?.config?.menu?.items || []).indexOf(x.label) === -1
         return l
@@ -70,6 +76,13 @@ export class GeneralComponent implements OnInit, OnDestroy {
 
   ngOnDestroy (): void {
     this.sub.unsubscribe()
+  }
+
+  updateWorkspace (data: any) {
+    this.workspace = { ...this.workspace, ...data }
+    this.configService.update(this.workspace)
+    this.angulartics2.settings.developerMode = !this.configService.workspace?.analytics
+    Sentry.getCurrentHub().getClient().getOptions().enabled = this.configService.workspace?.errors
   }
 
   async deleteWorkspace () {
@@ -87,11 +100,7 @@ export class GeneralComponent implements OnInit, OnDestroy {
   }
 
   export () {
-    let a = document.createElement('a')
-    let file = new Blob([JSON.stringify(this.workspace, null, 2)], { type: 'application/json' })
-    a.href = URL.createObjectURL(file)
-    a.download = `${(new Date()).toDateString()} - ${this.workspace.key}.json`
-    a.click()
+    this.configService.export()
   }
 
   removeUser () {
@@ -102,15 +111,21 @@ export class GeneralComponent implements OnInit, OnDestroy {
     this.modal.open(UserFormComponent, { size: 'sm', centered: true })
   }
 
-  saveWorkspace () {
-    this.configService.save({ ...this.workspace })
-    this.angulartics2.settings.developerMode = !this.configService.workspace?.config.analytics
-    Sentry.getCurrentHub().getClient().getOptions().enabled = this.configService.workspace?.config.errors
-  }
-
   async saveUser () {
     this.user.config.menu.items = this.menu.map(m => m.label).filter(x => !this.showMenuItems[x])
     await this.usersRepo.update(this.user._id, this.user)
   }
 
+  @ViewChild('fileupload') fileupload: ElementRef
+  selectAvatar () {
+    this.fileupload.nativeElement.click()
+  }
+
+  async clearAvatar () {
+    await this.usersRepo.detach(this.user._id, 'avatar')
+  }
+
+  async uploadAvatar (file: File) {
+    await this.usersRepo.attach(this.user._id, file, 'avatar')
+  }
 }

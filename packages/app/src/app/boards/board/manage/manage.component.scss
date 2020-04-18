@@ -1,7 +1,11 @@
 :host {
   .colorpicker {
     display: block;
-    height:280px;
+    width: 382px;
+    height: 282px;
+    border: solid 1px #ced4da;
+    border-radius: 3px;
+    overflow: hidden;
     .colorline {
       display: inline-block;
       height: 20px;

@@ -13,8 +13,10 @@
   <label>Database Name</label>
   <input [(ngModel)]="config.dbName" [disabled]="!config.enabled || !config.host" class="form-control">
 </div>
-<hr>
-<div class="form-group">
-  <label>Sharable URL</label>
-  <textarea class="form-control" [value]="shareable" rows="4" (click)="copy($event)"></textarea>
-</div>
+<ng-container *ngIf="config.enabled">
+  <hr>
+  <div class="form-group">
+    <label>Sharable URL</label>
+    <textarea class="form-control" [value]="shareable" rows="4" (click)="copy($event)"></textarea>
+  </div>
+</ng-container>

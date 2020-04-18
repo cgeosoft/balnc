@@ -1,5 +1,22 @@
 export class Helpers {
 
+  static getImage (blob: Blob, type: string): Promise<any> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const reader = new FileReader()
+        reader.onload = () => {
+          const result = reader.result as string
+          const base64 = result.split(',')[1]
+          const src = 'data:' + type + ';base64,' + base64
+          resolve(src)
+        }
+        reader.readAsDataURL(blob)
+      } catch (err) {
+        reject()
+      }
+    })
+  }
+
   static capFirst (text) {
     return text.charAt(0).toUpperCase() + text.slice(1)
   }
