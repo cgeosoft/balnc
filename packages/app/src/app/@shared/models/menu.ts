@@ -15,11 +15,11 @@ export const MENU = [{
   icon: 'exchange-alt',
   route: ['/transactions']
 }, {
-  label: 'Accounts',
-  icon: 'piggy-bank',
-  route: ['/accounts']
-}, {
-  label: 'Contracts',
+//   label: 'Accounts',
+//   icon: 'piggy-bank',
+//   route: ['/accounts']
+// }, {
+  label: 'Agreements',
   icon: 'signature',
   route: ['/agreements']
 }, {
@@ -46,9 +46,9 @@ export const MENU = [{
   label: 'Present',
   icon: 'desktop',
   route: ['/presentations']
-}, {
-  label: 'Analytics',
-  icon: 'chart-pie',
-  route: ['/analytics'],
-  disabled: true
+// }, {
+//   label: 'Analytics',
+//   icon: 'chart-pie',
+//   route: ['/analytics'],
+//   disabled: true
 }]
