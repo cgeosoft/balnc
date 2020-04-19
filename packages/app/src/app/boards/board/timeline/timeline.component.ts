@@ -7,7 +7,7 @@ import { Observable, Subject, Subscription } from 'rxjs'
 import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators'
 import { Board } from '../../@shared/models/board'
 import { BUser } from '../../@shared/models/buser'
-import { Emoji } from "../../@shared/models/emoji"
+import { Emoji } from '../../@shared/models/emoji'
 import { Message, OgMetadata } from '../../@shared/models/message'
 import { BoardsRepo } from '../../@shared/repos/boards.repo'
 import { BUsersRepo } from '../../@shared/repos/buser.repo'
@@ -55,30 +55,30 @@ export class TimelineComponent implements OnInit {
   quote: Message
   msgSeperatorDates = {}
 
-  commands = ['topic']
+  commands = ['topic', 'topic-clear']
   activeUsers$: Observable<BUser[]>
 
-  get avatars () {
+  get avatars() {
     return this.configService.userAvatars
   }
 
-  get emojis () {
+  get emojis() {
     return this.emojisService.emojis
   }
 
-  get giphy () {
+  get giphy() {
     return this.configService.integrations?.giphy as GiphyIntegration
   }
 
-  get user () {
+  get user() {
     return this.configService.user
   }
 
-  get usernames () {
+  get usernames() {
     return this.configService.usernames
   }
 
-  constructor (
+  constructor(
     private configService: ConfigService,
     private boardsRepo: BoardsRepo,
     private messagesRepo: MessagesRepo,
@@ -89,7 +89,7 @@ export class TimelineComponent implements OnInit {
     private emojisService: EmojisService
   ) { }
 
-  async ngOnInit () {
+  async ngOnInit() {
     this.sub = this.route.parent.params.pipe(
       map(params => params['id']),
       switchMap(id => this.feedMessages(id))
@@ -98,7 +98,7 @@ export class TimelineComponent implements OnInit {
     this.enableGiphy()
   }
 
-  enableGiphy () {
+  enableGiphy() {
     if (this.giphy?.enabled && this.giphy?.apiKey) {
       this.giphySearch$
         .pipe(
@@ -115,7 +115,7 @@ export class TimelineComponent implements OnInit {
     }
   }
 
-  feedMessages (id) {
+  feedMessages(id) {
     this.selected = id
     if (!this.selected) return
     this.boardsRepo.selected = this.selected
@@ -165,31 +165,33 @@ export class TimelineComponent implements OnInit {
       }))
   }
 
-  trackByMessages (index: number, el: Message) {
+  trackByMessages(index: number, el: Message) {
     return el._id
   }
 
-  async ngOnDestroy () {
+  async ngOnDestroy() {
     // await this.buserRepo.leave(this.selected)
     this.sub.unsubscribe()
   }
 
-  addEmoji (event, e: Emoji) {
+  addEmoji(event, e: Emoji) {
     event.preventDefault()
     this.messageInput.nativeElement.value += `${e.char} `
     this.messageInput.nativeElement.focus()
     this.emojiP.close()
   }
 
-  async send () {
-    if (!this.messageInput.nativeElement.value) { return }
+  async send() {
+    const text = this.messageInput.nativeElement.value?.trim()
+    if (!text) { return }
 
-    if (await this.isCommand()) {
+    if (await this.isCommand(text)) {
+      this.messageInput.nativeElement.value = null
       return
     }
 
     const data: Partial<Message> = {
-      text: this.messageInput.nativeElement.value,
+      text,
       sender: this.user._id,
       status: 'SEND',
       type: 'MESSAGE'
@@ -221,36 +223,40 @@ export class TimelineComponent implements OnInit {
     }
   }
 
-  async isCommand () {
-    const text: string[] = this.messageInput.nativeElement.value.split(' ')
-    const command: string = text[0].substr(1)
+  async isCommand(text) {
+    const cmd: string[] = text.split(' ')
+    const command: string = cmd[0].substr(1)
     if (this.commands.indexOf(command) === -1) return false
 
-    this.messageInput.nativeElement.value = null
     switch (command) {
       case 'topic':
-        const topic = text.slice(1).join(' ')
+        const topic = cmd.slice(1).join(' ')
         await this.setTopic(topic)
+        break
+      case 'topic-clear':
+        await this.setTopic()
         break
     }
     return true
   }
 
-  async setTopic (topic: string) {
+  async setTopic(topic?: string) {
     await this.boardsRepo.update(this.selected, {
       topic
     })
+
     await this.messagesRepo.add({
-      text: `Topic changed to "${topic}"`,
+      text: topic ? `topic: "${topic}"` : 'topic cleared',
+      sender: this.user._id,
       type: 'EVENT'
     }, this.selected)
   }
 
-  async attach () {
+  async attach() {
     this.fileupload.nativeElement.click()
   }
 
-  async upload (file: File) {
+  async upload(file: File) {
     const data: Partial<Message> = {
       text: null,
       sender: this.user._id,
@@ -262,7 +268,7 @@ export class TimelineComponent implements OnInit {
     await this.messagesRepo.attach(msg._id, file)
   }
 
-  async download (msg: Message) {
+  async download(msg: Message) {
     const attachment = await this.messagesRepo.getAttachment(msg._id, msg.file)
     if (!attachment) return
     const blob = await attachment.getData()
@@ -276,7 +282,7 @@ export class TimelineComponent implements OnInit {
     // window['saveAs'](blob, msg.file)
   }
 
-  getImage (blob: Blob, type: string): Promise<any> {
+  getImage(blob: Blob, type: string): Promise<any> {
     return new Promise(async (resolve, reject) => {
       try {
         const reader = new FileReader()
@@ -293,40 +299,40 @@ export class TimelineComponent implements OnInit {
     })
   }
 
-  quoteMessage (m: Message) {
+  quoteMessage(m: Message) {
     this.quote = m
     this.messageInput.nativeElement.focus()
   }
 
-  async delete () {
+  async delete() {
     if (!confirm('Are you sure?')) return
     await this.boardsRepo.remove(this.selected)
     await this.router.navigate(['/boards'])
   }
 
-  async deleteMessage (m: Message) {
+  async deleteMessage(m: Message) {
     if (!confirm('Are you sure?')) return
     await this.messagesRepo.remove(m._id)
   }
 
-  async toggleMark (id: string) {
+  async toggleMark(id: string) {
     await this.boardsRepo.mark(id)
   }
 
-  scrollToBottom (): void {
+  scrollToBottom(): void {
     if (!this.messageList) return
     setTimeout(() => {
       this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
     }, 100)
   }
 
-  focusInput (): void {
+  focusInput(): void {
     if (this.messageInput) {
       this.messageInput.nativeElement.focus()
     }
   }
 
-  async giphyAdd (event, giphy) {
+  async giphyAdd(event, giphy) {
     event.preventDefault()
     const data: Partial<Message> = {
       sender: this.user._id,
@@ -347,7 +353,7 @@ export class TimelineComponent implements OnInit {
 
   giphySearch$ = new Subject<string>()
 
-  giphySearch (event) {
+  giphySearch(event) {
     this.giphySearch$.next(event.target.value)
   }
 }

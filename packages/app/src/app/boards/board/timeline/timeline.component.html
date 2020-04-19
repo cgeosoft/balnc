@@ -97,7 +97,7 @@
           <ng-container *ngSwitchCase="'EVENT'">
             <div class="event-item">
               <div class="event-time">{{m._date|date:'HH:mm:ss'}}</div>
-              <div class="event-text">{{m.text}} <small>~{{m.sender}}</small></div>
+              <div class="event-text">{{m.text}} <small>~{{usernames[m.sender]}}</small></div>
             </div>
           </ng-container>
           <ng-container *ngSwitchDefault>
@@ -115,7 +115,7 @@
     <div class="d-flex mb-3">
       <fa-icon icon="quote-left" class="text-muted align-self-start"></fa-icon>
       <div class="text-muted mx-2">
-        <div><small><strong>{{quote.sender}}</strong></small></div>
+        <div><small><strong>{{usernames[quote.sender]}}</strong></small></div>
         <div class="overflow-hidden" style="max-height:100px"><small>{{quote.text||'no text'}}</small></div>
       </div>
       <fa-icon icon="quote-right" class="text-muted align-self-end"></fa-icon>
