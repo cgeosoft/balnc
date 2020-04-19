@@ -90,7 +90,6 @@ export class ConfigService {
     let i = this.workspaces.findIndex(p => p.key === data.key)
     this.workspaces[i] = data as Workspace
     this.workspaces = [...this.workspaces]
-    console.log(this.workspaces)
     return data.key
   }
 

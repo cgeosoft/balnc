@@ -24,7 +24,7 @@ export class WorkspacesComponent {
   ) { }
 
   async create () {
-    const key = this.configService.update({ ...DEFAULT_WORKSPACE })
+    const key = this.configService.create({ ...DEFAULT_WORKSPACE })
     this.configService.activated = key
     await this.activate({ key })
   }

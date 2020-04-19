@@ -1,7 +1,10 @@
 import { Routes } from '@angular/router'
 import { MainShellComponent } from './@main/@shell/shell.component'
 import { ErrorComponent } from './@main/error/error.component'
+import { ImportComponent } from './@main/import/import.component'
 import { MainGuard } from './@main/main.guard'
+import { SetupComponent } from './@main/setup/setup.component'
+import { SetupGuard } from './@main/setup/setup.guard'
 
 export const APP_ROUTES: Routes = [{
   path: '',
@@ -77,10 +80,11 @@ export const APP_ROUTES: Routes = [{
   }]
 }, {
   path: 'setup',
-  loadChildren: () => import('./setup/setup.module').then(m => m.SetupModule)
+  canActivate: [SetupGuard],
+  component: SetupComponent
 }, {
   path: 'import',
-  loadChildren: () => import('./import/import.module').then(m => m.ImportModule)
+  component: ImportComponent
 }, {
   path: 'error',
   component: ErrorComponent

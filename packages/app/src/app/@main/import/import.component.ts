@@ -31,13 +31,15 @@ export class ImportComponent implements OnInit {
 
   ngOnInit (): void {
     this.route.queryParams.subscribe((params) => {
-      this.config = JSON.parse(atob(params['d']))
+      try {
+        this.config = JSON.parse(atob(params['d']))
+      } catch { }
     })
   }
 
   async start () {
     this.loading = true
-    const key = this.configService.update({ ...DEFAULT_WORKSPACE })
+    const key = this.configService.create({ ...DEFAULT_WORKSPACE })
     this.configService.activated = key
     await this.dbService.setup()
     const config: Partial<ServerIntegration> = {

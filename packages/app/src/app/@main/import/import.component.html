@@ -5,20 +5,15 @@
       <strong>UNDER DEVELOPMENT - NOT FOR PRODUCTION USE</strong>
     </div>
     <h1 class="mb-4" style="font-weight: 300;">Import Workspace</h1>
-    <div class="card bg-light">
+    <div class="card bg-light" *ngIf="config;else noConfig">
       <div class="card-body">
         <pre class="mb-0">{{config|json}}</pre>
       </div>
     </div>
-    <div class="form-group">
-      <label>Username</label>
-      <input type="text" class="form-control" [(ngModel)]="username">
-      <small class="form-text text-muted">If username exists in remote server, all your settings will be synced</small>
-    </div>
   </div>
   <div class="card-footer">
     <span>&nbsp;</span>
-    <button class="btn btn-primary" (click)="start()">
+    <button class="btn btn-primary" (click)="start()" [disabled]="!config">
       Import <fa-icon icon="arrow-circle-right"></fa-icon>
     </button>
   </div>
@@ -47,3 +42,9 @@
     </li>
   </ul>
 </div>
+
+<ng-template #noConfig>
+  <div class="alert alert-danger">
+    Invalid or missing configuration
+  </div>
+</ng-template>
