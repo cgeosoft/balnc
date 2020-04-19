@@ -21,43 +21,36 @@ export const APP_ROUTES: Routes = [{
     loadChildren: () => import('./support/support.module').then(m => m.SupportModule)
   }, {
     path: 'contacts',
-    data: {
-      title: 'Contacts'
-    },
+    data: { title: 'Contacts' },
     loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule)
   }, {
     path: 'payments',
     loadChildren: () => import('./payments/payments.module').then(m => m.PaymentsModule),
-    data: {
-      title: 'Payments'
-    }
+    data: { title: 'Payments' }
   }, {
     path: 'agreements',
     loadChildren: () => import('./agreements/agreements.module').then(m => m.AgreementsModule),
-    data: {
-      title: 'Agreements'
-    }
+    data: { title: 'Agreements' }
   }, {
     path: 'orders',
     loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
-    data: {
-      title: 'Orders'
-    }
+    data: { title: 'Orders' }
   }, {
     path: 'invoices',
     loadChildren: () => import('./invoices/invoices.module').then(m => m.InvoicesModule),
-    data: {
-      title: 'Invoices'
-    }
+    data: { title: 'Invoices' }
   }, {
     path: 'storage',
     loadChildren: () => import('./storage/storage.module').then(m => m.StorageModule),
-    data: {
-      title: 'Storage'
-    }
+    data: { title: 'Storage' }
   }, {
-    path: 'documents',
-    loadChildren: () => import('./documents/documents.module').then(m => m.DocumentsModule)
+    path: 'files',
+    loadChildren: () => import('./files/files.module').then(m => m.FilesModule),
+    data: { title: 'Files' }
+  }, {
+    path: 'notes',
+    loadChildren: () => import('./notes/notes.module').then(m => m.NotesModule),
+    data: { title: 'Notes' }
   }, {
     path: 'projects',
     loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule)

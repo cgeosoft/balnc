@@ -30,4 +30,4 @@ import { DocumentComponent } from './document/document.component'
     LinesRepo
   ]
 })
-export class DocumentsModule { }
+export class NotesModule { }
