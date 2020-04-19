@@ -13,12 +13,7 @@ export class ShellComponent implements OnInit {
     label: 'Overview',
     type: 'button',
     icon: 'border-all',
-    route: ['/aggrements/overview']
-  }, {
-    label: 'Agreements',
-    type: 'button',
-    icon: 'calendar-alt',
-    route: ['/aggrements/agreements']
+    route: ['/agreements/overview']
   }]
 
   constructor (

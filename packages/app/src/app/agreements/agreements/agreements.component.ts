@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { TableSchema } from '@balnc/shared'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { Observable } from 'rxjs'
 import { Contact } from '../../contacts/@shared/contacts'
 import { ContactsRepo } from '../../contacts/@shared/contacts.repo'
@@ -7,7 +9,7 @@ import { Agreement } from '../@shared/agreement'
 import { AgreementsRepo } from '../@shared/agreements.repo'
 
 @Component({
-  selector: 'app-agreements',
+  selector: 'app-agreements-overview',
   templateUrl: './agreements.component.html'
 })
 export class AgreementsComponent implements OnInit {
@@ -39,12 +41,19 @@ export class AgreementsComponent implements OnInit {
   }
 
   constructor (
-    private agreementsService: AgreementsRepo,
-    private contactsService: ContactsRepo
+    private agreementsRepo: AgreementsRepo,
+    private contactsRepo: ContactsRepo,
+    private router: Router,
+    private modal: NgbModal
   ) { }
 
   async ngOnInit () {
-    this.agreements$ = this.agreementsService.all$()
-    this.contacts = await this.contactsService.all()
+    this.agreements$ = this.agreementsRepo.all$()
+    this.contacts = await this.contactsRepo.all()
+  }
+
+  async createAgreement () {
+    const agreement = await this.agreementsRepo.add({})
+    await this.router.navigate(['/agreements', agreement._id])
   }
 }

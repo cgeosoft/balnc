@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
 import { NgxPrintModule } from 'ngx-print'
-import { AgreementsRepo } from './@shared/agreements.repo'
+import { ShellComponent } from './@shell/shell.component'
 import { AgreementComponent } from './agreement/agreement.component'
 import { AgreementsComponent } from './agreements/agreements.component'
 import { CreateComponent } from './create/create.component'
 
 @NgModule({
   declarations: [
+    ShellComponent,
     AgreementsComponent,
     AgreementComponent,
     CreateComponent
@@ -19,22 +20,25 @@ import { CreateComponent } from './create/create.component'
   imports: [
     SharedModule,
     NgxPrintModule,
-    RouterModule.forChild([
-      {
-        path: '',
+    RouterModule.forChild([{
+      path: '',
+      component: ShellComponent,
+      children: [{
+        path: 'overview',
+        data: {
+          title: 'Overview'
+        },
         component: AgreementsComponent
-      },
-      {
+      }, {
         path: ':id',
         data: {
-          title: '#Agreement'
+          title: 'Agreement'
         },
         component: AgreementComponent
-      }
-    ])
-  ],
-  providers:  [
-    AgreementsRepo
+      }, {
+        path: '', pathMatch: 'full', redirectTo: 'overview'
+      }]
+    }])
   ]
 })
 export class AgreementsModule { }

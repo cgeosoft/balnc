@@ -105,7 +105,7 @@ export class Repository<T> {
     return this.dbService.entities.bulkInsert(objs)
   }
 
-  async update (id: string, data: any) {
+  async update (id: string, data: any, group?: string) {
     const item = await this.dbService.entities.findOne(id).exec()
     const content = { ...item.c, ...data }
 
@@ -118,7 +118,8 @@ export class Repository<T> {
 
     await item.update({
       $set: {
-        c: filteredContent
+        c: filteredContent,
+        g: group || item.g
       }
     })
   }
