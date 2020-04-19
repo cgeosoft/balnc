@@ -3,7 +3,6 @@ import { ActivatedRouteSnapshot, RouterModule, RouterStateSnapshot } from '@angu
 import { SharedModule } from '@balnc/shared'
 import { BOARDS_ROUTES } from './@shared/constants/routes'
 import { BoardsRepo } from './@shared/repos/boards.repo'
-import { EmojisService } from './@shared/services/emojis.service'
 import { ShellComponent } from './@shell/shell.component'
 import { BoardComponent } from './board/board.component'
 import { FilesComponent } from './board/files/files.component'
@@ -27,7 +26,6 @@ import { SettingsComponent } from './settings/settings.component'
     FilesComponent
   ],
   providers: [
-    EmojisService,
     {
       provide: 'boardNameResolver',
       useFactory: (repo: BoardsRepo) => (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>

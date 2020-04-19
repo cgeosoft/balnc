@@ -7,11 +7,12 @@ import { Observable, Subject, Subscription } from 'rxjs'
 import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators'
 import { Board } from '../../@shared/models/board'
 import { BUser } from '../../@shared/models/buser'
+import { Emoji } from "../../@shared/models/emoji"
 import { Message, OgMetadata } from '../../@shared/models/message'
 import { BoardsRepo } from '../../@shared/repos/boards.repo'
 import { BUsersRepo } from '../../@shared/repos/buser.repo'
 import { MessagesRepo } from '../../@shared/repos/messages.repo'
-import { Emoji, EmojisService } from '../../@shared/services/emojis.service'
+import { EmojisService } from '../../@shared/services/emojis.service'
 
 const urlRegex = /(https?:\/\/[^\s]+)/g
 const giphyApiUrl = 'https://api.giphy.com/v1/gifs'

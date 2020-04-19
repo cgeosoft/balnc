@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
-import { TransactionsRepo } from './@shared/repo/transactions.repo'
 import { ShellComponent } from './@shell/shell.component'
 import { AccountComponent } from './account/account.component'
 import { AccountsComponent } from './accounts/accounts.component'
@@ -44,9 +43,6 @@ import { TransactionsComponent } from './transactions/transactions.component'
         path: '', pathMatch: 'full', redirectTo: 'overview'
       }]
     }])
-  ],
-  providers: [
-    TransactionsRepo
   ]
 })
 export class PaymentsModule { }

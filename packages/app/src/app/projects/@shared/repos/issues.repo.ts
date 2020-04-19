@@ -3,7 +3,9 @@ import { Repository } from '@balnc/core'
 import { Issue, PEventType } from '../models/all'
 import { PEventsRepo } from './pevents.repo'
 
-@Injectable()
+@Injectable({
+  providedIn:'root'
+})
 export class IssuesRepo extends Repository<Issue> {
 
   constructor (

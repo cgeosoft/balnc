@@ -1,14 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-
-export interface Emoji {
-  codes: string
-  char: string
-  name: string
-  category: string
-  group: string
-  subgroup: string
-}
+import { Emoji } from '../models/emoji'
 
 @Injectable({
   providedIn: 'root'
