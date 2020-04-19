@@ -40,6 +40,7 @@ import { SafePipe } from './pipes/safe.pipe'
     FormsModule,
     HttpClientModule,
     NgbModule,
+
     NgPipesModule,
     ReactiveFormsModule,
     RouterModule,
@@ -80,6 +81,7 @@ import { SafePipe } from './pipes/safe.pipe'
     FormsModule,
     HttpClientModule,
     NgbModule,
+
     NgPipesModule,
     ReactiveFormsModule,
     ToastrModule,

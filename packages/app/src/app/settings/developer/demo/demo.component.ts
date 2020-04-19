@@ -1,17 +1,26 @@
 import { Component, OnInit } from '@angular/core'
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { scan } from 'rxjs/operators'
-import { DemoService } from '../../@core/services/demo.service'
+import { DemoService } from './demo.service'
 
 @Component({
-  selector: 'app-demo-data',
-  templateUrl: './demo-data.component.html'
+  selector: 'app-settings-developer-demo',
+  templateUrl: './demo.component.html',
+  providers: [
+    DemoService
+  ]
 })
-export class DemoDataComponent implements OnInit {
+export class DemoComponent implements OnInit {
   loading: boolean
   logs: any[] = []
   logs$: any
 
+  get m () {
+    return this.activeModal
+  }
+
   constructor (
+    private activeModal: NgbActiveModal,
     private demoService: DemoService
   ) {
   }
@@ -27,23 +36,17 @@ export class DemoDataComponent implements OnInit {
       }, []
       )
     )
-    // ).subscribe((msg) => {
-    //   this.logs.unshift({
-    //     msg,
-    //     date: Date.now()
-    //   })
-    // })
   }
 
   async generate () {
-    if (!confirm('Are you sure?')) return
+    // if (!confirm('Are you sure?')) return
     this.loading = true
     await this.demoService.generate()
     this.loading = false
   }
 
   async clear () {
-    if (!confirm('Are you sure?')) return
+    // if (!confirm('Are you sure?')) return
     this.loading = true
     await this.demoService.clear()
     this.loading = false

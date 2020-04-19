@@ -2,13 +2,22 @@
   <section role="title">
     Developer
   </section>
-  <section>
+  <section class="no-border">
     <div class="alert alert-warning">
       <strong>Developer Area</strong><br>
       Use following options with caution!
     </div>
+  </section>
+  <section>
     <h4>Workspace Information</h4>
     <p>Throw a test error for sentry validation</p>
     <button class="btn btn-primary" (click)="throwError()">throw test error</button>
+  </section>
+  <section>
+    <h4>Generate Random Data</h4>
+    <p><strong>This will generate random data.</strong><br>
+    We suggest to generate random data in a non-production
+    workspace.</p>
+    <button class="btn btn-primary" (click)="openGenerate()">Open Generator</button>
   </section>
 </app-content>

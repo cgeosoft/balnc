@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core'
-import { BulkObj, ConfigService } from '@balnc/core'
+import { BulkObj, ConfigService, RxDBService } from '@balnc/core'
 import * as faker from 'faker'
 import { Subject } from 'rxjs'
-import { AccountType } from '../../accounts/@shared/account'
-import { AccountsRepo } from '../../accounts/@shared/accounts.repo'
-import { RecordsRepo } from '../../accounts/@shared/records.repo'
-import { AgreementStatus } from '../../agreements/@shared/agreement'
-import { AgreementsRepo } from '../../agreements/@shared/agreements.repo'
-import { ContactType } from '../../contacts/@shared/contacts'
-import { ContactsRepo } from '../../contacts/@shared/contacts.repo'
-import { TransactionsRepo } from '../../transactions/@shared/transactions.repo'
-import { BoardsRepo } from './../../boards/@shared/repos/boards.repo'
-import { MessagesRepo } from './../../boards/@shared/repos/messages.repo'
-import { IssueStatus, IssueType } from './../../projects/@shared/models/all'
-import { IssuesRepo } from './../../projects/@shared/repos/issues.repo'
-import { ProjectsRepo } from './../../projects/@shared/repos/projects.repo'
-import { RxDBService } from './rxdb.service'
+import { AccountType } from '../../../accounts/@shared/account'
+import { AccountsRepo } from '../../../accounts/@shared/accounts.repo'
+import { RecordsRepo } from '../../../accounts/@shared/records.repo'
+import { AgreementStatus } from '../../../agreements/@shared/agreement'
+import { AgreementsRepo } from '../../../agreements/@shared/agreements.repo'
+import { BoardsRepo } from '../../../boards/@shared/repos/boards.repo'
+import { MessagesRepo } from '../../../boards/@shared/repos/messages.repo'
+import { ContactType } from '../../../contacts/@shared/contacts'
+import { ContactsRepo } from '../../../contacts/@shared/contacts.repo'
+import { IssueStatus, IssueType } from '../../../projects/@shared/models/all'
+import { IssuesRepo } from '../../../projects/@shared/repos/issues.repo'
+import { ProjectsRepo } from '../../../projects/@shared/repos/projects.repo'
+import { TransactionsRepo } from '../../../transactions/@shared/transactions.repo'
 
 const NO_OF_ACCOUNTS = 5
 const NO_OF_CUSTOMERS = 500
@@ -26,9 +25,7 @@ const NO_OF_USERS = 7
 const NO_OF_PROJECTS = 7
 const NO_OF_ISSUES = 250
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DemoService {
 
   logs$ = new Subject<string>()

@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import * as Sentry from '@sentry/browser'
 import { Angulartics2 } from 'angulartics2'
 import { Observable, Subscription } from 'rxjs'
-import { UserFormComponent } from 'src/app/@main/user-form/user-form.component'
+import { UserFormComponent } from '../../@main/user-form/user-form.component'
 
 @Component({
   selector: 'app-settings-general',

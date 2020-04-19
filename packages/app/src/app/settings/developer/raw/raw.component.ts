@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Workspace } from '@balnc/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
-import { ConfigService } from './../../@core/services/config.service'
+import { ConfigService } from '../../../@core/services/config.service'
 
 @Component({
-  selector: 'app-settings-raw-view',
-  templateUrl: './raw-view.component.html'
+  selector: 'app-settings-developer-raw',
+  templateUrl: './raw.component.html'
 })
-export class RawViewComponent implements OnInit {
+export class RawComponent implements OnInit {
   @Input() workspace: Workspace
 
   source: string

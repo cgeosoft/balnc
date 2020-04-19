@@ -3,8 +3,9 @@ import { RouterModule } from '@angular/router'
 import { SharedModule } from '@balnc/shared'
 import { AceEditorModule } from 'ng2-ace-editor'
 import { ShellComponent } from './@shell/shell.component'
-import { DemoDataComponent } from './demo-data/demo-data.component'
+import { DemoComponent } from './developer/demo/demo.component'
 import { DeveloperComponent } from './developer/developer.component'
+import { RawComponent } from './developer/raw/raw.component'
 import { GeneralComponent } from './general/general.component'
 import { ConfigureIntegrationComponent } from './integrations/configure-integration/configure-integration.component'
 import { GiphyComponent } from './integrations/giphy/giphy.component'
@@ -12,7 +13,6 @@ import { IntegrationsComponent } from './integrations/integrations.component'
 import { MailgunComponent } from './integrations/mailgun/mailgun.component'
 import { ServerComponent } from './integrations/server/server.component'
 import { StripeComponent } from './integrations/stripe/stripe.component'
-import { RawViewComponent } from './raw-view/raw-view.component'
 import { SettingsRoutes } from './settings.routes'
 import { WorkspacesComponent } from './workspaces/workspaces.component'
 
@@ -26,10 +26,10 @@ import { WorkspacesComponent } from './workspaces/workspaces.component'
     ShellComponent,
     GeneralComponent,
     IntegrationsComponent,
-    RawViewComponent,
+    RawComponent,
     WorkspacesComponent,
     DeveloperComponent,
-    DemoDataComponent,
+    DemoComponent,
     MailgunComponent,
     StripeComponent,
     GiphyComponent,
@@ -37,7 +37,7 @@ import { WorkspacesComponent } from './workspaces/workspaces.component'
     ServerComponent
   ],
   entryComponents: [
-    RawViewComponent,
+    RawComponent,
     ConfigureIntegrationComponent
   ]
 })
