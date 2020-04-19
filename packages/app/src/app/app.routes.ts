@@ -26,16 +26,10 @@ export const APP_ROUTES: Routes = [{
     },
     loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule)
   }, {
-    path: 'transactions',
-    loadChildren: () => import('./transactions/transactions.module').then(m => m.TransactionsModule),
+    path: 'payments',
+    loadChildren: () => import('./payments/payments.module').then(m => m.PaymentsModule),
     data: {
-      title: 'Transactions'
-    }
-  }, {
-    path: 'accounts',
-    loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule),
-    data: {
-      title: 'Accounts'
+      title: 'Payments'
     }
   }, {
     path: 'agreements',

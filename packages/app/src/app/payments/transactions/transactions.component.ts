@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { TableSchema } from '@balnc/shared'
 import { BehaviorSubject, Observable } from 'rxjs'
-import { Account } from '../../accounts/@shared/account'
-import { AccountsRepo } from '../../accounts/@shared/accounts.repo'
-import { Transaction } from '../@shared/transaction'
-import { TransactionsRepo } from '../@shared/transactions.repo'
+import { Account } from '../@shared/model/account'
+import { Transaction } from '../@shared/model/transaction'
+import { AccountsRepo } from '../@shared/repo/accounts.repo'
+import { TransactionsRepo } from '../@shared/repo/transactions.repo'
 
 @Component({
   selector: 'app-transactions',
@@ -24,7 +24,7 @@ export class TransactionsComponent implements OnInit {
       { label: 'Amount', style: { 'width': '120px', 'text-align': 'right' }, type: 'currency', val: (item: Transaction) => item.amount },
       {
         label: '', style: { 'width': '80px', 'text-align': 'center' },type: 'button', icon: 'bars', click: async (item: Transaction) => {
-          await this.router.navigate(['/transactions', item._id])
+          await this.router.navigate(['/payments/transactions', item._id])
         }
       }
     ]

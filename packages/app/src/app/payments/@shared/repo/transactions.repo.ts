@@ -1,7 +1,7 @@
 
 import { Injectable, Injector } from '@angular/core'
 import { Repository } from '@balnc/core'
-import { Transaction } from './transaction'
+import { Transaction } from '../model/transaction'
 
 @Injectable({
   providedIn: 'root'

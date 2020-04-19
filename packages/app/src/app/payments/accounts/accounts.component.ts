@@ -3,9 +3,9 @@ import { Router } from '@angular/router'
 import { TableSchema } from '@balnc/shared'
 import { Observable } from 'rxjs'
 import { v4 as uuidv4 } from 'uuid'
-import { Account, AccountType, AccountTypeBadges } from '../@shared/account'
-import { AccountsRepo } from '../@shared/accounts.repo'
-import { RecordsRepo } from '../@shared/records.repo'
+import { Account, AccountType, AccountTypeBadges } from '../@shared/model/account'
+import { AccountsRepo } from '../@shared/repo/accounts.repo'
+import { RecordsRepo } from '../@shared/repo/records.repo'
 
 @Component({
   selector: 'app-accounts',
@@ -21,7 +21,7 @@ export class AccountsComponent implements OnInit {
         label: 'Name', type: 'link', locked: true, val: (item: Account) => {
           return {
             label: item.name || '{unamed account}',
-            link: ['/accounts', item._id]
+            link: ['/payments/accounts', item._id]
           }
         }
       },
@@ -30,7 +30,7 @@ export class AccountsComponent implements OnInit {
         label: 'Amount', style: { width: '140px', 'text-align': 'right' }, type: 'currency', locked: true,
         val: (item: Account) => this.totals[item._id] ? this.totals[item._id].amount : 0
       }, {
-        label: 'Amount', style: { width: '140px', 'text-align': 'right' }, type: 'currency', locked: true,
+        label: 'Records', style: { width: '140px', 'text-align': 'right' }, type: 'currency', locked: true,
         val: (item: Account) => this.totals[item._id] ? this.totals[item._id].records : 0
       }
     ]
@@ -61,8 +61,8 @@ export class AccountsComponent implements OnInit {
   }
 
   async createAccount () {
-    const uuid = uuidv4().replace(/-/g,"")
+    const uuid = uuidv4().replace(/-/g, '')
     const account = await this.accountsRepo.add({ name: `Account ${uuid}` })
-    await this.router.navigate(['/accounts', account._id])
+    await this.router.navigate(['/payments/accounts', account._id])
   }
 }

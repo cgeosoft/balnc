@@ -1,7 +1,7 @@
 
 import { Injectable, Injector } from '@angular/core'
 import { Repository } from '@balnc/core'
-import { Account } from './account'
+import { Account } from '../model/account'
 
 @Injectable({
   providedIn: 'root'

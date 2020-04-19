@@ -13,7 +13,7 @@ export const MENU = [{
 }, {
   label: 'Payments',
   icon: 'exchange-alt',
-  route: ['/transactions']
+  route: ['/payments']
 }, {
 //   label: 'Accounts',
 //   icon: 'piggy-bank',
