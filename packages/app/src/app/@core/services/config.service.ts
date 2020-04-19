@@ -121,4 +121,8 @@ export class ConfigService {
     a.click()
   }
 
+  getIntergration<T> (key: string): T {
+    return (this.integrations[key] || {}) as unknown as T
+  }
+
 }

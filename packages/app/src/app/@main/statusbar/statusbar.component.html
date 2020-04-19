@@ -31,15 +31,16 @@
   <button ngbTooltip="chat with support" class="item" routerLink="/support/live">
     <fa-icon icon="comment-dots"></fa-icon>
   </button>
-  <div class="item" ngbTooltip="sync">
-    <ng-container [ngSwitch]="status">
-      <fa-icon *ngSwitchDefault icon="circle" class="text-muted"></fa-icon>
-      <fa-icon *ngSwitchCase="'active'" icon="circle" class="text-success"></fa-icon>
-      <fa-icon *ngSwitchCase="'error'" icon="circle" class="text-danger"></fa-icon>
-      <fa-icon *ngSwitchCase="'syncing'" icon="refresh" [spin]="true" class="text-white"></fa-icon>
-      <fa-icon *ngSwitchCase="'disabled'" icon="circle" class="text-muted"></fa-icon>
-    </ng-container>
-  </div>
+  <ng-container *ngIf="(dbStatus$|async)as dbStatus">
+    <div class="item" [ngbTooltip]="'sync: ' + dbStatus">
+      <ng-container [ngSwitch]="dbStatus">
+        <fa-icon *ngSwitchCase="'active'" icon="check-circle"></fa-icon>
+        <fa-icon *ngSwitchCase="'error'" icon="exclamation"></fa-icon>
+        <fa-icon *ngSwitchCase="'syncing'" icon="sync-alt" [spin]="true"></fa-icon>
+        <fa-icon *ngSwitchCase="'disabled'" icon="unlink"></fa-icon>
+      </ng-container>
+    </div>
+  </ng-container>
   <!-- <div ngbDropdown placement="top-right" container="body">
     <button class="item" [ngbTooltip]="status" ngbDropdownToggle>
       <ng-container [ngSwitch]="status">

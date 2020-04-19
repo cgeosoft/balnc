@@ -17,6 +17,7 @@ import RxDBReplicationGraphQL, { RxGraphQLReplicationState } from 'rxdb/plugins/
 import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
 import RxDBUpdateModule from 'rxdb/plugins/update'
 import RxDBValidateModule from 'rxdb/plugins/validate'
+import { BehaviorSubject } from 'rxjs'
 import environment from '../../../environments/environment'
 import { Migrations } from '../migrations'
 import schema from '../models/entity.json'
@@ -50,9 +51,11 @@ export class RxDBService {
 
   public db: RxDatabase
   private repStateGQL: RxGraphQLReplicationState
-  repStateCouch$: any
+
+  replicationState: any
   entities: RxCollection
-  // workspace$
+  status$: BehaviorSubject<'active' | 'error' | 'syncing' | 'disabled'>
+    = new BehaviorSubject<'active' | 'error' | 'syncing' | 'disabled'>('disabled')
 
   get http () {
     return this.injector.get(HttpClient)
@@ -105,16 +108,21 @@ export class RxDBService {
   enableRemoteDB () {
     const config = this.configService.integrations.server as ServerIntegration
     let host = config.dbHost || `${config.host}/db`
-    this.repStateCouch$ = this.db.entities.sync({
+    this.replicationState = this.db.entities.sync({
       remote: `${host}/${config.dbName}`
     })
+    this.replicationState.active$
+      .subscribe((state: boolean) => {
+        this.status$.next(state ? 'syncing' : 'active')
+      })
   }
 
   disableRemoteDB () {
     console.log('[DatabaseService]', `Remote db is disabled`)
-    if (this.repStateCouch$) {
-      this.repStateCouch$.cancel()
+    if (this.replicationState) {
+      this.replicationState.cancel()
     }
+    this.status$.next('disabled')
   }
 
   async needAuthentication () {
