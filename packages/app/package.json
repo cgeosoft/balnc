@@ -21,7 +21,8 @@
     "build": "ng build --prod",
     "build-desktop": "ng build -c desktop --base-href ./",
     "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "prepare": "npm run snyk-protect",
+    "bundle-report": "webpack-bundle-analyzer dist/stats.json"
   },
   "dependencies": {
     "@angular-devkit/build-angular": "^0.901.1",
@@ -97,5 +98,8 @@
     "typescript": "^3.8.3",
     "zone.js": "^0.10.3"
   },
-  "snyk": true
+  "snyk": true,
+  "devDependencies": {
+    "webpack-bundle-analyzer": "^3.7.0"
+  }
 }
