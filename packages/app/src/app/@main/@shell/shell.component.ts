@@ -1,11 +1,11 @@
 import { Component } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router'
 import { ConfigService, Integration, IntegrationsRepo, RxDBService, ServerIntegration, UpdateService, User, UsersRepo } from '@balnc/core'
-import { Helpers } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
 import { Subscription } from 'rxjs'
 import { LoginComponent } from '../../@main/login/login.component'
+import { Helpers } from '../../@shared/helpers'
 import { UserFormComponent } from '../user-form/user-form.component'
 
 @Component({

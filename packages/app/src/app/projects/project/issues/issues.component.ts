@@ -68,7 +68,7 @@ export class IssuesComponent implements OnInit {
   ngOnInit () {
     this.issues$ = this.route.parent.params.pipe(
       tap(params => { this.pid = params['pid'] }),
-      mergeMap(params => this.issuesRepo.all$(params['pid'])),
+      mergeMap(params => this.issuesRepo.all$({group: params['pid']})),
       tap(issues => issues.sort((a, b) => b._date - a._date))
     )
   }

@@ -1,4 +1,12 @@
+import { MENU } from './models/menu'
+
 export class Helpers {
+  static allMenuItems (): {} {
+    return MENU.reduce((l, i) => {
+      l[i.label] = true
+      return l
+    }, {})
+  }
 
   static getImage (blob: Blob, type: string): Promise<any> {
     return new Promise(async (resolve, reject) => {

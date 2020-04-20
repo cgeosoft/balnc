@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { Helpers } from '../../@shared/helpers'
 import { EnvBuild } from '../../@shared/models/env-build'
 import { Integration } from '../models/integration'
-import { User } from '../models/user'
+import { DEFAULT_USER, User } from '../models/user'
 import { Workspace, WORKSPACE_VERSION } from '../models/workspace'
 import { environment } from './../../../environments/environment'
 
@@ -74,6 +74,7 @@ export class ConfigService {
 
   create (data: Partial<Workspace>): string {
     const ws: Partial<Workspace> = {
+      ...DEFAULT_USER,
       ...{
         key: uuidv4().replace(/-/g, ''),
         name: Helpers.generateName(),

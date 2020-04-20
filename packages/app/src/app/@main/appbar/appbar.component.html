@@ -5,14 +5,16 @@
     <span class="label">Dashboard</span>
   </button>
   <div class="divider"></div>
-  <ng-container *ngFor="let item of menu">
-    <button *ngIf="!item.hide" class="item" routerLinkActive="active" [routerLink]="item.route" [ngbTooltip]="compact ? item.label : null"
-      placement="right" container="body" [ngStyle]="{color:item.color}">
-      <fa-icon [icon]="item.icon"></fa-icon>
-      <span class="label">{{item.label}}</span>
-    </button>
+  <ng-container *ngIf="menu.length">
+    <ng-container *ngFor="let i of menu">
+      <button class="item" routerLinkActive="active" [routerLink]="i.route"
+        [ngbTooltip]="compact ? i.label : null" placement="right" container="body" [ngStyle]="{color:i.iconColor}">
+        <fa-icon [icon]="i.icon"></fa-icon>
+        <span class="label">{{i.label}}</span>
+      </button>
+    </ng-container>
+    <div class="divider"></div>
   </ng-container>
-  <div class="divider"></div>
   <button class="item" routerLink="/settings" routerLinkActive="active" [ngbTooltip]="compact ? 'Settings':null"
     placement="right" container="body">
     <fa-icon icon="cog"></fa-icon>

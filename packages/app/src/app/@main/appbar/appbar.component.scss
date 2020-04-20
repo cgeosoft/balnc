@@ -53,20 +53,9 @@ $appbar-normal-width: 75px;
       outline: none;
       transition: background-color 0.7s;
       transition: color 0.7s;
+      transition: height 0.7s;
       color: $body-bg;
-
-      &:hover {
-        background: lighten($dark, 2%);
-      }
-
-      &.active {
-        background: lighten($dark, 5%);
-        border-color: lighten($dark, 7%);
-      }
-
-      &:last-child {
-        @extend .mb-0;
-      }
+      overflow: hidden;
 
       fa-icon{
         text-shadow: $body-color;
@@ -79,6 +68,19 @@ $appbar-normal-width: 75px;
         height: 16px;
         opacity: .8;
         display: block;
+      }
+
+      &:hover {
+        background: lighten($dark, 2%);
+      }
+
+      &.active {
+        background: lighten($dark, 5%);
+        border-color: lighten($dark, 7%);
+      }
+
+      &:last-child {
+        @extend .mb-0;
       }
     }
 

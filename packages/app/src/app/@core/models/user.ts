@@ -1,3 +1,4 @@
+import { Helpers } from '../../@shared/helpers'
 import { Entity } from './entity'
 
 export interface User extends Entity {
@@ -8,7 +9,7 @@ export interface User extends Entity {
     layout?: 'box' | 'fluid';
     menu?: {
       size?: 'normal' | 'compact';
-      items?: string[];
+      items?: { [key: string]: boolean };
     };
   }
 }
@@ -19,7 +20,7 @@ export const DEFAULT_USER: Partial<User> = {
     layout: 'box',
     menu: {
       size: 'compact',
-      items: null
+      items: Helpers.allMenuItems()
     }
   }
 }

@@ -1,5 +1,5 @@
-import { Component, HostBinding } from '@angular/core'
-import { ConfigService } from '@balnc/core'
+import { Component, HostBinding, OnInit } from '@angular/core'
+import { ConfigService, UsersRepo } from '@balnc/core'
 import { COLORS, IntegrationView } from '@balnc/shared'
 import { MENU } from '../../@shared/models/menu'
 
@@ -8,9 +8,9 @@ import { MENU } from '../../@shared/models/menu'
   templateUrl: 'appbar.component.html',
   styleUrls: ['appbar.component.scss']
 })
-export class AppbarComponent {
+export class AppbarComponent implements OnInit {
 
-  @HostBinding('class.compact') get compact () {
+  @HostBinding('class.compact') get compact() {
     return this.configService.user?.config?.menu?.size
       ? this.configService.user?.config?.menu?.size === 'compact'
       : true
@@ -27,28 +27,32 @@ export class AppbarComponent {
   plugins: IntegrationView[] = []
 
   colors = COLORS
-  _menu: any[] = MENU
 
-  get menu () {
-    return this._menu.map((x) => {
-      x.hide = (this.configService.user?.config?.menu?.items || []).indexOf(x.label) !== -1
-      return x
-    })
+  get menu() {
+    return [...MENU]
+      .filter(m => this.user?.config?.menu?.items[m.label])
+      .map((x, i) => {
+        x.iconColor = this.colors[Object.keys(this.colors)[i]]['300']
+        return x
+      })
   }
 
-  constructor (
-    private configService: ConfigService
-  ) {
-    this._menu.forEach((x, i) => {
-      x.color = this.colors[Object.keys(this.colors)[i]]['300']
-    })
-  }
-
-  get isClosed () {
+  get isClosed() {
     return this.configService.isSidebarClosed
   }
 
-  toggleMenu () {
+  get user() {
+    return this.configService.user
+  }
+
+  constructor(
+    private usersRepo: UsersRepo,
+    private configService: ConfigService
+  ) { }
+
+  ngOnInit() { }
+
+  toggleMenu() {
     this.configService.isSidebarClosed = !this.configService.isSidebarClosed
   }
 }

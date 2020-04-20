@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { MenuItem } from './menu-item'
+import { MenuItem } from '../../models/menu-item'
 
 @Component({
   selector: 'app-sidemenu',

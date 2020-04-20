@@ -10,5 +10,6 @@ export interface MenuItem {
   expanded?: boolean
   note?: string
   items?: MenuItem[]
+  hide?: boolean
   action?: () => void
 }

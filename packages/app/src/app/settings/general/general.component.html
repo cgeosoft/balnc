@@ -8,7 +8,10 @@
     </div>
   </section>
   <section>
-    <h4>User profile</h4>
+    <h4>
+      User profile
+      <small class="text-muted text-monospace float-right">{{user?._id}}</small>
+    </h4>
     <ng-container *ngIf="user">
       <div class="form-group form-group-inline">
         <label>Username</label>
@@ -30,12 +33,12 @@
       <div class="form-group form-group-inline">
         <label>Layout</label>
         <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="layout_fluid" name="layout" (keyup)="saveUser()" [(ngModel)]="user.config.layout"
+          <input type="radio" id="layout_fluid" name="layout" (change)="saveUser()" [(ngModel)]="user.config.layout"
             value="fluid" class="custom-control-input">
           <label class="custom-control-label" for="layout_fluid">Fluid</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="layout_box" name="layout" (keyup)="saveUser()" [(ngModel)]="user.config.layout"
+          <input type="radio" id="layout_box" name="layout" (change)="saveUser()" [(ngModel)]="user.config.layout"
             value="box" class="custom-control-input">
           <label class="custom-control-label" for="layout_box">Box</label>
         </div>
@@ -43,32 +46,45 @@
       <div class="form-group form-group-inline">
         <label>Menu Size</label>
         <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="menu_size_compact" name="menu_size" (keyup)="saveUser()"
+          <input type="radio" id="menu_size_compact" name="menu_size" (change)="saveUser()"
             [(ngModel)]="user.config.menu.size" value="compact" class="custom-control-input">
           <label class="custom-control-label" for="menu_size_compact">Compact</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-          <input type="radio" id="menu_size_normal" name="menu_size" (keyup)="saveUser()"
+          <input type="radio" id="menu_size_normal" name="menu_size" (change)="saveUser()"
             [(ngModel)]="user.config.menu.size" value="normal" class="custom-control-input">
           <label class="custom-control-label" for="menu_size_normal">Normal</label>
         </div>
       </div>
       <div class="form-group form-group-inline">
         <label>Menu Items</label>
-        <div class="row">
-          <ng-container *ngFor="let item of menu">
-            <div class="col-lg-3 col-md-4">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="{{'menuItem'+item.label}}" (keyup)="saveUser()"
-                  [(ngModel)]="showMenuItems[item.label]">
-                <label class="custom-control-label" for="{{'menuItem'+item.label}}">{{item.label}}</label>
+        <div class="">
+          <div class="btn-group btn-group-sm">
+            <button type="button" class="btn btn-light"
+              (click)="user.config.menu.items=allItems;saveUser()">All</button>
+            <button type="button" class="btn btn-light" (click)="user.config.menu.items={};saveUser()">None</button>
+          </div>
+          <div class="row">
+            <ng-container *ngFor="let item of menu">
+              <div class="col-lg-3 col-md-4">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="{{'menu_item_'+item.label}}"
+                    (change)="saveUser()" [(ngModel)]="user.config?.menu?.items[item.label]">
+                  <label class="custom-control-label" for="{{'menu_item_'+item.label}}">{{item.label}}</label>
+                </div>
               </div>
-            </div>
-          </ng-container>
+            </ng-container>
+          </div>
         </div>
       </div>
     </ng-container>
-    <button class="btn btn-sm btn-link" (click)="createUser()">Create new user or switch</button>
+    <div class="form-group form-group-inline">
+      <label>Manage</label>
+      <div>
+        <button class="btn btn-link" (click)="createUser()">Create new or switch user</button>
+        <button class="btn btn-link text-danger" (click)="removeUser()">Remove this user</button>
+      </div>
+    </div>
   </section>
 
   <section>
@@ -85,7 +101,7 @@
         This will
         help further development as we may resolve issues faster.</div>
       <div class="custom-control custom-checkbox custom-control-inline">
-        <input id="errorReport" (change)="updateWorkspace({errors:$event.target.checked})" class="custom-control-input"
+        <input id="errorReport" [checked]="workspace.errors" (change)="updateWorkspace({errors:$event.target.checked})" class="custom-control-input"
           type="checkbox">
         <label for="errorReport" class="custom-control-label">
           Send debug error data</label>
@@ -95,7 +111,7 @@
       <div>Analytics help us to better understand how blanc have been used, so we may improve it. We use
         <a target="_blank" href="https://woopra.com">woopra.com</a> for this.</div>
       <div class="custom-control custom-checkbox custom-control-inline">
-        <input id="analytics" (change)="updateWorkspace({analytics:$event.target.checked})" class="custom-control-input"
+        <input id="analytics" [checked]="workspace.analytics" (change)="updateWorkspace({analytics:$event.target.checked})" class="custom-control-input"
           type="checkbox">
         <label for="analytics" class="custom-control-label">
           Send analytics data</label>
