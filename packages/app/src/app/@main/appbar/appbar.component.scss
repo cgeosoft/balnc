@@ -1,7 +1,7 @@
 @import "theme";
 
-$appbar-compact-width: 50px;
-$appbar-normal-width: 75px;
+$appbar-compact-width: 60px;
+$appbar-normal-width: 85px;
 
 :host {
   @extend .d-flex;
@@ -12,15 +12,16 @@ $appbar-normal-width: 75px;
   @extend .overflow-hidden;
   min-width: $appbar-normal-width;
   width: $appbar-normal-width;
+  padding-right: 10px;
   transition: all 0.5s;
   z-index: 20;
 
-  &.compact{
+  &.compact {
     min-width: $appbar-compact-width;
     width: $appbar-compact-width;
-    .menu{
-      .item{
-        .label{
+    .menu {
+      .item {
+        .label {
           height: 0px;
           opacity: 0;
         }
@@ -29,7 +30,7 @@ $appbar-normal-width: 75px;
   }
 
   .menu {
-    @extend .shadow-sm;
+    @extend .shadow;
     @extend .d-flex;
     @extend .flex-column;
     @extend .justify-content-start;
@@ -57,16 +58,16 @@ $appbar-normal-width: 75px;
       color: $body-bg;
       overflow: hidden;
 
-      fa-icon{
+      fa-icon {
         text-shadow: $body-color;
       }
 
-      .label{
+      .label {
         transition: all 0.5s;
-        font-size:.7rem;
+        font-size: 0.7rem;
         overflow: hidden;
         height: 16px;
-        opacity: .8;
+        opacity: 0.8;
         display: block;
       }
 
