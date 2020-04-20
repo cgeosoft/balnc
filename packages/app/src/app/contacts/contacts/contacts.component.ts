@@ -18,7 +18,7 @@ export class ContactsComponent implements OnInit {
     name: 'contacts',
     sort: 'Name',
     properties: [
-      { label: 'Name', style: { 'min-width': '300px' }, template: 't1', locked: true, d: (i) => i.c.name, val: (item: Contact) => item.name },
+      { label: 'Name', style: { 'min-width': '300px' }, template: 't1', locked: true, d: (i) => i.c.name },
       { label: 'Phones', style: { width: '150px' }, d: (i) => i.c.phones[0], val: (item: Contact) => item.phones },
       { label: 'Emails', style: { width: '200px' }, d: (i) => i.c.emails[0], val: (item: Contact) => item.emails },
       { label: 'Tags', style: { width: '200px' }, d: (i) => i.c.name, val: (item: Contact) => item._tags ? item._tags.join(', ') : null, hidden: true },
@@ -31,24 +31,24 @@ export class ContactsComponent implements OnInit {
   contacts$: Observable<Contact[]> = new Observable<Contact[]>()
   term$: BehaviorSubject<string> = new BehaviorSubject<string>(null)
 
-  constructor (
+  constructor(
     private contactsRepo: ContactsRepo,
     private modal: NgbModal
   ) { }
 
-  ngOnInit () {
+  ngOnInit() {
     this.contacts$ = this.contactsRepo.all$()
   }
 
-  filter (term) {
+  filter(term) {
     this.term$.next(term)
   }
 
-  createContact () {
+  createContact() {
     this.modal.open(ContactCreateComponent)
   }
 
-  private doFilterContacts (contacts, term) {
+  private doFilterContacts(contacts, term) {
     if (!term) return contacts
     return contacts.filter(d => d.name.toUpperCase().startsWith(term.toUpperCase()))
   }

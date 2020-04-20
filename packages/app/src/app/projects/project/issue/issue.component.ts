@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
-import { Issue, IssueStatus, IssueStatuses, PEvent, PEventType } from '../../@shared/models/all'
+import { Issue, IssueStatus, IssueStatusViews, PEvent, PEventType } from '../../@shared/models/all'
 import { IssuesRepo } from '../../@shared/repos/issues.repo'
 import { PEventsRepo } from '../../@shared/repos/pevents.repo'
 
@@ -33,7 +33,7 @@ export class IssueComponent implements OnInit {
   editDesc = false
 
   statuses = IssueStatus
-  issueStatuses = IssueStatuses
+  issueStatuses = IssueStatusViews
 
   peventTypes = PEventType
 

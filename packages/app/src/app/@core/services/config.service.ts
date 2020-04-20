@@ -25,7 +25,7 @@ export class ConfigService {
   userAvatars: { [key: string]: string }
 
   get usernames () {
-    return this.users.reduce((l, i) => {
+    return this.users?.reduce((l, i) => {
       l[i._id] = i.username
       return l
     }, {})

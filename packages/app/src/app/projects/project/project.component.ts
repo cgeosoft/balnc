@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
-import { LocalStorage } from 'ngx-store'
-import { Observable } from 'rxjs'
-import { mergeMap, tap } from 'rxjs/operators'
-import { Issue, IssueStatuses, Project } from '../@shared/models/all'
-import { ProjectsRepo } from '../@shared/repos/projects.repo'
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LocalStorage } from 'ngx-store';
+import { Observable } from 'rxjs';
+import { mergeMap, tap } from 'rxjs/operators';
+import { Issue, IssueStatusViews, Project } from '../@shared/models/all';
+import { ProjectsRepo } from '../@shared/repos/projects.repo';
 
 @Component({
   selector: 'app-projects-project',
@@ -24,7 +24,7 @@ export class ProjectComponent implements OnInit {
   projects: Project[]
   project: Project
 
-  issueStatuses = IssueStatuses
+  issueStatuses = IssueStatusViews
   @LocalStorage('project_filters') filters = {
     status: null
   }
@@ -47,13 +47,13 @@ export class ProjectComponent implements OnInit {
     }
   ]
 
-  constructor (
+  constructor(
     private projectsRepo: ProjectsRepo,
     private route: ActivatedRoute,
     private router: Router
   ) { }
 
-  async ngOnInit () {
+  async ngOnInit() {
     this.project$ = this.route.params.pipe(
       mergeMap(params => this.projectsRepo.one$(params['pid'])),
       tap(async (project) => {
@@ -61,12 +61,12 @@ export class ProjectComponent implements OnInit {
           await this.router.navigate([`/projects/projects`])
           return
         }
-        this.route.snapshot.data.breadcrumb.label = project.name
+        // this.route.snapshot.data.breadcrumb.label = project.name
       })
     )
   }
 
-  async toggleMark (id: string) {
+  async toggleMark(id: string) {
     await this.projectsRepo.mark(id)
   }
 }

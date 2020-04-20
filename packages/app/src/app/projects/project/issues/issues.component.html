@@ -8,9 +8,44 @@
 
 <section *ngIf="filters" class="bg-light">
   <h4>Filters</h4>
-  <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod cumque quibusdam ab sint porro placeat laborum! Alias aut cum enim repellat ipsum autem beatae voluptates sit sequi? Voluptates, eum officia.</div>
+  <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod cumque quibusdam ab sint porro placeat laborum!
+    Alias aut cum enim repellat ipsum autem beatae voluptates sit sequi? Voluptates, eum officia.</div>
 </section>
 
 <section class="full no-padding">
-  <app-table [data$]="issues$" [schema]="schema"></app-table>
+  <app-table [data$]="issues$" [schema]="schema" [templates]="{issueTpl:issueTpl,mainTpl:mainTpl}"></app-table>
 </section>
+
+<ng-template #issueTpl let-issue="item">
+  <ng-container [ngSwitch]="issue.status">
+    <ng-container *ngSwitchCase="'PENDING'">
+      <fa-icon icon="pause-circle" [ngStyle]="{color:issuesStatuses[issue._id].style['background-color']}"
+        container="body" ngbTooltip="pending"></fa-icon>
+    </ng-container>
+    <ng-container *ngSwitchCase="'PROGRESS'">
+      <fa-icon icon="play-circle" [ngStyle]="{color:issuesStatuses[issue._id].style['background-color']}"
+        container="body" ngbTooltip="progress"></fa-icon>
+    </ng-container>
+    <ng-container *ngSwitchCase="'COMPLETED'">
+      <fa-icon icon="dot-circle" [ngStyle]="{color:issuesStatuses[issue._id].style['background-color']}"
+        container="body" ngbTooltip="completed"></fa-icon>
+    </ng-container>
+    <ng-container *ngSwitchCase="'REVIEW'">
+      <fa-icon icon="user-circle" [ngStyle]="{color:issuesStatuses[issue._id].style['background-color']}"
+        container="body" ngbTooltip="review"></fa-icon>
+    </ng-container>
+    <ng-container *ngSwitchCase="'CLOSED'">
+      <fa-icon icon="check-circle" [ngStyle]="{color:issuesStatuses[issue._id].style['background-color']}"
+        container="body" ngbTooltip="closed"></fa-icon>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #mainTpl let-issue="item">
+  <div>
+    <a [routerLink]="['/projects/projects',issue._group,'issues',issue._id]">{{issue.title}}</a>
+  </div>
+  <div class="text-muted">
+    <small>ppened {{issue._date|date:"yyyy-MM-dd HH:mm:ss"}} by {{usernames[issue.reporter] || "uknown"}}</small>
+  </div>
+</ng-template>

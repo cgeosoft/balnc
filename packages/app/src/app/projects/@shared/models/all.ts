@@ -65,7 +65,7 @@ export const IssueTypeModel = [
   { alias: 'support', color: '#f00' }
 ]
 
-export const IssueStatuses = [
+export const IssueStatusViews: IssueStatusView[] = [
   { key: IssueStatus.open, label: 'Open', style: { 'background-color': '#9E9E9E', color: '#FFF' } },
   { key: IssueStatus.pending, label: 'Pending', style: { 'background-color': '#607D8B', color: '#FFF' } },
   { key: IssueStatus.progress, label: 'In Progress', style: { 'background-color': '#FF5722', color: '#FFF' } },
@@ -73,3 +73,9 @@ export const IssueStatuses = [
   { key: IssueStatus.review, label: 'Review', style: { 'background-color': '#9C27B0', color: '#FFF' } },
   { key: IssueStatus.closed, label: 'Closed', style: { 'background-color': '#4CAF50', color: '#FFF' } }
 ]
+
+export interface IssueStatusView {
+  key: IssueStatus
+  label: string
+  style: any
+}
