@@ -3,8 +3,7 @@
 @import "~ngx-toastr/toastr-bs4-alert";
 
 html,
-body,
-.wrapper {
+body {
   height: 100%;
 }
 
@@ -42,27 +41,6 @@ a {
       display: block;
       color: #ccc;
       font-size: 0.8rem;
-    }
-  }
-}
-
-
-th {
-  &.datetime {
-    width: 180px;
-  }
-}
-
-.wrapper {
-  // min-width: 920px;
-  &.wrapper-dark {
-    &:before {
-      content: "";
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: $dark;
-      z-index: -1;
     }
   }
 }
