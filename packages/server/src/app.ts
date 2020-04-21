@@ -18,6 +18,9 @@ const db = require("express-pouchdb")(PouchDB.defaults({
 }), {
     configPath: './config/db.json',
     logPath: './logs/db.log',
+    overrideMode: {
+      exclude: ['routes/fauxton']
+    }
 })
 
 const app = express();

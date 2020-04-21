@@ -8,14 +8,13 @@
     "email": "georgiou.christos@outlook.com",
     "url": "http://cgeosoft.com"
   },
-  "main": "dist/app.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/christosgeorgiou/balnc"
   },
   "scripts": {
-    "start": "node --inspect=5858 -r ts-node/register ./src/app.ts",
-    "start:watch": "nodemon",
+    "start": "nodemon",
+    "start:build": "node -r ts-node/register ./src/app.ts",
     "prebuild": "node ./scripts/prebuild.js",
     "build": "tsc -c tsconfig.production.json",
     "test": "echo \"Error: no test specified\" && exit 1"

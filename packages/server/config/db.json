@@ -1,0 +1,17 @@
+{
+  "couchdb": {
+    "uuid": "c69d617a-c5d7-4740-8e28-592a26dea543"
+  },
+  "admins": {
+    "admin": "-pbkdf2-c390c4844a9d5e35d08b5baaff7bbe6a99839046,1ed1471911b915d15f1651a51721dd13312e187122177185,10"
+  },
+  "httpd": {
+    "enable_cors": true
+  },
+  "cors": {
+    "origins": "*",
+    "headers": "accept, authorization, content-type, origin, referer",
+    "credentials": true,
+    "methods": "GET, PUT, POST, HEAD, DELETE"
+  }
+}
