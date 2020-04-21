@@ -68,10 +68,6 @@ export class GeneralComponent implements OnInit {
     this.allItems = Helpers.allMenuItems()
   }
 
-  ngOnDestroy (): void {
-    // this.usersSub.unsubscribe()
-  }
-
   updateWorkspace (data: any) {
     this.workspace = { ...this.workspace, ...data }
     this.configService.update(this.workspace)
@@ -106,7 +102,6 @@ export class GeneralComponent implements OnInit {
   }
 
   async saveUser () {
-    // this.user.config.menu.items = this.menu.map(m => m.label).filter(x => !this.menuItems[x])
     await this.usersRepo.update(this.user._id, this.user)
   }
 
