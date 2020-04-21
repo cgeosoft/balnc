@@ -1,48 +1,56 @@
+import * as Sentry from '@sentry/node';
 import cors from 'cors';
 import express from "express";
 import helmet from 'helmet';
 import PouchDB from 'pouchdb';
-import { build } from './build';
-import { logger } from './commons/logger';
-import { routes } from './commons/routes';
+import { api } from './api/routes';
+import { logger, loggerMiddleware } from './commons/logger';
+import { config, pouchdbCorsParams } from './config';
+
+Sentry.init({
+    release: `v${config.version}`,
+    environment: process.env.NODE_ENV === "production" ? 'production' : 'development',
+    dsn: config.sentry.dsn
+});
 
 const db = require("express-pouchdb")(PouchDB.defaults({
     prefix: './data/'
-}),{
-    configPath: './config/config.json',
-    logPath: './config/log.txt',
+}), {
+    configPath: './config/db.json',
+    logPath: './logs/db.log',
 })
 
-var whitelist = ['http://localhost:4200', 'http://localhost:8000', 'https://balnc.cgeosoft.com']
-
 const app = express();
-const pouchdbCorsParams = {
-    credentials: true,
-    origin: (requestOrigin: any, callback: any) => {
-        if (whitelist.indexOf(requestOrigin) !== -1 || !requestOrigin) {
-            callback(null, true)
-        } else {
-            callback(new Error(`Not allowed by CORS [${requestOrigin}]`))
-        }
-    },
-    allowedHeaders: "accept, authorization, content-type, origin, referer",
-    methods: "GET, PUT, POST, HEAD, DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 204
-}
 
 app.use("/db", cors(pouchdbCorsParams), db);
 
 app.use(helmet());
-app.use("/", cors());
-app.use('/api', cors(), routes);
 
-app.get("/", (req, res) => {
-    res.json({
-        message: "server online",
-        ...build
-    })
+app.use(Sentry.Handlers.requestHandler());
+app.use(loggerMiddleware);
+
+app.use('/api', cors(), api);
+
+app.use((req, res, next) => {
+    res.status(404).send("Not found")
 })
+
+app.use(Sentry.Handlers.errorHandler());
+app.use((err, req, res, next) => {
+    logger.error(`unhandled error`, {
+        sentry: res.sentry
+    })
+    if (err.error === "not_found") {
+        return res.status(401).json(err)
+    }
+    if (err.error === "unauthorized") {
+        return res.status(401).json(err)
+    }
+    if (err.error && err.error.code === "ECONNREFUSED") {
+        return res.status(503).json({ error: "Offline", details: "Database is offline" })
+    }
+    res.status(500).send('Something broke!')
+});
 
 const PORT = process.env.PORT || 3000;
 
