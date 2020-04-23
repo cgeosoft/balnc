@@ -50,11 +50,11 @@ $appbar-normal-width: 85px;
       @extend .py-1;
       @extend .px-0;
       @extend .text-center;
+      @extend .flex-shrink-0;
       background: none;
       outline: none;
       transition: background-color 0.7s;
       transition: color 0.7s;
-      transition: height 0.7s;
       color: $body-bg;
       overflow: hidden;
 
