@@ -1,5 +1,5 @@
-import { Enviroment } from '@balnc/shared'
 import pkg from '../../package.json'
+import { Enviroment } from '../app/@core/models/enviroment'
 import build from '../assets/build.json'
 
 export const environment: Enviroment = {

@@ -3,7 +3,7 @@ import { ReadFile } from 'ngx-file-helpers'
 import { LocalStorage } from 'ngx-store'
 import { v4 as uuidv4 } from 'uuid'
 import { Helpers } from '../../@shared/helpers'
-import { EnvBuild } from '../../@shared/models/env-build'
+import { Build } from '../models/build'
 import { Integration } from '../models/integration'
 import { DEFAULT_USER, User } from '../models/user'
 import { Workspace, WORKSPACE_VERSION } from '../models/workspace'
@@ -35,7 +35,7 @@ export class ConfigService {
     return environment.version
   }
 
-  get build (): EnvBuild {
+  get build (): Build {
     return environment.build
   }
 

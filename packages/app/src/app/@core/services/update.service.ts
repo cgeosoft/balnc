@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core'
 import { interval, Observable } from 'rxjs'
 import { catchError, map, switchMap } from 'rxjs/operators'
 import { environment } from '../../../environments/environment'
-import { EnvBuild } from '../../@shared/models/env-build'
+import { Build } from '../models/build'
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +20,11 @@ export class UpdateService {
   ) {
     this.status$ = interval(this.interval).pipe(
       switchMap(() => {
-        return this.http.get<EnvBuild>(this.url).pipe(
+        return this.http.get<Build>(this.url).pipe(
           catchError(() => null)
         )
       }),
-      map((build: EnvBuild) => {
+      map((build: Build) => {
         if (!build) return false
         return environment.build.timestamp < build.timestamp
       })

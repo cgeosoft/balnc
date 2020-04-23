@@ -16,9 +16,9 @@ nodegit.Repository
   .then(async (repository) => {
     const branch = await repository.getCurrentBranch()
     const commit = await repository.getHeadCommit();
-    build.git.author = commit.author().name() + " - " + commit.author().email()
+    // build.git.author = commit.author().name() + " - " + commit.author().email()
     build.git.date = commit.date()
-    build.git.message = commit.message()
+    // build.git.message = commit.message().trim()
     build.git.hash = commit.sha()
     build.git.branch = branch.shorthand()
     fs.writeFileSync(

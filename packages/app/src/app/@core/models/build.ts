@@ -1,10 +1,8 @@
-export interface EnvBuild {
+export interface Build {
   timestamp: number
   git: {
     hash: string
-    author: string
     date: string
-    message: string
     branch: string
   }
 }

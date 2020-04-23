@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core'
 import { ConfigService, IntegrationsRepo } from '@balnc/core'
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 import { Integration } from '../../../@core/models/integration'
-import { IntegrationView } from '../../../@shared/models/integration.model'
+import { IntegrationView } from '../../../@shared/models/integration'
 
 @Component({
   selector: 'app-configure-integration',

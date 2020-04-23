@@ -1,8 +1,8 @@
-import { EnvBuild } from './env-build';
+import { Build } from './build';
 
 export interface Enviroment {
   production: boolean
-  build: EnvBuild
+  build: Build
   version: string
   sentry: { dsn: string, showReportDialog: boolean }
   servers: any[]

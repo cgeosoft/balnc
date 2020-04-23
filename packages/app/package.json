@@ -18,6 +18,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "prebuild": "node ./scripts/pre-build.js",
+    "postinstall": "node ./scripts/pre-build.js",
     "build": "ng build --prod",
     "build-desktop": "ng build -c desktop --base-href ./",
     "snyk-protect": "snyk protect",
