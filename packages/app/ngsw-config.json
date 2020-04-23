@@ -2,17 +2,16 @@
   "index": "/index.html",
   "assetGroups": [{
     "name": "app",
-    "installMode": "prefetch",
     "resources": {
       "files": [
         "/docs/**/*.*",
         "/assets/**/*.*",
         "!/assets/build.json",
-        "/**/*.js",
-        "/**/*.js.map",
-        "/**/*.css",
-        "/**/*.css.map",
-        "/robots.txt",
+        "/*.js",
+        "/*.js.map",
+        "/*.css",
+        "/*.css.map",
+        "/index.html",
         "/favicon.ico"
       ]
     }
