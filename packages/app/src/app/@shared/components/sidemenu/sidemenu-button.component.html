@@ -1,32 +1,32 @@
 <div class="item">
   <ng-container *ngIf="i.route">
     <button [routerLink]="i.route" routerLinkActive="active" class="action" [ngClass]="i.cssClass">
-      <fa-icon [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
+      <fa-icon *ngIf="i.icon" [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
       <span class="content">
         <span>{{i.label}}</span>
         <small>{{i.sublabel}}</small>
       </span>
-      <span class="note" *ngIf="i.note">{{i.note}}</span>
+      <span class="note" *ngIf="i.note" [ngStyle]="{'background-color':i.noteColor}">{{i.note}}</span>
     </button>
   </ng-container>
   <ng-container *ngIf="i.action">
     <button (click)="i.action()" class="action" [ngClass]="i.cssClass">
-      <fa-icon [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
+      <fa-icon *ngIf="i.icon" [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
       <span class="content">
         <span>{{i.label}}</span>
         <small>{{i.sublabel}}</small>
       </span>
-      <span class="note" *ngIf="i.note">{{i.note}}</span>
+      <span class="note" *ngIf="i.note" [ngStyle]="{'background-color':i.noteColor}">{{i.note}}</span>
     </button>
   </ng-container>
   <ng-container *ngIf="!i.route && !i.action">
     <div class="action" [ngClass]="i.cssClass">
-      <fa-icon [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
+      <fa-icon *ngIf="i.icon" [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
       <span class="content">
         <span>{{i.label}}</span>
         <small>{{i.sublabel}}</small>
       </span>
-      <span class="note" *ngIf="i.note">{{i.note}}</span>
+      <span class="note" *ngIf="i.note" [ngStyle]="{'background-color':i.noteColor}">{{i.note}}</span>
     </div>
   </ng-container>
   <button *ngIf="i.items && i.items.length" (click)="i.expanded = !i.expanded" class="expand">

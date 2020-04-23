@@ -9,6 +9,7 @@ export interface MenuItem {
   route?: string | string[]
   expanded?: boolean
   note?: string
+  noteColor?: string
   items?: MenuItem[]
   hide?: boolean
   action?: () => void

@@ -1,9 +1,10 @@
 <app-page>
   <ng-container role="sidebar">
     <div class="title">Boards</div>
-    <div class="menu">
+    <div class="mb-2">
       <app-sidemenu [menu]="menu"></app-sidemenu>
-      <div class="divider"></div>
+    </div>
+    <div class="menu">
       <ng-container *ngIf="(boards$ | async) as boards;">
         <ng-container *ngIf="boards.length">
           <app-sidemenu [menu]="boards"></app-sidemenu>

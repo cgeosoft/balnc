@@ -3,33 +3,18 @@
     <ng-container *ngFor="let breadcrumb of breadcrumbs">
       <li class="breadcrumb-item">
         <a class="item" [routerLink]='[breadcrumb.url]' routerLinkActive='active'>
-          {{ breadcrumb.label }}</a>
+          {{breadcrumb.label}}</a>
       </li>
     </ng-container>
   </ul>
 </div>
 <div class="menu">
-  <button class="item" ngbTooltip="changelog" routerLink="/support/about">v{{version}}</button>
-  <!-- <a class="item" ngbTooltip="git commit" target="_blank"
-    href="https://github.com/ChristosGeorgiou/balnc/commit/{{build.git.hash}}">
-    {{build.timestamp | date:'yyyy-MM-dd HH:mm'}}</a> -->
-  <!-- <button ngbTooltip="toggle layout" *ngIf="user?.config?.layout === 'box'" class="item"
-    (click)="toggleLayout('fluid')">
-    <fa-icon icon="compress-arrows-alt"></fa-icon> box
-  </button> -->
-  <!-- <button ngbTooltip="toggle layout" *ngIf="user?.config?.layout !== 'box'" class="item" (click)="toggleLayout('box')">
-    <fa-icon icon="expand-arrows-alt"></fa-icon> fluid
-  </button> -->
-  <button ngbTooltip="workspace" class="item" routerLink="/settings">
+  <button class="item" routerLink="/support/about">
+    v{{version}}</button>
+  <button class="item" routerLink="/settings">
     <fa-layers class="fa-fw">
       <fa-icon icon="swatchbook"></fa-icon>
     </fa-layers> {{workspace.name}} / {{user?.username}}
-  </button>
-  <!-- <button ngbTooltip="chat with support" class="item" onclick="$crisp.push(['do', 'chat:open'])">
-    <fa-icon icon="comment-dots"></fa-icon>
-  </button> -->
-  <button ngbTooltip="chat with support" class="item" routerLink="/support/live">
-    <fa-icon icon="comment-dots"></fa-icon>
   </button>
   <ng-container *ngIf="(dbStatus$|async)as dbStatus">
     <div class="item" [ngbTooltip]="dbStatus">
@@ -41,20 +26,4 @@
       </ng-container>
     </div>
   </ng-container>
-  <!-- <div ngbDropdown placement="top-right" container="body">
-    <button class="item" [ngbTooltip]="status" ngbDropdownToggle>
-      <ng-container [ngSwitch]="status">
-        <fa-icon *ngSwitchDefault icon="circle" class="text-muted"></fa-icon>
-        <fa-icon *ngSwitchCase="'active'" icon="circle" class="text-success"></fa-icon>
-        <fa-icon *ngSwitchCase="'error'" icon="circle" class="text-danger"></fa-icon>
-        <fa-icon *ngSwitchCase="'syncing'" icon="refresh" [spin]="true" class="text-white"></fa-icon>
-        <fa-icon *ngSwitchCase="'disabled'" icon="circle" class="text-muted"></fa-icon>
-      </ng-container>
-    </button>
-    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-      <button ngbDropdownItem>Action - 1</button>
-      <button ngbDropdownItem>Another Action</button>
-      <button ngbDropdownItem>Something else is here</button>
-    </div>
-  </div> -->
 </div>

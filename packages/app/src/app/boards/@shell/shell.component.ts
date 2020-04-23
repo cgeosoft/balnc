@@ -82,12 +82,10 @@ export class ShellComponent implements OnInit {
         return {
           label: board.name,
           sublabel: messages[0]?.text ?? '...',
-          icon: ['fas', 'comments'],
-          iconColor: board.color,
           route: ['/boards', board._id],
           type: 'button',
-          cssClass: unread ? 'bold' : '',
-          note: (unread > 0) ? ((unread > 99) ? '99+' : unread) : ''
+          note: (unread > 0) ? ((unread > 99) ? '99+' : unread) : '',
+          noteColor: board.color
         } as MenuItem
       })
       ),
