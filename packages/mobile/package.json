@@ -1,8 +1,18 @@
 {
-  "name": "balnc",
+  "name": "@balnc/mobile",
+  "description": "An offline-first application for managing small business",
   "version": "0.9.0",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "license": "MIT",
+  "author": {
+    "name": "Christos Georgiou",
+    "email": "georgiou.christos@outlook.com",
+    "url": "http://cgeosoft.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/christosgeorgiou/balnc"
+  },
+  "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,7 +21,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/common": "~8.2.14",
     "@angular/core": "~8.2.14",

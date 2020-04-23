@@ -12,6 +12,7 @@
     "type": "git",
     "url": "https://github.com/christosgeorgiou/balnc"
   },
+  "private": true,
   "scripts": {
     "start": "electron .",
     "build-desktop": "electron-builder --dir",
