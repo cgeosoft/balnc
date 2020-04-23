@@ -1,33 +1,38 @@
 <div class="modal-header">
   <h4 class="modal-title">Setup User</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
 <div class="modal-body">
   <form (ngSubmit)="create(username.value)">
-    <div class="form-group">
+    <div class="form-group mb-0">
       <label>Create new user</label>
       <div class="d-flex">
         <input #username required class="form-control" placeholder="username">
-        <button type="button" class="btn btn-success ml-2" type="submit">Create</button>
+        <button type="button" class="btn btn-success ml-2" type="submit">
+          <fa-icon icon="plus-circle"></fa-icon>
+        </button>
       </div>
     </div>
   </form>
-  <ng-container *ngIf="(users$ | async) as users;else loader">
-    <ng-container *ngIf="users.length;else noUsers">
-      <hr>
-      <form (ngSubmit)="select(existing.value)">
-        <div class="form-group">
-          <label>Select an existing one</label>
-          <div class="d-flex">
-            <select #existing class="form-control">
-              <option *ngFor="let u of users" [value]="u._id">{{u.username}}</option>
-            </select>
-            <button type="button" class="btn btn-primary ml-2" type="submit">Select</button>
-          </div>
-        </div>
-      </form>
-    </ng-container>
-  </ng-container>
 </div>
+<ng-container *ngIf="(users$ | async) as users;else loader">
+  <ng-container *ngIf="users.length;else noUsers">
+    <hr>
+    <div class="px-3 mb-1">Or select an existing one</div>
+    <ul class="list-group list-group-flush mb-3">
+      <li class="list-group-item px-3 py-2 d-flex" *ngFor="let u of users">
+        <div>
+          {{u.username}} <small class="text-muted text-monospace"> {{u._id.substr(0,8)}}</small>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm ml-auto" (click)="select(u._id)">
+          <fa-icon icon="check-circle"></fa-icon>
+        </button>
+      </li>
+    </ul>
+  </ng-container>
+</ng-container>
 
 <ng-template #noUsers>
   <div class="text-muted text-center p-4">

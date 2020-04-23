@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router'
-import { ConfigService, Integration, IntegrationsRepo, RxDBService, ServerIntegration, UpdateService, User, UsersRepo } from '@balnc/core'
+import { ConfigService, DEFAULT_USER, Integration, IntegrationsRepo, RxDBService, ServerIntegration, UpdateService, User, UsersRepo } from '@balnc/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
 import { Subscription } from 'rxjs'
@@ -86,7 +86,11 @@ export class MainShellComponent {
     this.usersRepo.allm$().subscribe(async (users: User[]) => {
       await this.setUsers(users)
       if (!this.configService.user) {
-        this.modal.open(UserFormComponent, { size: 'sm', centered: true })
+        const modal = this.modal.open(UserFormComponent, { size: 'sm', centered: true })
+        await modal.result
+        if (!this.configService.user) {
+          await this.usersRepo.add({ ...DEFAULT_USER, ...{ username: 'default' } })
+        }
       }
     })
 
