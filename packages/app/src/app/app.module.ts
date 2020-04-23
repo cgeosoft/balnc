@@ -14,8 +14,6 @@ import { APP_ROUTES } from './app.routes'
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MainModule,
-    CoreModule,
     Angulartics2Module.forRoot({
       pageTracking: {
         clearIds: true
@@ -25,7 +23,9 @@ import { APP_ROUTES } from './app.routes'
       // enableTracing: true,
       // preloadingStrategy: PreloadAllModules
     }),
-    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    CoreModule,
+    MainModule
   ],
   declarations: [
     AppComponent

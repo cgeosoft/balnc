@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common'
 import { ErrorHandler, NgModule, Optional, SkipSelf } from '@angular/core'
+import { ServiceWorkerModule } from '@angular/service-worker'
 import { DateFnsModule } from 'ngx-date-fns'
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
 import { ToastrModule } from 'ngx-toastr'
+import environment from 'src/environments/environment'
 import { SentryErrorHandler } from './handlers/sentry-error.handler'
 import { ConfigService } from './services/config.service'
 import { RxDBService } from './services/rxdb.service'
@@ -11,7 +13,7 @@ import { UpdateService } from './services/update.service'
 @NgModule({
   imports: [
     CommonModule,
-    // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),

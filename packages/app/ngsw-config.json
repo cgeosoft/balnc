@@ -8,8 +8,10 @@
         "/docs/**/*.*",
         "/assets/**/*.*",
         "!/assets/build.json",
-        "/*.js",
-        "/*.js.map",
+        "/**/*.js",
+        "/**/*.js.map",
+        "/**/*.css",
+        "/**/*.css.map",
         "/robots.txt",
         "/favicon.ico"
       ]
