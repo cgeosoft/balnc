@@ -107,8 +107,10 @@ export class MainShellComponent {
 
   private async configureServer () {
     const server = this.configService.integrations?.server as ServerIntegration
-    if (!server?.enabled) {
-      this.dbService.disableRemoteDB()
+
+    this.dbService.disableRemoteDB()
+
+    if (!server?.enabled || !server?.dbEnable) {
       return
     }
 

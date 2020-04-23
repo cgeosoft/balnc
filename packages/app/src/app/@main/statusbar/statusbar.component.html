@@ -32,7 +32,7 @@
     <fa-icon icon="comment-dots"></fa-icon>
   </button>
   <ng-container *ngIf="(dbStatus$|async)as dbStatus">
-    <div class="item" [ngbTooltip]="'sync: ' + dbStatus">
+    <div class="item" [ngbTooltip]="dbStatus">
       <ng-container [ngSwitch]="dbStatus">
         <fa-icon *ngSwitchCase="'active'" icon="check-circle"></fa-icon>
         <fa-icon *ngSwitchCase="'error'" icon="exclamation"></fa-icon>

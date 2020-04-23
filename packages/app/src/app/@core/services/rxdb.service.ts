@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http'
-import { Injectable, Injector } from '@angular/core'
+import { Injectable, NgZone } from '@angular/core'
 import { ToastrService } from 'ngx-toastr'
 import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterIdb from 'pouchdb-adapter-idb'
@@ -57,26 +57,29 @@ export class RxDBService {
   status$: BehaviorSubject<'active' | 'error' | 'syncing' | 'disabled'>
     = new BehaviorSubject<'active' | 'error' | 'syncing' | 'disabled'>('disabled')
 
-  get http () {
-    return this.injector.get(HttpClient)
-  }
+  // get http() {
+  //   return this.injector.get(HttpClient)
+  // }
 
-  get configService () {
-    return this.injector.get(ConfigService)
-  }
+  // get configService() {
+  //   return this.injector.get(ConfigService)
+  // }
 
-  get toastr () {
-    return this.injector.get(ToastrService)
-  }
+  // get toastr() {
+  //   return this.injector.get(ToastrService)
+  // }
 
   get workspace () {
     return this.configService.workspace
   }
 
   constructor (
-    private injector: Injector
-  ) {
-  }
+    // private injector: Injector,
+    private http: HttpClient,
+    private configService: ConfigService,
+    private toastr: ToastrService,
+    private zone: NgZone
+  ) { }
 
   async setup () {
 
@@ -113,7 +116,9 @@ export class RxDBService {
     })
     this.replicationState.active$
       .subscribe((state: boolean) => {
-        this.status$.next(state ? 'syncing' : 'active')
+        this.zone.run(() => {
+          this.status$.next(state ? 'syncing' : 'active')
+        })
       })
   }
 
