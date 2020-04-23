@@ -11,8 +11,7 @@ export const INTEGRATIONS: IntegrationView[] = [{
   title: 'Giphy',
   icon: ['far', 'file'],
   color: '#6157ff',
-  description: 'Search gifs and add them to boards projects ets',
-  disabled: false
+  description: 'Search gifs and add them to boards projects ets'
 }, {
   key: 'stripe',
   title: 'Stripe',

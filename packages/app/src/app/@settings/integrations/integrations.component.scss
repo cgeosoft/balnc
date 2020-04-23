@@ -1,7 +1,7 @@
 @import "theme";
 
 :host {
-  .card-integration{
+  .card-integration {
     .icon {
       @extend .rounded-circle;
       @extend .mr-3;
@@ -17,9 +17,36 @@
         color: white;
       }
     }
-    &:hover{
+
+    .title {
+      @extend .d-flex;
+      @extend .justify-content-between;
+      @extend .align-items-center;
+    }
+
+    .description {
+      @extend .text-muted;
+      @extend .overflow-hidden;
+      height: 50px;
+    }
+
+    &:hover {
       @extend .shadow-sm;
       cursor: pointer;
+    }
+
+    &.disabled {
+      background-color: $gray-100;
+      color: $gray-300;
+      .icon {
+        background-color: $gray-400 !important;
+      }
+      .title {
+        color: $gray-400 !important;
+      }
+      .description {
+        color: $gray-300 !important;
+      }
     }
   }
 }
