@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { MenuItem } from '@balnc/shared'
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'app-support-shell',
@@ -25,4 +26,12 @@ export class ShellComponent {
     type: 'button',
     label: 'About'
   }]
+
+  get version () {
+    return environment.version
+  }
+
+  get build () {
+    return environment.build
+  }
 }

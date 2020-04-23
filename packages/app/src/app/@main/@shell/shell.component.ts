@@ -87,9 +87,10 @@ export class MainShellComponent {
       await this.setUsers(users)
       if (!this.configService.user) {
         const modal = this.modal.open(UserFormComponent, { size: 'sm', centered: true })
-        await modal.result
+        await modal.result.catch(() => { })
         if (!this.configService.user) {
-          await this.usersRepo.add({ ...DEFAULT_USER, ...{ username: 'default' } })
+          const defaultUser = await this.usersRepo.add({ ...DEFAULT_USER, ...{ username: 'default' } })
+          this.configService.userId = defaultUser._id
         }
       }
     })

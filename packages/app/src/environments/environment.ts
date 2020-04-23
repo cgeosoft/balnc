@@ -4,7 +4,7 @@ import build from '../assets/build.json'
 
 export const environment: Enviroment = {
   production: false,
-  build: build.default,
+  build: build,
   version: pkg.version,
   sentry: {
     dsn: 'https://9710c0dc35d14a62a8725d354e9e915e@sentry.io/3249691',

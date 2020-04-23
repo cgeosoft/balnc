@@ -18,7 +18,7 @@
   </form>
 </div>
 <ng-container *ngIf="(users$ | async) as users;else loader">
-  <ng-container *ngIf="users.length;else noUsers">
+  <ng-container *ngIf="users.length">
     <hr>
     <div class="px-3 mb-1">Or select an existing one</div>
     <ul class="list-group list-group-flush mb-3">
@@ -33,12 +33,6 @@
     </ul>
   </ng-container>
 </ng-container>
-
-<ng-template #noUsers>
-  <div class="text-muted text-center p-4">
-    no users found
-  </div>
-</ng-template>
 
 <ng-template #loader>
   <app-spinner></app-spinner>
