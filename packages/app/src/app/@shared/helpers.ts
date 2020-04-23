@@ -1,4 +1,4 @@
-import { MENU } from './models/menu'
+import { MENU } from './consts/menu'
 
 export class Helpers {
   static allMenuItems (): {} {

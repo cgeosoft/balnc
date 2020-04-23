@@ -1,4 +1,4 @@
-import { MenuItem } from './menu-item'
+import { MenuItem } from '../models/menu-item'
 
 export const MENU: MenuItem[] = [{
   label: 'Contacts',
@@ -62,7 +62,7 @@ export const MENU: MenuItem[] = [{
   route: ['/presentations']
   // }, {
   //   label: 'Analytics',
-  //type: 'button'
+  // type: 'button'
   //   icon: 'chart-pie',
   //   route: ['/analytics'],
   //   disabled: true

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { ConfigService } from '@balnc/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
-import { INTEGRATIONS } from '../../@shared/models/integration'
+import { INTEGRATIONS } from '../../@shared/consts/integrations'
 import { ConfigureIntegrationComponent } from './configure-integration/configure-integration.component'
 
 @Component({
