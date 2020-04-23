@@ -8,6 +8,7 @@ import { ErrorComponent } from './error/error.component'
 import { ImportComponent } from './import/import.component'
 import { LoginComponent } from './login/login.component'
 import { MainGuard } from './main.guard'
+import { OfflineComponent } from './offline/offline.component'
 import { SetupComponent } from './setup/setup.component'
 import { SetupGuard } from './setup/setup.guard'
 import { StatusbarComponent } from './statusbar/statusbar.component'
@@ -27,7 +28,8 @@ import { UserFormComponent } from './user-form/user-form.component'
     LoginComponent,
     UserFormComponent,
     SetupComponent,
-    ImportComponent
+    ImportComponent,
+    OfflineComponent
   ],
   providers: [
     MainGuard,

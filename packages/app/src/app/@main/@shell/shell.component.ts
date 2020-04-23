@@ -58,6 +58,10 @@ export class MainShellComponent {
     }
   }
 
+  get offline () {
+    return !navigator.onLine
+  }
+
   constructor (
     private router: Router,
     private configService: ConfigService,
