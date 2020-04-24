@@ -1,9 +1,10 @@
-import { Component } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router'
 import { ConfigService, DEFAULT_USER, Integration, IntegrationsRepo, RxDBService, ServerIntegration, UpdateService, User, UsersRepo } from '@balnc/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
-import { Subscription } from 'rxjs'
+import { Subject, Subscription } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 import { LoginComponent } from '../../@main/login/login.component'
 import { Helpers } from '../../@shared/helpers'
 import { UserFormComponent } from '../user-form/user-form.component'
@@ -13,28 +14,7 @@ import { UserFormComponent } from '../user-form/user-form.component'
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss']
 })
-export class MainShellComponent {
-
-  async setUsers (users: User[]) {
-    const promises = users.map(async (user) => {
-      const res = {
-        id: user._id,
-        avatar: null
-      }
-      const attachment = await this.usersRepo.getAttachment(user._id, 'avatar')
-      if (attachment) {
-        const blob = await attachment.getData()
-        res.avatar = await Helpers.getImage(blob, attachment.type)
-      }
-      return res
-    })
-    const avatars = await Promise.all(promises)
-    this.configService.userAvatars = avatars.reduce((l, i) => {
-      l[i.id] = i.avatar
-      return l
-    }, {})
-    this.configService.users = users
-  }
+export class MainShellComponent implements OnInit, OnDestroy {
 
   username: string
 
@@ -49,6 +29,8 @@ export class MainShellComponent {
 
   menu: any[] = []
   update$: Subscription
+  notifier = new Subject()
+  updateShown: any
 
   get layout () {
     switch (this.configService.user?.config?.layout) {
@@ -72,48 +54,79 @@ export class MainShellComponent {
     private integrationsRepo: IntegrationsRepo,
     private modal: NgbModal
   ) {
-    this.router.events.subscribe((event: RouterEvent) => {
-      this._navigationInterceptor(event)
-    })
+  }
 
-    this.update$ = this.update.status$.subscribe((status) => {
-      if (status) {
-        this.update$.unsubscribe()
-        const toastrOptions = {
-          disableTimeOut: true
-        }
-        this.toastr.info(
-          'There is a new version of balnc. Please refresh to update.', 'Update', toastrOptions)
-      }
-    })
+  ngOnInit () {
 
-    this.usersRepo.allm$().subscribe(async (users: User[]) => {
-      await this.setUsers(users)
-      if (!this.configService.user) {
-        const modal = this.modal.open(UserFormComponent, { size: 'sm', centered: true })
-        await modal.result.catch(() => { })
-        if (!this.configService.user) {
-          const defaultUser = await this.usersRepo.add({ ...DEFAULT_USER, ...{ username: 'default' } })
-          this.configService.userId = defaultUser._id
-        }
-      }
-    })
-
-    this.integrationsRepo.allm$().subscribe(async (integrations: Integration[]) => {
-      integrations.sort((a, b) => a._date - b._date)
-      this.configService.integrations = integrations.reduce((l, i) => {
-        l[i._group] = i
-        return l
-      }, {})
-      await this.configureServer()
-    })
-
-    if (window.matchMedia('(display-mode: standalone)').matches ||
-      window.navigator['standalone'] === true) {
-      window.addEventListener('resize', () => {
-        window.resizeTo(960, 660)
+    this.router.events
+      .pipe(takeUntil(this.notifier))
+      .subscribe((event: RouterEvent) => {
+        this.navigationInterceptor(event)
       })
-    }
+
+    this.update.status$
+      .pipe(takeUntil(this.notifier))
+      .subscribe((status) => {
+        if (status && !this.updateShown) {
+          const toastrOptions = {
+            disableTimeOut: true
+          }
+          this.toastr.info(
+            'There is a new version of balnc. Please refresh to update.', 'Update', toastrOptions)
+          this.updateShown = true
+        }
+      })
+
+    this.usersRepo.allm$()
+      .pipe(takeUntil(this.notifier))
+      .subscribe(async (users: User[]) => {
+        await this.setUsers(users)
+        if (!this.configService.user) {
+          const modal = this.modal.open(UserFormComponent, { size: 'sm', centered: true })
+          await modal.result.catch(() => { })
+          if (!this.configService.user) {
+            const defaultUser = await this.usersRepo.add({ ...DEFAULT_USER, ...{ username: 'default' } })
+            this.configService.userId = defaultUser._id
+          }
+        }
+      })
+
+    this.integrationsRepo.allm$()
+      .pipe(takeUntil(this.notifier))
+      .subscribe(async (integrations: Integration[]) => {
+        integrations.sort((a, b) => a._date - b._date)
+        this.configService.integrations = integrations.reduce((l, i) => {
+          l[i._group] = i
+          return l
+        }, {})
+        await this.configureServer()
+      })
+  }
+
+  ngOnDestroy () {
+    this.notifier.next()
+    this.notifier.complete()
+  }
+
+  private async setUsers (users: User[]) {
+    const promises = users.map(async (user) => {
+      const res = {
+        id: user._id,
+        avatar: null
+      }
+      const attachment = await this.usersRepo.getAttachment(user._id, 'avatar')
+      if (attachment) {
+        const blob = await attachment.getData()
+        res.avatar = await Helpers.getImage(blob, attachment.type)
+      }
+      return res
+    })
+    const avatars = await Promise.all(promises)
+    this.configService.userAvatars = avatars.reduce((l, i) => {
+      l[i.id] = i.avatar
+      return l
+    }, {})
+    this.configService.users = users
   }
 
   private async configureServer () {
@@ -145,24 +158,24 @@ export class MainShellComponent {
       })
   }
 
-  private _navigationInterceptor (event: RouterEvent): void {
+  private navigationInterceptor (event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.pageLoading = true
       this.routeLabel = event.url
     }
     if (event instanceof NavigationEnd) {
-      this._hideSpinner()
+      this.hideSpinner()
     }
     if (event instanceof NavigationCancel) {
-      this._hideSpinner()
+      this.hideSpinner()
     }
     if (event instanceof NavigationError) {
-      this._hideSpinner()
+      this.hideSpinner()
       this.toastr.error('Could not load module. Check your internet connection', 'Load Failed')
     }
   }
 
-  private _hideSpinner (): void {
+  private hideSpinner (): void {
     this.pageLoading = false
   }
 }

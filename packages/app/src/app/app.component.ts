@@ -7,12 +7,15 @@ import { Angulartics2 } from 'angulartics2'
 import { Angulartics2Woopra } from 'angulartics2/woopra'
 import { ConfigService } from './@core'
 
+const minHeight = 960
+const minWidth = 660
+
 @Component({
   selector: 'app-root',
   template: `<router-outlet></router-outlet>`
 })
 export class AppComponent {
-  constructor (
+  constructor(
     private configService: ConfigService,
     private router: Router,
     titleService: Title,
@@ -33,9 +36,21 @@ export class AppComponent {
         titleService.setTitle(`Balnc${title ? ` - ${title}` : ''}`)
       }
     })
+
+    if (window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator['standalone'] === true) {
+      window.addEventListener('resize', () => {
+        if (window.outerHeight < minHeight) {
+          window.resizeTo(window.outerWidth, minHeight)
+        }
+        if (window.outerWidth < minWidth) {
+          window.resizeTo(minWidth, window.outerHeight)
+        }
+      })
+    }
   }
 
-  getTitle (state, parent) {
+  getTitle(state, parent) {
     let data = []
     if (parent && parent.snapshot.data && parent.snapshot.data.title) {
       data.push(parent.snapshot.data.title)
