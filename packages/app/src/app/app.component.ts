@@ -15,7 +15,7 @@ const minWidth = 660
   template: `<router-outlet></router-outlet>`
 })
 export class AppComponent {
-  constructor(
+  constructor (
     private configService: ConfigService,
     private router: Router,
     titleService: Title,
@@ -40,17 +40,17 @@ export class AppComponent {
     if (window.matchMedia('(display-mode: standalone)').matches ||
       window.navigator['standalone'] === true) {
       window.addEventListener('resize', () => {
-        if (window.outerHeight < minHeight) {
-          window.resizeTo(window.outerWidth, minHeight)
+        if (window.innerHeight < minHeight) {
+          window.resizeTo(window.innerWidth, minHeight)
         }
-        if (window.outerWidth < minWidth) {
-          window.resizeTo(minWidth, window.outerHeight)
+        if (window.innerWidth < minWidth) {
+          window.resizeTo(minWidth, window.innerHeight)
         }
       })
     }
   }
 
-  getTitle(state, parent) {
+  getTitle (state, parent) {
     let data = []
     if (parent && parent.snapshot.data && parent.snapshot.data.title) {
       data.push(parent.snapshot.data.title)
