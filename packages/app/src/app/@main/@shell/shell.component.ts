@@ -107,6 +107,13 @@ export class MainShellComponent {
       }, {})
       await this.configureServer()
     })
+
+    if (window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator['standalone'] === true) {
+      window.addEventListener('resize', () => {
+        window.resizeTo(960, 660)
+      })
+    }
   }
 
   private async configureServer () {

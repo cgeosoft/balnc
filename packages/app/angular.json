@@ -21,7 +21,6 @@
             "assets": [
               "src/assets",
               "src/_redirects",
-              "src/favicon.ico",
               "src/robots.txt",
               {
                 "glob": "**/*.md",
