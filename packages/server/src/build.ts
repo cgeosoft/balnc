@@ -1,9 +1,10 @@
 // this is generated from scripts/prebuild.js
 export const build = {
-  builded: 1587658308241,
-  author: "Christos Georgiou - georgiou.christos@outlook.com",
-  commited: 1587658115000,
-  message: "better relase",
-  hash: "efff91d4e005800a79abd75d4655b7a61aeb2677",
-  branch: "master",
+  version: "0.10.1",
+  timestamp: 1587713429415,
+  git: {
+    commited: 1587658356000,
+    hash: "6f5a40b984d1ee97c73e6eaf16eec5eb0bef6e95",
+    branch: "master",
+  }
 }

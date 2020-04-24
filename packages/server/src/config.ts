@@ -1,11 +1,9 @@
-import pkg from '../package.json'
 import { build } from './build'
 
 var _whitelist = ['http://localhost:4200', 'http://localhost:8000', 'https://balnc.cgeosoft.com']
 
 export const config = {
     build,
-    version: pkg.version,
     sentry: {
         dsn: 'https://266ec9ccd83c4d3d9df754ed120bf33c@o73184.ingest.sentry.io/5207756',
     },

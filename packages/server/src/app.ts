@@ -8,7 +8,7 @@ import { logger, loggerMiddleware } from './commons/logger';
 import { config, pouchdbCorsParams } from './config';
 
 Sentry.init({
-    release: `v${config.version}`,
+    release: `v${config.build.version}`,
     environment: process.env.NODE_ENV === "production" ? 'production' : 'development',
     dsn: config.sentry.dsn
 });
