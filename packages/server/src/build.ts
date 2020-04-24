@@ -1,10 +1,10 @@
 // this is generated from scripts/prebuild.js
 export const build = {
-  version: "0.10.1",
-  timestamp: 1587713429415,
+  version: "0.10.3",
+  timestamp: 1587721321998,
   git: {
-    commited: 1587658356000,
-    hash: "6f5a40b984d1ee97c73e6eaf16eec5eb0bef6e95",
+    commited: 1587713499000,
+    hash: "489503f6a20442d675455a1a406d92f8b73962dd",
     branch: "master",
   }
 }

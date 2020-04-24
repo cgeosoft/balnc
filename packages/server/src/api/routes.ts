@@ -9,7 +9,7 @@ api.use("/og", ogCtrl)
 
 api.use("/", (req, res) => {
     res.json({
-        message: "server Online",
+        message: "server online",
         release: `v${config.build.version}`,
         environment: process.env.NODE_ENV === "production" ? 'production' : 'development',
         build,
