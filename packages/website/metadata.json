@@ -1,0 +1,7 @@
+{
+    "sitename": "Balnc",
+    "siteurl": "http://balnc.com/",
+    "description": "An offline-first application for managing small business",
+    "generatorname": "Metalsmith",
+    "generatorurl": "http://metalsmith.io/"
+}
