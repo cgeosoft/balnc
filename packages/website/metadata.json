@@ -2,5 +2,38 @@
     "sitename": "Balnc",
     "siteurl": "https://balnc.cgeosoft.com",
     "description": "Productivity tool where you own your data",
-    "appUrl": "https://app.balnc.cgeosoft.com"
+    "app": "https://app.balnc.cgeosoft.com",
+    "source": "https://github.com/ChristosGeorgiou/balnc",
+    "features": [
+        {
+            "title": "Business",
+            "icon": "icon-briefcase",
+            "description": "Contacts, invoices and payments"
+        },
+        {
+            "title": "Boards",
+            "icon": "icon-speech",
+            "description": "Send messages to your team"
+        },
+        {
+            "title": "Files",
+            "icon": "icon-docs",
+            "description": "Keep files, wiki and notes"
+        },
+        {
+            "title": "Projects",
+            "icon": "icon-list",
+            "description": "Manage projects and tasks"
+        },
+        {
+            "title": "Present",
+            "icon": "icon-screen-desktop",
+            "description": "Sync presentations to devices"
+        },
+        {
+            "title": "Offline Sync",
+            "icon": "icon-refresh",
+            "description": "Offline data that sync seamlessly"
+        }
+    ]
 }

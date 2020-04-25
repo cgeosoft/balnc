@@ -30,9 +30,10 @@ section.features {
         i {
             font-size: 80px;
             display: block;
-            margin-bottom: 15px;
-            background: -webkit-linear-gradient(to left, $theme-secondary, $theme-tertiary);
-            background: linear-gradient(to left, $theme-secondary, $theme-tertiary);
+            margin: 0 auto 15px;
+            width: 80px;
+            background: -webkit-linear-gradient(to left, $theme-primary, darken($theme-primary,10%));
+            background: linear-gradient(to left, $theme-primary, darken($theme-primary,10%));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
