@@ -1,7 +1,8 @@
 {
     "sitename": "Balnc",
     "siteurl": "http://balnc.com/",
-    "description": "An offline-first application for managing small business",
+    "description": "The productivity tool where you own your data",
     "generatorname": "Metalsmith",
-    "generatorurl": "http://metalsmith.io/"
+    "generatorurl": "http://metalsmith.io/",
+    "appUrl": "https://app.balnc.cgeosfot.com"
 }

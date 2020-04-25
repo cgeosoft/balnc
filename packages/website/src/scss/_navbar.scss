@@ -43,7 +43,7 @@
         border-color: transparent;
         background-color: transparent;
         .navbar-brand {
-            display: none;
+            color: fade-out(white, .3);
         }
         .navbar-nav > li > a,
         .navbar-nav > li > a:focus {
@@ -56,7 +56,6 @@
             border-color: fade-out($gray-darker, .9);
             background-color: white;
             .navbar-brand {
-                display: block;
                 color: $gray-darker;
                 &:hover,
                 &:focus {

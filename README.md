@@ -5,7 +5,7 @@
 > WARNING: NOT FOR PRODUCTION USE
 > This is more of an experiment rather than a working product. New and untested libraries are been used and no security audit have been done.
 
-![screenshot](https://raw.githubusercontent.com/ChristosGeorgiou/balnc/master/docs/assets/screenshot.jpg)
+![screenshot](https://raw.githubusercontent.com/ChristosGeorgiou/balnc/master/docs/assets/screenshot.png)
 
 Balnc (balance) is an free and open source business management suite for small organizations and freelancers.
 The primary feature of balnc is the offline first approach as it may run fully at user's browser or be downloaded in all major operating systems.

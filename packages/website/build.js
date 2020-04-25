@@ -39,7 +39,7 @@ Metalsmith(__dirname)
   }))
   .use(layouts({
     default: "main.hbs",
-    pattern: "*.html",
+    pattern: "**/*.html",
     directory: "./src/layouts"
   }))
   .build((err, files) => {
