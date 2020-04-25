@@ -1,8 +1,6 @@
 {
     "sitename": "Balnc",
-    "siteurl": "http://balnc.com/",
-    "description": "The productivity tool where you own your data",
-    "generatorname": "Metalsmith",
-    "generatorurl": "http://metalsmith.io/",
-    "appUrl": "https://app.balnc.cgeosfot.com"
+    "siteurl": "https://balnc.cgeosoft.com",
+    "description": "Productivity tool where you own your data",
+    "appUrl": "https://app.balnc.cgeosoft.com"
 }

@@ -20,7 +20,10 @@ Metalsmith(__dirname)
     src: "src/assets",
     dest: "."
   }, {
-    src: "../../docs/assets",
+    src: "../../docs",
+    dest: "_docs"
+  }, {
+    src: "../../assets",
     dest: "img"
   }]))
   .use(sass({
@@ -43,8 +46,8 @@ Metalsmith(__dirname)
     directory: "./src/layouts"
   }))
   .build((err, files) => {
-    if (files)
-      console.log(Object.keys(files))
+    // if (files)
+    //   console.log(Object.keys(files))
     if (err) throw err;
   });
 

@@ -45,6 +45,9 @@
         .navbar-brand {
             color: fade-out(white, .3);
         }
+        .navbar-nav > li{
+            margin-left: 1rem;
+        }
         .navbar-nav > li > a,
         .navbar-nav > li > a:focus {
             color: fade-out(white, .3);
