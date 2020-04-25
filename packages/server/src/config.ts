@@ -1,6 +1,6 @@
 import { build } from './build'
 
-var _whitelist = ['http://localhost:4200', 'http://localhost:8000', 'https://balnc.cgeosoft.com']
+var _whitelist = ['http://localhost:4200', 'http://localhost:8000', 'https://balnc.cgeosoft.com', 'https://app.balnc.cgeosoft.com']
 
 export const config = {
     build,
