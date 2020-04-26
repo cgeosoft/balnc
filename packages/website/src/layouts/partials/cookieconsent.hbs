@@ -1,0 +1,40 @@
+<link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+
+    function handleConsent(status) {
+        var type = this.options.type;
+        var didConsent = this.hasConsented();
+        if (type == 'opt-in' && didConsent) {
+            woopra.config({
+                domain: 'balnc.cgeosoft.com'
+            });
+            woopra.track();
+            window.enableCrisp()
+        }
+    }
+
+    function load() {
+        window.cookieconsent.initialise({
+            palette: {
+                popup: {
+                    background: "#3d3d3d"
+                },
+                button: {
+                    background: "#adadad"
+                }
+            },
+            theme: "edgeless",
+            position: "bottom",
+            type: "opt-in",
+            content: {
+                href: "/privacy"
+            },
+            onInitialise: handleConsent,
+            onStatusChange: handleConsent
+        })
+    }
+
+    window.addEventListener("load", load);
+</script>
