@@ -12,7 +12,7 @@ export class RemotePageComponent implements OnInit {
   url: string
 
   ngOnInit () {
-    this.url = `/docs/${this.page}.md`
+    this.url = `/assets/docs/${this.page}.md`
   }
 
 }
