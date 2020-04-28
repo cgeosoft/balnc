@@ -108,6 +108,12 @@
         }
       }
     }
+
+    small {
+      @extend .d-block;
+      @extend .ml-1;
+      color: $text-muted;
+    }
   }
 
   .empty {
@@ -132,7 +138,7 @@
 
   .divider {
     @extend .m-2;
-    background: darken($body-bg,10%);
+    background: darken($body-bg, 10%);
     height: 1px;
   }
 

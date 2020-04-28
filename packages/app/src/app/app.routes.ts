@@ -12,7 +12,6 @@ export const APP_ROUTES: Routes = [{
   canActivate: [MainGuard],
   children: [
     { path: 'settings', loadChildren: () => import('./@settings/settings.module').then(m => m.SettingsModule) },
-    { path: 'support', loadChildren: () => import('./@support/support.module').then(m => m.SupportModule) },
     { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
     { path: 'contacts', data: { title: 'Contacts' }, loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule) },
     { path: 'payments', loadChildren: () => import('./payments/payments.module').then(m => m.PaymentsModule), data: { title: 'Payments' } },

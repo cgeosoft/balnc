@@ -35,8 +35,8 @@ $appbar-normal-width: 85px;
     @extend .flex-column;
     @extend .justify-content-start;
     @extend .w-100;
-    @extend .py-1;
-    @extend .px-1;
+    @extend .py-2;
+    @extend .px-2;
     background-color: $dark;
     border-radius: 0 0.5rem 0.5rem 0;
     overflow: auto;
@@ -46,7 +46,7 @@ $appbar-normal-width: 85px;
       @extend .w-100;
       @extend .rounded;
       @extend .border-0;
-      @extend .mb-2;
+      @extend .my-1;
       @extend .py-1;
       @extend .px-0;
       @extend .text-center;
@@ -86,8 +86,7 @@ $appbar-normal-width: 85px;
     }
 
     .divider {
-      @extend .mx-1;
-      @extend .mb-2;
+      @extend .m-1;
       background: lighten($dark, 10%);
       height: 1px;
     }

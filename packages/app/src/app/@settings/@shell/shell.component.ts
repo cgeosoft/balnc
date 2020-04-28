@@ -3,6 +3,7 @@ import { ConfigService, RxDBService, Workspace } from '@balnc/core'
 import { ConfirmDialogComponent, Helpers, MenuItem } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ReadFile } from 'ngx-file-helpers'
+import environment from '../../../environments/environment'
 
 @Component({
   selector: 'app-settings-shell',
@@ -38,6 +39,33 @@ export class ShellComponent implements OnInit {
     type: 'button',
     label: 'Developer'
   }]
+
+  support: MenuItem[] = [{
+    route: '/settings/faq',
+    icon: ['far', 'question-circle'],
+    type: 'button',
+    label: 'FAQ'
+  },
+  {
+    route: '/settings/live',
+    icon: 'concierge-bell',
+    type: 'button',
+    label: 'Live Chat'
+  },
+  {
+    route: '/settings/about',
+    icon: 'info-circle',
+    type: 'button',
+    label: 'About'
+  }]
+
+  get version () {
+    return environment.version
+  }
+
+  get build () {
+    return environment.build
+  }
 
   get workspaces () {
     return this.configService.workspaces
