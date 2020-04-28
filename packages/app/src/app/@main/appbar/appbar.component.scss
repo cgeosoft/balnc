@@ -6,13 +6,13 @@ $appbar-normal-width: 85px;
 :host {
   @extend .d-flex;
   @extend .flex-column;
-  @extend .justify-content-center;
+  @extend .justify-content-start;
   @extend .text-center;
   @extend .bg-transparent;
   @extend .overflow-hidden;
   min-width: $appbar-normal-width;
   width: $appbar-normal-width;
-  padding-right: 10px;
+  padding: .5rem;
   transition: all 0.5s;
   z-index: 20;
 
@@ -38,9 +38,8 @@ $appbar-normal-width: 85px;
     @extend .py-2;
     @extend .px-2;
     background-color: $dark;
-    border-radius: 0 0.5rem 0.5rem 0;
+    border-radius: 0.5rem;
     overflow: auto;
-    margin: 1rem 0;
 
     .item {
       @extend .w-100;
