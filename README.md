@@ -44,12 +44,6 @@ lerna bootstrap
 npm start
 ```
 
-## Donations
-
-This is a side project and more an experiment rather than a product. If you are that awesome person that want to donate, please keep in mind that I work on this on my free time and it will not be ready for production in the next ~600 years.
-
-[![liberapay](http://img.shields.io/liberapay/receives/cgeosoft.svg?logo=liberapay)](https://liberapay.com/cgeosoft/donate)
-
 ## License
 
 The MIT License (MIT)

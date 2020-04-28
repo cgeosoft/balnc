@@ -10,14 +10,15 @@ var discoverPartials = require('metalsmith-discover-partials')
 var fs = require("fs")
 var buildinfo = require("metalsmith-build-info");
 
+// Create your Metalsmith instance and add this like other middleware.
 Metalsmith(__dirname)
-  .metadata(JSON.parse(fs.readFileSync("./metadata.json")))
-  .source("./src")
-  .destination('./dist')
-  .ignore(["layouts", "assets"])
-  .clean(true)
-  .use(moveUp('pages/*'))
-  .use(static([{
+.metadata(JSON.parse(fs.readFileSync("./metadata.json")))
+.source("./src")
+.destination('./dist')
+.ignore(["layouts", "assets"])
+.clean(true)
+.use(moveUp('pages/*'))
+.use(static([{
     src: "src/assets",
     dest: "."
   }, {

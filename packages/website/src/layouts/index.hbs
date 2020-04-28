@@ -16,11 +16,7 @@
           <div class="device-mockup macbook">
             <div class="device">
               <div class="screen">
-                <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
                 <img src="/img/screenshot.png" class="img-fluid" alt="">
-              </div>
-              <div class="button">
-                <!-- You can hook the "home button" to some JavaScript events or just remove it -->
               </div>
             </div>
           </div>
@@ -30,26 +26,43 @@
   </div>
 </header>
 
-<section class="features" id="features">
   <div class="container">
-    <div class="section-heading text-center">
-      <h2>
-        <Fieldset>Features & Modules</Fieldset>
-      </h2>
-      <p class="text-muted">What is included</p>
-      <hr>
-    </div>
-    <div class="row">
-      {{#each features}}
-      <div class="col-lg-4">
-        <div class="feature-item">
-          <i class="{{icon}} text-primary"></i>
-          <h3>{{title}}</h3>
-          <p class="text-muted">{{description}}</p>
-        </div>
-      </div>
+    <div class="alert alert-warning mx-auto mt-5" style="max-width:650px">
+      {{#each disclaimer}}
+      <div><strong>{{this}}</strong></div>
       {{/each}}
     </div>
+  </div>
+
+<section>
+  <div class="container">
+    {{#each features}}
+    <div class="row">
+      {{#if left}}
+      <div class="col-lg-7">
+        <img src="/img/{{image}}" class="img-fluid border rounded shadow" alt="">
+      </div>
+      <div class="col-lg-5">
+        <div class="ml-3 mt-5">
+          <h3>{{title}}</h3>
+          <p>{{description}}</p>
+        </div>
+      </div>
+      {{/if}}
+      {{#if right}}
+      <div class="col-lg-5">
+        <div class="mr-3 mt-5">
+          <h3>{{title}}</h3>
+          <p>{{description}}</p>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <img src="/img/{{image}}" class="img-fluid border rounded shadow" alt="">
+      </div>
+      {{/if}}
+    </div>
+    <hr class="my-5">
+    {{/each}}
   </div>
 </section>
 
@@ -57,19 +70,15 @@
   <div class="container">
     <div class="section-heading">
       <h2>
-        <Fieldset>Get notifications about</Fieldset>
+        <Fieldset>{{newsletter.title}}</Fieldset>
       </h2>
     </div>
     <div class="row">
       <div class="col-lg-6">
-        <ul>
-          <li>Upcoming features</li>
-          <li>New versions</li>
-        </ul>
-        <p class="text-muted">Don't worry, I will not spam you. More or less I will not even send you emails about the
-          above topics until this becomes a real product. I use <a href="https://mailerlite.com">mailerlite</a> to
-          manage
-          subscriptions. You may unsubscribe wheneve you want.</p>
+        {{#each newsletter.subscriptions}}
+        <h3><i class="fa fa-check-circle text-muted"></i> {{this}}</h3>
+        {{/each}}
+        <p class="text-muted">{{{newsletter.description}}}</p>
       </div>
       <div class="col-lg-6">
         {{>_mailerlite-signup}}
