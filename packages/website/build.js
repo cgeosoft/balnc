@@ -8,6 +8,7 @@ var sass = require('metalsmith-sass');
 var moveUp = require('metalsmith-move-up')
 var discoverPartials = require('metalsmith-discover-partials')
 var fs = require("fs")
+var buildinfo = require("metalsmith-build-info");
 
 Metalsmith(__dirname)
   .metadata(JSON.parse(fs.readFileSync("./metadata.json")))
@@ -32,6 +33,7 @@ Metalsmith(__dirname)
   .use(collections({
     posts: 'posts/*.md'
   }))
+  .use(buildinfo())
   .use(markdown())
   .use(permalinks({
     relative: false
