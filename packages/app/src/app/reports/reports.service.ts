@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable, Injector } from '@angular/core'
 import { Repository } from '@balnc/core'
-import * as _ from 'lodash'
 import { RxDocument } from 'rxdb'
 import { BehaviorSubject } from 'rxjs'
 import { ReportSettings } from './models/module-settings'
 import { Report } from './models/report'
+
+const _ = {}
 
 @Injectable()
 export class ReportsService extends Repository<Report> {
@@ -15,7 +16,7 @@ export class ReportsService extends Repository<Report> {
 
   isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
 
-  constructor (
+  constructor(
     private http: HttpClient,
     injector: Injector
   ) {
@@ -23,7 +24,7 @@ export class ReportsService extends Repository<Report> {
     this.entity = 'reports.report'
   }
 
-  async all () {
+  async all() {
     const data = await super.all()
     const reports = data
       .filter(report => {
@@ -40,9 +41,9 @@ export class ReportsService extends Repository<Report> {
     return reports
   }
 
-  async one (id: string) {
+  async one(id: string) {
     const reportDoc = await super.one(id)
-    const report = _.cloneDeep(reportDoc) as Report
+    const report = { ...reportDoc }
 
     report.filters.forEach(async filter => {
       switch (filter.type) {
@@ -64,7 +65,7 @@ export class ReportsService extends Repository<Report> {
     return report
   }
 
-  async getCommonData (query) {
+  async getCommonData(query) {
     const result = await this.execute(query)
     return result['rows'].map(r => {
       return {
@@ -74,7 +75,7 @@ export class ReportsService extends Repository<Report> {
     })
   }
 
-  async generateQuery (report: Report, filters) {
+  async generateQuery(report: Report, filters) {
     let query = ''
     try {
       const r = await super.one(report.alias)
@@ -87,7 +88,7 @@ export class ReportsService extends Repository<Report> {
     return this.formatQuery(query, filters)
   }
 
-  async execute (query) {
+  async execute(query) {
     const url = `${this.settings.host}/execute`
     const headers = this.generateHeaders()
     const result = await this.http.post(url, {
@@ -96,10 +97,10 @@ export class ReportsService extends Repository<Report> {
     return result
   }
 
-  async generatePdfMake (report: Report, data: any) {
-    const fields = _.cloneDeep(report.fields)
-    const pdf = _.cloneDeep(report.pdf)
-    const d = _.cloneDeep(data)
+  async generatePdfMake(report: Report, data: any) {
+    const fields = { ...report.fields }
+    const pdf = { ...report.pdf }
+    const d = { ...data }
 
     if (!pdf) {
       return Promise.reject('No pdf schema were found')
@@ -132,11 +133,11 @@ export class ReportsService extends Repository<Report> {
     return pdf
   }
 
-  idReportAdmin () {
+  idReportAdmin() {
     // return super.workspaceService.roles.indexOf(this.reportAdminRole) >= 0
   }
 
-  private generateHeaders () {
+  private generateHeaders() {
     return {
       headers: {
         Authorization: 'Basic ' + btoa('key:' + this.settings.key)
@@ -144,7 +145,7 @@ export class ReportsService extends Repository<Report> {
     }
   }
 
-  formatQuery (query, filters) {
+  formatQuery(query, filters) {
     for (const k in filters) {
       if (filters.hasOwnProperty(k)) {
         let value = ''
