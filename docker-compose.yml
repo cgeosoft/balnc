@@ -1,20 +1,10 @@
 version: "3.7"
 services:
+  app:
+    build: packages/app
+    ports:
+      - "9080:80"
   server:
-    build: .
+    build: packages/server
     ports:
       - "3000:3000"
-    depends_on:
-      - "couchdb"
-    environment:
-      DB_HOST: http://couchdb:5984
-      DB_HOST_EXTERNAL: http://localhost:5984
-    networks: 
-      - backend
-  couchdb:
-    image: couchdb
-    ports:
-      - "5984:5984"
-networks:
-  backend:
-    driver: "bridge"
