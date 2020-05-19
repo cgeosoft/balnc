@@ -1,0 +1,12 @@
+:host {
+  .peers {
+    font-size: 0.6rem;
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-family: monospace;
+    td {
+      white-space: nowrap;
+    }
+  }
+}

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router'
-import { ConfigService, DEFAULT_USER, Integration, IntegrationsRepo, RxDBService, ServerIntegration, UpdateService, User, UsersRepo } from '@balnc/core'
+import { ConfigService, CouchDBIntegration, CouchDBService, DEFAULT_USER, Integration, IntegrationsRepo, OrbitDBIntegration, OrbitDBService, UpdateService, User, UsersRepo } from '@balnc/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
 import { Subject, Subscription } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
+import { map, takeUntil } from 'rxjs/operators'
 import { LoginComponent } from '../../@main/login/login.component'
 import { Helpers } from '../../@shared/helpers'
 import { UserFormComponent } from '../user-form/user-form.component'
@@ -49,7 +49,8 @@ export class MainShellComponent implements OnInit, OnDestroy {
     private configService: ConfigService,
     private toastr: ToastrService,
     private update: UpdateService,
-    private dbService: RxDBService,
+    private couchDBService: CouchDBService,
+    private orbitDBService: OrbitDBService,
     private usersRepo: UsersRepo,
     private integrationsRepo: IntegrationsRepo,
     private modal: NgbModal
@@ -99,8 +100,51 @@ export class MainShellComponent implements OnInit, OnDestroy {
           l[i._group] = i
           return l
         }, {})
-        await this.configureServer()
       })
+
+    this.integrationsRepo.allm$({ group: 'coucdb' })
+      .pipe(takeUntil(this.notifier))
+      .pipe(map((integration) => integration[0]))
+      .subscribe(async (integration: CouchDBIntegration) => {
+        this.couchDBService.disable()
+
+        if (!integration?.enabled) {
+          return
+        }
+
+        const needAuth = await this.couchDBService.needAuth()
+        if (!needAuth) {
+          this.couchDBService.enable()
+          return
+        }
+
+        const login = this.modal.open(LoginComponent, { size: 'sm', centered: true })
+        const { username, password } = await login.result
+
+        const auth = await this.couchDBService.authenticate(username, password)
+
+        if (!auth) {
+          this.toastr.error('Could not auto-login with db server. Check your internet connection.', '[Database] Load Failed')
+          await this.integrationsRepo.update(integration._id, { sync: false })
+          return
+        }
+
+        this.toastr.success('Login to remote database. Data will sync...')
+        this.couchDBService.enable()
+      })
+
+    this.integrationsRepo.allm$({ group: 'orbitdb' })
+    .pipe(map((integration: Integration[]) => integration[0]))
+    .subscribe(async (integration: OrbitDBIntegration) => {
+      await this.orbitDBService.stop()
+      if (!integration?.enabled) {
+        return
+      }
+      await this.orbitDBService.setup()
+      if (integration?.address && integration.address !== this.orbitDBService.address) {
+        await this.orbitDBService.start()
+      }
+    })
   }
 
   ngOnDestroy () {
@@ -127,35 +171,6 @@ export class MainShellComponent implements OnInit, OnDestroy {
       return l
     }, {})
     this.configService.users = users
-  }
-
-  private async configureServer () {
-    const server = this.configService.integrations?.server as ServerIntegration
-
-    this.dbService.disableRemoteDB()
-
-    if (!server?.enabled || !server?.dbEnable) {
-      return
-    }
-
-    const needAuth = await this.dbService.needAuthentication()
-    if (!needAuth) {
-      this.dbService.enableRemoteDB()
-      return
-    }
-
-    const login = this.modal.open(LoginComponent, { size: 'sm', centered: true })
-    const { username, password } = await login.result
-
-    await this.dbService
-      .authenticate(username, password)
-      .then(() => {
-        this.toastr.success('Login to remote database. Data will sync...')
-        this.dbService.enableRemoteDB()
-      })
-      .catch(() => {
-        return this.integrationsRepo.update(server._id, { dbEnable: false })
-      })
   }
 
   private navigationInterceptor (event: RouterEvent): void {

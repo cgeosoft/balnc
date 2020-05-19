@@ -8,9 +8,11 @@ export interface GiphyIntegration extends Integration {
   apiKey: string
 }
 
-export interface ServerIntegration extends Integration {
+export interface CouchDBIntegration extends Integration {
   host: string
-  dbEnable?: boolean
-  dbName?: string
-  dbHost?: string
+  db: string
+}
+
+export interface OrbitDBIntegration extends Integration {
+  address: string
 }

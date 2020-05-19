@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { ServerIntegration } from '@balnc/core'
+import { CouchDBIntegration } from '@balnc/core'
 import environment from '../../../../environments/environment'
 
 @Component({
@@ -9,8 +9,8 @@ import environment from '../../../../environments/environment'
 })
 export class ServerComponent implements OnInit {
 
-  @Input() config: ServerIntegration
-  @Output() configChange = new EventEmitter<ServerIntegration>()
+  @Input() config: CouchDBIntegration
+  @Output() configChange = new EventEmitter<CouchDBIntegration>()
 
   copied = false
   databases = []
@@ -19,7 +19,7 @@ export class ServerComponent implements OnInit {
     if (!this.config.host) return null
     const config = {
       h: this.config.host,
-      d: this.config.dbName
+      d: this.config.db
     }
     return `${window.location.protocol}//${window.location.host}/import?d=${btoa(JSON.stringify(config))}`
   }

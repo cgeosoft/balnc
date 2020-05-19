@@ -13,6 +13,7 @@ import { ConfigureIntegrationComponent } from './integrations/configure-integrat
 import { GiphyComponent } from './integrations/giphy/giphy.component'
 import { IntegrationsComponent } from './integrations/integrations.component'
 import { MailgunComponent } from './integrations/mailgun/mailgun.component'
+import { OrbitDBComponent } from './integrations/orbitdb/orbitdb.component'
 import { ServerComponent } from './integrations/server/server.component'
 import { StripeComponent } from './integrations/stripe/stripe.component'
 import { LiveComponent } from './live/live.component'
@@ -38,6 +39,7 @@ import { WorkspacesComponent } from './workspaces/workspaces.component'
     GiphyComponent,
     ConfigureIntegrationComponent,
     ServerComponent,
+    OrbitDBComponent,
     FaqComponent,
     LiveComponent,
     AboutComponent

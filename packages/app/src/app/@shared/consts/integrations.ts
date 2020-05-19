@@ -7,6 +7,12 @@ export const INTEGRATIONS: IntegrationView[] = [{
   color: '#6f42c1',
   description: 'Use the Balnc Server to enchanse features and activate intergrations.'
 }, {
+  key: 'orbitdb',
+  title: 'OrbitDB',
+  icon: ['far', 'smile'],
+  color: '#c5407b',
+  description: '...'
+}, {
   key: 'giphy',
   title: 'Giphy',
   icon: ['far', 'file'],

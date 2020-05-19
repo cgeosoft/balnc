@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http'
-import { Injectable, NgZone } from '@angular/core'
-import { ToastrService } from 'ngx-toastr'
+import { Injectable } from '@angular/core'
 import * as AdapterHttp from 'pouchdb-adapter-http'
 import * as AdapterIdb from 'pouchdb-adapter-idb'
 import * as AdapterMemory from 'pouchdb-adapter-memory'
@@ -21,7 +19,6 @@ import { BehaviorSubject } from 'rxjs'
 import environment from '../../../environments/environment'
 import { Migrations } from '../migrations'
 import schema from '../models/entity.json'
-import { ServerIntegration } from '../models/integration'
 import { ConfigService } from '../services/config.service'
 
 if (!environment.production) {
@@ -57,28 +54,12 @@ export class RxDBService {
   status$: BehaviorSubject<'active' | 'error' | 'syncing' | 'disabled'>
     = new BehaviorSubject<'active' | 'error' | 'syncing' | 'disabled'>('disabled')
 
-  // get http() {
-  //   return this.injector.get(HttpClient)
-  // }
-
-  // get configService() {
-  //   return this.injector.get(ConfigService)
-  // }
-
-  // get toastr() {
-  //   return this.injector.get(ToastrService)
-  // }
-
   get workspace () {
     return this.configService.workspace
   }
 
   constructor (
-    // private injector: Injector,
-    private http: HttpClient,
-    private configService: ConfigService,
-    private toastr: ToastrService,
-    private zone: NgZone
+    private configService: ConfigService
   ) { }
 
   async setup () {
@@ -95,7 +76,8 @@ export class RxDBService {
         adapter: 'idb'
       })
     } catch (err) {
-      console.log('[DatabaseService]', `Database exist: balnc_${this.workspace.key}`)
+      console.log('[DatabaseService]', err)
+      // console.log('[DatabaseService]', `Database exist: balnc_${this.workspace.key}`)
       return
     }
 
@@ -106,56 +88,6 @@ export class RxDBService {
     })
 
     await this.setupCache()
-  }
-
-  enableRemoteDB () {
-    const config = this.configService.integrations.server as ServerIntegration
-    let host = config.dbHost || `${config.host}/db`
-    this.replicationState = this.db.entities.sync({
-      remote: `${host}/${config.dbName}`
-    })
-    this.replicationState.active$
-      .subscribe((state: boolean) => {
-        this.zone.run(() => {
-          this.status$.next(state ? 'syncing' : 'active')
-        })
-      })
-  }
-
-  disableRemoteDB () {
-    console.log('[DatabaseService]', `Remote db is disabled`)
-    if (this.replicationState) {
-      this.replicationState.cancel()
-    }
-    this.status$.next('disabled')
-  }
-
-  async needAuthentication () {
-    const config = this.configService.integrations.server as ServerIntegration
-    const host = config.dbHost || `${config.host}/db`
-    const resp = await this.http.get(`${host}/_session`, { withCredentials: true }).toPromise().catch(() => false)
-    if (!resp) {
-      console.log('[DatabaseService]', `No response from ${host}/_session. Disable remote`)
-      return false
-    }
-    if (resp['userCtx'].name) {
-      console.log('[DatabaseService]', `Already authenticated`)
-      return false
-    }
-    return true
-  }
-
-  async authenticate (username: string, password: string) {
-    const config = this.configService.integrations.server as ServerIntegration
-    const host = config.dbHost || `${config.host}/db`
-    return this.http.post(`${host}/_session`, {
-      name: username,
-      password: password
-    }, { withCredentials: true })
-      .toPromise()
-      .catch((res) => {
-        this.toastr.error('Could not auto-login with db server. Check your internet connection.', '[Database] Load Failed')
-      })
   }
 
   async setupCache () {
@@ -171,72 +103,4 @@ export class RxDBService {
   async remove (workspaceKey: string) {
     await RxDB.removeDatabase(`balnc_${workspaceKey}`, 'idb')
   }
-
-  // private enableRemoteCouch () {
-  //   if (!this.config?.host || !this.config?.key) {
-  //     console.log('[DatabaseService]', `Remote for couch is not configured`)
-  //     return
-  //   }
-  //   this.repStateCouch = this.db.entities.sync({
-  //     remote: `${this.config.host}/${this.config.key}`
-  //   })
-  // }
-
-  // private enableRemoteGraphql () {
-  //   console.log('[DatabaseService]', 'sync with syncGraphQL')
-
-  //   this.repStateGQL = this.db.entities.syncGraphQL({
-  //     url: 'http://127.0.0.1:10102/graphql',
-  //     push: {
-  //       batchSize: 5,
-  //       queryBuilder: (doc) => {
-  //         return {
-  //           query: `
-  //             mutation EntityCreate($doc: EntityInput) {
-  //               setEntity(doc: $doc) {
-  //                 _id,
-  //                 timestamp
-  //               }
-  //             }
-  //           `,
-  //           variables: {
-  //             doc
-  //           }
-  //         }
-  //       }
-  //     },
-  //     pull: {
-  //       queryBuilder: (doc) => {
-  //         if (!doc) {
-  //           doc = {
-  //             id: '',
-  //             updatedAt: 0
-  //           }
-  //         }
-  //         return {
-  //           query: `
-  //               {
-  //                 feedForRxDBReplication(lastId: "${doc._id}", minUpdatedAt: ${doc._date}, limit: 30) {
-  //                   _id
-  //                   timestamp
-  //                   deleted
-  //                   type
-  //                   data
-  //                 }
-  //               }`
-  //           ,
-  //           variables: {}
-  //         }
-  //       }
-  //     },
-  //     live: true,
-  //     /**
-  //      * TODO
-  //      * we have to set this to a low value, because the subscription-trigger
-  //      * does not work sometimes. See below at the SubscriptionClient
-  //      */
-  //     liveInterval: 1000 * 2,
-  //     deletedFlag: 'deleted'
-  //   })
-  // }
 }

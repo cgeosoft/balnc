@@ -20,7 +20,7 @@
 <div class="form-group">
   <label>Database</label>
   <div class="input-group">
-    <input [(ngModel)]="config.dbName" class="form-control">
+    <input [(ngModel)]="config.db" class="form-control">
     <div class="input-group-append">
       <div ngbDropdown container="body" placement="bottom-right">
         <button class="btn btn-outline-secondary" [disabled]="!databases.length" ngbDropdownToggle>
@@ -38,7 +38,7 @@
 </div>
 <div class="form-group">
   <div class="custom-control custom-switch">
-    <input [(ngModel)]="config.dbEnable" type="checkbox" class="custom-control-input" id="switchDbEnable">
+    <input [(ngModel)]="config.sync" type="checkbox" class="custom-control-input" id="switchDbEnable">
     <label class="custom-control-label" for="switchDbEnable">Enable data synchronization</label>
   </div>
 </div>

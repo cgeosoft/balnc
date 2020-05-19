@@ -11,6 +11,7 @@ import { Integration } from '../../../@core/models/integration'
 export class ConfigureIntegrationComponent implements OnInit {
 
   @Input() integration: IntegrationView
+
   config: Integration
 
   get modal () {
@@ -33,7 +34,6 @@ export class ConfigureIntegrationComponent implements OnInit {
     } else {
       await this.integrationRepo.add(this.config, this.integration.key)
     }
-    this.activeModal.close()
   }
 
 }

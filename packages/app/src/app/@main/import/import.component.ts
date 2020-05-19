@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ConfigService, DEFAULT_WORKSPACE, IntegrationsRepo, RxDBService, ServerIntegration } from '@balnc/core'
+import { ConfigService, CouchDBIntegration, DEFAULT_WORKSPACE, IntegrationsRepo, RxDBService } from '@balnc/core'
 
 @Component({
   selector: 'app-import',
@@ -42,11 +42,10 @@ export class ImportComponent implements OnInit {
     const key = this.configService.create({ ...DEFAULT_WORKSPACE })
     this.configService.activated = key
     await this.dbService.setup()
-    const config: Partial<ServerIntegration> = {
+    const config: Partial<CouchDBIntegration> = {
       enabled: true,
       host: this.config.h,
-      dbEnable: true,
-      dbName: this.config.d
+      db: this.config.d
     }
     await this.integrationRepo.add(config, 'server')
     await this.router.navigateByUrl('/')

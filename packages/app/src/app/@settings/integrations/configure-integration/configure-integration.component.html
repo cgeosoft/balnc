@@ -6,15 +6,14 @@
 </div>
 <div class="modal-body">
   <div class="custom-control custom-switch">
-    <input [(ngModel)]="config.enabled" type="checkbox" class="custom-control-input" id="switchEnable">
+    <input [(ngModel)]="config.enabled" (change)="save()" type="checkbox" class="custom-control-input"
+      id="switchEnable">
     <label class="custom-control-label" for="switchEnable">Enable this integration</label>
   </div>
   <hr>
   <ng-container [ngSwitch]="integration.key">
-    <app-integration-server *ngSwitchCase="'server'" [config]="config"></app-integration-server>
-    <app-integration-giphy *ngSwitchCase="'giphy'" [config]="config"></app-integration-giphy>
+    <app-integration-server *ngSwitchCase="'server'" [(config)]="config" (configChange)="save()"></app-integration-server>
+    <app-integration-giphy *ngSwitchCase="'giphy'" [(config)]="config" (configChange)="save()"></app-integration-giphy>
+    <app-integration-orbitdb *ngSwitchCase="'orbitdb'" [(config)]="config" (configChange)="save()"></app-integration-orbitdb>
   </ng-container>
-</div>
-<div class="modal-footer d-flex">
-  <button class="btn btn-success" (click)="save()">Save</button>
 </div>
