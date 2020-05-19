@@ -1,45 +1,20 @@
 import { Injectable } from '@angular/core'
-import * as AdapterHttp from 'pouchdb-adapter-http'
-import * as AdapterIdb from 'pouchdb-adapter-idb'
-import * as AdapterMemory from 'pouchdb-adapter-memory'
+import * as PouchdbAdapterHttp from 'pouchdb-adapter-http'
+import * as PouchdbAdapterIdb from 'pouchdb-adapter-idb'
 import { RxCollection, RxDatabase } from 'rxdb'
-import AdapterCheckPlugin from 'rxdb/plugins/adapter-check'
-import AttachmentsPlugin from 'rxdb/plugins/attachments'
-import RxDB from 'rxdb/plugins/core'
-import RxDBErrorMessagesModule from 'rxdb/plugins/error-messages'
-import InMemoryPlugin from 'rxdb/plugins/in-memory'
-import JsonDumpPlugin from 'rxdb/plugins/json-dump'
-import RxDBLeaderElectionModule from 'rxdb/plugins/leader-election'
-import RxDBReplicationModule from 'rxdb/plugins/replication'
-import RxDBReplicationGraphQL, { RxGraphQLReplicationState } from 'rxdb/plugins/replication-graphql'
-import RxDBSchemaCheckModule from 'rxdb/plugins/schema-check'
-import RxDBUpdateModule from 'rxdb/plugins/update'
-import RxDBValidateModule from 'rxdb/plugins/validate'
+import { RxDBAttachmentsPlugin } from 'rxdb/plugins/attachments'
+import { addRxPlugin, createRxDatabase, removeRxDatabase } from 'rxdb/plugins/core'
+import { RxDBLeaderElectionPlugin } from 'rxdb/plugins/leader-election'
+import { RxDBNoValidatePlugin } from 'rxdb/plugins/no-validate'
+import { RxDBQueryBuilderPlugin } from 'rxdb/plugins/query-builder'
+import { RxDBReplicationPlugin } from 'rxdb/plugins/replication'
+import { RxGraphQLReplicationState } from 'rxdb/plugins/replication-graphql'
+import { RxDBUpdatePlugin } from 'rxdb/plugins/update'
 import { BehaviorSubject } from 'rxjs'
 import environment from '../../../environments/environment'
 import { Migrations } from '../migrations'
 import schema from '../models/entity.json'
 import { ConfigService } from '../services/config.service'
-
-if (!environment.production) {
-  console.log('[DatabaseService]', 'In debug')
-  RxDB.plugin(RxDBSchemaCheckModule)
-  // RxDB.QueryChangeDetector.enableDebugging()
-}
-
-RxDB.plugin(RxDBValidateModule)
-RxDB.plugin(RxDBLeaderElectionModule)
-RxDB.plugin(RxDBReplicationModule)
-RxDB.plugin(AttachmentsPlugin)
-RxDB.plugin(RxDBErrorMessagesModule)
-RxDB.plugin(AdapterCheckPlugin)
-RxDB.plugin(JsonDumpPlugin)
-RxDB.plugin(AdapterHttp)
-RxDB.plugin(AdapterIdb)
-RxDB.plugin(AdapterMemory)
-RxDB.plugin(RxDBUpdateModule)
-RxDB.plugin(RxDBReplicationGraphQL)
-RxDB.plugin(InMemoryPlugin)
 
 @Injectable({
   providedIn: 'root'
@@ -70,8 +45,11 @@ export class RxDBService {
     }
 
     console.log('[DatabaseService]', `Initializing DB: balnc_${this.workspace.key}`)
+
+    await this.loadRxDBPlugins()
+
     try {
-      this.db = await RxDB.create({
+      this.db = await createRxDatabase({
         name: `balnc_${this.workspace.key}`,
         adapter: 'idb'
       })
@@ -101,6 +79,24 @@ export class RxDBService {
   }
 
   async remove (workspaceKey: string) {
-    await RxDB.removeDatabase(`balnc_${workspaceKey}`, 'idb')
+    await removeRxDatabase(`balnc_${workspaceKey}`, 'idb')
+  }
+
+  async loadRxDBPlugins (): Promise<any> {
+    addRxPlugin(RxDBLeaderElectionPlugin)
+    addRxPlugin(RxDBReplicationPlugin)
+    addRxPlugin(PouchdbAdapterHttp)
+    addRxPlugin(PouchdbAdapterIdb)
+    addRxPlugin(RxDBAttachmentsPlugin)
+    addRxPlugin(RxDBQueryBuilderPlugin)
+    addRxPlugin(RxDBUpdatePlugin)
+    if (!environment.production) {
+      await Promise.all([
+        import('rxdb/plugins/dev-mode').then(module => addRxPlugin(module)),
+        import('rxdb/plugins/validate').then(module => addRxPlugin(module))
+      ])
+    } else {
+      addRxPlugin(RxDBNoValidatePlugin)
+    }
   }
 }

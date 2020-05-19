@@ -28,9 +28,7 @@ export class IntegrationsComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    setTimeout(() => {
-      this.configure('orbitdb')
-    }, 1000);
+
   }
 
   configure (key: string) {

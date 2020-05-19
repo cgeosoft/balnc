@@ -141,7 +141,7 @@ export class MainShellComponent implements OnInit, OnDestroy {
         return
       }
       await this.orbitDBService.setup()
-      if (integration?.address && integration.address !== this.orbitDBService.address) {
+      if (integration?.address) {
         await this.orbitDBService.start()
       }
     })

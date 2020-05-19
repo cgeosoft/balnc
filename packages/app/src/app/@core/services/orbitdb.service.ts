@@ -90,8 +90,8 @@ export class OrbitDBService {
     console.log('this.db',this.db)
 
     this.rxdbSub = this.rxdbService.db.$.subscribe(changeEvent => {
-      console.log('[OrbitDB Service]', 'rxdbService event', changeEvent.data)
-      this.pouchToOrbit(changeEvent.data['v'])
+      console.log('[OrbitDB Service]', 'rxdbService event', changeEvent.documentData)
+      this.pouchToOrbit(changeEvent.documentData)
     })
 
     this.db.events.on('load', (dbname) => {
@@ -185,7 +185,7 @@ export class OrbitDBService {
     // let db = []
     // if (this.db) db = await this.ipfs.pubsub.peers(this.db.id)
     await Promise.resolve()
-    return { net:[], db:[] }
+    return { net: [], db: [] }
   }
 
   generateAddress (): string {
