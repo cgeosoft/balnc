@@ -72,7 +72,7 @@ export class ShellComponent implements OnInit {
   }
 
   get activated () {
-    return this.configService.activated
+    return this.configService.workspace.key
   }
 
   constructor (
@@ -83,10 +83,6 @@ export class ShellComponent implements OnInit {
 
   ngOnInit () {
     this.workspace = this.configService.workspace
-  }
-
-  clear () {
-    this.configService.activated = null
   }
 
   async remove (workspaceId) {
@@ -108,7 +104,7 @@ export class ShellComponent implements OnInit {
       const workspaceStr = atob(data)
       const workspace = JSON.parse(workspaceStr)
       const key = this.configService.update(workspace)
-      this.configService.activated = key
+      this.configService.activate(key)
     } catch (error) {
       this.error = 'File is corrupted'
       console.log('[WorkspaceComponent]', 'Error' + error)

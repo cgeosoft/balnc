@@ -5,7 +5,7 @@ import { Helpers, MENU } from '@balnc/shared'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import * as Sentry from '@sentry/browser'
 import { Angulartics2 } from 'angulartics2'
-import { UserFormComponent } from '../../@main/user-form/user-form.component'
+import { UserFormComponent } from '../../main/user-form/user-form.component'
 
 @Component({
   selector: 'app-settings-general',
@@ -79,7 +79,6 @@ export class GeneralComponent implements OnInit {
     if (!confirm('Are you sure?')) return
     await this.dbService.remove(this.workspace.key)
     this.configService.remove(this.workspace.key)
-    this.configService.activated = null
 
     if (!this.configService.workspaces.length) {
       await this.router.navigate(['/setup'])

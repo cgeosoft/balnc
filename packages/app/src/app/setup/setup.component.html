@@ -1,9 +1,13 @@
+<div class="alert alert-warning text-center mb-4">
+  <div><strong>WARNING: NOT FOR PRODUCTION USE</strong></div>
+  <div>Balnc is alpha-stage software. It hasn't been security audited and programming APIs and data formats can still
+    change. You may lose your data at any time without warning.
+  </div>
+</div>
+
 <div class="card" [ngClass]="{loading:loading}">
   <div class="card-body">
     <app-spinner *ngIf="loading"></app-spinner>
-    <div class="alert alert-warning text-center mb-4">
-      <strong>UNDER DEVELOPMENT - NOT FOR PRODUCTION USE</strong>
-    </div>
     <h1 class="mb-4" style="font-weight: 300;">Balnc Setup</h1>
     <p>Balnc (balance) is an free open source management suite for small businesses and freelancers. It has
       a collection of pre-build modules and the tools for software developers to create new ones.</p>
@@ -14,12 +18,12 @@
     <div class="custom-control custom-checkbox custom-control-inline">
       <input id="errorReport" [(ngModel)]="workspace.errors" class="custom-control-input" type="checkbox">
       <label for="errorReport" class="custom-control-label">
-        Send error data. <small class="text-muted">This helps us further development.</small></label>
+        Send error data <small class="text-muted ml-2"> - help further development</small></label>
     </div>
     <div class="custom-control custom-checkbox custom-control-inline">
       <input id="analytics" [(ngModel)]="workspace.analytics" class="custom-control-input" type="checkbox">
       <label for="analytics" class="custom-control-label">
-        Send usage data. <small class="text-muted">This helps us to design better new features.</small></label>
+        Send usage data <small class="text-muted ml-2"> - help better design of new features</small></label>
     </div>
   </div>
   <div class="card-footer">

@@ -1,7 +1,7 @@
 {
     "sitename": "Balnc",
     "siteurl": "https://balnc.cgeosoft.com",
-    "description": "Productivity tool where you own your data",
+    "description": "The productivity tool where you own your own data",
     "app": "https://app.balnc.cgeosoft.com",
     "source": "https://github.com/ChristosGeorgiou/balnc"    
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { ReadFile } from 'ngx-file-helpers'
 import { LocalStorage } from 'ngx-store'
+import { BehaviorSubject } from 'rxjs'
 import { v4 as uuidv4 } from 'uuid'
 import { Helpers } from '../../@shared/helpers'
 import { Build } from '../models/build'
@@ -14,7 +15,10 @@ export class ConfigService {
 
   @LocalStorage() isSidebarClosed: boolean = false
   @LocalStorage() roles: string[] = []
-  @LocalStorage() activated: string = ''
+
+  @LocalStorage()
+  private activated: string = ''
+
   @LocalStorage() workspaces: Workspace[] = []
   @LocalStorage() userId: string = null
 
@@ -23,6 +27,8 @@ export class ConfigService {
 
   menu: any
   userAvatars: { [key: string]: string }
+
+  workspace$: BehaviorSubject<Workspace> = new BehaviorSubject<Workspace>(null)
 
   get usernames () {
     return this.users?.reduce((l, i) => {
@@ -40,7 +46,7 @@ export class ConfigService {
   }
 
   get workspace (): Workspace {
-    return this.workspaces.find(p => p.key === this.activated)
+    return this.workspace$.value
   }
 
   get user (): User {
@@ -59,17 +65,25 @@ export class ConfigService {
       return
     }
 
-    console.log('[ConfigService]', 'Workspaces available:', this.workspaces)
+    console.log('[ConfigService]', 'Workspaces available:', this.workspaces.length)
 
     if (!this.activated) {
-      console.log('[ConfigService]', 'No selected workspace. Auto select first', this.workspaces[0].key)
-      this.activated = this.workspaces[0].key
+      console.log('[ConfigService]', 'No selected workspace. Auto select first')
+      this.activate(this.workspaces[0].key)
+    } else if (this.workspaces.findIndex(p => p.key === this.activated) === -1) {
+      console.log('[ConfigService]', 'Selected workspace not exist. Auto select first')
+      this.activate(this.workspaces[0].key)
+    } else {
+      this.activate(this.activated)
     }
+  }
 
-    if (this.workspaces.findIndex(p => p.key === this.activated) === -1) {
-      console.log('[ConfigService]', 'Selected workspace not exist. Auto select first', this.workspaces[0].key)
-      this.activated = this.workspaces[0].key
-    }
+  activate (key) {
+    console.log('[ConfigService]', 'Activate workspace', this.activated)
+    let w = this.workspaces.find(x => x.key === key)
+    if (!w) w = this.workspaces[0]
+    this.activated = w.key
+    this.workspace$.next(w)
   }
 
   create (data: Partial<Workspace>): string {

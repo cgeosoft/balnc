@@ -14,7 +14,7 @@ export class WorkspacesComponent {
   }
 
   get activated () {
-    return this.configService.activated
+    return this.configService.workspace.key
   }
 
   constructor (
@@ -25,7 +25,7 @@ export class WorkspacesComponent {
 
   async create () {
     const key = this.configService.create({ ...DEFAULT_WORKSPACE })
-    this.configService.activated = key
+    this.configService.activate(key)
     await this.activate({ key })
   }
 
@@ -41,7 +41,7 @@ export class WorkspacesComponent {
   }
 
   async activate (workspace) {
-    this.configService.activated = workspace.key
+    this.configService.activate(workspace.key)
     this.configService.setup()
     await this.dbService.setup()
     window.location.reload()

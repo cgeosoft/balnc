@@ -13,21 +13,27 @@
       <small class="text-muted text-monospace float-right">{{user?._id}}</small>
     </h4>
     <ng-container *ngIf="user">
-      <div class="form-group form-group-inline">
-        <label>Username</label>
-        <input class="form-control" (keyup)="saveUser()" [(ngModel)]="user.username">
-      </div>
-      <div class="form-group form-group-inline">
-        <label>Email</label>
-        <input class="form-control" (keyup)="saveUser()" [(ngModel)]="user.email">
-      </div>
-      <div class="form-group form-group-inline">
-        <label>Avatar</label>
-        <div class="avatar-select">
-          <img (click)="selectAvatar()" class="img-thumbnail" [src]="avatar || '/assets/images/no-avatar.png'">
-          <button *ngIf="!avatar" (click)="selectAvatar()" class="btn btn-link">select file</button>
-          <button *ngIf="avatar" (click)="clearAvatar()" class="btn btn-link">clear avatar</button>
-          <input #fileupload type="file" (change)="uploadAvatar($event.target.files[0])" style="display: none;">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group form-group-inline">
+            <label>Username</label>
+            <input class="form-control" (keyup)="saveUser()" [(ngModel)]="user.username">
+          </div>
+          <div class="form-group form-group-inline">
+            <label>Email</label>
+            <input class="form-control" (keyup)="saveUser()" [(ngModel)]="user.email">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group form-group-inline">
+            <label>Avatar</label>
+            <div class="avatar-select">
+              <img (click)="selectAvatar()" class="img-thumbnail" [src]="avatar || '/assets/images/no-avatar.png'">
+              <button *ngIf="!avatar" (click)="selectAvatar()" class="btn btn-link">select file</button>
+              <button *ngIf="avatar" (click)="clearAvatar()" class="btn btn-link">clear avatar</button>
+              <input #fileupload type="file" (change)="uploadAvatar($event.target.files[0])" style="display: none;">
+            </div>
+          </div>
         </div>
       </div>
       <div class="form-group form-group-inline">
@@ -90,7 +96,7 @@
   <section>
     <h4>Export</h4>
     <p>
-      Export this workspace for import in another machine. <strong>This do not backup your data.</strong>
+      Export this workspace for import in another machine. <strong>This will not backup your data.</strong>
     </p>
     <button class="btn btn-primary" (click)="export()">Export to file</button>
   </section>
@@ -101,8 +107,8 @@
         This will
         help further development as we may resolve issues faster.</div>
       <div class="custom-control custom-checkbox custom-control-inline">
-        <input id="errorReport" [checked]="workspace.errors" (change)="updateWorkspace({errors:$event.target.checked})" class="custom-control-input"
-          type="checkbox">
+        <input id="errorReport" [checked]="workspace.errors" (change)="updateWorkspace({errors:$event.target.checked})"
+          class="custom-control-input" type="checkbox">
         <label for="errorReport" class="custom-control-label">
           Send debug error data</label>
       </div>
@@ -111,8 +117,8 @@
       <div>Analytics help us to better understand how blanc have been used, so we may improve it. We use
         <a target="_blank" href="https://woopra.com">woopra.com</a> for this.</div>
       <div class="custom-control custom-checkbox custom-control-inline">
-        <input id="analytics" [checked]="workspace.analytics" (change)="updateWorkspace({analytics:$event.target.checked})" class="custom-control-input"
-          type="checkbox">
+        <input id="analytics" [checked]="workspace.analytics"
+          (change)="updateWorkspace({analytics:$event.target.checked})" class="custom-control-input" type="checkbox">
         <label for="analytics" class="custom-control-label">
           Send analytics data</label>
       </div>

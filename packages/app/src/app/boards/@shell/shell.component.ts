@@ -42,7 +42,6 @@ export class ShellComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-
     const boards$ = this.boardsRepo.allm$().pipe(
       tap((boards) => boards.sort((a, b) => a.name > b.name ? 1 : -1))
     )
@@ -66,8 +65,6 @@ export class ShellComponent implements OnInit {
         }, {})
       })
     )
-
-    const gogos = 5000
 
     this.boards$ = combineLatest(
       [boards$, messages$, lastRead$]
@@ -95,11 +92,6 @@ export class ShellComponent implements OnInit {
 
     )
   }
-
-  // unread(boardid: string) {
-  //   const s = this.boardsService.boardsStats.find(x => x.id === boardid)
-  //   return s ? s.unread : 0
-  // }
 
   async create () {
     console.log('create board')

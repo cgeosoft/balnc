@@ -6,9 +6,9 @@ import { CoreModule } from '@balnc/core'
 import { CalendarModule, DateAdapter } from 'angular-calendar'
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'
 import { Angulartics2Module } from 'angulartics2'
-import { MainModule } from './@main/main.module'
 import { AppComponent } from './app.component'
 import { APP_ROUTES } from './app.routes'
+import { MainModule } from './main/main.module'
 
 @NgModule({
   imports: [

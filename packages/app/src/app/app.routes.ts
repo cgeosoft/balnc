@@ -1,17 +1,17 @@
 import { Routes } from '@angular/router'
-import { MainShellComponent } from './@main/@shell/shell.component'
-import { ErrorComponent } from './@main/error/error.component'
-import { ImportComponent } from './@main/import/import.component'
-import { MainGuard } from './@main/main.guard'
-import { SetupComponent } from './@main/setup/setup.component'
-import { SetupGuard } from './@main/setup/setup.guard'
+import { ImportComponent } from './import/import.component'
+import { MainShellComponent } from './main/@shell/shell.component'
+import { ErrorComponent } from './main/error/error.component'
+import { MainGuard } from './main/main.guard'
+import { SetupComponent } from './setup/setup.component'
+import { SetupGuard } from './setup/setup.guard'
 
 export const APP_ROUTES: Routes = [{
   path: '',
   component: MainShellComponent,
   canActivate: [MainGuard],
   children: [
-    { path: 'settings', loadChildren: () => import('./@settings/settings.module').then(m => m.SettingsModule) },
+    { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
     { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
     { path: 'contacts', data: { title: 'Contacts' }, loadChildren: () => import('./contacts/contacts.module').then(m => m.ContactsModule) },
     { path: 'payments', loadChildren: () => import('./payments/payments.module').then(m => m.PaymentsModule), data: { title: 'Payments' } },
@@ -24,16 +24,11 @@ export const APP_ROUTES: Routes = [{
     { path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule) },
     { path: 'presentations', loadChildren: () => import('./presentations/presentations.module').then(m => m.PresentationsModule) },
     { path: 'boards', loadChildren: () => import('./boards/boards.module').then(m => m.BoardsModule) },
-    { path: '', pathMatch: 'full', redirectTo: '/dashboard' }
+    { path: '', pathMatch: 'full', redirectTo: 'dashboard' }
   ]
-}, {
-  path: 'setup',
-  canActivate: [SetupGuard],
-  component: SetupComponent
-}, {
-  path: 'import',
-  component: ImportComponent
-}, {
-  path: 'error',
-  component: ErrorComponent
-}]
+},
+{ path: 'setup', canActivate: [SetupGuard], component: SetupComponent },
+{ path: 'import', component: ImportComponent },
+{ path: 'error', component: ErrorComponent },
+{ path: '**', pathMatch: 'full', redirectTo: 'setup' }
+]

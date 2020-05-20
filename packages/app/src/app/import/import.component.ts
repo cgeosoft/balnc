@@ -40,7 +40,7 @@ export class ImportComponent implements OnInit {
   async start () {
     this.loading = true
     const key = this.configService.create({ ...DEFAULT_WORKSPACE })
-    this.configService.activated = key
+    this.configService.activate(key)
     await this.dbService.setup()
     const config: Partial<CouchDBIntegration> = {
       enabled: true,

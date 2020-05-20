@@ -4,7 +4,7 @@
       <fa-icon *ngIf="i.icon" [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
       <span class="content">
         <span>{{i.label}}</span>
-        <small>{{i.sublabel}}</small>
+        <small *ngIf="i.sublabel">{{i.sublabel}}</small>
       </span>
       <span class="note" *ngIf="i.note" [ngStyle]="{'background-color':i.noteColor}">{{i.note}}</span>
     </button>
@@ -14,7 +14,7 @@
       <fa-icon *ngIf="i.icon" [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
       <span class="content">
         <span>{{i.label}}</span>
-        <small>{{i.sublabel}}</small>
+        <small *ngIf="i.sublabel">{{i.sublabel}}</small>
       </span>
       <span class="note" *ngIf="i.note" [ngStyle]="{'background-color':i.noteColor}">{{i.note}}</span>
     </button>
@@ -24,7 +24,7 @@
       <fa-icon *ngIf="i.icon" [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
       <span class="content">
         <span>{{i.label}}</span>
-        <small>{{i.sublabel}}</small>
+        <small *ngIf="i.sublabel">{{i.sublabel}}</small>
       </span>
       <span class="note" *ngIf="i.note" [ngStyle]="{'background-color':i.noteColor}">{{i.note}}</span>
     </div>

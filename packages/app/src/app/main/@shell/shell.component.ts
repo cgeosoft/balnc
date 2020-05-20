@@ -5,8 +5,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
 import { Subject, Subscription } from 'rxjs'
 import { map, takeUntil } from 'rxjs/operators'
-import { LoginComponent } from '../../@main/login/login.component'
 import { Helpers } from '../../@shared/helpers'
+import { LoginComponent } from '../../main/login/login.component'
 import { UserFormComponent } from '../user-form/user-form.component'
 
 @Component({
