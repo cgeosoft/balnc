@@ -1,34 +1,33 @@
-@import "theme";
+@import "variables";
 
 :host {
-  @extend .d-flex;
-  @extend .justify-content-between;
-  @extend .bg-primary;
+  display: flex;
+  justify-content: space-between;
+  background-color: $primary;
   color: #eee;
   font-size: 0.7rem;
 
   .menu {
-    @extend .d-flex;
-    @extend .align-items-center;
+    display: flex;
+    align-items: center;
 
     .breadcrumb {
-      @extend .bg-transparent;
-      @extend .p-0;
-      @extend .m-0;
-      @extend .py-1;
-      @extend .px-2;
+      background-color: transparent;
+      padding: 0;
+      margin: 0;
 
       .breadcrumb-item {
         padding-left: 0;
-        &::before {
+        &:before {
           padding-right: 0;
+          padding-top:2px;
+          color: #eee;
         }
       }
     }
 
     .item {
-      @extend .py-1;
-      @extend .px-2;
+      padding: .2rem .5rem;
     }
 
     a.item,
