@@ -7,17 +7,16 @@
 
     .action {
       display: flex;
-      flex-direction: row;
       align-items: center;
       width: 100%;
-      padding: 0.25rem;
+      padding: 0;
       border: none;
       text-align: left;
       outline: none;
       box-shadow: none;
-      border-radius: 0.25rem;
       margin-bottom: 0.25rem;
       background: none;
+      color: lighten($body-color, 10%);
 
       .thumb {
         background-color: $dark;
@@ -64,22 +63,25 @@
         width: 1.2rem;
         min-width: 1.2rem;
         font-size: 0.8rem;
-        color: lighten($body-color, 20%);
+        color: lighten($body-color, 30%);
       }
 
       .content {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        line-height: 1rem;
-        text-align: left;
+        overflow: hidden;
 
+        > span,
         > small {
-          display: block;
           text-overflow: ellipsis;
           white-space: nowrap;
+          width: 100%;
+          overflow: hidden;
+          display: block;
+        }
+
+        > small {
           font-size: 0.8rem;
           margin-top: 0.2rem;
           color: lighten($body-color, 15%);
@@ -136,12 +138,25 @@
         margin: 0 0.2rem;
         text-align: center;
       }
-    }
 
-    button.action {
-      &.active,
       &:hover {
-        background: darken($body-bg, 10%);
+        font-weight: bold;
+        .icon {
+          color: lighten($body-color, 15%);
+        }
+      }
+
+      &.active {
+        font-weight: bold;
+        color: $primary;
+        .icon {
+          color: $primary;
+        }
+        .content {
+          > small {
+            color: $primary;
+          }
+        }
       }
     }
 
@@ -176,6 +191,10 @@
     .item {
       button {
         background-color: $primary;
+        border-radius: 0.25rem;
+        .icon {
+          margin: 0 0.2rem;
+        }
         .icon,
         > span,
         .content > span {

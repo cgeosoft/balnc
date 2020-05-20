@@ -12,7 +12,7 @@ $appbar-normal-width: 85px;
   @extend .overflow-hidden;
   min-width: $appbar-normal-width;
   width: $appbar-normal-width;
-  padding: .5rem;
+  padding: 0.5rem;
   transition: all 0.5s;
   z-index: 20;
 
@@ -57,7 +57,8 @@ $appbar-normal-width: 85px;
       color: $body-bg;
       overflow: hidden;
 
-      fa-icon {
+      .icon {
+        color: darken($body-bg, 15%);
         text-shadow: $body-color;
       }
 
@@ -72,6 +73,9 @@ $appbar-normal-width: 85px;
 
       &:hover {
         background: lighten($dark, 2%);
+        .icon {
+          color: $body-bg;
+        }
       }
 
       &.active {

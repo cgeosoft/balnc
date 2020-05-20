@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core'
 import { ConfigService, UsersRepo } from '@balnc/core'
-import { COLORS, MENU } from '@balnc/shared'
+import { MENU } from '@balnc/shared'
 
 @Component({
   selector: 'app-appbar',
@@ -27,7 +27,7 @@ export class AppbarComponent implements OnInit {
     return [...MENU]
       .filter(m => this.user?.config?.menu?.items[m.label])
       .map((x, i) => {
-        x.iconColor = COLORS[Object.keys(COLORS)[i]]['300']
+        // x.iconColor = '#aaa'// COLORS[Object.keys(COLORS)[i]]['300']
         return x
       })
   }

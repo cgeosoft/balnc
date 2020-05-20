@@ -9,7 +9,7 @@
     <ng-container *ngFor="let i of menu">
       <button class="item" routerLinkActive="active" [routerLink]="i.route"
         [ngbTooltip]="compact ? i.label : null" placement="right" container="body" [ngStyle]="{color:i.iconColor}">
-        <fa-icon [icon]="i.icon"></fa-icon>
+        <fa-icon class="icon" [icon]="i.icon"></fa-icon>
         <span class="label">{{i.label}}</span>
       </button>
     </ng-container>
