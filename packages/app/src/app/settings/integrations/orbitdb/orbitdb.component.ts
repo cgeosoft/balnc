@@ -22,7 +22,7 @@ export class OrbitDBComponent implements OnInit {
   }
 
   get address () {
-    return this.config.address
+    return this.orbitDBService.runningAddress
   }
 
   constructor (
