@@ -26,21 +26,13 @@
   </div>
 </header>
 
-  <div class="container">
-    <div class="alert alert-warning mx-auto mt-5" style="max-width:650px">
-      {{#each disclaimer}}
-      <div><strong>{{this}}</strong></div>
-      {{/each}}
-    </div>
-  </div>
-
 <section>
   <div class="container">
     {{#each features}}
     <div class="row">
       {{#if left}}
       <div class="col-lg-7">
-        <img src="/img/{{image}}" class="img-fluid border rounded shadow" alt="">
+        <img src="/img/{{image}}" class="img-fluid border rounded shadow border-primary" alt="">
       </div>
       <div class="col-lg-5">
         <div class="ml-3 mt-5">
@@ -57,7 +49,7 @@
         </div>
       </div>
       <div class="col-lg-7">
-        <img src="/img/{{image}}" class="img-fluid border rounded shadow" alt="">
+        <img src="/img/{{image}}" class="img-fluid border rounded shadow border-primary" alt="">
       </div>
       {{/if}}
     </div>
@@ -76,7 +68,7 @@
     <div class="row">
       <div class="col-lg-6">
         {{#each newsletter.subscriptions}}
-        <h3><i class="fa fa-check-circle text-muted"></i> {{this}}</h3>
+        <h3><small><i class="fa fa-check text-primary"></i></small> {{this}}</h3>
         {{/each}}
         <p class="text-muted">{{{newsletter.description}}}</p>
       </div>

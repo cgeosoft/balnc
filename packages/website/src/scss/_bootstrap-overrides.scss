@@ -1,17 +1,21 @@
 // Bootstrap overrides for this template
 .bg-primary {
-    background: $theme-primary;
-    background: -webkit-linear-gradient($theme-primary, darken($theme-primary, 5%));
-    background: linear-gradient($theme-primary, darken($theme-primary, 5%));
+    background: $theme-primary !important;
+    background: -webkit-linear-gradient($theme-primary, darken($theme-primary, 5%)) !important;
+    background: linear-gradient($theme-primary, darken($theme-primary, 5%)) !important;
 }
 
 .text-primary {
-    color: $theme-primary;
+    color: $theme-primary !important;
 }
 
-.no-gutter > [class*='col-'] {
+.no-gutter > [class*="col-"] {
     padding-right: 0;
     padding-left: 0;
+}
+
+.border-primary {
+    border-color: $theme-primary !important;
 }
 
 .btn-outline {
