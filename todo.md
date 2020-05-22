@@ -31,6 +31,64 @@
   - [x] show intro text only with quick start and import profile
   - [x] quick start generates "default" profile
 
+#### Core Components
+
+##### Data Filters
+
+- [ ] Bootstrap implementation
+  
+##### General Data
+
+- [x] Bootstrap implementation
+- [ ] Add views
+  - [x] list
+- [ ] Add subline object
+
+##### Timed Data
+
+- [ ] Bootstrap implementation (similar with timeline)
+- [ ] Add core model [ts, title, subtitle, description, url, route, color, icon, tags]
+- [ ] Add views
+  - [ ] day
+  - [ ] week
+  - [ ] month
+  - [ ] year
+  - [ ] timeline
+- [ ] Add zoom level (timespan)
+- [ ] Add minimap (timeline)
+
+##### Image Data
+
+- [ ] Bootstrap implementation
+- [ ] Add views
+  - [x] list
+  - [ ] stack
+
+##### Chart Data
+
+- [ ] Bootstrap implementation
+
+##### Positional Data
+
+- [ ] Bootstrap implementation
+- [ ] Add views
+  - [ ] map
+  - [ ] list
+
+##### Chat
+
+- [x] Bootstrap implementation
+
+##### Treelist
+
+- [ ] Bootstrap implementation
+
+##### Form
+
+- [ ] Bootstrap implementation
+- [ ] Autosave mode
+- [ ] Validations
+
 ### Settings
 
 - [ ] Custom remote database
@@ -60,6 +118,14 @@
 - [ ] Export to pdf
 - [ ] Public url
 - [ ] Store to files
+- [ ] Preview and print
+- [ ] Manage templates
+- [ ] Create new
+- [ ] Create from previous
+- [ ] Add customer details from contacts
+- [ ] Add items from products
+- [ ] Configure own invoice details
+- [ ] Notification for upcoming events
 
 ### Orders
 
@@ -139,17 +205,6 @@
   - [x] Emojis
   - [x] Giphy
   - [x] Quote message
-
-### Invoices
-
-- [ ] Preview and print
-- [ ] Manage templates
-- [ ] Create new
-- [ ] Create from previous
-- [ ] Add customer details from contacts
-- [ ] Add items from products
-- [ ] Configure own invoice details
-- [ ] Notification for upcoming events
 
 ## Server
 
