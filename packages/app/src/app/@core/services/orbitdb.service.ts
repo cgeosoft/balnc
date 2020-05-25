@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core'
+import { Injectable, NgZone } from '@angular/core'
+import * as IPFS from 'ipfs'
 import * as IpfsClient from 'ipfs-http-client'
 import * as OrbitDB from 'orbit-db'
 import { Subscription } from 'rxjs'
@@ -14,6 +15,7 @@ export class OrbitDBService {
 
   private orbitdb
   private ipfs
+  private ipfsMode: 'REMOTE' | 'LOCAL' = 'LOCAL'
 
   private db: any
   private rxdbSub: Subscription
@@ -21,46 +23,50 @@ export class OrbitDBService {
   runningAddress
   private: Subscription
 
-  get config() {
+  get config () {
     return this.configService.integrations?.orbitdb as OrbitDBIntegration
   }
 
-  get intentity() {
+  get intentity () {
     return this.orbitdb?.intentity
   }
 
-  constructor(
+  constructor (
     private configService: ConfigService,
-    private rxdbService: RxDBService
+    private rxdbService: RxDBService,
+    private zone: NgZone
   ) {
   }
 
-  async setup() {
+  async setup () {
     if (!this.ipfs) {
       console.log('[OrbitDB Service]', `Setup IPFS`)
 
-      this.ipfs = IpfsClient('http://localhost:5001')
-      // this.ipfs = await IPFS.create({
-      //   start: true,
-      //   libp2p: {
-      //     config: {
-      //       dht: {
-      //         enabled: true
-      //       }
-      //     }
-      //   },
-      //   preload: {
-      //     enabled: false
-      //   },
-      //   // config: {
-      //   //   Addresses: {
-      //   //     Swarm: [
-      //   //       // '/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star',
-      //   //       // '/ip4/0.0.0.0/tcp/9090/ws/p2p-webrtc-star/'
-      //   //     ]
-      //   //   }
-      //   // }
-      // })
+      if (this.ipfsMode === 'REMOTE') {
+        this.ipfs = IpfsClient('http://localhost:5001')
+      } else {
+        this.ipfs = await IPFS.create({
+          start: true,
+          libp2p: {
+            config: {
+              dht: {
+                enabled: true
+              }
+            }
+          },
+          preload: {
+            enabled: false
+          },
+          config: {
+            Addresses: {
+              Swarm: [
+                '/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star'
+                // '/ip4/0.0.0.0/tcp/9090/ws/p2p-webrtc-star/'
+              ]
+            }
+          }
+        })
+      }
       // this.ipfs.on('error', (e) => {
       //   console.error(e)
       // })
@@ -72,7 +78,7 @@ export class OrbitDBService {
     }
   }
 
-  async start() {
+  async start () {
 
     if (this.db && this.db.address.toString() === this.config.address) {
       console.log('[OrbitDB Service]', `database started. abord`)
@@ -81,46 +87,49 @@ export class OrbitDBService {
 
     console.log('[OrbitDB Service]', `starting`, this.config.address)
 
-    this.db = await this.orbitdb.open(this.config.address, {
-      create: true,
-      replicate: true,
-      localOnly: false,
-      type: 'docstore',
-      accessController: {
-        write: ['*']
-      }
-    })
+    await this.zone.runOutsideAngular(async () => {
 
-    console.log('this.db', this.db)
+      this.db = await this.orbitdb.open(this.config.address, {
+        create: true,
+        replicate: true,
+        localOnly: false,
+        type: 'docstore',
+        accessController: {
+          write: ['*']
+        }
+      })
 
-    this.rxdbSub = this.rxdbService.db.$.subscribe(changeEvent => {
-      console.log('[OrbitDB Service]', 'rxdbService event', changeEvent.documentData)
-      this.pouchToOrbit(changeEvent.documentData)
-    })
+      console.log('this.db', this.db)
 
-    this.db.events.on('load', (dbname) => {
-      console.log('[OrbitDB Service]', 'load', dbname)
-    })
+      this.rxdbSub = this.rxdbService.db.$.subscribe(changeEvent => {
+        console.log('[OrbitDB Service]', 'rxdbService event', changeEvent.documentData)
+        this.pouchToOrbit(changeEvent.documentData)
+      })
 
-    this.db.events.on('load.progress', (address, hash, entry, progress, total) => {
-      console.log('[OrbitDB Service]', 'load.progress')
-    })
-    this.db.events.on('replicated', (address) => {
-      console.log('[OrbitDB Service]', 'replicated', address)
-      // await this.orbitToPouch()
-    })
-    this.db.events.on('replicate.progress', (address, hash, entry, progress, have) => {
-      console.log('[OrbitDB Service]', 'replicate.progress')
-    })
-    this.db.events.on('ready', (dbname, heads) => {
-      console.log('[OrbitDB Service]', 'ready', dbname, heads)
-      // await this.orbitToPouch()
-    })
+      this.db.events.on('load', (dbname) => {
+        console.log('[OrbitDB Service]', 'load', dbname)
+      })
 
-    await this.db.load()
+      this.db.events.on('load.progress', (address, hash, entry, progress, total) => {
+        console.log('[OrbitDB Service]', 'load.progress')
+      })
+      this.db.events.on('replicated', (address) => {
+        console.log('[OrbitDB Service]', 'replicated', address)
+        // await this.orbitToPouch()
+      })
+      this.db.events.on('replicate.progress', (address, hash, entry, progress, have) => {
+        console.log('[OrbitDB Service]', 'replicate.progress')
+      })
+      this.db.events.on('ready', (dbname, heads) => {
+        console.log('[OrbitDB Service]', 'ready', dbname, heads)
+        // await this.orbitToPouch()
+      })
+
+      await this.db.load()
+    })
   }
 
-  pouchToOrbit(pdoc) {
+  pouchToOrbit (pdoc) {
     let inStore = this.db.get(pdoc._id).filter((doc2) => {
       return pdoc._rev === doc2._rev
     })
@@ -132,7 +141,7 @@ export class OrbitDBService {
     }
   }
 
-  async orbitToPouch() {
+  async orbitToPouch () {
     const pdocs = await this.rxdbService.db.entities.find().exec()
     const odocs = this.db.query((doc) => true)
 
@@ -173,7 +182,7 @@ export class OrbitDBService {
     await Promise.all(p)
   }
 
-  async stop() {
+  async stop () {
     if (this.rxdbSub) {
       this.rxdbSub.unsubscribe()
     }
@@ -183,7 +192,7 @@ export class OrbitDBService {
     await this.orbitdb.disconnect()
   }
 
-  async getPeers(): Promise<{ net?: any[], db?: any[] }> {
+  async getPeers (): Promise<{ net?: any[], db?: any[] }> {
     if (!this.ipfs) return null
     const net = await this.ipfs.swarm.peers()
     let db = []
@@ -191,7 +200,7 @@ export class OrbitDBService {
     return { net, db }
   }
 
-  generateAddress(): string {
+  generateAddress (): string {
     const path = uuidv4().replace(/-/g, '')
     return `/orbitdb/${this.orbitdb?.id}/${path}`
   }
