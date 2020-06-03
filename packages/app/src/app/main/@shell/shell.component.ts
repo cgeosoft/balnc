@@ -7,7 +7,6 @@ import { Subject, Subscription } from 'rxjs'
 import { map, takeUntil } from 'rxjs/operators'
 import { Helpers } from '../../@shared/helpers'
 import { LoginComponent } from '../../main/login/login.component'
-import { UserFormComponent } from '../user-form/user-form.component'
 
 @Component({
   selector: 'app-main-shell',
@@ -83,12 +82,8 @@ export class MainShellComponent implements OnInit, OnDestroy {
       .subscribe(async (users: User[]) => {
         await this.setUsers(users)
         if (!this.configService.user) {
-          const modal = this.modal.open(UserFormComponent, { size: 'sm', centered: true })
-          await modal.result.catch(() => { })
-          if (!this.configService.user) {
-            const defaultUser = await this.usersRepo.add({ ...DEFAULT_USER, ...{ username: 'default' } })
-            this.configService.userId = defaultUser._id
-          }
+          const defaultUser = await this.usersRepo.add({ ...DEFAULT_USER, ...{ username: 'default' } })
+          this.configService.userId = defaultUser._id
         }
       })
 
