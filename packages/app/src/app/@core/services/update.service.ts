@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core'
 import { interval, Observable } from 'rxjs'
 import { catchError, map, switchMap } from 'rxjs/operators'
 import { environment } from '../../../environments/environment'
-import { Build } from '../models/build'
+import { Build } from '../models/enviroment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class UpdateService {
 
-  url = '/assets/build.json'
+  url = '/build.json'
   interval = 20000
 
   status$: Observable<boolean>
@@ -26,7 +26,7 @@ export class UpdateService {
       }),
       map((build: Build) => {
         if (!build) return false
-        return environment.build.timestamp < build.timestamp
+        return environment.build.date < build.date
       })
     )
   }

@@ -1,27 +1,14 @@
-var fs = require("fs")
-var path = require("path")
-var nodegit = require('nodegit');
+var fs = require('fs');
+var path = require('path');
+var getRepoInfo = require('git-repo-info');
+
+var info = getRepoInfo();
 
 var build = {
-  timestamp: 0,
-  git: {
-    hash: ""
-  }
+  date: Date.now(),
+  hash: info.sha,
+  branch: info.branch,
 }
 
-build.timestamp = (new Date()).getTime()
-
-nodegit.Repository
-  .open(path.join(__dirname, "../../.."))
-  .then(async (repository) => {
-    const branch = await repository.getCurrentBranch()
-    const commit = await repository.getHeadCommit();
-    // build.git.author = commit.author().name() + " - " + commit.author().email()
-    build.git.date = commit.date()
-    // build.git.message = commit.message().trim()
-    build.git.hash = commit.sha()
-    build.git.branch = branch.shorthand()
-    fs.writeFileSync(
-      path.join(__dirname, "../src/assets/build.json"),
-      JSON.stringify(build, " ", 2))
-  });
+var p = path.join(__dirname, '../src/build.json')
+fs.writeFileSync(p, JSON.stringify(build), { encoding: 'utf8' });

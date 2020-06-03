@@ -27,7 +27,8 @@
             "assets": [
               "src/assets",
               "src/_redirects",
-              "src/robots.txt"
+              "src/robots.txt",
+              "src/build.json"
             ],
             "styles": [
               "src/scss/styles.scss",

@@ -1,5 +1,6 @@
 # General Notes
 
+<https://www.indiehackers.com/post/indie-hackers-should-5715ac91a6>
 
 User registration
 Setup remote
@@ -21,7 +22,6 @@ Remote Sync
 - destroy
 
 Export / Import
-
 
 ## Data table
 
@@ -53,42 +53,43 @@ Types
 Other functions
  Print
  Download csv
- 
+
 ## @balnc/core
 
 Used for all internal providers and shared components.
 
 ### Config Provider
 
- - handle configurations
- - profiles are group of configurations
- - export import but not sync
- - manage available modules
+- handle configurations
+- profiles are group of configurations
+- export import but not sync
+- manage available modules
 
 ### Data Provider
 
- - use rxdb
- - sync data
- - switch between couch and graphql
+- use rxdb
+- sync data
+- switch between couch and graphql
 
 ### Repository Base Class
 
- - implements basic operations
- - extendable from feature repository providers
+- implements basic operations
+- extendable from feature repository providers
 
 ### Config Component
 
- - base config
- - enable modules with config
- - 
+- base config
+- enable modules with config
+
+-
 
 ### Login Component
 
 - login.modal
 - config.modal
 - data
- - table
- - form
+- table
+- form
 - sidebar
 - menu
 
@@ -134,8 +135,6 @@ Campaigns
 Loyalty
 Merchandising
 
- 
-
 ## General
 
 Explore WebDAV and common sync patterns
@@ -164,4 +163,3 @@ Sync settings
 ## Presentations
 
 - import from pdf, JSON, ppt
-

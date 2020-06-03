@@ -1,6 +1,6 @@
 import pkg from '../../package.json'
 import { Enviroment } from '../app/@core/models/enviroment'
-import build from '../assets/build.json'
+import build from '../build.json'
 
 export const environment: Enviroment = {
   production: false,

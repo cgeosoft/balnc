@@ -19,11 +19,11 @@
           <dt class="col-4 p-0 text-right">Release:</dt>
           <dd class="col-8">{{version}}</dd>
           <dt class="col-4 p-0 text-right">Build:</dt>
-          <dd class="col-8">{{build.timestamp | date:'yyyy-MM-dd HH:mm'}}</dd>
+          <dd class="col-8">{{build.date | date:'yyyy-MM-dd HH:mm'}}</dd>
           <dt class="col-4 p-0 text-right">Commit:</dt>
           <dd class="col-8"><a class="text-muted" target="_blank" rel="noopener"
-              href="https://github.com/christosgeorgiou/balnc/commit/{{build.git.hash}}">
-              {{build.git.hash.substr(0,8)}}
+              href="https://github.com/christosgeorgiou/balnc/commit/{{build.hash}}">
+              {{build.hash.substr(0,8)}}
             </a></dd>
         </dl>
       </small>
