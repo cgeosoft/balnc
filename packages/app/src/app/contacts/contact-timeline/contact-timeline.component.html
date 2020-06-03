@@ -9,10 +9,10 @@
           </div>
           <div class="flex-grow-1">
             <div class="card">
-              <div class="card-header d-flex" (click)="e._show = !e._show">
+              <div class="card-header d-flex" (click)="show[e._id] = !show[e._id]">
                 {{eventTypes[e.type]}} <a *ngIf="e.reference" class="ml-auto" [routerLink]="e.reference">link</a>
               </div>
-              <div class="card-body" [ngClass]="{'d-none':!e._show,'d-block':e._show}">
+              <div class="card-body" [ngClass]="{'d-none':!show[e._id],'d-block':show[e._id]}">
                 <pre>{{ e | json }}</pre>
               </div>
             </div>

@@ -13,7 +13,7 @@ export class ContactsRepo extends Repository<Contact> {
     injector: Injector
   ) {
     super(injector)
-    this.entity = 'contact'
+    this.entity = 'contacts.contact'
   }
 
   async add (data: Partial<Contact>, group?: string, ts?: number): Promise<Contact> {

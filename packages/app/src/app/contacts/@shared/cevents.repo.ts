@@ -10,7 +10,7 @@ export class CEventsRepo extends Repository<CEvent> {
     injector: Injector
   ) {
     super(injector)
-    this.entity = 'event'
+    this.entity = 'contacts.event'
   }
 
 }

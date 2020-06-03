@@ -15,6 +15,8 @@ export class ContactTimelineComponent implements OnInit {
   eventTypes = CEventType
   events$: Observable<CEvent[]>
 
+  show: { [key: string]: boolean } = {}
+
   constructor (
     private route: ActivatedRoute,
     private ceventsRepo: CEventsRepo
@@ -22,7 +24,7 @@ export class ContactTimelineComponent implements OnInit {
 
   ngOnInit () {
     this.events$ = this.route.parent.params.pipe(
-      mergeMap(params => this.ceventsRepo.all$(params.id))
+      mergeMap(params => this.ceventsRepo.allm$(params.id))
     )
   }
 
