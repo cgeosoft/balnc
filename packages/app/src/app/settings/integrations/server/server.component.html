@@ -17,31 +17,6 @@
     </div>
   </div>
 </div>
-<div class="form-group">
-  <label>Database</label>
-  <div class="input-group">
-    <input [(ngModel)]="config.db" class="form-control">
-    <div class="input-group-append">
-      <div ngbDropdown container="body" placement="bottom-right">
-        <button class="btn btn-outline-secondary" [disabled]="!databases.length" ngbDropdownToggle>
-          <fa-icon icon="list"></fa-icon>
-        </button>
-        <div ngbDropdownMenu>
-          <ng-container *ngFor="let database of databases">
-            <button ngbDropdownItem (click)="config.dbName=database">
-              {{database}}</button>
-          </ng-container>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="form-group">
-  <div class="custom-control custom-switch">
-    <input [(ngModel)]="config.sync" type="checkbox" class="custom-control-input" id="switchDbEnable">
-    <label class="custom-control-label" for="switchDbEnable">Enable data synchronization</label>
-  </div>
-</div>
 <hr>
 <div class="form-group">
   <label>Sharable URL <span class="text-success" *ngIf="copied">copied to clipboard</span></label>
