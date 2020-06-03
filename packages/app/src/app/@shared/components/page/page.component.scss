@@ -51,9 +51,11 @@
 
     .form-control {
       background: none;
-      border: solid 1px $body-color;
+      border-color: darken($body-bg, 10%);
       &:focus {
-        border: solid 1px $body-color;
+        outline: none !important;
+        border-color: $primary;
+        box-shadow: none;
       }
     }
 
@@ -76,12 +78,12 @@
   }
 
   .header {
-    @extend .mb-2;
-    @extend .d-flex;
-    @extend .align-items-center;
     border-bottom: solid 1px darken($body-bg, 10%);
     padding: 0.4rem 0;
     font-size: 1.2rem;
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
 
     > button {
       @extend .btn;
