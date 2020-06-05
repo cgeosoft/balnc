@@ -29,6 +29,15 @@
     @extend .card;
     @extend .shadow;
   }
+
+  @media only screen and (max-width: 576px) {
+    flex-direction: column;
+
+    .page-sidebar {
+      min-width: auto;
+      width: 100%;
+    }
+  }
 }
 
 :host ::ng-deep > .page-content > *:last-child {
@@ -81,7 +90,7 @@
     border-bottom: solid 1px darken($body-bg, 10%);
     padding: 0.4rem 0;
     font-size: 1.2rem;
-    margin: 2rem 0;
+    margin: 0 0 .5rem;
     display: flex;
     align-items: center;
 
@@ -150,7 +159,9 @@
   }
 
   .menu {
-    @extend .flex-grow-1;
-    @extend .overflow-auto;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 }

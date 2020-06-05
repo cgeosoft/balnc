@@ -1,23 +1,23 @@
 <div class="menu">
-  <button class="item" routerLinkActive="active" routerLink="/dashboard" [ngbTooltip]="compact ? 'Dashboard':null"
+  <a class="item" routerLinkActive="active" routerLink="/dashboard" [ngbTooltip]="compact ? 'Dashboard':null"
     placement="right" container="body">
     <fa-icon icon="home"></fa-icon>
     <span class="label">Dashboard</span>
-  </button>
+  </a>
   <div class="divider"></div>
   <ng-container *ngIf="menu.length">
     <ng-container *ngFor="let i of menu">
-      <button class="item" routerLinkActive="active" [routerLink]="i.route"
+      <a class="item" routerLinkActive="active" [routerLink]="i.route"
         [ngbTooltip]="compact ? i.label : null" placement="right" container="body" [ngStyle]="{color:i.iconColor}">
         <fa-icon class="icon" [icon]="i.icon"></fa-icon>
         <span class="label">{{i.label}}</span>
-      </button>
+      </a>
     </ng-container>
     <div class="divider"></div>
   </ng-container>
-  <button class="item" routerLink="/settings" routerLinkActive="active" [ngbTooltip]="compact ? 'Settings':null"
+  <a class="item" routerLink="/settings" routerLinkActive="active" [ngbTooltip]="compact ? 'Settings':null"
     placement="right" container="body">
     <fa-icon icon="cog"></fa-icon>
     <span class="label">Settings</span>
-  </button>
+  </a>
 </div>

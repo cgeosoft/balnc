@@ -1,6 +1,7 @@
 @import "theme";
 
 :host {
+  margin-bottom: 1rem;
   .divider {
     @extend .m-2;
     background: darken($body-bg, 10%);

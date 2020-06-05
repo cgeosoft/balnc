@@ -1,13 +1,13 @@
 <div class="item">
   <ng-container *ngIf="i.route">
-    <button [routerLink]="i.route" routerLinkActive="active" class="action" [ngClass]="i.cssClass">
+    <a [routerLink]="i.route" routerLinkActive="active" class="action" [ngClass]="i.cssClass">
       <fa-icon *ngIf="i.icon" [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
       <span class="content">
         <span>{{i.label}}</span>
         <small *ngIf="i.sublabel">{{i.sublabel}}</small>
       </span>
       <span class="note" *ngIf="i.note" [ngStyle]="{'background-color':i.noteColor}">{{i.note}}</span>
-    </button>
+    </a>
   </ng-container>
   <ng-container *ngIf="i.action">
     <button (click)="i.action()" class="action" [ngClass]="i.cssClass">

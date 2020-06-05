@@ -4,17 +4,15 @@ $appbar-compact-width: 60px;
 $appbar-normal-width: 85px;
 
 :host {
-  @extend .d-flex;
-  @extend .flex-column;
-  @extend .justify-content-start;
-  @extend .text-center;
-  @extend .bg-transparent;
-  @extend .overflow-hidden;
   min-width: $appbar-normal-width;
   width: $appbar-normal-width;
-  padding: 0.5rem;
+  overflow: hidden;
   transition: all 0.5s;
   z-index: 20;
+  margin-right: .5rem;
+  display: flex;
+  align-items: center;
+  padding: .3rem;
 
   &.compact {
     min-width: $appbar-compact-width;
@@ -30,32 +28,30 @@ $appbar-normal-width: 85px;
   }
 
   .menu {
-    @extend .shadow;
-    @extend .d-flex;
-    @extend .flex-column;
-    @extend .justify-content-start;
-    @extend .w-100;
-    @extend .py-2;
-    @extend .px-2;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    padding: .3rem;
     background-color: $dark;
     border-radius: 0.5rem;
     overflow: auto;
+    box-shadow: 0 0 .3rem $dark;
 
     .item {
-      @extend .w-100;
-      @extend .rounded;
-      @extend .border-0;
-      @extend .my-1;
-      @extend .py-1;
-      @extend .px-0;
-      @extend .text-center;
-      @extend .flex-shrink-0;
+      border-radius: .2rem;
+      flex-shrink: 0;
+      border:  none;
       background: none;
       outline: none;
       transition: background-color 0.7s;
       transition: color 0.7s;
       color: $body-bg;
       overflow: hidden;
+      width: 100%;
+      text-align: center;
+      margin: 0;
+      padding: .3rem 0;
 
       .icon {
         color: darken($body-bg, 15%);
@@ -112,5 +108,22 @@ $appbar-normal-width: 85px;
     text-align: center;
     line-height: 40px;
     z-index: 1;
+  }
+
+  @media only screen and (max-width: 576px) {
+    min-width: 100%;
+    width: 100%;
+    height: 60px;
+    min-height: 60px;
+    .menu {
+      flex-direction: row;
+      .item{
+        width: auto;
+      }
+    }
+    &.compact {
+      min-width: 100%;
+      width: 100%;
+    }
   }
 }

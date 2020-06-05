@@ -141,6 +141,7 @@
 
       &:hover {
         font-weight: bold;
+        text-decoration: none;
         .icon {
           color: lighten($body-color, 15%);
         }
