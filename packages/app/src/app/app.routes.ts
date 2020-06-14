@@ -18,7 +18,7 @@ export const APP_ROUTES: Routes = [{
     { path: 'agreements', loadChildren: () => import('./agreements/agreements.module').then(m => m.AgreementsModule), data: { title: 'Agreements' } },
     { path: 'orders', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule), data: { title: 'Orders' } },
     { path: 'invoices', loadChildren: () => import('./invoices/invoices.module').then(m => m.InvoicesModule), data: { title: 'Invoices' } },
-    { path: 'storage', loadChildren: () => import('./storage/storage.module').then(m => m.StorageModule), data: { title: 'Storage' } },
+    { path: 'products', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule) },
     { path: 'files', loadChildren: () => import('./files/files.module').then(m => m.FilesModule), data: { title: 'Files' } },
     { path: 'notes', loadChildren: () => import('./notes/notes.module').then(m => m.NotesModule), data: { title: 'Notes' } },
     { path: 'projects', loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule) },

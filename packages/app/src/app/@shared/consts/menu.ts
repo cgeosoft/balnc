@@ -21,20 +21,15 @@ export const MENU: MenuItem[] = [{
   icon: 'exchange-alt',
   route: ['/payments']
 }, {
-  //   label: 'Accounts',
-  // type: 'button',
-  //   icon: 'piggy-bank',
-  //   route: ['/accounts']
-  // }, {
   label: 'Agreements',
   type: 'button',
   icon: 'signature',
   route: ['/agreements']
 }, {
-  label: 'Storage',
+  label: 'Products',
   type: 'button',
   icon: 'warehouse',
-  route: ['/storage']
+  route: ['/products']
 }, {
   label: 'Files',
   type: 'button',
