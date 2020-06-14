@@ -4,6 +4,7 @@ export interface TableProperty {
   val? (item: any): any
   click? (item: any): any
   style?: any
+  format?: string
   type?: 'badge' | 'button' | 'date' | 'currency' | 'icon' | 'link' | 'image' | null
   template?: any
   icon?: any

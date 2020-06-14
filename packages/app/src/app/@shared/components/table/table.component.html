@@ -38,7 +38,7 @@
                       </button>
                     </td>
                     <td *ngSwitchCase="'date'" [ngStyle]='prop.style || {}'>
-                      <span *ngIf="prop.val(item)">{{prop.val(item) | date:'yy-MM-dd HH:mm'}}</span>
+                      <span *ngIf="prop.val(item)">{{prop.val(item) | date:(prop.format || 'yyyy-MM-dd HH:mm')}}</span>
                       <span *ngIf="!prop.val(item)" class="text-muted"> - </span>
                     </td>
                     <td *ngSwitchCase="'currency'" class="text-monospace" [ngStyle]='prop.style || {}'>
