@@ -83,7 +83,6 @@
     "ngx-store": "^2.1.0",
     "ngx-swiper-wrapper": "^9.0.1",
     "ngx-toastr": "^12.1.0",
-    "nodegit": "^0.26.5",
     "orbit-db": "^0.24.1",
     "pdfmake": "^0.1.65",
     "pouchdb": "^7.2.1",
