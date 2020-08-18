@@ -6,9 +6,9 @@ User registration
 Setup remote
 Function database generator
 
-Modules are installed and should generqte database if remote is enabled
+Modules are installed and should generate database if remote is enabled
 
-Disable remote do notd delete data. Another process should be created
+Disable remote do note delete data. Another process should be created
 
 Profile details
 
@@ -26,33 +26,33 @@ Export / Import
 ## Data table
 
 Data
- Array of obj
+Array of obj
 
 Schema
- Propeties
-  Label
-  Value(item): type
-  Sort(items,direction)
+Propeties
+Label
+Value(item): type
+Sort(items,direction)
 
 Settings stored per page
- SortPropery
- SortDirection
- Page
- Properies
-  Key
-  IsVisible
+SortPropery
+SortDirection
+Page
+Properies
+Key
+IsVisible
 
 Types
- Text(default)
- Doubletext
- Link
- Badge
- Date
- Button
+Text(default)
+Doubletext
+Link
+Badge
+Date
+Button
 
 Other functions
- Print
- Download csv
+Print
+Download csv
 
 ## @balnc/core
 
