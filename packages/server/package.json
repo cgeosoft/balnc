@@ -30,7 +30,10 @@
     "express-pouchdb": "^4.2.0",
     "express-winston": "^4.0.3",
     "helmet": "^3.22.0",
+    "ipfs": "^0.50.2",
+    "mediasoup": "^3.6.21",
     "open-graph-scraper": "^3.6.2",
+    "orbit-db": "^0.26.0",
     "pouchdb": "^7.2.1",
     "winston": "^3.2.1"
   },

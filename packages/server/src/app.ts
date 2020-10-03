@@ -1,62 +1,28 @@
-import * as Sentry from '@sentry/node';
-import cors from 'cors';
-import express from "express";
-import helmet from 'helmet';
-import PouchDB from 'pouchdb';
-import { api } from './api/routes';
-import { logger, loggerMiddleware } from './commons/logger';
-import { config, pouchdbCorsParams } from './config';
+import { IpfsService } from "./modules/ipfs/IpfsService"
+let db
+var ipfs = new IpfsService()
+ipfs
+    .activate()
+    .then(() => {
 
-Sentry.init({
-    release: `v${config.build.version}`,
-    environment: process.env.NODE_ENV === "production" ? 'production' : 'development',
-    dsn: config.sentry.dsn
-});
+        // db = ipfs.db
 
-const db = require("express-pouchdb")(PouchDB.defaults({
-    prefix: './data/'
-}), {
-    configPath: './config/db.json',
-    logPath: './logs/db.log',
-    overrideMode: {
-      exclude: ['routes/fauxton']
-    }
-})
+        // db.events.on('write', (address, entry, heads) => {
+        //     const logs = db.iterator({ limit: -1 })
+        //         .collect()
+        //         .map((e) => e.payload.value)
+        //     console.log("logs", {
+        //         total: logs.length
+        //     })
+        // })
 
-const app = express();
+        // setInterval(() => {
+        //     db.add({ "ts": Date.now() })
+        // }, 10000)
 
-app.use("/db", cors(pouchdbCorsParams), db);
-
-app.use(helmet());
-
-app.use(Sentry.Handlers.requestHandler());
-app.use(loggerMiddleware);
-
-app.use('/api', cors(), api);
-
-app.use((req, res, next) => {
-    res.status(404).send("Not found")
-})
-
-app.use(Sentry.Handlers.errorHandler());
-app.use((err, req, res, next) => {
-    logger.error(`unhandled error`, {
-        sentry: res.sentry
+        // setInterval(() => {
+        //     console.log({
+        //         swarm: ipfs.swarm.addrs().length
+        //     })
+        // }, 5000)
     })
-    if (err.error === "not_found") {
-        return res.status(401).json(err)
-    }
-    if (err.error === "unauthorized") {
-        return res.status(401).json(err)
-    }
-    if (err.error && err.error.code === "ECONNREFUSED") {
-        return res.status(503).json({ error: "Offline", details: "Database is offline" })
-    }
-    res.status(500).send('Something broke!')
-});
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-    logger.info(`server is running in ${PORT}`)
-})
