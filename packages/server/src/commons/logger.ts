@@ -11,7 +11,11 @@ const _transports = [
     new transports.File({ ..._fileConfig, ...{ filename: './logs/error.log', level: 'error' } }),
     new transports.File({ ..._fileConfig, ...{ filename: './logs/combined.log' } }),
     new transports.Console({
-        format: format.simple()
+        format: format.combine(
+            format.colorize(),
+            format.splat(),
+            format.simple()
+        )
     })
 ]
 
