@@ -1,4 +1,3 @@
-import cuid from 'cuid';
 import { create } from 'ipfs';
 import { createInstance } from 'orbit-db';
 import { logger } from '../../commons/logger';
@@ -50,21 +49,14 @@ export class DbService {
   }
 
   async startDB() {
-    const address = process.env.ORBIDDB_ROOT
-      ? `/orbit/${process.env.ORBIDDB_ROOT}/clients`
-      : "clients"
-
-    const dbAddress = await this.orbitdb.determineAddress('clients', 'keyvalue', {
-      accessController: {
-        write: "*"
-      },
-      meta: { ciud: cuid() }
-    })
-
-    console.log("dbAddress", dbAddress)
-
-    this.clients = await this.orbitdb.keyvalue(dbAddress)
-    logger.info(`clients at ${this.clients.address.toString()}`)
+    this.clients = await this.orbitdb
+      .keyvalue('clients', {
+        accessController: {
+          write: "*"
+        }
+      })
+    await this.clients.load()
+    logger.info(`clients at ${this.clients.address.root.toString()}`)
   }
 }
 
