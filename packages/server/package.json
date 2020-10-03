@@ -34,6 +34,7 @@
     "helmet": "^3.22.0",
     "ipfs": "^0.50.2",
     "mediasoup": "^3.6.21",
+    "node-machine-id": "^1.1.12",
     "open-graph-scraper": "^3.6.2",
     "orbit-db": "^0.26.0",
     "pouchdb": "^7.2.1",

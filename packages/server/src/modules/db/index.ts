@@ -3,15 +3,13 @@ import { create } from 'ipfs';
 import { createInstance } from 'orbit-db';
 import { logger } from '../../commons/logger';
 
-
-export class IpfsService {
+export class DbService {
 
   ipfs: any
   orbitdb: any;
 
-  dbName = "default";
+  clients
 
-  db: any
   stats = {
     db: null,
     addrs: 0,
@@ -22,11 +20,11 @@ export class IpfsService {
   async getStats() {
     const addrs = (await this.ipfs.swarm.addrs()).length
     const peers = (await this.ipfs.swarm.peers()).length
-    const docs = this.db.iterator({ limit: -1 }).collect()
+    const clients = this.clients.all
     return {
       addrs,
       peers,
-      docs
+      clients
     }
   }
 
@@ -53,16 +51,16 @@ export class IpfsService {
 
   async startDB() {
     if (process.env.ORBIDDB_ADDRS) {
-      this.db = await this.orbitdb.open(process.env.ORBIDDB_ADDRS)
+      this.clients = await this.orbitdb.open(`/orbit/${process.env.ORBIDDB_CID}/clients`)
     } else {
-      this.db = await this.orbitdb.create(this.dbName, 'docstore', {
+      this.clients = await this.orbitdb.create('clients', 'keyvalue', {
         accessController: {
           write: "*"
         },
         meta: { ciud: cuid() }
       })
     }
-    logger.info(`db at ${this.db.address.toString()}`)
+    logger.info(`clients at ${this.clients.address.toString()}`)
   }
 }
 
