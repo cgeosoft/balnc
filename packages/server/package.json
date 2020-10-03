@@ -26,6 +26,8 @@
     "@types/helmet": "0.0.45",
     "@types/pouchdb": "^6.4.0",
     "cors": "^2.8.5",
+    "cuid": "^2.1.8",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-pouchdb": "^4.2.0",
     "express-winston": "^4.0.3",

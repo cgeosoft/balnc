@@ -1,12 +1,17 @@
+import cuid from 'cuid';
 import { create } from 'ipfs';
 import { createInstance } from 'orbit-db';
+import { logger } from '../../commons/logger';
 
 
 export class IpfsService {
-  testDb = "/orbitdb/QmXhCEYKY3xT24J3JGBz92HFPKMvNeCnLbygQ9pGT5XhWv/test"
-  ipfs: any
-  db: any
 
+  ipfs: any
+  orbitdb: any;
+
+  dbName = "default";
+
+  db: any
   stats = {
     db: null,
     addrs: 0,
@@ -14,15 +19,18 @@ export class IpfsService {
     logs: 0
   }
 
-  async logStats() {
-
-    this.stats.addrs = (await this.ipfs.swarm.addrs()).length
-    this.stats.peers = (await this.ipfs.swarm.peers()).length
-
-    console.log("stats", this.stats)
+  async getStats() {
+    const addrs = (await this.ipfs.swarm.addrs()).length
+    const peers = (await this.ipfs.swarm.peers()).length
+    const docs = this.db.iterator({ limit: -1 }).collect()
+    return {
+      addrs,
+      peers,
+      docs
+    }
   }
 
-  async activate() {
+  async enableIpfs() {
     this.ipfs = await create({
       repo: './data/ipfs',
       libp2p: {
@@ -33,45 +41,28 @@ export class IpfsService {
         }
       }
     })
-    // const config = await this.ipfs.config.getAll()
-    // console.log()
+    logger.info("ipfs started")
+  }
 
-    try {
-      const orbitdb = await createInstance(this.ipfs, {
-        directory: './data/orbitdb'
+  async enableOrbitDB() {
+    this.orbitdb = await createInstance(this.ipfs, {
+      directory: './data/orbitdb'
+    })
+    logger.info("orbitdb started")
+  }
+
+  async startDB() {
+    if (process.env.ORBIDDB_ADDRS) {
+      this.db = await this.orbitdb.open(process.env.ORBIDDB_ADDRS)
+    } else {
+      this.db = await this.orbitdb.create(this.dbName, 'docstore', {
+        accessController: {
+          write: "*"
+        },
+        meta: { ciud: cuid() }
       })
-
-      // this.db = await orbitdb.eventlog('hello3', {
-      //   overwrite: true
-      // })
-
-      this.db = await orbitdb.open("/orbitdb/zdpuAvz7ZfdjkRWfShXro7hQG9XD2qNDEzN9YsTSLsB2C6ZPi/hello3")
-      
-      console.log("address", this.db.address.toString())
-
-      // this.db = await orbitdb.open("hi", { create: true,type:"eventlog" })
-
-      // const identity = await this.ipfs.id()
-      // console.log(`/orbitdb/${orbitdb.identity.id}/hello2`)
-      // console.log(`/orbitdb/${identity.id}/hello2`)
-
-      this.db.events.on('write', (address, entry, heads) => {
-        this.stats.logs = this.db.iterator({ limit: -1 }).collect().length
-      })
-      await this.db.load()
-
-    } catch (e) {
-      console.error(e)
     }
-
-    setInterval(async () => {
-      await this.logStats()
-    }, 10000)
-
-    setInterval(async () => {
-      await this.db.add({ ts: Date.now() })
-    }, 15000)
-
+    logger.info(`db at ${this.db.address.toString()}`)
   }
 }
 
