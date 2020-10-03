@@ -50,16 +50,20 @@ export class DbService {
   }
 
   async startDB() {
-    if (process.env.ORBIDDB_ADDRS) {
-      this.clients = await this.orbitdb.open(`/orbit/${process.env.ORBIDDB_CID}/clients`)
-    } else {
-      this.clients = await this.orbitdb.create('clients', 'keyvalue', {
-        accessController: {
-          write: "*"
-        },
-        meta: { ciud: cuid() }
-      })
-    }
+    const address = process.env.ORBIDDB_ROOT
+      ? `/orbit/${process.env.ORBIDDB_ROOT}/clients`
+      : "clients"
+
+    const dbAddress = await this.orbitdb.determineAddress('clients', 'keyvalue', {
+      accessController: {
+        write: "*"
+      },
+      meta: { ciud: cuid() }
+    })
+
+    console.log("dbAddress", dbAddress)
+
+    this.clients = await this.orbitdb.keyvalue(dbAddress)
     logger.info(`clients at ${this.clients.address.toString()}`)
   }
 }
