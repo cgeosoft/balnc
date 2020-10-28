@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "com.balnc.node:cd8320f51fa8c6a5e86cd877f35b2f7336d299d018c6e681f006c9ebf2e3b010",
+    "type": 0,
+    "ts": 1603908203669,
+    "os": "linux 4.19.0-12-amd64"
+  },
+  {
+    "os": "darwin 19.6.0",
+    "ts": 1603908063362,
+    "_id": "com.balnc.client:dc7de26e48db97da989c803da33902a1a9812d1bf467a1f0e5a36c281b1a45fe",
+    "type": 0
+  },
+  {
+    "os": "linux 4.19.0-12-amd64",
+    "ts": 1603905037265,
+    "_id": "com.balnc.client:cd8320f51fa8c6a5e86cd877f35b2f7336d299d018c6e681f006c9ebf2e3b010",
+    "type": 0
+  }
+]

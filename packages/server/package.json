@@ -21,31 +21,33 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@sentry/node": "^5.15.4",
-    "@types/cors": "^2.8.6",
-    "@types/helmet": "0.0.45",
+    "@sentry/node": "^5.27.1",
+    "@types/cors": "^2.8.8",
+    "@types/helmet": "0.0.48",
     "@types/pouchdb": "^6.4.0",
     "cors": "^2.8.5",
     "cuid": "^2.1.8",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-pouchdb": "^4.2.0",
-    "express-winston": "^4.0.3",
-    "helmet": "^3.22.0",
-    "ipfs": "^0.50.2",
-    "mediasoup": "^3.6.21",
+    "express-winston": "^4.0.5",
+    "faker": "^5.1.0",
+    "helmet": "^4.1.1",
+    "ipfs": "^0.51.0",
+    "mediasoup": "^3.6.24",
     "node-machine-id": "^1.1.12",
-    "open-graph-scraper": "^3.6.2",
+    "open-graph-scraper": "^4.6.0",
     "orbit-db": "^0.26.0",
-    "pouchdb": "^7.2.1",
-    "winston": "^3.2.1"
+    "pouchdb": "^7.2.2",
+    "winston": "^3.3.3",
+    "yargs": "^16.1.0"
   },
   "devDependencies": {
-    "@types/express": "^4.17.6",
-    "@types/node": "^13.11.1",
-    "nodegit": "^0.26.5",
-    "nodemon": "^2.0.3",
-    "ts-node": "^8.8.2",
-    "typescript": "^3.8.3"
+    "@types/express": "^4.17.8",
+    "@types/node": "^14.14.5",
+    "nodegit": "^0.27.0",
+    "nodemon": "^2.0.6",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5"
   }
 }
