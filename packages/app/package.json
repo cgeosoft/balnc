@@ -67,7 +67,7 @@
     "date-fns": "^2.16.1",
     "faker": "^5.1.0",
     "git-repo-info": "^2.1.1",
-    "ipfs": "^0.52.1",
+    "ipfs": "^0.54.0",
     "ipfs-http-client": "^48.1.1",
     "jasmine-core": "3.6.0",
     "jasmine-spec-reporter": "6.0.0",
