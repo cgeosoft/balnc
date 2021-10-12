@@ -4,18 +4,18 @@
       <div role="rightbar">
         <div class="d-flex justify-content-between">
           <strong>{{project.name}}</strong>
-          <button (click)="toggleMark(project._id)" class="btn btn-sm btn-link float-right p-0">
-            <fa-icon icon="star" class="ml-2"
-              [ngClass]="{'text-warning':project._mark,'text-secondary':!project._mark}"></fa-icon>
+          <button (click)="toggleMark(project.id)" class="btn btn-sm btn-link float-right p-0">
+            <span icon="star" class="ml-2"
+              [ngClass]="{'text-warning':project._mark,'text-secondary':!project._mark}"></span>
           </button>
         </div>
         <dl>
           <small *ngIf="project.description" class="tex-muted">
             {{project.description}}
           </small>
-          <ng-container *ngIf="project._tags">
+          <ng-container *ngIf="project.tags">
             <dt>Tags</dt>
-            <dd>{{project._tags.join(', ')}}</dd>
+            <dd>{{project.tags.join(', ')}}</dd>
           </ng-container>
         </dl>
         <hr>
@@ -23,11 +23,11 @@
           <ul class="list-group list-group-customer-menu">
             <ng-container *ngFor="let i of g.items">
               <ng-container *ngIf="i.relative">
-                <a [routerLink]="['/projects/projects',project._id,i.url]" routerLinkActive="active"
+                <a [routerLink]="['/projects/projects',project.id,i.url]" routerLinkActive="active"
                   class="list-group-item list-group-item-action">{{i.label}}</a>
               </ng-container>
               <ng-container *ngIf="!i.relative">
-                <a [routerLink]="[i.url,{project:project._id}]" routerLinkActive="active"
+                <a [routerLink]="[i.url,{project:project.id}]" routerLinkActive="active"
                   class="list-group-item list-group-item-action">{{i.label}}</a>
               </ng-container>
             </ng-container>

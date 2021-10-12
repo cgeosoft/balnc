@@ -2,7 +2,7 @@ import { Entity } from '@balnc/core'
 
 export interface ContactConn {
   reference: string
-  type: string
+  contype: string
 }
 
 export enum ContactType {

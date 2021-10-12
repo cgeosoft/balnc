@@ -39,6 +39,6 @@ export class ShellComponent implements OnInit {
     const product = await this.productsRepo.add({
       name: Helpers.generateName()
     })
-    await this.router.navigate(['/products', product._id])
+    await this.router.navigate(['/products', product.id])
   }
 }

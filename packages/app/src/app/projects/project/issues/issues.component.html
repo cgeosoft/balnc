@@ -2,7 +2,7 @@
   <button class="btn btn-primary" (click)="create()">New Issue</button>
   <button class="btn btn-secondary" (click)="filters = !filters">filters</button>
   <button class="btn btn-outline-secondary">
-    <fa-icon icon="search"></fa-icon>
+    <span icon="search"></span>
   </button>
 </app-toolbar>
 
@@ -19,33 +19,33 @@
 <ng-template #issueTpl let-issue="item">
   <ng-container [ngSwitch]="issue.status">
     <ng-container *ngSwitchCase="'PENDING'">
-      <fa-icon icon="pause-circle" [ngStyle]="{color:issuesStatuses[issue._id].style['background-color']}"
-        container="body" ngbTooltip="pending"></fa-icon>
+      <span icon="pause-circle" [ngStyle]="{color:issuesStatuses[issue.id].style['background-color']}"
+        container="body" ngbTooltip="pending"></span>
     </ng-container>
     <ng-container *ngSwitchCase="'PROGRESS'">
-      <fa-icon icon="play-circle" [ngStyle]="{color:issuesStatuses[issue._id].style['background-color']}"
-        container="body" ngbTooltip="progress"></fa-icon>
+      <span icon="play-circle" [ngStyle]="{color:issuesStatuses[issue.id].style['background-color']}"
+        container="body" ngbTooltip="progress"></span>
     </ng-container>
     <ng-container *ngSwitchCase="'COMPLETED'">
-      <fa-icon icon="dot-circle" [ngStyle]="{color:issuesStatuses[issue._id].style['background-color']}"
-        container="body" ngbTooltip="completed"></fa-icon>
+      <span icon="dot-circle" [ngStyle]="{color:issuesStatuses[issue.id].style['background-color']}"
+        container="body" ngbTooltip="completed"></span>
     </ng-container>
     <ng-container *ngSwitchCase="'REVIEW'">
-      <fa-icon icon="user-circle" [ngStyle]="{color:issuesStatuses[issue._id].style['background-color']}"
-        container="body" ngbTooltip="review"></fa-icon>
+      <span icon="user-circle" [ngStyle]="{color:issuesStatuses[issue.id].style['background-color']}"
+        container="body" ngbTooltip="review"></span>
     </ng-container>
     <ng-container *ngSwitchCase="'CLOSED'">
-      <fa-icon icon="check-circle" [ngStyle]="{color:issuesStatuses[issue._id].style['background-color']}"
-        container="body" ngbTooltip="closed"></fa-icon>
+      <span icon="check-circle" [ngStyle]="{color:issuesStatuses[issue.id].style['background-color']}"
+        container="body" ngbTooltip="closed"></span>
     </ng-container>
   </ng-container>
 </ng-template>
 
 <ng-template #mainTpl let-issue="item">
   <div>
-    <a [routerLink]="['/projects/projects',issue._group,'issues',issue._id]">{{issue.title}}</a>
+    <a [routerLink]="['/projects/projects',issue.group,'issues',issue.id]">{{issue.title}}</a>
   </div>
   <div class="text-muted">
-    <small>ppened {{issue._date|date:"yyyy-MM-dd HH:mm:ss"}} by {{usernames[issue.reporter] || "uknown"}}</small>
+    <small>ppened {{issue.date|date:"yyyy-MM-dd HH:mm:ss"}} by {{usernames[issue.reporter] || "uknown"}}</small>
   </div>
 </ng-template>

@@ -6,9 +6,9 @@
           *ngIf="contact.avatar">
         <dl>
           <dt>Name
-            <button (click)="toggleMark(contact._id)" class="btn btn-sm btn-link float-right">
-              <fa-icon icon="star" class="ml-2"
-                [ngClass]="{'text-warning':contact._mark,'text-secondary':!contact._mark}"></fa-icon>
+            <button (click)="toggleMark(contact.id)" class="btn btn-sm btn-link float-right">
+              <span icon="star" class="ml-2"
+                [ngClass]="{'text-warning':contact._mark,'text-secondary':!contact._mark}"></span>
             </button>
           </dt>
           <dd>{{contact.name}}</dd>
@@ -16,16 +16,16 @@
             <dt>Description</dt>
             <dd>{{contact.description}}</dd>
           </ng-container>
-          <ng-container *ngIf="contact._tags">
+          <ng-container *ngIf="contact.tags">
             <dt>Tags</dt>
-            <dd>{{contact._tags.join(', ')}}</dd>
+            <dd>{{contact.tags.join(', ')}}</dd>
           </ng-container>
         </dl>
         <hr>
 
         <div class="menu">
-          <a [routerLink]="['/contacts',contact._id,'timeline']" routerLinkActive="active">Timeline</a>
-          <a [routerLink]="['/contacts',contact._id,'manage']" routerLinkActive="active">Manage</a>
+          <a [routerLink]="['/contacts',contact.id,'timeline']" routerLinkActive="active">Timeline</a>
+          <a [routerLink]="['/contacts',contact.id,'manage']" routerLinkActive="active">Manage</a>
         </div>
 
         <div class="menu">

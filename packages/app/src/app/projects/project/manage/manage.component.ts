@@ -51,16 +51,16 @@ export class ProjectManageComponent implements OnInit {
     const issues = await this.issuesRepo.all()
 
     const promiseIssues = issues
-      .filter(i => i._group === this.pid)
-      .map(i => this.issuesRepo.remove(i._id))
+      .filter(i => i.group === this.pid)
+      .map(i => this.issuesRepo.remove(i.id))
 
     await Promise.all(promiseIssues)
 
-    const issuesIds = issues.map(i => i._id)
+    const issuesIds = issues.map(i => i.id)
     const promisePEvents = await this.peventsRepo.all()
       .then((pevents) => pevents
-        .filter(i => issuesIds.indexOf(i._id) >= 0)
-        .map(i => this.peventsRepo.remove(i._id))
+        .filter(i => issuesIds.indexOf(i.id) >= 0)
+        .map(i => this.peventsRepo.remove(i.id))
       )
     await Promise.all(promisePEvents)
 

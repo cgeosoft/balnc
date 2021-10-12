@@ -21,7 +21,7 @@ export class IssuesRepo extends Repository<Issue> {
     await this.peventsService.add({
       text: 'issue created',
       type: PEventType.activity
-    }, issue._id)
+    }, issue.id)
     return issue
   }
 }

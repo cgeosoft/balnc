@@ -32,7 +32,7 @@ export class ConfigService {
 
   get usernames () {
     return this.users?.reduce((l, i) => {
-      l[i._id] = i.username
+      l[i.id] = i.username
       return l
     }, {})
   }
@@ -50,7 +50,7 @@ export class ConfigService {
   }
 
   get user (): User {
-    return this.users?.find(u => u._id === this.userId)
+    return this.users?.find(u => u.id === this.userId)
   }
 
   constructor () {

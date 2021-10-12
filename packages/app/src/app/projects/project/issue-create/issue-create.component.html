@@ -21,8 +21,9 @@
         </div>
       </ng-container>
     </div>
-    <ngb-tabset>
-      <ngb-tab title="Description">
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <li ngbNavItem>
+        <a ngbNavLink>Description</a>
         <ng-template ngbTabContent>
           <div class="form-group mt-2">
             <textarea tabindex="3" formControlName="description" class="form-control" rows="8"></textarea>
@@ -31,13 +32,15 @@
             <a target="_blank" href="https://www.markdownguide.org/">Markdown Guide</a>
           </p>
         </ng-template>
-      </ngb-tab>
-      <ngb-tab title="Preview">
+      </li>
+      <li ngbNavItem>
+        <a ngbNavLink>Preview</a>
         <ng-template ngbTabContent>
           <markdown ngPreserveWhitespaces class="comment" [data]="form.get('description').value"></markdown>
         </ng-template>
-      </ngb-tab>
-    </ngb-tabset>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-success" type="submit">Save</button>

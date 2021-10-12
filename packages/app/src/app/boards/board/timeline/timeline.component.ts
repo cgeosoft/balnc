@@ -24,7 +24,6 @@ const giphyApiUrl = 'https://api.giphy.com/v1/gifs'
 })
 export class TimelineComponent implements OnInit {
 
-  @ViewChild('messageList') messageList: ElementRef
   @ViewChild('messageInput') messageInput: ElementRef
   @ViewChild('fileupload') fileupload: ElementRef
   @ViewChild('giphyP') giphyP: NgbPopover
@@ -125,12 +124,12 @@ export class TimelineComponent implements OnInit {
       map(async (messages) => {
         await this.busersRepo.join(this.selected)
         this.messages = messages
-        this.messages.sort((a, b) => a._date - b._date)
+        this.messages.sort((a, b) => a.date - b.date)
         this.msgSeperatorDates = this.messages.reduce((l, i) => {
-          let d = new Date(i._date)
+          let d = new Date(i.date)
           let df = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()
           let msg = Object.keys(l).find(x => l[x] === df)
-          if (!msg) l[i._id] = df
+          if (!msg) l[i.id] = df
           return l
         }, {})
         this.merged = this.messages.reduce((l, i, x) => {
@@ -138,20 +137,20 @@ export class TimelineComponent implements OnInit {
             this.messages[x - 1].type === 'MESSAGE' &&
             this.messages[x].type === 'MESSAGE' &&
             this.messages[x - 1].sender === this.messages[x].sender) {
-            l[this.messages[x - 1]._id] = true
+            l[this.messages[x - 1].id] = true
           }
           return l
         }, {})
         const ps = this.messages.map(async (msg, i) => {
-          if (!this.previews[msg._id]) {
-            this.previews[msg._id] = {}
+          if (!this.previews[msg.id]) {
+            this.previews[msg.id] = {}
           }
-          if (msg.file && !this.previews[msg._id].file) {
-            this.previews[msg._id].file = await this.messagesRepo.getAttachment(msg._id, msg.file)
-            if (this.previews[msg._id].file) {
-              this.previews[msg._id].blob = await this.previews[msg._id].file.getData()
-              if (this.previews[msg._id].file.type.startsWith('image/')) {
-                this.previews[msg._id].base64 = await this.getImage(this.previews[msg._id].blob, this.previews[msg._id].file.type)
+          if (msg.file && !this.previews[msg.id].file) {
+            this.previews[msg.id].file = await this.messagesRepo.getAttachment(msg.id, msg.file)
+            if (this.previews[msg.id].file) {
+              this.previews[msg.id].blob = await this.previews[msg.id].file.getData()
+              if (this.previews[msg.id].file.type.startsWith('image/')) {
+                this.previews[msg.id].base64 = await this.getImage(this.previews[msg.id].blob, this.previews[msg.id].file.type)
               }
             }
           }
@@ -161,12 +160,11 @@ export class TimelineComponent implements OnInit {
         })
         await Promise.all(ps)
         this.focusInput()
-        this.scrollToBottom()
       }))
   }
 
   trackByMessages(index: number, el: Message) {
-    return el._id
+    return el.id
   }
 
   async ngOnDestroy() {
@@ -192,7 +190,7 @@ export class TimelineComponent implements OnInit {
 
     const data: Partial<Message> = {
       text,
-      sender: this.user._id,
+      sender: this.user.id,
       status: 'SEND',
       type: 'MESSAGE'
     }
@@ -206,7 +204,6 @@ export class TimelineComponent implements OnInit {
         _date: Date.now()
       }
     } as Message)
-    this.scrollToBottom()
 
     const message = await this.messagesRepo.add(data, this.selected)
 
@@ -219,7 +216,7 @@ export class TimelineComponent implements OnInit {
         .get<{ data: OgMetadata }>(`${this.configService.integrations.server['host']}/og`, { params })
         .toPromise()
       message.metadata = res.data
-      await this.messagesRepo.update(message._id, message)
+      await this.messagesRepo.update(message.id, message)
     }
   }
 
@@ -247,7 +244,7 @@ export class TimelineComponent implements OnInit {
 
     await this.messagesRepo.add({
       text: topic ? `topic: "${topic}"` : 'topic cleared',
-      sender: this.user._id,
+      sender: this.user.id,
       type: 'EVENT'
     }, this.selected)
   }
@@ -259,17 +256,17 @@ export class TimelineComponent implements OnInit {
   async upload(file: File) {
     const data: Partial<Message> = {
       text: null,
-      sender: this.user._id,
+      sender: this.user.id,
       status: 'SEND',
       type: 'MESSAGE',
       file: file.name
     }
     const msg = await this.messagesRepo.add(data, this.selected)
-    await this.messagesRepo.attach(msg._id, file)
+    await this.messagesRepo.attach(msg.id, file)
   }
 
   async download(msg: Message) {
-    const attachment = await this.messagesRepo.getAttachment(msg._id, msg.file)
+    const attachment = await this.messagesRepo.getAttachment(msg.id, msg.file)
     if (!attachment) return
     const blob = await attachment.getData()
     const a = document.createElement('a')
@@ -312,18 +309,11 @@ export class TimelineComponent implements OnInit {
 
   async deleteMessage(m: Message) {
     if (!confirm('Are you sure?')) return
-    await this.messagesRepo.remove(m._id)
+    await this.messagesRepo.remove(m.id)
   }
 
   async toggleMark(id: string) {
     await this.boardsRepo.mark(id)
-  }
-
-  scrollToBottom(): void {
-    if (!this.messageList) return
-    setTimeout(() => {
-      this.messageList.nativeElement.scrollTop = this.messageList.nativeElement.scrollHeight
-    }, 100)
   }
 
   focusInput(): void {
@@ -335,7 +325,7 @@ export class TimelineComponent implements OnInit {
   async giphyAdd(event, giphy) {
     event.preventDefault()
     const data: Partial<Message> = {
-      sender: this.user._id,
+      sender: this.user.id,
       status: 'SEND',
       type: 'MESSAGE',
       image: {

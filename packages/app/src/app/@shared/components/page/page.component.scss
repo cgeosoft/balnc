@@ -9,7 +9,7 @@
     @extend .d-flex;
     @extend .flex-column;
     @extend .justify-content-start;
-    @extend .mr-3;
+    @extend .me-3;
     @extend .h-100;
     overflow: hidden;
     width: 190px;
@@ -115,14 +115,14 @@
           @extend .text-truncate;
         }
         &:after {
-          @extend .ml-auto;
+          @extend .ms-auto;
         }
       }
     }
 
     small {
       @extend .d-block;
-      @extend .ml-1;
+      @extend .ms-1;
       color: $text-muted;
     }
   }
@@ -130,7 +130,7 @@
   .empty {
     @extend .p-4;
 
-    fa-icon {
+    span {
       font-size: 2rem !important;
     }
 

@@ -46,7 +46,7 @@ export class GeneralComponent implements OnInit {
   }
 
   get avatar () {
-    return this.configService.userAvatars[this.user._id]
+    return this.configService.userAvatars[this.user.id]
   }
 
   get menu () {
@@ -93,7 +93,7 @@ export class GeneralComponent implements OnInit {
   }
 
   removeUser () {
-    return this.usersRepo.remove(this.user._id)
+    return this.usersRepo.remove(this.user.id)
   }
 
   createUser () {
@@ -101,7 +101,7 @@ export class GeneralComponent implements OnInit {
   }
 
   async saveUser () {
-    await this.usersRepo.update(this.user._id, this.user)
+    await this.usersRepo.update(this.user.id, this.user)
   }
 
   @ViewChild('fileupload') fileupload: ElementRef
@@ -110,10 +110,10 @@ export class GeneralComponent implements OnInit {
   }
 
   async clearAvatar () {
-    await this.usersRepo.detach(this.user._id, 'avatar')
+    await this.usersRepo.detach(this.user.id, 'avatar')
   }
 
   async uploadAvatar (file: File) {
-    await this.usersRepo.attach(this.user._id, file, 'avatar')
+    await this.usersRepo.attach(this.user.id, file, 'avatar')
   }
 }

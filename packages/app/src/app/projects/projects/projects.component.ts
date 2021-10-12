@@ -22,7 +22,7 @@ export class ProjectsComponent implements OnInit {
         val: (item: Project) => {
           return {
             label: item.name,
-            link: ['/projects/projects', item._id]
+            link: ['/projects/projects', item.id]
           }
         }
       }

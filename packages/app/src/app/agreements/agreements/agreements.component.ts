@@ -22,15 +22,15 @@ export class AgreementsComponent implements OnInit {
       {
         label: 'Id', style: { width: '250px' }, locked: true, type: 'link', val: (item: Agreement) => {
           return {
-            label: item._id,
-            link: ['/agreements', item._id]
+            label: item.id,
+            link: ['/agreements', item.id]
           }
         }
       },
-      { label: 'Date', style: { width: '160px' }, type: 'date', val: (item: Agreement) => { return item._date } },
+      { label: 'Date', style: { width: '160px' }, type: 'date', val: (item: Agreement) => { return item.date } },
       {
         label: 'Contact', type: 'link', val: (item: Agreement) => {
-          const c = this.contacts.find(c => c._id === item.contact)
+          const c = this.contacts.find(c => c.id === item.contact)
           return {
             label: c.name,
             link: ['/contacts', item.contact]
@@ -54,6 +54,6 @@ export class AgreementsComponent implements OnInit {
 
   async createAgreement () {
     const agreement = await this.agreementsRepo.add({})
-    await this.router.navigate(['/agreements', agreement._id])
+    await this.router.navigate(['/agreements', agreement.id])
   }
 }

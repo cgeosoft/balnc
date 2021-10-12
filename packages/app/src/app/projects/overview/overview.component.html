@@ -11,7 +11,7 @@
               <div class="list-group list-group-flush">
                 <ng-container *ngFor="let log of logs">
                   <div class="list-group-item d-flex align-items-center">
-                    <div class="mr-2">{{log._date | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+                    <div class="mr-2">{{log.date | date:'yyyy-MM-dd HH:mm:ss'}}</div>
                     <div class="mr-2">{{log.type}}</div>
                     <div>
                       <div>{{log.text}}</div>

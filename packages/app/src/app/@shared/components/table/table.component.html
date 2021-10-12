@@ -9,13 +9,13 @@
                 <th *ngFor="let prop of properties; let i = index;" [ngStyle]='prop.style || {}'
                   (click)="setSort(prop)">
                   {{prop.label}}
-                  <fa-icon *ngIf="sort === prop && direction==='asc'" icon="sort-up" class="ml-2"></fa-icon>
-                  <fa-icon *ngIf="sort === prop && direction==='desc'" icon="sort-down" class="ml-2"></fa-icon>
+                  <span *ngIf="sort === prop && direction==='asc'" class="fas fa-fw fa-sort-up" class="ml-2"></span>
+                  <span *ngIf="sort === prop && direction==='desc'" class="fas fa-fw fa-sort-down" class="ml-2"></span>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of data | paginate:page:limit:sort:direction" [id]="item._id">
+              <tr *ngFor="let item of data | paginate:page:limit:sort:direction" [id]="item.id">
                 <ng-container *ngFor="let prop of properties; let i = index;">
 
                   <ng-container *ngIf="prop.template">
@@ -34,7 +34,7 @@
                     </td>
                     <td *ngSwitchCase="'button'" [ngStyle]='prop.style || {}'>
                       <button class="btn btn-sm btn-outline-secondary" (click)="prop.click(item)">
-                        <fa-icon [icon]="prop.icon"></fa-icon>
+                        ???
                       </button>
                     </td>
                     <td *ngSwitchCase="'date'" [ngStyle]='prop.style || {}'>
@@ -44,8 +44,8 @@
                     <td *ngSwitchCase="'currency'" class="text-monospace" [ngStyle]='prop.style || {}'>
                       {{prop.val(item) | currency}}
                     </td>
-                    <td *ngSwitchCase="'icon'" [ngStyle]='prop.style || {}'>
-                      <fa-icon [icon]="prop.val(item)"></fa-icon>
+                    <td *ngSwitchCase="'class'" [ngStyle]='prop.style || {}'>
+                      ???
                     </td>
                     <td *ngSwitchCase="'link'" [ngStyle]='prop.style || {}'>
                       <ng-container *ngTemplateOutlet="link; context:prop.val(item)"></ng-container>
@@ -82,10 +82,10 @@
         </div>
         <ul *ngIf="total > limit" class="pagination pagination-sm m-0 ml-auto">
           <li class="page-item"><button class="page-link" (click)="first()">
-              <fa-icon [fixedWidth]="true" icon="angle-double-left"></fa-icon>
+              <span class="fas fa-fw fa-angle-double-left"></span>
             </button></li>
           <li class="page-item"><button class="page-link" (click)="previous()">
-              <fa-icon [fixedWidth]="true" icon="angle-left"></fa-icon>
+              <span class="fas fa-fw fa-angle-left"></span>
             </button></li>
           <ng-container *ngFor="let p of pages;">
             <li class="page-item" [ngClass]="{active:(page === p)}">
@@ -93,10 +93,10 @@
             </li>
           </ng-container>
           <li class="page-item"><button class="page-link" (click)="next()">
-              <fa-icon [fixedWidth]="true" icon="angle-right"></fa-icon>
+              <span class="fas fa-fw fa-angle-right"></span>
             </button></li>
           <li class="page-item"><button class="page-link" (click)="last()">
-              <fa-icon [fixedWidth]="true" icon="angle-double-right"></fa-icon>
+              <span class="fas fa-fw fa-angle-double-right"></span>
             </button></li>
         </ul>
       </ng-container>
@@ -109,7 +109,7 @@
     </ng-container>
     <div ngbDropdown placement="top-right" container="body" class="d-inline-block ml-auto">
       <button class="btn btn-outline-secondary border-0" ngbDropdownToggle>
-        <fa-icon icon="bars"></fa-icon>
+        <span class="fas fa-fw fa-bars"></span>
       </button>
       <div ngbDropdownMenu>
         <h6 class="dropdown-header">Columns</h6>
@@ -125,7 +125,7 @@
         </div>
         <div class="dropdown-divider"></div>
         <button ngbDropdownItem (click)="showDebug = !showDebug">
-          <fa-icon icon="code" [fixedWidth]="true"></fa-icon> toggle data
+          <span class="fas fa-fw fa-code"></span> toggle data
         </button>
       </div>
     </div>

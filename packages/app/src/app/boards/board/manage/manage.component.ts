@@ -35,7 +35,7 @@ export class ManageComponent implements OnInit {
   }
 
   async save () {
-    await this.boardsRepo.update(this.board._id, {
+    await this.boardsRepo.update(this.board.id, {
       name: this.board.name,
       color: this.board.color
     })
@@ -43,10 +43,10 @@ export class ManageComponent implements OnInit {
 
   async deleteBoard () {
     if (!confirm('Are you sure? All message will be deleted')) return
-    await this.boardsRepo.remove(this.board._id)
+    await this.boardsRepo.remove(this.board.id)
 
-    const messages = await this.messagesRepo.all({ group: this.board._id })
-    const ps = messages.map(m => this.messagesRepo.remove(m._id))
+    const messages = await this.messagesRepo.all({ group: this.board.id })
+    const ps = messages.map(m => this.messagesRepo.remove(m.id))
     await Promise.all(ps)
 
     await this.router.navigateByUrl('/boards')

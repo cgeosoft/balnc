@@ -49,7 +49,7 @@ export class BoardComponent implements OnInit {
 
   get usernames () {
     return this.configService.users.reduce((l, i) => {
-      l[i._id] = i.username
+      l[i.id] = i.username
       return l
     }, {})
   }
@@ -75,7 +75,7 @@ export class BoardComponent implements OnInit {
       this.boardsRepo.selected = this.selected
       this.board$ = this.boardsRepo.one$(this.selected)
       this.activeUsers$ = this.busersRepo.allm$()
-        .pipe(map((ub: BUser[]) => ub.filter(x => x._group && x.board === this.selected)))
+        .pipe(map((ub: BUser[]) => ub.filter(x => x.group && x.board === this.selected)))
     })
   }
   async pinBoard () {

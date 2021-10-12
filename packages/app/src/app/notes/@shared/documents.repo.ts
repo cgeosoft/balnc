@@ -20,7 +20,7 @@ export class DocumentsRepo extends Repository<Document> {
         name: faker.commerce.productName()
       }
       let p = await super.add(d, null, faker.date.past().getTime())
-      documents.push(p._id)
+      documents.push(p.id)
     }
   }
 }

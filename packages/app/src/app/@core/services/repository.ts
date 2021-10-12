@@ -1,10 +1,9 @@
 import { Injector, NgZone } from '@angular/core'
 import { RxAttachment, RxCollection } from 'rxdb'
 import { Observable } from 'rxjs'
-import { map, tap } from 'rxjs/operators'
-import { BulkObj, DbEntity } from '../models/entity'
+import { tap } from 'rxjs/operators'
+import { BulkObj, Entity } from '../models/entity'
 import { QueryParams } from '../models/query-params'
-import { RepositoryHelpers } from './repository.helpers'
 import { RxDBService } from './rxdb.service'
 
 export class Repository<T> {
@@ -39,7 +38,7 @@ export class Repository<T> {
       q = q.where('m').eq(p.mark)
     }
     const items = await q.exec()
-    return this.mappedItems(items)
+    return items
   }
 
   all$ (params?: QueryParams): Observable<(T | any)[]> {
@@ -56,20 +55,16 @@ export class Repository<T> {
 
   allm$ (params?: QueryParams): Observable<(T | any)[]> {
     return this.all$(params)
-      .pipe(
-        map((items) => this.mappedItems(items))
-      )
   }
 
   async one (id: string): Promise<T> {
     const item = await this.dbService.entities.findOne(id).exec()
     if (!item) return null
-    return this.mappedItems([item])[0]
+    return item
   }
 
   one$ (id: string): Observable<T> {
     return this.dbService.entities.findOne(id).$.pipe(
-      map((item) => this.mappedItems([item])[0]),
       tap(() => {
         this.zone.run(() => {
           // empty run for ui update
@@ -87,20 +82,20 @@ export class Repository<T> {
       g: group || ''
     }
     const doc = await this.dbService.entities.insert(obj)
-    return this.mappedItems([doc])[0]
+    return doc
   }
 
   async bulk (data: BulkObj[]) {
     const objs = data
       .map((o) => {
         return {
-          d: o.date || Date.now(),
-          t: this.entity,
-          g: o.group || '',
-          m: o.mark,
-          s: o.tags,
-          c: o.content
-        } as DbEntity
+          date: o.date || Date.now(),
+          type: this.entity,
+          group: o.group || '',
+          mark: o.mark,
+          tags: o.tags,
+          content: o.content
+        } as Entity
       })
     return this.dbService.entities.bulkInsert(objs)
   }
@@ -159,13 +154,5 @@ export class Repository<T> {
     const obj = await this.dbService.entities.findOne(id).exec()
     const attachment = obj.getAttachment(file)
     return attachment
-  }
-
-  private mappedItems (items) {
-    if (!items) return []
-    const r = items
-      .filter(i => i && i._id)
-      .map((i: DbEntity) => RepositoryHelpers.mapEntity(i))
-    return r
   }
 }

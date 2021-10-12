@@ -21,7 +21,7 @@ export class TransactionsRepo extends Repository<Transaction> {
     //   contact: transaction.contact,
     //   type: CEventType.TransactionCreated,
     //   comment: `new transaction #${transaction.serial}`,
-    //   reference: `/transactions/${data._id}`
+    //   reference: `/transactions/${data.id}`
     // })
     return transaction
   }

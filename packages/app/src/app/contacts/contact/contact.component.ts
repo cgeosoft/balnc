@@ -49,10 +49,10 @@ export class ContactComponent implements OnInit {
     await this.ceventsRepo.add({
       contact: this.route.snapshot.params['id'],
       comment: `add new order #${order['serial']}`,
-      reference: `/orders/${order._id}`,
+      reference: `/orders/${order.id}`,
       type: CEventType.OrderCreated
     })
-    await this.router.navigate([`/orders`, order._id])
+    await this.router.navigate([`/orders`, order.id])
   }
 
   async toggleMark (id: string) {

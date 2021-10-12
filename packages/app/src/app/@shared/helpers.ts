@@ -26,6 +26,7 @@ export class Helpers {
   }
 
   static capFirst (text) {
+    if(!text) return null
     return text.charAt(0).toUpperCase() + text.slice(1)
   }
 

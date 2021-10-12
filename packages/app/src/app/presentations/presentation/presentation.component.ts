@@ -130,7 +130,7 @@ export class PresentationComponent implements OnInit {
   }
 
   async deletePresentation () {
-    await this.presentationsRepo.remove(this.presentation._id)
+    await this.presentationsRepo.remove(this.presentation.id)
     await this.router.navigateByUrl('/presentations')
   }
 
@@ -141,7 +141,7 @@ export class PresentationComponent implements OnInit {
 
     const slide: Partial<Slide> = {
       title: 'New Page',
-      presentation: this.presentation._id,
+      presentation: this.presentation.id,
       content: [
         {
           file: file.name,
@@ -151,7 +151,7 @@ export class PresentationComponent implements OnInit {
     }
 
     const slideDoc = await this.slidesRepo.add(slide)
-    await this.slidesRepo.attach(slideDoc._id, file)
+    await this.slidesRepo.attach(slideDoc.id, file)
   }
 
   async deletePage (index) {

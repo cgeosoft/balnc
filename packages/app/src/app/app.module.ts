@@ -8,7 +8,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'
 import { Angulartics2Module } from 'angulartics2'
 import { AppComponent } from './app.component'
 import { APP_ROUTES } from './app.routes'
-import { MainModule } from './main/main.module'
+import { MainModule } from './main/main.module';
+import { WebStorageModule } from 'ngx-store'
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { MainModule } from './main/main.module'
     }),
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     CoreModule,
-    MainModule
+    MainModule,
+    WebStorageModule.forRoot()
   ],
   declarations: [
     AppComponent

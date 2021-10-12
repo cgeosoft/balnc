@@ -1,7 +1,7 @@
 <div class="item">
   <ng-container *ngIf="i.route">
     <a [routerLink]="i.route" routerLinkActive="active" class="action" [ngClass]="i.cssClass">
-      <fa-icon *ngIf="i.icon" [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
+      <span *ngIf="i.icon" class="{{i.icon}} icon" [ngStyle]="{'color':i.iconColor}"></span>
       <span class="content">
         <span>{{i.label}}</span>
         <small *ngIf="i.sublabel">{{i.sublabel}}</small>
@@ -11,7 +11,7 @@
   </ng-container>
   <ng-container *ngIf="i.action">
     <button (click)="i.action()" class="action" [ngClass]="i.cssClass">
-      <fa-icon *ngIf="i.icon" [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
+      <span *ngIf="i.icon" class="{{i.icon}} icon" [ngStyle]="{'color':i.iconColor}"></span>
       <span class="content">
         <span>{{i.label}}</span>
         <small *ngIf="i.sublabel">{{i.sublabel}}</small>
@@ -21,7 +21,7 @@
   </ng-container>
   <ng-container *ngIf="!i.route && !i.action">
     <div class="action" [ngClass]="i.cssClass">
-      <fa-icon *ngIf="i.icon" [icon]="i.icon" class="icon" [ngStyle]="{'color':i.iconColor}"></fa-icon>
+      <span *ngIf="i.icon" class="{{i.icon}} icon" [ngStyle]="{'color':i.iconColor}"></span>
       <span class="content">
         <span>{{i.label}}</span>
         <small *ngIf="i.sublabel">{{i.sublabel}}</small>

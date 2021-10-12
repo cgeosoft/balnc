@@ -65,7 +65,7 @@ export class IssueComponent implements OnInit {
         })
       )
       this.pevents$ = this.peventsRepo.allm$({ group: this.issueId }).pipe(
-        tap((pevents: PEvent[]) => pevents.sort((a, b) => a._date - b._date)),
+        tap((pevents: PEvent[]) => pevents.sort((a, b) => a.date - b.date)),
         tap(() => this.scroll())
       )
     })

@@ -21,7 +21,7 @@ export class CouchDBService {
   ) { }
 
   enable () {
-    this.replicationState = this.rxdbService.db.entities.sync({
+    this.replicationState = this.rxdbService.db.entities.syncCouchDB({
       remote: `${this.config.host}/${this.config.db}`
     })
     this.replicationState.active$

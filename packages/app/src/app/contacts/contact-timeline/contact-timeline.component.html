@@ -4,15 +4,15 @@
       <ng-container *ngFor="let e of events">
         <div class="d-flex align-items-start mb-2">
           <div class="mr-2 text-center rounded border p-1" style="width:100px;min-width:100px">
-            {{e._date|date:"dd MMM"}}<br>
-            {{e._date|date:"HH:mm"}}
+            {{e.date|date:"dd MMM"}}<br>
+            {{e.date|date:"HH:mm"}}
           </div>
           <div class="flex-grow-1">
             <div class="card">
-              <div class="card-header d-flex" (click)="show[e._id] = !show[e._id]">
+              <div class="card-header d-flex" (click)="show[e.id] = !show[e.id]">
                 {{eventTypes[e.type]}} <a *ngIf="e.reference" class="ml-auto" [routerLink]="e.reference">link</a>
               </div>
-              <div class="card-body" [ngClass]="{'d-none':!show[e._id],'d-block':show[e._id]}">
+              <div class="card-body" [ngClass]="{'d-none':!show[e.id],'d-block':show[e.id]}">
                 <pre>{{ e | json }}</pre>
               </div>
             </div>

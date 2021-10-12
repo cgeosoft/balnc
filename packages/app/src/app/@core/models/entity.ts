@@ -1,20 +1,11 @@
 export interface Entity {
-  _id: string
-  _date: number
-  _type: string
-  _group: string
-  _mark: boolean
-  _tags: string[]
-}
-
-export interface DbEntity {
-  _id?: string
-  d: number
-  t: string
-  g: string
-  m: boolean
-  s: string[]
-  c: any
+  id?: string
+  date?: number
+  type?: string
+  group?: string
+  mark?: boolean
+  tags?: string[]
+  content?: any
 }
 
 export interface BulkObj {

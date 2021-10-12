@@ -2,11 +2,11 @@
   <div class="title">Present</div>
   <div class="menu">
     <a routerLink="/presentations/overview" routerLinkActive="active">
-      <fa-icon icon="border-all" class="icon"></fa-icon>
+      <span icon="border-all" class="icon"></span>
       <span>Overview</span>
     </a>
     <button (click)="create()">
-      <fa-icon icon="plus-circle" class="icon"></fa-icon>
+      <span icon="plus-circle" class="icon"></span>
       <span>Create Pesentation</span>
     </button>
   </div>
@@ -15,7 +15,7 @@
     <ng-container *ngIf="(pinned$ | async) as pinned">
       <ng-container *ngIf="pinned.length; else empty">
         <div class="divider"></div>
-        <a *ngFor="let presentation of pinned" [routerLink]="['/presentations',presentation._id]"
+        <a *ngFor="let presentation of pinned" [routerLink]="['/presentations',presentation.id]"
           routerLinkActive="active">
           <span>{{presentation.title}}</span>
         </a>
@@ -24,7 +24,7 @@
   </div>
   <div class="menu mt-auto">
     <a routerLink="/presentations/settings" routerLinkActive="active">
-      <fa-icon icon="cog" class="icon"></fa-icon>
+      <span icon="cog" class="icon"></span>
       <span>Settings</span>
     </a>
   </div>

@@ -9,22 +9,22 @@
 
 <ng-template #statusTpl let-transaction="item">
   <ng-container *ngIf="transaction.executed">
-    <fa-icon icon="check-circle" class="text-success mr-2" ngbTooltip="executed" container="body"></fa-icon>
+    <span icon="check-circle" class="text-success mr-2" ngbTooltip="executed" container="body"></span>
     {{transaction.executed | date:"short"}}
   </ng-container>
   <ng-container *ngIf="!transaction.executed && transaction.planned">
-    <fa-icon icon="check-circle" class="text-primary mr-2" ngbTooltip="planned" container="body"></fa-icon>
+    <span icon="check-circle" class="text-primary mr-2" ngbTooltip="planned" container="body"></span>
     {{transaction.planned | date:"short"}}
   </ng-container>
   <ng-container *ngIf="!transaction.executed && !transaction.planned">
-    <fa-icon icon="check-circle" class="text-warning mr-2" ngbTooltip="pending" container="body"></fa-icon>
+    <span icon="check-circle" class="text-warning mr-2" ngbTooltip="pending" container="body"></span>
     {{transaction.planned | date:"short"}}
   </ng-container>
 </ng-template>
 
 <ng-template #accountFromTpl let-transaction="item">
   <ng-container *ngIf="transaction.from && accounts[transaction.from]">
-    <a [routerLink]="['/payments/accounts',accounts[transaction.from]._id]">
+    <a [routerLink]="['/payments/accounts',accounts[transaction.from].id]">
       {{accounts[transaction.from].name}}</a>
   </ng-container>
   <ng-container *ngIf="!transaction.from">
@@ -34,7 +34,7 @@
 
 <ng-template #accountToTpl let-transaction="item">
   <ng-container *ngIf="transaction.to && accounts[transaction.to]">
-    <a [routerLink]="['/payments/accounts',accounts[transaction.to]._id]">
+    <a [routerLink]="['/payments/accounts',accounts[transaction.to].id]">
       {{accounts[transaction.to].name}}</a>
   </ng-container>
 </ng-template>

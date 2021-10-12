@@ -17,13 +17,13 @@
     (click)="configure(integration.key)">
     <div class="card-body d-flex align-items-start text-left">
       <div class="icon" [ngStyle]="{'background-color':integration.color}">
-        <fa-icon [icon]="integration.icon"></fa-icon>
+        <span [icon]="integration.icon"></span>
       </div>
       <div class="flex-grow-1">
         <div class="title">
           <h5>{{integration.title}}</h5>
           <span *ngIf="status" class="badge badge-success">
-            <fa-icon icon="check-circle"></fa-icon> enabled
+            <span icon="check-circle"></span> enabled
           </span>
         </div>
         <div class="description">{{integration.description}}</div>

@@ -11,7 +11,7 @@
       <div class="d-flex">
         <input #username required class="form-control" placeholder="username">
         <button type="button" class="btn btn-success ml-2" type="submit">
-          <fa-icon icon="plus-circle"></fa-icon>
+          <span icon="plus-circle"></span>
         </button>
       </div>
     </div>
@@ -24,10 +24,10 @@
     <ul class="list-group list-group-flush mb-3">
       <li class="list-group-item px-3 py-2 d-flex" *ngFor="let u of users">
         <div>
-          {{u.username}} <small class="text-muted text-monospace"> {{u._id.substr(0,8)}}</small>
+          {{u.username}} <small class="text-muted text-monospace"> {{u.id.substr(0,8)}}</small>
         </div>
-        <button type="button" class="btn btn-primary btn-sm ml-auto" (click)="select(u._id)">
-          <fa-icon icon="check-circle"></fa-icon>
+        <button type="button" class="btn btn-primary btn-sm ml-auto" (click)="select(u.id)">
+          <span icon="check-circle"></span>
         </button>
       </li>
     </ul>

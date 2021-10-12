@@ -46,7 +46,7 @@ export class ReportsService extends Repository<Report> {
     const report = { ...reportDoc }
 
     report.filters.forEach(async filter => {
-      switch (filter.type) {
+      switch (filter.filterType) {
         case 'select':
           filter.value = -1
           filter.items = filter.items ? filter.items : await this.getCommonData(filter.query)

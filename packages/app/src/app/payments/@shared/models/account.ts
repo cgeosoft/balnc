@@ -2,7 +2,7 @@ import { Entity } from '@balnc/core'
 
 export interface Account extends Entity {
   name: string
-  type?: AccountType
+  atype?: AccountType
   contact?: string
   bank?: string
   paypal?: string

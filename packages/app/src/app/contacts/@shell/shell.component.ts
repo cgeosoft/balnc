@@ -45,7 +45,7 @@ export class ShellComponent implements OnInit {
             return {
               label: item.c.name,
               icon: ['fas', (item.c.type === ContactType.person) ? 'user-circle' : 'building'],
-              route: ['/contacts/contact', item._id],
+              route: ['/contacts/contact', item.id],
               type: 'button'
             }
           })
@@ -77,6 +77,6 @@ export class ShellComponent implements OnInit {
     $event.preventDefault()
     const contact = $event.item as Contact
     this.term = null
-    await this.router.navigate(['/business/contacts', contact._id])
+    await this.router.navigate(['/business/contacts', contact.id])
   }
 }

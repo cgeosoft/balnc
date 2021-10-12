@@ -25,7 +25,7 @@ export class OverviewComponent implements OnInit {
         val: (item: Presentation) => {
           return {
             label: item.title,
-            link: ['/presentations', item._id]
+            link: ['/presentations', item.id]
           }
         }
       },

@@ -24,7 +24,7 @@ export class RecordsRepo extends Repository<Record> {
     //   contact: record.contact,
     //   type: CEventType.RecordCreated,
     //   comment: `new record #${record.serial}`,
-    //   reference: `/records/${data._id}`
+    //   reference: `/records/${data.id}`
     // })
     return record
   }

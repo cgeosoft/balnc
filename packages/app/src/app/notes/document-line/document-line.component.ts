@@ -39,7 +39,7 @@ export class DocumentLineComponent implements AfterViewInit {
     // }
     // ngOnInit () {
     this.linesRepo
-      .one$(this.line._id)
+      .one$(this.line.id)
       .subscribe((l) => {
         this.innerLine = l
         // if (this.focused) {

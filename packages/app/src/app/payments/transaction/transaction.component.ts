@@ -29,7 +29,7 @@ export class TransactionComponent implements OnInit {
   }
 
   async update () {
-    await this.transactionsRepo.update(this.transaction._id, {
+    await this.transactionsRepo.update(this.transaction.id, {
       from: this.transaction.from,
       to: this.transaction.to,
       amount: this.transaction.amount,

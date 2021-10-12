@@ -13,7 +13,7 @@
                 ngbDropdownToggle></button>
               <div class="dropdown-menu" ngbDropdownMenu>
                 <button ngbDropdownItem *ngFor="let s of issueStatuses" (click)="updateStatus(s.key)">
-                  <fa-icon [icon]="['fas','circle']" [ngStyle]="{color:s.style['background-color']}"></fa-icon>
+                  <span [icon]="['fas','circle']" [ngStyle]="{color:s.style['background-color']}"></span>
                   {{s.label}}
                 </button>
               </div>
@@ -47,7 +47,7 @@
                       </markdown>
                     </div>
                     <div class="timeline-item-footer">
-                      {{pevent.user}} - {{pevent._date | dfnsFormatDistanceToNow}}
+                      {{pevent.user}} - {{pevent.date | dfnsFormatDistanceToNow}}
                     </div>
                   </div>
                 </ng-container>
@@ -57,7 +57,7 @@
                       {{pevent.text}}
                     </div>
                     <div class="timeline-item-footer">
-                      {{pevent.user}} - {{pevent._date | dfnsFormatDistanceToNow}}
+                      {{pevent.user}} - {{pevent.date | dfnsFormatDistanceToNow}}
                     </div>
                   </div>
                 </ng-container>
@@ -84,7 +84,7 @@
               </div>
               <div class="ml-auto">
                 <button type="button" class="btn btn-success" type="submit">Submit
-                  <fa-icon [icon]="['fas','cog']" [spin]="true" *ngIf="postCommentLoading"></fa-icon>
+                  <span [icon]="['fas','cog']" [spin]="true" *ngIf="postCommentLoading"></span>
                 </button>
               </div>
             </div>

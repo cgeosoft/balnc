@@ -95,7 +95,7 @@ export class DemoService {
     this.logs$.next(`Generate ${NO_OF_ISSUES} issues`)
     const issues: BulkObj[] = []
     const projectSaved = await this.projectsRepo.all()
-    const projectIds = projectSaved.map(b => b._id)
+    const projectIds = projectSaved.map(b => b.id)
     for (let i = 0; i < NO_OF_ISSUES; i++) {
       issues.push({
         date: faker.date.past(2).getTime(),
@@ -141,7 +141,7 @@ export class DemoService {
     this.logs$.next(`Generate ${NO_OF_MESSAGES} messages`)
     const messages: BulkObj[] = []
     const boardSaved = await this.boardsRepo.all()
-    const boardIds = boardSaved.map(b => b._id)
+    const boardIds = boardSaved.map(b => b.id)
     for (let c = 0; c < NO_OF_MESSAGES; c++) {
       messages.push({
         date: faker.date.between((new Date()).setDate((new Date()).getDate() - 7),new Date()).getTime(),
@@ -203,7 +203,7 @@ export class DemoService {
           emails: [faker.internet.email()],
           taxDetails: {
             vatNumber: `VAT${faker.random.number({ min: 1000000000, max: 9999999999 })}`,
-            taxOffice: faker.address.city(3),
+            taxOffice: faker.address.city(),
             address: faker.address.streetAddress(true),
             legalName: '',
             description: ''
@@ -235,11 +235,11 @@ export class DemoService {
         this.logs$.next(`Add funds ${funds}`)
         const t = await this.transactionsRepo.add({
           from: null,
-          to: own._id,
+          to: own.id,
           amount: funds,
           executed: Date.now()
         }, null, faker.date.past().getTime())
-        await this.executeTransaction(t._id)
+        await this.executeTransaction(t.id)
       }
     }
   }
@@ -252,10 +252,10 @@ export class DemoService {
       const contact = contacts[faker.random.number({ min: 0, max: contacts.length - 1 })]
       agreements.push({
         date: faker.date.past(1).getTime(),
-        group: contact._id,
+        group: contact.id,
         tags: ['demo'],
         content: {
-          contact: contact._id,
+          contact: contact.id,
           status: AgreementStatus.draft,
           content: `# Agreement ${Date.now()}\n\r${faker.lorem.paragraphs(5)}`
         }
@@ -275,7 +275,7 @@ export class DemoService {
 
     if (t.from) {
       await this.recordsRepo.add({
-        transaction: t._id,
+        transaction: t.id,
         account: t.from,
         amount: t.amount * -1
       })
@@ -283,7 +283,7 @@ export class DemoService {
 
     if (t.to) {
       await this.recordsRepo.add({
-        transaction: t._id,
+        transaction: t.id,
         account: t.to,
         amount: t.amount
       })

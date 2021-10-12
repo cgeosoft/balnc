@@ -17,7 +17,7 @@
             <button class="btn btn-outline-light btn-sm" (click)="d.toggle(); $event.stopPropagation()"
               (document:click)="decideClosure($event, d)" type="button">
               <fa-layers class="fa-fw">
-                <fa-icon [icon]="['fas','calendar-alt']"></fa-icon>
+                <span [icon]="['fas','calendar-alt']"></span>
               </fa-layers>
             </button>
           </div>
@@ -26,20 +26,20 @@
     </ng-template>
     <button class="btn btn-primary btn-block" (click)="execReport()" [disabled]="loading">
       <fa-layers class="fa-fw">
-        <fa-icon [icon]="['fas','database']"></fa-icon>
+        <span [icon]="['fas','database']"></span>
       </fa-layers>
       Execute
     </button>
     <button class="btn btn-secondary btn-block" (click)="resetFilters()" [disabled]="loading">
       <fa-layers class="fa-fw">
-        <fa-icon [icon]="['fas','times']"></fa-icon>
+        <span [icon]="['fas','times']"></span>
       </fa-layers>
       Reset
     </button>
     <hr>
     <button class="btn btn-outline-light btn-sm btn-block" (click)="execExport()">
       <fa-layers class="fa-fw">
-        <fa-icon [icon]="['fas','file-excel']"></fa-icon>
+        <span [icon]="['fas','file-excel']"></span>
       </fa-layers>
       Export
     </button>

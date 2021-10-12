@@ -4,7 +4,7 @@
     <app-toolbar>
       <button class="btn btn-primary" (click)="createContact()">New Contact</button>
       <button class="btn btn-outline-secondary">
-        <fa-icon icon="search"></fa-icon>
+        <span icon="search"></span>
       </button>
     </app-toolbar>
   </section>
@@ -15,9 +15,9 @@
 
 <ng-template #t1 let-contact="item">
   <span class="d-block text-truncate">
-    <fa-icon [icon]="['fas',(contact.type === contactType.person)?'user-circle':'building']" class="mr-2 text-muted">
-    </fa-icon>
-    <a [routerLink]="['/contacts/contact',contact._id]">{{contact.name}}</a>
-    <fa-icon *ngIf="contact._mark" icon="star" class="text-warning ml-2"></fa-icon>
+    <span [icon]="['fas',(contact.type === contactType.person)?'user-circle':'building']" class="mr-2 text-muted">
+    </span>
+    <a [routerLink]="['/contacts/contact',contact.id]">{{contact.name}}</a>
+    <span *ngIf="contact._mark" icon="star" class="text-warning ml-2"></span>
   </span>
 </ng-template>

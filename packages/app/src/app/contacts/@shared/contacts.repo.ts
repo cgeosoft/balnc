@@ -19,9 +19,9 @@ export class ContactsRepo extends Repository<Contact> {
   async add (data: Partial<Contact>, group?: string, ts?: number): Promise<Contact> {
     const contact = await super.add(data, group, ts)
     await this.ceventsService.add({
-      contact: contact._id,
+      contact: contact.id,
       type: CEventType.ContactCreated
-    }, contact._id, ts)
+    }, contact.id, ts)
     return contact
   }
 }

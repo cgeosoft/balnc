@@ -30,7 +30,7 @@ export class ConfigureIntegrationComponent implements OnInit {
 
   async save () {
     if (this.configService.integrations[this.integration.key]) {
-      await this.integrationRepo.update(this.config._id, this.config)
+      await this.integrationRepo.update(this.config.id, this.config)
     } else {
       await this.integrationRepo.add(this.config, this.integration.key)
     }

@@ -8,15 +8,15 @@ import { Component, Input, OnInit } from '@angular/core'
 export class TileComponent implements OnInit {
 
   @Input() label: string
-  @Input() icon: string[] = ['fas', 'balance-scale-right']
+  @Input() icon: string = 'fas fa-balance-scale-right'
   @Input() value: any = 0
   @Input() theme: string
 
-  constructor () {
+  constructor() {
     // todo
   }
 
-  ngOnInit () {
+  ngOnInit() {
     // todo
   }
 

@@ -2,8 +2,6 @@
 
 @import "themes/default/template";
 
-@import "~ngx-toastr/toastr-bs4-alert";
-
 html,
 body {
   height: 100%;
@@ -117,12 +115,12 @@ thead {
   // align-items: center;
   > .btn,
   > .btn-group {
-    @extend .mr-2;
+    @extend .me-2;
   }
 
   > .ml-auto > .btn,
   > .ml-auto > .btn-group {
-    @extend .ml-2;
+    @extend .ms-2;
   }
 
   .btn {

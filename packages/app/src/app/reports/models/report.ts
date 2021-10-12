@@ -1,4 +1,4 @@
-import { Entity } from '@balnc/core'
+import { Entity } from '@balnc/core';
 export interface Report extends Entity {
   alias?: string
   name?: string
@@ -12,7 +12,7 @@ export interface Report extends Entity {
 export interface ReportFilter {
   name: string
   field: string
-  type: string
+  filterType: string
   default?: any
   value?: any
   query?: string

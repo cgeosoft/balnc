@@ -8,14 +8,15 @@ import environment from 'src/environments/environment'
 import { SentryErrorHandler } from './handlers/sentry-error.handler'
 import { ConfigService } from './services/config.service'
 import { CouchDBService } from './services/couchdb.service'
-import { OrbitDBService } from './services/orbitdb.service'
 import { RxDBService } from './services/rxdb.service'
 import { UpdateService } from './services/update.service'
 
 @NgModule({
   imports: [
     CommonModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production
+    }),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
@@ -38,13 +39,12 @@ import { UpdateService } from './services/update.service'
     ConfigService,
     RxDBService,
     CouchDBService,
-    OrbitDBService,
     { provide: ErrorHandler, useClass: SentryErrorHandler }
   ]
 })
 export class CoreModule {
   /* make sure CoreModule is imported only by one NgModule the AppModule */
-  constructor (
+  constructor(
     @Optional() @SkipSelf() parentModule: CoreModule
   ) {
     if (parentModule) {

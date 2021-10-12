@@ -12,16 +12,16 @@
           <div><strong>Members</strong></div>
           <ng-container *ngIf="(activeUsers$ |async)as activeUsers">
             <ng-container *ngFor="let au of activeUsers">
-              <div><small class="text-monospace mr-1">{{au.lastread|date:"HH:mm:ss"}}</small> {{usernames[au._group]}}</div>
+              <div><small class="text-monospace mr-1">{{au.lastread|date:"HH:mm:ss"}}</small> {{usernames[au.group]}}</div>
             </ng-container>
           </ng-container>
         </ng-container>
       </dl>
       <hr>
       <div class="menu">
-        <a [routerLink]="['/boards',board._id,'timeline']" routerLinkActive="active">Timeline</a>
-        <a [routerLink]="['/boards',board._id,'manage']" routerLinkActive="active">Manage</a>
-        <a [routerLink]="['/boards',board._id,'files']" routerLinkActive="active">Files</a>
+        <a [routerLink]="['/boards',board.id,'timeline']" routerLinkActive="active">Timeline</a>
+        <a [routerLink]="['/boards',board.id,'manage']" routerLinkActive="active">Manage</a>
+        <a [routerLink]="['/boards',board.id,'files']" routerLinkActive="active">Files</a>
       </div>
     </ng-container>
 

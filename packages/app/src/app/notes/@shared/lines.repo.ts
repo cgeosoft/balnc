@@ -20,7 +20,7 @@ export class LinesRepo extends Repository<Line> {
       text: ''
     }
     const lineDoc = await super.add(line)
-    return lineDoc._id
+    return lineDoc.id
   }
 
   async updateLine (line: Line, text) {

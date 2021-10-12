@@ -21,17 +21,17 @@ export class AccountsComponent implements OnInit {
         label: 'Name', type: 'link', locked: true, val: (item: Account) => {
           return {
             label: item.name || '{unamed account}',
-            link: ['/payments/accounts', item._id]
+            link: ['/payments/accounts', item.id]
           }
         }
       },
       { label: 'Type', style: { width: '100px' }, type: 'badge', badges: AccountTypeBadges, val: (item: Account) => AccountType[item.type] },
       {
         label: 'Amount', style: { width: '140px', 'text-align': 'right' }, type: 'currency', locked: true,
-        val: (item: Account) => this.totals[item._id] ? this.totals[item._id].amount : 0
+        val: (item: Account) => this.totals[item.id] ? this.totals[item.id].amount : 0
       }, {
         label: 'Records', style: { width: '140px', 'text-align': 'right' }, type: 'currency', locked: true,
-        val: (item: Account) => this.totals[item._id] ? this.totals[item._id].records : 0
+        val: (item: Account) => this.totals[item.id] ? this.totals[item.id].records : 0
       }
     ]
   }
@@ -63,6 +63,6 @@ export class AccountsComponent implements OnInit {
   async createAccount () {
     const uuid = uuidv4().replace(/-/g, '')
     const account = await this.accountsRepo.add({ name: `Account ${uuid}` })
-    await this.router.navigate(['/payments/accounts', account._id])
+    await this.router.navigate(['/payments/accounts', account.id])
   }
 }

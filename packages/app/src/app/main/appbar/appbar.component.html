@@ -1,7 +1,7 @@
 <div class="menu">
   <a class="item" routerLinkActive="active" routerLink="/dashboard" [ngbTooltip]="compact ? 'Dashboard':null"
     placement="right" container="body">
-    <fa-icon icon="home"></fa-icon>
+    <span icon="home"></span>
     <span class="label">Dashboard</span>
   </a>
   <div class="divider"></div>
@@ -9,7 +9,7 @@
     <ng-container *ngFor="let i of menu">
       <a class="item" routerLinkActive="active" [routerLink]="i.route"
         [ngbTooltip]="compact ? i.label : null" placement="right" container="body" [ngStyle]="{color:i.iconColor}">
-        <fa-icon class="icon" [icon]="i.icon"></fa-icon>
+        <span class="icon" [icon]="i.icon"></span>
         <span class="label">{{i.label}}</span>
       </a>
     </ng-container>
@@ -17,7 +17,7 @@
   </ng-container>
   <a class="item" routerLink="/settings" routerLinkActive="active" [ngbTooltip]="compact ? 'Settings':null"
     placement="right" container="body">
-    <fa-icon icon="cog"></fa-icon>
+    <span icon="cog"></span>
     <span class="label">Settings</span>
   </a>
 </div>

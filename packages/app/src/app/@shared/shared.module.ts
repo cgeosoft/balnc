@@ -27,14 +27,12 @@ import { SearchPipe } from './components/table/search.pipe'
 import { TableComponent } from './components/table/table.component'
 import { ToolbarComponent } from './components/toolbar/toolbar.component'
 import { UndrawComponent } from './components/undraw/undraw.component'
-import { FontAwesomeModule } from './modules/font-awesome/font-awesome.module'
 import { DocVersionPipe } from './pipes/doc-version.pipe'
 import { EllipsisPipe } from './pipes/ellipsis.pipe'
 import { SafePipe } from './pipes/safe.pipe'
 
 @NgModule({
   imports: [
-    FontAwesomeModule,
     CommonModule,
     NgxFileHelpersModule,
     FormsModule,
@@ -74,7 +72,6 @@ import { SafePipe } from './pipes/safe.pipe'
   ],
   entryComponents: [ConfirmDialogComponent],
   exports: [
-    FontAwesomeModule,
     RouterModule,
     CommonModule,
     NgxFileHelpersModule,

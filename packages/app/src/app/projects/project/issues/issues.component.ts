@@ -66,7 +66,7 @@ export class IssuesComponent implements OnInit {
       mergeMap(params => this.issuesRepo.all$({ group: params['pid'] })),
       tap((issues: any[]) => {
         this.issuesStatuses = issues.reduce((l, i) => {
-          l[i._id] = IssueStatusViews.find(x => x.key === i.c.status)
+          l[i.id] = IssueStatusViews.find(x => x.key === i.c.status)
           return l
         }, {})
         issues.sort((a, b) => b.d - a.d)
@@ -79,7 +79,7 @@ export class IssuesComponent implements OnInit {
     m.componentInstance.projectId = this.pid
     const issue = await m.result as Issue
     if (issue) {
-      await this.router.navigate(['/projects/projects', this.pid, 'issues', issue._id])
+      await this.router.navigate(['/projects/projects', this.pid, 'issues', issue.id])
     }
   }
 

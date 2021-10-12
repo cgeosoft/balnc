@@ -48,10 +48,10 @@ export class ShellComponent implements OnInit {
 
     const messages$ = this.messageRepo.allm$().pipe(
       map((messages) => {
-        messages.sort((a, b) => a._date - b._date)
+        messages.sort((a, b) => a.date - b.date)
         return messages.reduce((l, i) => {
-          if (!l[i._group]) l[i._group] = []
-          l[i._group].unshift(i)
+          if (!l[i.group]) l[i.group] = []
+          l[i.group].unshift(i)
           return l
         }, {})
       })
@@ -70,16 +70,16 @@ export class ShellComponent implements OnInit {
       [boards$, messages$, lastRead$]
     ).pipe(
       map(x => x[0].map(board => {
-        const messages = x[1][board._id] ?? []
-        const lastread = x[2][board._id] ?? 0
+        const messages = x[1][board.id] ?? []
+        const lastread = x[2][board.id] ?? 0
         const unread = messages
           .filter(m =>
-            m._date > lastread &&
+            m.date > lastread &&
             m.sender !== this.configService.userId).length
         return {
           label: board.name,
           sublabel: messages[0]?.text ?? '...',
-          route: ['/boards', board._id],
+          route: ['/boards', board.id],
           type: 'button',
           note: (unread > 0) ? ((unread > 99) ? '99+' : unread) : '',
           noteColor: board.color
@@ -99,6 +99,6 @@ export class ShellComponent implements OnInit {
       name: Helpers.generateName(),
       creator: this.configService.userId
     })
-    await this.router.navigate(['/boards', board._id])
+    await this.router.navigate(['/boards', board.id])
   }
 }

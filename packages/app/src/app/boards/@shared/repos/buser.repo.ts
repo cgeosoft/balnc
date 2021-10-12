@@ -27,7 +27,7 @@ export class BUsersRepo extends Repository<BUser> {
 
     if (buser) {
       buser.lastread = Date.now()
-      await this.update(buser._id, buser)
+      await this.update(buser.id, buser)
     } else {
       const newbuser: Partial<BUser> = {
         board,
@@ -49,7 +49,7 @@ export class BUsersRepo extends Repository<BUser> {
 
     if (buser) {
       buser.lastread = Date.now()
-      await this.update(buser._id, buser)
+      await this.update(buser.id, buser)
     }
   }
 }

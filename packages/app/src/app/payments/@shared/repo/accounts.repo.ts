@@ -21,7 +21,7 @@ export class AccountsRepo extends Repository<Account> {
     //   contact: account.contact,
     //   type: CEventType.AccountCreated,
     //   comment: `new account #${account.serial}`,
-    //   reference: `/accounts/${data._id}`
+    //   reference: `/accounts/${data.id}`
     // })
     return account
   }

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router'
-import { ConfigService, CouchDBIntegration, CouchDBService, DEFAULT_USER, Integration, IntegrationsRepo, OrbitDBIntegration, OrbitDBService, UpdateService, User, UsersRepo } from '@balnc/core'
+import { ConfigService, CouchDBIntegration, CouchDBService, DEFAULT_USER, Integration, IntegrationsRepo, UpdateService, User, UsersRepo } from '@balnc/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ToastrService } from 'ngx-toastr'
 import { Subject, Subscription } from 'rxjs'
@@ -31,7 +31,7 @@ export class MainShellComponent implements OnInit, OnDestroy {
   notifier = new Subject()
   updateShown: any
 
-  get layout () {
+  get layout() {
     switch (this.configService.user?.config?.layout) {
       case 'box': return 'container'
       case 'fluid': return 'container-fluid'
@@ -39,24 +39,23 @@ export class MainShellComponent implements OnInit, OnDestroy {
     }
   }
 
-  get offline () {
+  get offline() {
     return !navigator.onLine
   }
 
-  constructor (
+  constructor(
     private router: Router,
     private configService: ConfigService,
     private toastr: ToastrService,
     private update: UpdateService,
     private couchDBService: CouchDBService,
-    private orbitDBService: OrbitDBService,
     private usersRepo: UsersRepo,
     private integrationsRepo: IntegrationsRepo,
     private modal: NgbModal
   ) {
   }
 
-  ngOnInit () {
+  ngOnInit() {
 
     this.router.events
       .pipe(takeUntil(this.notifier))
@@ -83,16 +82,16 @@ export class MainShellComponent implements OnInit, OnDestroy {
         await this.setUsers(users)
         if (!this.configService.user) {
           const defaultUser = await this.usersRepo.add({ ...DEFAULT_USER, ...{ username: 'default' } })
-          this.configService.userId = defaultUser._id
+          this.configService.userId = defaultUser.id
         }
       })
 
     this.integrationsRepo.allm$()
       .pipe(takeUntil(this.notifier))
       .subscribe(async (integrations: Integration[]) => {
-        integrations.sort((a, b) => a._date - b._date)
+        integrations.sort((a, b) => a.date - b.date)
         this.configService.integrations = integrations.reduce((l, i) => {
-          l[i._group] = i
+          l[i.group] = i
           return l
         }, {})
       })
@@ -120,7 +119,7 @@ export class MainShellComponent implements OnInit, OnDestroy {
 
         if (!auth) {
           this.toastr.error('Could not auto-login with db server. Check your internet connection.', '[Database] Load Failed')
-          await this.integrationsRepo.update(integration._id, { sync: false })
+          await this.integrationsRepo.update(integration.id, { sync: false })
           return
         }
 
@@ -128,35 +127,34 @@ export class MainShellComponent implements OnInit, OnDestroy {
         this.couchDBService.enable()
       })
 
-    this.integrationsRepo.allm$({ group: 'orbitdb' })
-    .pipe(map((integration: Integration[]) => integration[0]))
-    .subscribe(async (integration: OrbitDBIntegration) => {
-      await this.orbitDBService.stop()
-      if (!integration?.enabled) {
-        return
-      }
-      await this.orbitDBService.setup()
-      if (integration?.address) {
-        await this.orbitDBService.start()
-      }
-    })
+    // this.integrationsRepo.allm$({ group: 'orbitdb' })
+    //   .pipe(map((integration: Integration[]) => integration[0]))
+    //   .subscribe(async (integration: OrbitDBIntegration) => {
+    //     await this.orbitDBService.stop()
+    //     if (!integration?.enabled) {
+    //       return
+    //     }
+    //     await this.orbitDBService.setup()
+    //     if (integration?.address) {
+    //       await this.orbitDBService.start()
+    //     }
+    //   })
   }
 
-  ngOnDestroy () {
-    this.notifier.next()
+  ngOnDestroy() {
     this.notifier.complete()
   }
 
-  private async setUsers (users: User[]) {
+  private async setUsers(users: User[]) {
     const promises = users.map(async (user) => {
       const res = {
-        id: user._id,
+        id: user.id,
         avatar: null
       }
-      const attachment = await this.usersRepo.getAttachment(user._id, 'avatar')
+      const attachment = await this.usersRepo.getAttachment(user.id, 'avatar')
       if (attachment) {
-        const blob = await attachment.getData()
-        res.avatar = await Helpers.getImage(blob, attachment.type)
+        const blobBuffer = await attachment.getData()
+        res.avatar = await Helpers.getImage(new Blob([blobBuffer]), attachment.type)
       }
       return res
     })
@@ -168,7 +166,7 @@ export class MainShellComponent implements OnInit, OnDestroy {
     this.configService.users = users
   }
 
-  private navigationInterceptor (event: RouterEvent): void {
+  private navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.pageLoading = true
       this.routeLabel = event.url
@@ -185,7 +183,7 @@ export class MainShellComponent implements OnInit, OnDestroy {
     }
   }
 
-  private hideSpinner (): void {
+  private hideSpinner(): void {
     this.pageLoading = false
   }
 }

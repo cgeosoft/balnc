@@ -32,7 +32,7 @@ export class ShellComponent implements OnInit {
     const modal = this.modal.open(CreateComponent, { size: 'sm' })
     const presentation = await modal.result
     await this.ngOnInit()
-    await this.router.navigate(['/presentations', presentation.get('_id')])
+    await this.router.navigate(['/presentations', presentation.get('id')])
   }
 
 }

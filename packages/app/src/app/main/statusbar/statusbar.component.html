@@ -12,17 +12,15 @@
   <button class="item" routerLink="/support/about">
     v{{version}}</button>
   <button class="item" routerLink="/settings">
-    <fa-layers class="fa-fw">
-      <fa-icon icon="swatchbook"></fa-icon>
-    </fa-layers> {{workspace.name}} / {{user?.username}}
+    {{workspace.name}} / {{user?.username}}
   </button>
   <ng-container *ngIf="(dbStatus$|async)as dbStatus">
     <div class="item" [ngbTooltip]="dbStatus">
       <ng-container [ngSwitch]="dbStatus">
-        <fa-icon *ngSwitchCase="'active'" icon="check-circle"></fa-icon>
-        <fa-icon *ngSwitchCase="'error'" icon="exclamation"></fa-icon>
-        <fa-icon *ngSwitchCase="'syncing'" icon="sync-alt" [spin]="true"></fa-icon>
-        <fa-icon *ngSwitchCase="'disabled'" icon="unlink"></fa-icon>
+        <span *ngSwitchCase="'active'" icon="check-circle"></span>
+        <span *ngSwitchCase="'error'" icon="exclamation"></span>
+        <span *ngSwitchCase="'syncing'" icon="sync-alt" [spin]="true"></span>
+        <span *ngSwitchCase="'disabled'" icon="unlink"></span>
       </ng-container>
     </div>
   </ng-container>

@@ -29,7 +29,7 @@ export class AccountComponent implements OnInit {
   }
 
   async update () {
-    await this.accountsRepo.update(this.account._id, {
+    await this.accountsRepo.update(this.account.id, {
       name: this.account.name,
       contact: this.account.contact
     })

@@ -5,30 +5,36 @@
   "version": 0,
   "disableKeyCompression": true,
   "attachments": true,
+  "primaryKey": "id",
   "properties": {
-    "g": {
-      "type": "string",
-      "index": true
+    "id": {
+      "type": "string"
     },
-    "d": {
-      "type": "number",
-      "index": true
+    "group": {
+      "type": "string"
     },
-    "t": {
-      "type": "string",
-      "index": true
+    "date": {
+      "type": "number"
     },
-    "c": {
+    "type": {
+      "type": "string"
+    },
+    "content": {
       "type": "object"
     },
-    "m": {
+    "mark": {
       "type": "boolean"
     },
-    "s": {
+    "tags": {
       "type": "array",
       "items": {
         "type": "string"
       }
     }
-  }
+  },
+  "indexes": [
+    "group",
+    "date",
+    "type"
+  ]
 }
