@@ -33,7 +33,7 @@
     "express-winston": "^4.0.5",
     "faker": "^5.1.0",
     "helmet": "^4.1.1",
-    "ipfs": "^0.51.0",
+    "ipfs": "^0.62.0",
     "mediasoup": "^3.6.24",
     "node-machine-id": "^1.1.12",
     "open-graph-scraper": "^4.6.0",
