@@ -20,7 +20,7 @@
     "prestart": "node ./scripts/pre-build.js",
     "prebuild": "node ./scripts/pre-build.js",
     "postinstall": "node ./scripts/pre-build.js",
-    "build": "ng build --prod",
+    "build": "ng build --configuration production",
     "build-desktop": "ng build -c desktop --base-href ./",
     "bundle-report": "webpack-bundle-analyzer dist/stats.json"
   },
