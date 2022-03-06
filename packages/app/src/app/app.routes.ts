@@ -6,7 +6,12 @@ import { MainGuard } from './main/main.guard'
 import { SetupComponent } from './setup/setup.component'
 import { SetupGuard } from './setup/setup.guard'
 
-export const APP_ROUTES: Routes = [{
+export const APP_ROUTES: Routes = [
+//   {
+//   path: '',
+//   component: LandingComponent,
+// },
+{
   path: '',
   component: MainShellComponent,
   canActivate: [MainGuard],

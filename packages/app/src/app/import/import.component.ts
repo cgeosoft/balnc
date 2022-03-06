@@ -48,7 +48,7 @@ export class ImportComponent implements OnInit {
       db: this.config.d
     }
     await this.integrationRepo.add(config, 'server')
-    await this.router.navigateByUrl('/')
+    await this.router.navigateByUrl('/app')
   }
 
 }

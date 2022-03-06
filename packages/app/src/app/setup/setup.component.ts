@@ -48,6 +48,6 @@ export class SetupComponent implements OnInit {
     this.loading = true
     const key = this.configService.create(workspace)
     this.configService.activate(key)
-    await this.router.navigateByUrl('/')
+    await this.router.navigateByUrl('/app')
   }
 }

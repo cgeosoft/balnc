@@ -9,7 +9,8 @@ import { Angulartics2Module } from 'angulartics2'
 import { AppComponent } from './app.component'
 import { APP_ROUTES } from './app.routes'
 import { MainModule } from './main/main.module';
-import { WebStorageModule } from 'ngx-store'
+import { WebStorageModule } from 'ngx-store';
+import { LandingComponent } from './landing/landing.component'
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { WebStorageModule } from 'ngx-store'
     WebStorageModule.forRoot()
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    LandingComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,7 @@
 export interface Entity {
   id?: string
   date?: number
-  type?: string
+  type?: any
   group?: string
   mark?: boolean
   tags?: string[]
