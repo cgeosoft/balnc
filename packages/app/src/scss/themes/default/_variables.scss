@@ -16,8 +16,8 @@ $font-family-sans-serif: "Ubuntu", -apple-system, BlinkMacSystemFont, "Segoe UI"
 
 $popover-max-width: 400px;
 
-$enable-shadows:true;
-$enable-gradients:true;
+$enable-shadows:false;
+$enable-gradients:false;
 
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
