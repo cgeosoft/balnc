@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { ErrorHandler, NgModule, Optional, SkipSelf } from '@angular/core'
 import { ServiceWorkerModule } from '@angular/service-worker'
+import { ModalModule } from 'ngx-bootstrap/modal'
 import { DateFnsModule } from 'ngx-date-fns'
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown'
 import { ToastrModule } from 'ngx-toastr'
@@ -32,7 +33,9 @@ import { UpdateService } from './services/update.service'
           smartypants: true
         }
       }
-    })
+    }),
+
+    ModalModule.forRoot()
   ],
   providers: [
     UpdateService,
@@ -44,7 +47,7 @@ import { UpdateService } from './services/update.service'
 })
 export class CoreModule {
   /* make sure CoreModule is imported only by one NgModule the AppModule */
-  constructor(
+  constructor (
     @Optional() @SkipSelf() parentModule: CoreModule
   ) {
     if (parentModule) {

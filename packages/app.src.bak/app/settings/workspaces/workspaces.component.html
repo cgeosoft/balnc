@@ -1,0 +1,35 @@
+<app-content [box]="true">
+  <section role="title">Manage Workspaces</section>
+  <section class="no-border">
+    <app-toolbar>
+      <button class="btn btn-primary" (click)="create()">
+        <span icon="plus"></span> Create
+      </button>
+      <button class="btn btn-link" ngxFilePicker accept="application/json" (filePick)="import($event)">
+        <span icon="cloud-upload-alt"></span> Import
+      </button>
+    </app-toolbar>
+  </section>
+  <section class="full">
+    <ul class="list-group">
+      <ng-container *ngFor="let w of workspaces">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <div>
+              <strong>{{w.name}}</strong>
+            </div>
+            <div>
+              <small>{{w.created|date}} - v{{w.version}}- <span class="text-monospace">{{w.key}}</span></small>
+            </div>
+          </div>
+          <ng-container *ngIf="w.key === activated">
+            <span class="text-success">Active</span>
+          </ng-container>
+          <ng-container *ngIf="w.key !== activated">
+            <button class="btn btn-sm btn-primary" (click)="activate(w)">Activate</button>
+          </ng-container>
+        </li>
+      </ng-container>
+    </ul>
+  </section>
+</app-content>

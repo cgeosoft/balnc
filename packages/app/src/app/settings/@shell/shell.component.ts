@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigService, RxDBService, Workspace } from '@balnc/core'
-import { ConfirmDialogComponent, Helpers, MenuItem } from '@balnc/shared'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { Helpers, MenuItem } from '@balnc/shared'
 import { ReadFile } from 'ngx-file-helpers'
 import environment from '../../../environments/environment'
 
@@ -77,7 +76,7 @@ export class ShellComponent implements OnInit {
 
   constructor (
     public configService: ConfigService,
-    private modal: NgbModal,
+    // private modal: BsModalService,
     private dbService: RxDBService
   ) { }
 
@@ -85,17 +84,17 @@ export class ShellComponent implements OnInit {
     this.workspace = this.configService.workspace
   }
 
-  async remove (workspaceId) {
-    await this.modal.open(ConfirmDialogComponent, { size: 'sm' })
-      .result
-      .then(async () => {
-        this.configService.remove(workspaceId)
-        await this.dbService.remove(workspaceId)
-      })
-      .catch(() => {
-        console.log('dismised')
-      })
-  }
+  // async remove (workspaceId) {
+  //   await this.modal.open(ConfirmDialogComponent, { size: 'sm' })
+  //     .result
+  //     .then(async () => {
+  //       this.configService.remove(workspaceId)
+  //       await this.dbService.remove(workspaceId)
+  //     })
+  //     .catch(() => {
+  //       console.log('dismised')
+  //     })
+  // }
 
   onFilePicked (file: ReadFile) {
     this.error = null

@@ -1,0 +1,52 @@
+@import "theme";
+
+:host {
+  .card-integration {
+    .icon {
+      @extend .rounded-circle;
+      @extend .me-3;
+      @extend .text-center;
+      background-color: $primary;
+      width: 40px;
+      min-width: 40px;
+      height: 40px;
+      min-height: 40px;
+      line-height: 40px;
+      span {
+        font-size: 1.2rem;
+        color: white;
+      }
+    }
+
+    .title {
+      @extend .d-flex;
+      @extend .justify-content-between;
+      @extend .align-items-center;
+    }
+
+    .description {
+      @extend .text-muted;
+      @extend .overflow-hidden;
+      height: 50px;
+    }
+
+    &:hover {
+      @extend .shadow-sm;
+      cursor: pointer;
+    }
+
+    &.disabled {
+      background-color: $gray-100;
+      color: $gray-300;
+      .icon {
+        background-color: $gray-400 !important;
+      }
+      .title {
+        color: $gray-400 !important;
+      }
+      .description {
+        color: $gray-300 !important;
+      }
+    }
+  }
+}

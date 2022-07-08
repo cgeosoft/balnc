@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { ConfigService, RxDBService } from '@balnc/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { filter } from 'rxjs/operators'
-import { ChangelogComponent } from '../changelog/changelog.component'
 
 @Component({
   selector: 'app-statusbar',
@@ -38,8 +36,7 @@ export class StatusbarComponent implements OnInit {
     private configService: ConfigService,
     private dbService: RxDBService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private modal: NgbModal
+    private router: Router
   ) {
   }
 
@@ -48,10 +45,6 @@ export class StatusbarComponent implements OnInit {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root))
     this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root)
-  }
-
-  openChangelog () {
-    this.modal.open(ChangelogComponent, { size: 'lg', centered: true, scrollable: true })
   }
 
   private createBreadcrumbs (route: ActivatedRoute, url: string = '', breadcrumbs: any[] = []): any[] {

@@ -1,0 +1,23 @@
+$blue: #158cba !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #e83e8c !default;
+$red: #ff4136 !default;
+$orange: #fd7e14 !default;
+$yellow: #ff851b !default;
+$green: #28b62c !default;
+$teal: #20c997 !default;
+$cyan: #75caeb !default;
+
+$primary: $purple;
+
+$font-family-sans-serif: "Ubuntu", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+  sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+
+$popover-max-width: 400px;
+
+$enable-shadows:false;
+$enable-gradients:false;
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ConfigService } from '@balnc/core'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { BsModalService } from 'ngx-bootstrap/modal'
 import { INTEGRATIONS } from '../../@shared/consts/integrations'
 import { ConfigureIntegrationComponent } from './configure-integration/configure-integration.component'
 
@@ -24,17 +24,15 @@ export class IntegrationsComponent implements OnInit {
 
   constructor (
     private configService: ConfigService,
-    private modal: NgbModal
+    private modalSrv: BsModalService
   ) { }
 
-  ngOnInit () {
-
-  }
+  ngOnInit () { }
 
   configure (key: string) {
     const integration = INTEGRATIONS.find(x => x.key === key)
     if (integration.disabled) return
-    const config = this.modal.open(ConfigureIntegrationComponent)
-    config.componentInstance.integration = integration
+    const bsModalRef = this.modalSrv.show(ConfigureIntegrationComponent)
+    bsModalRef.content.integration = integration
   }
 }

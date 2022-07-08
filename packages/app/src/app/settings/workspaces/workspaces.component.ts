@@ -26,7 +26,7 @@ export class WorkspacesComponent {
   async create () {
     const key = this.configService.create({ ...DEFAULT_WORKSPACE })
     this.configService.activate(key)
-    await this.activate({ key })
+    await this.activate(key)
   }
 
   async import (file: ReadFile) {
@@ -36,12 +36,11 @@ export class WorkspacesComponent {
       return
     }
     const key = this.configService.update(workspace)
-    workspace.key = key
-    await this.activate(workspace)
+    await this.activate(key)
   }
 
-  async activate (workspace) {
-    this.configService.activate(workspace.key)
+  async activate (key: string) {
+    this.configService.activate(key)
     this.configService.setup()
     await this.dbService.setup()
     window.location.reload()

@@ -1,0 +1,10 @@
+<ng-container *ngFor="let item of menu">
+  <ng-container [ngSwitch]="item.type">
+    <ng-container *ngSwitchCase="'divider'">
+      <div class="divider"></div>
+    </ng-container>
+    <ng-container *ngSwitchCase="'button'">
+      <app-sidemenu-button [item]="item"></app-sidemenu-button>
+    </ng-container>
+  </ng-container>
+</ng-container>

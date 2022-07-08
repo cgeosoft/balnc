@@ -1,0 +1,27 @@
+<div class="menu">
+  <ul class="breadcrumb">
+    <ng-container *ngFor="let breadcrumb of breadcrumbs">
+      <li class="breadcrumb-item">
+        <a class="item" [routerLink]='[breadcrumb.url]' routerLinkActive='active'>
+          {{breadcrumb.label}}</a>
+      </li>
+    </ng-container>
+  </ul>
+</div>
+<div class="menu">
+  <button class="item" routerLink="/support/about">
+    v{{version}}</button>
+  <button class="item" routerLink="/settings">
+    {{workspace.name}} / {{user?.username}}
+  </button>
+  <ng-container *ngIf="(dbStatus$|async)as dbStatus">
+    <div class="item" [ngbTooltip]="dbStatus">
+      <ng-container [ngSwitch]="dbStatus">
+        <span *ngSwitchCase="'active'" icon="check-circle"></span>
+        <span *ngSwitchCase="'error'" icon="exclamation"></span>
+        <span *ngSwitchCase="'syncing'" icon="sync-alt" [spin]="true"></span>
+        <span *ngSwitchCase="'disabled'" icon="unlink"></span>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

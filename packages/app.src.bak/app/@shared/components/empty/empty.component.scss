@@ -1,0 +1,33 @@
+:host {
+  justify-content: center;
+  align-items: center;
+  color: #999;
+  display: flex;
+  width: 100%;
+  padding: 2rem;
+
+  .empty {
+    max-width: 350px;
+    text-align: center;
+
+    span {
+      font-size: 3rem;
+      width: 40px;
+      height: 40px;
+      margin: 0 auto;
+    }
+
+    .message {
+      font-size: 2rem;
+      font-weight: 300;
+      padding: 0;
+      margin: 1rem 0 0;
+    }
+
+    .submessage {
+      font-size: 1rem;
+      font-weight: 300;
+      padding: 0;
+    }
+  }
+}

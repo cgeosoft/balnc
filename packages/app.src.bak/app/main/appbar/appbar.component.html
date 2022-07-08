@@ -1,0 +1,23 @@
+<div class="menu">
+  <a class="item" routerLinkActive="active" routerLink="/dashboard" [ngbTooltip]="compact ? 'Dashboard':null"
+    placement="right" container="body">
+    <span icon="home"></span>
+    <span class="label">Dashboard</span>
+  </a>
+  <div class="divider"></div>
+  <ng-container *ngIf="menu.length">
+    <ng-container *ngFor="let i of menu">
+      <a class="item" routerLinkActive="active" [routerLink]="i.route"
+        [ngbTooltip]="compact ? i.label : null" placement="right" container="body" [ngStyle]="{color:i.iconColor}">
+        <span class="icon" [icon]="i.icon"></span>
+        <span class="label">{{i.label}}</span>
+      </a>
+    </ng-container>
+    <div class="divider"></div>
+  </ng-container>
+  <a class="item" routerLink="/settings" routerLinkActive="active" [ngbTooltip]="compact ? 'Settings':null"
+    placement="right" container="body">
+    <span icon="cog"></span>
+    <span class="label">Settings</span>
+  </a>
+</div>

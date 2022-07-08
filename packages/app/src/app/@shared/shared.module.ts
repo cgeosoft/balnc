@@ -3,12 +3,11 @@ import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
-import { ContenteditableModule } from '@ng-stack/contenteditable'
+import { ModalModule } from 'ngx-bootstrap/modal'
+import { PopoverModule } from 'ngx-bootstrap/popover'
 import { DateFnsModule } from 'ngx-date-fns'
 import { NgxFileHelpersModule } from 'ngx-file-helpers'
 import { MarkdownModule } from 'ngx-markdown'
-import { NgPipesModule } from 'ngx-pipes'
 import { WebStorageModule } from 'ngx-store'
 import { ToastrModule } from 'ngx-toastr'
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component'
@@ -37,14 +36,15 @@ import { SafePipe } from './pipes/safe.pipe'
     NgxFileHelpersModule,
     FormsModule,
     HttpClientModule,
-    NgbModule,
 
-    NgPipesModule,
+    ModalModule,
+    PopoverModule,
+
     ReactiveFormsModule,
     RouterModule,
     WebStorageModule,
     ToastrModule,
-    ContenteditableModule,
+    // ContenteditableModule,
     MarkdownModule.forChild()
   ],
   declarations: [
@@ -77,14 +77,14 @@ import { SafePipe } from './pipes/safe.pipe'
     NgxFileHelpersModule,
     FormsModule,
     HttpClientModule,
-    NgbModule,
 
-    NgPipesModule,
     ReactiveFormsModule,
     ToastrModule,
     DateFnsModule,
-    ContenteditableModule,
     MarkdownModule,
+
+    ModalModule,
+    PopoverModule,
 
     DocVersionPipe,
     EllipsisPipe,

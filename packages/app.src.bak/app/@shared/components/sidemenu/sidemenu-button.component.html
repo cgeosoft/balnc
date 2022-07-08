@@ -1,0 +1,40 @@
+<div class="item">
+  <ng-container *ngIf="i.route">
+    <a [routerLink]="i.route" routerLinkActive="active" class="action" [ngClass]="i.cssClass">
+      <span *ngIf="i.icon" class="{{i.icon}} icon" [ngStyle]="{'color':i.iconColor}"></span>
+      <span class="content">
+        <span>{{i.label}}</span>
+        <small *ngIf="i.sublabel">{{i.sublabel}}</small>
+      </span>
+      <span class="note" *ngIf="i.note" [ngStyle]="{'background-color':i.noteColor}">{{i.note}}</span>
+    </a>
+  </ng-container>
+  <ng-container *ngIf="i.action">
+    <button (click)="i.action()" class="action" [ngClass]="i.cssClass">
+      <span *ngIf="i.icon" class="{{i.icon}} icon" [ngStyle]="{'color':i.iconColor}"></span>
+      <span class="content">
+        <span>{{i.label}}</span>
+        <small *ngIf="i.sublabel">{{i.sublabel}}</small>
+      </span>
+      <span class="note" *ngIf="i.note" [ngStyle]="{'background-color':i.noteColor}">{{i.note}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="!i.route && !i.action">
+    <div class="action" [ngClass]="i.cssClass">
+      <span *ngIf="i.icon" class="{{i.icon}} icon" [ngStyle]="{'color':i.iconColor}"></span>
+      <span class="content">
+        <span>{{i.label}}</span>
+        <small *ngIf="i.sublabel">{{i.sublabel}}</small>
+      </span>
+      <span class="note" *ngIf="i.note" [ngStyle]="{'background-color':i.noteColor}">{{i.note}}</span>
+    </div>
+  </ng-container>
+  <button *ngIf="i.items && i.items.length" (click)="i.expanded = !i.expanded" class="expand">
+    {{i.expanded ? "-":"+"}}
+  </button>
+</div>
+<div *ngIf="i.items" class="submenu" [ngClass]="{expanded:i.expanded}">
+  <ng-container *ngFor="let s of i.items">
+    <app-sidemenu-button [item]="s"></app-sidemenu-button>
+  </ng-container>
+</div>

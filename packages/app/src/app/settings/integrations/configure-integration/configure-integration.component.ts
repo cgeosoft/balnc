@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { ConfigService, IntegrationsRepo } from '@balnc/core'
 import { IntegrationView } from '@balnc/shared'
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { BsModalService } from 'ngx-bootstrap/modal'
 import { Integration } from '../../../@core/models/integration'
 
 @Component({
@@ -19,7 +19,7 @@ export class ConfigureIntegrationComponent implements OnInit {
   }
 
   constructor (
-    private activeModal: NgbActiveModal,
+    private activeModal: BsModalService,
     private configService: ConfigService,
     private integrationRepo: IntegrationsRepo
   ) { }

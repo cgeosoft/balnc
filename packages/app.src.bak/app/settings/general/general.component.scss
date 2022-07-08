@@ -1,0 +1,28 @@
+:host {
+  .form-group {
+    &.form-group-inline {
+      display: flex;
+      align-items: flex-start;
+      > label {
+        text-align: right;
+        min-width: 120px;
+        width: 120px;
+        margin: 6px 1.5rem 0 0;
+        &:after {
+          content: ":";
+        }
+      }
+      .custom-control {
+        margin-top: 6px;
+      }
+      > button {
+        margin-left: 186px;
+      }
+    }
+  }
+  .avatar-select {
+    img {
+      height: 72px;
+    }
+  }
+}

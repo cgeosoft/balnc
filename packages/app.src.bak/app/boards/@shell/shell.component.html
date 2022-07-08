@@ -1,0 +1,25 @@
+<app-page>
+  <ng-container role="sidebar">
+    <div class="title">Boards</div>
+    <div class="mb-2">
+      <app-sidemenu [menu]="menu"></app-sidemenu>
+    </div>
+    <div class="menu">
+      <ng-container *ngIf="(boards$ | async) as boards;">
+        <ng-container *ngIf="boards.length">
+          <app-sidemenu [menu]="boards"></app-sidemenu>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(boards$ | async) as boards;">
+    <ng-container *ngIf="boards.length;else noBoards;">
+      <router-outlet></router-outlet>
+    </ng-container>
+  </ng-container>
+</app-page>
+
+<ng-template #noBoards>
+  <app-empty></app-empty>
+</ng-template>

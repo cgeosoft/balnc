@@ -1,6 +1,6 @@
 import { ShellComponent } from './@shell/shell.component'
 import { AboutComponent } from './about/about.component'
-import { DeveloperComponent } from './developer/developer.component'
+// import { DeveloperComponent } from './developer/developer.component'
 import { FaqComponent } from './faq/faq.component'
 import { GeneralComponent } from './general/general.component'
 import { IntegrationsComponent } from './integrations/integrations.component'
@@ -26,10 +26,10 @@ export const SettingsRoutes = [{
     data: { title: 'Workspaces' },
     component: WorkspacesComponent
   }, {
-    path: 'developer',
-    data: { title: 'Debug' },
-    component: DeveloperComponent
-  }, {
+    //   path: 'developer',
+    //   data: { title: 'Debug' },
+    //   component: DeveloperComponent
+    // }, {
     path: 'faq',
     data: { title: 'FAQ' },
     component: FaqComponent
@@ -43,7 +43,7 @@ export const SettingsRoutes = [{
     component: AboutComponent
   }, {
     path: '',
-    pathMatch: 'full',
-    redirectTo: '/settings/general'
+    redirectTo: '/settings/general',
+    pathMatch: 'full' as 'prefix' | 'full'
   }]
 }]

@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <h4 class="modal-title">Configure {{integration.title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="custom-control custom-switch">
+    <input [(ngModel)]="config.enabled" (change)="save()" type="checkbox" class="custom-control-input"
+      id="switchEnable">
+    <label class="custom-control-label" for="switchEnable">Enable this integration</label>
+  </div>
+  <hr>
+  <ng-container [ngSwitch]="integration.key">
+    <app-integration-server *ngSwitchCase="'server'" [(config)]="config" (configChange)="save()"></app-integration-server>
+    <app-integration-giphy *ngSwitchCase="'giphy'" [(config)]="config" (configChange)="save()"></app-integration-giphy>
+    <app-integration-orbitdb *ngSwitchCase="'orbitdb'" [(config)]="config" (configChange)="save()"></app-integration-orbitdb>
+  </ng-container>
+</div>

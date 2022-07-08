@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { BsModalRef } from 'ngx-bootstrap/modal'
 
 @Component({
   selector: 'app-login',
@@ -7,16 +7,19 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 })
 export class LoginComponent {
 
+  credentials
+
   get activeModal () {
     return this.modal
   }
 
   constructor (
-    private modal: NgbActiveModal
+    private modal: BsModalRef
   ) { }
 
   submit (username, password) {
-    this.activeModal.close({ username, password })
+    this.credentials = { username, password }
+    this.modal.hide()
   }
 
 }

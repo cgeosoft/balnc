@@ -13,29 +13,29 @@ export class SetupComponent implements OnInit {
   loading = false
   workspace: Partial<Workspace> = { ...DEFAULT_WORKSPACE }
 
-  get version () {
+  get version() {
     return this.configService.version
   }
 
-  get build () {
+  get build() {
     return this.configService.build
   }
 
-  ngOnInit (): void {
+  ngOnInit(): void {
     this.loading = false
   }
 
-  constructor (
+  constructor(
     private router: Router,
     private configService: ConfigService,
     private toastr: ToastrService
   ) { }
 
-  async start () {
+  async start() {
     await this.load(this.workspace)
   }
 
-  async import (file: ReadFile) {
+  async import(file: ReadFile) {
     this.workspace = this.configService.import(file)
     if (!this.workspace) {
       this.toastr.error('Import failed')
@@ -44,10 +44,12 @@ export class SetupComponent implements OnInit {
     await this.load(this.workspace)
   }
 
-  async load (workspace) {
+  async load(workspace: Partial<Workspace>) {
     this.loading = true
     const key = this.configService.create(workspace)
-    this.configService.activate(key)
-    await this.router.navigateByUrl('/app')
+    if (key) {
+      this.configService.activate(key)
+      await this.router.navigateByUrl('/app')
+    }
   }
 }

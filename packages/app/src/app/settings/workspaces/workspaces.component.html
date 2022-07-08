@@ -26,7 +26,7 @@
             <span class="text-success">Active</span>
           </ng-container>
           <ng-container *ngIf="w.key !== activated">
-            <button class="btn btn-sm btn-primary" (click)="activate(w)">Activate</button>
+            <button class="btn btn-sm btn-primary" (click)="activate(w.key)">Activate</button>
           </ng-container>
         </li>
       </ng-container>

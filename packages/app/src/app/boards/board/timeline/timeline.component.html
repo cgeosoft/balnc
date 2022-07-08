@@ -127,12 +127,12 @@
       <button class="btn btn-link" ngbTooltip="attach file" (click)="attach()">
         <span class="fas fa-paperclip"></span>
       </button>
-      <button class="btn btn-link" ngbTooltip="emoji" [ngbPopover]="emojiContent" #emojiP="ngbPopover"
-        autoClose="outside" popoverClass="popover-emojis" container="body">
+      <button class="btn btn-link" ngbTooltip="emoji" [popover]="emojiContent" #emojiP="bs-popover" autoClose="outside"
+        popoverClass="popover-emojis" container="body">
         <span class="far fa-smile"></span>
       </button>
-      <button *ngIf="giphy?.enabled" class="btn btn-link" ngbTooltip="gif" [ngbPopover]="giphyContent"
-        #giphyP="ngbPopover" autoClose="outside" popoverClass="popover-giphy" container="body">
+      <button *ngIf="giphy?.enabled" class="btn btn-link" ngbTooltip="gif" [popover]="giphyContent" #giphyP="bs-popover"
+        autoClose="outside" popoverClass="popover-giphy" container="body">
         <span class="fas fa-cat"></span>
       </button>
       <button *ngIf="!giphy?.enabled" class="btn btn-link" ngbPopover="Go to setting > integrations > giphy enable it"
@@ -187,9 +187,11 @@
 <ng-template #noboard>
   <app-empty message="No Board"></app-empty>
 </ng-template>
+
 <ng-template #emptyMessages>
   <app-empty undraw="chat"></app-empty>
 </ng-template>
+
 <ng-template #loader>
   <app-spinner></app-spinner>
 </ng-template>

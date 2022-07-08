@@ -1,0 +1,33 @@
+<app-content [box]="true">
+  <section role="title">Integrations</section>
+  <section>
+    <div class="row">
+      <ng-container *ngFor="let i of integrations">
+        <div class="col-lg-6">
+          <ng-container *ngTemplateOutlet="integration;context:{integration:i,status:active[i.key]}">
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </section>
+</app-content>
+
+<ng-template #integration let-integration="integration" let-status="status">
+  <div class="card card-integration mb-3" [ngClass]="{disabled:integration.disabled}"
+    (click)="configure(integration.key)">
+    <div class="card-body d-flex align-items-start text-left">
+      <div class="icon" [ngStyle]="{'background-color':integration.color}">
+        <span [icon]="integration.icon"></span>
+      </div>
+      <div class="flex-grow-1">
+        <div class="title">
+          <h5>{{integration.title}}</h5>
+          <span *ngIf="status" class="badge badge-success">
+            <span icon="check-circle"></span> enabled
+          </span>
+        </div>
+        <div class="description">{{integration.description}}</div>
+      </div>
+    </div>
+  </div>
+</ng-template>

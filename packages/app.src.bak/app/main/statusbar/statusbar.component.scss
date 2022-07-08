@@ -1,0 +1,56 @@
+@import "variables";
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  background-color: $primary;
+  color: #eee;
+  font-size: 0.7rem;
+
+  .menu {
+    display: flex;
+    align-items: center;
+
+    .breadcrumb {
+      background-color: transparent;
+      padding: 0;
+      margin: 0;
+
+      .breadcrumb-item {
+        padding-left: 0;
+        &:before {
+          padding-right: 0;
+          padding-top:2px;
+          color: #eee;
+        }
+      }
+    }
+
+    .item {
+      padding: .2rem .5rem;
+    }
+
+    a.item,
+    button.item {
+      background: none;
+      border: none;
+      color: #eee;
+      border-radius: 0;
+
+      &:hover {
+        background: darken($primary, 10%);
+        text-decoration: none;
+        outline: none;
+      }
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
+    }
+
+    .dropup .dropdown-toggle::after {
+      display: none;
+    }
+  }
+}

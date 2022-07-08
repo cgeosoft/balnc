@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { ConfigService } from '@balnc/core'
 import { CalendarEvent } from 'angular-calendar'
-import * as faker from 'faker'
+// import * as faker from 'faker'
 import { Observable } from 'rxjs'
-import { map } from 'rxjs/operators'
-import { ContactsRepo } from '../contacts/@shared/contacts.repo'
+// import { ContactsRepo } from '../contacts/@shared/contacts.repo'
 @Component({
   selector: 'app-core-dashboard',
   templateUrl: './dashboard.component.html',
@@ -37,24 +36,24 @@ export class DashboardComponent implements OnInit {
   ]
   constructor (
     private configService: ConfigService,
-    private contactsRepo: ContactsRepo,
+    // private contactsRepo: ContactsRepo,
     private router: Router
   ) { }
 
   ngOnInit () {
     this.workspace = this.configService.workspace
-    this.contacts$ = this.contactsRepo.all$().pipe(
-      map(contacts => contacts.length)
-    )
+    // this.contacts$ = this.contactsRepo.all$().pipe(
+    //   map(contacts => contacts.length)
+    // )
 
-    for (let i = 0; i < 100; i++) {
-      const color = this.colors[faker.random.number(this.colors.length - 1)].color
-      this.calEvents.push({
-        start: faker.date.between(new Date(), new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)),
-        title: faker.hacker.phrase(),
-        color: { primary: color, secondary: '#FFF' }
-      })
-      this.calEvents.sort((a, b) => a.start.getTime() - b.start.getTime())
-    }
+    // for (let i = 0; i < 100; i++) {
+    //   const color = this.colors[faker.random.number(this.colors.length - 1)].color
+    //   this.calEvents.push({
+    //     start: faker.date.between(new Date(), new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)),
+    //     title: faker.hacker.phrase(),
+    //     color: { primary: color, secondary: '#FFF' }
+    //   })
+    //   this.calEvents.sort((a, b) => a.start.getTime() - b.start.getTime())
+    // }
   }
 }

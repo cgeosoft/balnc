@@ -1,0 +1,149 @@
+<app-content [box]="true">
+  <section role="title">General Options</section>
+  <section>
+    <h4>Workspace</h4>
+    <div class="form-group form-group-inline">
+      <label>Name</label>
+      <input class="form-control" [value]="workspace.name" (keyup)="updateWorkspace({name:$event.target.value})">
+    </div>
+  </section>
+  <section>
+    <h4>
+      User profile
+      <small class="text-muted text-monospace float-right">{{user?.id}}</small>
+    </h4>
+    <ng-container *ngIf="user">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group form-group-inline">
+            <label>Username</label>
+            <input class="form-control" (keyup)="saveUser()" [(ngModel)]="user.username">
+          </div>
+          <div class="form-group form-group-inline">
+            <label>Email</label>
+            <input class="form-control" (keyup)="saveUser()" [(ngModel)]="user.email">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group form-group-inline">
+            <label>Avatar</label>
+            <div class="avatar-select">
+              <img (click)="selectAvatar()" class="img-thumbnail" [src]="avatar || '/assets/images/no-avatar.png'">
+              <button *ngIf="!avatar" (click)="selectAvatar()" class="btn btn-link">select file</button>
+              <button *ngIf="avatar" (click)="clearAvatar()" class="btn btn-link">clear avatar</button>
+              <input #fileupload type="file" (change)="uploadAvatar($event.target.files[0])" style="display: none;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group form-group-inline">
+        <label>Layout</label>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="layout_fluid" name="layout" (change)="saveUser()" [(ngModel)]="user.config.layout"
+            value="fluid" class="custom-control-input">
+          <label class="custom-control-label" for="layout_fluid">Fluid</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="layout_box" name="layout" (change)="saveUser()" [(ngModel)]="user.config.layout"
+            value="box" class="custom-control-input">
+          <label class="custom-control-label" for="layout_box">Box</label>
+        </div>
+      </div>
+      <div class="form-group form-group-inline">
+        <label>Menu Size</label>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="menu_size_compact" name="menu_size" (change)="saveUser()"
+            [(ngModel)]="user.config.menu.size" value="compact" class="custom-control-input">
+          <label class="custom-control-label" for="menu_size_compact">Compact</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="radio" id="menu_size_normal" name="menu_size" (change)="saveUser()"
+            [(ngModel)]="user.config.menu.size" value="normal" class="custom-control-input">
+          <label class="custom-control-label" for="menu_size_normal">Normal</label>
+        </div>
+      </div>
+      <div class="form-group form-group-inline">
+        <label>Menu Items</label>
+        <div class="">
+          <div class="btn-group btn-group-sm">
+            <button type="button" class="btn btn-light"
+              (click)="user.config.menu.items=allItems;saveUser()">All</button>
+            <button type="button" class="btn btn-light" (click)="user.config.menu.items={};saveUser()">None</button>
+          </div>
+          <div class="row">
+            <ng-container *ngFor="let item of menu">
+              <div class="col-lg-3 col-md-4">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="{{'menu_item_'+item.label}}"
+                    (change)="saveUser()" [(ngModel)]="user.config?.menu?.items[item.label]">
+                  <label class="custom-control-label" for="{{'menu_item_'+item.label}}">{{item.label}}</label>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="form-group form-group-inline">
+      <label>Manage</label>
+      <div>
+        <button class="btn btn-link" (click)="createUser()">Create new user or switch to existing one</button>
+        <button class="btn btn-link text-danger" (click)="removeUser()">Remove current user</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h4>Export</h4>
+    <p>
+      Export this workspace for import in another machine. <strong>This will not backup your data.</strong>
+    </p>
+    <button class="btn btn-primary" (click)="export()">Export to file</button>
+  </section>
+  <section>
+    <h4>Telemetry</h4>
+    <div class="mb-3">
+      <div>When an error is occured, a debug event is send to <a target="_blank" href="https://sentry.io">sentry.io</a>.
+        This will
+        help further development as we may resolve issues faster.</div>
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input id="errorReport" [checked]="workspace.errors" (change)="updateWorkspace({errors:$event.target.checked})"
+          class="custom-control-input" type="checkbox">
+        <label for="errorReport" class="custom-control-label">
+          Send debug error data</label>
+      </div>
+    </div>
+    <div class="mb-3">
+      <div>Analytics help us to better understand how blanc have been used, so we may improve it. We use
+        <a target="_blank" href="https://woopra.com">woopra.com</a> for this.</div>
+      <div class="custom-control custom-checkbox custom-control-inline">
+        <input id="analytics" [checked]="workspace.analytics"
+          (change)="updateWorkspace({analytics:$event.target.checked})" class="custom-control-input" type="checkbox">
+        <label for="analytics" class="custom-control-label">
+          Send analytics data</label>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h4 class="text-danger">Danger Zone</h4>
+    <p>
+      Deleting your workspace, you immediately remove all local data. If you would like also
+      to delete the remote data please check the appropriate option below. If you do not delete remote data, all
+      data will be synced once again if workspace is recreated or imported.
+    </p>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="deleteData" [(ngModel)]="deleteData">
+      <label class="form-check-label" for="deleteData">Ι understand that this is not reversable</label>
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="deleteDataRemote" [(ngModel)]="deleteDataRemote">
+      <label class="form-check-label" for="deleteDataRemote">Also delete remote data</label>
+    </div>
+    <button class="btn btn-danger" [disabled]="!deleteData" (click)="deleteWorkspace()">
+      Remove Workspace
+    </button>
+  </section>
+</app-content>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

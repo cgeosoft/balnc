@@ -2,10 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
 import { ConfigService, RxDBService, UsersRepo, Workspace } from '@balnc/core'
 import { Helpers, MENU } from '@balnc/shared'
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import * as Sentry from '@sentry/browser'
 import { Angulartics2 } from 'angulartics2'
-import { UserFormComponent } from '../../main/user-form/user-form.component'
 
 @Component({
   selector: 'app-settings-general',
@@ -55,7 +53,6 @@ export class GeneralComponent implements OnInit {
 
   constructor (
     private configService: ConfigService,
-    private modal: NgbModal,
     private router: Router,
     private dbService: RxDBService,
     private usersRepo: UsersRepo,
@@ -94,10 +91,6 @@ export class GeneralComponent implements OnInit {
 
   removeUser () {
     return this.usersRepo.remove(this.user.id)
-  }
-
-  createUser () {
-    this.modal.open(UserFormComponent, { size: 'sm', centered: true })
   }
 
   async saveUser () {

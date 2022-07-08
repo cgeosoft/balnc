@@ -35,8 +35,11 @@ export const BOARDS_ROUTES = [{
         data: {
           title: 'files'
         }
-      },
-      { path: '', redirectTo: 'timeline', pathMatch: 'full' }]
+      }, {
+        path: '',
+        redirectTo: 'timeline',
+        pathMatch: 'full'
+      }]
     }
   ]
 }]

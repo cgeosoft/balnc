@@ -20,44 +20,44 @@ export class ConfigService {
   private activated: string = ''
 
   @LocalStorage() workspaces: Workspace[] = []
-  @LocalStorage() userId: string = null
+  @LocalStorage() userId: string | null = null
 
-  users: User[]
-  integrations?: { [key: string]: Integration }
+  users: User[] = []
+  integrations?: { [key: string]: Integration } = {}
 
   menu: any
-  userAvatars: { [key: string]: string }
+  userAvatars: { [key: string]: string } = {}
 
-  workspace$: BehaviorSubject<Workspace> = new BehaviorSubject<Workspace>(null)
+  workspace$: BehaviorSubject<Workspace> = new BehaviorSubject<Workspace>({} as Workspace)
 
-  get usernames () {
-    return this.users?.reduce((l, i) => {
+  get usernames() {
+    return this.users.reduce((l, i) => {
       l[i.id] = i.username
       return l
-    }, {})
+    }, {} as { [key: string]: string })
   }
 
-  get version (): string {
+  get version(): string {
     return environment.version
   }
 
-  get build (): Build {
+  get build(): Build {
     return environment.build
   }
 
-  get workspace (): Workspace {
+  get workspace() {
     return this.workspace$.value
   }
 
-  get user (): User {
+  get user() {
     return this.users?.find(u => u.id === this.userId)
   }
 
-  constructor () {
+  constructor() {
     this.workspaces = this.workspaces.filter(x => x.version || x.version > WORKSPACE_VERSION)
   }
 
-  setup () {
+  setup() {
     console.log('[ConfigService]', 'Initializing with env:', environment)
 
     if (!this.workspaces.length) {
@@ -78,7 +78,7 @@ export class ConfigService {
     }
   }
 
-  activate (key) {
+  activate(key: string) {
     console.log('[ConfigService]', 'Activate workspace', this.activated)
     let w = this.workspaces.find(x => x.key === key)
     if (!w) w = this.workspaces[0]
@@ -86,7 +86,7 @@ export class ConfigService {
     this.workspace$.next(w)
   }
 
-  create (data: Partial<Workspace>): string {
+  create(data: Partial<Workspace>): string {
     const ws: Partial<Workspace> = {
       ...DEFAULT_USER,
       ...{
@@ -98,17 +98,17 @@ export class ConfigService {
     }
     this.workspaces.push(ws as Workspace)
     this.workspaces = [...this.workspaces]
-    return ws.key
+    return data.key as string
   }
 
-  update (data: Partial<Workspace>): string {
+  update(data: Partial<Workspace>): string {
     let i = this.workspaces.findIndex(p => p.key === data.key)
     this.workspaces[i] = data as Workspace
     this.workspaces = [...this.workspaces]
-    return data.key
+    return data.key as string
   }
 
-  remove (key: string) {
+  remove(key: string) {
     let workspaces = [...this.workspaces]
     let index = this.workspaces.findIndex(p => p.key === key)
     if (index !== -1) {
@@ -117,27 +117,28 @@ export class ConfigService {
     this.workspaces = workspaces
   }
 
-  import (file: ReadFile) {
+  import(file: ReadFile): Workspace {
     try {
       const data = file.content.split(',')[1]
       const workspaceStr = atob(data)
       const workspace: Workspace = JSON.parse(workspaceStr)
       return workspace
     } catch (error) {
-      return null
+      return {} as Workspace
     }
   }
 
-  export () {
+  export() {
     let a = document.createElement('a')
     let file = new Blob([JSON.stringify(this.workspace, null, 2)], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
-    a.download = `${(new Date()).toDateString()} - ${this.workspace.key}.json`
+    a.download = `${(new Date()).toDateString()} - ${this.workspace?.key}.json`
     a.click()
   }
 
-  getIntergration<T> (key: string): T {
-    return (this.integrations[key] || {}) as unknown as T
+  getIntergration<T>(key: string) {
+    // if (!this.integrations) return null
+    // return this.integrations[key] || {}
   }
 
 }

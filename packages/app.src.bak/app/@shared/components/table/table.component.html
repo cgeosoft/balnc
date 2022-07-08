@@ -1,0 +1,143 @@
+<div #wrapper class="wrapper">
+  <div #tableWrapper class="table-wrapper">
+    <ng-container *ngIf="data; else loader">
+      <ng-container *ngIf="!showDebug">
+        <ng-container *ngIf="total; else empty">
+          <table class="table mb-0">
+            <thead class="thead-light">
+              <tr>
+                <th *ngFor="let prop of properties; let i = index;" [ngStyle]='prop.style || {}'
+                  (click)="setSort(prop)">
+                  {{prop.label}}
+                  <span *ngIf="sort === prop && direction==='asc'" class="fas fa-fw fa-sort-up" class="ml-2"></span>
+                  <span *ngIf="sort === prop && direction==='desc'" class="fas fa-fw fa-sort-down" class="ml-2"></span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of data | paginate:page:limit:sort:direction" [id]="item.id">
+                <ng-container *ngFor="let prop of properties; let i = index;">
+
+                  <ng-container *ngIf="prop.template">
+                    <td [ngStyle]='prop.style || {}'>
+                      <ng-container *ngTemplateOutlet="templates[prop.template]; context:{item:item}">
+                      </ng-container>
+                    </td>
+                  </ng-container>
+
+                  <ng-container *ngIf="!prop.template" [ngSwitch]="prop.type">
+                    <td *ngSwitchCase="'badge'" [ngStyle]='prop.style || {}'>
+                      <div class="badge badge-{{getBadge(prop,item).class}} w-100"
+                        [ngStyle]='getBadge(prop,item).style'>
+                        {{getBadge(prop,item).label}}
+                      </div>
+                    </td>
+                    <td *ngSwitchCase="'button'" [ngStyle]='prop.style || {}'>
+                      <button class="btn btn-sm btn-outline-secondary" (click)="prop.click(item)">
+                        ???
+                      </button>
+                    </td>
+                    <td *ngSwitchCase="'date'" [ngStyle]='prop.style || {}'>
+                      <span *ngIf="prop.val(item)">{{prop.val(item) | date:(prop.format || 'yyyy-MM-dd HH:mm')}}</span>
+                      <span *ngIf="!prop.val(item)" class="text-muted"> - </span>
+                    </td>
+                    <td *ngSwitchCase="'currency'" class="text-monospace" [ngStyle]='prop.style || {}'>
+                      {{prop.val(item) | currency}}
+                    </td>
+                    <td *ngSwitchCase="'class'" [ngStyle]='prop.style || {}'>
+                      ???
+                    </td>
+                    <td *ngSwitchCase="'link'" [ngStyle]='prop.style || {}'>
+                      <ng-container *ngTemplateOutlet="link; context:prop.val(item)"></ng-container>
+                    </td>
+                    <td *ngSwitchCase="'image'" style="width:56px" [ngStyle]='prop.style || {}'>
+                      <img [src]="prop.val(item) || prop.empty" class="rounded" style="width:32px;height:32px"
+                        [alt]="prop.label">
+                    </td>
+                    <td *ngSwitchDefault style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"
+                      [ngStyle]='prop.style || {}'>
+                      {{prop.val(item) || '-'}}
+                    </td>
+                  </ng-container>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="showDebug">
+        <app-debug title="data" [data]="data"></app-debug>
+        <app-debug title="schema" [data]="schema"></app-debug>
+      </ng-container>
+    </ng-container>
+  </div>
+  <div class="table-footer">
+    <ng-container *ngIf="!showDebug">
+      <ng-container *ngIf="total">
+        <div class="d-flex align-items-center">
+          <span class="mr-2">Show</span>
+          <strong class="mr-2">{{limit > total ? total: limit }}</strong>
+          <span class="mr-2">of</span>
+          <strong class="mr-2">{{total}}</strong>
+        </div>
+        <ul *ngIf="total > limit" class="pagination pagination-sm m-0 ml-auto">
+          <li class="page-item"><button class="page-link" (click)="first()">
+              <span class="fas fa-fw fa-angle-double-left"></span>
+            </button></li>
+          <li class="page-item"><button class="page-link" (click)="previous()">
+              <span class="fas fa-fw fa-angle-left"></span>
+            </button></li>
+          <ng-container *ngFor="let p of pages;">
+            <li class="page-item" [ngClass]="{active:(page === p)}">
+              <button style="min-width:35px;" class="page-link" (click)="switch(p)">{{p+1}}</button>
+            </li>
+          </ng-container>
+          <li class="page-item"><button class="page-link" (click)="next()">
+              <span class="fas fa-fw fa-angle-right"></span>
+            </button></li>
+          <li class="page-item"><button class="page-link" (click)="last()">
+              <span class="fas fa-fw fa-angle-double-right"></span>
+            </button></li>
+        </ul>
+      </ng-container>
+      <ng-container *ngIf="!total">&nbsp;</ng-container>
+    </ng-container>
+    <ng-container *ngIf="showDebug">
+      <div class="d-flex align-items-center">
+        <strong class="mr-2">{{total}} items</strong>
+      </div>
+    </ng-container>
+    <div ngbDropdown placement="top-right" container="body" class="d-inline-block ml-auto">
+      <button class="btn btn-outline-secondary border-0" ngbDropdownToggle>
+        <span class="fas fa-fw fa-bars"></span>
+      </button>
+      <div ngbDropdownMenu>
+        <h6 class="dropdown-header">Columns</h6>
+        <div class="px-4">
+          <ng-container *ngFor="let prop of schema.properties;let i = index">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" [disabled]="prop.locked" class="custom-control-input" [id]="i"
+                [(ngModel)]="settings[schema.name].visible[i]" (change)="updateSettings()"
+                [ngModelOptions]="{standalone: true}">
+              <label class="custom-control-label" [for]="i">{{prop.label}}</label>
+            </div>
+          </ng-container>
+        </div>
+        <div class="dropdown-divider"></div>
+        <button ngbDropdownItem (click)="showDebug = !showDebug">
+          <span class="fas fa-fw fa-code"></span> toggle data
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>
+<ng-template #empty>
+  <app-empty></app-empty>
+</ng-template>
+<ng-template #link let-link="link" let-label="label">
+  <a [routerLink]="link">{{label}}</a>
+</ng-template>

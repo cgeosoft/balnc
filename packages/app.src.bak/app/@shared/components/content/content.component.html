@@ -1,0 +1,16 @@
+<div class="sidebar leftbar">
+  <ng-content select="[role=leftbar]"></ng-content>
+</div>
+<div class="wrapper">
+  <div class="title">
+    <div [ngClass]="{'container':box}">
+      <ng-content select="[role=title]"></ng-content>
+    </div>
+  </div>
+  <div class="content" [ngClass]="{'container':box}">
+    <ng-content></ng-content>
+  </div>
+</div>
+<div class="sidebar rightbar">
+  <ng-content select="[role=rightbar]"></ng-content>
+</div>

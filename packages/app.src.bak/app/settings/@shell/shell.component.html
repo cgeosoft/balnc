@@ -1,0 +1,35 @@
+<app-page>
+  <ng-container role="sidebar">
+    <div class="title">Settings</div>
+    <div class="header">
+      <div>
+        Workspace
+        <small>{{workspace.name}}</small>
+      </div>
+    </div>
+    <div class="menu">
+      <app-sidemenu [menu]="menu"></app-sidemenu>
+      <div class="header">Manage</div>
+      <app-sidemenu [menu]="extra"></app-sidemenu>
+      <div class="header">Support</div>
+      <app-sidemenu [menu]="support"></app-sidemenu>
+      <div>
+        <hr>
+        <small class="text-muted">
+          <dl class="row">
+            <dt class="col-4 p-0 text-right">Release:</dt>
+            <dd class="col-8">{{version}}</dd>
+            <dt class="col-4 p-0 text-right">Build:</dt>
+            <dd class="col-8">{{build.date | date:'yyyy-MM-dd HH:mm'}}</dd>
+            <dt class="col-4 p-0 text-right">Commit:</dt>
+            <dd class="col-8"><a class="text-muted" target="_blank" rel="noopener"
+                href="https://github.com/christosgeorgiou/balnc/commit/{{build.hash}}">
+                {{build.hash.substr(0,8)}}
+              </a></dd>
+          </dl>
+        </small>
+      </div>
+    </div>
+  </ng-container>
+  <router-outlet></router-outlet>
+</app-page>

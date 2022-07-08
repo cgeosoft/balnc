@@ -1,0 +1,15 @@
+@import "variables";
+
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  .message {
+    background-color: $red;
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 0.5rem 1rem;
+    color: color-yiq($red);
+  }
+}

@@ -1,0 +1,35 @@
+<ng-container *ngIf="(board$ | async) as board; else loader">
+  <app-content>
+    <ng-container role="rightbar">
+      <h4 class="header">{{board.name}}</h4>
+      <dl>
+        <ng-container *ngIf="board.description">
+          <div><strong>Description</strong></div>
+          <div>{{board.description}}</div>
+          <hr>
+        </ng-container>
+        <ng-container>
+          <div><strong>Members</strong></div>
+          <ng-container *ngIf="(activeUsers$ |async)as activeUsers">
+            <ng-container *ngFor="let au of activeUsers">
+              <div><small class="text-monospace mr-1">{{au.lastread|date:"HH:mm:ss"}}</small> {{usernames[au.group]}}</div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </dl>
+      <hr>
+      <div class="menu">
+        <a [routerLink]="['/boards',board.id,'timeline']" routerLinkActive="active">Timeline</a>
+        <a [routerLink]="['/boards',board.id,'manage']" routerLinkActive="active">Manage</a>
+        <a [routerLink]="['/boards',board.id,'files']" routerLinkActive="active">Files</a>
+      </div>
+    </ng-container>
+
+    <router-outlet></router-outlet>
+
+  </app-content>
+</ng-container>
+
+<ng-template #loader>
+  <app-spinner></app-spinner>
+</ng-template>

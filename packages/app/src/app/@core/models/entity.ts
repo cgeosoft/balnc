@@ -1,5 +1,5 @@
 export interface Entity {
-  id?: string
+  id: string
   date?: number
   type?: any
   group?: string

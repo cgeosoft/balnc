@@ -1,0 +1,55 @@
+<div class="alert alert-warning text-center mb-4">
+  <div><strong>NOT FOR PRODUCTION USE</strong></div>
+  <div>Balnc is a demo/experiment software</div>
+  <div>You may lose your data at any time without warning.</div>
+</div>
+
+<div class="card" [ngClass]="{loading:loading}">
+  <div class="card-body">
+    <app-spinner *ngIf="loading"></app-spinner>
+    <h1 class="mb-4" style="font-weight: 300;">Balnc Setup</h1>
+    <p>Balnc (balance) is an free open source management suite for small businesses. It has
+      a collection of pre-build modules and can be easily extended to create new ones.</p>
+    <p>All modules are running at local user's machine/browser. This improves loading speed to a magnitute
+      similar of the installable applications.</p>
+    <p>Your data may be configured to also be stored localy. A database server is not required to use Blanc.
+      As so, they are not visible to any third parties and the speed is improved even more.</p>
+    <div class="custom-control custom-checkbox custom-control-inline">
+      <input id="errorReport" [(ngModel)]="workspace.errors" class="custom-control-input" type="checkbox">
+      <label for="errorReport" class="custom-control-label">
+        Send error data <small class="text-muted ml-2"> - help further development</small></label>
+    </div>
+    <div class="custom-control custom-checkbox custom-control-inline">
+      <input id="analytics" [(ngModel)]="workspace.analytics" class="custom-control-input" type="checkbox">
+      <label for="analytics" class="custom-control-label">
+        Send usage data <small class="text-muted ml-2"> - help better design of new features</small></label>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-link" ngxFilePicker accept="application/json" (filePick)="import($event)">
+      <span icon="cloud-upload-alt"></span> Import
+      Workspace
+    </button>
+    <button class="btn btn-primary" (click)="start()">
+      Quick Start <span icon="arrow-circle-right"></span>
+    </button>
+  </div>
+</div>
+<div class="footer">
+  <ul class="list-inline m-0 text-muted">
+    <li class="list-inline-item">v{{version}}</li>
+    <li class="list-inline-item">-</li>
+    <li class="list-inline-item">
+      <a href="https://github.com/christosgeorgiou/balnc" target="_blank" rel="noopener" class="text-muted">
+        source
+      </a>
+    </li>
+    <li class="list-inline-item">-</li>
+    <li class="list-inline-item">
+      <a href="https://github.com/christosgeorgiou/balnc/blob/master/LICENSE" target="_blank" rel="noopener"
+        class="text-muted">
+        license
+      </a>
+    </li>
+  </ul>
+</div>

@@ -1,34 +1,20 @@
 import { Injectable } from '@angular/core'
-import { addPouchPlugin, getRxStoragePouch, RxCollection, RxDatabase } from 'rxdb'
+import { addRxPlugin, createRxDatabase, removeRxDatabase, RxCollection, RxDatabase } from 'rxdb'
 import { RxDBAttachmentsPlugin } from 'rxdb/plugins/attachments'
-import { addRxPlugin, createRxDatabase, removeRxDatabase } from 'rxdb/plugins/core'
+import { getRxStorageDexie } from 'rxdb/plugins/dexie'
 import { RxDBLeaderElectionPlugin } from 'rxdb/plugins/leader-election'
-import { RxDBNoValidatePlugin } from 'rxdb/plugins/no-validate'
 import { RxDBQueryBuilderPlugin } from 'rxdb/plugins/query-builder'
 import { RxDBUpdatePlugin } from 'rxdb/plugins/update'
 import { BehaviorSubject } from 'rxjs'
-import environment from '../../../environments/environment'
 import { Migrations } from '../migrations'
 import schema from '../models/entity.json'
 import { ConfigService } from '../services/config.service'
-
-addPouchPlugin(require('pouchdb-adapter-http'))
-addPouchPlugin(require('pouchdb-adapter-idb'))
 
 addRxPlugin(RxDBLeaderElectionPlugin)
 // addRxPlugin(RxDBReplicationPlugin)
 addRxPlugin(RxDBAttachmentsPlugin)
 addRxPlugin(RxDBQueryBuilderPlugin)
 addRxPlugin(RxDBUpdatePlugin)
-
-if (!environment.production) {
-  // await Promise.all([
-  //   import('rxdb/plugins/dev-mode').then(module => addRxPlugin(module)),
-  //   import('rxdb/plugins/validate').then(module => addRxPlugin(module))
-  // ])
-} else {
-  addRxPlugin(RxDBNoValidatePlugin)
-}
 
 @Injectable({
   providedIn: 'root'
@@ -42,15 +28,15 @@ export class RxDBService {
   status$: BehaviorSubject<'active' | 'error' | 'syncing' | 'disabled'>
     = new BehaviorSubject<'active' | 'error' | 'syncing' | 'disabled'>('disabled')
 
-  get workspace() {
+  get workspace () {
     return this.configService.workspace
   }
 
-  constructor(
+  constructor (
     private configService: ConfigService
   ) { }
 
-  async setup() {
+  async setup () {
 
     if (!this.workspace) {
       console.log('[DatabaseService]', `There is not a selected workspace. Abord!`)
@@ -62,7 +48,7 @@ export class RxDBService {
     try {
       this.db = await createRxDatabase({
         name: `balnc_${this.workspace.key}`,
-        storage: getRxStoragePouch('idb')
+        storage: getRxStorageDexie()
       })
     } catch (err) {
       console.log('[DatabaseService]', err)
@@ -77,20 +63,10 @@ export class RxDBService {
       }
     })
 
-    await this.setupCache()
+    this.entities = this.db.entities
   }
 
-  async setupCache() {
-    if (this.workspace.cache) {
-      console.log('[DatabaseService]', `Enable cache mode`)
-      this.entities = await this.db.entities.inMemory()
-    } else {
-      console.log('[DatabaseService]', `Cache mode disabled`)
-      this.entities = this.db.entities
-    }
-  }
-
-  async remove(workspaceKey: string) {
-    await removeRxDatabase(`balnc_${workspaceKey}`, getRxStoragePouch('idb'))
+  async remove (workspaceKey: string) {
+    await removeRxDatabase(`balnc_${workspaceKey}`, getRxStorageDexie())
   }
 }

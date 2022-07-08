@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
+import { BsModalService } from 'ngx-bootstrap/modal'
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -7,6 +7,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap'
 })
 export class ConfirmDialogComponent {
   constructor (
-    public activeModal: NgbActiveModal
+    public activeModal: BsModalService
   ) {}
 }

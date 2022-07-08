@@ -3,7 +3,6 @@ import { Title } from '@angular/platform-browser'
 import { NavigationEnd, Router } from '@angular/router'
 import * as Sentry from '@sentry/browser'
 import { Angulartics2 } from 'angulartics2'
-import { Angulartics2Woopra } from 'angulartics2/woopra'
 import { ConfigService } from './@core'
 
 const minHeight = 960
@@ -18,12 +17,10 @@ export class AppComponent {
     private configService: ConfigService,
     private router: Router,
     titleService: Title,
-    angulartics2: Angulartics2,
-    analytics: Angulartics2Woopra
+    angulartics2: Angulartics2
   ) {
 
     angulartics2.settings.developerMode = !this.configService.workspace?.analytics
-    analytics.startTracking()
     Sentry.getCurrentHub().getClient().getOptions().enabled = this.configService.workspace?.errors
 
     this.router.events.subscribe(event => {
